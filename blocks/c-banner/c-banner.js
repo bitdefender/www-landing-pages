@@ -4,7 +4,6 @@ export default function decorate(block) {
   const [richTextEl, pictureEl] = [...block.children];
 
   const metadata = getDatasetFromSection(block);
-  const backgroundColor = metadata.backgroundColor;
 
   block.innerHTML = `
       <div class="container-fluid pt-lg-5">
@@ -22,8 +21,4 @@ export default function decorate(block) {
         </div>
       </div>
     `;
-
-//   if (backgroundColor !== 'undefined') {
-//     block.style.backgroundColor = backgroundColor;
-//   }
 }
