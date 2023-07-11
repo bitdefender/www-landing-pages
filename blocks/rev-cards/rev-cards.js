@@ -14,7 +14,6 @@ import { productAliases } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
-  console.log(metaData);
   const {
     products, taxText, devicesTextCardTwo, devicesTextCardThree,
   } = metaData;
