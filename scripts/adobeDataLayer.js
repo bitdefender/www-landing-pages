@@ -1,4 +1,4 @@
-import { getDefaultLanguage, instance } from './utils.js';
+import { getDefaultLanguage, getInstance } from './utils.js';
 
 /**
  * Formats a number to have 2 digits
@@ -112,7 +112,7 @@ export const sendAnalyticsPageEvent = async () => {
 
   window.adobeDataLayer.push({
     event: 'page load started',
-    pageInstanceID: instance,
+    pageInstanceID: getInstance(),
     page: {
       info: {
         name: pageName,

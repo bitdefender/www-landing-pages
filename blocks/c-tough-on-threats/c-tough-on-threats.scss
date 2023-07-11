@@ -22,8 +22,40 @@
   margin-top: 0;
 }
 
+.c-tough-on-threats-container h5 {
+  font-size: 37px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 22px;
+}
+
+.c-tough-on-threats.image-left .col-md-5 {
+  display: block!important;
+}
+
 @media screen and (width >= 992px) {
   .c-tough-on-threats-container h2 {
     font-size: 32px;
+  }
+}
+
+@media (width <= 768px) {
+  .c-tough-on-threats-container {
+    .c-tough-on-threats .container {
+      padding: 15px!important;
+
+      h5 {
+        font-size: 28px;
+        line-height: 30px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+
+      .col-8 {
+        margin: 15px!important;;
+      }
+    }
   }
 }

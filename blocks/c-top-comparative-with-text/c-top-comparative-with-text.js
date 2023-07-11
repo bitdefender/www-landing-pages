@@ -51,18 +51,21 @@ export default function decorate(block) {
     // create prices sections
     productsAsList.forEach((item, idx) => {
       // add prices
-      const prodName = productAliases(productsAsList[idx].split('/')[0]);
+      const prodSplit = productsAsList[idx].split('/');
+      const [prodName, prodUsers, prodYears] = [productAliases(prodSplit[0]), prodSplit[1], prodSplit[2]];
+      const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+
       const nthChildIdx = idx + 2;
       const pricesSection = block.querySelector(`div:nth-child(${nthChildIdx}) table:first-of-type`);
       let pricesDiv = '<div class="prices_box">';
-      pricesDiv += `<span class="prod-oldprice oldprice-${prodName}"></span>`;
-      pricesDiv += `<span class="prod-newprice newprice-${prodName}"></span>`;
+      pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+      pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv += '<div>';
       pricesSection.innerHTML = pricesDiv;
 
       // add buybtn div & anchor
       const tableBuybtn = block.querySelector(`div:nth-child(${idx + 1 + 1}) table:last-of-type td`);
-      tableBuybtn.innerHTML = `<a href="#" title="Bitdefender ${prodName}" class="red-buy-button buylink-${prodName}">${tableBuybtn.innerText}</a>`;
+      tableBuybtn.innerHTML = `<a href="#" title="Bitdefender ${onSelectorClass}" class="red-buy-button buylink-${onSelectorClass}">${tableBuybtn.innerText}</a>`;
     });
   }
 }

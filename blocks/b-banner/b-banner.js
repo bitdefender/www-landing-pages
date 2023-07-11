@@ -86,13 +86,16 @@ export default function decorate(block) {
   if (typeof product !== 'undefined' && product !== '') {
     const prodSplit = product.split('/');
     const prodName = productAliases(prodSplit[0]);
+    const prodUsers = prodSplit[1];
+    const prodYears = prodSplit[2];
+    const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
 
     updateProductsList(product);
 
     const finalDiscountStyle = typeof discountStyle !== 'undefined' && discountStyle !== 'default' ? discountStyle : 'circle';
     const finalDiscountText = typeof discountText !== 'undefined' && discountText !== 'default' ? discountText : '';
 
-    const percentRadius = ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2"><span class="percent-${prodName}">10%</span> ${finalDiscountText}</span>`;
+    const percentRadius = ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2"><span class="percent-${onSelectorClass}">10%</span> ${finalDiscountText}</span>`;
     paragraph.innerHTML += percentRadius;
   }
 }
