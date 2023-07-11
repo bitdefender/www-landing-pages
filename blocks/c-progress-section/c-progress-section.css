@@ -11,6 +11,7 @@
 }
 .c-progress-section-container.blue-bar .progress-bar--first {
   background: #006EFF;
+  color: white;
 }
 
 .c-progress-section-container .progress {
