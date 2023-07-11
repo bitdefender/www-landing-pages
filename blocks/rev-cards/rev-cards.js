@@ -22,9 +22,6 @@ export default function decorate(block) {
 
   const [card1, card2, card3] = [...block.children];
 
-  console.log(block);
-  console.log(card1);
-
   block.innerHTML = `
       <div class="row">
         <div class="col-12 col-lg-6 my-3">
