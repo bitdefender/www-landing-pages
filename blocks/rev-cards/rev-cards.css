@@ -26,6 +26,7 @@
 }
 .rev-cards table tbody tr td > p:nth-child(2) {
   margin: 0;
+  color: #616161;
 }
 .rev-cards .card-1 p:nth-of-type(4) {
   display: inline-block;

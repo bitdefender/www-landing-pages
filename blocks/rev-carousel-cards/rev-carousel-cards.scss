@@ -82,6 +82,11 @@ $rev-save-box: #68BA68;
 
             td {
                 line-height: normal;
+
+                &:first-child {
+                    width: 46px;
+
+                }
             }
         }
     }

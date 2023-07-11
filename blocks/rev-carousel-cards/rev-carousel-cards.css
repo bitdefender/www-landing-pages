@@ -68,6 +68,9 @@
 .rev-carousel-cards .carousel-item table td {
   line-height: normal;
 }
+.rev-carousel-cards .carousel-item table td:first-child {
+  width: 46px;
+}
 .rev-carousel-cards .carousel-control-next, .rev-carousel-cards .carousel-control-prev {
   position: inherit;
   display: inline-block;
