@@ -32,7 +32,7 @@ export function productAliases(name) {
   }
 
   return newName;
-};
+}
 
 // TODO: use the function from adobeDataLayer.js
 export function getParam(param) {

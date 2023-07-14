@@ -377,10 +377,10 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   }
 
   document.querySelectorAll(`.${productId}_box`).forEach((item) => {
-    item.querySelectorAll('.awaitLoader').forEach((item) => {
-      item.classList.remove('awaitLoader');
-    })
-  })
+    item.querySelectorAll('.awaitLoader').forEach((elem) => {
+      elem.classList.remove('awaitLoader');
+    });
+  });
 
   maxDiscount();
 }
