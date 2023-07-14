@@ -54,7 +54,7 @@ export function getParam(param) {
     }
     return false;
   } catch (ex) { return false; }
-};
+}
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
@@ -71,7 +71,7 @@ function buildHeroBlock(main) {
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
   }
-};
+}
 
 /**
  * Builds all synthetic blocks in a container element.
@@ -84,7 +84,7 @@ function buildAutoBlocks(main) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
   }
-};
+}
 
 /**
  * Decorates the main element.
@@ -99,7 +99,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-};
+}
 
 /**
  * Loads everything needed to get to LCP.
@@ -114,7 +114,7 @@ async function loadEager(doc) {
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
-};
+}
 
 /**
  * Adds the favicon.
@@ -131,7 +131,7 @@ function addFavIcon(href) {
   } else {
     document.getElementsByTagName('head')[0].appendChild(link);
   }
-};
+}
 
 /**
  * Loads everything that doesn't need to be delayed.
@@ -171,7 +171,7 @@ async function loadLazy(doc) {
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
-};
+}
 
 /**
  * Loads everything that happens a lot later,
@@ -642,7 +642,7 @@ function changeCheckboxVPN(checkboxId) {
       comparativeDiv.querySelector(saveClass).innerHTML = save;
     }
   }
-};
+}
 
 function initSelectors() {
   const productsExistsOnPage = productsList.length;
@@ -741,7 +741,7 @@ async function loadPage() {
   initializeProductsPriceLogic();
 
   loadDelayed();
-};
+}
 
 /*
 * @viewport: 'mobile' | 'tablet' | 'desktop'
@@ -750,7 +750,7 @@ function initMobileDetector(viewport) {
   const mobileDetectorDiv = document.createElement('div');
   mobileDetectorDiv.setAttribute(`data-${viewport}-detector`, '');
   document.body.prepend(mobileDetectorDiv);
-};
+}
 
 /*
 * @viewport: 'mobile' | 'tablet' | 'desktop'
@@ -758,7 +758,7 @@ function initMobileDetector(viewport) {
 export function isView(viewport) {
   const element = document.querySelectorAll(`[data-${viewport}-detector]`)[0];
   return !!(element && getComputedStyle(element).display !== 'none');
-};
+}
 
 function initBaseUri() {
   const domainName = 'bitdefender';

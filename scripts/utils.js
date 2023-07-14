@@ -77,7 +77,7 @@ export function addScript(src, data = {}, type = undefined, callback = undefined
   }
 
   document.body.appendChild(s);
-};
+}
 
 export function getDefaultLanguage() {
   return window.location.pathname.split('/')[2];
@@ -121,7 +121,7 @@ export function updateProductsList(product) {
     productsList.push(productTrim);
   }
   window.productsListCount = productsList.length;
-};
+}
 
 // truncatePrice
 function truncatePrice(price) {
@@ -139,7 +139,7 @@ function truncatePrice(price) {
   } catch (e) { console.log(e); }
 
   return ret;
-};
+}
 
 // formatPrice
 function formatPrice(priceVal, currency, region) {
@@ -151,7 +151,7 @@ function formatPrice(priceVal, currency, region) {
   }
 
   return `${price} ${currency}`;
-};
+}
 
 export function isZuoraForNetherlandsLangMode() {
   return getDefaultLanguage() === 'nl' && getDefaultSection() === 'consumer';
@@ -177,7 +177,7 @@ function maxDiscount() {
     });
     maxDiscountBox.closest('div').style.visibility = 'visible';
   }
-};
+}
 
 // display prices
 export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
@@ -288,16 +288,19 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
   } else {
     const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
+    let vpnHasDiscount = false;
+    let offerPrice = 0;
+    let percentageSticker = 0;
 
     if (productId === 'vpn' && storeObj.selected_variation.discount) {
-      var vpnHasDiscount = true;
+      vpnHasDiscount = true;
       if (storeObj.selected_variation.discount) {
         let selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
-        var offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
-        var percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
+        offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
+        percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
       }
     }
 

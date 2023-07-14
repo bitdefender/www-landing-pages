@@ -178,7 +178,7 @@ export async function sendAnalyticsProducts(product, region) {
   let initCount = StoreProducts.initCount;
   let productName = StoreProducts.product[productID].product_name;
   if (region && region === 'nl') {
-    initCount = productsListCount;
+    initCount = window.productsListCount;
     productName = product.config.name;
   }
 

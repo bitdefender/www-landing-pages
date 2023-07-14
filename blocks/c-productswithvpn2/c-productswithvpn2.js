@@ -44,7 +44,7 @@ export default function decorate(block) {
 
       // adding prices
       const pricesSections = block.querySelectorAll(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:first-of-type p`);
-      block.querySelectorAll(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:first-of-type`).forEach(item => {
+      block.querySelectorAll(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:first-of-type`).forEach((item) => {
         item.classList = 'awaitLoader';
       });
       // old price:
