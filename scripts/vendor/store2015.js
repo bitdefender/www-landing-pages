@@ -479,16 +479,20 @@ StoreProducts.initSelector = function(config)
         if(users_class != null) {
             var elements = document.getElementsByClassName(users_class);
             Array.from(elements).forEach(function(element) {
-                element.addEventListener('change', StoreProducts['events'][users_class].onUsersChangeD);
-                element.addEventListener('change', StoreProducts['events'][users_class].onUsersChangeF);
+                element.addEventListener('change', (e) => {
+                    e.data = StoreProducts['events'][users_class].onUsersChangeD;
+                    return StoreProducts['events'][users_class].onUsersChangeF(e);
+                });
             });
         }
 
         if(years_class != null) {
             var elements = document.getElementsByClassName(years_class);
             Array.from(elements).forEach(function(element) {
-                element.addEventListener('change', StoreProducts['events'][years_class].onYearsChangeD);
-                element.addEventListener('change', StoreProducts['events'][years_class].onYearsChangeF);
+                element.addEventListener('change', (e) => {
+                    e.data = StoreProducts['events'][years_class].onYearsChangeD;
+                    return StoreProducts['events'][years_class].onYearsChangeF(e);
+                });
             });
         }
     }
