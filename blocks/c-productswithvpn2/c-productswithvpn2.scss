@@ -165,6 +165,10 @@
   line-height: 16px;
 }
 
+.c-productswithvpn2 > div table {
+  padding: 0 10px;
+}
+
 .c-productswithvpn2 > div table,
 .c-productswithvpn2 > div table tbody,
 .c-productswithvpn2 > div table tbody tr,
@@ -395,6 +399,10 @@
 .c-productswithvpn2-container.has4boxes .c-productswithvpn2 > div h2 {
   font-size: 30px;
   line-height: 27px;
+}
+
+.prod_box .prod-percent {
+  visibility: hidden;
 }
 
 /* for mobile */

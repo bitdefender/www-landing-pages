@@ -15,7 +15,7 @@ import {
 
 import { sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts } from './adobeDataLayer.js';
 import {
-  addScript, getDefaultLanguage, instance, isZuoraForNetherlandsLangMode, productsList, showPrices,
+  addScript, getDefaultLanguage, instance, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -689,6 +689,7 @@ function initSelectors() {
           try {
             const fp = this;
             showPrices(fp);
+            showLoaderSpinner(true);
           } catch (ex) { /* empty */ }
         },
       });

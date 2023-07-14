@@ -157,6 +157,21 @@ export function isZuoraForNetherlandsLangMode() {
   return getDefaultLanguage() === 'nl' && getDefaultSection() === 'consumer';
 }
 
+// showLoaderSpinner
+export function showLoaderSpinner(showSpinner) {
+  console.log('showSpinner')
+  const prodLoadBox = document.querySelectorAll('.prodLoad');
+  if (showSpinner) {
+    prodLoadBox.forEach((item) => {
+      item.classList.remove('awaitLoader');
+    });
+  } else {
+    prodLoadBox.forEach((item) => {
+      item.classList.add('awaitLoader');
+    });
+  }
+}
+
 // get max discount
 function maxDiscount() {
   const discountAmounts = [];
@@ -375,12 +390,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       });
     }
   }
-
-  document.querySelectorAll(`.${productId}_box`).forEach((item) => {
-    item.querySelectorAll('.awaitLoader').forEach((elem) => {
-      elem.classList.remove('awaitLoader');
-    });
-  });
 
   maxDiscount();
 }
