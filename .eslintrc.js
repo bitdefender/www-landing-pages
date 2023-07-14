@@ -9,6 +9,7 @@ module.exports = {
     StoreProducts: true,
     adobeDataLayer: true,
     Visitor: true,
+    BitCheckoutSDK: true,
   },
   parser: '@babel/eslint-parser',
   parserOptions: {

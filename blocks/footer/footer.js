@@ -2,7 +2,6 @@ import { loadFragment } from '../../scripts/scripts.js';
 import { adobeMcAppendVisitorId, GLOBAL_EVENTS } from '../../scripts/utils.js';
 
 export default async function decorate(block) {
-  // TODO: investigate what's the deal with fragments
   const fragment = await loadFragment('/footer');
   const footer = block.closest('.footer-wrapper');
 

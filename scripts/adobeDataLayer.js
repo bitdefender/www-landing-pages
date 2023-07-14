@@ -172,13 +172,20 @@ export async function sendAnalyticsUserInfo() {
 
 const productsInAdobe = [];
 
-export async function sendAnalyticsProducts(product) {
+export async function sendAnalyticsProducts(product, region) {
+  // console.log(product)
   const productID = product.selected_variation.product_id;
-  const productDetails = StoreProducts.product[productID];
+  let initCount = StoreProducts.initCount;
+  let productName = StoreProducts.product[productID].product_name;
+  if (region && region === 'nl') {
+    initCount = window.productsListCount;
+    productName = product.config.name;
+  }
+
   productsInAdobe.push({
     info: {
       ID: product.selected_variation.platform_product_id,
-      name: productDetails.product_name,
+      name: productName,
       devices: product.selected_users,
       subscription: product.selected_years * 12,
       version: '',
@@ -190,7 +197,7 @@ export async function sendAnalyticsProducts(product) {
     },
   });
 
-  if (productsInAdobe.length === StoreProducts.initCount) {
+  if (productsInAdobe.length === initCount) {
     window.adobeDataLayer.push({
       event: 'campaign product',
       product: productsInAdobe,

@@ -9,11 +9,10 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html
 */
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
+import { getDatasetFromSection } from '../../scripts/utils.js';
 
 export default function decorate(block) {
-  // todo export this to reusable utils
-  const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
+  const metaData = getDatasetFromSection(block);
 
   const svgColor = metaData.svgcolor;
   const svgSize = metaData.svgsize;

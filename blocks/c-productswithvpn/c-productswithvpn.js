@@ -20,7 +20,8 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html - http://localhost:3000/consumer/en/new/ultimate-flv1
 */
 
-import { updateProductsList, productAliases } from '../../scripts/scripts.js';
+import { productAliases } from '../../scripts/scripts.js';
+import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
@@ -93,7 +94,7 @@ export default function decorate(block) {
       const prodName = productAliases(productsAsList[idx].split('/')[0]);
 
       const pricesDiv = document.createElement('div');
-      pricesDiv.className = 'prices_box';
+      pricesDiv.classList = 'prices_box awaitLoader prodLoad';
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${prodName}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${prodName}"></span>`;
 
@@ -119,7 +120,7 @@ export default function decorate(block) {
 
       const aBuybtn = document.createElement('a');
       aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${prodName}"></span>`);
-      aBuybtn.className = `red-buy-button buylink-${prodName}`;
+      aBuybtn.className = `red-buy-button buylink-${prodName} awaitLoader prodLoad`;
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
       const divBuybtn = document.createElement('div');
@@ -156,7 +157,7 @@ export default function decorate(block) {
         vpnContent += '</label>';
 
         const vpnBox = document.createElement('div');
-        vpnBox.className = 'vpn_box';
+        vpnBox.classList = 'vpn_box awaitLoader prodLoad';
         vpnBox.innerHTML = `<div>${vpnContent}</div>`;
 
         tableVpn.before(vpnBox);

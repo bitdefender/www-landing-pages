@@ -17,7 +17,8 @@
  * - pill: https://www.bitdefender.com/media/html/business/RansomwareTrial/new.html
  */
 
-import { updateProductsList, productAliases } from '../../scripts/scripts.js';
+import { productAliases } from '../../scripts/scripts.js';
+import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -63,5 +64,3 @@ export default function decorate(block) {
     paragraph.innerHTML += percentRadius;
   }
 }
-
-// todo:  display bulina: top-right

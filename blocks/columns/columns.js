@@ -1,11 +1,11 @@
+import { getDatasetFromSection } from '../../scripts/utils.js';
+
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
   block.classList.add('container-sm');
 
-  // todo export this to reusable utils
-  const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
+  const metaData = getDatasetFromSection(block);
 
   const backgroundColor = metaData.backgroundcolor || undefined;
 
