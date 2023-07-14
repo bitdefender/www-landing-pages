@@ -88,7 +88,6 @@ export default class initZuoraNL {
         zuoraCart.searchParams.set('session_id', BitCheckoutSDK.getSessionId());
         zuoraCart.searchParams.set('payment_period', this.monthlyProducts[id] ? `${devicesNo}d1m` : `${devicesNo}d${yearsNo}y`);
 
-        // console.log('pricing', pricing)
         window.StoreProducts.product[id] = {
           selected_users: devicesNo,
           selected_years: yearsNo,
@@ -112,6 +111,7 @@ export default class initZuoraNL {
           buy_link: zuoraCart.href,
           config: {
             product_id: id,
+            name: payload.name,
             full_price_class: `oldprice-${id}`,
             discounted_price_class: `newprice-${id}`,
             price_class: `price-${id}`,

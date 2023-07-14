@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import { sampleRUM } from './lib-franklin.js';
 
-import { sendAnalyticsPageLoadedEvent, getParamValue } from './adobeDataLayer.js';
+import { sendAnalyticsPageLoadedEvent, sendAnalyticsProducts, getParamValue } from './adobeDataLayer.js';
 import {
   addScript, instance, GLOBAL_EVENTS, isZuoraForNetherlandsLangMode, productsList, showPrices,
 } from './utils.js';
@@ -19,6 +19,7 @@ function initZuoraProductPriceLogic() {
       productsList.forEach(async (item) => {
         const zuoraResult = await initZuoraNL.loadProduct(item);
         showPrices(zuoraResult);
+        sendAnalyticsProducts(zuoraResult, 'nl');
       });
     }
   });

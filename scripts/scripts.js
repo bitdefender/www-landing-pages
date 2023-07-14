@@ -23,7 +23,7 @@ window.DEFAULT_LANGUAGE = DEFAULT_LANGUAGE;
 
 const defaultBuyLinks = {};
 
-export const productAliases = (name) => {
+export function productAliases(name) {
   let newName = name.trim();
   if (newName === 'elite') {
     newName = 'elite_1000';
@@ -35,7 +35,7 @@ export const productAliases = (name) => {
 };
 
 // TODO: use the function from adobeDataLayer.js
-export const getParam = (param) => {
+export function getParam(param) {
   const gUrlParams = {};
   try {
     (() => {
@@ -62,7 +62,7 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
-const buildHeroBlock = (main) => {
+function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
@@ -77,7 +77,7 @@ const buildHeroBlock = (main) => {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-const buildAutoBlocks = (main) => {
+function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
   } catch (error) {
@@ -91,7 +91,7 @@ const buildAutoBlocks = (main) => {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export const decorateMain = (main) => {
+export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   // decorateIcons2(main);
@@ -105,7 +105,7 @@ export const decorateMain = (main) => {
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
-const loadEager = async (doc) => {
+async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
@@ -120,7 +120,7 @@ const loadEager = async (doc) => {
  * Adds the favicon.
  * @param {string} href The favicon URL
  */
-const addFavIcon = (href) => {
+function addFavIcon(href) {
   const link = document.createElement('link');
   link.rel = 'icon';
   link.type = 'image/svg+xml';
@@ -137,7 +137,7 @@ const addFavIcon = (href) => {
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
-const loadLazy = async (doc) => {
+async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
 
@@ -203,7 +203,7 @@ export async function loadFragment(path) {
 }
 
 // trigger for VPN checkbox click - not for ZuoraNL
-const changeCheckboxVPN = (checkboxId) => {
+function changeCheckboxVPN(checkboxId) {
   const parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
   const comparativeDiv = document.querySelector('.c-top-comparative-with-text');
   const productId = checkboxId.split('-')[1];
@@ -580,20 +580,6 @@ const changeCheckboxVPN = (checkboxId) => {
     if (parentDiv.querySelector(`.price_vpn-${productId}`)) {
       parentDiv.querySelector(`.price_vpn-${productId}`).innerHTML = justVpn;
     }
-
-    fullPrice = StoreProducts.formatPrice(
-      fullPrice,
-      selectedVariation.currency_label,
-      selectedVariation.region_id,
-      selectedVariation.currency_iso,
-    );
-
-    newPrice = StoreProducts.formatPrice(
-      newPrice,
-      selectedVariation.currency_label,
-      selectedVariation.region_id,
-      selectedVariation.currency_iso,
-    );
   } else {
     // not checked
     if (showVpnBox) {
@@ -619,19 +605,15 @@ const changeCheckboxVPN = (checkboxId) => {
 
       if (parentDiv.querySelector(`.show_save_${productId}`)) {
         parentDiv.querySelector(`.show_save_${productId}`).style.display = 'none';
-        /*
-        document.querySelectorAll(`.show_save_${productId}`).forEach(item => {
-          item.style.display = 'none';
-        });
-        */
       }
     }
 
-    fullPrice = StoreProducts.formatPrice(fullPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
-    save = StoreProducts.formatPrice(save, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
-    newPrice = StoreProducts.formatPrice(newPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
     buyLink = buyLinkDefault;
   }
+
+  fullPrice = StoreProducts.formatPrice(fullPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
+  save = StoreProducts.formatPrice(save, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
+  newPrice = StoreProducts.formatPrice(newPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
 
   if (parentDiv.querySelector(buyClass)) {
     parentDiv.querySelector(buyClass).setAttribute('href', buyLink);
@@ -742,42 +724,29 @@ function initializeProductsPriceLogic() {
   if (!isZuoraForNetherlandsLangMode()) {
     addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
       initSelectors();
-
-      // todo move this elsewhere
-      addIdsToEachSection();
-
-      // todo move this elsewhere
-      addEventListenersOnVpnCheckboxes();
     });
-
-    loadDelayed();
-  } else {
-    loadDelayed();
   }
 
-  // todo move this elsewhere, also executed twice for non zuora mode
-  addIdsToEachSection();
-
-  // todo move this elsewhere, also executed twice for non zuora mode
   addEventListenersOnVpnCheckboxes();
 }
 
-const loadPage = async () => {
+async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
+
+  addIdsToEachSection();
 
   addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 
   initializeProductsPriceLogic();
 
-  // todo this should be present here and uncommented after todos are fixed from initializeProductsPriceLogic()
-  // loadDelayed();
+  loadDelayed();
 };
 
 /*
 * @viewport: 'mobile' | 'tablet' | 'desktop'
 * */
-const initMobileDetector = (viewport) => {
+function initMobileDetector(viewport) {
   const mobileDetectorDiv = document.createElement('div');
   mobileDetectorDiv.setAttribute(`data-${viewport}-detector`, '');
   document.body.prepend(mobileDetectorDiv);
@@ -786,7 +755,7 @@ const initMobileDetector = (viewport) => {
 /*
 * @viewport: 'mobile' | 'tablet' | 'desktop'
 * */
-export const isView = (viewport) => {
+export function isView(viewport) {
   const element = document.querySelectorAll(`[data-${viewport}-detector]`)[0];
   return !!(element && getComputedStyle(element).display !== 'none');
 };

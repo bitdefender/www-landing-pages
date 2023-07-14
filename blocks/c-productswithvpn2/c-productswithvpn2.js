@@ -44,6 +44,9 @@ export default function decorate(block) {
 
       // adding prices
       const pricesSections = block.querySelectorAll(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:first-of-type p`);
+      block.querySelectorAll(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:first-of-type`).forEach(item => {
+        item.classList = 'awaitLoader';
+      });
       // old price:
       pricesSections[0].innerHTML += `<span class='prod-oldprice oldprice-${prodName}'></span>`;
       // vpn:
@@ -55,7 +58,6 @@ export default function decorate(block) {
       // total:
       pricesSections[3].innerHTML += `<span class='prod-newprice newprice-${prodName}'></span>`;
 
-      // adding top tag to each box
       // create procent - bulina
       if (typeof bulinaText !== 'undefined') {
         const bulinaSplitted = bulinaText.split(',');
@@ -76,14 +78,14 @@ export default function decorate(block) {
       /// ///////////////////////////////////////////////////////////////////////
       // add buybtn div & anchor
       const tableBuybtn = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:nth-of-type(2) td`);
-      tableBuybtn.innerHTML = `<a href='#' title='Bitdefender ${prodName}' class='red-buy-button buylink-${prodName}'>${tableBuybtn.innerText}</a>`;
+      tableBuybtn.innerHTML = `<a href='#' title='Bitdefender ${prodName}' class='red-buy-button awaitLoader buylink-${prodName}'>${tableBuybtn.innerText}</a>`;
 
       /// ///////////////////////////////////////////////////////////////////////
       // adding vpn input checkbox
       const tableVpn = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:nth-of-type(3)`);
       const vpnPrices = '<b><span class="prod-oldprice oldprice-vpn">$0</span><span class="prod-newprice newprice-vpn">$0</span></b>';
       const vpnDiv = document.createElement('div');
-      vpnDiv.className = 'vpn_box';
+      vpnDiv.classList = 'vpn_box awaitLoader';
 
       let labelId = `checkboxVPN-${prodName}`;
       if (document.getElementById(labelId)) {
