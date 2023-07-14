@@ -9,8 +9,8 @@ import ZuoraNLClass from './zuora.js';
 
 // Core Web Vitals RUM collection
 sampleRUM('cwv');
-  
-  // add more delayed functionality here
+
+// add more delayed functionality here
 function initZuoraProductPriceLogic() {
   window.config = ZuoraNLClass.config();
 

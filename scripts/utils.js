@@ -159,7 +159,6 @@ export function isZuoraForNetherlandsLangMode() {
 
 // showLoaderSpinner
 export function showLoaderSpinner(showSpinner) {
-  console.log('showSpinner')
   const prodLoadBox = document.querySelectorAll('.prodLoad');
   if (showSpinner) {
     prodLoadBox.forEach((item) => {
