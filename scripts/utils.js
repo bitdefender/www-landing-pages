@@ -397,3 +397,10 @@ export function getDatasetFromSection(block) {
   const parentSelector = block.closest('.section');
   return parentSelector.dataset;
 }
+
+export function getLocalizedResourceUrl(resourceName) {
+  const { pathname } = window.location;
+  const pathnameAsArray = pathname.split('/');
+  pathnameAsArray.pop();
+  return `${pathnameAsArray.join('/')}/${resourceName}`;
+}
