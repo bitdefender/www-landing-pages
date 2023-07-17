@@ -401,6 +401,10 @@ main .section.highlight {
   margin: 2px 0;
 }
 
+.prod_box .prod-percent {
+  visibility: hidden;
+}
+
 .prod-percent.green_bck_circle.bigger span {
   display: block;
   line-height: 21px;

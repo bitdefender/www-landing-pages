@@ -4,4 +4,4 @@ Fix #<gh-issue-id>
 
 Test URLs:
 - Before: https://main--helix-poc--enake.hlx.page/
-- After: https://<branch>--<repo>--<owner>.hlx.page/
+- After: https://<branch>--helix-poc--enake.hlx.page/

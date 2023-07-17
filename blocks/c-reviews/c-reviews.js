@@ -1,4 +1,5 @@
 import ReviewComponent from '../../components/review/review.js';
+import { getDatasetFromSection } from '../../scripts/utils.js';
 
 /*
   Information:
@@ -11,9 +12,7 @@ import ReviewComponent from '../../components/review/review.js';
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html
 */
 export default function decorate(block) {
-  // todo export this to reusable utils
-  const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
+  const metaData = getDatasetFromSection(block);
 
   const textstyle = metaData.textstyle || 'center';
   const bottomtext = metaData.bottomtext || undefined;

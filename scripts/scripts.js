@@ -14,15 +14,16 @@ import {
 } from './lib-franklin.js';
 
 import { sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts } from './adobeDataLayer.js';
-import { addScript, getDefaultLanguage, instance } from './utils.js';
+import {
+  addScript, getDefaultLanguage, instance, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
+} from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
 window.DEFAULT_LANGUAGE = DEFAULT_LANGUAGE;
 
-const productsList = [];
 const defaultBuyLinks = {};
 
-export const productAliases = (name) => {
+export function productAliases(name) {
   let newName = name.trim();
   if (newName === 'elite') {
     newName = 'elite_1000';
@@ -31,10 +32,10 @@ export const productAliases = (name) => {
   }
 
   return newName;
-};
+}
 
 // TODO: use the function from adobeDataLayer.js
-export const getParam = (param) => {
+export function getParam(param) {
   const gUrlParams = {};
   try {
     (() => {
@@ -53,7 +54,7 @@ export const getParam = (param) => {
     }
     return false;
   } catch (ex) { return false; }
-};
+}
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
@@ -61,7 +62,7 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
-const buildHeroBlock = (main) => {
+function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
@@ -70,27 +71,27 @@ const buildHeroBlock = (main) => {
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
   }
-};
+}
 
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-const buildAutoBlocks = (main) => {
+function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
   }
-};
+}
 
 /**
  * Decorates the main element.
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export const decorateMain = (main) => {
+export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   // decorateIcons2(main);
@@ -98,13 +99,13 @@ export const decorateMain = (main) => {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-};
+}
 
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
-const loadEager = async (doc) => {
+async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
@@ -113,13 +114,13 @@ const loadEager = async (doc) => {
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
-};
+}
 
 /**
  * Adds the favicon.
  * @param {string} href The favicon URL
  */
-const addFavIcon = (href) => {
+function addFavIcon(href) {
   const link = document.createElement('link');
   link.rel = 'icon';
   link.type = 'image/svg+xml';
@@ -130,13 +131,13 @@ const addFavIcon = (href) => {
   } else {
     document.getElementsByTagName('head')[0].appendChild(link);
   }
-};
+}
 
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
-const loadLazy = async (doc) => {
+async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
 
@@ -170,17 +171,17 @@ const loadLazy = async (doc) => {
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
-};
+}
 
 /**
  * Loads everything that happens a lot later,
  * without impacting the user experience.
  */
-const loadDelayed = () => {
+function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
-};
+}
 
 /**
  * Loads a fragment.
@@ -201,37 +202,8 @@ export async function loadFragment(path) {
   return null;
 }
 
-// check & update ProductsList
-// TODO: have a look at StoreProducts.product & StoreProducts.initCount
-// maybe we can use them instead of this function
-export const updateProductsList = (product) => {
-  if (productsList.indexOf(product) === -1) {
-    productsList.push(product);
-  }
-};
-
-// get max discount
-const maxDiscount = () => {
-  const discountAmounts = [];
-  if (document.querySelector('.percent')) {
-    document.querySelectorAll('.percent').forEach((item) => {
-      const discountAmount = parseInt(item.textContent, 10);
-      if (!Number.isNaN(discountAmount)) {
-        discountAmounts.push(discountAmount);
-      }
-    });
-  }
-
-  const maxdiscount = Math.max(...discountAmounts).toString();
-  if (document.querySelector('.max-discount')) {
-    document.querySelectorAll('.max-discount').forEach((item) => {
-      item.textContent = `${maxdiscount}%`;
-    });
-  }
-};
-
-// trigger for VPN checkbox click
-const changeCheckboxVPN = (checkboxId) => {
+// trigger for VPN checkbox click - not for ZuoraNL
+function changeCheckboxVPN(checkboxId) {
   const parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
   const comparativeDiv = document.querySelector('.c-top-comparative-with-text');
   const productId = checkboxId.split('-')[1];
@@ -603,23 +575,11 @@ const changeCheckboxVPN = (checkboxId) => {
 
     if (parentDiv.querySelector(discPriceClass)) {
       parentDiv.querySelector(discPriceClass).innerHTML = newPrice;
-      /*
-      document.querySelectorAll(discPriceClass).forEach(item => {
-        item.innerHTML = newPrice;
-      })
-      */
     }
 
     if (parentDiv.querySelector(`.price_vpn-${productId}`)) {
       parentDiv.querySelector(`.price_vpn-${productId}`).innerHTML = justVpn;
     }
-
-    newPrice = StoreProducts.formatPrice(
-      newPrice,
-      selectedVariation.currency_label,
-      selectedVariation.region_id,
-      selectedVariation.currency_iso,
-    );
   } else {
     // not checked
     if (showVpnBox) {
@@ -645,19 +605,15 @@ const changeCheckboxVPN = (checkboxId) => {
 
       if (parentDiv.querySelector(`.show_save_${productId}`)) {
         parentDiv.querySelector(`.show_save_${productId}`).style.display = 'none';
-        /*
-        document.querySelectorAll(`.show_save_${productId}`).forEach(item => {
-          item.style.display = 'none';
-        });
-        */
       }
     }
 
-    fullPrice = StoreProducts.formatPrice(fullPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
-    save = StoreProducts.formatPrice(save, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
-    newPrice = StoreProducts.formatPrice(newPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
     buyLink = buyLinkDefault;
   }
+
+  fullPrice = StoreProducts.formatPrice(fullPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
+  save = StoreProducts.formatPrice(save, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
+  newPrice = StoreProducts.formatPrice(newPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
 
   if (parentDiv.querySelector(buyClass)) {
     parentDiv.querySelector(buyClass).setAttribute('href', buyLink);
@@ -686,103 +642,12 @@ const changeCheckboxVPN = (checkboxId) => {
       comparativeDiv.querySelector(saveClass).innerHTML = save;
     }
   }
-};
+}
 
-// display prices
-const showPrices = (storeObj) => {
-  const { currency_label: currencyLabel } = storeObj.selected_variation;
-  const { region_id: regionId } = storeObj.selected_variation;
-  const { product_id: productId } = storeObj.config;
+function initSelectors() {
+  const productsExistsOnPage = productsList.length;
 
-  if (typeof storeObj.selected_variation.discount === 'object') {
-    const fullPrice = StoreProducts.formatPrice(storeObj.selected_variation.price, currencyLabel, regionId);
-    const offerPrice = StoreProducts.formatPrice(storeObj.selected_variation.discount.discounted_price, currencyLabel, regionId);
-    const savingsPrice = storeObj.selected_variation.price - storeObj.selected_variation.discount.discounted_price;
-    const savings = StoreProducts.formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
-    const percentageSticker = (((storeObj.selected_variation.price - storeObj.selected_variation.discount.discounted_price) / storeObj.selected_variation.price) * 100).toFixed(0);
-
-    if (document.querySelector(`.oldprice-${productId}`)) {
-      document.querySelectorAll(`.oldprice-${productId}`).forEach((item) => {
-        item.innerHTML = fullPrice;
-      });
-    }
-
-    if (document.querySelector(`.newprice-${productId}`)) {
-      document.querySelectorAll(`.newprice-${productId}`).forEach((item) => {
-        item.innerHTML = offerPrice;
-      });
-    }
-
-    if (document.querySelector(`.save-${productId}`)) {
-      document.querySelectorAll(`.save-${productId}`).forEach((item) => {
-        item.innerHTML = savings;
-        item.style.visibility = 'visible';
-      });
-    }
-
-    if (document.querySelector(`.percent-${productId}`)) {
-      document.querySelectorAll(`.percent-${productId}`).forEach((item) => {
-        item.innerHTML = `${percentageSticker}%`;
-        item.style.visibility = 'visible';
-        const parentElement = item.parentNode;
-        parentElement.style.visibility = 'visible';
-      });
-    }
-
-    if (document.querySelector(`.bulina-${productId}`)) {
-      const bulinaElement = document.querySelector(`.bulina-${productId}`);
-      const parentElement = bulinaElement.parentNode;
-      parentElement.style.visibility = 'visible';
-    }
-
-    if (document.querySelector(`.show_save_${productId}`)) {
-      document.querySelector(`.show_save_${productId}`).style.display = 'block';
-    }
-  } else {
-    const fullPrice = StoreProducts.formatPrice(storeObj.selected_variation.price, currencyLabel, regionId);
-    if (document.querySelector(`.newprice-${productId}`)) {
-      document.querySelector(`.newprice-${productId}`).innerHTML = fullPrice;
-    }
-    if (document.querySelector(`.oldprice-${productId}`)) {
-      document.querySelector(`.oldprice-${productId}`).style.display = 'none';
-    }
-
-    if (document.querySelector(`.save-${productId}`)) {
-      const saveElement = document.querySelector(`.save-${productId}`);
-      const parentElement = saveElement.parentNode;
-      const siblingElements = parentElement.parentNode.querySelectorAll('div');
-
-      siblingElements.forEach((element) => {
-        element.style.visibility = 'hidden';
-        element.style.display = 'none';
-      });
-    }
-
-    if (document.querySelector(`.percent-${productId}`)) {
-      const percentElement = document.querySelector(`.percent-${productId}`);
-      const parentElement = percentElement.parentNode;
-
-      parentElement.style.visibility = 'hidden';
-      parentElement.style.display = 'none';
-    }
-
-    if (document.querySelector(`.show_save_${productId}`)) {
-      document.querySelector(`.show_save_${productId}`).style.display = 'none';
-    }
-
-    if (document.querySelector(`.bulina-${productId}`)) {
-      const bulinaElement = document.querySelector(`.bulina-${productId}`);
-      const parentElement = bulinaElement.parentNode;
-
-      parentElement.style.visibility = 'hidden';
-    }
-  }
-
-  maxDiscount();
-};
-
-const initSelectors = () => {
-  if (productsList.length > 0) {
+  if (productsExistsOnPage) {
     const fakeSelectorsBottom = document.createElement('div');
     fakeSelectorsBottom.id = 'fakeSelectors_bottom';
     document.querySelector('footer').before(fakeSelectorsBottom);
@@ -824,58 +689,77 @@ const initSelectors = () => {
           try {
             const fp = this;
             showPrices(fp);
+            showLoaderSpinner(true);
           } catch (ex) { /* empty */ }
         },
       });
     });
   }
-};
+}
 
-const loadPage = async () => {
+function addIdsToEachSection() {
+  document.querySelectorAll('main .section > div:first-of-type').forEach((item, idx) => {
+    const getIdentity = item.className;
+    item.parentElement.id = `${getIdentity}-${idx + 1}`;
+  });
+}
+
+function addEventListenersOnVpnCheckboxes() {
+  if (document.querySelector('.checkboxVPN')) {
+    document.querySelectorAll('.checkboxVPN').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        const checkboxId = e.target.getAttribute('id');
+        if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
+          const prodxId = e.target.getAttribute('id').split('-')[1];
+          const storeObjprod = window.StoreProducts.product[prodxId] || {};
+          showPrices(storeObjprod, e.target.checked, checkboxId);
+        } else {
+          changeCheckboxVPN(checkboxId);
+        }
+      });
+    });
+  }
+}
+
+function initializeProductsPriceLogic() {
+  if (!isZuoraForNetherlandsLangMode()) {
+    addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
+      initSelectors();
+    });
+  }
+
+  addEventListenersOnVpnCheckboxes();
+}
+
+async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
 
+  addIdsToEachSection();
+
   addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
-  addScript('https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js', {}, 'async', () => {
-    addScript('https://www.bitdefender.com/scripts/Store2015.min.js', {}, 'async', () => {
-      initSelectors();
-      loadDelayed();
 
-      // adding IDs on each section
-      document.querySelectorAll('main .section > div:first-of-type').forEach((item, idx) => {
-        const getIdentity = item.className;
-        item.parentElement.id = `${getIdentity}-${idx + 1}`;
-      });
+  initializeProductsPriceLogic();
 
-      // addEventListener on VPN checkboxes
-      if (document.querySelector('.checkboxVPN')) {
-        document.querySelectorAll('.checkboxVPN').forEach((item) => {
-          item.addEventListener('click', (e) => {
-            const checkboxId = e.target.getAttribute('id');
-            changeCheckboxVPN(checkboxId);
-          });
-        });
-      }
-    });
-  });
-};
+  loadDelayed();
+}
 
 /*
 * @viewport: 'mobile' | 'tablet' | 'desktop'
 * */
-const initMobileDetector = (viewport) => {
+function initMobileDetector(viewport) {
   const mobileDetectorDiv = document.createElement('div');
   mobileDetectorDiv.setAttribute(`data-${viewport}-detector`, '');
   document.body.prepend(mobileDetectorDiv);
-};
+}
 
 /*
 * @viewport: 'mobile' | 'tablet' | 'desktop'
 * */
-export const isView = (viewport) => {
+export function isView(viewport) {
   const element = document.querySelectorAll(`[data-${viewport}-detector]`)[0];
   return !!(element && getComputedStyle(element).display !== 'none');
-};
+}
 
 function initBaseUri() {
   const domainName = 'bitdefender';
