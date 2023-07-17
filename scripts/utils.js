@@ -82,7 +82,7 @@ export function addScript(src, data = {}, type = undefined, callback = undefined
 export function getDefaultLanguage() {
   const localisationList = ['au', 'be', 'br', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pt', 'ro', 'se', 'uk'];
   const currentPathUrl = window.location.pathname;
-  const foundLanguage = localisationList.find(item => currentPathUrl.indexOf(`/${item}/`) !== -1);
+  const foundLanguage = localisationList.find((item) => currentPathUrl.indexOf(`/${item}/`) !== -1);
   return foundLanguage || 'en';
 }
 
