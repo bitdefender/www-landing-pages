@@ -80,11 +80,15 @@ export function addScript(src, data = {}, type = undefined, callback = undefined
 }
 
 export function getDefaultLanguage() {
-  return window.location.pathname.split('/')[2];
+  const localisationList = ['au', 'be', 'br', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pt', 'ro', 'se', 'uk'];
+  const currentPathUrl = window.location.pathname;
+  const foundLanguage = localisationList.find(item => currentPathUrl.indexOf(`/${item}/`) !== -1);
+  return foundLanguage || 'en';
 }
 
 export function getDefaultSection() {
-  return window.location.pathname.split('/')[1];
+  const currentPathUrl = window.location.pathname;
+  return currentPathUrl.indexOf('/business/') !== -1 ? 'business' : 'consumer';
 }
 
 export const GLOBAL_EVENTS = {
