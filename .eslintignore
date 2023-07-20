@@ -2,3 +2,4 @@ helix-importer-ui
 **/*.css
 scripts/vendor/**/*.js
 sass-compile.js
+**/*.spec.js

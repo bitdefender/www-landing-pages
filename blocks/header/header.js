@@ -1,6 +1,6 @@
 import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
 import {
-  getDefaultLanguage, instance, adobeMcAppendVisitorId, GLOBAL_EVENTS, getLocalizedResourceUrl,
+  getDefaultLanguage, getInstance, adobeMcAppendVisitorId, GLOBAL_EVENTS, getLocalizedResourceUrl,
 } from '../../scripts/utils.js';
 
 async function extractSpanSvg(html) {
@@ -25,7 +25,7 @@ export default async function decorate(block) {
     const html = await resp.text();
 
     const spanSvg = await extractSpanSvg(html);
-    const dynamicLanguage = instance === 'dev' ? 'com' : getDefaultLanguage();
+    const dynamicLanguage = getInstance() === 'dev' ? 'com' : getDefaultLanguage();
     const homeUrl = `https://www.bitdefender.${dynamicLanguage}/`;
 
     block.className = 'lp-header py-3';
