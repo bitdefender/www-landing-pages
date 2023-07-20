@@ -401,3 +401,9 @@ export function getDatasetFromSection(block) {
   const parentSelector = block.closest('.section');
   return parentSelector.dataset;
 }
+
+export function getLocalizedResourceUrl(resourceName) {
+  const { pathname } = window.location;
+  const pathnameAsArray = pathname.split('/').filter((x, i) => i <= 2); // "/consumer/en"
+  return `${pathnameAsArray.join('/')}/${resourceName}`;
+}

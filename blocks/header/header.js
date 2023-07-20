@@ -1,6 +1,6 @@
 import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
 import {
-  getDefaultLanguage, instance, adobeMcAppendVisitorId, GLOBAL_EVENTS,
+  getDefaultLanguage, instance, adobeMcAppendVisitorId, GLOBAL_EVENTS, getLocalizedResourceUrl,
 } from '../../scripts/utils.js';
 
 async function extractSpanSvg(html) {
@@ -18,7 +18,7 @@ export default async function decorate(block) {
   // header logo should be svg
   // fetch nav content
   const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta).pathname : '/nav';
+  const navPath = navMeta ? new URL(navMeta).pathname : getLocalizedResourceUrl('nav');
   const resp = await fetch(`${navPath}.plain.html`);
 
   if (resp.ok) {
