@@ -1,8 +1,8 @@
 import { loadFragment } from '../../scripts/scripts.js';
-import { adobeMcAppendVisitorId, GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { adobeMcAppendVisitorId, GLOBAL_EVENTS, getLocalizedResourceUrl } from '../../scripts/utils.js';
 
 export default async function decorate(block) {
-  const fragment = await loadFragment('/footer');
+  const fragment = await loadFragment(getLocalizedResourceUrl('footer'));
   const footer = block.closest('.footer-wrapper');
 
   if (fragment) {
