@@ -3,6 +3,11 @@ name: Linting
 on: [pull_request]
 
 jobs:
+  instal:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run install
+
   lint:
     runs-on: ubuntu-latest
     steps:
