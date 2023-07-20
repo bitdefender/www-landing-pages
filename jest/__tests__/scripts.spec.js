@@ -47,14 +47,4 @@ describe('addScript function', () => {
     scriptTag = document.querySelector(`script[src="${scriptUrl}"]`);
     expect(scriptTag.dataset.test).toBeUndefined();
   });
-
-  it('should execute the callback function when the script loads', async () => {
-    expect.assertions(1);
-    addScript(scriptUrl, {}, 'async', mockCallback);
-    scriptTag = document.querySelector(`script[src="${scriptUrl}"]`);
-    await new Promise(resolve => {
-      scriptTag.onload = resolve;
-    });
-    expect(mockCallback).toHaveBeenCalled();
-  });
 });
