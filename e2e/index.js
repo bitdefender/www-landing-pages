@@ -1,4 +1,4 @@
-const GhostInspector = require('ghost-inspector')('d18bdb6707ceb3c84778aa8c91f9cc6ba20b7ecb');
+const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
 (async () => {
   // execute a test
