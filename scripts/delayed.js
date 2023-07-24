@@ -48,5 +48,3 @@ sendAnalyticsPageLoadedEvent();
 addScript('https://consent.cookiebot.com/uc.js', { culture: 'en', cbid: '4a55b566-7010-4633-9b03-7ba7735be0b6' }, 'async');
 
 enableTrackingScripts();
-
-// :icon1-svg:

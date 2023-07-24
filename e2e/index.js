@@ -1,3 +1,4 @@
+require('dotenv').config();
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
 (async () => {
