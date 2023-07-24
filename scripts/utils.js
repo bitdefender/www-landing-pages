@@ -2,7 +2,7 @@
  * Returns the instance name based on the hostname
  * @returns {String}
  */
-export const instance = (() => {
+export function getInstance() {
   const hostToInstance = {
     'pages.bitdefender.com': 'prod',
     'hlx.page': 'stage',
@@ -15,7 +15,7 @@ export const instance = (() => {
   }
 
   return 'dev';
-})();
+}
 
 /**
  * Returns the geoIP country code. Very costly on performance, use with caution.
