@@ -35,7 +35,9 @@ function enableTrackingScripts() {
       document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
     });
 
-    addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'async');
+    if (getParamValue('tt') !== '1') {
+      addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'async');
+    }
   }
 }
 
@@ -45,6 +47,8 @@ if (isZuoraForNetherlandsLangMode()) {
 
 sendAnalyticsPageLoadedEvent();
 
-addScript('https://consent.cookiebot.com/uc.js', { culture: 'en', cbid: '4a55b566-7010-4633-9b03-7ba7735be0b6' }, 'async');
+if (getParamValue('tt') !== '1') {
+  addScript('https://consent.cookiebot.com/uc.js', { culture: 'en', cbid: '4a55b566-7010-4633-9b03-7ba7735be0b6' }, 'async');
+}
 
 enableTrackingScripts();
