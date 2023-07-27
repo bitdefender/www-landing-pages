@@ -22,7 +22,7 @@ export default function decorate(block) {
   // make slideUp slideDown functionality
   const getFirstTabs = block.querySelectorAll('.b-dropdownbox-container .block > div:first-child');
   getFirstTabs.forEach((tab) => {
-    tab.parentNode.classList.remove("inactive");
+    tab.parentNode.classList.remove('inactive');
     tab.addEventListener('click', () => {
       tab.parentNode.classList.toggle('inactive');
     });
@@ -38,12 +38,11 @@ export default function decorate(block) {
     if (window.innerWidth > 800) {
       const infoTextEl = block.children[0].children[0];
       const infoTextEl2 = block.children[1].children[0];
-    
+
       parentSelector.classList.remove('slider');
       parentSelector.classList.add('container', 'dropdownSlider');
       block.closest('.b-dropdownbox-wrapper').innerHTML = `
         <div class="container">
-          
           <div class="row">
             <div class="col-12 col-md-5 title">
               <div class="loading-bar"></div>
@@ -54,7 +53,5 @@ export default function decorate(block) {
         </div>
       `;
     }
-    
   }
-  
 }

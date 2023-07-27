@@ -740,31 +740,25 @@ function initializeProductsPriceLogic() {
   addEventListenersOnVpnCheckboxes();
 }
 
-function eventOnDropdownSlider2() {
-  document.querySelectorAll('.dropdownSlider').forEach((slider) => {
-    const titles = slider.querySelectorAll('.title');
-    
-    titles.forEach((item, key) => {
-      // Set the first item as active by default
-      if (key === 0) {
-        item.parentNode.classList.add('active');
-      }
-      
-      item.addEventListener('click', () => {
-        titles.forEach((title) => title.parentNode.classList.remove('active'));
-        item.parentNode.classList.add('active');
-      });
-    });
-  });
-}
-
-
 function eventOnDropdownSlider() {
   document.querySelectorAll('.dropdownSlider').forEach((slider) => {
     const titles = slider.querySelectorAll('.title');
     const loadingBars = slider.querySelectorAll('.loading-bar');
     let activeIndex = 0;
     let interval;
+
+    function showLoadingBar(index) {
+      const loadingBar = loadingBars[index];
+      loadingBar.style.width = '0';
+      let width = 0;
+      const interval = setInterval(() => {
+        width += 1;
+        loadingBar.style.width = width + '%';
+        if (width >= 100) {
+          clearInterval(interval);
+        }
+      }, 30); // Adjust the interval for smoother animation
+    }
 
     function moveToNextItem() {
       titles.forEach((title, index) => {
@@ -785,19 +779,6 @@ function eventOnDropdownSlider() {
 
     function stopAutomaticMovement() {
       clearInterval(interval); // Clear the interval
-    }
-
-    function showLoadingBar(index) {
-      const loadingBar = loadingBars[index];
-      loadingBar.style.width = '0';
-      let width = 0;
-      const interval = setInterval(() => {
-        width += 1;
-        loadingBar.style.width = width + '%';
-        if (width >= 100) {
-          clearInterval(interval);
-        }
-      }, 30); // Adjust the interval for smoother animation
     }
 
     // Set the initial active item
@@ -821,8 +802,6 @@ function eventOnDropdownSlider() {
 
   });
 }
-
-
 
 async function loadPage() {
   await loadEager(document);

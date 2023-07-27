@@ -46,7 +46,7 @@ export default function decorate(block) {
     const inputFieldset = document.createElement('fieldset');
     inputFieldset.classList = 'd-flex';
     inputFieldset.innerHTML += `<button>-</button>`;
-    inputFieldset.innerHTML += `<input type="number" name="devicesInput" min="5" max="100" value="10" id="devicesInput">`;
+    inputFieldset.innerHTML += `<input type='number' name='devicesInput' min='5' max='100' value='10' id='devicesInput'>`;
     inputFieldset.innerHTML += `<button>+</button>`;
     // add fieldset
     block.querySelector(".b-productswithinputdevices > div:nth-child(1) > div").after(inputFieldset);
@@ -56,7 +56,7 @@ export default function decorate(block) {
     const prodiId = productsAsList[0].split('/')[0];
     
     block.querySelectorAll("fieldset button").forEach((item) => {
-      item.addEventListener('click', (btn) => {
+      item.addEventListener('click', () => {
         const action = item.innerText;
         let currentdevices = Number(devicesInput.value);
         if (action === '-' && currentdevices > 5) {
@@ -68,15 +68,15 @@ export default function decorate(block) {
 
         const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
         if (devicesSelector) {
-          devicesSelector.forEach((item) => {
-            item.value = devicesInput.value;
-            item.dispatchEvent(new Event('change'));
+          devicesSelector.forEach((selector) => {
+            selector.value = devicesInput.value;
+            selector.dispatchEvent(new Event('change'));
           })
         }
       });
     });
 
-    if (devicesInput.addEventListener('change', (input) => {
+    if (devicesInput.addEventListener('change', () => {
       const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
       if (devicesSelector) {
         devicesSelector.forEach((item) => {
@@ -97,7 +97,7 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = [productAliases(prodSplit[0]), prodSplit[1], prodSplit[2]];
       const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
       const pricesDiv = document.createElement('div');
-      
+
       pricesDiv.classList = 'prices_box awaitLoader prodLoad';
       pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
       pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
@@ -106,9 +106,8 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<p class="prod-save d-flex justify-content-center align-items-center">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
       pricesDiv.innerHTML += `<a class="red-buy-button buylink-${onSelectorClass}">${buylinkText}</a>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
-      
+
       parent2ndDiv.appendChild(pricesDiv);
     });
-
   }
 }
