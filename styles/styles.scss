@@ -362,25 +362,22 @@ main .default-content-wrapper img {
   margin-bottom: 22px;
   text-align: left;
 }
+
 .section.logos p {
   color: #3c3c3c;
   font-size: 18px;
   margin-bottom: 2em;
   text-align: left;
 }
+
 .section.logos p:last-of-type {
   text-align: center;
 }
+
 .section.logos p:last-of-type img {
   max-height: 90pt;
   max-width: 15%;
   margin: 0 2%;
-}
-
-@media (width >=  600px) {
-  /* main .section {
-    padding: 64px 32px;
-  } */
 }
 
 @media (width >=  900px) {

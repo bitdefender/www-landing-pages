@@ -103,6 +103,7 @@
   .b-banner-container .b-banner-wrapper {
     position: relative;
     padding-left: 0;
+    margin: 15px;
   }
 
   .b-banner-container img {
@@ -119,10 +120,6 @@
     font-size: 21px;
     max-width: unset;
     margin-top: 10px;
-  }
-
-  .b-banner-container .b-banner-wrapper {
-    margin: 15px;
   }
 }
 
