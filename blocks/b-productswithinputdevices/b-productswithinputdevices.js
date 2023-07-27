@@ -45,9 +45,9 @@ export default function decorate(block) {
     // adding input devices
     const inputFieldset = document.createElement('fieldset');
     inputFieldset.classList = 'd-flex';
-    inputFieldset.innerHTML += `<button>-</button>`;
-    inputFieldset.innerHTML += `<input type='number' name='devicesInput' min='5' max='100' value='10' id='devicesInput'>`;
-    inputFieldset.innerHTML += `<button>+</button>`;
+    inputFieldset.innerHTML += '<button>-</button>';
+    inputFieldset.innerHTML += '<input type="number" name="devicesInput" min=5" max="100" value="10" id="devicesInput">';
+    inputFieldset.innerHTML += '<button>+</button>';
     // add fieldset
     block.querySelector('.b-productswithinputdevices > div:nth-child(1) > div').after(inputFieldset);
 
