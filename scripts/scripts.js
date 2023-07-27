@@ -751,11 +751,11 @@ function eventOnDropdownSlider() {
       const loadingBar = loadingBars[index];
       loadingBar.style.width = '0';
       let width = 0;
-      const interval = setInterval(() => {
+      const interval2 = setInterval(() => {
         width += 1;
-        loadingBar.style.width = width + '%';
+        loadingBar.style.width = `${width}%`;
         if (width >= 100) {
-          clearInterval(interval);
+          clearInterval(interval2);
         }
       }, 30); // Adjust the interval for smoother animation
     }
@@ -792,14 +792,13 @@ function eventOnDropdownSlider() {
     // Click event listener on titles
     titles.forEach((title, index) => {
       title.addEventListener('click', () => {
-        stopAutomaticMovement(); 
+        stopAutomaticMovement();
         activeIndex = index;
         showLoadingBar(index);
         moveToNextItem();
         startAutomaticMovement();
       });
     });
-
   });
 }
 

@@ -1,9 +1,9 @@
 /*
   Information:
   - displays:
-  - top text 
+  - top text
   - input for devices with - + controllers
-  and 
+  and
   - 3 boxes positioned in flex mode:
     1. product 1
     2. product 2
@@ -23,8 +23,8 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
-  const parent2ndDiv = block.querySelector(".b-productswithinputdevices > div:nth-child(2)");
-  
+  const parent2ndDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(2)');
+
   const metaData = parentSelector.dataset;
   const { products, yearsText } = metaData;
   const productsAsList = products && products.split(',');
@@ -49,21 +49,23 @@ export default function decorate(block) {
     inputFieldset.innerHTML += `<input type='number' name='devicesInput' min='5' max='100' value='10' id='devicesInput'>`;
     inputFieldset.innerHTML += `<button>+</button>`;
     // add fieldset
-    block.querySelector(".b-productswithinputdevices > div:nth-child(1) > div").after(inputFieldset);
+    block.querySelector('.b-productswithinputdevices > div:nth-child(1) > div').after(inputFieldset);
 
     // add event listeners
     const devicesInput = document.getElementById('devicesInput');
     const prodiId = productsAsList[0].split('/')[0];
-    
-    block.querySelectorAll("fieldset button").forEach((item) => {
+
+    block.querySelectorAll('fieldset button').forEach((item) => {
       item.addEventListener('click', () => {
         const action = item.innerText;
         let currentdevices = Number(devicesInput.value);
         if (action === '-' && currentdevices > 5) {
-          devicesInput.value = (--currentdevices).toString();
+          currentdevices -= 1;
+          devicesInput.value = (currentdevices).toString();
         }
         if (action === '+' && currentdevices < 100) {
-          devicesInput.value = (++currentdevices).toString();
+          currentdevices += 1;
+          devicesInput.value = (currentdevices).toString();
         }
 
         const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
@@ -71,7 +73,7 @@ export default function decorate(block) {
           devicesSelector.forEach((selector) => {
             selector.value = devicesInput.value;
             selector.dispatchEvent(new Event('change'));
-          })
+          });
         }
       });
     });
@@ -82,13 +84,9 @@ export default function decorate(block) {
         devicesSelector.forEach((item) => {
           item.value = devicesInput.value;
           item.dispatchEvent(new Event('change'));
-        })
+        });
       }
     }));
-
-    //document.querySelector(`.users_bsm`).selectedIndex = '14';
-    //document.querySelector(`.users_bsm`).dispatchEvent(new Event('change'));
-
 
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
