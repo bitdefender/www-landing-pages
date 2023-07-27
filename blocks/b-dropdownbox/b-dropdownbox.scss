@@ -102,7 +102,7 @@
 .b-dropdownbox-container .new {
   padding: 0 0 2em 2em;
   cursor: pointer;
-  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 8px 0 rgb(0, 0, 0, 10%);
   position: relative;
   border-radius: 10px;
   margin-bottom: 1em;
@@ -222,7 +222,7 @@
     .title {
       padding: 1em;
       cursor: pointer;
-      box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
+      box-shadow: 0 3px 8px 0 rgb(0, 0, 0, 10%);
       position: relative;
       border-radius: 10px;
       margin-bottom: 1em;
