@@ -5,4 +5,7 @@ LICENSE
 package.json
 package-lock.json
 test/*
+jest/*
 purgecss.config.js
+babel.config.js
+jest.config.js

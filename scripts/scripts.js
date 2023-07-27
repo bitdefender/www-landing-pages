@@ -15,7 +15,7 @@ import {
 
 import { sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts } from './adobeDataLayer.js';
 import {
-  addScript, getDefaultLanguage, instance, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
+  addScript, getDefaultLanguage, getInstance, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -154,7 +154,7 @@ async function loadLazy(doc) {
   });
 
   if (getParam('t') === '1') {
-    if (instance === 'prod') addScript('https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js', {}, 'defer');
+    if (getInstance() === 'prod') addScript('https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js', {}, 'defer');
     else addScript('https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'defer');
 
     addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'defer');
