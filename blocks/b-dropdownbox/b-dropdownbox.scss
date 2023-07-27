@@ -244,9 +244,7 @@
         height: 10px;
         border: solid #c5c5c5;
         border-width: 0 2px 2px 0;
-        -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
-        -webkit-transition: top .3s ease-in-out,-webkit-transform .3s ease-in-out;
         transition: top .3s ease-in-out,-webkit-transform .3s ease-in-out;
         transition: top .3s ease-in-out,transform .3s ease-in-out;
         transition: top .3s ease-in-out,transform .3s ease-in-out,-webkit-transform .3s ease-in-out;
@@ -260,9 +258,7 @@
         width: 0;
         height: 4px;
         background: #006eff;
-        
       }
-
     }
   
     .description {
@@ -276,12 +272,9 @@
     }
 
     .active {
-
       .title {
-
         &::after {
           border-color: #006eff;
-          -webkit-transform: rotate(225deg);
           transform: rotate(225deg);
           top: 11px;
         }
