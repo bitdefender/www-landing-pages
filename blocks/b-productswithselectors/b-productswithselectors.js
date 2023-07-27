@@ -86,9 +86,13 @@ export default function decorate(block) {
           }
 
           productsAsList.forEach((prod) => {
-            const prodName = productAliases(prod.split('/')[0]);
-            if (document.querySelector(`.${triggerType}_${prodName}_fake`)) {
-              const fakeSelector = document.querySelector(`.${triggerType}_${prodName}_fake`);
+            const prodSplit = prod.split('/');
+            const prodName = productAliases(prodSplit[0]);
+            const prodUsers = prodSplit[1];
+            const prodYears = prodSplit[2];
+            const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+            if (document.querySelector(`.${triggerType}_${onSelectorClass}_fake`)) {
+              const fakeSelector = document.querySelector(`.${triggerType}_${onSelectorClass}_fake`);
               fakeSelector.value = triggerValue;
               fakeSelector.dispatchEvent(new Event('change'));
             }
@@ -100,15 +104,19 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
-      const prodName = productAliases(productsAsList[idx].split('/')[0]);
+      const prodSplit = productsAsList[idx].split('/');
+      const prodName = productAliases(prodSplit[0]);
+      const prodUsers = prodSplit[1];
+      const prodYears = prodSplit[2];
+      const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
       const pricesDiv = document.createElement('div');
       pricesDiv.id = 'pricesBox';
       pricesDiv.className = 'prices_box';
-      pricesDiv.innerHTML = `<span class="prod-percent green_txt"><b class="percent-${prodName}">10%</b> ${discountText}<span>`;
-      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${prodName}"></span>`;
-      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${prodName}"></span>`;
+      pricesDiv.innerHTML = `<span class="prod-percent green_txt"><b class="percent-${onSelectorClass}">10%</b> ${discountText}<span>`;
+      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
-      pricesDiv.innerHTML += `<a class="red-buy-button buylink-${prodName}">${buttonText}</a>`;
+      pricesDiv.innerHTML += `<a class="red-buy-button buylink-${onSelectorClass}">${buttonText}</a>`;
 
       const renderedProductSection = block.querySelector(`.b-productswithselectors > div:nth-child(${idx + 2})`);
       renderedProductSection.querySelector('ul').after(pricesDiv);

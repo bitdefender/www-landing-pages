@@ -9,6 +9,13 @@
   margin-top: 0;
 }
 
+.c-icon-box-grid-container.bordered .col-lg {
+  border-radius: 5px;
+  border: 1px solid #F2F2F2;
+  margin: 1%;
+  padding: 3%;
+}
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: 18px;

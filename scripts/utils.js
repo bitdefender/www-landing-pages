@@ -201,8 +201,10 @@ function maxDiscount() {
 export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   const { currency_label: currencyLabel } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
-  const { product_id: productId } = storeObj.config;
+  const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
+
+  const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
   let parentDiv = '';
   let buyLink = storeObj.buy_link;
@@ -236,10 +238,10 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     const savings = formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
 
-    if (document.querySelector(`.oldprice-${productId}`)) {
-      const allOldPriceBox = document.querySelectorAll(`.oldprice-${productId}`);
+    if (document.querySelector(`.oldprice-${onSelectorClass}`)) {
+      const allOldPriceBox = document.querySelectorAll(`.oldprice-${onSelectorClass}`);
       if (triggerVPN) {
-        parentDiv.querySelector(`.oldprice-${productId}`).innerHTML = fullPrice;
+        parentDiv.querySelector(`.oldprice-${onSelectorClass}`).innerHTML = fullPrice;
         if (comparativeTextBox) {
           allOldPriceBox.forEach((item) => {
             item.innerHTML = fullPrice;
@@ -252,10 +254,10 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    if (document.querySelector(`.newprice-${productId}`)) {
-      const allNewPriceBox = document.querySelectorAll(`.newprice-${productId}`);
+    if (document.querySelector(`.newprice-${onSelectorClass}`)) {
+      const allNewPriceBox = document.querySelectorAll(`.newprice-${onSelectorClass}`);
       if (triggerVPN) {
-        parentDiv.querySelector(`.newprice-${productId}`).innerHTML = offerPrice;
+        parentDiv.querySelector(`.newprice-${onSelectorClass}`).innerHTML = offerPrice;
         if (comparativeTextBox) {
           allNewPriceBox.forEach((item) => {
             item.innerHTML = offerPrice;
@@ -268,26 +270,26 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    if (document.querySelector(`.save-${productId}`)) {
+    if (document.querySelector(`.save-${onSelectorClass}`)) {
       if (triggerVPN) {
-        const parentSaveBox = parentDiv.querySelector(`.save-${productId}`);
+        const parentSaveBox = parentDiv.querySelector(`.save-${onSelectorClass}`);
         parentSaveBox.innerHTML = savings;
         parentSaveBox.style.visibility = 'visible';
       } else {
-        document.querySelectorAll(`.save-${productId}`).forEach((item) => {
+        document.querySelectorAll(`.save-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = savings;
           item.style.visibility = 'visible';
         });
       }
     }
 
-    if (document.querySelector(`.percent-${productId}`)) {
+    if (document.querySelector(`.percent-${onSelectorClass}`)) {
       if (triggerVPN) {
-        const parentPercentBox = parentDiv.querySelector(`.percent-${productId}`);
+        const parentPercentBox = parentDiv.querySelector(`.percent-${onSelectorClass}`);
         parentPercentBox.innerHTML = `${percentageSticker}%`;
         parentPercentBox.parentNode.style.visibility = 'visible';
       } else {
-        document.querySelectorAll(`.percent-${productId}`).forEach((item) => {
+        document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = `${percentageSticker}%`;
           item.style.visibility = 'visible';
           item.parentNode.style.visibility = 'visible';
@@ -295,12 +297,12 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    if (document.querySelector(`.bulina-${productId}`)) {
-      const bulinaElement = document.querySelector(`.bulina-${productId}`);
+    if (document.querySelector(`.bulina-${onSelectorClass}`)) {
+      const bulinaElement = document.querySelector(`.bulina-${onSelectorClass}`);
       bulinaElement.closest('div').style.visibility = 'visible';
     }
 
-    const showSaveBox = document.querySelector(`.show_save_${productId}`);
+    const showSaveBox = document.querySelector(`.show_save_${onSelectorClass}`);
     if (showSaveBox) {
       showSaveBox.style.visibility = 'visible';
     }
@@ -322,20 +324,20 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    const newPriceBox = document.querySelector(`.newprice-${productId}`);
+    const newPriceBox = document.querySelector(`.newprice-${onSelectorClass}`);
     if (newPriceBox) {
       newPriceBox.innerHTML = fullPrice;
       if (vpnHasDiscount) {
-        document.querySelectorAll(`.newprice-${productId}`).forEach((item) => {
+        document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = offerPrice;
         });
       }
     }
 
-    const oldPriceBox = document.querySelector(`.oldprice-${productId}`);
+    const oldPriceBox = document.querySelector(`.oldprice-${onSelectorClass}`);
     if (oldPriceBox) {
       if (productId === 'vpn') {
-        document.querySelectorAll(`.oldprice-${productId}`).forEach((item) => {
+        document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = fullPrice;
         });
       } else {
@@ -343,7 +345,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    const saveBox = document.querySelector(`.save-${productId}`);
+    const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
       const siblingElements = saveBox.parentNode.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
@@ -351,15 +353,15 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       });
     }
 
-    const percentBox = document.querySelector(`.percent-${productId}`);
+    const percentBox = document.querySelector(`.percent-${onSelectorClass}`);
     if (percentBox) {
       if (vpnHasDiscount) {
         if (triggerVPN) {
-          const parentPercentBox = parentDiv.querySelector(`.percent-${productId}`);
+          const parentPercentBox = parentDiv.querySelector(`.percent-${onSelectorClass}`);
           parentPercentBox.innerHTML = `${percentageSticker}%`;
           parentPercentBox.parentNode.style.visibility = 'visible';
         } else {
-          document.querySelectorAll(`.percent-${productId}`).forEach((item) => {
+          document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
             item.innerHTML = `${percentageSticker}%`;
             item.parentNode.style.visibility = 'visible';
           });
@@ -367,21 +369,21 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    const showSaveBox = document.querySelector(`.show_save_${productId}`);
+    const showSaveBox = document.querySelector(`.show_save_${onSelectorClass}`);
     if (showSaveBox) {
       showSaveBox.style.visibility = 'hidden';
     }
 
-    const bulinaBox = document.querySelector(`.bulina-${productId}`);
+    const bulinaBox = document.querySelector(`.bulina-${onSelectorClass}`);
     if (bulinaBox) {
       bulinaBox.parentNode.visibility = 'hidden';
     }
   }
 
-  if (isZuoraForNetherlandsLangMode() && document.querySelector(`.buylink-${productId}`)) {
-    const allBuyLinkBox = document.querySelectorAll(`.buylink-${productId}`);
+  if (isZuoraForNetherlandsLangMode() && document.querySelector(`.buylink-${onSelectorClass}`)) {
+    const allBuyLinkBox = document.querySelectorAll(`.buylink-${onSelectorClass}`);
     if (triggerVPN) {
-      parentDiv.querySelector(`.buylink-${productId}`).href = buyLink;
+      parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
       if (comparativeTextBox) {
         allBuyLinkBox.forEach((item) => {
           item.href = buyLink;

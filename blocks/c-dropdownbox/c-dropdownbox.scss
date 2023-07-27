@@ -19,8 +19,12 @@
 
 /* inner dropdowns */
 .c-dropdownbox-container .block > div:not(:nth-child(1)) {
-  display: none;
+  display: flex;
   position: relative;
+}
+
+.c-dropdownbox-container .block.closed > div:not(:nth-child(1)) {
+  display: none;
 }
 
 /* grey tbs */

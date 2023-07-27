@@ -207,25 +207,27 @@ function changeCheckboxVPN(checkboxId) {
   const parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
   const comparativeDiv = document.querySelector('.c-top-comparative-with-text');
   const productId = checkboxId.split('-')[1];
-  const discPriceClass = `.newprice-${productId}`;
-  const priceClass = `.oldprice-${productId}`;
-  const saveClass = `.save-${productId}`;
+  const prodVariation = checkboxId.split('-')[2];
+  const onSelectorClass = `${productId}-${prodVariation}`;
+  const discPriceClass = `.newprice-${onSelectorClass}`;
+  const priceClass = `.oldprice-${onSelectorClass}`;
+  const saveClass = `.save-${onSelectorClass}`;
   let fullPrice = '';
-  const selectedUsers = document.querySelector(`.users_${productId}_fake`).value;
-  const selectedYears = document.querySelector(`.years_${productId}_fake`).value;
+  const selectedUsers = document.querySelector(`.users_${onSelectorClass}_fake`).value;
+  const selectedYears = document.querySelector(`.years_${onSelectorClass}_fake`).value;
   const selectedVariation = StoreProducts.product[productId].variations[selectedUsers][selectedYears];
 
   // buy btn
-  const buyClass = `.buylink-${productId}`;
+  const buyClass = `.buylink-${onSelectorClass}`;
   let buyLink = '';
-  if (typeof defaultBuyLinks[productId] === 'undefined') {
-    defaultBuyLinks[productId] = parentDiv.querySelector(buyClass).href;
+  if (typeof defaultBuyLinks[onSelectorClass] === 'undefined') {
+    defaultBuyLinks[onSelectorClass] = parentDiv.querySelector(buyClass).href;
   }
-  const buyLinkDefault = defaultBuyLinks[productId];
+  const buyLinkDefault = defaultBuyLinks[onSelectorClass];
 
   // vpn
   const vpnId = 'vpn';
-  const showVpnBox = document.querySelector(`.show_vpn_${productId}`);
+  const showVpnBox = document.querySelector(`.show_vpn-${onSelectorClass}`);
   const savevpnClass = `savevpn-${vpnId}`;
   const vpnObj = StoreProducts.product[vpnId].variations[10][1];
   const priceVpn = vpnObj.price;
@@ -552,8 +554,8 @@ function changeCheckboxVPN(checkboxId) {
           .replace('AUD', ''),
       );
 
-      if (parentDiv.querySelector(`.show_save_${productId}`)) {
-        parentDiv.querySelector(`.show_save_${productId}`).style.display = 'block';
+      if (parentDiv.querySelector(`.show_save_${onSelectorClass}`)) {
+        parentDiv.querySelector(`.show_save_${onSelectorClass}`).style.display = 'block';
       }
     } else {
       justVpn = parseFloat(
@@ -577,8 +579,8 @@ function changeCheckboxVPN(checkboxId) {
       parentDiv.querySelector(discPriceClass).innerHTML = newPrice;
     }
 
-    if (parentDiv.querySelector(`.price_vpn-${productId}`)) {
-      parentDiv.querySelector(`.price_vpn-${productId}`).innerHTML = justVpn;
+    if (parentDiv.querySelector(`.price_vpn-${onSelectorClass}`)) {
+      parentDiv.querySelector(`.price_vpn-${onSelectorClass}`).innerHTML = justVpn;
     }
   } else {
     // not checked
@@ -590,10 +592,10 @@ function changeCheckboxVPN(checkboxId) {
       fullPrice = Math.round(parseFloat(selectedVariation.price) * 100) / 100;
       newPrice = Math.round(parseFloat(selectedVariation.discount.discounted_price) * 100) / 100;
       save = Math.round(parseFloat(fullPrice) - parseFloat(newPrice));
-      if (parentDiv.querySelector(`.show_save_${productId}`)) {
-        parentDiv.querySelector(`.show_save_${productId}`).style.display = 'block';
+      if (parentDiv.querySelector(`.show_save_${onSelectorClass}`)) {
+        parentDiv.querySelector(`.show_save_${onSelectorClass}`).style.display = 'block';
         /*
-        document.querySelectorAll(`.show_save_${productId}`).forEach(item => {
+        document.querySelectorAll(`.show_save_${onSelectorClass}`).forEach(item => {
           item.style.display = 'block';
         });
         */
@@ -603,8 +605,8 @@ function changeCheckboxVPN(checkboxId) {
       newPrice = fullPrice;
       save = 0;
 
-      if (parentDiv.querySelector(`.show_save_${productId}`)) {
-        parentDiv.querySelector(`.show_save_${productId}`).style.display = 'none';
+      if (parentDiv.querySelector(`.show_save_${onSelectorClass}`)) {
+        parentDiv.querySelector(`.show_save_${onSelectorClass}`).style.display = 'none';
       }
     }
 
@@ -657,31 +659,38 @@ function initSelectors() {
       const prodAlias = productAliases(prodSplit[0].trim());
       const prodUsers = prodSplit[1].trim();
       const prodYears = prodSplit[2].trim();
+      const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
-      fakeSelectorsBottom.innerHTML += `<label for="u_${prodAlias}">Fake Devices for ${prodAlias}: </label>`;
-      const createSelectForDevices = document.createElement('select');
-      createSelectForDevices.id = `u_${prodAlias}`;
-      createSelectForDevices.name = `u_${prodAlias}`;
-      createSelectForDevices.className = `users_${prodAlias}_fake`;
-      document.getElementById('fakeSelectors_bottom').append(createSelectForDevices);
+      if (!document.getElementById(`u_${onSelectorClass}`)) {
+        fakeSelectorsBottom.innerHTML += `<label for="u_${onSelectorClass}">Fake Devices for ${onSelectorClass}: </label>`;
+        const createSelectForDevices = document.createElement('select');
+        createSelectForDevices.id = `u_${onSelectorClass}`;
+        createSelectForDevices.name = `u_${onSelectorClass}`;
+        createSelectForDevices.classList.add(`users_${prodAlias}`);
+        createSelectForDevices.classList.add(`users_${onSelectorClass}_fake`);
+        document.getElementById('fakeSelectors_bottom').append(createSelectForDevices);
+      }
 
-      fakeSelectorsBottom.innerHTML += `<label for="y_${prodAlias}">Fake Years for ${prodAlias}: </label>`;
-      const createSelectForYears = document.createElement('select');
-      createSelectForYears.id = `y_${prodAlias}`;
-      createSelectForYears.name = `y_${prodAlias}`;
-      createSelectForYears.className = `years_${prodAlias}_fake`;
-      document.getElementById('fakeSelectors_bottom').append(createSelectForYears);
+      if (!document.getElementById(`y_${onSelectorClass}`)) {
+        fakeSelectorsBottom.innerHTML += `<label for="y_${onSelectorClass}">Fake Years for ${onSelectorClass}: </label>`;
+        const createSelectForYears = document.createElement('select');
+        createSelectForYears.id = `y_${onSelectorClass}`;
+        createSelectForYears.name = `y_${onSelectorClass}`;
+        createSelectForYears.classList.add(`years_${prodAlias}`);
+        createSelectForYears.classList.add(`years_${onSelectorClass}_fake`);
+        document.getElementById('fakeSelectors_bottom').append(createSelectForYears);
+      }
 
       StoreProducts.initSelector({
         product_id: prodAlias,
-        full_price_class: `oldprice-${prodAlias}`,
-        discounted_price_class: `newprice-${prodAlias}`,
-        price_class: `price-${prodAlias}`,
-        buy_class: `buylink-${prodAlias}`,
+        full_price_class: `oldprice-${onSelectorClass}`,
+        discounted_price_class: `newprice-${onSelectorClass}`,
+        price_class: `price-${onSelectorClass}`,
+        buy_class: `buylink-${onSelectorClass}`,
         selected_users: prodUsers,
         selected_years: prodYears,
-        users_class: `users_${prodAlias}_fake`,
-        years_class: `years_${prodAlias}_fake`,
+        users_class: `users_${onSelectorClass}_fake`,
+        years_class: `years_${onSelectorClass}_fake`,
         extra_params: { pid: getParam('pid') },
 
         onSelectorLoad() {
@@ -731,6 +740,90 @@ function initializeProductsPriceLogic() {
   addEventListenersOnVpnCheckboxes();
 }
 
+function eventOnDropdownSlider2() {
+  document.querySelectorAll('.dropdownSlider').forEach((slider) => {
+    const titles = slider.querySelectorAll('.title');
+    
+    titles.forEach((item, key) => {
+      // Set the first item as active by default
+      if (key === 0) {
+        item.parentNode.classList.add('active');
+      }
+      
+      item.addEventListener('click', () => {
+        titles.forEach((title) => title.parentNode.classList.remove('active'));
+        item.parentNode.classList.add('active');
+      });
+    });
+  });
+}
+
+
+function eventOnDropdownSlider() {
+  document.querySelectorAll('.dropdownSlider').forEach((slider) => {
+    const titles = slider.querySelectorAll('.title');
+    const loadingBars = slider.querySelectorAll('.loading-bar');
+    let activeIndex = 0;
+    let interval;
+
+    function moveToNextItem() {
+      titles.forEach((title, index) => {
+        if (index === activeIndex) {
+          title.parentNode.classList.add('active');
+          showLoadingBar(index);
+        } else {
+          title.parentNode.classList.remove('active');
+        }
+      });
+
+      activeIndex = (activeIndex + 1) % titles.length; // Move to the next item and handle wrapping
+    }
+
+    function startAutomaticMovement() {
+      interval = setInterval(moveToNextItem, 4000); // Set the interval
+    }
+
+    function stopAutomaticMovement() {
+      clearInterval(interval); // Clear the interval
+    }
+
+    function showLoadingBar(index) {
+      const loadingBar = loadingBars[index];
+      loadingBar.style.width = '0';
+      let width = 0;
+      const interval = setInterval(() => {
+        width += 1;
+        loadingBar.style.width = width + '%';
+        if (width >= 100) {
+          clearInterval(interval);
+        }
+      }, 30); // Adjust the interval for smoother animation
+    }
+
+    // Set the initial active item
+    moveToNextItem();
+
+    // Start automatic movement after the loading is complete
+    setTimeout(() => {
+      startAutomaticMovement();
+    }, 1000);
+
+    // Click event listener on titles
+    titles.forEach((title, index) => {
+      title.addEventListener('click', () => {
+        stopAutomaticMovement(); 
+        activeIndex = index;
+        showLoadingBar(index);
+        moveToNextItem();
+        startAutomaticMovement();
+      });
+    });
+
+  });
+}
+
+
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
@@ -740,6 +833,8 @@ async function loadPage() {
   addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 
   initializeProductsPriceLogic();
+
+  eventOnDropdownSlider();
 
   loadDelayed();
 }
