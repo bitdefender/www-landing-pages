@@ -100,6 +100,7 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
+      console.log(item);
       const prodName = productAliases(productsAsList[idx].split('/')[0]);
       const pricesDiv = document.createElement('div');
       pricesDiv.id = 'pricesBox';
@@ -111,6 +112,8 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<a class="red-buy-button buylink-${prodName}">${buttonText}</a>`;
 
       const renderedProductSection = block.querySelector(`.b-productswithselectors > div:nth-child(${idx + 2})`);
+      console.log(renderedProductSection);
+      renderedProductSection.setAttribute('data-testid', 'prod_box');
       renderedProductSection.querySelector('ul').after(pricesDiv);
     });
   }
