@@ -297,7 +297,6 @@ main .default-content-wrapper h1, main .default-content-wrapper h2 {
 }
 
 main .default-content-wrapper {
-  text-align: center;
   padding-top: 2rem;
   padding-left: 15px;
   padding-right: 15px;
@@ -325,6 +324,15 @@ main .default-content-wrapper img {
   margin-top: 2rem;
 }
 
+.section .default-content-wrapper h4 {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #000;
+  font-family: roboto, sans-serif;
+  margin-bottom: 10px;
+}
+
 .topHeader .heading {
   font-size: 13px;
   text-transform: uppercase;
@@ -340,11 +348,23 @@ main .default-content-wrapper img {
   line-height: 1.2;
 }
 
-@media (width >= 600px) {
-  /* main .section {
-    padding: 64px 32px;
-  } */
+.section.logos p {
+  color: #3c3c3c;
+  font-size: 18px;
+  margin-bottom: 2em;
+  text-align: left;
 }
+
+.section.logos p:last-of-type {
+  text-align: center;
+}
+
+.section.logos p:last-of-type img {
+  max-height: 90pt;
+  max-width: 15%;
+  margin: 0 2%;
+}
+
 @media (width >= 900px) {
   .section > div {
     max-width: 1200px;
@@ -386,9 +406,10 @@ main .section.highlight {
   margin: 2px 0;
 }
 
-.prod-percent {
+.prod_box .prod-percent {
   visibility: hidden;
 }
+
 .prod-percent.green_bck_circle.bigger span {
   display: block;
   line-height: 21px;
@@ -617,39 +638,6 @@ main .section.highlight {
   margin-bottom: 10px;
 }
 
-@keyframes placeHolderShimmer {
-  0% {
-    background-position: -468px 0;
-  }
-  100% {
-    background-position: 468px 0;
-  }
-}
-
-.awaitLoader {
-  position: relative;
-  cursor: wait!important;
-}
-.awaitLoader:before {
-  content: '';
-  animation-duration: 1.25s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: placeHolderShimmer;
-  animation-timing-function: linear;
-  background: #F6F6F6;
-  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
-  background-size: 800px 104px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  opacity: 0.8;
-  border-radius: 5px;
-  z-index: 9;
-}
-
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
@@ -731,25 +719,11 @@ main .section.highlight {
     line-height: 30px;
     margin-top: 10px;
   }
-  @keyframes placeHolderShimmer {
-    0% {
-      background-position: -468px 0;
-    }
-    100% {
-      background-position: 468px 0;
-    }
+  .section.logos h4 {
+    font-size: 30px;
+    line-height: 32px;
   }
-
-  .loaderBck {
-    animation-duration: 1.25s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: placeHolderShimmer;
-    animation-timing-function: linear;
-    background: #F6F6F6;
-    background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
-    background-size: 800px 104px;
-    height: 96px;
-    position: relative;
+  .section.logos p:last-of-type img {
+    max-width: 43%;
   }
-} 
+}

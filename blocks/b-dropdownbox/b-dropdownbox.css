@@ -87,6 +87,191 @@
   transform: rotate(180deg);
 }
 
+.b-dropdownbox-container .default-content-wrapper h5 {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #000;
+  font-family: roboto, sans-serif;
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.b-dropdownbox-container .new {
+  padding: 0 0 2em 2em;
+  cursor: pointer;
+  box-shadow: 0 3px 8px 0 #E5E5E5;
+  position: relative;
+  border-radius: 10px;
+  margin-bottom: 1em;
+  z-index: 3;
+}
+
+.b-dropdownbox-container .b-dropdownbox-wrapper {
+  position: relative;
+}
+
+.b-dropdownbox-container > div:nth-child(2) .new::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -56px;
+  width: 196px;
+  height: 90pt;
+  background: url("../../images/patter_grid_blue.png") no-repeat;
+  z-index: -1;
+}
+
+.b-dropdownbox-container .new div:nth-child(1) {
+  background-color: white;
+  padding-top: 2em;
+  padding-right: 2em;
+}
+
+.b-dropdownbox-container .new > div:not(:first-child) {
+  display: block;
+}
+
+.b-dropdownbox-container .new.inactive > div:not(:first-child) {
+  display: none;
+}
+
+.b-dropdownbox-container .new.closed > div:not(:first-child) {
+  display: none;
+}
+
+.b-dropdownbox-container .new.closed.inactive > div:not(:first-child) {
+  display: block;
+}
+
+.b-dropdownbox-container .new > div:nth-child(1) > div {
+  background: transparent;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #000;
+  padding: 0;
+  position: relative;
+}
+
+.b-dropdownbox-container .new > div:nth-child(1) > div::before {
+  display: none;
+}
+
+.b-dropdownbox-container .new > div:nth-child(1) > div::after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  right: 15px;
+  width: 10px;
+  height: 10px;
+  border: solid #c5c5c5;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transition: top 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+
+.b-dropdownbox-container .new > div:not(:first-child) > div:first-child {
+  padding: 0;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  color: #3c3c3c;
+}
+
+.b-dropdownbox-container .new > div:not(:first-child) > div:first-child a {
+  color: #006eff;
+}
+
+.b-dropdownbox-container.slider .new > div:not(:first-child) p {
+  text-align: center;
+}
+.b-dropdownbox-container.slider .new > div:not(:first-child) p img {
+  width: 300px;
+}
+
+.b-dropdownbox-container.dropdownSlider {
+  position: relative;
+}
+.b-dropdownbox-container.dropdownSlider::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: -45px;
+  width: 196px;
+  height: 90pt;
+  background: url("../../images/patter_grid_blue.png") no-repeat;
+  z-index: 1;
+}
+.b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper {
+  position: initial;
+}
+.b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .title {
+  padding: 1em;
+  cursor: pointer;
+  box-shadow: 0 3px 8px 0 #E5E5E5;
+  position: relative;
+  border-radius: 10px;
+  margin-bottom: 1em;
+  z-index: 3;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #000;
+}
+.b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .title::after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  right: 15px;
+  width: 10px;
+  height: 10px;
+  border: solid #c5c5c5;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transition: top 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+.b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .title .loading-bar {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: #006eff;
+}
+.b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .description {
+  position: absolute;
+  top: 13%;
+  right: 0;
+  padding-left: 5%;
+  display: none;
+  background-color: white;
+  z-index: 2;
+}
+.b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .active .title::after {
+  border-color: #006eff;
+  transform: rotate(225deg);
+  top: 11px;
+}
+.b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .active .title .loading-bar {
+  display: block;
+}
+.b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .active .description {
+  display: block;
+}
+
 /* for mobile */
 @media (width <= 768px) {
   .b-dropdownbox-container {
@@ -120,5 +305,23 @@
   }
   .b-dropdownbox-container .block.has2divs > div:not(:first-child) > div:not(:first-child) {
     width: 100%;
+  }
+  .b-dropdownbox-container .default-content-wrapper h5 {
+    font-size: 30px;
+    line-height: 32px;
+  }
+  .b-dropdownbox-container .new {
+    padding: 15px;
+  }
+  .b-dropdownbox-container .new p {
+    font-size: 15px;
+  }
+  .b-dropdownbox-container .new div:nth-child(1) {
+    padding-top: 0;
+    padding-right: 0;
+  }
+  .b-dropdownbox-container .new div:nth-child(1) > div {
+    font-size: 18px;
+    line-height: 24px;
   }
 }

@@ -16,7 +16,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  margin-top: 2em;
+  margin-top: 5em;
 }
 
 .b-banner-container h1 {
@@ -33,6 +33,12 @@
   max-width: 595px;
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.b-banner-container .smaller-text h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 1em 0;
 }
 
 .b-banner-container .w-full h1, .b-banner-container .w-full h2 {
@@ -97,6 +103,7 @@
   .b-banner-container .b-banner-wrapper {
     position: relative;
     padding-left: 0;
+    margin: 15px;
   }
 
   .b-banner-container img {

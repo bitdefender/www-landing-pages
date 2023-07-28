@@ -310,7 +310,6 @@ main .default-content-wrapper h1, main .default-content-wrapper h2 {
 }
 
 main .default-content-wrapper {
-  text-align: center;
   padding-top: 2rem;
   padding-left: 15px;
   padding-right: 15px;
@@ -338,6 +337,15 @@ main .default-content-wrapper img {
   margin-top: 2rem;
 }
 
+.section .default-content-wrapper h4 {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #000;
+  font-family: roboto, sans-serif;
+  margin-bottom: 10px;
+}
+
 .topHeader .heading {
   font-size: 13px;
   text-transform: uppercase;
@@ -353,10 +361,21 @@ main .default-content-wrapper img {
   line-height: 1.2;
 }
 
-@media (width >=  600px) {
-  /* main .section {
-    padding: 64px 32px;
-  } */
+.section.logos p {
+  color: #3c3c3c;
+  font-size: 18px;
+  margin-bottom: 2em;
+  text-align: left;
+}
+
+.section.logos p:last-of-type {
+  text-align: center;
+}
+
+.section.logos p:last-of-type img {
+  max-height: 90pt;
+  max-width: 15%;
+  margin: 0 2%;
 }
 
 @media (width >=  900px) {
@@ -734,5 +753,16 @@ main .section.highlight {
     font-size: 27px;
     line-height: 30px;
     margin-top: 10px;
+  }
+
+  .section.logos {
+    h4 {
+      font-size: 30px;
+      line-height: 32px;
+    }
+
+    p:last-of-type img {
+      max-width: 43%;
+    }
   }
 }
