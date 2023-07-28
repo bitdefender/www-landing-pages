@@ -16,16 +16,6 @@
   color: #000;
   margin: 10px 0 20px;
 }
-.b-productswithinputdevices > div:nth-child(1) table {
-  text-align: center;
-  margin: 10px auto;
-}
-.b-productswithinputdevices > div:nth-child(1) table p strong {
-  font: normal normal bold 13px/15px Roboto, sans-serif;
-}
-.b-productswithinputdevices > div:nth-child(1) table p strong em {
-  font: normal normal bold 13px/15px Roboto, sans-serif;
-}
 .b-productswithinputdevices > div:nth-child(1) p {
   margin: 0 !important;
   padding: 0;
@@ -36,6 +26,16 @@
 .b-productswithinputdevices > div:nth-child(1) p strong {
   font: normal normal bold 18px/21px Roboto, sans-serif;
   color: #000;
+}
+.b-productswithinputdevices > div:nth-child(1) table {
+  text-align: center;
+  margin: 10px auto;
+}
+.b-productswithinputdevices > div:nth-child(1) table p strong {
+  font: normal normal bold 13px/15px Roboto, sans-serif;
+}
+.b-productswithinputdevices > div:nth-child(1) table p strong em {
+  font: normal normal bold 13px/15px Roboto, sans-serif;
 }
 .b-productswithinputdevices > div:nth-child(2) {
   display: flex;

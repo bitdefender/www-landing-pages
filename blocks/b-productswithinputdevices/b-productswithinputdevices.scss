@@ -19,6 +19,19 @@
       margin: 10px 0 20px;
     }
 
+    p {
+      margin: 0!important;
+      padding: 0;
+      font: normal normal normal 13px/15px Roboto, sans-serif;
+      color: #000;
+      margin-bottom: 10px;
+
+      strong {
+        font: normal normal bold 18px/21px Roboto, sans-serif;
+        color: #000;
+      }
+    }
+
     table {
       text-align: center;
       margin: 10px auto;
@@ -34,20 +47,6 @@
       }
     }
 
-    p {
-      margin: 0!important;
-      padding: 0;
-      font: normal normal normal 13px/15px Roboto, sans-serif;
-      color: #000;
-      margin-bottom: 10px;
-
-      strong {
-        font: normal normal bold 18px/21px Roboto, sans-serif;
-        color: #000;
-      }
-    }
-
-    
   }
 
   > div:nth-child(2) {
