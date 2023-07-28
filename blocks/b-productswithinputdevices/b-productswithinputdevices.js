@@ -87,7 +87,6 @@ export default function decorate(block) {
         if (tableElMailboxes) {
           tableElMailboxes.innerText = Math.ceil((currentdevices / 100) * 150);
         }
-
       });
     });
 
