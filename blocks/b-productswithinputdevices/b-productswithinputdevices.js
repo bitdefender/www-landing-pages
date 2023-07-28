@@ -46,14 +46,16 @@ export default function decorate(block) {
     const inputFieldset = document.createElement('fieldset');
     inputFieldset.classList = 'd-flex';
     inputFieldset.innerHTML += '<button>-</button>';
+    inputFieldset.innerHTML += '<label for="devicesInput" style="display: none;">Number of Devices</label>';
     inputFieldset.innerHTML += '<input type="number" name="devicesInput" min=5" max="100" value="10" id="devicesInput">';
     inputFieldset.innerHTML += '<button>+</button>';
     // add fieldset
-    block.querySelector('.b-productswithinputdevices > div:nth-child(1) > div').after(inputFieldset);
+    const tableEl = block.querySelector('.b-productswithinputdevices > div:nth-child(1) table');
+    tableEl.before(inputFieldset);
 
     // add event listeners
     const devicesInput = document.getElementById('devicesInput');
-    const prodiId = productsAsList[0].split('/')[0];
+    const prodiId = productAliases(productsAsList[0].split('/')[0]);
 
     block.querySelectorAll('fieldset button').forEach((item) => {
       item.addEventListener('click', () => {
@@ -68,6 +70,7 @@ export default function decorate(block) {
           devicesInput.value = (currentdevices).toString();
         }
 
+        // trigger selectior
         const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
         if (devicesSelector) {
           devicesSelector.forEach((selector) => {
@@ -75,6 +78,16 @@ export default function decorate(block) {
             selector.dispatchEvent(new Event('change'));
           });
         }
+
+        const tableElServers = tableEl.querySelector('strong:nth-child(1) em');
+        if (tableElServers) {
+          tableElServers.innerText = Math.ceil((currentdevices / 100) * 35);
+        }
+        const tableElMailboxes = tableEl.querySelector('strong:nth-child(3) em');
+        if (tableElMailboxes) {
+          tableElMailboxes.innerText = Math.ceil((currentdevices / 100) * 150);
+        }
+
       });
     });
 

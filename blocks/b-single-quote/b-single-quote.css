@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+.b-single-quote-container {
+  padding: 0 !important;
+}
+
 .b-single-quote-container > .b-single-quote-wrapper {
   max-width: 100%;
   overflow: hidden;

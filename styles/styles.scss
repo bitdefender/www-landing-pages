@@ -310,7 +310,6 @@ main .default-content-wrapper h1, main .default-content-wrapper h2 {
 }
 
 main .default-content-wrapper {
-  text-align: center;
   padding-top: 2rem;
   padding-left: 15px;
   padding-right: 15px;
@@ -338,6 +337,15 @@ main .default-content-wrapper img {
   margin-top: 2rem;
 }
 
+.section .default-content-wrapper h4 {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #000;
+  font-family: roboto, sans-serif;
+  margin-bottom: 10px;
+}
+
 .topHeader .heading {
   font-size: 13px;
   text-transform: uppercase;
@@ -351,16 +359,6 @@ main .default-content-wrapper img {
   color: #172462;
   font-weight: 600;
   line-height: 1.2;
-}
-
-.section.logos h4 {
-  font-size: 40px;
-  line-height: 1.2;
-  font-weight: 500;
-  color: #000;
-  font-family: roboto, sans-serif;
-  margin-bottom: 22px;
-  text-align: left;
 }
 
 .section.logos p {

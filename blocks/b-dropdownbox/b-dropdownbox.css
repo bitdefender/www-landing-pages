@@ -100,8 +100,7 @@
 .b-dropdownbox-container .new {
   padding: 0 0 2em 2em;
   cursor: pointer;
-  -webkit-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 8px 0 #E5E5E5;
   position: relative;
   border-radius: 10px;
   margin-bottom: 1em;
@@ -119,7 +118,7 @@
   right: -56px;
   width: 196px;
   height: 90pt;
-  background: url(https://www.bitdefender.com/content/dam/bitdefender/patter_grid_blue.png) no-repeat;
+  background: url("../../images/patter_grid_blue.png") no-repeat;
   z-index: -1;
 }
 
@@ -171,9 +170,7 @@
   height: 10px;
   border: solid #c5c5c5;
   border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  -webkit-transition: top 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
   transition: top 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
   transition: top 0.3s ease-in-out, transform 0.3s ease-in-out;
   transition: top 0.3s ease-in-out, transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
@@ -209,7 +206,7 @@
   right: -45px;
   width: 196px;
   height: 90pt;
-  background: url(https://www.bitdefender.com/content/dam/bitdefender/patter_grid_blue.png) no-repeat;
+  background: url("../../images/patter_grid_blue.png") no-repeat;
   z-index: 1;
 }
 .b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper {
@@ -218,8 +215,7 @@
 .b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .title {
   padding: 1em;
   cursor: pointer;
-  -webkit-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 8px 0 #E5E5E5;
   position: relative;
   border-radius: 10px;
   margin-bottom: 1em;
@@ -241,9 +237,7 @@
   height: 10px;
   border: solid #c5c5c5;
   border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  -webkit-transition: top 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
   transition: top 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
   transition: top 0.3s ease-in-out, transform 0.3s ease-in-out;
   transition: top 0.3s ease-in-out, transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
@@ -268,7 +262,6 @@
 }
 .b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .active .title::after {
   border-color: #006eff;
-  -webkit-transform: rotate(225deg);
   transform: rotate(225deg);
   top: 11px;
 }

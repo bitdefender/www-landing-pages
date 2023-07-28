@@ -1,39 +1,49 @@
 /* .b-productswithinputdevices */
 .b-productswithinputdevices {
   background: #e3f1ff;
-  color: #666666;
+  color: #666;
   height: auto;
   padding: 2em 20px;
   border-radius: 8px;
   margin: 3em 0;
 }
 .b-productswithinputdevices > div:nth-child(1) h3 {
-  font: normal normal bold 24px/24px Roboto;
-  color: #000000;
+  font: normal normal bold 24px/24px Roboto, sans-serif;
+  color: #000;
 }
 .b-productswithinputdevices > div:nth-child(1) h4 {
-  font: normal normal normal 36px/42px Roboto;
-  color: #000000;
+  font: normal normal normal 36px/42px Roboto, sans-serif;
+  color: #000;
   margin: 10px 0 20px;
+}
+.b-productswithinputdevices > div:nth-child(1) table {
+  text-align: center;
+  margin: 10px auto;
+}
+.b-productswithinputdevices > div:nth-child(1) table p strong {
+  font: normal normal bold 13px/15px Roboto, sans-serif;
+}
+.b-productswithinputdevices > div:nth-child(1) table p strong em {
+  font: normal normal bold 13px/15px Roboto, sans-serif;
 }
 .b-productswithinputdevices > div:nth-child(1) p {
   margin: 0 !important;
   padding: 0;
-  font: normal normal normal 13px/15px Roboto;
-  color: #000000;
+  font: normal normal normal 13px/15px Roboto, sans-serif;
+  color: #000;
   margin-bottom: 10px;
 }
 .b-productswithinputdevices > div:nth-child(1) p strong {
-  font: normal normal bold 18px/21px Roboto;
-  color: #000000;
+  font: normal normal bold 18px/21px Roboto, sans-serif;
+  color: #000;
 }
 .b-productswithinputdevices > div:nth-child(2) {
   display: flex;
   justify-content: center;
 }
 .b-productswithinputdevices > div:nth-child(2) > div {
-  background: #FFFFFF 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+  background: #FFF 0% 0% no-repeat padding-box;
+  box-shadow: 0 3px 6px #cacaca;
   border-radius: 10px;
   width: 285px;
   margin: 10px;
@@ -47,13 +57,13 @@
   margin: 0;
 }
 .b-productswithinputdevices > div:nth-child(2) > div p:first-of-type {
-  font: normal normal normal 18px/21px Roboto;
-  color: #000000;
+  font: normal normal normal 18px/21px Roboto, sans-serif;
+  color: #000;
 }
 .b-productswithinputdevices > div:nth-child(2) > div b {
-  font: normal normal bold 18px/21px Roboto;
-  color: #000000;
-  border-bottom: 1px solid #CCCCCC;
+  font: normal normal bold 18px/21px Roboto, sans-serif;
+  color: #000;
+  border-bottom: 1px solid #CCC;
   margin-bottom: 0.8em;
   padding-bottom: 0.6em;
   display: block;
@@ -61,11 +71,11 @@
 .b-productswithinputdevices .prod-newprice {
   color: #111;
   display: block;
-  font: normal normal bold 32px/38px Roboto;
+  font: normal normal bold 32px/38px Roboto, sans-serif;
 }
 .b-productswithinputdevices .prod-oldprice {
-  font: normal normal normal 18px/21px Roboto;
-  color: #999999;
+  font: normal normal normal 18px/21px Roboto, sans-serif;
+  color: #999;
   width: 100%;
   text-decoration: none;
 }
@@ -74,10 +84,10 @@
   margin-left: 3px;
 }
 .b-productswithinputdevices .prod-save {
-  font: normal normal bold 16px/19px Roboto;
+  font: normal normal bold 16px/19px Roboto, sans-serif;
   padding: 2px 0;
   border-radius: 18px;
-  background: rgba(44, 180, 61, 0.2);
+  background: #D5F0D8;
   font-size: 1pc;
   font-weight: 700;
   line-height: 1.5;
@@ -122,11 +132,11 @@
   height: 34px;
   border-left: 0;
   border-right: 0;
-  padding: 5px 0px 5px 10px;
+  padding: 5px 0 5px 10px;
   background: transparent;
   outline: none;
   user-select: none;
-  border: 1px solid #CCCCCC;
+  border: 1px solid #CCC;
   border-top: 0 none;
   border-bottom: 0 none;
   margin: 0 10px;
@@ -136,15 +146,15 @@
 @media (width <= 768px) {
   .b-productswithinputdevices {
     background: #e3f1ff;
-    color: #666666;
+    color: #666;
     height: auto;
     padding: 1em 15px;
     border-radius: 8px;
     margin: 1em 0;
   }
   .b-productswithinputdevices > div:nth-child(1) h4 {
-    font: normal normal normal 24px/28px Roboto;
-    color: #000000;
+    font: normal normal normal 24px/28px Roboto, sans-serif;
+    color: #000;
     margin: 10px 0;
   }
   .b-productswithinputdevices > div:nth-child(2) {

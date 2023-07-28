@@ -23,11 +23,6 @@
   position: relative;
 }
 
-.c-dropdownbox-container .block.closed > div:not(:nth-child(1)) {
-  display: none;
-}
-
-/* grey tbs */
 .c-dropdownbox-container .block > div:first-of-type {
   padding: 0;
 }
@@ -41,6 +36,11 @@
   background-color: #fefcfc;
 }
 
+.c-dropdownbox-container .block.closed > div:not(:nth-child(1)) {
+  display: none;
+}
+
+/* grey tbs */
 .c-dropdownbox-container .block.inactive > div:not(:nth-child(1)) {
   display: flex;
 }
