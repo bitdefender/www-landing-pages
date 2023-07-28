@@ -16,6 +16,19 @@
   background-color: unset;
 }
 
+.c-progress-section-container {
+  &.bg-white {
+    background-color: white;
+  }
+
+  &.blue-bar {
+
+    .progress-bar--first{
+      background: #006EFF;
+    }
+  }
+}
+
 .c-progress-section-container .progress-bar {
   background: #d6d6d6;
   text-align: left;
