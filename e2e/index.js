@@ -13,7 +13,7 @@ const landingPagesTestSuiteId = '64be463282bf299ccb6b9341';
   function showFullLogs(isTestSuitePassing, results) {
     isTestSuitePassing ? logSuccess('Test suite passed !') : logError('Test suite failed !');
 
-    results.forEach((testResult, index) => {
+    [results].forEach((testResult, index) => {
       const { passing, name, _id } = testResult;
 
       const title = `${index + 1}.[${passing ? 'PASSED' : 'FAILED'}] ${name}`
@@ -32,11 +32,13 @@ const landingPagesTestSuiteId = '64be463282bf299ccb6b9341';
   }
 
   try {
-    const [results, passing] = await GhostInspector.executeSuite(
-      landingPagesTestSuiteId, { immediate: 0 }
+    const [result, passing] = await GhostInspector.executeTest(
+      '64c608336f03cb8cdb7d955b', { startUrl: `https://${process.env.BRANCH_NAME}--helix-poc--enake.hlx.page/business/de/mr-summer-ready-july-2023` }
     );
 
-    showFullLogs(passing, results);
+    // console.log('results', result);
+
+    showFullLogs(passing, result);
   } catch (err) {
     process.exit(1);
   }

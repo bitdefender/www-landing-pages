@@ -14,9 +14,16 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run test:unit
+
+      # Dynamically extract the branch name from GITHUB_REF
+      - name: Get Branch Name
+        id: extract_branch_name
+        run: echo "BRANCH_NAME=${GITHUB_REF/refs\/heads\//}" >> $GITHUB_ENV
+
       - run: npm run test:e2e
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
       - run: npm run compile-sass
         env:
           CI: true
