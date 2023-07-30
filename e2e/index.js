@@ -3,6 +3,7 @@ const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 const landingPagesTestSuiteId = '64be463282bf299ccb6b9341';
 
 (async () => {
+  console.log('process.env.BRANCH_NAME', process.env.BRANCH_NAME);
   function logError(message) {
     console.log('\x1b[31m%s\x1b[0m', message);
   }
