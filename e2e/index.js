@@ -14,9 +14,9 @@ const testId = '64c608336f03cb8cdb7d955b';
     allTestsPassing ? logSuccess('All tests passed !') : logError('Some tests failed !');
 
     results.forEach(([testResult, passing], index) => {
-      const { name, test: { _id } } = testResult;
+      const { startUrl, test: { _id } } = testResult;
 
-      const title = `${index + 1}.[${passing ? 'PASSED' : 'FAILED'}] ${name}`
+      const title = `${index + 1}.[${passing ? 'PASSED' : 'FAILED'}] ${startUrl}`
 
       if (passing) {
         logSuccess(title)
