@@ -2,12 +2,11 @@ require('dotenv').config();
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
 (async () => {
-  // execute a test
   try {
-    const [results, passing, screenshotPassing] = await GhostInspector.executeTest(
-      '64be47dcca40d9f691783152',
+    const [results, passing, screenshotPassing] = await GhostInspector.executeSuite(
+      '64be463282bf299ccb6b9341', { immediate: 0 }
     );
-    console.log('Passing: ', passing);
+    console.log('Landing pages passing: ', passing);
     if (!passing) {
       process.exit(1);
     }
