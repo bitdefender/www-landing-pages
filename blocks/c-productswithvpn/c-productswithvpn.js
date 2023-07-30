@@ -91,12 +91,14 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
-      const prodName = productAliases(productsAsList[idx].split('/')[0]);
+      const prodSplit = productsAsList[idx].split('/');
+      const [prodName, prodUsers, prodYears] = [productAliases(prodSplit[0]), prodSplit[1], prodSplit[2]];
+      const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
 
       const pricesDiv = document.createElement('div');
       pricesDiv.classList = 'prices_box awaitLoader prodLoad';
-      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${prodName}"></span>`;
-      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${prodName}"></span>`;
+      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
 
       block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table`).after(pricesDiv);
 
@@ -119,8 +121,8 @@ export default function decorate(block) {
       const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
 
       const aBuybtn = document.createElement('a');
-      aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${prodName}"></span>`);
-      aBuybtn.className = `red-buy-button buylink-${prodName} awaitLoader prodLoad`;
+      aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
+      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} awaitLoader prodLoad`;
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
       const divBuybtn = document.createElement('div');
@@ -140,12 +142,12 @@ export default function decorate(block) {
         // table_vpn.className = 'vpn_box'
         // replace in vpn box
         const replaceData = {
-          X: '<span class="newprice-vpn"></span>',
-          Y: '<span class="oldprice-vpn"></span>',
-          Z: '<span class="percent-vpn"></span>',
+          X: '<span class="newprice-vpn-101"></span>',
+          Y: '<span class="oldprice-vpn-101"></span>',
+          Z: '<span class="percent-vpn-101"></span>',
         };
 
-        let labelId = `checkboxVPN-${prodName}`;
+        let labelId = `checkboxVPN-${onSelectorClass}`;
         if (document.getElementById(labelId)) {
           labelId = `${labelId}-1`;
         }
@@ -175,7 +177,7 @@ export default function decorate(block) {
 
       // add prod class on block
       const priceBoxSelector = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1})`);
-      priceBoxSelector.classList.add(`${prodName}_box`, 'prod_box');
+      priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
     });
   }
