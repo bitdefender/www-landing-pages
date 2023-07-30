@@ -18,7 +18,7 @@ jobs:
       # Dynamically extract the branch name from GITHUB_REF
       - name: Get Branch Name
         id: extract_branch_name
-        run: echo "BRANCH_NAME=${GITHUB_REF/refs\/heads\//}" >> $GITHUB_ENV
+        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
 
       - run: npm run test:e2e
         env:
