@@ -34,8 +34,6 @@ export default function decorate(block) {
     titlePosition,
     products,
     bulinaText,
-    borderColor,
-    checkmarkType,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -180,24 +178,5 @@ export default function decorate(block) {
       // add prod class on block
       block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1})`).classList.add(`${onSelectorClass}_box`, 'prod_box');
     });
-
-    // change border color of the primary product
-    if (typeof borderColor !== 'undefined') {
-      const border = document.querySelector('.c-productswithvpn > div:nth-child(1)');
-      border.style.borderColor = borderColor;
-      const tag = document.querySelector('.c-productswithvpn > div div.green_tag');
-      tag.style.backgroundColor = borderColor;
-    }
-
-    // change border color of the primary product
-    if (typeof checkmarkType !== 'undefined') {
-      const listElements = block.querySelectorAll('.c-productswithvpn > div ul li ');
-
-      if (checkmarkType === 'full_circle') {
-        listElements.forEach((listElement) => {
-          listElement.classList.add('check-full');
-        });
-      }
-    }
   }
 }
