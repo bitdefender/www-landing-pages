@@ -161,6 +161,12 @@
     font-size: 14px;
   }
 
+  .b-productswithselectors.has3prods > div:not(:first-child) p:first-of-type u {
+    padding: 5px;
+    top: -27px;
+    font-size: 12px;
+  }
+
   .b-productswithselectors > div:nth-child(1) {
     width: 100%;
     margin-bottom: 4em !important;
@@ -186,6 +192,47 @@
     font-size: 14px;
     line-height: 19px;
     margin-bottom: 6px;
+  }
+
+  .b-productswithselectors.has3prods {
+    > div:not(:first-child) {
+      width: 31%;
+
+      h3 {
+        font-size: 12px;
+        line-height: 13px;
+      }
+
+      h4 {
+        font-size: 14px;
+      }
+
+      ul li {
+        font-size: 12px;
+        line-height: 15px;
+        margin-bottom: 5px;
+  
+        &::before {
+          width: 11px;
+          height: 11px;
+        }
+      }
+
+      p:last-of-type {
+        font-size: 12px;
+        line-height: 15px;
+      }
+
+    }
+
+    .prod-newprice {
+      font-size: 20px;
+      line-height: 15px;
+    }
+
+    .prod-taxes {
+      font-size: 10px;
+    }
   }
 
   .b-productswithselectors > div:not(:first-child) p:last-of-type {
