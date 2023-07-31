@@ -15,31 +15,6 @@
         margin: 0;
       }
 
-      em a {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-
-      a, em a {
-        background-color: transparent!important;
-        font-size: 15px!important;
-        font-weight: 600!important;;
-        color: #006eff!important;
-        padding: 0;
-        text-transform: none!important;
-        font-weight: normal!important;
-        padding: 0!important;
-        font-style: normal;
-        border: 0 none!important;
-    
-        &:hover {
-          background: transparent; 
-          text-decoration: underline;
-        }
-      } 
-    
       strong a, a.red-buy-button {
         padding: 10px 0!important;
         font-weight: 600 !important;
@@ -58,11 +33,6 @@
         }
       }
 
-      strong a:hover {
-        color: #fff!important;
-        background-color: #000!important;
-      }
-
       a.red-buy-button {
         background: #e72325 !important;
         color: #fff !important;
@@ -71,18 +41,46 @@
         border: 2px solid #e72325!important;
         margin: 1em 0 10px;
       }
+
+      strong a:hover {
+        color: #fff!important;
+        background-color: #000!important;
+      }
+
+      a, em a {
+        background-color: transparent!important;
+        font-size: 15px!important;
+        color: #006eff!important;
+        text-transform: none!important;
+        font-weight: normal!important;
+        padding: 0!important;
+        font-style: normal;
+        border: 0 none!important;
+    
+        &:hover {
+          background: transparent; 
+          text-decoration: underline;
+        }
+      }
+
+      em a {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
     }
   }
 }
 
 @media (width <= 768px) {
   .b-buybuttons > div {
-    div:first-of-type {
-      display: none;
-    }
-
     div {
       padding-bottom: 2em;
+
+      &:first-of-type {
+        display: none;
+      }
 
       strong a, a.red-buy-button {
         padding: 8px 3%!important;

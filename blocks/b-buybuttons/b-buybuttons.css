@@ -14,28 +14,6 @@
 .b-buybuttons > div div p {
   margin: 0;
 }
-.b-buybuttons > div div em a {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.b-buybuttons > div div a, .b-buybuttons > div div em a {
-  background-color: transparent !important;
-  font-size: 15px !important;
-  font-weight: 600 !important;
-  color: #006eff !important;
-  padding: 0;
-  text-transform: none !important;
-  font-weight: normal !important;
-  padding: 0 !important;
-  font-style: normal;
-  border: 0 none !important;
-}
-.b-buybuttons > div div a:hover, .b-buybuttons > div div em a:hover {
-  background: transparent;
-  text-decoration: underline;
-}
 .b-buybuttons > div div strong a, .b-buybuttons > div div a.red-buy-button {
   padding: 10px 0 !important;
   font-weight: 600 !important;
@@ -52,10 +30,6 @@
 .b-buybuttons > div div strong a:hover, .b-buybuttons > div div a.red-buy-button:hover {
   text-decoration: none !important;
 }
-.b-buybuttons > div div strong a:hover {
-  color: #fff !important;
-  background-color: #000 !important;
-}
 .b-buybuttons > div div a.red-buy-button {
   background: #e72325 !important;
   color: #fff !important;
@@ -64,13 +38,37 @@
   border: 2px solid #e72325 !important;
   margin: 1em 0 10px;
 }
+.b-buybuttons > div div strong a:hover {
+  color: #fff !important;
+  background-color: #000 !important;
+}
+.b-buybuttons > div div a, .b-buybuttons > div div em a {
+  background-color: transparent !important;
+  font-size: 15px !important;
+  color: #006eff !important;
+  text-transform: none !important;
+  font-weight: normal !important;
+  padding: 0 !important;
+  font-style: normal;
+  border: 0 none !important;
+}
+.b-buybuttons > div div a:hover, .b-buybuttons > div div em a:hover {
+  background: transparent;
+  text-decoration: underline;
+}
+.b-buybuttons > div div em a {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
 @media (width <= 768px) {
-  .b-buybuttons > div div:first-of-type {
-    display: none;
-  }
   .b-buybuttons > div div {
     padding-bottom: 2em;
+  }
+  .b-buybuttons > div div:first-of-type {
+    display: none;
   }
   .b-buybuttons > div div strong a, .b-buybuttons > div div a.red-buy-button {
     padding: 8px 3% !important;
