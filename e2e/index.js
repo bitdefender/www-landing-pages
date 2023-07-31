@@ -11,7 +11,8 @@ const testId = '64c608336f03cb8cdb7d955b';
     console.log('\x1b[32m%s\x1b[0m', message);
   }
 
-  function showFullLogs(areAllTestsPassing, testResults) {
+  function showFullLogs(testResults) {
+    const areAllTestsPassing = testResults.every(([res, passing]) => passing === true);
     areAllTestsPassing ? logSuccess('All tests passed !') : logError('Some tests failed !');
 
     testResults.forEach(([testResult, passing], index) => {
@@ -22,9 +23,8 @@ const testId = '64c608336f03cb8cdb7d955b';
       if (passing) {
         logSuccess(title)
       } else {
-        // console.log('testResult', testResult);
         logError(title);
-        console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id}`);
+        console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id}`, testResult.variables);
       }
     });
 
@@ -56,9 +56,7 @@ const testId = '64c608336f03cb8cdb7d955b';
 
     const result = await Promise.all(promises);
 
-    const areAllTestsPassing = result.every(([res, passing]) => passing === true);
-
-    showFullLogs(areAllTestsPassing, result);
+    showFullLogs(result);
   } catch (err) {
     console.error(err);
     process.exit(1);
