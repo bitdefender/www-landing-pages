@@ -34,7 +34,7 @@ const testId = '64c608336f03cb8cdb7d955b';
   }
 
   try {
-    const response = await fetch('https://main--helix-poc--enake.hlx.page/active-landingpages.json');
+    const response = await window.fetch('https://main--helix-poc--enake.hlx.page/active-landingpages.json');
 
     const activeLandingpages = await response.json();
 
