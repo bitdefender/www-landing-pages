@@ -1,9 +1,5 @@
-import { getDatasetFromSection } from '../../scripts/utils.js';
-
 export default function decorate(block) {
   const [richTextEl, pictureEl] = [...block.children];
-
-  const metadata = getDatasetFromSection(block);
 
   block.innerHTML = `
       <div class="container-fluid pt-lg-5">
