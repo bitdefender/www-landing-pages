@@ -14,11 +14,6 @@
 .b-buybuttons > div div p {
   margin: 0;
 }
-.b-buybuttons > div div strong a:hover {
-  color: #fff !important;
-  background-color: #000 !important;
-  text-decoration: none !important;
-}
 .b-buybuttons > div div em a {
   position: absolute;
   bottom: 0;
@@ -34,10 +29,6 @@
   padding: 0 !important;
   font-style: normal;
   border: 0 none !important;
-}
-.b-buybuttons > div div a:hover, .b-buybuttons > div div em a:hover {
-  background: transparent;
-  text-decoration: underline;
 }
 .b-buybuttons > div div strong a, .b-buybuttons > div div a.red-buy-button {
   padding: 10px 0 !important;
@@ -60,7 +51,16 @@
   border: 2px solid #e72325 !important;
   margin: 1em 0 10px;
 }
+.b-buybuttons > div div a:hover, .b-buybuttons > div div em a:hover {
+  background: transparent;
+  text-decoration: underline;
+}
 .b-buybuttons > div div a.red-buy-button:hover {
+  text-decoration: none !important;
+}
+.b-buybuttons > div div strong a:hover {
+  color: #fff !important;
+  background-color: #000 !important;
   text-decoration: none !important;
 }
 

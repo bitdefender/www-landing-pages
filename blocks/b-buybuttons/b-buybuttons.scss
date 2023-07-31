@@ -15,12 +15,6 @@
         margin: 0;
       }
 
-      strong a:hover {
-        color: #fff!important;
-        background-color: #000!important;
-        text-decoration: none!important;
-      }
-
       em a {
         position: absolute;
         bottom: 0;
@@ -37,11 +31,6 @@
         padding: 0!important;
         font-style: normal;
         border: 0 none!important;
-      }
-
-      a:hover, em a:hover {
-        background: transparent; 
-        text-decoration: underline;
       }
 
       strong a, a.red-buy-button {
@@ -67,9 +56,20 @@
         margin: 1em 0 10px;
       }
 
+      a:hover, em a:hover {
+        background: transparent; 
+        text-decoration: underline;
+      }
+
       a.red-buy-button:hover {
         text-decoration: none!important;
-      }  
+      }
+
+      strong a:hover {
+        color: #fff!important;
+        background-color: #000!important;
+        text-decoration: none!important;
+      }
     }
   }
 }
