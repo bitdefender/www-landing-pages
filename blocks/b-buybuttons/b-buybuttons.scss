@@ -15,13 +15,6 @@
         margin: 0;
       }
 
-      em a {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-
       a, em a {
         background-color: transparent!important;
         font-size: 15px!important;
@@ -31,6 +24,13 @@
         padding: 0!important;
         font-style: normal;
         border: 0 none!important;
+      }
+
+      em a {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
       }
 
       strong a, a.red-buy-button {

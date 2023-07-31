@@ -14,12 +14,6 @@
 .b-buybuttons > div div p {
   margin: 0;
 }
-.b-buybuttons > div div em a {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
 .b-buybuttons > div div a, .b-buybuttons > div div em a {
   background-color: transparent !important;
   font-size: 15px !important;
@@ -29,6 +23,12 @@
   padding: 0 !important;
   font-style: normal;
   border: 0 none !important;
+}
+.b-buybuttons > div div em a {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .b-buybuttons > div div strong a, .b-buybuttons > div div a.red-buy-button {
   padding: 10px 0 !important;
