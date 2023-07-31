@@ -60,6 +60,7 @@ const testId = '64c608336f03cb8cdb7d955b';
 
     showFullLogs(areAllTestsPassing, result);
   } catch (err) {
+    console.error(err);
     process.exit(1);
   }
 })();
