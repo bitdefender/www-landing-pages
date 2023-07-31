@@ -28,7 +28,6 @@ export default function decorate(block) {
     });
   });
 
-  console.log(block.children[2].children)
   const childrenNr = block.children[2].children.length;
   block.classList.add(`has${childrenNr - 1}divs`);
 

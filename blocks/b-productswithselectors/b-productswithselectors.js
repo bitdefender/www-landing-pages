@@ -86,7 +86,6 @@ export default function decorate(block) {
             if (block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong')) {
               block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong').innerHTML = mailboxes;
             }
-            
           }
 
           productsAsList.forEach((prod) => {
@@ -95,7 +94,7 @@ export default function decorate(block) {
             const prodUsers = prodSplit[1];
             const prodYears = prodSplit[2];
             const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
-            console.log(onSelectorClass)
+
             if (document.querySelector(`.${triggerType}_${onSelectorClass}_fake`)) {
               const fakeSelector = document.querySelector(`.${triggerType}_${onSelectorClass}_fake`);
               fakeSelector.value = triggerValue;

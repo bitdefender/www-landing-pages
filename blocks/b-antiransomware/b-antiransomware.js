@@ -11,9 +11,8 @@ export default function decorate(block) {
     </div>
   `;
 
-  const bckImg = document.createElement("div");
+  const bckImg = document.createElement('div');
   bckImg.className = 'bckImg';
-  bckImg.innerHTML = [...imagesWrapperElement.children].map((item) => `${item.children[0].outerHTML}`).join('')
+  bckImg.innerHTML = [...imagesWrapperElement.children].map((item) => `${item.children[0].outerHTML}`).join('');
   block.closest('.section').appendChild(bckImg);
-
 }

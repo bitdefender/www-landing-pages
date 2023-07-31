@@ -5,12 +5,12 @@ export default function decorate(block) {
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
-  const  {products, buttonText} = metaData;
+  const { products, buttonText } = metaData;
   const productsList = products.split(',');
   const allChildren = block.children[0].children;
 
-  for (let i = 1; i <= allChildren.length; i++) {
-    if (typeof productsList[i - 1] !== undefined) {
+  for (let i = 1; i < allChildren.length; i += 1) {
+    if (typeof productsList[i - 1] !== 'undefined') {
       const prodSplit = productsList[i - 1].split('/');
       const prodName = productAliases(prodSplit[0]);
       const prodUsers = prodSplit[1];
