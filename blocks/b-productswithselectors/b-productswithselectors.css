@@ -184,6 +184,11 @@
     line-height: 19px;
     margin-bottom: 6px;
   }
+  .b-productswithselectors > div:not(:first-child) p:last-of-type {
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 10px;
+  }
   .b-productswithselectors.has3prods > div:not(:first-child) {
     width: 31%;
   }
@@ -213,11 +218,6 @@
   }
   .b-productswithselectors.has3prods .prod-taxes {
     font-size: 10px;
-  }
-  .b-productswithselectors > div:not(:first-child) p:last-of-type {
-    font-size: 14px;
-    line-height: 18px;
-    margin-bottom: 10px;
   }
   .b-dropdownbox-container .block > div:not(:first-child) {
     display: block !important;
