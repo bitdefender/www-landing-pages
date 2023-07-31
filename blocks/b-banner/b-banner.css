@@ -54,17 +54,6 @@
   max-width: 595px;
 }
 
-.b-banner-container .b-banner div:nth-child(3) {
-  text-align: center;
-}
-.b-banner-container .b-banner div:nth-child(3) p {
-  color: black;
-  font-size: 12px;
-}
-.b-banner-container .b-banner div:nth-child(3) p :nth-child(1) {
-  font-size: 16px;
-}
-
 .b-banner-container .float-p p {
   display: inline;
 }
@@ -114,14 +103,8 @@
     padding-left: 0;
     margin: 15px;
   }
-  .b-banner-container .b-banner-hero-image {
+  .b-banner-container img {
     display: none;
-  }
-  .b-banner-container .b-banner.d-flex {
-    flex-direction: column;
-  }
-  .b-banner-container .b-banner > div:first-child {
-    padding: 1rem;
   }
   .b-banner-container h1 {
     font-size: 24px;

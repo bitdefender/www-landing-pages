@@ -2,16 +2,62 @@ $rev-cards-grey: #616161;
 $rev-save-box: #68BA68;
 
 .rev-cards {
+    > p:nth-of-type(3) {
+        color: $rev-cards-grey;
+        font-size: 14px;
+    }
+
+    > p:last-child {
+        font-size: 11px;
+        color: $rev-cards-grey;
+        margin-top: 0;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 5px 1em;
+
+        tbody {
+            text-align: left;
+
+            tr {
+                td {
+                    &:first-child {
+                        display: flex;
+                        width: 46px;
+                    }
+
+                    > p:first-child {
+                        margin: 0;
+                        display: flex;
+                        white-space: pre;
+                        font-size: 18px;
+                    }
+
+                    > p:nth-child(2) {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .card-1 {
+        p:nth-of-type(4) {
+            display: inline-block;
+            background-color: #E6F2FE;
+            padding: 5px 15px; 
+            border-radius: 16px;
+            align-self: center;
+        }
+    }
 
     .card {
-        // border: 0;
-        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
+        box-shadow: 0 2px 10px 0 rgb(0 0 0 / 35%);
         border-radius: 8px;
         padding: 15px;
 
          > div:first-child {
-            // box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
-            // border-radius: 8px;
             display: flex;
             flex-direction: column;
         }
@@ -30,14 +76,13 @@ $rev-save-box: #68BA68;
         }
 
         ul {
-
             padding-left: 0;
             flex-grow: 1;
             min-height: 210px;
 
             li {
                 text-align: left;
-                background: url(../../images/icons/check_full.png) 0 3px no-repeat transparent;
+                background: url("../../images/icons/check_full.png") 0 3px no-repeat transparent;
                 list-style-type: none;
                 padding-left: 23px;
                 background-size: 16px;
@@ -54,34 +99,11 @@ $rev-save-box: #68BA68;
         border-bottom-color: $rev-cards-grey;
     }
 
-    > p:nth-of-type(3) {
-        color: $rev-cards-grey;
-        font-size: 14px;
-    }
-
-    .card-1 {
-        
-        p:nth-of-type(4) {
-            display: inline-block;
-            background-color: #E6F2FE;
-            padding: 5px 15px; 
-            border-radius: 16px;
-            align-self: center;
-        }
-    }
-
-    > p:last-child {
-        font-size: 11px;
-        color: $rev-cards-grey;
-        margin-top: 0;
-    }
-
     .prices_box {
-        
         .save-box {
             background-color: $rev-save-box;
             color: white;
-            padding: 0px 5px;
+            padding: 0 5px;
             border-radius: 11px;
             font-size: 12px;
         }
@@ -103,45 +125,11 @@ $rev-save-box: #68BA68;
             font-weight: bold;
         }
     }
-
-    table {
-
-        border-collapse: separate;
-        border-spacing: 5px 1em;
-
-        tbody {
-
-            text-align: left;
-
-            tr {
-
-                td {
-                    &:first-child {
-                        display: flex;
-                        width: 46px;
-                    }
-
-                    > p:first-child {
-                        margin: 0;
-                        display: flex;
-                        white-space: pre;
-                        font-size: 18px;
-                    }
-
-                    > p:nth-child(2) {
-                        margin: 0;
-                    }
-                }
-            }
-        }
-    }
 }
 
 @media screen and (width >= 991px) {
     .rev-cards {
-
         .card {
-
             > div > p:nth-of-type(1) {
                 flex-direction: column;
             }
@@ -156,7 +144,6 @@ $rev-save-box: #68BA68;
         }
 
         .row {
-            
             > div {
                 display: flex;
             }
@@ -166,21 +153,17 @@ $rev-save-box: #68BA68;
 
 @media screen and (width >= 1199px) {
     .rev-cards {
-
         .card {
-
             ul {
                 min-height: 210px;
             }
         }
 
         table {
-
             tbody {
                 display: flex;
                 
                 tr {
-
                     &:nth-child(2) {
                         padding: 0 10px;
                         border-right: 0.5px solid grey;
@@ -192,7 +175,6 @@ $rev-save-box: #68BA68;
                     }
 
                     td {
-
                         > p:first-child {
                             flex-direction: column;
                         }

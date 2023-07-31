@@ -1,3 +1,39 @@
+.rev-cards > p:nth-of-type(3) {
+  color: #616161;
+  font-size: 14px;
+}
+.rev-cards > p:last-child {
+  font-size: 11px;
+  color: #616161;
+  margin-top: 0;
+}
+.rev-cards table {
+  border-collapse: separate;
+  border-spacing: 5px 1em;
+}
+.rev-cards table tbody {
+  text-align: left;
+}
+.rev-cards table tbody tr td:first-child {
+  display: flex;
+  width: 46px;
+}
+.rev-cards table tbody tr td > p:first-child {
+  margin: 0;
+  display: flex;
+  white-space: pre;
+  font-size: 18px;
+}
+.rev-cards table tbody tr td > p:nth-child(2) {
+  margin: 0;
+}
+.rev-cards .card-1 p:nth-of-type(4) {
+  display: inline-block;
+  background-color: #E6F2FE;
+  padding: 5px 15px;
+  border-radius: 16px;
+  align-self: center;
+}
 .rev-cards .card {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
   border-radius: 8px;
@@ -25,7 +61,7 @@
 }
 .rev-cards .card ul li {
   text-align: left;
-  background: url(../../images/icons/check_full.png) 0 3px no-repeat transparent;
+  background: url("../../images/icons/check_full.png") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
@@ -38,26 +74,10 @@
   margin-bottom: 20px;
   border-bottom-color: #616161;
 }
-.rev-cards > p:nth-of-type(3) {
-  color: #616161;
-  font-size: 14px;
-}
-.rev-cards .card-1 p:nth-of-type(4) {
-  display: inline-block;
-  background-color: #E6F2FE;
-  padding: 5px 15px;
-  border-radius: 16px;
-  align-self: center;
-}
-.rev-cards > p:last-child {
-  font-size: 11px;
-  color: #616161;
-  margin-top: 0;
-}
 .rev-cards .prices_box .save-box {
   background-color: #68BA68;
   color: white;
-  padding: 0px 5px;
+  padding: 0 5px;
   border-radius: 11px;
   font-size: 12px;
 }
@@ -73,26 +93,6 @@
 .rev-cards .prices_box .devices {
   font-size: 14px;
   font-weight: bold;
-}
-.rev-cards table {
-  border-collapse: separate;
-  border-spacing: 5px 1em;
-}
-.rev-cards table tbody {
-  text-align: left;
-}
-.rev-cards table tbody tr td:first-child {
-  display: flex;
-  width: 46px;
-}
-.rev-cards table tbody tr td > p:first-child {
-  margin: 0;
-  display: flex;
-  white-space: pre;
-  font-size: 18px;
-}
-.rev-cards table tbody tr td > p:nth-child(2) {
-  margin: 0;
 }
 
 @media screen and (width >= 991px) {

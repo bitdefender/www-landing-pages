@@ -1,6 +1,21 @@
 .c-progress-section-container {
   background: #f2f2f2;
   padding: 30px 10px;
+
+  .progress-bar--first {
+    background: linear-gradient(90deg, rgb(1 14 128) 0%, rgb(0 110 255) 100%);
+    color: white;
+  }
+
+  &.bg-white {
+    background-color: white;
+  }
+
+  &.blue-bar {
+    .progress-bar--first{
+      background: #006EFF;
+    }
+  }
 }
 
 .c-progress-section-container .progress {
@@ -16,30 +31,12 @@
   background-color: unset;
 }
 
-.c-progress-section-container {
-  &.bg-white {
-    background-color: white;
-  }
-
-  &.blue-bar {
-
-    .progress-bar--first{
-      background: #006EFF;
-    }
-  }
-}
-
 .c-progress-section-container .progress-bar {
   background: #d6d6d6;
   text-align: left;
   padding-left: 13px;
   color: black;
   font-weight: 500;
-}
-
-.c-progress-section-container .progress-bar--first {
-  background: linear-gradient(90deg, rgb(1 14 128) 0%, rgb(0 110 255) 100%);
-  color: white;
 }
 
 .c-progress-section-container .progress-number {
