@@ -14,33 +14,16 @@
 .b-buybuttons > div div p {
   margin: 0;
 }
-.b-buybuttons > div div strong a, .b-buybuttons > div div a.red-buy-button {
-  padding: 10px 0 !important;
-  font-weight: 600 !important;
-  color: #000 !important;
-  font-size: 15px !important;
-  min-width: 140px !important;
-  border-radius: 8px;
-  text-align: center;
-  border: 2px solid #000 !important;
-  background-color: transparent;
-  margin: 0;
-  width: auto !important;
-}
-.b-buybuttons > div div strong a:hover, .b-buybuttons > div div a.red-buy-button:hover {
-  text-decoration: none !important;
-}
-.b-buybuttons > div div a.red-buy-button {
-  background: #e72325 !important;
-  color: #fff !important;
-  width: auto;
-  display: inline-block;
-  border: 2px solid #e72325 !important;
-  margin: 1em 0 10px;
-}
 .b-buybuttons > div div strong a:hover {
   color: #fff !important;
   background-color: #000 !important;
+  text-decoration: none !important;
+}
+.b-buybuttons > div div em a {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .b-buybuttons > div div a, .b-buybuttons > div div em a {
   background-color: transparent !important;
@@ -56,11 +39,29 @@
   background: transparent;
   text-decoration: underline;
 }
-.b-buybuttons > div div em a {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.b-buybuttons > div div strong a, .b-buybuttons > div div a.red-buy-button {
+  padding: 10px 0 !important;
+  font-weight: 600 !important;
+  color: #000 !important;
+  font-size: 15px !important;
+  min-width: 140px !important;
+  border-radius: 8px;
+  text-align: center;
+  border: 2px solid #000 !important;
+  background-color: transparent;
+  margin: 0;
+  width: auto !important;
+}
+.b-buybuttons > div div a.red-buy-button {
+  background: #e72325 !important;
+  color: #fff !important;
+  width: auto;
+  display: inline-block;
+  border: 2px solid #e72325 !important;
+  margin: 1em 0 10px;
+}
+.b-buybuttons > div div a.red-buy-button:hover {
+  text-decoration: none !important;
 }
 
 @media (width <= 768px) {
