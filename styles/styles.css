@@ -698,11 +698,8 @@ main .section.highlight {
   main .default-content-wrapper {
     padding-top: 1em;
   }
-  main .default-content-wrapper h1, main .default-content-wrapper h2, main .default-content-wrapper h3 {
+  main .default-content-wrapper h1, main .default-content-wrapper h2 {
     font-size: 23px;
-  }
-  main .default-content-wrapper h4, main .default-content-wrapper h5 {
-    font-size: 20px;
   }
   main .section[data-size=bigger] .default-content-wrapper h1, main .section[data-size=bigger] .default-content-wrapper h2 {
     font-size: 29px;
