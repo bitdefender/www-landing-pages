@@ -34,21 +34,22 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME}--hel
     }
   }
 
+  function snapshotIsPassing({screenshotCompareDifference, screenshotComparePassing}) {
+    return screenshotCompareDifference === null || screenshotComparePassing === true;
+  }
+
   function showSnapshotTestsFullLogs(testResults) {
     const mappedTests = testResults.map(test => test[0]);
-    const areAllTestsPassing =
-      mappedTests.every(({screenshotCompareDifference}) => screenshotCompareDifference === null);
+    const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
 
     mappedTests.forEach((testResult, index) => {
       const {
-        screenshotComparePassing,
-        screenshotCompareDifference,
         variables: { name },
         test: { _id }
       } = testResult;
 
-      const isPassing = screenshotCompareDifference === null || screenshotComparePassing === true;
+      const isPassing = snapshotIsPassing(testResult);
 
       const title = `${index + 1}.[${isPassing ? 'PASSED' : 'FAILED'}] ${name}`
 
@@ -85,7 +86,7 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME}--hel
       });
     });
 
-    const snapshotsPromises = suiteTests.filter((item, idx) => idx < 3).map(({_id, name}) => GhostInspector.executeTest(
+    const snapshotsPromises = suiteTests.map(({_id, name}) => GhostInspector.executeTest(
       _id, {
         name: `Snapshot => ${name}`,
         startUrl: `${featureBranchEnvironmentBaseUrl}/${name}`,
