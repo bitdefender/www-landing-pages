@@ -9,3 +9,4 @@ jest/*
 purgecss.config.js
 babel.config.js
 jest.config.js
+e2e

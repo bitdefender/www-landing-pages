@@ -109,6 +109,7 @@ export default function decorate(block) {
       const pricesDiv = document.createElement('div');
 
       pricesDiv.classList = 'prices_box awaitLoader prodLoad';
+      pricesDiv.setAttribute('data-testid', 'prod_box');
       pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
       pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
