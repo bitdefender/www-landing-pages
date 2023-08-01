@@ -101,7 +101,9 @@ export default function decorate(block) {
       tableVpn.before(vpnDiv);
       tableVpn.remove();
       // add prod class on block
-      block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1})`).classList.add(`${onSelectorClass}_box`, 'prod_box');
+      const priceBoxSelector = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1})`);
+      priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
+      priceBoxSelector.setAttribute('data-testid', 'prod_box');
     });
   }
 }

@@ -37,3 +37,10 @@ The above command will run node `sass-compile.js` in parallel with `hlx up` whic
 1. Install the [Helix CLI](https://github.com/adobe/helix-cli): `npm install -g @adobe/helix-cli`
 1. Start Franklin Proxy: `hlx up` (opens your browser at `http://localhost:3000`)
 1. Open the `{repo}` directory in your favorite IDE and start coding :)
+
+## Testing e2e
+
+If you want to run Ghost Inspector tests from the local machine just create a **.env** file on the root of the project, add the GI_KEY value manually and finally, you can run
+```sh
+npm run test:e2e
+```

@@ -119,6 +119,7 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<a class="red-buy-button buylink-${onSelectorClass}">${buttonText}</a>`;
 
       const renderedProductSection = block.querySelector(`.b-productswithselectors > div:nth-child(${idx + 2})`);
+      renderedProductSection.setAttribute('data-testid', 'prod_box');
       renderedProductSection.querySelector('ul').after(pricesDiv);
     });
   }

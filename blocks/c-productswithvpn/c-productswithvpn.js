@@ -176,7 +176,9 @@ export default function decorate(block) {
       block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:last-of-type`).remove();
 
       // add prod class on block
-      block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1})`).classList.add(`${onSelectorClass}_box`, 'prod_box');
+      const priceBoxSelector = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1})`);
+      priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
+      priceBoxSelector.setAttribute('data-testid', 'prod_box');
     });
   }
 }
