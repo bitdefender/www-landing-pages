@@ -40,9 +40,8 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((product, idx) => {
-      const prodSplit = productsAsList[idx].split('/');
-      const [prodName, prodUsers, prodYears] = [productAliases(prodSplit[0]), prodSplit[1], prodSplit[2]];
-      const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
       // adding prices
       const pricesSections = block.querySelectorAll(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:first-of-type p`);

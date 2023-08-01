@@ -91,9 +91,8 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
-      const prodSplit = productsAsList[idx].split('/');
-      const [prodName, prodUsers, prodYears] = [productAliases(prodSplit[0]), prodSplit[1], prodSplit[2]];
-      const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
       const pricesDiv = document.createElement('div');
       pricesDiv.classList = 'prices_box awaitLoader prodLoad';

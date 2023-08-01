@@ -10,6 +10,15 @@
 .b-productswithinputdevices > div:nth-child(1) h3 {
   font: normal normal bold 24px/24px Roboto, sans-serif;
   color: #000;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.b-productswithinputdevices > div:nth-child(1) h3 span.greenTag {
+  font: normal normal bold 14px/15px Roboto, sans-serif;
+  margin-left: 5px;
+  padding: 2px 10px;
 }
 .b-productswithinputdevices > div:nth-child(1) h4 {
   font: normal normal normal 36px/42px Roboto, sans-serif;

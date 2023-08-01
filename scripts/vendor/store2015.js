@@ -323,6 +323,14 @@ StoreProducts.initSelector = function(config)
                 BASE_URI = "https://www.bitdefender.co.uk/site";
             }
 
+            if ((typeof geoip_code != 'undefined' && geoip_code == 'de') || window.location.hostname == 'www.bitdefender.de') {
+                BASE_URI = "https://www.bitdefender.de/site";
+            }
+
+            if ((typeof geoip_code != 'undefined' && geoip_code == 'ro') || window.location.hostname == 'www.bitdefender.ro') {
+                BASE_URI = "https://www.bitdefender.ro/site";
+            }
+
             var forceBussiness = false;
             if (typeof geoip_code != 'undefined' && ["bus-security", "adv_security", "elite_1000", "abs_1000", "bs_1000", "p_management", "fde"].indexOf(so.product_id) > -1 && ['us','uk','gb','ro','fr','ca','de','es','it','pt','nl','se','au','br','no'].indexOf(geoip_code) == -1) {
                 forceBussiness = true;
@@ -330,6 +338,8 @@ StoreProducts.initSelector = function(config)
                 BASE_URI = "https://www.bitdefender.com/site";
             }
 
+
+            BASE_URI = "https://www.bitdefender.de/site";
             try
             {
                 if (typeof multilang_js != 'undefined' && multilang_js != null && window.location.href.match(/www2.bitdefender.com/gi))

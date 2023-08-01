@@ -202,6 +202,7 @@
 
 .b-dropdownbox-container.dropdownSlider {
   position: relative;
+  margin-bottom: 2em;
 }
 .b-dropdownbox-container.dropdownSlider::after {
   content: "";
