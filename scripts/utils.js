@@ -342,6 +342,9 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
         });
       } else {
         oldPriceBox.style.visibility = 'hidden';
+        if (oldPriceBox.closest('.prod-oldprice')) {
+          oldPriceBox.closest('.prod-oldprice').style.setProperty('display', 'none', 'important');
+        }
       }
     }
 
@@ -351,6 +354,9 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
       });
+      if (saveBox.closest('.prod-save')) {
+        saveBox.closest('.prod-save').style.setProperty('display', 'none', 'important');
+      }
     }
 
     const percentBox = document.querySelector(`.percent-${onSelectorClass}`);
