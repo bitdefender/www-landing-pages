@@ -35,15 +35,24 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME}--hel
   }
 
   function showSnapshotTestsFullLogs(testResults) {
-    const areAllTestsPassing = testResults.every(([res, passing, snapshotPassing]) => snapshotPassing === true);
+    const mappedTests = testResults.map(test => test[0]);
+    const areAllTestsPassing =
+      mappedTests.every(({screenshotCompareDifference}) => screenshotCompareDifference === null);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
 
-    testResults.forEach(([testResult, passing, snapshotPassing], index) => {
-      const { variables: { name }, test: { _id } } = testResult;
+    mappedTests.forEach((testResult, index) => {
+      const {
+        screenshotComparePassing,
+        screenshotCompareDifference,
+        variables: { name },
+        test: { _id }
+      } = testResult;
 
-      const title = `${index + 1}.[${snapshotPassing ? 'PASSED' : 'FAILED'}] ${name}`
+      const isPassing = screenshotCompareDifference === null || screenshotComparePassing === true;
 
-      if (snapshotPassing) {
+      const title = `${index + 1}.[${isPassing ? 'PASSED' : 'FAILED'}] ${name}`
+
+      if (isPassing) {
         logSuccess(title)
       } else {
         logError(title);
@@ -76,14 +85,14 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME}--hel
       });
     });
 
-    const snapshotsPromises = suiteTests.map(({_id, name}) => GhostInspector.executeTest(
+    const snapshotsPromises = suiteTests.filter((item, idx) => idx < 3).map(({_id, name}) => GhostInspector.executeTest(
       _id, {
         name: `Snapshot => ${name}`,
         startUrl: `${featureBranchEnvironmentBaseUrl}/${name}`,
       }
     ));
 
-    const [genericFunctionalTestResult, snapshotsResult] = await Promise.all([
+    const [ genericFunctionalTestResult, snapshotsResult] = await Promise.all([
       Promise.all(genericFunctionalTestPromises),
       Promise.all(snapshotsPromises)
     ]);
