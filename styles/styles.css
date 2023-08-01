@@ -325,9 +325,10 @@ main .default-content-wrapper img {
 }
 
 .section .default-content-wrapper h4 {
-  font-size: 32px;
+  font-size: 40px;
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 500;
+  color: #000;
   font-family: roboto, sans-serif;
   margin-bottom: 10px;
 }

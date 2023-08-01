@@ -28,8 +28,10 @@ export default function decorate(block) {
     });
   });
 
-  const childrenNr = block.children[2].children.length;
-  block.classList.add(`has${childrenNr - 1}divs`);
+  // if 3rd div does not exists => has 2 elements
+  if (!block.querySelector('.b-dropdownbox-container .block > div > div:nth-child(3)')) {
+    block.classList.add('has2divs');
+  }
 
   if (type === 'slider') {
     parentSelector.classList.add('slider');
