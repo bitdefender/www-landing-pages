@@ -182,11 +182,6 @@ export async function sendAnalyticsProducts(product, region) {
     productName = product.config.name;
   }
 
-  let discountVal = 0;
-  if (product.selected_variation.discount) {
-    discountVal = product.selected_variation.discount?.discounted_price;
-  }
-
   productsInAdobe.push({
     info: {
       ID: product.selected_variation.platform_product_id,
@@ -195,10 +190,10 @@ export async function sendAnalyticsProducts(product, region) {
       subscription: product.selected_years * 12,
       version: '',
       basePrice: product.selected_variation.price,
-      discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
-      discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
+      discountValue: Math.round((product.selected_variation.price - product.selected_variation.discount.discounted_price) * 100) / 100,
+      discountRate: Math.round(((product.selected_variation.price - product.selected_variation.discount.discounted_price) * 100) / product.selected_variation.price).toString(),
       currency: product.selected_variation.currency_iso,
-      priceWithTax: discountVal,
+      priceWithTax: product.selected_variation.discount.discounted_price,
     },
   });
 
