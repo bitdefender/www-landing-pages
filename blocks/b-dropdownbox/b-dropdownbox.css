@@ -41,8 +41,12 @@
 }
 
 .b-dropdownbox-container .block > div:not(:first-child) > div:first-child {
-  display: flex;
+  display: block;
   align-items: center;
+}
+
+.b-dropdownbox-container .block > div:not(:first-child) > div:first-child p {
+  margin: 0;
 }
 
 .b-dropdownbox-container .block > div:not(:first-child) > div:first-child span {
@@ -302,6 +306,18 @@
   .b-dropdownbox-container .block > div:not(:first-child) > div:not(:first-child) {
     width: 50%;
     float: left;
+  }
+  .b-dropdownbox-container .block.has3divs > div:not(:first-child) {
+    margin-bottom: 4em;
+  }
+  .b-dropdownbox-container .block.has3divs > div:not(:first-child) > div:not(:first-child) {
+    width: 33%;
+    min-height: 3em;
+    font-size: 13px;
+    line-height: 16px;
+  }
+  .b-dropdownbox-container .block.has3divs > div:not(:first-child) > div:first-child p {
+    line-height: 17px;
   }
   .b-dropdownbox-container .block.has2divs > div:not(:first-child) > div:not(:first-child) {
     width: 100%;
