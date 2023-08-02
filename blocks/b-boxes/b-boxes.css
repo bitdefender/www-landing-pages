@@ -2,6 +2,7 @@
 .b-boxes-container {
   padding: 1em 0;
   margin: 2em 0;
+  float: left;
   width: 100%;
 }
 
