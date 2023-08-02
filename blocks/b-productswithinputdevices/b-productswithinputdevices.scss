@@ -11,6 +11,16 @@
     h3 {
       font: normal normal bold 24px/24px Roboto, sans-serif;
       color: #000;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+
+      span.greenTag {
+        font: normal normal bold 14px/15px Roboto, sans-serif;
+        margin-left: 5px;
+        padding: 2px 10px;
+      }
     }
 
     h4 {

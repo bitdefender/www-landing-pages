@@ -31,6 +31,7 @@ export default function decorate(block) {
   const productsAsList = products && products.split(',');
 
   if (productsAsList.length) {
+    block.classList.add(`has${productsAsList.length}prods`);
     /// ///////////////////////////////////////////////////////////////////////
     // check and add products into the final array
     productsAsList.forEach((prod) => updateProductsList(prod));
@@ -82,7 +83,9 @@ export default function decorate(block) {
             block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(2) strong').innerHTML = fileServers1stProd;
             block.querySelector('.b-productswithselectors > div:nth-child(3) ul:last-of-type li:nth-child(2) strong').innerHTML = fileServers2ndProd;
 
-            block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong').innerHTML = mailboxes;
+            if (block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong')) {
+              block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong').innerHTML = mailboxes;
+            }
           }
 
           productsAsList.forEach((prod) => {
@@ -91,6 +94,7 @@ export default function decorate(block) {
             const prodUsers = prodSplit[1];
             const prodYears = prodSplit[2];
             const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+
             if (document.querySelector(`.${triggerType}_${onSelectorClass}_fake`)) {
               const fakeSelector = document.querySelector(`.${triggerType}_${onSelectorClass}_fake`);
               fakeSelector.value = triggerValue;
@@ -104,15 +108,13 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
-      const prodSplit = productsAsList[idx].split('/');
-      const prodName = productAliases(prodSplit[0]);
-      const prodUsers = prodSplit[1];
-      const prodYears = prodSplit[2];
-      const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
       const pricesDiv = document.createElement('div');
       pricesDiv.id = 'pricesBox';
       pricesDiv.className = 'prices_box';
-      pricesDiv.innerHTML = `<span class="prod-percent green_txt"><b class="percent-${onSelectorClass}">10%</b> ${discountText}<span>`;
+      pricesDiv.innerHTML = `<span class="prod-percent green_txt"><b class="percent-${onSelectorClass}">0%</b> ${discountText}<span>`;
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
