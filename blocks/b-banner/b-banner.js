@@ -65,9 +65,15 @@ export default function decorate(block) {
       finalDiscountText = `<span class="percent-${onSelectorClass}">10%</span> ${finalDiscountText}`;
     }
 
-    const percentRadius = document.createElement('div');
-    percentRadius.innerHTML = ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2">${finalDiscountText}</span>`;
+    let percentRadius;
+    if (block.querySelector('.button-container')) {
+      console.log('dsfsad');
+      percentRadius = block.querySelector('.button-container');
+    } else {
+      percentRadius = document.createElement('div');
+    }
 
+    percentRadius.innerHTML += ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2">${finalDiscountText}</span>`;
     block.appendChild(percentRadius);
   }
 }
