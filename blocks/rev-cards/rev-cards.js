@@ -49,25 +49,27 @@ export default function decorate(block) {
     // create prices sections
     productsAsList.forEach((item, idx) => {
       // add prices
-      const prodName = productAliases(productsAsList[idx].split('/')[0]);
+      // const prodName = productAliases(productsAsList[idx].split('/')[0]);
+      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDivLeftCard = document.createElement('div');
       pricesDivLeftCard.classList = 'prices_box awaitLoader prodLoad d-flex justify-content-center';
       pricesDivLeftCard.innerHTML = `<div class="me-2">
-                                      <div class="save-box">Save <span class="prod-percent percent-${prodName}"></span></div>
-                                      <span class="prod-oldprice oldprice-${prodName}"></span>
+                                      <div class="save-box">Save <span class="prod-percent percent-${onSelectorClass}"></span></div>
+                                      <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
                                     </div>
                                     <div>
-                                        <span class="prod-newprice newprice-${prodName}"></span>
+                                        <span class="prod-newprice newprice-${onSelectorClass}"></span>
                                         <span class="sales-tax">${taxText || 'Sales tax included'}</span>
                                     </div>`;
       const pricesDivRightCard = document.createElement('div');
       pricesDivRightCard.classList = 'prices_box awaitLoader prodLoad d-flex flex-column justify-content-center';
       pricesDivRightCard.innerHTML = `<div class="me-2">
-                                        <div class="d-inline-block save-box">Save <span class="prod-percent percent-${prodName}"></span></div>
-                                        <span class="d-block my-2 prod-oldprice oldprice-${prodName}"></span>
+                                        <div class="d-inline-block save-box">Save <span class="prod-percent percent-${onSelectorClass}"></span></div>
+                                        <span class="d-block my-2 prod-oldprice oldprice-${onSelectorClass}"></span>
                                     </div>
                                     <div>
-                                        <span class="prod-newprice newprice-${prodName}"></span>
+                                        <span class="prod-newprice newprice-${onSelectorClass}"></span>
                                         <span class="devices">${idx === 1 ? devicesTextCardTwo : devicesTextCardThree}</span>
                                         <span class="sales-tax">${taxText || 'Sales tax included'}</span>
                                     </div>`;
@@ -79,7 +81,7 @@ export default function decorate(block) {
 
       // add buybtn div & anchor
       const tableBuybtn = block.querySelectorAll('p.button-container > strong > a')[idx];
-      tableBuybtn.classList.add(`buylink-${prodName}`);
+      tableBuybtn.classList.add(`buylink-${onSelectorClass}`);
     });
   }
 }

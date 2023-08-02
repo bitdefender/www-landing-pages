@@ -76,20 +76,21 @@ export default function decorate(block) {
     // create prices sections
     productsAsList.forEach((item, idx) => {
       // add prices
-      const prodName = productAliases(productsAsList[idx].split('/')[0]);
+      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDivLeftCard = document.createElement('div');
       pricesDivLeftCard.classList = 'prices_box awaitLoader prodLoad d-flex justify-content-center';
       pricesDivLeftCard.innerHTML = `
                                       <div>
-                                          <span class="prod-oldprice oldprice-${prodName}"></span>
-                                          <span class="prod-newprice newprice-${prodName} mt-2"></span>
+                                          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+                                          <span class="prod-newprice newprice-${onSelectorClass} mt-2"></span>
                                       </div>`;
       const pricesDivLeftCard2 = document.createElement('div');
       pricesDivLeftCard2.classList = 'prices_box awaitLoader prodLoad d-flex justify-content-center';
       pricesDivLeftCard2.innerHTML = `
                                       <div>
-                                          <span class="prod-oldprice oldprice-${prodName}"></span>
-                                          <span class="prod-newprice newprice-${prodName} mt-2"></span>
+                                          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+                                          <span class="prod-newprice newprice-${onSelectorClass} mt-2"></span>
                                       </div>`;
       prices[idx + 3].before(pricesDivLeftCard);
       prices[idx].before(pricesDivLeftCard2);
@@ -97,8 +98,8 @@ export default function decorate(block) {
       // add buybtn div & anchor
       const tableBuybtn = block.querySelectorAll('p.button-container > strong > a')[idx];
       const tableBuybtn2 = block.querySelectorAll('p.button-container > strong > a')[idx + 3];
-      tableBuybtn.classList.add(`buylink-${prodName}`);
-      tableBuybtn2.classList.add(`buylink-${prodName}`);
+      tableBuybtn.classList.add(`buylink-${onSelectorClass}`);
+      tableBuybtn2.classList.add(`buylink-${onSelectorClass}`);
     });
   }
 }
