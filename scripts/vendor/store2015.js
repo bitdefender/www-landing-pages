@@ -338,8 +338,6 @@ StoreProducts.initSelector = function(config)
                 BASE_URI = "https://www.bitdefender.com/site";
             }
 
-
-            BASE_URI = "https://www.bitdefender.de/site";
             try
             {
                 if (typeof multilang_js != 'undefined' && multilang_js != null && window.location.href.match(/www2.bitdefender.com/gi))
