@@ -307,22 +307,6 @@ StoreProducts.initSelector = function(config)
             config['onChangeYears'] = null;
             so.config = config;
 
-            var BASE_URL = ["author", "localhost", "local", "stage", "dev", "dev1", "dev2", "dev3", "new"].includes(window.location.hostname.split(/\.|-/)[0]) ? "https://www.bitdefender.com" : ""
-
-            var url = BASE_URL + '/site/Store/ajax';
-
-            // if (window.location.hostname == 'www.bitdefender.se') {
-            //     BASE_URI = "https://www.bitdefender.se/site";
-            // }
-
-            if (typeof geoip_code != 'undefined' && geoip_code == 'nz') {
-                BASE_URI = "https://www.bitdefender.com.au/site";
-            }
-
-            if ((typeof geoip_code != 'undefined' && geoip_code == 'gb') || window.location.hostname == 'www.bitdefender.co.uk' || window.location.hostname == 'old.bitdefender.co.uk') {
-                BASE_URI = "https://www.bitdefender.co.uk/site";
-            }
-
             var forceBussiness = false;
             if (typeof geoip_code != 'undefined' && ["bus-security", "adv_security", "elite_1000", "abs_1000", "bs_1000", "p_management", "fde"].indexOf(so.product_id) > -1 && ['us','uk','gb','ro','fr','ca','de','es','it','pt','nl','se','au','br','no'].indexOf(geoip_code) == -1) {
                 forceBussiness = true;
@@ -330,12 +314,22 @@ StoreProducts.initSelector = function(config)
                 BASE_URI = "https://www.bitdefender.com/site";
             }
 
+            let BASE_URI = "https://www.bitdefender.com/site";
+            if (typeof DEFAULT_LANGUAGE !== 'undefined') {
+                let DOMAIN = DEFAULT_LANGUAGE;
+                if (DEFAULT_LANGUAGE === 'en') {
+                    DOMAIN = 'com';
+                } else if (DEFAULT_LANGUAGE === 'uk') {
+                    DOMAIN = 'co.uk';
+                } else if (DEFAULT_LANGUAGE === 'au') {
+                    DOMAIN = 'com.au';
+                }
+
+                BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
+            }
+
             try
             {
-                if (typeof multilang_js != 'undefined' && multilang_js != null && window.location.href.match(/www2.bitdefender.com/gi))
-                    if ('DEFAULT_LANGUAGE' in multilang_js)
-                        url = '/' + multilang_js['DEFAULT_LANGUAGE'] + '/Store/ajax';
-
                 if (typeof BASE_URI != 'undefined') {
                     if (BASE_URI != null) {
                         if (BASE_URI.length > 0) {
