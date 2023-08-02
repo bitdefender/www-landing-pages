@@ -26,7 +26,7 @@ export default function decorate(block) {
   const parent2ndDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(2)');
 
   const metaData = parentSelector.dataset;
-  const { products, yearsText } = metaData;
+  const { products, yearsText, titleTag } = metaData;
   const productsAsList = products && products.split(',');
 
   const subscribeTexts = parent2ndDiv.querySelector('div p').innerText;
@@ -35,6 +35,14 @@ export default function decorate(block) {
   const savingText = parent2ndDiv.querySelector('div p:nth-child(4)').innerText;
   const buylinkText = parent2ndDiv.querySelector('div p:nth-child(5)').innerText;
   const taxesText = parent2ndDiv.querySelector('div p:nth-child(6)').innerText;
+
+  const blockH3 = block.querySelector('h3');
+  if (blockH3 && titleTag) {
+    const spanTag = document.createElement('span');
+    spanTag.className = 'greenTag';
+    spanTag.innerText = titleTag;
+    blockH3.appendChild(spanTag);
+  }
 
   if (productsAsList.length) {
     /// ///////////////////////////////////////////////////////////////////////
@@ -103,9 +111,9 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
-      const prodSplit = productsAsList[idx].split('/');
-      const [prodName, prodUsers, prodYears] = [productAliases(prodSplit[0]), prodSplit[1], prodSplit[2]];
-      const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
       const pricesDiv = document.createElement('div');
 
       pricesDiv.classList = 'prices_box awaitLoader prodLoad';

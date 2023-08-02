@@ -208,6 +208,7 @@
 
 .b-dropdownbox-container.dropdownSlider {
   position: relative;
+  margin-bottom: 2em;
 
   &::after {
     content: "";
@@ -262,6 +263,9 @@
         width: 0;
         height: 4px;
         background: #006eff;
+        font-size: 19px;
+        line-height: 22px;
+        margin-bottom: 1em;
       }
     }
   
