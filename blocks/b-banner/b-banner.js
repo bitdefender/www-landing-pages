@@ -30,7 +30,6 @@ export default function decorate(block) {
   parentSelector.append(bannerImage);
 
   // config new elements
-  const paragraph = block.querySelector('p');
   const {
     product, discountStyle, discountText, backgroundColor, imageVariation,
   } = metaData;
@@ -53,7 +52,7 @@ export default function decorate(block) {
 
   if (typeof product !== 'undefined' && product !== '') {
     const [prodName, prodUsers, prodYears] = product.split('/');
-    const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
     updateProductsList(product);
 
