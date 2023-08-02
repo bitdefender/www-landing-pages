@@ -28,9 +28,9 @@ export default function decorate(block) {
     });
   });
 
-  if (block.children.length >= 3) {
-    const childrenNr = block.children[2].children.length;
-    block.classList.add(`has${childrenNr - 1}divs`);
+  if (block.children.length >= 2) {
+    const childrenNr = block.children[1].children.length;
+    block.classList.add(`has${childrenNr}divs`);
   }
 
   if (type === 'slider') {
