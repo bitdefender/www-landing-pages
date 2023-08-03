@@ -15,7 +15,7 @@ import { productAliases } from '../../scripts/scripts.js';
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
   const {
-    products, taxText, devicesTextCardTwo, devicesTextCardThree,
+    products, taxText, devicesTextCardTwo, devicesTextCardThree, savePillText
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -55,7 +55,7 @@ export default function decorate(block) {
       const pricesDivLeftCard = document.createElement('div');
       pricesDivLeftCard.classList = 'prices_box awaitLoader prodLoad d-flex justify-content-center';
       pricesDivLeftCard.innerHTML = `<div class="me-2">
-                                      <div class="save-box">Save <span class="prod-percent percent-${onSelectorClass}"></span></div>
+                                      <div class="save-box">${savePillText} <span class="prod-percent percent-${onSelectorClass}"></span></div>
                                       <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
                                     </div>
                                     <div>
@@ -65,7 +65,7 @@ export default function decorate(block) {
       const pricesDivRightCard = document.createElement('div');
       pricesDivRightCard.classList = 'prices_box awaitLoader prodLoad d-flex flex-column justify-content-center';
       pricesDivRightCard.innerHTML = `<div class="me-2">
-                                        <div class="d-inline-block save-box">Save <span class="prod-percent percent-${onSelectorClass}"></span></div>
+                                        <div class="d-inline-block save-box">${savePillText} <span class="prod-percent percent-${onSelectorClass}"></span></div>
                                         <span class="d-block my-2 prod-oldprice oldprice-${onSelectorClass}"></span>
                                     </div>
                                     <div>

@@ -10,11 +10,11 @@ export default function decorate(block) {
       <div class="py-5">
         <div class="row">
           <div class="col-12 d-lg-none">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-touch="true" data-bs-interval="500000" data-bs-ride="carousel">
-              <div class="carousel-inner overflow-visible card-shadow">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="5000" data-bs-ride="carousel" data-bs-touch="true">
+              <div class="carousel-inner overflow-visible">
                 ${carouselSlides.map((slide, idx) => `
-                  <div class="carousel-item ${idx === 0 ? 'active' : ''}">
-                  ${idx === 0 ? `<div class="best-deal-card best-deal-card--on-carousel">${tagText}</div>` : ''}
+                  <div class="carousel-item card-shadow ${idx === 0 ? 'active' : ''}">
+                  ${idx === 0 ? `<div class="best-deal-card">${tagText}</div>` : ''}
                     ${slide.children[0].innerHTML}
                   </div>
                 `).join('')}
