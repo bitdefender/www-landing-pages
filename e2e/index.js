@@ -12,6 +12,14 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   ['es', 'eu-south-2'],
   ['ro', 'eu-west-3'],
   ['en', 'us-east-1'],
+  ['se', 'eu-north-1'],
+  ['uk', 'eu-west-2'],
+  ['ie', 'eu-west-1'],
+  ['se', 'eu-north-1'],
+  ['br', 'sa-east-1'],
+  ['be', 'eu-central-1'],
+  ['pt', 'eu-central-1'],
+  ['au', 'ap-southeast-2'],
 ]);
 
 (async () => {
