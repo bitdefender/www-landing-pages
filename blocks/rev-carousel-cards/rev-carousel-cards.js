@@ -3,7 +3,6 @@ import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.j
 
 export default function decorate(block) {
   const carouselSlides = [...block.children];
-  console.log(carouselSlides);
   const metaData = getDatasetFromSection(block);
   const { products, tagText } = metaData;
   const productsAsList = products && products.split(',');
