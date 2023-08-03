@@ -323,13 +323,13 @@ StoreProducts.initSelector = function(config)
             }
 
             let BASE_URI = "https://www.bitdefender.com/site";
-            if (typeof DEFAULT_LANGUAGE !== 'undefined') {
+            if (DEFAULT_LANGUAGE) {
                 let DOMAIN = DEFAULT_LANGUAGE;
-                if (DEFAULT_LANGUAGE === 'en') {
+                if (DOMAIN === 'en') {
                     DOMAIN = 'com';
-                } else if (DEFAULT_LANGUAGE === 'uk') {
+                } else if (DOMAIN === 'uk') {
                     DOMAIN = 'co.uk';
-                } else if (DEFAULT_LANGUAGE === 'au') {
+                } else if (DOMAIN === 'au') {
                     DOMAIN = 'com.au';
                 }
 
