@@ -10,7 +10,7 @@ export default function decorate(block) {
       <div class="py-5">
         <div class="row">
           <div class="col-12 d-lg-none">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-touch="true" data-bs-interval="false" data-bs-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-touch="true" data-bs-interval="500000" data-bs-ride="carousel">
               <div class="carousel-inner overflow-visible card-shadow">
                 ${carouselSlides.map((slide, idx) => `
                   <div class="carousel-item ${idx === 0 ? 'active' : ''}">
