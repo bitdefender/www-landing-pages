@@ -26,6 +26,10 @@
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
+.rev-carousel-cards .best-deal-card--on-carousel {
+  margin-left: -15px;
+  margin-right: -15px;
+}
 .rev-carousel-cards .prod-newprice {
   font-size: 36px;
 }

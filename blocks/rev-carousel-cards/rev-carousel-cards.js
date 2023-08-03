@@ -3,20 +3,19 @@ import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.j
 
 export default function decorate(block) {
   const carouselSlides = [...block.children];
-
+  console.log(carouselSlides);
   const metaData = getDatasetFromSection(block);
   const { products, tagText } = metaData;
   const productsAsList = products && products.split(',');
-
   block.innerHTML = `
       <div class="py-5">
         <div class="row">
           <div class="col-12 d-lg-none">
-            <div id="carouselExampleIndicators" class="carousel slide">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-touch="true" data-bs-interval="false" data-bs-ride="carousel">
               <div class="carousel-inner overflow-visible card-shadow">
                 ${carouselSlides.map((slide, idx) => `
-                  ${idx === 0 ? '<div class="best-deal-card">BEST DEAL</div>' : ''}
                   <div class="carousel-item ${idx === 0 ? 'active' : ''}">
+                  ${idx === 0 ? `<div class="best-deal-card best-deal-card--on-carousel">${tagText}</div>` : ''}
                     ${slide.children[0].innerHTML}
                   </div>
                 `).join('')}
