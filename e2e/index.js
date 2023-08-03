@@ -10,7 +10,7 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   ['fr', 'eu-west-3'],
   ['it', 'eu-south-1'],
   ['es', 'eu-south-2'],
-  ['ro', 'eu-west-3'],
+  ['ro', 'eu-west-1'],
   ['en', 'us-east-1'],
   ['se', 'eu-north-1'],
   ['uk', 'eu-west-2'],
