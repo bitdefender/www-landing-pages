@@ -51,12 +51,12 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
     }
   }
 
-  function snapshotIsPassing({screenshotCompareDifference, screenshotComparePassing}) {
-    return screenshotCompareDifference === null || screenshotComparePassing === true;
+  function snapshotIsPassing({screenshotComparePassing}) {
+    return screenshotComparePassing === true;
   }
 
   function showSnapshotTestsFullLogs(testResults) {
-    const mappedTests = testResults.map(test => test[0]);
+    const mappedTests = testResults.map(test => test.data);
     const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
 
@@ -106,14 +106,15 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
       });
     });
 
-    const snapshotsPromises = suiteTests.map(({_id, name}) => GhostInspector.executeTest(
-      _id, {
-        name: `Snapshot => ${name}`,
-        startUrl: `${featureBranchEnvironmentBaseUrl}/${name}`,
-      }
-    ));
+    const snapshotsPromises =
+      suiteTests
+        .map(({_id, name}) =>
+          fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}&name=${encodeURIComponent(`Snapshot => ${name}`)}&startUrl=${featureBranchEnvironmentBaseUrl}/${name}`).then(res => res.json()));
 
-    const [ genericFunctionalTestResult, snapshotsResult] = await Promise.all([
+    const [
+      genericFunctionalTestResult,
+      snapshotsResult
+    ] = await Promise.all([
       Promise.all(genericFunctionalTestPromises),
       Promise.all(snapshotsPromises)
     ]);
