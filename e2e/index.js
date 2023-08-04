@@ -5,6 +5,23 @@ const testId = '64c608336f03cb8cdb7d955b';
 const snapshotsSuiteId = '64c8d884960593b38bb68331';
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME}--helix-poc--enake.hlx.page`;
 
+const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
+  ['de', 'eu-central-1'],
+  ['fr', 'eu-west-3'],
+  ['it', 'eu-south-1'],
+  ['es', 'eu-south-2'],
+  ['ro', 'eu-west-3'],
+  ['en', 'us-east-1'],
+  ['se', 'eu-north-1'],
+  ['uk', 'eu-west-2'],
+  ['ie', 'eu-west-1'],
+  ['se', 'eu-north-1'],
+  ['br', 'sa-east-1'],
+  ['be', 'eu-central-1'],
+  ['pt', 'eu-central-1'],
+  ['au', 'ap-southeast-2'],
+]);
+
 (async () => {
   function logError(message) {
     console.log('\x1b[31m%s\x1b[0m', message);
@@ -76,12 +93,15 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME}--hel
 
     const genericFunctionalTestPromises = activeLandingpages.data.flatMap(({ URI, Products }) => {
       const productsAsList = Products.split(',');
+      const countryCode = URI.split('/')[1];
+      const region = AWS_REGION_BY_COUNTRY_CODE_MAP.get(countryCode);
 
       return productsAsList.map((productName, index) => {
         return GhostInspector.executeTest(testId, {
           name: `${URI} => ${productName.trim()}`,
           productIndex: index,
           startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
+          region,
         });
       });
     });
