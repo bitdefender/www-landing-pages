@@ -1,6 +1,16 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.js';
 
+/*
+  Information:
+
+  MetaData:
+  - products: ex.: tsmd/5/1 ps/10/1
+  - tagText: ex.: BEST DEAL
+
+  Samples:
+  - https://main--helix-poc--enake.hlx.page/consumer/en/new/ps-ts-vpn-opt/
+*/
 export default function decorate(block) {
   const carouselSlides = [...block.children];
   const metaData = getDatasetFromSection(block);

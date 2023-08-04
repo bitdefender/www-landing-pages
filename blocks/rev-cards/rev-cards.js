@@ -2,20 +2,22 @@
   Information:
 
   MetaData:
-  - svgColor :svgColor = "blue" | #313fad,
-  - svgSize : svgSize = "smal" | medium
+  - products: ex.: tsmd/5/1 ps/10/1
+  - taxText: ex.: sales not included
+  - devicesTextCardTwo: text above the price on the second card
+  - devicesTextCardThree: text above the price on the third card
+  - savePillText: text in the green pill  Ex.: save 5%
 
   Samples:
-  - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html
+  - https://main--helix-poc--enake.hlx.page/consumer/en/new/ps-ts-vpn-opt/
 */
-// import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
 import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.js';
 import { productAliases } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
   const {
-    products, taxText, devicesTextCardTwo, devicesTextCardThree, savePillText
+    products, taxText, devicesTextCardTwo, devicesTextCardThree, savePillText,
   } = metaData;
   const productsAsList = products && products.split(',');
 
