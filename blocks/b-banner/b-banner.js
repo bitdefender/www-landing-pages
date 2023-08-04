@@ -31,7 +31,12 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    product, discountStyle, discountText, backgroundColor, imageVariation, bannerDiscount 
+    product, 
+    discountStyle, 
+    discountText, 
+    backgroundColor, 
+    imageVariation, 
+    bannerDiscount 
   } = metaData;
 
   // update background color if set, if not set default: #000
