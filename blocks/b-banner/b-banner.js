@@ -30,14 +30,7 @@ export default function decorate(block) {
   parentSelector.append(bannerImage);
 
   // config new elements
-  const {
-    product, 
-    discountStyle, 
-    discountText, 
-    backgroundColor, 
-    imageVariation, 
-    bannerDiscount 
-  } = metaData;
+  const { product, discountStyle, discountText, backgroundColor, imageVariation, bannerDiscount } = metaData;
 
   // update background color if set, if not set default: #000
   const block1 = document.querySelector('.b-banner-container');
