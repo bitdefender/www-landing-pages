@@ -57,7 +57,6 @@
 .rev-cards .card ul {
   padding-left: 0;
   flex-grow: 1;
-  min-height: 210px;
 }
 .rev-cards .card ul li {
   text-align: left;
