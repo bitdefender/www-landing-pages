@@ -255,6 +255,9 @@
   width: 0;
   height: 4px;
   background: #006eff;
+  font-size: 19px;
+  line-height: 22px;
+  margin-bottom: 1em;
 }
 .b-dropdownbox-container.dropdownSlider .b-dropdownbox-wrapper .description {
   position: absolute;

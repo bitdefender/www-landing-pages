@@ -31,16 +31,18 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    product, discountStyle, discountText, backgroundColor, imageVariation,
+    product, discountStyle, discountText, backgroundColor, imageVariation, bannerDiscount
   } = metaData;
 
-  // update background color if set
-  if (typeof backgroundColor !== 'undefined') {
-    const block1 = document.querySelector('.b-banner-container');
+  // update background color if set, if not set default: #000
+  const block1 = document.querySelector('.b-banner-container');
+  if (backgroundColor) {
     block1.style.backgroundColor = backgroundColor;
+  } else {
+    block1.style.backgroundColor = '#000'
   }
 
-  if (typeof imageVariation !== 'undefined') {
+  if (imageVariation) {
     if (imageVariation === 'small') {
       const block2 = document.querySelector('.b-banner-container');
       block2.classList.add('d-flex');
@@ -67,7 +69,6 @@ export default function decorate(block) {
 
     let percentRadius;
     if (block.querySelector('.button-container')) {
-      console.log('dsfsad');
       percentRadius = block.querySelector('.button-container');
     } else {
       percentRadius = document.createElement('div');
@@ -75,5 +76,12 @@ export default function decorate(block) {
 
     percentRadius.innerHTML += ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2">${finalDiscountText}</span>`;
     block.appendChild(percentRadius);
+
+    if (bannerDiscount) {
+      const discountDiv = document.createElement('div');
+      parentSelector.querySelector('picture').classList.add('hasDiscount');
+      discountDiv.innerHTML = `<span class="percent-${onSelectorClass}">10%</span><span>${bannerDiscount.split(' ')[1]}</span>`;
+      parentSelector.querySelector('picture').appendChild(discountDiv);
+    }
   }
 }
