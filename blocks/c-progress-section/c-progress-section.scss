@@ -2,6 +2,14 @@
   background: #f2f2f2;
   padding: 30px 10px;
 
+  .progress-bar {
+    background: #d6d6d6;
+    text-align: left;
+    padding-left: 13px;
+    color: black;
+    font-weight: 500;
+  }
+
   .progress-bar--first {
     background: linear-gradient(90deg, rgb(1 14 128) 0%, rgb(0 110 255) 100%);
     color: white;
@@ -30,14 +38,6 @@
   margin-top: 5px;
   max-width: 90%;
   background-color: unset;
-}
-
-.c-progress-section-container .progress-bar {
-  background: #d6d6d6;
-  text-align: left;
-  padding-left: 13px;
-  color: black;
-  font-weight: 500;
 }
 
 .c-progress-section-container .progress-number {
