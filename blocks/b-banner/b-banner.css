@@ -1,10 +1,10 @@
 .b-banner-container {
   color: white;
   max-height: 496px;
+  background-color: black;
   background-repeat: no-repeat;
   background-position: top right;
   overflow: hidden;
-  background: black;
   padding-right: 0;
   padding-left: 0;
 }
@@ -27,9 +27,9 @@
   margin-top: 10px;
 }
 .b-banner-container .b-banner-wrapper .prod-percent.green_bck_pill {
-  background-color: rgb(47, 180, 62);
+  background-color: #2FB43E;
   display: inline-block;
-  color: rgb(255, 255, 255);
+  color: #fff;
   border-radius: 15px;
   margin-top: 15px;
   margin-left: 0 !important;
@@ -79,7 +79,7 @@
   text-decoration: none;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
   }
@@ -125,7 +125,7 @@
     font-size: 24px;
   }
 }
-@media screen and (min-width: 989px) {
+@media screen and (width >= 989px) {
   .b-banner-container {
     padding: 0;
   }
@@ -156,7 +156,7 @@
     top: 10%;
   }
 }
-@media screen and (min-width: 1199px) {
+@media screen and (width >= 1199px) {
   .b-banner-container .hasDiscount div {
     right: 20%;
     top: 20%;
