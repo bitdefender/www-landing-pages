@@ -1,0 +1,219 @@
+.b-big-carousel-quotes-container {
+  margin-bottom: 55px;
+  background: black;
+  color: white;
+  padding: 0!important;
+
+  .carousel-indicators {
+    bottom: -55px;
+    width: 265px;
+    // border: solid red 1px;
+    margin: 0 0 0 25px;
+    overflow: scroll;
+    justify-content: flex-start;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    [data-bs-target] {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      text-indent: unset;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: solid 5px transparent;
+      margin-left: 40px;
+      box-shadow: 0 2px 3px -3px rgba(52, 50, 50, 0.58);
+      opacity: 1;
+
+      &.active {
+        border: solid #006eff 5px;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    @media (width >= 768px) {
+      bottom: -55px;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .carousel-inner {
+    padding-bottom: 50px;
+
+    .carousel-item {
+      padding: 50px 20px;
+      position: relative;
+
+      q {
+        position: relative;
+        display: block;
+        padding:0 40px;
+        font-size: 24px;
+        color: #fff;
+        font-weight: 400;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
+
+        &:before {
+          width: 30px;
+          height: 30px;
+          left: 0;
+          top: 0;
+          background: url('../../icons/blue-quotes.svg') no-repeat;
+          background-size: 100%;
+          content: "";
+          display: block;
+          position: absolute;
+        }
+
+        &:after {
+          width: 30px;
+          height: 30px;
+          right: 0;
+          bottom: 0;
+          background: url('../../icons/blue-quotes.svg') no-repeat;
+          background-size: 100%;
+          content: "";
+          display: block;
+          position: absolute;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      @media screen and (width >= 992px) {
+        padding: 0;
+        height: 550px;
+
+        &:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          background: #000;
+          width: 60%;
+          height: 170%;
+          border-radius: 0 50% 50% 0;
+        }
+
+        .inner {
+          width: 50%;
+          height: 100%;
+          position: absolute;
+          z-index: 1;
+          color: white;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+    }
+
+    @media screen and (width >= 992px) {
+      padding-bottom: 0;
+    }
+  }
+
+  .separator {
+    height: 2px;
+    width: 24px;
+    background: #008cff;
+    margin: 40px 0 10px;
+  }
+
+  .carousel-control-next,
+  .carousel-control-prev {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #008cff;
+    top: unset;
+    opacity: 1;
+    right: 25px;
+
+    &.disabled {
+      background: white;
+    }
+
+    svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    @media (width >= 768px) {
+      display: none;
+    }
+  }
+
+  .carousel-control-next {
+    bottom: -55px;
+
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .carousel-control-prev {
+    bottom: 10px;
+    left: unset;
+  }
+
+  .position {
+    color: #fff;
+    opacity: .8;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 1pc;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+  }
+
+  .read-more {
+    padding: 6px 20px;
+    color: white;
+    border: solid white 1px;
+    border-radius: 7px;
+    display: block;
+    width: max-content;
+  }
+
+  .separator,
+  .author,
+  .position,
+  .read-more {
+    margin-left: 40px;
+  }
+
+  @media (width >= 768px) {
+    margin-bottom: 70px;
+  }
+}
