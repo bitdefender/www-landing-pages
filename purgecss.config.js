@@ -17,5 +17,6 @@ module.exports = {
     'carousel-control-end',
     'carousel-control-next-icon',
     'carousel-control-prev-icon',
+    'pointer-event',
   ],
 };

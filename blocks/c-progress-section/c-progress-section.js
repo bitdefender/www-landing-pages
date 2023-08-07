@@ -1,8 +1,13 @@
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
+import { getDatasetFromSection } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const [title, subtitle] = block.children;
   const slices = [...block.children].slice(2);
+
+  const metaData = getDatasetFromSection(block);
+
+  const svgColor = metaData.svgcolor;
 
   const formattedDataColumns = [
     {
@@ -77,7 +82,7 @@ export default function decorate(block) {
               <div class="svg-icon">
                 ${new SvgLoaderComponent(
     parentIdx === 0 ? 'shield-check' : 'gauge-indicator',
-    'rgb(5, 14, 129)',
+    `${svgColor || 'rgb(5, 14, 129)'}`,
   ).render()
 }
               </div>
