@@ -2,7 +2,7 @@
 
 .b-banner-container {
   color: white;
-  max-height: 496px;
+  height: 500px;
   background-color: black;
   background-repeat: no-repeat;
   background-position: top right;
@@ -29,6 +29,32 @@
       font-size: 21px;
       max-width: unset;
       margin-top: 10px;
+    }
+
+    #bannerAward {
+      width: 250px;
+      position: static;
+      top: 30%;
+      right: 15%;
+
+      p {
+        font-size: 18px;
+        line-height: 20px;
+
+        &:first-of-type {
+          margin: 0;
+        }
+
+        em {
+          font-weight: bold;
+        }
+
+        img {
+          width: 160px;
+          display: block;
+          float: none;
+        }
+      }
     }
     
     .prod-percent.green_bck_pill {
@@ -90,7 +116,6 @@
         text-decoration: none;
       }
     }
-
   }
 }
 
@@ -102,16 +127,29 @@
       position: absolute;
       left: 0;
       right: 0;
-      margin-top: 5%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: 0;
+      margin-bottom: 0;
 
       h1, h2 {
         max-width: 60%;
       }
+
+      #bannerAward {
+        width: 200px;
+        position: absolute;
+      }
     }
 
     img {
-      width: 100%;
       display: block;
+      height: 100%;
+      float: right;
+      width: auto;
+      max-width: none;
+      margin-right: -15px;
     }
 
     .hasDiscount {

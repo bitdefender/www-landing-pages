@@ -31,7 +31,7 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    product, discountStyle, discountText, backgroundColor, imageVariation, bannerDiscount,
+    product, discountStyle, discountText, textColor, backgroundColor, imageVariation, hasAwardImage, bannerDiscount,
   } = metaData;
 
   // update background color if set, if not set default: #000
@@ -40,6 +40,25 @@ export default function decorate(block) {
     block1.style.backgroundColor = backgroundColor;
   } else {
     block1.style.backgroundColor = '#000';
+  }
+
+  if (textColor) {
+    block.style.color = textColor;
+    block.children[2].style.color = textColor;
+  }
+
+  // has award in banner
+  if (block.children.length === 3) {
+    block.children[2].id = 'bannerAward';
+    const targetElement = block.children[2].children[0];
+    const paragraphs = targetElement.querySelectorAll('p:last-of-type');
+    paragraphs.forEach(text => {
+      if (textColor) {
+        text.style.color = textColor;
+      } else {
+        text.style.color = '#000';
+      }
+    });
   }
 
   if (imageVariation) {

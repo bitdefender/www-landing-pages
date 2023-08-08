@@ -1,6 +1,6 @@
 .b-banner-container {
   color: white;
-  max-height: 496px;
+  height: 500px;
   background-color: black;
   background-repeat: no-repeat;
   background-position: top right;
@@ -25,6 +25,27 @@
   font-size: 21px;
   max-width: unset;
   margin-top: 10px;
+}
+.b-banner-container .b-banner-wrapper #bannerAward {
+  width: 250px;
+  position: static;
+  top: 30%;
+  right: 15%;
+}
+.b-banner-container .b-banner-wrapper #bannerAward p {
+  font-size: 18px;
+  line-height: 20px;
+}
+.b-banner-container .b-banner-wrapper #bannerAward p:first-of-type {
+  margin: 0;
+}
+.b-banner-container .b-banner-wrapper #bannerAward p em {
+  font-weight: bold;
+}
+.b-banner-container .b-banner-wrapper #bannerAward p img {
+  width: 160px;
+  display: block;
+  float: none;
 }
 .b-banner-container .b-banner-wrapper .prod-percent.green_bck_pill {
   background-color: #2FB43E;
@@ -87,14 +108,26 @@
     position: absolute;
     left: 0;
     right: 0;
-    margin-top: 5%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;
   }
   .b-banner-container .b-banner-wrapper h1, .b-banner-container .b-banner-wrapper h2 {
     max-width: 60%;
   }
+  .b-banner-container .b-banner-wrapper #bannerAward {
+    width: 200px;
+    position: absolute;
+  }
   .b-banner-container img {
-    width: 100%;
     display: block;
+    height: 100%;
+    float: right;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
   }
   .b-banner-container .hasDiscount {
     display: block;
