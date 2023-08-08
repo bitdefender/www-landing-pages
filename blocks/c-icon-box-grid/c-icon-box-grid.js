@@ -20,7 +20,7 @@ export default function decorate(block) {
   const formattedDataColumns = [...block.children[0].children].map((svgNameEl, tableIndex) => ({
     svgName: svgNameEl.innerText,
     title: block.children[1].children[tableIndex].innerText,
-    subtitle: block.children[2].children[tableIndex].innerText,
+    subtitle: block.children[2].children[tableIndex].innerHTML,
   }));
 
   block.innerHTML = `
