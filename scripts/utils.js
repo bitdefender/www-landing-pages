@@ -9,6 +9,8 @@ export function getInstance() {
     'hlx.live': 'stage',
   };
 
+  // console.log('AAAAAA', window.location.hostname);
+
   // eslint-disable-next-line no-restricted-syntax
   for (const [host, inst] of Object.entries(hostToInstance)) {
     if (window.location.hostname.includes(host)) return inst;
@@ -412,6 +414,28 @@ export function getDatasetFromSection(block) {
 
 export function getLocalizedResourceUrl(resourceName) {
   const { pathname } = window.location;
-  const pathnameAsArray = pathname.split('/').filter((x, i) => i <= 2); // "/consumer/en"
+  const lastCharFromUrl = pathname.charAt(pathname.length - 1);
+  const lpIsInFolder = lastCharFromUrl === '/';
+
+  let pathnameAsArray = pathname.split('/');
+
+  if (lpIsInFolder) {
+    return `${pathnameAsArray.join('/')}${resourceName}`;
+  }
+
+  pathnameAsArray = pathnameAsArray.filter((x, i) => i <= 2); // "/consumer/en";
+
   return `${pathnameAsArray.join('/')}/${resourceName}`;
+}
+
+export const DOMAIN_NAME_MAP = new Map([
+  ['en', 'https://www.bitdefender.com/'],
+  ['uk', 'https://www.bitdefender.co.uk/'],
+  ['au', 'https://www.bitdefender.com.au/'],
+]);
+
+export function getDefaultBaseUrl() {
+  const dynamicLanguage = getInstance() === 'dev' ? 'com' : getDefaultLanguage();
+  const defaultHomeUrl = `https://www.bitdefender.${dynamicLanguage}/`;
+  return DOMAIN_NAME_MAP.get(dynamicLanguage) || defaultHomeUrl;
 }
