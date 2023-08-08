@@ -9,8 +9,6 @@ export function getInstance() {
     'hlx.live': 'stage',
   };
 
-  // console.log('AAAAAA', window.location.hostname);
-
   // eslint-disable-next-line no-restricted-syntax
   for (const [host, inst] of Object.entries(hostToInstance)) {
     if (window.location.hostname.includes(host)) return inst;
