@@ -1,0 +1,118 @@
+.rev-carousel-cards .card-shadow {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+  padding: 0 15px;
+}
+.rev-carousel-cards hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-bottom-color: #616161;
+}
+.rev-carousel-cards .best-deal-card {
+  background-color: #22ac3b;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.35);
+  text-align: center;
+  position: absolute;
+  border-radius: 0;
+  color: #fff;
+  padding: 10px 0;
+  left: 0;
+  top: -24px;
+  right: 0;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 14px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.rev-carousel-cards .best-deal-card--on-carousel {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.rev-carousel-cards .prod-newprice {
+  font-size: 36px;
+}
+.rev-carousel-cards .prod-oldprice {
+  font-size: 18px;
+}
+.rev-carousel-cards p:has(+ ul) {
+  text-align: center;
+  background-color: #F5F5F7;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.rev-carousel-cards .carousel-item > p:nth-of-type(1) {
+  font-size: var(--heading-font-size-m);
+  margin-bottom: 0;
+  min-height: 77px;
+}
+.rev-carousel-cards .carousel-item > p:nth-of-type(3) {
+  color: #616161;
+  margin-bottom: 0;
+}
+.rev-carousel-cards .carousel-item > p:nth-of-type(4):not(:has(+ table)) {
+  font-size: var(--heading-font-size-s);
+  text-align: center;
+  min-height: 257px;
+  padding: 70px 10px;
+}
+.rev-carousel-cards .carousel-item > p:nth-of-type(4):has(+ table) {
+  display: inline-block;
+  background-color: #E6F2FE;
+  padding: 5px 15px;
+  border-radius: 16px;
+  align-self: center;
+}
+.rev-carousel-cards .carousel-item table {
+  border-collapse: separate;
+  border-spacing: 5px 1em;
+  min-height: 210px;
+}
+.rev-carousel-cards .carousel-item table td {
+  line-height: normal;
+}
+.rev-carousel-cards .carousel-item table td:first-child {
+  width: 46px;
+}
+.rev-carousel-cards .carousel-control-next, .rev-carousel-cards .carousel-control-prev {
+  position: inherit;
+  display: inline-block;
+  width: inherit;
+  background-color: transparent;
+}
+.rev-carousel-cards .carousel-control-next .carousel-control-next-icon, .rev-carousel-cards .carousel-control-prev .carousel-control-next-icon {
+  background: url("../../images/icons/right-arrow.svg") no-repeat;
+}
+.rev-carousel-cards .carousel-control-next .carousel-control-prev-icon, .rev-carousel-cards .carousel-control-prev .carousel-control-prev-icon {
+  background: url("../../images/icons/right-arrow.svg") no-repeat;
+  transform: rotate(180deg);
+}
+.rev-carousel-cards .button-container a {
+  display: block;
+  width: 90%;
+  margin: auto;
+}
+.rev-carousel-cards ul {
+  padding: 0;
+}
+.rev-carousel-cards ul li:not(:has(del)) {
+  text-align: left;
+  background: url("../../images/icons/check_full.png") 0 3px no-repeat transparent;
+  list-style-type: none;
+  padding-left: 23px;
+  background-size: 16px;
+  font-size: 14px;
+  color: #000;
+  margin-top: 10px;
+}
+.rev-carousel-cards ul li:has(del) {
+  text-align: left;
+  background: url("../../images/icons/x_circle.svg") 0 3px no-repeat transparent;
+  list-style-type: none;
+  padding-left: 23px;
+  background-size: 16px;
+  font-size: 14px;
+  color: #616161;
+  margin-top: 10px;
+}
