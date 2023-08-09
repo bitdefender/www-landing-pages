@@ -338,7 +338,7 @@
     float: left;
   }
 
-  .b-dropdownbox-container .block.has3divs > div:not(:first-child) {
+  .b-dropdownbox-container .block.has4divs > div:not(:first-child) {
     margin-bottom: 4em;
 
     > div {
@@ -357,6 +357,13 @@
     }
   }
   
+  .b-dropdownbox-container .block.has3divs > div:not(:first-child) > div:not(:first-child) {
+    width: 50%;
+    min-height: 3em;
+    font-size: 13px;
+    line-height: 16px;
+  }
+
   .b-dropdownbox-container .block.has2divs > div:not(:first-child) > div:not(:first-child) {
     width: 100%;
   }

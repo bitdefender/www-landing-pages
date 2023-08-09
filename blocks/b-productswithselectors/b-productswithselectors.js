@@ -77,15 +77,24 @@ export default function decorate(block) {
             const fileServers2ndProd = Math.ceil((Number(triggerValue)) * 0.3);
             const mailboxes = Math.ceil((Number(triggerValue) / 100) * 150);
 
-            block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(1) strong').innerHTML = triggerValue;
-            block.querySelector('.b-productswithselectors > div:nth-child(3) ul:last-of-type li:nth-child(1) strong').innerHTML = triggerValue;
+            const selectors = [
+              { index: 2, type: 1, value: triggerValue },
+              { index: 3, type: 1, value: triggerValue },
+              { index: 4, type: 1, value: triggerValue },
+              { index: 2, type: 2, value: fileServers1stProd },
+              { index: 3, type: 2, value: fileServers2ndProd },
+              { index: 4, type: 2, value: fileServers2ndProd },
+              { index: 4, type: 3, value: mailboxes },
+            ];
 
-            block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(2) strong').innerHTML = fileServers1stProd;
-            block.querySelector('.b-productswithselectors > div:nth-child(3) ul:last-of-type li:nth-child(2) strong').innerHTML = fileServers2ndProd;
-
-            if (block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong')) {
-              block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong').innerHTML = mailboxes;
-            }
+            selectors.forEach((selector) => {
+              const { index, type, value } = selector;
+              const query = `.b-productswithselectors > div:nth-child(${index}) ul:last-of-type li:nth-child(${type}) strong`;
+              const element = block.querySelector(query);
+              if (element) {
+                element.innerHTML = value;
+              }
+            });
           }
 
           productsAsList.forEach((prod) => {
