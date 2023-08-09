@@ -31,6 +31,23 @@
       margin-top: 10px;
     }
 
+    p {
+      font-size: 21px;
+      font-weight: 400;
+      color: white;
+      margin: 1em 0 0;
+      margin-right: 10px;
+      max-width: 595px;
+
+      .prod-percent.green_bck {
+        margin-top: 0;
+      }
+    }
+
+    .float-p p {
+      display: inline;
+    }
+
     #bannerAward {
       width: 250px;
       position: static;
@@ -76,23 +93,6 @@
     
     .w-full h1, .w-full h2 {
       max-width: 100%;
-    }
-
-    p {
-      font-size: 21px;
-      font-weight: 400;
-      color: white;
-      margin: 1em 0 0;
-      margin-right: 10px;
-      max-width: 595px;
-
-      .prod-percent.green_bck {
-        margin-top: 0;
-      }
-    }
-
-    .float-p p {
-      display: inline;
     }
 
     a.button {
