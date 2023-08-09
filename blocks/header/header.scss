@@ -3,3 +3,25 @@ header span.icon {
   width: unset;
   display: block;
 }
+
+header span.reverse-filter {
+  filter: invert(0);
+}
+
+header {
+  &.rev-header {
+    background-color: #fff;
+  }
+}
+
+@media screen and (width >= 991px) {
+  header span.reverse-filter {
+    filter: invert(1);
+  }
+
+  header {
+    &.rev-header {
+      background-color: #000;
+    }
+  }
+}
