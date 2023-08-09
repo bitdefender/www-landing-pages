@@ -31,7 +31,7 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    product, discountStyle, discountText, textColor, backgroundColor, imageVariation, hasAwardImage, bannerDiscount,
+    product, discountStyle, discountText, textColor, backgroundColor, imageVariation, bannerDiscount,
   } = metaData;
 
   // update background color if set, if not set default: #000
@@ -52,7 +52,7 @@ export default function decorate(block) {
     block.children[2].id = 'bannerAward';
     const targetElement = block.children[2].children[0];
     const paragraphs = targetElement.querySelectorAll('p:last-of-type');
-    paragraphs.forEach(text => {
+    paragraphs.forEach((text) => {
       if (textColor) {
         text.style.color = textColor;
       } else {

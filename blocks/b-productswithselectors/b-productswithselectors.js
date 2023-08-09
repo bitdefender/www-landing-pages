@@ -84,10 +84,10 @@ export default function decorate(block) {
               { index: 2, type: 2, value: fileServers1stProd },
               { index: 3, type: 2, value: fileServers2ndProd },
               { index: 4, type: 2, value: fileServers2ndProd },
-              { index: 4, type: 3, value: mailboxes }
+              { index: 4, type: 3, value: mailboxes },
             ];
             
-            selectors.forEach(selector => {
+            selectors.forEach((selector) => {
               const { index, type, value } = selector;
               const query = `.b-productswithselectors > div:nth-child(${index}) ul:last-of-type li:nth-child(${type}) strong`;
               const element = block.querySelector(query);
