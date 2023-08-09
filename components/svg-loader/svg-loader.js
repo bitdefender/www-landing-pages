@@ -154,6 +154,24 @@ export default class SvgLoaderComponent {
       case 'business-flexibility':
         return `<svg style="${this.#style}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86.6 86.6"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M65,85.1H8.19A6.69,6.69,0,0,1,1.5,78.41v-10H58.35v10a6.69,6.69,0,1,0,13.37,0V8.19A6.69,6.69,0,0,1,78.41,1.5"/><line class="cls-1" x1="34.94" y1="11.53" x2="51.66" y2="11.53"/><line class="cls-1" x1="37.57" y1="34.94" x2="58.35" y2="34.94"/><line class="cls-1" x1="58.35" y1="24.91" x2="30.45" y2="24.91"/><line class="cls-1" x1="30.45" y1="55" x2="58.35" y2="55"/><line class="cls-1" x1="58.35" y1="44.97" x2="37.57" y2="44.97"/><line class="cls-1" x1="14.88" y1="57.64" x2="14.88" y2="68.38"/><path class="cls-1" d="M14.87,22.27V8.19A6.69,6.69,0,0,1,21.56,1.5H36.91"/><path class="cls-1" d="M49.69,1.5H78.41A6.69,6.69,0,0,1,85.1,8.19v10H71.72"/><circle class="cls-1" cx="19.89" cy="39.96" r="18.39"/><path class="cls-2" d="M23.62,35h-5a2.49,2.49,0,0,0,0,5h2.48a2.48,2.48,0,1,1,0,5h-5"/><line class="cls-2" x1="19.89" y1="31.26" x2="19.89" y2="34.99"/><line class="cls-2" x1="19.89" y1="44.92" x2="19.89" y2="48.65"/></g></g></svg>`;
 
+      case 'arrow-left':
+        return `<svg style="${this.#style}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="10" viewBox="0 0 15 10">
+          <defs>
+              <clipPath id="clip-path">
+                  <rect id="Rectangle_3067" data-name="Rectangle 3067" width="15" height="10" transform="translate(78 19)" fill="#c5c5c5"></rect>
+              </clipPath>
+          </defs>
+          <g id="Component_46_14" data-name="Component 46 – 14" transform="translate(15 10) rotate(180)">
+              <g id="Mask_Group_6230" data-name="Mask Group 6230" transform="translate(-78 -19)" clip-path="url(#clip-path)">
+                  <g id="right-arrow_1_" data-name="right-arrow (1)" transform="translate(74 14.875)">
+                      <g id="Group_6357" data-name="Group 6357" transform="translate(4 4.125)">
+                          <path id="Path_7458" data-name="Path 7458" d="M18.776,8.554h0l-4-4.194a.738.738,0,0,0-1.082,0,.837.837,0,0,0,0,1.14l2.685,2.815H4.765a.808.808,0,0,0,0,1.613H16.381L13.7,12.747a.837.837,0,0,0,0,1.14.738.738,0,0,0,1.082,0l4-4.194h0A.838.838,0,0,0,18.776,8.554Z" transform="translate(-4 -4.125)" fill="#c5c5c5"></path>
+                      </g>
+                  </g>
+              </g>
+          </g>
+      </svg>`;
+
       default: return '';
     }
   }
