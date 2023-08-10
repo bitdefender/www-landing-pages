@@ -5,7 +5,6 @@ export default function decorate(block) {
   if (block.children[2]) {
     infoImg = block.children[2].children[0].innerHTML;
   }
-  
 
   block.innerHTML = `
     <div class="container py-5">

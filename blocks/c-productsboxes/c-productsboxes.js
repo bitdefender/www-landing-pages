@@ -1,6 +1,6 @@
 /*
   Information:
-  - displays 3 boxes positioned in flex mode:
+  - displays max 3 boxes positioned in flex mode:
     1. product 1
     2. product 2
     3. product 3
@@ -16,8 +16,7 @@
                       SALE TODAY
 
   Samples:
-  - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/last-offer.html - http://localhost:3000/consumer/en/new/last-offer
-  - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html - http://localhost:3000/consumer/en/new/ultimate-flv1
+  - http://localhost:3000/consumer/fr/new/dip-premiumsecurity-opt
 */
 
 import { productAliases } from '../../scripts/scripts.js';
@@ -28,7 +27,9 @@ export default function decorate(block) {
   // get data attributes set in metaData
   const parentSelector = block.parentNode.parentNode;
   const metaData = parentSelector.dataset;
-  const { title, subtitle, titlePosition, products, bulinaText } = metaData;
+  const {
+    title, subtitle, titlePosition, products, bulinaText,
+  } = metaData;
   const productsAsList = products && products.split(',');
 
   if (productsAsList.length) {
@@ -86,12 +87,12 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDiv = document.createElement('div');
-      
+
       pricesDiv.classList = 'prices_box awaitLoader prodLoad';
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
 
-      block.children[idx].querySelector(`table`).after(pricesDiv);
+      block.children[idx].querySelector('table').after(pricesDiv);
 
       /// ///////////////////////////////////////////////////////////////////////
       // adding top tag to each box
@@ -103,15 +104,10 @@ export default function decorate(block) {
         const divTag = document.createElement('div');
         divTag.innerText = metaData[tagTextKey];
         divTag.className = 'tag';
-        //prodBox.parentNode.querySelector(`p:nth-child(1)`).before(divTag);
-        prodBox.querySelector(`div`).before(divTag);
+        // prodBox.parentNode.querySelector(`p:nth-child(1)`).before(divTag);
+        prodBox.querySelector('div').before(divTag);
       }
 
-      /// ///////////////////////////////////////////////////////////////////////
-      // set the height of main content
-      const tableContent = prodBox.querySelector('table:first-of-type');
-
-      
       /// ///////////////////////////////////////////////////////////////////////
       // add buybtn div & anchor
       const tableBuybtn = prodBox.querySelector('table:last-of-type td');
