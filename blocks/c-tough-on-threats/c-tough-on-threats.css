@@ -39,6 +39,10 @@
   }
 }
 @media (width <= 768px) {
+  .c-tough-on-threats-container h5 {
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
   .c-tough-on-threats-container .c-tough-on-threats .container {
     padding: 15px !important;
   }

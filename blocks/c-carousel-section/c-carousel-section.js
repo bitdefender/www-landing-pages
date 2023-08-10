@@ -1,12 +1,17 @@
 export default function decorate(block) {
   const infoTextEl = block.children[0].children[0];
   const carouselSlides = [...block.children[1].children];
+  let infoImg = '';
+  if (block.children[2]) {
+    infoImg = block.children[2].children[0].innerHTML;
+  }
+  
 
   block.innerHTML = `
     <div class="container py-5">
       <div class="row">
-        <div class="col-12 col-md-7 description">${infoTextEl.innerHTML}</div>
-        <div class="col-12 col-md-5">
+      <div class="col-12${infoImg ? '' : ' col-md-7 '} description">${infoTextEl.innerHTML}</div>
+        <div class="col-12 ${infoImg ? ' col-md-6 ' : ' col-md-5 '}">
           <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
               ${carouselSlides.map((slide, idx) => `
@@ -33,6 +38,8 @@ export default function decorate(block) {
             </div>
           </div>
         </div>
+
+        ${infoImg ? `<div class="col-12 col-md-6 img-right">${infoImg}</div>` : ''}
       </div>
     </div>
   `;
