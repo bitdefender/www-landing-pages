@@ -22,6 +22,18 @@
   padding: 1em;
 }
 
+.c-productsboxes > div div.tag {
+  background-color: #22ac3b;
+  text-align: center;
+  border-radius: 0;
+  color: #fff;
+  padding: 10px 5px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 14px;
+}
+
 .c-productsboxes.border-green > div {
   border: 9px solid #22ac3b;
 }
@@ -60,18 +72,6 @@
     border-bottom: 2px solid #e30000;
 }
 
-.c-productsboxes > div div.tag {
-  background-color: #22ac3b;
-  text-align: center;
-  border-radius: 0;
-  color: #fff;
-  padding: 10px 5px;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 14px;
-  line-height: 14px;
-}
-
 .c-productsboxes > div div.prices_box span.prod-oldprice {
   margin-top: 10px;
   font-size: 24px;
@@ -98,14 +98,6 @@
   font-size: 16px;
 }
 
-.c-productsboxes > div table:first-of-type {
-  margin-top: 10px;
-}
-
-.c-productsboxes > div table:nth-of-type(2) p {
-  margin-top: 0 !important;
-}
-
 .c-productsboxes > div table,
 .c-productsboxes > div table tbody,
 .c-productsboxes > div table tbody tr,
@@ -114,8 +106,16 @@
   display: block;
 }
 
+.c-productsboxes > div table:first-of-type {
+  margin-top: 10px;
+}
+
 .c-productsboxes > div table:nth-of-type(2) {
-    display: none;
+  display: none;
+}
+
+.c-productsboxes > div table:nth-of-type(2) p {
+  margin-top: 0 !important;
 }
 
 // first year - Sales tax included
@@ -279,7 +279,7 @@
 
 @media (width <= 768px) {
   .c-productsboxes-container .top_title {
-    padding: 1em 0 0em;
+    padding: 1em 0 0;
   }
 
   .c-productsboxes-container .top_title h1, .c-productsboxes-container .top_title h2 {
