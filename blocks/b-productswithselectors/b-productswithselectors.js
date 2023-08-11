@@ -25,7 +25,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, selectorsName, taxesText, discountText, buttonText,
+    products, selectorsName, taxesText, discountText, tagText1, buttonText,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -114,12 +114,22 @@ export default function decorate(block) {
       });
     }
 
-    /// ///////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    // add red tag
+    if (tagText1) {
+      const prod1box = block.querySelector(`.b-productswithselectors > div:nth-child(2)`);
+      const tagDiv = document.createElement('div');
+      tagDiv.className = 'tag redTag';
+      tagDiv.innerHTML = `<i>${tagText1}<i>`;
+      prod1box.appendChild(tagDiv);
+    }
+
+    //////////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
+    
       const pricesDiv = document.createElement('div');
       pricesDiv.id = 'pricesBox';
       pricesDiv.className = 'prices_box';
