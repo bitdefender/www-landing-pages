@@ -26,7 +26,9 @@ export default function decorate(block) {
   const parent2ndDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(2)');
 
   const metaData = parentSelector.dataset;
-  const { products, yearsText, bulinaText, titleTag } = metaData;
+  const {
+    products, yearsText, bulinaText, titleTag,
+  } = metaData;
   const productsAsList = products && products.split(',');
 
   const subscribeTexts = parent2ndDiv.querySelector('div p').innerText;
@@ -46,7 +48,7 @@ export default function decorate(block) {
 
   if (bulinaText) {
     const bulinaSplitted = bulinaText.split(' ');
-    let divBulina = document.createElement('div');
+    const divBulina = document.createElement('div');
     divBulina.className = 'prod-percent green_bck_circle bigger has2txt';
     divBulina.innerHTML = `${bulinaSplitted[0].replace(/0/g, '<b class=\'max-discount\'></b>')} ${bulinaSplitted[1]}`;
 
