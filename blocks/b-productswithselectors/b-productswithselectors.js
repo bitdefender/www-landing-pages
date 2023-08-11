@@ -114,23 +114,23 @@ export default function decorate(block) {
       });
     }
 
-    //////////////////////////////////////////////////////////////////////////
+    /// ///////////////////////////////////////////////////////////////////////
     // add red tag
     if (tagText1) {
-      const prod1box = block.querySelector(`.b-productswithselectors > div:nth-child(2)`);
+      const prod1box = block.querySelector('.b-productswithselectors > div:nth-child(2)');
       const tagDiv = document.createElement('div');
       tagDiv.className = 'tag redTag';
       tagDiv.innerHTML = `<i>${tagText1}<i>`;
       prod1box.appendChild(tagDiv);
     }
 
-    //////////////////////////////////////////////////////////////////////////
+    /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-    
       const pricesDiv = document.createElement('div');
+
       pricesDiv.id = 'pricesBox';
       pricesDiv.className = 'prices_box';
       pricesDiv.innerHTML = `<span class="prod-percent green_txt"><b class="percent-${onSelectorClass}">0%</b> ${discountText}<span>`;
