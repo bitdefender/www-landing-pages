@@ -296,6 +296,12 @@
     font-size: 15px;
     line-height: 17px;
   }
+  .b-dropdownbox-container > div:nth-child(2) .new::after {
+    top: -90px;
+    right: 0;
+    width: 135px;
+    height: 90pt;
+  }
   .b-dropdownbox-container .block > div:not(:first-child) > div {
     padding: 8px 2% !important;
     font-size: 15px;

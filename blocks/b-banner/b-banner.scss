@@ -2,7 +2,7 @@
 
 .b-banner-container {
   color: white;
-  height: 500px;
+  height: auto;
   background-color: black;
   background-repeat: no-repeat;
   background-position: top right;
@@ -122,6 +122,7 @@
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
+    height: 500px;
 
     .b-banner-wrapper {
       position: absolute;

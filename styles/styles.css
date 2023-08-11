@@ -282,24 +282,23 @@ main .section {
   padding-right: 15px;
 }
 
+main .default-content-wrapper {
+  padding: 1em 15px;
+}
+
+*[data-mtop=none] {
+  margin-top: 0;
+}
+*[data-mtop=none] .default-content-wrapper {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 main .default-content-wrapper h1, main .default-content-wrapper h2 {
   font-size: 32px;
   color: #111;
   font-weight: 600;
   margin: 0 0 5px;
-}
-
-.red-buy-button p {
-  padding: 0 !important;
-  margin: 0 !important;
-  color: white !important;
-  line-height: 11px;
-}
-
-main .default-content-wrapper {
-  padding-top: 2rem;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 main .default-content-wrapper h1:last-of-type, main .default-content-wrapper h2:last-of-type {
@@ -308,6 +307,13 @@ main .default-content-wrapper h1:last-of-type, main .default-content-wrapper h2:
 
 main .section[data-size=bigger] .default-content-wrapper h1, main .section[data-size=bigger] .default-content-wrapper h2 {
   font-size: 38px;
+}
+
+.red-buy-button p {
+  padding: 0 !important;
+  margin: 0 !important;
+  color: white !important;
+  line-height: 11px;
 }
 
 main .default-content-wrapper p {
@@ -698,7 +704,7 @@ main .section.highlight {
   main .default-content-wrapper {
     padding-top: 1em;
   }
-  main .default-content-wrapper h1, main .default-content-wrapper h2 {
+  main .default-content-wrapper h1, main .default-content-wrapper h2, main .default-content-wrapper h3 {
     font-size: 23px;
   }
   main .section[data-size=bigger] .default-content-wrapper h1, main .section[data-size=bigger] .default-content-wrapper h2 {

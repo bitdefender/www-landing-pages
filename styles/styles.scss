@@ -295,11 +295,72 @@ main .section {
   padding-right: 15px;
 }
 
-main .default-content-wrapper h1, main .default-content-wrapper h2 {
+main .default-content-wrapper {
+  padding: 1em 15px;
+}
+
+*[data-mtop="none"] {
+  margin-top: 0;
+
+  .default-content-wrapper {
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+main .default-content-wrapper h1, main .default-content-wrapper h2, main .default-content-wrapper h3 {
   font-size: 32px;
   color: #111;
   font-weight: 600;
   margin: 0 0 5px;
+}
+
+main .default-content-wrapper h2 {
+  font-size: 30px;
+}
+
+main .default-content-wrapper h3 {
+  font-size: 28px;
+}
+
+main .default-content-wrapper h4 {
+  font-size: 26px;
+}
+
+main .default-content-wrapper h5 {
+  font-size: 24px;
+}
+
+main .default-content-wrapper h6 {
+  font-size: 22px;
+}
+
+main .default-content-wrapper h1:last-of-type, main .default-content-wrapper h2:last-of-type {
+  margin-bottom: 15px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h1 {
+  font-size: 38px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h2 {
+  font-size: 37px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h3 {
+  font-size: 35px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h4 {
+  font-size: 33px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h5 {
+  font-size: 31px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h6 {
+  font-size: 29px;
 }
 
 .red-buy-button p {
@@ -307,20 +368,6 @@ main .default-content-wrapper h1, main .default-content-wrapper h2 {
   margin: 0 !important;
   color: white !important;
   line-height: 11px;
-}
-
-main .default-content-wrapper {
-  padding-top: 2rem;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-main .default-content-wrapper h1:last-of-type, main .default-content-wrapper h2:last-of-type {
-  margin-bottom: 15px;
-}
-
-main .section[data-size='bigger'] .default-content-wrapper h1, main .section[data-size='bigger'] .default-content-wrapper h2 {
-  font-size: 38px;
 }
 
 main .default-content-wrapper p {
@@ -335,14 +382,6 @@ main .default-content-wrapper p.button-container {
 
 main .default-content-wrapper img {
   margin-top: 2rem;
-}
-
-.section .default-content-wrapper h4 {
-  font-size: 32px;
-  line-height: 1.2;
-  font-weight: 600;
-  font-family: roboto, sans-serif;
-  margin-bottom: 10px;
 }
 
 .topHeader .heading {
@@ -728,12 +767,63 @@ main .section.highlight {
     padding-top: 1em;
   }
 
-  main .default-content-wrapper h1, main .default-content-wrapper h2 {
+  main .default-content-wrapper h1 {
+    font-size: 25px;
+  }
+
+  main .default-content-wrapper h2 {
     font-size: 23px;
   }
 
-  main .section[data-size="bigger"] .default-content-wrapper h1, main .section[data-size="bigger"] .default-content-wrapper h2 {
+  main .default-content-wrapper h3 {
+    font-size: 21px;
+  }
+
+  main .default-content-wrapper h4 {
+    font-size: 19px;
+  }
+
+  main .default-content-wrapper h5 {
+    font-size: 17px;
+  }
+
+  main .default-content-wrapper h6 {
+    font-size: 15px;
+  }
+
+  .section.logos {
+    h4 {
+      font-size: 30px;
+      line-height: 32px;
+    }
+
+    p:last-of-type img {
+      max-width: 43%;
+    }
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h1 {
+    font-size: 31px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h2 {
     font-size: 29px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h3 {
+    font-size: 27px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h4 {
+    font-size: 25px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h5 {
+    font-size: 23px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h6 {
+    font-size: 21px;
   }
 
   main .default-content-wrapper p {
@@ -752,16 +842,5 @@ main .section.highlight {
     font-size: 27px;
     line-height: 30px;
     margin-top: 10px;
-  }
-
-  .section.logos {
-    h4 {
-      font-size: 30px;
-      line-height: 32px;
-    }
-
-    p:last-of-type img {
-      max-width: 43%;
-    }
   }
 }

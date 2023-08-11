@@ -1,6 +1,6 @@
 .b-banner-container {
   color: white;
-  height: 500px;
+  height: auto;
   background-color: black;
   background-repeat: no-repeat;
   background-position: top right;
@@ -25,6 +25,20 @@
   font-size: 21px;
   max-width: unset;
   margin-top: 10px;
+}
+.b-banner-container .b-banner-wrapper p {
+  font-size: 21px;
+  font-weight: 400;
+  color: white;
+  margin: 1em 0 0;
+  margin-right: 10px;
+  max-width: 595px;
+}
+.b-banner-container .b-banner-wrapper p .prod-percent.green_bck {
+  margin-top: 0;
+}
+.b-banner-container .b-banner-wrapper .float-p p {
+  display: inline;
 }
 .b-banner-container .b-banner-wrapper #bannerAward {
   width: 250px;
@@ -65,20 +79,6 @@
 .b-banner-container .b-banner-wrapper .w-full h1, .b-banner-container .b-banner-wrapper .w-full h2 {
   max-width: 100%;
 }
-.b-banner-container .b-banner-wrapper p {
-  font-size: 21px;
-  font-weight: 400;
-  color: white;
-  margin: 1em 0 0;
-  margin-right: 10px;
-  max-width: 595px;
-}
-.b-banner-container .b-banner-wrapper p .prod-percent.green_bck {
-  margin-top: 0;
-}
-.b-banner-container .b-banner-wrapper .float-p p {
-  display: inline;
-}
 .b-banner-container .b-banner-wrapper a.button {
   background: #e72325 !important;
   color: #fff !important;
@@ -103,6 +103,7 @@
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
+    height: 500px;
   }
   .b-banner-container .b-banner-wrapper {
     position: absolute;
