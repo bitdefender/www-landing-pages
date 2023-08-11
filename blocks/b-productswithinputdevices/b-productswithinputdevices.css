@@ -1,5 +1,21 @@
 /* .b-productswithinputdevices */
-.b-productswithinputdevices {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper {
+  position: relative;
+}
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
+  left: 5%;
+  top: -3em;
+  transform: none;
+  font-size: 25px;
+  line-height: 35px;
+  padding-top: 25px;
+  display: block;
+}
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle b {
+  display: block;
+  font-size: 35px;
+}
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices {
   background: #e3f1ff;
   color: #666;
   height: auto;
@@ -7,7 +23,7 @@
   border-radius: 8px;
   margin: 3em 0;
 }
-.b-productswithinputdevices > div:nth-child(1) h3 {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) h3 {
   font: normal normal bold 24px/24px Roboto, sans-serif;
   color: #000;
   display: flex;
@@ -15,42 +31,42 @@
   justify-content: center;
   align-items: center;
 }
-.b-productswithinputdevices > div:nth-child(1) h3 span.greenTag {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) h3 span.greenTag {
   font: normal normal bold 14px/15px Roboto, sans-serif;
   margin-left: 5px;
   padding: 2px 10px;
 }
-.b-productswithinputdevices > div:nth-child(1) h4 {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) h4 {
   font: normal normal normal 36px/42px Roboto, sans-serif;
   color: #000;
   margin: 10px 0 20px;
 }
-.b-productswithinputdevices > div:nth-child(1) p {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) p {
   margin: 0 !important;
   padding: 0;
   font: normal normal normal 13px/15px Roboto, sans-serif;
   color: #000;
   margin-bottom: 10px;
 }
-.b-productswithinputdevices > div:nth-child(1) p strong {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) p strong {
   font: normal normal bold 18px/21px Roboto, sans-serif;
   color: #000;
 }
-.b-productswithinputdevices > div:nth-child(1) table {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) table {
   text-align: center;
   margin: 10px auto;
 }
-.b-productswithinputdevices > div:nth-child(1) table p strong {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) table p strong {
   font: normal normal bold 13px/15px Roboto, sans-serif;
 }
-.b-productswithinputdevices > div:nth-child(1) table p strong em {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) table p strong em {
   font: normal normal bold 13px/15px Roboto, sans-serif;
 }
-.b-productswithinputdevices > div:nth-child(2) {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) {
   display: flex;
   justify-content: center;
 }
-.b-productswithinputdevices > div:nth-child(2) > div {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div {
   background: #FFF 0% 0% no-repeat padding-box;
   box-shadow: 0 3px 6px #cacaca;
   border-radius: 10px;
@@ -58,18 +74,18 @@
   margin: 10px;
   padding: 15px;
 }
-.b-productswithinputdevices > div:nth-child(2) > div:nth-child(1) {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div:nth-child(1) {
   display: none;
 }
-.b-productswithinputdevices > div:nth-child(2) > div p {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div p {
   padding: 0;
   margin: 0;
 }
-.b-productswithinputdevices > div:nth-child(2) > div p:first-of-type {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div p:first-of-type {
   font: normal normal normal 18px/21px Roboto, sans-serif;
   color: #000;
 }
-.b-productswithinputdevices > div:nth-child(2) > div b {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div b {
   font: normal normal bold 18px/21px Roboto, sans-serif;
   color: #000;
   border-bottom: 1px solid #CCC;
@@ -77,22 +93,22 @@
   padding-bottom: 0.6em;
   display: block;
 }
-.b-productswithinputdevices .prod-newprice {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-newprice {
   color: #111;
   display: block;
   font: normal normal bold 32px/38px Roboto, sans-serif;
 }
-.b-productswithinputdevices .prod-oldprice {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-oldprice {
   font: normal normal normal 18px/21px Roboto, sans-serif;
   color: #999;
   width: 100%;
   text-decoration: none;
 }
-.b-productswithinputdevices .prod-oldprice span {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-oldprice span {
   text-decoration: line-through;
   margin-left: 3px;
 }
-.b-productswithinputdevices .prod-save {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-save {
   font: normal normal bold 16px/19px Roboto, sans-serif;
   padding: 2px 0;
   border-radius: 18px;
@@ -104,10 +120,10 @@
   margin: 0.4em auto 1em !important;
   width: 155px;
 }
-.b-productswithinputdevices .prod-save span {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-save span {
   margin-left: 3px;
 }
-.b-productswithinputdevices fieldset {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices fieldset {
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -115,7 +131,7 @@
   width: 120px;
   margin: 10px auto 0;
 }
-.b-productswithinputdevices fieldset button {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices fieldset button {
   transition: all 0.3s ease;
   width: 19px;
   height: 19px;
@@ -131,7 +147,7 @@
   padding: 0 0 0 1px;
   background: white;
 }
-.b-productswithinputdevices fieldset input {
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices fieldset input {
   width: 55px;
   text-align: center;
   font-size: 18px;
@@ -153,7 +169,20 @@
 
 /* for mobile */
 @media (width <= 768px) {
-  .b-productswithinputdevices {
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
+    display: flex;
+    border-radius: 10px;
+    width: 100%;
+    position: unset;
+    text-align: center;
+    height: auto;
+    padding: 10px;
+    justify-content: center;
+  }
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle b {
+    margin-right: 10px;
+  }
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices {
     background: #e3f1ff;
     color: #666;
     height: auto;
@@ -161,12 +190,12 @@
     border-radius: 8px;
     margin: 1em 0;
   }
-  .b-productswithinputdevices > div:nth-child(1) h4 {
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) h4 {
     font: normal normal normal 24px/28px Roboto, sans-serif;
     color: #000;
     margin: 10px 0;
   }
-  .b-productswithinputdevices > div:nth-child(2) {
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) {
     display: block;
   }
 }
