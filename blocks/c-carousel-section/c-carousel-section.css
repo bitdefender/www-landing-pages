@@ -165,7 +165,7 @@
   }
   .c-carousel-section-container .new-blue .carousel {
     padding: 1em 1em 3em 55px;
-    background: url('../../images/dark-blue-quote.svg') no-repeat top 1em left 11px #FFF;
+    background: url("../../images/dark-blue-quote.svg") no-repeat top 1em left 11px #FFF;
     background-size: 40px;
     margin-top: 1em;
   }
