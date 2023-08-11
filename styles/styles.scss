@@ -384,14 +384,6 @@ main .default-content-wrapper img {
   margin-top: 2rem;
 }
 
-.section .default-content-wrapper h4 {
-  font-size: 32px;
-  line-height: 1.2;
-  font-weight: 600;
-  font-family: roboto, sans-serif;
-  margin-bottom: 10px;
-}
-
 .topHeader .heading {
   font-size: 13px;
   text-transform: uppercase;
@@ -799,6 +791,17 @@ main .section.highlight {
     font-size: 15px;
   }
 
+  .section.logos {
+    h4 {
+      font-size: 30px;
+      line-height: 32px;
+    }
+
+    p:last-of-type img {
+      max-width: 43%;
+    }
+  }
+
   main .section[data-size="bigger"] .default-content-wrapper h1 {
     font-size: 31px;
   }
@@ -839,16 +842,5 @@ main .section.highlight {
     font-size: 27px;
     line-height: 30px;
     margin-top: 10px;
-  }
-
-  .section.logos {
-    h4 {
-      font-size: 30px;
-      line-height: 32px;
-    }
-
-    p:last-of-type img {
-      max-width: 43%;
-    }
   }
 }
