@@ -308,19 +308,59 @@ main .default-content-wrapper {
   }
 }
 
-main .default-content-wrapper h1, main .default-content-wrapper h2 {
+main .default-content-wrapper h1, main .default-content-wrapper h2, main .default-content-wrapper h3 {
   font-size: 32px;
   color: #111;
   font-weight: 600;
   margin: 0 0 5px;
 }
 
+main .default-content-wrapper h2 {
+  font-size: 30px;
+}
+
+main .default-content-wrapper h3 {
+  font-size: 28px;
+}
+
+main .default-content-wrapper h4 {
+  font-size: 26px;
+}
+
+main .default-content-wrapper h5 {
+  font-size: 24px;
+}
+
+main .default-content-wrapper h6 {
+  font-size: 22px;
+}
+
 main .default-content-wrapper h1:last-of-type, main .default-content-wrapper h2:last-of-type {
   margin-bottom: 15px;
 }
 
-main .section[data-size='bigger'] .default-content-wrapper h1, main .section[data-size='bigger'] .default-content-wrapper h2 {
+main .section[data-size='bigger'] .default-content-wrapper h1 {
   font-size: 38px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h2 {
+  font-size: 37px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h3 {
+  font-size: 35px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h4 {
+  font-size: 33px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h5 {
+  font-size: 31px;
+}
+
+main .section[data-size='bigger'] .default-content-wrapper h6 {
+  font-size: 29px;
 }
 
 .red-buy-button p {
@@ -735,12 +775,52 @@ main .section.highlight {
     padding-top: 1em;
   }
 
-  main .default-content-wrapper h1, main .default-content-wrapper h2, main .default-content-wrapper h3 {
+  main .default-content-wrapper h1 {
+    font-size: 25px;
+  }
+
+  main .default-content-wrapper h2 {
     font-size: 23px;
   }
 
-  main .section[data-size="bigger"] .default-content-wrapper h1, main .section[data-size="bigger"] .default-content-wrapper h2 {
+  main .default-content-wrapper h3 {
+    font-size: 21px;
+  }
+
+  main .default-content-wrapper h4 {
+    font-size: 19px;
+  }
+
+  main .default-content-wrapper h5 {
+    font-size: 17px;
+  }
+
+  main .default-content-wrapper h6 {
+    font-size: 15px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h1 {
+    font-size: 31px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h2 {
     font-size: 29px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h3 {
+    font-size: 27px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h4 {
+    font-size: 25px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h5 {
+    font-size: 23px;
+  }
+
+  main .section[data-size="bigger"] .default-content-wrapper h6 {
+    font-size: 21px;
   }
 
   main .default-content-wrapper p {
