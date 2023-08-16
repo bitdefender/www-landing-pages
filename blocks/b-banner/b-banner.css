@@ -8,13 +8,27 @@
   padding-right: 0;
   padding-left: 0;
 }
-.b-banner-container img, .b-banner-container .hasDiscount {
+.b-banner-container .banner-image img {
   display: none;
 }
 .b-banner-container .b-banner-wrapper {
   position: relative;
   padding-left: 0;
   margin: 15px auto;
+}
+.b-banner-container .b-banner-wrapper .text-black {
+  color: black;
+}
+.b-banner-container .b-banner-wrapper .text-black p {
+  color: black;
+}
+.b-banner-container .b-banner-wrapper table {
+  border-collapse: separate;
+  border-spacing: 5px 1em;
+}
+.b-banner-container .b-banner-wrapper table tbody tr td p {
+  font-size: 16px;
+  margin: 0;
 }
 .b-banner-container .b-banner-wrapper h1 {
   font-size: 24px;
@@ -107,8 +121,6 @@
   }
   .b-banner-container .b-banner-wrapper {
     position: absolute;
-    left: 0;
-    right: 0;
     height: 100%;
     display: flex;
     align-items: center;
@@ -122,7 +134,7 @@
     width: 200px;
     position: absolute;
   }
-  .b-banner-container img {
+  .b-banner-container .banner-image img {
     display: block;
     height: 100%;
     float: right;
@@ -194,5 +206,9 @@
   .b-banner-container .hasDiscount div {
     right: 20%;
     top: 20%;
+  }
+  .b-banner-wrapper {
+    left: 0;
+    right: 0;
   }
 }
