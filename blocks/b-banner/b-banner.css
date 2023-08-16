@@ -8,6 +8,10 @@
   padding-right: 0;
   padding-left: 0;
 }
+.b-banner-container.negative {
+  margin-bottom: 0;
+  display: none;
+}
 .b-banner-container img, .b-banner-container .hasDiscount {
   display: none;
 }
@@ -104,6 +108,10 @@
   .b-banner-container {
     padding: 2em 0;
     height: 500px;
+  }
+  .b-banner-container.negative {
+    display: block;
+    margin-bottom: -400px;
   }
   .b-banner-container .b-banner-wrapper {
     position: absolute;
