@@ -1,4 +1,5 @@
 const PriceValidationTest = require("./json-tests/price-validation");
+const SnapshotBlockTest = require("./json-tests/snapshot-block");
 require('dotenv').config();
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
@@ -7,6 +8,11 @@ const genericPriceSuiteId = '64be463282bf299ccb6b9341';
 const snapshotsSuiteId = '64c8d884960593b38bb68331';
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--helix-poc--enake.hlx.page`;
 const activeLandingPagesUrl = 'https://main--helix-poc--enake.hlx.page/active-landingpages.json';
+
+const blockSnapshotsToTest = [
+  'b-banner-float-p',
+  'b-single-quote'
+];
 
 const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   ['de', 'eu-central-1'],
@@ -63,13 +69,14 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   }
 
   function showSnapshotTestsFullLogs(testResults) {
+    console.log('testResults', testResults);
     const mappedTests = testResults.map(test => test.data);
     const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
 
     mappedTests.forEach((testResult, index) => {
       const {
-        variables: { name },
+        name,
         test: { _id }
       } = testResult;
 
@@ -91,43 +98,62 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   }
 
   try {
-    const activeLandingpagesRes = await fetch(activeLandingPagesUrl);
-    const activeLandingpages = await activeLandingpagesRes.json();
+    // const activeLandingpagesRes = await fetch(activeLandingPagesUrl);
+    // const activeLandingpages = await activeLandingpagesRes.json();
+    //
+    // const importTestsPromises = activeLandingpages.data.flatMap(({ URI, Products }) => {
+    //   const productsAsList = Products.split(',');
+    //   const countryCode = URI.split('/')[1];
+    //   const region = AWS_REGION_BY_COUNTRY_CODE_MAP.get(countryCode);
+    //
+    //   return productsAsList.map((productName, index) => {
+    //     return GhostInspector.importTest(genericPriceSuiteId, new PriceValidationTest({
+    //       name: `${URI} => ${productName.trim()}`,
+    //       productIndex: index,
+    //       startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
+    //       region,
+    //     }).generate());
+    //   });
+    // });
 
-    const importTestsPromises = activeLandingpages.data.flatMap(({ URI, Products }) => {
-      const productsAsList = Products.split(',');
-      const countryCode = URI.split('/')[1];
-      const region = AWS_REGION_BY_COUNTRY_CODE_MAP.get(countryCode);
+    // get snapshots tests
+    const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
 
-      return productsAsList.map((productName, index) => {
-        return GhostInspector.importTest(genericPriceSuiteId, new PriceValidationTest({
-          name: `${URI} => ${productName.trim()}`,
-          productIndex: index,
-          startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
-          region,
-        }).generate());
-      });
-    });
+    const snapshotsPromises =
+      blockSnapshotsToTest
+        .map(testName => {
+          const testAlreadyExists = snapshotSuiteTests.find(originalTest => originalTest.name === testName);
+
+          if (testAlreadyExists) {
+            return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/drafts/blocks/${testAlreadyExists.name}`).then(res => res.json());
+          }
+
+          return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
+            name: testName,
+            startUrl: `${featureBranchEnvironmentBaseUrl}/drafts/blocks/${testName}`
+          }).generate())
+            .then(({_id}) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then(res => res.json()))
+        });
 
     const [
-      importTestsResult,
+      // importTestsResult,
       snapshotsResult
     ] = await Promise.all([
-      Promise.all(importTestsPromises),
-      // Promise.all(snapshotsPromises)
+      // Promise.all(importTestsPromises),
+      Promise.all(snapshotsPromises)
     ]);
 
-    const executionTestsPromises = importTestsResult.map(({_id}) => GhostInspector.executeTest(_id));
+    // const executionTestsPromises = importTestsResult.map(({_id}) => GhostInspector.executeTest(_id));
 
-    const [
-      executionTestsResult
-    ] = await Promise.all([
-      Promise.all(executionTestsPromises),
-      // Promise.all(snapshotsPromises)
-    ]);
+    // const [
+    //   executionTestsResult
+    // ] = await Promise.all([
+    //   Promise.all(executionTestsPromises),
+    //   Promise.all(snapshotsPromises)
+    // ]);
 
-    showGenericFunctionalTestsFullLogs(executionTestsResult);
-    // showSnapshotTestsFullLogs(snapshotsResult);
+    // showGenericFunctionalTestsFullLogs(executionTestsResult);
+    showSnapshotTestsFullLogs(snapshotsResult);
   } catch (err) {
     console.error(err);
     process.exit(1);
