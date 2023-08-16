@@ -25,7 +25,7 @@
 }
 .b-banner-container .b-banner-wrapper table {
   border-collapse: separate;
-  border-spacing: 5px 1em;
+  border-spacing: 0px 1em;
 }
 .b-banner-container .b-banner-wrapper table p {
   font-size: 21px;
@@ -41,6 +41,10 @@
 .b-banner-container .b-banner-wrapper table tbody tr td p {
   font-size: 16px;
   margin: 0;
+  padding-left: 10px;
+}
+.b-banner-container .b-banner-wrapper table tbody tr td p:nth-child(2) {
+  font-size: 12px;
 }
 .b-banner-container .b-banner-wrapper .text-black {
   color: black;
