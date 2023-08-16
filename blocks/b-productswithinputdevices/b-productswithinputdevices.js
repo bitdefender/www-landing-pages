@@ -46,7 +46,6 @@ export default function decorate(block) {
     blockH3.appendChild(spanTag);
   }
 
-  console.log(bulinaText)
   if (bulinaText) {
     const bulinaSplitted = bulinaText.split(',');
     const divBulina = document.createElement('div');
