@@ -1,4 +1,4 @@
-/* .b-productswithinputdevices */
+/* .b-productswithinputdevicess */
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper {
   position: relative;
 }
@@ -6,7 +6,7 @@
   left: 5%;
   top: -3em;
   transform: none;
-  font-size: 25px;
+  font-size: 17px;
   line-height: 35px;
   padding-top: 25px;
   display: block;

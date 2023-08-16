@@ -47,7 +47,7 @@ export default function decorate(block) {
   }
 
   if (bulinaText) {
-    const bulinaSplitted = bulinaText.split(' ');
+    const bulinaSplitted = bulinaText.split(',');
     const divBulina = document.createElement('div');
     divBulina.className = 'prod-percent green_bck_circle bigger has2txt';
     divBulina.innerHTML = `${bulinaSplitted[0].replace(/0/g, '<b class=\'max-discount\'></b>')} ${bulinaSplitted[1]}`;
