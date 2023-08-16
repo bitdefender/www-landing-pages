@@ -14,6 +14,8 @@
   - bulina_text: ex: UP TO
                         0% OFF
                       SALE TODAY
+  - border_color: ex: #f00
+  - list_style: ex: checkmark_solid-circle
 
   Samples:
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/last-offer.html - http://localhost:3000/consumer/en/new/last-offer
@@ -34,6 +36,8 @@ export default function decorate(block) {
     titlePosition,
     products,
     bulinaText,
+    borderColor,
+    listStyle,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -110,7 +114,7 @@ export default function decorate(block) {
       if (metaData[tagTextKey]) {
         const divTag = document.createElement('div');
         divTag.innerText = metaData[tagTextKey];
-        divTag.className = 'green_tag';
+        divTag.className = 'tag';
         block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) p:nth-child(1)`).before(divTag);
       }
 
@@ -179,5 +183,24 @@ export default function decorate(block) {
       priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
     });
+
+    /// ///////////////////////////////////////////////////////////////////////
+    // change the border color of the main box
+    if (borderColor) {
+      const primaryBox = block.querySelector('.c-productswithvpn > div:nth-child(1)');
+      primaryBox.style.border = `9px solid ${borderColor}`;
+
+      const tag = primaryBox.querySelector('.tag');
+      tag.style.backgroundColor = borderColor;
+    }
+
+    /// ///////////////////////////////////////////////////////////////////////
+    // change the svg of the list in all boxes
+    if (listStyle) {
+      const lists = block.querySelectorAll('.c-productswithvpn > div ul');
+      lists.forEach((item) => {
+        item.classList.add(listStyle);
+      });
+    }
   }
 }

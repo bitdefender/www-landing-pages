@@ -844,3 +844,9 @@ main .section.highlight {
     margin-top: 10px;
   }
 }
+
+@media (width >= 991px) {
+  .overflow-top {
+    margin-top: -2rem;
+  }
+}

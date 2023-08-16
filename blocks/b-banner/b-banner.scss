@@ -10,12 +10,18 @@
   padding-right: 0;
   padding-left: 0;
 
+  .banner-image {
+    img {
+      display: none;
+    }
+  }
+    
   &.negative {
     margin-bottom: 0;
     display: none;
   }
 
-  img, .hasDiscount {
+  .hasDiscount {
     display: none;
   }
 
@@ -23,6 +29,43 @@
     position: relative;
     padding-left: 0;
     margin: 15px auto;
+
+    table {
+      border-collapse: separate;
+      border-spacing: 5px 1em;
+
+      p {
+        font-size: 21px;
+        font-weight: 400;
+        color: white;
+        margin: 1em 0 0;
+        margin-right: 10px;
+        max-width: 595px;
+  
+        .prod-percent.green_bck {
+          margin-top: 0;
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            p {
+              font-size: 16px;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .text-black {
+      color: black;
+
+      p {
+        color: black;
+      }
+    }
 
     h1 {
       font-size: 24px;
@@ -34,19 +77,6 @@
       font-size: 21px;
       max-width: unset;
       margin-top: 10px;
-    }
-
-    p {
-      font-size: 21px;
-      font-weight: 400;
-      color: white;
-      margin: 1em 0 0;
-      margin-right: 10px;
-      max-width: 595px;
-
-      .prod-percent.green_bck {
-        margin-top: 0;
-      }
     }
 
     .float-p p {
@@ -136,8 +166,6 @@
 
     .b-banner-wrapper {
       position: absolute;
-      left: 0;
-      right: 0;
       height: 100%;
       display: flex;
       align-items: center;
@@ -154,13 +182,15 @@
       }
     }
 
-    img {
-      display: block;
-      height: 100%;
-      float: right;
-      width: auto;
-      max-width: none;
-      margin-right: -15px;
+    .banner-image {
+      img {
+        display: block;
+        height: 100%;
+        float: right;
+        width: auto;
+        max-width: none;
+        margin-right: -15px;
+      }
     }
 
     .hasDiscount {
@@ -243,5 +273,10 @@
       right: 20%;
       top: 20%;
     }
+  }
+
+  .b-banner-wrapper {
+    left: 0;
+    right: 0;
   }
 }
