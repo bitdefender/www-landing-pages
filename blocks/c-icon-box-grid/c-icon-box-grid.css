@@ -21,7 +21,7 @@
   width: 100%;
   border-radius: 10px;
   margin-bottom: 2em;
-  background: url(../../images/dark-blue-quote.svg) no-repeat top 2em left 20px #FFF;
+  background: url("../../images/dark-blue-quote.svg") no-repeat top 2em left 20px #FFF;
   background-size: 50px;
   margin-top: 3em;
 }
@@ -35,7 +35,6 @@
   border-radius: 10px;
   padding: 2em;
 }
-
 .c-icon-box-grid-container.grey-box .col-lg {
   background-color: #F5F5F7;
   border-radius: 20px;

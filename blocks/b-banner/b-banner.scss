@@ -11,7 +11,6 @@
   padding-left: 0;
 
   .banner-image {
-
     img {
       display: none;
     }
@@ -23,30 +22,40 @@
     padding-left: 0;
     margin: 15px auto;
 
-    .text-black {
-      color: black;
-
-      p {
-        color: black;
-      }
-    }
-
     table {
       border-collapse: separate;
       border-spacing: 5px 1em;
 
+      p {
+        font-size: 21px;
+        font-weight: 400;
+        color: white;
+        margin: 1em 0 0;
+        margin-right: 10px;
+        max-width: 595px;
+  
+        .prod-percent.green_bck {
+          margin-top: 0;
+        }
+      }
+
       tbody {
-
         tr {
-
           td {
-            
             p {
               font-size: 16px;
               margin: 0;
             }
           }
         }
+      }
+    }
+
+    .text-black {
+      color: black;
+
+      p {
+        color: black;
       }
     }
 
@@ -60,19 +69,6 @@
       font-size: 21px;
       max-width: unset;
       margin-top: 10px;
-    }
-
-    p {
-      font-size: 21px;
-      font-weight: 400;
-      color: white;
-      margin: 1em 0 0;
-      margin-right: 10px;
-      max-width: 595px;
-
-      .prod-percent.green_bck {
-        margin-top: 0;
-      }
     }
 
     .float-p p {
@@ -174,7 +170,6 @@
     }
 
     .banner-image {
-
       img {
         display: block;
         height: 100%;

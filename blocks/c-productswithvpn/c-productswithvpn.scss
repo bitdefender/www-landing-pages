@@ -163,6 +163,7 @@
 }
 
 .c-productswithvpn > div ul {
+  padding-left: 0;
 
   li {
     background: url("../../images/icons/simple_green_check.png") 0 3px no-repeat transparent;
@@ -176,16 +177,11 @@
   }
 
   &.checkmark_solid_circle {
-
     li {
       background: url("../../icons/checkmark_solid-circle.svg") 0 3px no-repeat transparent;
       background-size: 16px;
     }
   }
-}
-
-.c-productswithvpn > div ul {
-  padding-left: 0;
 }
 
 .c-productswithvpn > div table:nth-of-type(2) ul {
