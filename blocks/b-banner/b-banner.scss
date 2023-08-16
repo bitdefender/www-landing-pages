@@ -10,11 +10,13 @@
   padding-right: 0;
   padding-left: 0;
 
-  .banner-image {
-    img {
-      display: none;
-    }
-    
+  &.negative {
+    margin-bottom: 0;
+    display: none;
+  }
+
+  img, .hasDiscount {
+    display: none;
   }
 
   .b-banner-wrapper {
@@ -150,6 +152,11 @@
   .b-banner-container {
     padding: 2em 0;
     height: 500px;
+
+    &.negative {
+      display: block;
+      margin-bottom: -400px;
+    }
 
     .b-banner-wrapper {
       position: absolute;

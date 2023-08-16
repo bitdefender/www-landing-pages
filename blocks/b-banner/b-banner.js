@@ -32,7 +32,7 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    product, discountStyle, discountText, textColor, backgroundColor, imageVariation, bannerDiscount,
+    product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
   } = metaData;
 
   // update background color if set, if not set default: #000
@@ -46,6 +46,10 @@ export default function decorate(block) {
   if (textColor) {
     block.style.color = textColor;
     block.children[2].style.color = textColor;
+  }
+
+  if (bottom) {
+    parentSelector.classList.add(bottom);
   }
 
   // has award in banner
