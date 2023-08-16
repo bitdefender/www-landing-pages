@@ -14,13 +14,14 @@
     img {
       display: none;
     }
+  }
     
   &.negative {
     margin-bottom: 0;
     display: none;
   }
 
-  img, .hasDiscount {
+  .hasDiscount {
     display: none;
   }
 

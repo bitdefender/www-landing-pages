@@ -8,8 +8,14 @@
   padding-right: 0;
   padding-left: 0;
 }
+.b-banner-container .banner-image img {
+  display: none;
+}
 .b-banner-container.negative {
   margin-bottom: 0;
+  display: none;
+}
+.b-banner-container .hasDiscount {
   display: none;
 }
 .b-banner-container .b-banner-wrapper {
