@@ -10,12 +10,17 @@
   padding-right: 0;
   padding-left: 0;
 
+  .banner-image {
+    img {
+      display: none;
+    }
+    
   &.negative {
     margin-bottom: 0;
     display: none;
   }
 
-  .banner-image, .hasDiscount {
+  img, .hasDiscount {
     display: none;
   }
 

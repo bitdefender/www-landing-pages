@@ -12,9 +12,6 @@
   margin-bottom: 0;
   display: none;
 }
-.b-banner-container .banner-image, .b-banner-container .hasDiscount {
-  display: none;
-}
 .b-banner-container .b-banner-wrapper {
   position: relative;
   padding-left: 0;
