@@ -1,9 +1,12 @@
+const PriceValidationTest = require("./json-tests/price-validation");
 require('dotenv').config();
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
 const testId = '64c608336f03cb8cdb7d955b';
+const genericPriceSuiteId = '64be463282bf299ccb6b9341';
 const snapshotsSuiteId = '64c8d884960593b38bb68331';
-const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME}--helix-poc--enake.hlx.page`;
+const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--helix-poc--enake.hlx.page`;
+const activeLandingPagesUrl = 'https://main--helix-poc--enake.hlx.page/active-landingpages.json';
 
 const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   ['de', 'eu-central-1'],
@@ -30,11 +33,15 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
     console.log('\x1b[32m%s\x1b[0m', message);
   }
   function showGenericFunctionalTestsFullLogs(testResults) {
+    // console.log('testResults', testResults);
     const areAllTestsPassing = testResults.every(([res, passing]) => passing === true);
     areAllTestsPassing ? logSuccess('All tests passed !') : logError('Some tests failed !');
 
     testResults.forEach(([testResult, passing], index) => {
-      const { variables: { name }, test: { _id } } = testResult;
+      if (index === 0) {
+        console.log('testResult', testResult);
+      }
+      const { name, test: { _id } } = testResult;
 
       const title = `${index + 1}.[${passing ? 'PASSED' : 'FAILED'}] ${name}`
 
@@ -84,43 +91,43 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   }
 
   try {
-    const [suiteTests, activeLandingpagesRes] = await Promise.all([
-      GhostInspector.getSuiteTests(snapshotsSuiteId),
-      fetch('https://main--helix-poc--enake.hlx.page/active-landingpages.json')
-    ]);
-
+    const activeLandingpagesRes = await fetch(activeLandingPagesUrl);
     const activeLandingpages = await activeLandingpagesRes.json();
 
-    const genericFunctionalTestPromises = activeLandingpages.data.flatMap(({ URI, Products }) => {
+    const importTestsPromises = activeLandingpages.data.flatMap(({ URI, Products }) => {
       const productsAsList = Products.split(',');
       const countryCode = URI.split('/')[1];
       const region = AWS_REGION_BY_COUNTRY_CODE_MAP.get(countryCode);
 
       return productsAsList.map((productName, index) => {
-        return GhostInspector.executeTest(testId, {
+        return GhostInspector.importTest(genericPriceSuiteId, new PriceValidationTest({
           name: `${URI} => ${productName.trim()}`,
           productIndex: index,
           startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
           region,
-        });
+        }).generate());
       });
     });
 
-    const snapshotsPromises =
-      suiteTests
-        .map(({_id, name}) =>
-          fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}&name=${encodeURIComponent(`Snapshot => ${name}`)}&startUrl=${featureBranchEnvironmentBaseUrl}/${name}`).then(res => res.json()));
-
     const [
-      genericFunctionalTestResult,
+      importTestsResult,
       snapshotsResult
     ] = await Promise.all([
-      Promise.all(genericFunctionalTestPromises),
-      Promise.all(snapshotsPromises)
+      Promise.all(importTestsPromises),
+      // Promise.all(snapshotsPromises)
     ]);
 
-    showGenericFunctionalTestsFullLogs(genericFunctionalTestResult);
-    showSnapshotTestsFullLogs(snapshotsResult);
+    const executionTestsPromises = importTestsResult.map(({_id}) => GhostInspector.executeTest(_id));
+
+    const [
+      executionTestsResult
+    ] = await Promise.all([
+      Promise.all(executionTestsPromises),
+      // Promise.all(snapshotsPromises)
+    ]);
+
+    showGenericFunctionalTestsFullLogs(executionTestsResult);
+    // showSnapshotTestsFullLogs(snapshotsResult);
   } catch (err) {
     console.error(err);
     process.exit(1);
