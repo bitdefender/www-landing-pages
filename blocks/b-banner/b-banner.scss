@@ -32,7 +32,7 @@
 
     table {
       border-collapse: separate;
-      border-spacing: 0px 1em;
+      border-spacing: 0 1em;
 
       p {
         font-size: 21px;
@@ -65,11 +65,7 @@
     }
 
     .text-black {
-      color: black;
-
-      p {
-        color: black;
-      }
+      color: black !important;
     }
 
     h1 {
@@ -82,10 +78,6 @@
       font-size: 21px;
       max-width: unset;
       margin-top: 10px;
-    }
-
-    .float-p p {
-      display: inline;
     }
 
     #bannerAward {

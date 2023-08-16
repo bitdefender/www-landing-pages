@@ -25,7 +25,7 @@
 }
 .b-banner-container .b-banner-wrapper table {
   border-collapse: separate;
-  border-spacing: 0px 1em;
+  border-spacing: 0 1em;
 }
 .b-banner-container .b-banner-wrapper table p {
   font-size: 21px;
@@ -47,10 +47,7 @@
   font-size: 12px;
 }
 .b-banner-container .b-banner-wrapper .text-black {
-  color: black;
-}
-.b-banner-container .b-banner-wrapper .text-black p {
-  color: black;
+  color: black !important;
 }
 .b-banner-container .b-banner-wrapper h1 {
   font-size: 24px;
@@ -61,9 +58,6 @@
   font-size: 21px;
   max-width: unset;
   margin-top: 10px;
-}
-.b-banner-container .b-banner-wrapper .float-p p {
-  display: inline;
 }
 .b-banner-container .b-banner-wrapper #bannerAward {
   width: 250px;
