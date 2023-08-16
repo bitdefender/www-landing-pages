@@ -26,7 +26,8 @@ export default function decorate(block) {
   const metaData = parentSelector.dataset;
 
   // move picture below
-  const bannerImage = block.querySelector('picture');
+  const bannerImage = block.children[1].querySelector('picture');
+  bannerImage.classList.add('banner-image');
   parentSelector.append(bannerImage);
 
   // config new elements
