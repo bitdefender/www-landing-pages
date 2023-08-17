@@ -167,8 +167,6 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
       });
     }).filter(promise => promise !== null);
 
-    console.log('priceValidationTestsPromises', priceValidationTestsPromises);
-
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
 
