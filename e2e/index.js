@@ -137,7 +137,12 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
         const testAlreadyExists = priceValidationSuiteTests.find(originalTest => originalTest.name === testName);
 
         if (testAlreadyExists) {
-          return GhostInspector.executeTest(testAlreadyExists._id);
+          return GhostInspector.executeTest(testAlreadyExists._id, {
+            name: testName,
+            productIndex: index,
+            startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
+            region,
+          });
         }
 
         return GhostInspector.importTest(priceValidationSuiteId, new PriceValidationTest({
@@ -145,7 +150,12 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
           productIndex: index,
           startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
           region,
-        }).generate()).then(({_id}) => GhostInspector.executeTest(_id));
+        }).generate()).then(({_id}) => GhostInspector.executeTest(_id, {
+          name: testName,
+          productIndex: index,
+          startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
+          region,
+        }));
       });
     });
 
