@@ -84,21 +84,28 @@ export default function decorate(block) {
       /// ///////////////////////////////////////////////////////////////////////
       // adding vpn input checkbox
       const tableVpn = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:nth-of-type(3)`);
-      const vpnPrices = '<b><span class="prod-oldprice oldprice-vpn-101">$0</span><span class="prod-newprice newprice-vpn-101">$0</span></b>';
-      const vpnDiv = document.createElement('div');
-      vpnDiv.classList = 'vpn_box awaitLoader prodLoad';
+      if (tableVpn.innerText.indexOf('0') !== -1) {
+        const vpnPrices = '<b><span class="prod-oldprice oldprice-vpn-101">$0</span><span class="prod-newprice newprice-vpn-101">$0</span></b>';
+        const vpnDiv = document.createElement('div');
+        vpnDiv.classList = 'vpn_box awaitLoader prodLoad';
 
-      let labelId = `checkboxVPN-${onSelectorClass}`;
-      if (document.getElementById(labelId)) {
-        labelId = `${labelId}-1`;
+        let labelId = `checkboxVPN-${onSelectorClass}`;
+        if (document.getElementById(labelId)) {
+          labelId = `${labelId}-1`;
+        }
+
+        let vpnContent = `<input id='${labelId}' class='${labelId} checkboxVPN' type='checkbox' value=''>`;
+        vpnContent += `<label for='${labelId}'>${tableVpn.querySelector('td').innerHTML.replace(/0/g, vpnPrices)}</label>`;
+
+        vpnDiv.innerHTML = vpnContent;
+
+        tableVpn.before(vpnDiv);
+      } else {
+        tableVpn.before(document.createElement('hr'));
       }
-      let vpnContent = `<input id='${labelId}' class='${labelId} checkboxVPN' type='checkbox' value=''>`;
-      vpnContent += `<label for='${labelId}'>${tableVpn.querySelector('td').innerHTML.replace(/0/g, vpnPrices)}</label>`;
 
-      vpnDiv.innerHTML = vpnContent;
-
-      tableVpn.before(vpnDiv);
       tableVpn.remove();
+
       // add prod class on block
       const priceBoxSelector = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1})`);
       priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');

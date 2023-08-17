@@ -6,14 +6,21 @@
   left: 5%;
   top: -3em;
   transform: none;
-  font-size: 17px;
-  line-height: 35px;
-  padding-top: 25px;
-  display: block;
+  font-size: 16px;
+  line-height: 27px;
+  padding: 0 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle b {
   display: block;
   font-size: 35px;
+}
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle p {
+  margin: 0;
+  line-height: 20px;
 }
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices {
   background: #e3f1ff;
