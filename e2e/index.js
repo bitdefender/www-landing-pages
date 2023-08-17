@@ -7,6 +7,7 @@ const priceValidationSuiteId = '64be463282bf299ccb6b9341';
 const snapshotsSuiteId = '64c8d884960593b38bb68331';
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--helix-poc--enake.hlx.page`;
 const activeLandingPagesUrl = 'https://main--helix-poc--enake.hlx.page/active-landingpages.json';
+const skippedTestLabel = '0';
 
 // todo those should come from other place
 const blockSnapshotsToTest = [
@@ -133,7 +134,14 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
       const region = AWS_REGION_BY_COUNTRY_CODE_MAP.get(countryCode);
 
       return productsAsList.map((productName, index) => {
-        const testName = `${URI} => ${productName.trim()}`;
+        const trimmedProductName = productName.trim();
+        const isTestSkippedByProduct = trimmedProductName === skippedTestLabel;
+
+        if(isTestSkippedByProduct) {
+          return null;
+        }
+
+        const testName = `${URI} => ${trimmedProductName}`;
         const testAlreadyExists = priceValidationSuiteTests.find(originalTest => originalTest.name === testName);
 
         if (testAlreadyExists) {
@@ -157,7 +165,9 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
           region,
         }));
       });
-    });
+    }).filter(promise => promise !== null);
+
+    console.log('priceValidationTestsPromises', priceValidationTestsPromises);
 
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
