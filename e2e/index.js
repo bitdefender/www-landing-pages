@@ -11,7 +11,35 @@ const activeLandingPagesUrl = 'https://main--helix-poc--enake.hlx.page/active-la
 // todo those should come from other place
 const blockSnapshotsToTest = [
   'b-banner-float-p',
-  'b-single-quote'
+  'b-single-quote',
+  'b-banner-v3',
+  'b-banner-v2',
+  'b-banner-v4',
+  'b-banner-v5',
+  'c-reviews',
+  'c-reviews-v2',
+  'c-icon-box-grid',
+  'c-icon-box-grid-v2',
+  'c-device-protection-box',
+  'awards',
+  'c-tough-on-threats',
+  'b-antiransomware',
+  'b-boxes',
+  'c-teaser-card',
+  'c-carousel-section',
+  'c-progress-section',
+  'columns',
+  'c-productswithvpn2',
+  'c-productswithvpn',
+  'c-productswithvpn-v2',
+  'b-productswithselectors',
+  'b-productswithselectors-v2',
+  'c-top-comparative-with-text',
+  'b-dropdownbox',
+  'b-dropdownbox-new-closed',
+  'c-dropdownbox-closed',
+  'b-productswithinputdevices',
+  'b-big-carousel-quotes',
 ];
 
 const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
