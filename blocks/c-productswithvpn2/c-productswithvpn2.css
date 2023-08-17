@@ -35,12 +35,6 @@
   margin-top: -10em;
 }
 
-.c-productswithvpn2.smaller-images > div img:first-of-type {
-  width: 145px;
-  height: auto;
-  margin-top: -8em;
-}
-
 .c-productswithvpn2 > div h2 {
   font-size: 20px;
   margin: 0;
@@ -388,6 +382,12 @@
   width: 56px;
   margin: 0;
   margin-right: 10px;
+}
+
+.c-productswithvpn2.smaller-images > div img:first-of-type {
+  width: 145px;
+  height: auto;
+  margin-top: -8em;
 }
 
 /* 2st box */
