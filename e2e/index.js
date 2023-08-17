@@ -39,14 +39,10 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
     console.log('\x1b[32m%s\x1b[0m', message);
   }
   function showGenericFunctionalTestsFullLogs(testResults) {
-    // console.log('testResults', testResults);
     const areAllTestsPassing = testResults.every(([res, passing]) => passing === true);
     areAllTestsPassing ? logSuccess('All tests passed !') : logError('Some tests failed !');
 
     testResults.forEach(([testResult, passing], index) => {
-      if (index === 0) {
-        console.log('testResult', testResult);
-      }
       const { name, test: { _id } } = testResult;
 
       const title = `${index + 1}.[${passing ? 'PASSED' : 'FAILED'}] ${name}`
@@ -69,7 +65,6 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   }
 
   function showSnapshotTestsFullLogs(testResults) {
-    console.log('testResults', testResults);
     const mappedTests = testResults.map(test => test.data);
     const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
