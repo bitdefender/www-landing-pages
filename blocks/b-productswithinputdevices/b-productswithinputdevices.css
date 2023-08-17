@@ -18,6 +18,10 @@
   display: block;
   font-size: 35px;
 }
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle p {
+  margin: 0;
+  line-height: 20px;
+}
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices {
   background: #e3f1ff;
   color: #666;
