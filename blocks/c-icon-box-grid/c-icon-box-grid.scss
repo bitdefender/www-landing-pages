@@ -17,6 +17,30 @@
 }
 
 .c-icon-box-grid-container {
+  .quotes {
+    .icon-box-grid-column {
+      padding: 2em 2em 1em 70px;
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 2em;
+      background: url("../../images/dark-blue-quote.svg") no-repeat top 2em left 20px #FFF;
+      background-size: 50px;
+      margin-top: 3em;
+    }
+
+    hr {
+      width: 24px;
+      border: 1px solid #00439C;
+      margin-bottom: 0;
+    }
+  }
+
+  .new-blue {
+    background: #d9eeff;
+    border-radius: 10px;
+    padding: 2em;
+  }
+
   &.grey-box {
     .col-lg {
       background-color: #F5F5F7;
@@ -37,6 +61,10 @@
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: 18px;
+  }
+
+  .c-icon-box-grid-container .w-lg-65 {
+    width: 65%;
   }
 
   .c-icon-box-grid-container .subtitle {

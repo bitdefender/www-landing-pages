@@ -1,51 +1,33 @@
 .b-banner-container {
   color: white;
-  background-size: cover;
-  max-height: 496px;
+  height: auto;
+  background-color: black;
   background-repeat: no-repeat;
   background-position: top right;
   overflow: hidden;
-}
-
-.section.b-banner-container {
   padding-right: 0;
   padding-left: 0;
 }
-
+.b-banner-container .banner-image img {
+  display: none;
+}
+.b-banner-container.negative {
+  margin-bottom: 0;
+  display: none;
+}
+.b-banner-container .hasDiscount {
+  display: none;
+}
 .b-banner-container .b-banner-wrapper {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-top: 5em;
+  position: relative;
+  padding-left: 0;
+  margin: 15px auto;
 }
-
-.b-banner-container h1 {
-  font-size: 35px;
-  max-width: 610px;
-  font-weight: normal;
-  padding-bottom: 0;
-  margin-bottom: 0;
+.b-banner-container .b-banner-wrapper table {
+  border-collapse: separate;
+  border-spacing: 5px 1em;
 }
-
-.b-banner-container h2 {
-  font-weight: 700;
-  font-size: 35px;
-  max-width: 595px;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.b-banner-container .smaller-text h2 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 1em 0;
-}
-
-.b-banner-container .w-full h1, .b-banner-container .w-full h2 {
-  max-width: 100%;
-}
-
-.b-banner-container p {
+.b-banner-container .b-banner-wrapper table p {
   font-size: 21px;
   font-weight: 400;
   color: white;
@@ -53,16 +35,72 @@
   margin-right: 10px;
   max-width: 595px;
 }
-
-.b-banner-container .float-p p {
-  display: inline;
-}
-
-.b-banner-container p .prod-percent.green_bck {
+.b-banner-container .b-banner-wrapper table p .prod-percent.green_bck {
   margin-top: 0;
 }
-
-.b-banner-container a.button {
+.b-banner-container .b-banner-wrapper table tbody tr td p {
+  font-size: 16px;
+  margin: 0;
+}
+.b-banner-container .b-banner-wrapper .text-black {
+  color: black;
+}
+.b-banner-container .b-banner-wrapper .text-black p {
+  color: black;
+}
+.b-banner-container .b-banner-wrapper h1 {
+  font-size: 24px;
+  max-width: unset;
+  margin-top: 0;
+}
+.b-banner-container .b-banner-wrapper h2 {
+  font-size: 21px;
+  max-width: unset;
+  margin-top: 10px;
+}
+.b-banner-container .b-banner-wrapper .float-p p {
+  display: inline;
+}
+.b-banner-container .b-banner-wrapper #bannerAward {
+  width: 250px;
+  position: static;
+  top: 30%;
+  right: 15%;
+}
+.b-banner-container .b-banner-wrapper #bannerAward p {
+  font-size: 18px;
+  line-height: 20px;
+}
+.b-banner-container .b-banner-wrapper #bannerAward p:first-of-type {
+  margin: 0;
+}
+.b-banner-container .b-banner-wrapper #bannerAward p em {
+  font-weight: bold;
+}
+.b-banner-container .b-banner-wrapper #bannerAward p img {
+  width: 160px;
+  display: block;
+  float: none;
+}
+.b-banner-container .b-banner-wrapper .prod-percent.green_bck_pill {
+  background-color: #2FB43E;
+  display: inline-block;
+  color: #fff;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
+  font-size: 16px;
+  padding: 2px 11px;
+}
+.b-banner-container .b-banner-wrapper .smaller-text h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 1em 0;
+}
+.b-banner-container .b-banner-wrapper .w-full h1, .b-banner-container .b-banner-wrapper .w-full h2 {
+  max-width: 100%;
+}
+.b-banner-container .b-banner-wrapper a.button {
   background: #e72325 !important;
   color: #fff !important;
   text-transform: uppercase;
@@ -78,48 +116,110 @@
   cursor: pointer;
   margin: 5px 0;
 }
-
-.b-banner-container a.button:hover {
+.b-banner-container .b-banner-wrapper a.button:hover {
   background: #b33027 !important;
   text-decoration: none;
 }
 
-.b-banner-container img {
-  width: 100%;
-}
-
-/* for lower devices */
-@media (width <= 1199px) {
-  .b-banner-container .b-banner-wrapper {
-    padding-left: 15px;
-  }
-}
-@media (width <= 768px) {
+@media screen and (width >= 768px) {
   .b-banner-container {
-    min-height: auto;
+    padding: 2em 0;
+    height: 500px;
+  }
+  .b-banner-container.negative {
+    display: block;
+    margin-bottom: -400px;
   }
   .b-banner-container .b-banner-wrapper {
-    position: relative;
-    padding-left: 0;
-    margin: 15px;
-  }
-  .b-banner-container img {
-    display: none;
-  }
-  .b-banner-container h1 {
-    font-size: 24px;
-    max-width: unset;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
     margin-top: 0;
+    margin-bottom: 0;
   }
-  .b-banner-container h2 {
-    font-size: 21px;
-    max-width: unset;
-    margin-top: 10px;
+  .b-banner-container .b-banner-wrapper h1, .b-banner-container .b-banner-wrapper h2 {
+    max-width: 60%;
+  }
+  .b-banner-container .b-banner-wrapper #bannerAward {
+    width: 200px;
+    position: absolute;
+  }
+  .b-banner-container .banner-image img {
+    display: block;
+    height: 100%;
+    float: right;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+  }
+  .b-banner-container .hasDiscount {
+    display: block;
+  }
+  .b-banner-container .hasDiscount img {
+    width: auto;
+    float: right;
+  }
+  .b-banner-container .hasDiscount div {
+    background: url("../../images/bubble_discount.png") no-repeat 0 0 transparent;
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    width: 110px;
+    height: 120px;
+    background-size: 100%;
+    padding-top: 23px;
+  }
+  .b-banner-container .hasDiscount div span {
+    color: red;
+    display: block;
+    font-weight: bold;
+    line-height: 34px;
+    font-size: 40px;
+    text-align: center;
+  }
+  .b-banner-container .hasDiscount div span:last-of-type {
+    font-size: 24px;
   }
 }
-/* for mobile */
-@media (width <= 576px) {
+@media screen and (width >= 989px) {
   .b-banner-container {
-    background: black;
+    padding: 0;
+  }
+  .b-banner-container .b-banner-wrapper h1 {
+    font-size: 35px;
+    max-width: 610px;
+    font-weight: normal;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .b-banner-container .b-banner-wrapper h2 {
+    font-weight: 700;
+    font-size: 35px;
+    max-width: 595px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .b-banner-container .b-banner-wrapper .smaller-text h2 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 1em 0;
+  }
+  .b-banner-container .b-banner-wrapper .prod-percent.green_bck_pill {
+    font-size: 18px;
+  }
+  .b-banner-container .hasDiscount div {
+    right: 20%;
+    top: 10%;
+  }
+}
+@media screen and (width >= 1199px) {
+  .b-banner-container .hasDiscount div {
+    right: 20%;
+    top: 20%;
+  }
+  .b-banner-wrapper {
+    left: 0;
+    right: 0;
   }
 }

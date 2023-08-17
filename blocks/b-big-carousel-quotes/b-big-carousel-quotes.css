@@ -1,0 +1,202 @@
+.b-big-carousel-quotes-container {
+  margin-bottom: 55px;
+  background: black;
+  color: white;
+  padding: 0 !important;
+}
+.b-big-carousel-quotes-container .carousel-indicators {
+  bottom: -55px;
+  width: 265px;
+  margin: 0 0 0 25px;
+  overflow: scroll;
+  justify-content: flex-start;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
+}
+.b-big-carousel-quotes-container .carousel-indicators::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.b-big-carousel-quotes-container .carousel-indicators [data-bs-target] {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  text-indent: unset;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 5px transparent;
+  margin-left: 40px;
+  box-shadow: 0 2px 3px -3px rgba(52, 50, 50, 0.58);
+  opacity: 1;
+}
+.b-big-carousel-quotes-container .carousel-indicators [data-bs-target].active {
+  border: solid #006eff 5px;
+}
+.b-big-carousel-quotes-container .carousel-indicators [data-bs-target]:first-child {
+  margin-left: 0;
+}
+.b-big-carousel-quotes-container .carousel-indicators [data-bs-target] img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+@media (width >= 768px) {
+  .b-big-carousel-quotes-container .carousel-indicators {
+    bottom: -55px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+.b-big-carousel-quotes-container .carousel-inner {
+  padding-bottom: 50px;
+}
+.b-big-carousel-quotes-container .carousel-inner .carousel-item {
+  padding: 50px 20px;
+  position: relative;
+}
+.b-big-carousel-quotes-container .carousel-inner .carousel-item q {
+  position: relative;
+  display: block;
+  padding: 0 40px;
+  font-size: 24px;
+  color: #fff;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+.b-big-carousel-quotes-container .carousel-inner .carousel-item q::before {
+  width: 30px;
+  height: 30px;
+  left: 0;
+  top: 0;
+  background: url("../../icons/blue-quotes.svg") no-repeat;
+  background-size: 100%;
+  content: "";
+  display: block;
+  position: absolute;
+}
+.b-big-carousel-quotes-container .carousel-inner .carousel-item q::after {
+  width: 30px;
+  height: 30px;
+  right: 0;
+  bottom: 0;
+  background: url("../../icons/blue-quotes.svg") no-repeat;
+  background-size: 100%;
+  content: "";
+  display: block;
+  position: absolute;
+}
+.b-big-carousel-quotes-container .carousel-inner .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media screen and (width >= 992px) {
+  .b-big-carousel-quotes-container .carousel-inner .carousel-item {
+    padding: 0;
+    height: 550px;
+  }
+  .b-big-carousel-quotes-container .carousel-inner .carousel-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: #000;
+    width: 60%;
+    height: 170%;
+    border-radius: 0 50% 50% 0;
+  }
+  .b-big-carousel-quotes-container .carousel-inner .carousel-item .inner {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+@media screen and (width >= 992px) {
+  .b-big-carousel-quotes-container .carousel-inner {
+    padding-bottom: 0;
+  }
+}
+.b-big-carousel-quotes-container .separator {
+  height: 2px;
+  width: 24px;
+  background: #008cff;
+  margin: 40px 0 10px;
+}
+.b-big-carousel-quotes-container .carousel-control-next,
+.b-big-carousel-quotes-container .carousel-control-prev {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #008cff;
+  top: unset;
+  opacity: 1;
+  right: 25px;
+}
+.b-big-carousel-quotes-container .carousel-control-next.disabled,
+.b-big-carousel-quotes-container .carousel-control-prev.disabled {
+  background: white;
+}
+.b-big-carousel-quotes-container .carousel-control-next svg,
+.b-big-carousel-quotes-container .carousel-control-prev svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+@media (width >= 768px) {
+  .b-big-carousel-quotes-container .carousel-control-next,
+  .b-big-carousel-quotes-container .carousel-control-prev {
+    display: none;
+  }
+}
+.b-big-carousel-quotes-container .carousel-control-next {
+  bottom: -55px;
+}
+.b-big-carousel-quotes-container .carousel-control-next svg {
+  transform: rotate(180deg);
+}
+.b-big-carousel-quotes-container .carousel-control-prev {
+  bottom: 10px;
+  left: unset;
+}
+.b-big-carousel-quotes-container .position {
+  color: #fff;
+  opacity: 0.8;
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 1pc;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+}
+.b-big-carousel-quotes-container .read-more {
+  padding: 6px 20px;
+  color: white;
+  border: solid white 1px;
+  border-radius: 7px;
+  display: block;
+  width: max-content;
+}
+.b-big-carousel-quotes-container .separator,
+.b-big-carousel-quotes-container .author,
+.b-big-carousel-quotes-container .position,
+.b-big-carousel-quotes-container .read-more {
+  margin-left: 40px;
+}
+@media (width >= 768px) {
+  .b-big-carousel-quotes-container {
+    margin-bottom: 70px;
+  }
+}

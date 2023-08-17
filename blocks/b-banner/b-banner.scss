@@ -1,131 +1,282 @@
+
+
 .b-banner-container {
   color: white;
-  background-size: cover;
-  max-height: 496px;
+  height: auto;
+  background-color: black;
   background-repeat: no-repeat;
   background-position: top right;
   overflow: hidden;
-}
-
-.section.b-banner-container {
   padding-right: 0;
   padding-left: 0;
-}
 
-.b-banner-container .b-banner-wrapper {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-top: 5em;
-}
-
-.b-banner-container h1 {
-  font-size: 35px;
-  max-width: 610px;
-  font-weight: normal;
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-
-.b-banner-container h2 {
-  font-weight: 700;
-  font-size: 35px;
-  max-width: 595px;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.b-banner-container .smaller-text h2 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 1em 0;
-}
-
-.b-banner-container .w-full h1, .b-banner-container .w-full h2 {
-  max-width: 100%;
-}
-
-.b-banner-container p {
-  font-size: 21px;
-  font-weight: 400;
-  color: white;
-  margin: 1em 0 0;
-  margin-right: 10px;
-  max-width: 595px;
-}
-
-.b-banner-container .float-p p {
-  display: inline;
-}
-
-.b-banner-container p .prod-percent.green_bck {
-  margin-top: 0;
-}
-
-.b-banner-container a.button {
-  background: #e72325 !important;
-  color: #fff !important;
-  text-transform: uppercase;
-  display: inline-block;
-  text-align: center;
-  border-radius: 5px;
-  padding: 13px 3%;
-  font-size: 14px;
-  font-weight: bold;
-  transition: background-color 0.2s;
-  width: auto;
-  border-style: none;
-  cursor: pointer;
-  margin: 5px 0;
-}
-
-.b-banner-container a.button:hover {
-  background: #b33027 !important;
-  text-decoration: none;
-}
-
-.b-banner-container img {
-  width: 100%;
-}
-
-/* for lower devices */
-@media (width <= 1199px) {
-  .b-banner-container .b-banner-wrapper {
-    padding-left: 15px;
+  .banner-image {
+    img {
+      display: none;
+    }
   }
-}
-
-@media (width <= 768px) {
-  .b-banner-container {
-    min-height: auto;
-  }
-
-  .b-banner-container .b-banner-wrapper {
-    position: relative;
-    padding-left: 0;
-    margin: 15px;
-  }
-
-  .b-banner-container img {
+    
+  &.negative {
+    margin-bottom: 0;
     display: none;
   }
 
-  .b-banner-container h1 {
-    font-size: 24px;
-    max-width: unset;
-    margin-top: 0;
+  .hasDiscount {
+    display: none;
   }
 
-  .b-banner-container h2 {
-    font-size: 21px;
-    max-width: unset;
-    margin-top: 10px;
+  .b-banner-wrapper {
+    position: relative;
+    padding-left: 0;
+    margin: 15px auto;
+
+    table {
+      border-collapse: separate;
+      border-spacing: 5px 1em;
+
+      p {
+        font-size: 21px;
+        font-weight: 400;
+        color: white;
+        margin: 1em 0 0;
+        margin-right: 10px;
+        max-width: 595px;
+  
+        .prod-percent.green_bck {
+          margin-top: 0;
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            p {
+              font-size: 16px;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .text-black {
+      color: black;
+
+      p {
+        color: black;
+      }
+    }
+
+    h1 {
+      font-size: 24px;
+      max-width: unset;
+      margin-top: 0;
+    }
+
+    h2 {
+      font-size: 21px;
+      max-width: unset;
+      margin-top: 10px;
+    }
+
+    .float-p p {
+      display: inline;
+    }
+
+    #bannerAward {
+      width: 250px;
+      position: static;
+      top: 30%;
+      right: 15%;
+
+      p {
+        font-size: 18px;
+        line-height: 20px;
+
+        &:first-of-type {
+          margin: 0;
+        }
+
+        em {
+          font-weight: bold;
+        }
+
+        img {
+          width: 160px;
+          display: block;
+          float: none;
+        }
+      }
+    }
+    
+    .prod-percent.green_bck_pill {
+      background-color: #2FB43E;
+      display: inline-block;
+      color: #fff;
+      border-radius: 15px;
+      margin-top: 15px;
+      margin-left: 0 !important;
+      font-size: 16px;
+      padding: 2px 11px;
+    }
+
+    .smaller-text h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin: 1em 0;
+    }
+    
+    .w-full h1, .w-full h2 {
+      max-width: 100%;
+    }
+
+    a.button {
+      background: #e72325 !important;
+      color: #fff !important;
+      text-transform: uppercase;
+      display: inline-block;
+      text-align: center;
+      border-radius: 5px;
+      padding: 13px 3%;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.2s;
+      width: auto;
+      border-style: none;
+      cursor: pointer;
+      margin: 5px 0;
+
+      &:hover {
+        background: #b33027 !important;
+        text-decoration: none;
+      }
+    }
   }
 }
 
-/* for mobile */
-@media (width <= 576px) {
+@media screen and (width >= 768px) {
   .b-banner-container {
-    background: black;
+    padding: 2em 0;
+    height: 500px;
+
+    &.negative {
+      display: block;
+      margin-bottom: -400px;
+    }
+
+    .b-banner-wrapper {
+      position: absolute;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      h1, h2 {
+        max-width: 60%;
+      }
+
+      #bannerAward {
+        width: 200px;
+        position: absolute;
+      }
+    }
+
+    .banner-image {
+      img {
+        display: block;
+        height: 100%;
+        float: right;
+        width: auto;
+        max-width: none;
+        margin-right: -15px;
+      }
+    }
+
+    .hasDiscount {
+      display: block;
+
+      img {
+        width: auto;
+        float: right;
+      }
+    
+      div {
+        background: url('../../images/bubble_discount.png') no-repeat 0 0 transparent;
+        position: absolute;
+        right: 10%;
+        top: 15%;
+        width: 110px;
+        height: 120px;
+        background-size: 100%;
+        padding-top: 23px;
+
+        span {
+          color: red;
+          display: block;
+          font-weight: bold;
+          line-height: 34px;
+          font-size: 40px;
+          text-align: center;
+    
+          &:last-of-type {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width >= 989px) {
+  .b-banner-container {
+    padding: 0;
+
+    .b-banner-wrapper {
+      h1 {
+        font-size: 35px;
+        max-width: 610px;
+        font-weight: normal;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+      
+      h2 {
+        font-weight: 700;
+        font-size: 35px;
+        max-width: 595px;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .smaller-text h2 {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 1em 0;
+      }
+
+      .prod-percent.green_bck_pill {
+        font-size: 18px;
+      }
+    }
+
+    .hasDiscount div {
+      right: 20%;
+      top: 10%;
+    }
+  }
+}
+
+@media screen and (width >= 1199px) {
+  .b-banner-container {
+    .hasDiscount div {
+      right: 20%;
+      top: 20%;
+    }
+  }
+
+  .b-banner-wrapper {
+    left: 0;
+    right: 0;
   }
 }

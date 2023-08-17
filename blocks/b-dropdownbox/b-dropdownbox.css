@@ -296,6 +296,12 @@
     font-size: 15px;
     line-height: 17px;
   }
+  .b-dropdownbox-container > div:nth-child(2) .new::after {
+    top: -90px;
+    right: 0;
+    width: 135px;
+    height: 90pt;
+  }
   .b-dropdownbox-container .block > div:not(:first-child) > div {
     padding: 8px 2% !important;
     font-size: 15px;
@@ -311,17 +317,23 @@
     width: 50%;
     float: left;
   }
-  .b-dropdownbox-container .block.has3divs > div:not(:first-child) {
+  .b-dropdownbox-container .block.has4divs > div:not(:first-child) {
     margin-bottom: 4em;
   }
-  .b-dropdownbox-container .block.has3divs > div:not(:first-child) > div:not(:first-child) {
+  .b-dropdownbox-container .block.has4divs > div:not(:first-child) > div:not(:first-child) {
     width: 33%;
     min-height: 3em;
     font-size: 13px;
     line-height: 16px;
   }
-  .b-dropdownbox-container .block.has3divs > div:not(:first-child) > div:first-child p {
+  .b-dropdownbox-container .block.has4divs > div:not(:first-child) > div:first-child p {
     line-height: 17px;
+  }
+  .b-dropdownbox-container .block.has3divs > div:not(:first-child) > div:not(:first-child) {
+    width: 50%;
+    min-height: 3em;
+    font-size: 13px;
+    line-height: 16px;
   }
   .b-dropdownbox-container .block.has2divs > div:not(:first-child) > div:not(:first-child) {
     width: 100%;

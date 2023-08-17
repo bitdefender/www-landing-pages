@@ -26,7 +26,9 @@ export default function decorate(block) {
   const parent2ndDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(2)');
 
   const metaData = parentSelector.dataset;
-  const { products, yearsText, titleTag } = metaData;
+  const {
+    products, yearsText, bulinaText, titleTag,
+  } = metaData;
   const productsAsList = products && products.split(',');
 
   const subscribeTexts = parent2ndDiv.querySelector('div p').innerText;
@@ -42,6 +44,15 @@ export default function decorate(block) {
     spanTag.className = 'greenTag';
     spanTag.innerText = titleTag;
     blockH3.appendChild(spanTag);
+  }
+
+  if (bulinaText) {
+    const bulinaSplitted = bulinaText.split(',');
+    const divBulina = document.createElement('div');
+    divBulina.className = 'prod-percent green_bck_circle bigger has2txt';
+    divBulina.innerHTML = `${bulinaSplitted[0].replace(/0/g, '<b class=\'max-discount\'></b>')} ${bulinaSplitted[1]}`;
+
+    block.before(divBulina);
   }
 
   if (productsAsList.length) {
@@ -123,6 +134,7 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
       pricesDiv.innerHTML += `<p class="prod-save d-flex justify-content-center align-items-center">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
+      pricesDiv.innerHTML += `<p class="percent percent-${onSelectorClass}" style="display: none;"></p>`;
       pricesDiv.innerHTML += `<a class="red-buy-button buylink-${onSelectorClass}">${buylinkText}</a>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
 

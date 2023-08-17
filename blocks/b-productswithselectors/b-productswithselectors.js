@@ -25,7 +25,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, selectorsName, taxesText, discountText, buttonText,
+    products, selectorsName, taxesText, discountText, tagText1, buttonText,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -77,15 +77,24 @@ export default function decorate(block) {
             const fileServers2ndProd = Math.ceil((Number(triggerValue)) * 0.3);
             const mailboxes = Math.ceil((Number(triggerValue) / 100) * 150);
 
-            block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(1) strong').innerHTML = triggerValue;
-            block.querySelector('.b-productswithselectors > div:nth-child(3) ul:last-of-type li:nth-child(1) strong').innerHTML = triggerValue;
+            const selectors = [
+              { index: 2, type: 1, value: triggerValue },
+              { index: 3, type: 1, value: triggerValue },
+              { index: 4, type: 1, value: triggerValue },
+              { index: 2, type: 2, value: fileServers1stProd },
+              { index: 3, type: 2, value: fileServers2ndProd },
+              { index: 4, type: 2, value: fileServers2ndProd },
+              { index: 4, type: 3, value: mailboxes },
+            ];
 
-            block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(2) strong').innerHTML = fileServers1stProd;
-            block.querySelector('.b-productswithselectors > div:nth-child(3) ul:last-of-type li:nth-child(2) strong').innerHTML = fileServers2ndProd;
-
-            if (block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong')) {
-              block.querySelector('.b-productswithselectors > div:nth-child(2) ul:last-of-type li:nth-child(3) strong').innerHTML = mailboxes;
-            }
+            selectors.forEach((selector) => {
+              const { index, type, value } = selector;
+              const query = `.b-productswithselectors > div:nth-child(${index}) ul:last-of-type li:nth-child(${type}) strong`;
+              const element = block.querySelector(query);
+              if (element) {
+                element.innerHTML = value;
+              }
+            });
           }
 
           productsAsList.forEach((prod) => {
@@ -106,12 +115,22 @@ export default function decorate(block) {
     }
 
     /// ///////////////////////////////////////////////////////////////////////
+    // add red tag
+    if (tagText1) {
+      const prod1box = block.querySelector('.b-productswithselectors > div:nth-child(2)');
+      const tagDiv = document.createElement('div');
+      tagDiv.className = 'tag redTag';
+      tagDiv.innerHTML = `<i>${tagText1}<i>`;
+      prod1box.appendChild(tagDiv);
+    }
+
+    /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
       const pricesDiv = document.createElement('div');
+
       pricesDiv.id = 'pricesBox';
       pricesDiv.className = 'prices_box';
       pricesDiv.innerHTML = `<span class="prod-percent green_txt"><b class="percent-${onSelectorClass}">0%</b> ${discountText}<span>`;

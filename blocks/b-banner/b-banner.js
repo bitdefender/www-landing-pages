@@ -26,21 +26,47 @@ export default function decorate(block) {
   const metaData = parentSelector.dataset;
 
   // move picture below
-  const bannerImage = block.querySelector('picture');
+  const bannerImage = block.children[1].querySelector('picture');
+  bannerImage.classList.add('banner-image');
   parentSelector.append(bannerImage);
 
   // config new elements
   const {
-    product, discountStyle, discountText, backgroundColor, imageVariation,
+    product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
   } = metaData;
 
-  // update background color if set
-  if (typeof backgroundColor !== 'undefined') {
-    const block1 = document.querySelector('.b-banner-container');
+  // update background color if set, if not set default: #000
+  const block1 = document.querySelector('.b-banner-container');
+  if (backgroundColor) {
     block1.style.backgroundColor = backgroundColor;
+  } else {
+    block1.style.backgroundColor = '#000';
   }
 
-  if (typeof imageVariation !== 'undefined') {
+  if (textColor) {
+    block.style.color = textColor;
+    block.children[2].style.color = textColor;
+  }
+
+  if (bottom) {
+    parentSelector.classList.add(bottom);
+  }
+
+  // has award in banner
+  if (block.children.length === 3) {
+    block.children[2].id = 'bannerAward';
+    const targetElement = block.children[2].children[0];
+    const paragraphs = targetElement.querySelectorAll('p:last-of-type');
+    paragraphs.forEach((text) => {
+      if (textColor) {
+        text.style.color = textColor;
+      } else {
+        text.style.color = '#000';
+      }
+    });
+  }
+
+  if (imageVariation) {
     if (imageVariation === 'small') {
       const block2 = document.querySelector('.b-banner-container');
       block2.classList.add('d-flex');
@@ -67,7 +93,6 @@ export default function decorate(block) {
 
     let percentRadius;
     if (block.querySelector('.button-container')) {
-      console.log('dsfsad');
       percentRadius = block.querySelector('.button-container');
     } else {
       percentRadius = document.createElement('div');
@@ -75,5 +100,12 @@ export default function decorate(block) {
 
     percentRadius.innerHTML += ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2">${finalDiscountText}</span>`;
     block.appendChild(percentRadius);
+
+    if (bannerDiscount) {
+      const discountDiv = document.createElement('div');
+      parentSelector.querySelector('picture').classList.add('hasDiscount');
+      discountDiv.innerHTML = `<span class="percent-${onSelectorClass}">10%</span><span>${bannerDiscount.split(' ')[1]}</span>`;
+      parentSelector.querySelector('picture').appendChild(discountDiv);
+    }
   }
 }

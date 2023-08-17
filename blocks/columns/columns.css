@@ -54,6 +54,7 @@
   .columns > div > div {
     flex: 1;
     order: unset;
+    padding: 2rem;
   }
   .columns > div > .columns-img-col--left img {
     max-width: 100%;

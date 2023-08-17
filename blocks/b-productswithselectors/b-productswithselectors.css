@@ -14,6 +14,25 @@
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
 }
+.b-productswithselectors > div .redTag {
+  width: 80px;
+  height: 85px;
+  position: absolute;
+  top: -45px;
+  right: -5px;
+  background: url("../../images/new_redtag.png") 0 0 no-repeat transparent;
+  background-size: 100%;
+  color: white;
+}
+.b-productswithselectors > div .redTag i {
+  transform: rotate(45deg);
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: 5px;
+  font-size: 13px;
+  width: 124%;
+}
 
 /* 1st box */
 .b-productswithselectors > div:nth-child(1) {
@@ -145,6 +164,17 @@
 @media (width <= 768px) {
   .b-productswithselectors-container {
     margin-top: 0;
+  }
+  .b-productswithselectors > div .redTag {
+    width: 50px;
+    height: 50px;
+    top: -30px;
+    right: -5px;
+  }
+  .b-productswithselectors > div .redTag i {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 10px;
   }
   .b-productswithselectors > div:nth-child(1) h3 {
     font-size: 24px;

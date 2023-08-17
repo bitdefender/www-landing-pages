@@ -3,11 +3,29 @@ import {
   adobeMcAppendVisitorId, GLOBAL_EVENTS, getLocalizedResourceUrl, getDefaultBaseUrl,
 } from '../../scripts/utils.js';
 
-async function extractSpanSvg(html) {
+/**
+ * extracts the span svg's from the nav html
+ * @param {string} html The nav html
+ * @returns {Promise<HTMLElement[]>} The span svg elements
+ */
+async function extractSpanSvgs(html) {
   const div = document.createElement('div');
   div.innerHTML = html;
   await decorateIcons2(div);
-  return div.querySelector('span.icon');
+  return div.querySelectorAll('span.icon');
+}
+
+/**
+ * checks if the header is the revolut header
+ * @param {HTMLElement[]} spanSvgs The span svg elements
+ * @param {Element} block The header block element
+ * @returns {void}
+ */
+function checkForRevolut(spanSvgs, block) {
+  if (spanSvgs.length === 2 && spanSvgs[1].classList.contains('icon-revolut')) {
+    spanSvgs.map((svg) => svg.classList.add('reverse-filter'));
+    block.closest('.header-wrapper').classList.add('rev-header');
+  }
 }
 
 /**
@@ -24,14 +42,19 @@ export default async function decorate(block) {
   if (resp.ok) {
     const html = await resp.text();
 
-    const spanSvg = await extractSpanSvg(html);
+    const spanSvg = [...await extractSpanSvgs(html)];
+
+    checkForRevolut(spanSvg, block);
+
     const homeUrl = getDefaultBaseUrl();
 
-    block.className = 'lp-header py-3';
+    block.classList.add('lp-header', 'py-3');
     block.innerHTML = `
       <div class="container">
-        <a class="d-inline-block" href="${homeUrl}">
-          ${spanSvg.outerHTML}
+        <a class="d-flex justify-content-between" href="${homeUrl}">
+          ${spanSvg.map((svg) => `
+              ${svg.outerHTML}
+          `).join('')}
         </a>
       </div>`;
 

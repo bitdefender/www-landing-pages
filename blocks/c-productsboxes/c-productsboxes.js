@@ -1,6 +1,6 @@
 /*
   Information:
-  - displays 3 boxes positioned in flex mode:
+  - displays max 3 boxes positioned in flex mode:
     1. product 1
     2. product 2
     3. product 3
@@ -14,12 +14,9 @@
   - bulina_text: ex: UP TO
                         0% OFF
                       SALE TODAY
-  - border_color: ex: #f00
-  - list_style: ex: checkmark_solid-circle
 
   Samples:
-  - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/last-offer.html - http://localhost:3000/consumer/en/new/last-offer
-  - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html - http://localhost:3000/consumer/en/new/ultimate-flv1
+  - http://localhost:3000/consumer/fr/new/dip-premiumsecurity-opt
 */
 
 import { productAliases } from '../../scripts/scripts.js';
@@ -28,23 +25,17 @@ import { updateProductsList } from '../../scripts/utils.js';
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
-  const parentSelector = block.closest('.section');
+  const parentSelector = block.parentNode.parentNode;
   const metaData = parentSelector.dataset;
   const {
-    title,
-    subtitle,
-    titlePosition,
-    products,
-    bulinaText,
-    borderColor,
-    listStyle,
+    title, subtitle, titlePosition, products, bulinaText,
   } = metaData;
   const productsAsList = products && products.split(',');
 
   if (productsAsList.length) {
     /// ///////////////////////////////////////////////////////////////////////
     // set the title
-    if (typeof title !== 'undefined') {
+    if (title) {
       const divTagTitle = document.createElement('div');
       divTagTitle.classList = `top_title ${typeof titlePosition !== 'undefined' ? `p_${titlePosition}` : ''}`;
 
@@ -52,7 +43,7 @@ export default function decorate(block) {
       divTagTitle.innerHTML = document.querySelectorAll('h1').length === 0 ? `<h1>${title}</h1>` : `<h2>${title}</h2>`;
 
       // adding subtitle
-      if (typeof subtitle !== 'undefined') {
+      if (subtitle) {
         divTagTitle.innerHTML += `<h2>${subtitle}</h2>`;
       }
 
@@ -62,9 +53,6 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // check and add products into the final array
     productsAsList.forEach((prod) => updateProductsList(prod));
-
-    // add VPN
-    updateProductsList('vpn/10/1');
 
     /// ///////////////////////////////////////////////////////////////////////
     // set top class with numbers of products
@@ -95,15 +83,16 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
+      const prodBox = block.children[idx];
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
       const pricesDiv = document.createElement('div');
+
       pricesDiv.classList = 'prices_box awaitLoader prodLoad';
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
 
-      block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table`).after(pricesDiv);
+      block.children[idx].querySelector('table').after(pricesDiv);
 
       /// ///////////////////////////////////////////////////////////////////////
       // adding top tag to each box
@@ -115,13 +104,13 @@ export default function decorate(block) {
         const divTag = document.createElement('div');
         divTag.innerText = metaData[tagTextKey];
         divTag.className = 'tag';
-        block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) p:nth-child(1)`).before(divTag);
+        // prodBox.parentNode.querySelector(`p:nth-child(1)`).before(divTag);
+        prodBox.querySelector('div').before(divTag);
       }
 
       /// ///////////////////////////////////////////////////////////////////////
       // add buybtn div & anchor
-      const tableVpn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(2)`);
-      const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
+      const tableBuybtn = prodBox.querySelector('table:last-of-type td');
 
       const aBuybtn = document.createElement('a');
       aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
@@ -130,77 +119,16 @@ export default function decorate(block) {
 
       const divBuybtn = document.createElement('div');
       divBuybtn.className = 'buybtn_box';
-
-      tableVpn.after(divBuybtn);
       divBuybtn.appendChild(aBuybtn);
+      tableBuybtn.before(divBuybtn);
 
       /// ///////////////////////////////////////////////////////////////////////
-      let hasVPN = false;
-      if (tableVpn.innerText.indexOf('X') !== -1 && tableVpn.innerText.indexOf('Y') !== -1 && tableVpn.innerText.indexOf('Z') !== -1) {
-        hasVPN = true;
-      }
-
-      // adding input vpn
-      if (hasVPN) { // has VPN
-        // table_vpn.className = 'vpn_box'
-        // replace in vpn box
-        const replaceData = {
-          X: '<span class="newprice-vpn-101"></span>',
-          Y: '<span class="oldprice-vpn-101"></span>',
-          Z: '<span class="percent-vpn-101"></span>',
-        };
-
-        let labelId = `checkboxVPN-${onSelectorClass}`;
-        if (document.getElementById(labelId)) {
-          labelId = `${labelId}-1`;
-        }
-        let vpnContent = `<input id="${labelId}" class="${labelId} checkboxVPN" type="checkbox" value="">`;
-        vpnContent += `<label for="${labelId}">`;
-        tableVpn.querySelectorAll('td').forEach((td) => {
-          vpnContent += `<span>${td.innerHTML.replace(/[XYZ]/g, (m) => replaceData[m])}</span>`;
-        });
-        vpnContent += '</label>';
-
-        const vpnBox = document.createElement('div');
-        vpnBox.classList = 'vpn_box awaitLoader prodLoad';
-        vpnBox.innerHTML = `<div>${vpnContent}</div>`;
-
-        tableVpn.before(vpnBox);
-        tableVpn.remove();
-      } else { // no VPN
-        // if we don't have vpn we need to set a min-height for the text that comes in place of it
-        parentSelector.classList.contains('table_fixed_h');
-        if (!parentSelector.classList.contains('table_fixed_h')) {
-          parentSelector.classList.add('table_fixed_h');
-        }
-      }
-
       // removing last table
-      block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:last-of-type`).remove();
+      tableBuybtn.remove();
 
       // add prod class on block
-      const priceBoxSelector = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1})`);
-      priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
-      priceBoxSelector.setAttribute('data-testid', 'prod_box');
+      prodBox.classList.add(`${onSelectorClass}_box`, 'prod_box');
+      prodBox.setAttribute('data-testid', 'prod_box');
     });
-
-    /// ///////////////////////////////////////////////////////////////////////
-    // change the border color of the main box
-    if (borderColor) {
-      const primaryBox = block.querySelector('.c-productswithvpn > div:nth-child(1)');
-      primaryBox.style.border = `9px solid ${borderColor}`;
-
-      const tag = primaryBox.querySelector('.tag');
-      tag.style.backgroundColor = borderColor;
-    }
-
-    /// ///////////////////////////////////////////////////////////////////////
-    // change the svg of the list in all boxes
-    if (listStyle) {
-      const lists = block.querySelectorAll('.c-productswithvpn > div ul');
-      lists.forEach((item) => {
-        item.classList.add(listStyle);
-      });
-    }
   }
 }
