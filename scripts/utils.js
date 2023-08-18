@@ -226,7 +226,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
   }
 
-  if (storeObj.selected_variation.discount) {
+  if (storeObj.selected_variation.discount && storeObj.selected_variation.discount?.discount_value) {
     let selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
     if (triggerVPN) {
       selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
@@ -340,10 +340,16 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
         document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = fullPrice;
         });
+        if (oldPriceBox.parentNode.nodeName === 'P') {
+          oldPriceBox.parentNode.style.display = 'none';
+        }
       } else {
         oldPriceBox.style.visibility = 'hidden';
         if (oldPriceBox.closest('.prod-oldprice')) {
           oldPriceBox.closest('.prod-oldprice').style.setProperty('display', 'none', 'important');
+          if (oldPriceBox.parentNode.nodeName === 'P') {
+            oldPriceBox.parentNode.style.display = 'none';
+          }
         }
       }
     }
@@ -356,6 +362,9 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       });
       if (saveBox.closest('.prod-save')) {
         saveBox.closest('.prod-save').style.setProperty('display', 'none', 'important');
+        if (saveBox.parentNode.nodeName === 'P') {
+          saveBox.parentNode.style.display = 'none';
+        }
       }
     }
 
@@ -382,7 +391,8 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
 
     const bulinaBox = document.querySelector(`.bulina-${onSelectorClass}`);
     if (bulinaBox) {
-      bulinaBox.parentNode.visibility = 'hidden';
+      bulinaBox.style.display = 'none';
+      // bulinaBox.parentNode.style.visibility = 'hidden';
     }
   }
 

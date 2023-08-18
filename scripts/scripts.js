@@ -708,8 +708,12 @@ function initSelectors() {
 
 function addIdsToEachSection() {
   document.querySelectorAll('main .section > div:first-of-type').forEach((item, idx) => {
-    const getIdentity = item.className;
-    item.parentElement.id = `${getIdentity}-${idx + 1}`;
+    const getIdentity = item.className.split('-wrapper')[0];
+    if (document.getElementById(getIdentity)) {
+      item.parentElement.id = `${getIdentity}-${idx + 1}`;
+    } else {
+      item.parentElement.id = getIdentity;
+    }
   });
 }
 
