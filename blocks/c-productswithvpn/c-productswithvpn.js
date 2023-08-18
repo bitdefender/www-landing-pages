@@ -185,6 +185,13 @@ export default function decorate(block) {
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
     });
 
+    const tables = block.querySelectorAll('.c-productswithvpn > div table');
+    tables.forEach((table) => {
+      if (table.querySelectorAll('tr').length > 1) {
+        table.classList.add('no_vpn_table');
+      }
+    });
+
     /// ///////////////////////////////////////////////////////////////////////
     // change the border color of the main box
     if (borderColor) {

@@ -32,12 +32,11 @@
 
     table {
       border-collapse: separate;
-      border-spacing: 5px 1em;
+      border-spacing: 0 1em;
 
       p {
         font-size: 21px;
         font-weight: 400;
-        color: white;
         margin: 1em 0 0;
         margin-right: 10px;
         max-width: 595px;
@@ -53,6 +52,11 @@
             p {
               font-size: 16px;
               margin: 0;
+              padding-left: 10px;
+
+              &:nth-child(2) {
+                font-size: 12px;
+              }
             }
           }
         }
@@ -60,11 +64,7 @@
     }
 
     .text-black {
-      color: black;
-
-      p {
-        color: black;
-      }
+      color: black !important;
     }
 
     h1 {
@@ -77,10 +77,6 @@
       font-size: 21px;
       max-width: unset;
       margin-top: 10px;
-    }
-
-    .float-p p {
-      display: inline;
     }
 
     #bannerAward {
