@@ -93,7 +93,7 @@ return value;`,
           "private": false,
           "sequence": 3,
           "target": "",
-          "value": "const totalPrice = window.omniture_vars.CART_PRODUCTS[0].ProductTotalPriceWithTaxAndDiscount\nconst subtotalPrice = window.omniture_vars.CART_PRODUCTS[0].ProductPriceInDisplayedCurrency;\n\nconsole.log('totalPrice', totalPrice);\nconsole.log('subtotalPrice', subtotalPrice);\n\nreturn totalPrice === {{productPrice}} || subtotalPrice === {{productPrice}}\n",
+          "value": "const totalPrice = window.omniture_vars.CART_PRODUCTS[0].ProductTotalPriceWithTaxAndDiscount\nconst subtotalPrice = window.omniture_vars.CART_PRODUCTS[0].ProductPriceInDisplayedCurrency;\n\nconsole.log('totalPrice', totalPrice);\nconsole.log('subtotalPrice', subtotalPrice);\n\nreturn totalPrice.toFixed(2) === {{productPrice}} || subtotalPrice.toFixed(2) === {{productPrice}}\n",
           "variableName": ""
         }
       ],
