@@ -334,7 +334,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    console.log(`.oldprice-${onSelectorClass}`)
     const oldPriceBox = document.querySelector(`.oldprice-${onSelectorClass}`);
     if (oldPriceBox) {
       if (productId === 'vpn') {
