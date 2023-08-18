@@ -124,7 +124,6 @@ export default function decorate(block) {
       const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
 
       const aBuybtn = document.createElement('a');
-      console.log(tableBuybtn.innerHTML);
       aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
       aBuybtn.className = `red-buy-button buylink-${onSelectorClass} awaitLoader prodLoad`;
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
