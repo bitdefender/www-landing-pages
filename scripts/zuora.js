@@ -1,5 +1,5 @@
 export default class ZuoraNLClass {
-  static coupon = 'SummerSale2023';
+  static coupon = 'BTS2023';
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
