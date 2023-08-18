@@ -1,5 +1,5 @@
 export default class ZuoraNLClass {
-  static coupon = 'SummerSale2023';
+  static coupon = 'BTS2023';
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
@@ -63,6 +63,7 @@ export default class ZuoraNLClass {
     const yearsNo = prod[2];
     return new Promise((resolve, reject) => {
       BitCheckoutSDK.getProductVariationsPrice({ bundle: this.productId[id], campaign: campaignId }, (payloadObj) => {
+        console.log('payloadObj', payloadObj)
         if (!payloadObj || payloadObj.length === 0) {
           reject();
         }
@@ -75,11 +76,13 @@ export default class ZuoraNLClass {
         const pricing = {};
         payload.pricing.forEach((item) => {
           if (item.devices_no === Number(devicesNo)) {
+            console.log('item', item);
             pricing.total = item.price;
             pricing.discount = item.discount;
             pricing.price = item.total;
           }
         });
+        console.log('pricing', pricing)
 
         // buylink:
         const zuoraCart = new URL('https://checkout.bitdefender.com/index.html:step=cart?theme=light');
