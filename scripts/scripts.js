@@ -714,7 +714,6 @@ function addIdsToEachSection() {
     } else {
       item.parentElement.id = getIdentity;
     }
-    
   });
 }
 
