@@ -331,6 +331,8 @@ StoreProducts.initSelector = function(config)
                     DOMAIN = 'co.uk';
                 } else if (DOMAIN === 'au') {
                     DOMAIN = 'com.au';
+                } else if (DOMAIN === 'br') {
+                    DOMAIN = 'com.br';
                 }
 
                 BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
