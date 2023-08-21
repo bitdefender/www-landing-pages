@@ -18,7 +18,15 @@ import {
    * @returns {HTMLElement} The root element of the fragment
    */
 async function loadFragment(path) {
+  const url = window.location.href;
+  const laguage = url.split('/')[4];
   if (path && path.startsWith('/')) {
+    try {
+      // eslint-disable-next-line no-param-reassign
+      path = path.replace(/lang/g, laguage);
+    } catch (error) {
+      console.log(error);
+    }
     const resp = await fetch(`${path}.plain.html`);
     if (resp.ok) {
       const main = document.createElement('main');
