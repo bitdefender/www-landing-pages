@@ -104,7 +104,7 @@ export default function decorate(block) {
     if (bannerDiscount) {
       const discountDiv = document.createElement('div');
       parentSelector.querySelector('picture').classList.add('hasDiscount');
-      discountDiv.innerHTML = `<span class="percent-${onSelectorClass}">10%</span><span>${bannerDiscount.split(' ')[1]}</span>`;
+      discountDiv.innerHTML = `<span class="percent-${onSelectorClass}"></span><span>${bannerDiscount.split(',')[1]}</span>`;
       parentSelector.querySelector('picture').appendChild(discountDiv);
     }
   }
