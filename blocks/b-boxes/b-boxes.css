@@ -1,0 +1,118 @@
+/* b-boxes .b-boxes-container */
+.b-boxes-container {
+  padding: 1em 0;
+  margin: 2em 0;
+  width: 100%;
+}
+
+.b-boxes-container.blue-gradient {
+  background: rgb(228, 242, 255);
+  background: linear-gradient(180deg, rgb(228, 242, 255) 0%, rgb(255, 255, 255) 40%);
+}
+
+.b-boxes-container.green-gradient {
+  background: rgb(173, 248, 179);
+  background: linear-gradient(180deg, rgb(173, 248, 179) 0%, rgb(255, 255, 255) 40%);
+}
+
+.b-boxes-container div[data-align=center] {
+  text-align: center;
+}
+
+.b-boxes-container .b-boxes > div {
+  width: 100%;
+  margin: 1em 0;
+  clear: both;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(1) p {
+  margin: 0;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(3) {
+  width: 100%;
+  margin-top: 0;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(3), .b-boxes-container .b-boxes > div:nth-child(2) > div {
+  border-radius: 10px;
+  padding: 3%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  font-size: 18px;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(2) h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 6px;
+  margin-bottom: 20px;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(2) > div {
+  width: 49%;
+  float: left;
+  margin: 1%;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(2) > div:first-child {
+  min-height: 34em;
+  margin-left: 0;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(2) > div:nth-child(2), .b-boxes-container .b-boxes > div:nth-child(2) > div:nth-child(3) {
+  margin-right: 0;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(2) p, .b-boxes-container .b-boxes > div:nth-child(3) p, .b-boxes-container .b-boxes > div:nth-child(4) p {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+
+.b-boxes-container .b-boxes > div:nth-child(2) p:first-child {
+  float: left;
+  width: 42px;
+  margin-top: 0;
+  margin-right: 10px;
+}
+
+/* for mobile */
+@media (width <= 768px) {
+  .b-boxes-container .b-boxes > div {
+    margin: 0.5em 0;
+    width: 100%;
+    float: none;
+  }
+  .b-boxes-container .b-boxes > div:nth-child(2) > div {
+    width: 100%;
+    float: none;
+    margin: 1em 0 !important;
+  }
+  .b-boxes-container p, .b-boxes-container strong {
+    font-size: 15px !important;
+    line-height: 22px;
+    display: block;
+  }
+  .b-boxes-container .b-boxes > div:nth-child(1) p {
+    font-size: 19px;
+  }
+  .b-boxes-container .b-boxes > div:nth-child(1) h3 {
+    font-size: 22px;
+  }
+  .b-boxes-container .b-boxes > div:nth-child(2) > p:nth-child(2) {
+    margin-top: 0 !important;
+  }
+  .b-boxes-container .b-boxes > div:nth-child(2) > div:first-child {
+    min-height: auto;
+  }
+  .b-boxes-container .b-boxes > div:nth-child(2) h3 {
+    font-size: 19px;
+  }
+  .b-boxes-container {
+    padding: 10px 0;
+    margin: 1em 0;
+    float: none;
+    width: 100%;
+  }
+}
