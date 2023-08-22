@@ -1,5 +1,13 @@
 {
   "project": "Bitdefender Pages",
-  "host": "pages.bitdefender.com",
-  "plugins": []
+  "host": "https://main--helix-poc--enake.hlx.live",
+  "plugins": [
+    {
+      "id": "library",
+      "title": "Library",
+      "environments": ["edit"],
+      "url": "/tools/sidekick/library.html",
+      "includePaths": ["**.docx**"]
+    }
+  ]
 }

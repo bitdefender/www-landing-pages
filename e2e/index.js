@@ -7,20 +7,15 @@ const priceValidationSuiteId = '64be463282bf299ccb6b9341';
 const snapshotsSuiteId = '64c8d884960593b38bb68331';
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--helix-poc--enake.hlx.page`;
 const activeLandingPagesUrl = 'https://main--helix-poc--enake.hlx.page/active-landingpages.json';
+const pathToBlocks = 'sidekick/blocks';
 const skippedTestLabel = '0';
 
 // todo those should come from other place
 const blockSnapshotsToTest = [
-  'b-banner-float-p',
+  'b-banner',
   'b-single-quote',
-  'b-banner-v3',
-  'b-banner-v2',
-  'b-banner-v4',
-  'b-banner-v5',
   'c-reviews',
-  'c-reviews-v2',
   'c-icon-box-grid',
-  'c-icon-box-grid-v2',
   'c-device-protection-box',
   'awards',
   'c-tough-on-threats',
@@ -32,13 +27,9 @@ const blockSnapshotsToTest = [
   'columns',
   'c-productswithvpn2',
   'c-productswithvpn',
-  'c-productswithvpn-v2',
   'b-productswithselectors',
-  'b-productswithselectors-v2',
   'c-top-comparative-with-text',
   'b-dropdownbox',
-  'b-dropdownbox-new-closed',
-  'c-dropdownbox-closed',
   'b-productswithinputdevices',
   'b-big-carousel-quotes',
 ];
@@ -69,7 +60,7 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
   }
   function showGenericFunctionalTestsFullLogs(testResults) {
     const areAllTestsPassing = testResults.every(([res, passing]) => passing === true);
-    areAllTestsPassing ? logSuccess('All tests passed !') : logError('Some tests failed !');
+    areAllTestsPassing ? logSuccess('All price validation tests passed !') : logError('Some price validation tests failed !');
 
     testResults.forEach(([testResult, passing], index) => {
       const { name, test: { _id } } = testResult;
@@ -176,7 +167,7 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
           const testAlreadyExists = snapshotSuiteTests.find(originalTest => originalTest.name === testName);
 
           if (testAlreadyExists) {
-            return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/drafts/blocks/${testAlreadyExists.name}`).then(res => res.json());
+            return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testAlreadyExists.name}`).then(res => res.json());
           }
 
           return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
