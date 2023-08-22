@@ -23,6 +23,7 @@
   font-size: 36px;
   margin: 0;
   line-height: 32px;
+  min-height: 2em;
 }
 
 .c-productswithvpn > div h2::after {
@@ -380,6 +381,7 @@
     .c-productswithvpn > div h2 {
         font-size: 24px;
         line-height: 23px;
+        min-height: auto;
     }
 
     .c-productswithvpn-container.has4boxes .c-productswithvpn {

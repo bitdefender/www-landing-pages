@@ -1,3 +1,4 @@
+// todo must update / deprecate this in favor of usage for /icons/[icon] approach ( and also support for sidekick library )
 export default class SvgLoaderComponent {
   #svgName; // String
 
