@@ -48,7 +48,7 @@ if (isZuoraForNetherlandsLangMode()) {
 sendAnalyticsPageLoadedEvent();
 
 if (getParamValue('tt') !== '1') {
-  addScript('https://consent.cookiebot.com/uc.js', { culture: window.DEFAULT_LANGUAGE ? window.DEFAULT_LANGUAGE : 'en', cbid: '4a55b566-7010-4633-9b03-7ba7735be0b6' }, 'async');
+  addScript('https://consent.cookiebot.com/uc.js', { culture: window.DEFAULT_LANGUAGE || 'en', cbid: '4a55b566-7010-4633-9b03-7ba7735be0b6' }, 'async');
 }
 
 enableTrackingScripts();
