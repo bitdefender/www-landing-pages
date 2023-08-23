@@ -39,6 +39,7 @@ StoreProducts.initSelector = function(config)
 
     var full_price_class = null;
     var discounted_price_class = null;
+    var save_class = null;
 
     var buy_class = null;
     var onChangeUsers = null;
@@ -101,6 +102,9 @@ StoreProducts.initSelector = function(config)
 
     if('discounted_price_class' in config)
         discounted_price_class = config['discounted_price_class'];
+
+    if('save_class' in config)
+        save_class = config['save_class'];
 
     if('buy_class' in config)
         buy_class = config['buy_class'];
@@ -242,6 +246,7 @@ StoreProducts.initSelector = function(config)
 
             c_config['full_price_class'] = full_price_class;
             c_config['discounted_price_class'] = discounted_price_class;
+            c_config['save_class'] = save_class;
 
             c_config['buy_class'] = buy_class;
             c_config['product_id'] = product_id;
@@ -405,6 +410,7 @@ StoreProducts.initSelector = function(config)
 
             c_config['full_price_class'] = full_price_class;
             c_config['discounted_price_class'] = discounted_price_class;
+            c_config['save_class'] = save_class;
 
             c_config['buy_class'] = buy_class;
             c_config['product_id'] = product_id;
@@ -449,6 +455,7 @@ StoreProducts.initSelector = function(config)
 
             c_config['full_price_class'] = full_price_class;
             c_config['discounted_price_class'] = discounted_price_class;
+            c_config['save_class'] = save_class;
 
             c_config['buy_class'] = buy_class;
             c_config['product_id'] = product_id;
@@ -700,6 +707,7 @@ StoreProducts.initSelector = function(config)
             if('discounted_price' in variation['discount'])
             {
                 discounted_price = StoreProducts.formatPrice(variation['discount']['discounted_price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
                 price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
             }
 
@@ -725,6 +733,7 @@ StoreProducts.initSelector = function(config)
             {
                 discounted_price = StoreProducts.getDiscountedPrice(variation['price'],discount);
                 discounted_price = StoreProducts.formatPrice(discounted_price,variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
                 price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
             }
         }
@@ -817,6 +826,7 @@ StoreProducts.initSelector = function(config)
 
     full_price = full_price;
     discounted_price = discounted_price;
+    save_price = save_price;
 
     if (discounted_price_class != null) {
         var elements = document.getElementsByClassName(discounted_price_class);
@@ -829,6 +839,13 @@ StoreProducts.initSelector = function(config)
         var elements = document.getElementsByClassName(full_price_class);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = full_price;
+        });
+    }
+    
+    if (save_class != null) {
+        var elements = document.getElementsByClassName(save_class);
+        Array.from(elements).forEach(function(element) {
+            element.innerHTML = save_price;
         });
     }
 
@@ -1107,6 +1124,7 @@ StoreProducts.__onChangeUsers = function(ev)
     var price = variation['price'] + ' ' + variation['currency_label'];
     price = StoreProducts.formatPrice(variation['price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
     var discounted_price = '';
+    var save_price = '';
     var full_price = price;
 
     // if (window.location.hostname == 'www.bitdefender.se') {
@@ -1122,6 +1140,7 @@ StoreProducts.__onChangeUsers = function(ev)
             if('discounted_price' in variation['discount'])
             {
                 discounted_price = StoreProducts.formatPrice(variation['discount']['discounted_price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']['discounted_price']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
                 price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
             }
 
@@ -1149,6 +1168,7 @@ StoreProducts.__onChangeUsers = function(ev)
                 {
                     discounted_price = StoreProducts.getDiscountedPrice(variation['price'],discount);
                     discounted_price = StoreProducts.formatPrice(discounted_price,variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                    save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']['discounted_price']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
                     price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
                 }
             }
@@ -1200,6 +1220,7 @@ StoreProducts.__onChangeUsers = function(ev)
 
     full_price = full_price;
     discounted_price = discounted_price;
+    save_price = save_price;
 
     if(c_config['discounted_price_class'] != null) {
         var elements = document.getElementsByClassName(c_config['discounted_price_class']);
@@ -1213,8 +1234,15 @@ StoreProducts.__onChangeUsers = function(ev)
         Array.from(elements).forEach(function(element) {
             element.innerHTML = full_price;
         });
-
     }
+
+    if(c_config['save_class'] != null) {
+        var elements = document.getElementsByClassName(c_config['save_class']);
+        Array.from(elements).forEach(function(element) {
+            element.innerHTML = save_price;
+        });
+    }
+
     buy_link = StoreProducts.filterBuyLink(c_config, buy_link);
     buy_link = StoreProducts.appendVisitorID(buy_link);
     var elements = document.querySelectorAll("."+c_config['buy_class']);
@@ -1322,6 +1350,7 @@ StoreProducts.__onChangeYears = function(ev)
     var price = variation['price'] + ' ' + variation['currency_label'];
     price = StoreProducts.formatPrice(variation['price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
     var discounted_price = '';
+    var save_price = '';
     var full_price = price;
 
     // if (window.location.hostname == 'www.bitdefender.se') {
@@ -1337,6 +1366,7 @@ StoreProducts.__onChangeYears = function(ev)
             if('discounted_price' in variation['discount'])
             {
                 discounted_price = StoreProducts.formatPrice(variation['discount']['discounted_price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']['discounted_price']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
                 price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
             }
 
@@ -1364,6 +1394,7 @@ StoreProducts.__onChangeYears = function(ev)
                 {
                     discounted_price = StoreProducts.getDiscountedPrice(variation['price'],discount);
                     discounted_price = StoreProducts.formatPrice(discounted_price,variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                    save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']['discounted_price']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
                     price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
                 }
             }
@@ -1415,6 +1446,7 @@ StoreProducts.__onChangeYears = function(ev)
 
     full_price = full_price;
     discounted_price = discounted_price;
+    save_price = discounted_price;
 
     if(c_config['discounted_price_class'] != null) {
         var elements = document.getElementsByClassName(c_config['discounted_price_class']);
@@ -1429,6 +1461,14 @@ StoreProducts.__onChangeYears = function(ev)
             element.innerHTML = full_price;
         });
     }
+
+    if(c_config['save_class'] != null) {
+        var elements = document.getElementsByClassName(c_config['save_class']);
+        Array.from(elements).forEach(function(element) {
+            element.innerHTML = save_price;
+        });
+    }
+
     buy_link = StoreProducts.filterBuyLink(c_config, buy_link);
     buy_link = StoreProducts.appendVisitorID(buy_link);
     var elements = document.getElementsByClassName(c_config['buy_class']);

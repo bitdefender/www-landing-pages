@@ -23,20 +23,32 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
-  const parent2ndDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(2)');
+  // const parent2ndDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(2)');
+  const parent1ndDiv = block.children[0];
+  const parent2ndDiv = block.children[1];
 
   const metaData = parentSelector.dataset;
   const {
-    products, yearsText, bulinaText, titleTag,
+    products, yearsText, bulinaText, devicesLimits, titleTag,
   } = metaData;
   const productsAsList = products && products.split(',');
 
-  const subscribeTexts = parent2ndDiv.querySelector('div p').innerText;
-  const yearText = parent2ndDiv.querySelector('div p:nth-child(2)').innerText;
-  const oldpriceText = parent2ndDiv.querySelector('div p:nth-child(3)').innerText;
-  const savingText = parent2ndDiv.querySelector('div p:nth-child(4)').innerText;
-  const buylinkText = parent2ndDiv.querySelector('div p:nth-child(5)').innerText;
-  const taxesText = parent2ndDiv.querySelector('div p:nth-child(6)').innerText;
+  const subscribeTexts = parent2ndDiv.querySelector('p').innerText;
+  const yearText = parent2ndDiv.querySelector('p:nth-child(2)').innerText;
+  const oldpriceText = parent2ndDiv.querySelector('p:nth-child(3)').innerText;
+  const savingText = parent2ndDiv.querySelector('p:nth-child(4)').innerText;
+  const buylinkText = parent2ndDiv.querySelector('p:nth-child(5)').innerText;
+  const taxesText = parent2ndDiv.querySelector('p:nth-child(6)').innerText;
+
+  let devicesMin = 5;
+  let devicesSelected = 5;
+  let devicesMax = 100;
+  if (devicesLimits) {
+    const devicesLimitsSplit = devicesLimits.split('-');
+    devicesMin = devicesLimitsSplit[0];
+    devicesSelected = devicesLimitsSplit[1];
+    devicesMax = devicesLimitsSplit[2];
+  }
 
   const blockH3 = block.querySelector('h3');
   if (blockH3 && titleTag) {
@@ -51,7 +63,6 @@ export default function decorate(block) {
     divBulina.className = 'prod-percent green_bck_circle bigger has2txt';
     divBulina.innerHTML = `${bulinaText.replace(/0,/g, '<b class=\'max-discount\'></b><p>')}`;
     divBulina.innerHTML += '</p>';
-
     block.before(divBulina);
   }
 
@@ -66,10 +77,10 @@ export default function decorate(block) {
     inputFieldset.classList = 'd-flex';
     inputFieldset.innerHTML += '<button>-</button>';
     inputFieldset.innerHTML += '<label for="devicesInput" style="display: none;">Number of Devices</label>';
-    inputFieldset.innerHTML += '<input type="number" name="devicesInput" min=5" max="100" value="10" id="devicesInput">';
+    inputFieldset.innerHTML += `<input type="text" readonly name="devicesInput" min=${devicesMin}" max="${devicesMax}" value="${devicesSelected}" id="devicesInput">`;
     inputFieldset.innerHTML += '<button>+</button>';
     // add fieldset
-    const tableEl = block.querySelector('.b-productswithinputdevices > div:nth-child(1) table');
+    const tableEl = parent1ndDiv.querySelector('table');
     tableEl.before(inputFieldset);
 
     // add event listeners
@@ -80,11 +91,11 @@ export default function decorate(block) {
       item.addEventListener('click', () => {
         const action = item.innerText;
         let currentdevices = Number(devicesInput.value);
-        if (action === '-' && currentdevices > 5) {
+        if (action === '-' && currentdevices > devicesMin) {
           currentdevices -= 1;
           devicesInput.value = (currentdevices).toString();
         }
-        if (action === '+' && currentdevices < 100) {
+        if (action === '+' && currentdevices < devicesMax) {
           currentdevices += 1;
           devicesInput.value = (currentdevices).toString();
         }
@@ -109,15 +120,6 @@ export default function decorate(block) {
       });
     });
 
-    if (devicesInput.addEventListener('change', () => {
-      const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
-      if (devicesSelector) {
-        devicesSelector.forEach((item) => {
-          item.value = devicesInput.value;
-          item.dispatchEvent(new Event('change'));
-        });
-      }
-    }));
 
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
@@ -140,5 +142,6 @@ export default function decorate(block) {
 
       parent2ndDiv.appendChild(pricesDiv);
     });
+
   }
 }
