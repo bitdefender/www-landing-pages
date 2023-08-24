@@ -116,8 +116,8 @@ export default function decorate(block) {
 
     /// ///////////////////////////////////////////////////////////////////////
     // create red tag
+    const tagDiv = document.createElement('div');
     if (tagText) {
-      var tagDiv = document.createElement('div');
       tagDiv.className = 'tag redTag';
       tagDiv.innerHTML = `<i>${tagText}<i>`;
     }
@@ -141,15 +141,14 @@ export default function decorate(block) {
       renderedProductSection.setAttribute('data-testid', 'prod_box');
       renderedProductSection.querySelector('ul').after(pricesDiv);
 
-       // add selected element
+      // add selected element
       const selectedProductSection = block.children[idx + 1].querySelector('p:first-of-type u');
       if (selectedProductSection) {
-       selectedProductSection.parentNode.parentNode.parentNode.classList.add('selected');
-       if (tagDiv) {
+        selectedProductSection.parentNode.parentNode.parentNode.classList.add('selected');
+        if (tagDiv) {
           selectedProductSection.parentNode.parentNode.before(tagDiv);
         }
       }
-
     });
   }
 }

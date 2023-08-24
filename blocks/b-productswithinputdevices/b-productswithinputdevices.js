@@ -120,7 +120,6 @@ export default function decorate(block) {
       });
     });
 
-
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
@@ -142,6 +141,5 @@ export default function decorate(block) {
 
       parent2ndDiv.appendChild(pricesDiv);
     });
-
   }
 }
