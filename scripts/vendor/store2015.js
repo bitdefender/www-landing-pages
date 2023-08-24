@@ -30,49 +30,49 @@ StoreProducts.initSelector = function(config)
         now.setTime(expTime);
         document.cookie = "forceBuyCurrency=EUR; expires=" +now.toGMTString() + "; path=/";
     }
-    var product_id = null;
-    var users_class = null;
-    var selected_users = 3;
-    var selected_years = 1;
-    var years_class = null;
-    var price_class = null;
+    let product_id = null;
+    let users_class = null;
+    let selected_users = 3;
+    let selected_years = 1;
+    let years_class = null;
+    let price_class = null;
 
-    var full_price_class = null;
-    var discounted_price_class = null;
-    var save_class = null;
+    let full_price_class = null;
+    let discounted_price_class = null;
+    let save_class = null;
+    let percent_class = null;
 
-    var buy_class = null;
-    var onChangeUsers = null;
-    var onChangeYears = null;
-    var onSelectorLoad = null;
+    let buy_class = null;
+    let onChangeUsers = null;
+    let onChangeYears = null;
+    let onSelectorLoad = null;
 
-    var discount = null;
+    let discount = null;
 
-    var extra_params = null;
+    let extra_params = null;
 
-    var doAjax = true;
-    var force_platform = null;
-    var force_region = null;
+    let doAjax = true;
+    let force_platform = null;
+    let force_region = null;
 
-    var user_label = '';
-    var year_label = '';
-    var users_label = '';
-    var years_label = '';
+    let user_label = '';
+    let year_label = '';
+    let users_label = '';
+    let years_label = '';
 
-    var user_label_prefix = '';
-    var users_label_prefix = '';
-    var year_label_prefix = '';
-    var years_label_prefix = '';
+    let user_label_prefix = '';
+    let users_label_prefix = '';
+    let year_label_prefix = '';
+    let years_label_prefix = '';
 
-    var ignore_promotions = false;
-    var initCount = 0;
+    let ignore_promotions = false;
+    let initCount = 0;
 
-    var method = 'POST';
+    let method = 'POST';
 
-    if('initCount' in config)
+    if ('initCount' in config) {
         initCount = config['initCount'];
-    else
-    {
+    } else {
         initCount = ++StoreProducts.initCount;
         config['initCount'] = initCount;
     }
@@ -105,6 +105,9 @@ StoreProducts.initSelector = function(config)
 
     if('save_class' in config)
         save_class = config['save_class'];
+
+    if('percent_class' in config)
+        percent_class = config['percent_class'];
 
     if('buy_class' in config)
         buy_class = config['buy_class'];
@@ -171,7 +174,7 @@ StoreProducts.initSelector = function(config)
         ignore_promotions = config['ignore_promotions'] = __global_ignore_promotions;
     }
 
-    var hasPID = false;
+    let hasPID = false;
     if(typeof tagit_params !== 'undefined') {
         for (i in tagit_params.obj) {
             if ('pid' in tagit_params.obj[i]) {
@@ -191,7 +194,7 @@ StoreProducts.initSelector = function(config)
 //    if(years_class == null)
 //	return false;
 
-    var urlParams = {};
+const urlParams = {};
 
     try
     {
@@ -239,7 +242,7 @@ StoreProducts.initSelector = function(config)
         if(doAjax == true)
         {
             //configure events
-            var c_config = new Object();
+            const c_config = new Object();
             c_config['users_class'] = users_class;
             c_config['years_class'] = years_class;
             c_config['price_class'] = price_class;
@@ -247,6 +250,7 @@ StoreProducts.initSelector = function(config)
             c_config['full_price_class'] = full_price_class;
             c_config['discounted_price_class'] = discounted_price_class;
             c_config['save_class'] = save_class;
+            c_config['percent_class'] = percent_class;
 
             c_config['buy_class'] = buy_class;
             c_config['product_id'] = product_id;
@@ -274,8 +278,8 @@ StoreProducts.initSelector = function(config)
 
             c_config['method'] = method;
 
-            var on_users_change = null;
-            var on_years_change = null;
+            let on_users_change = null;
+            let on_years_change = null;
 
             if(users_class != null)
                 on_users_change = StoreProducts.__onChangeUsers;
@@ -303,7 +307,7 @@ StoreProducts.initSelector = function(config)
                 StoreProducts['events'][users_class+years_class].onSelectorLoad = onSelectorLoad;
             }
 
-            var so = new Object();
+            const so = new Object();
             so.ev = 1;
             so.product_id = product_id;
             config['doAjax'] = false;
@@ -312,15 +316,15 @@ StoreProducts.initSelector = function(config)
             config['onChangeYears'] = null;
             so.config = config;
 
-            var BASE_URL = ["author", "localhost", "local", "stage", "dev", "dev1", "dev2", "dev3", "new"].includes(window.location.hostname.split(/\.|-/)[0]) ? "https://www.bitdefender.com" : ""
+            const BASE_URL = ["author", "localhost", "local", "stage", "dev", "dev1", "dev2", "dev3", "new"].includes(window.location.hostname.split(/\.|-/)[0]) ? "https://www.bitdefender.com" : ""
 
-            var url = BASE_URL + '/site/Store/ajax';
+            let url = BASE_URL + '/site/Store/ajax';
 
             // if (window.location.hostname == 'www.bitdefender.se') {
             //     BASE_URI = "https://www.bitdefender.se/site";
             // }
 
-            var forceBussiness = false;
+            let forceBussiness = false;
             if (typeof geoip_code != 'undefined' && ["bus-security", "adv_security", "elite_1000", "abs_1000", "bs_1000", "p_management", "fde"].indexOf(so.product_id) > -1 && ['us','uk','gb','ro','fr','ca','de','es','it','pt','nl','se','au','br','no'].indexOf(geoip_code) == -1) {
                 forceBussiness = true;
 
@@ -411,6 +415,7 @@ StoreProducts.initSelector = function(config)
             c_config['full_price_class'] = full_price_class;
             c_config['discounted_price_class'] = discounted_price_class;
             c_config['save_class'] = save_class;
+            c_config['percent_class'] = percent_class;
 
             c_config['buy_class'] = buy_class;
             c_config['product_id'] = product_id;
@@ -456,6 +461,7 @@ StoreProducts.initSelector = function(config)
             c_config['full_price_class'] = full_price_class;
             c_config['discounted_price_class'] = discounted_price_class;
             c_config['save_class'] = save_class;
+            c_config['percent_class'] = percent_class;
 
             c_config['buy_class'] = buy_class;
             c_config['product_id'] = product_id;
@@ -480,7 +486,7 @@ StoreProducts.initSelector = function(config)
             c_config['onChangeUsers'] = onChangeUsers;
             c_config['onChangeYears'] = onChangeYears;
 
-            var on_years_change = null;
+            let on_years_change = null;
             if(years_class != null)
                 on_years_change = StoreProducts.__onChangeYears;
 
@@ -492,7 +498,7 @@ StoreProducts.initSelector = function(config)
         }
 
         if(users_class != null) {
-            var elements = document.getElementsByClassName(users_class);
+            let elements = document.getElementsByClassName(users_class);
             Array.from(elements).forEach(function(element) {
                 element.addEventListener('change', (e) => {
                     e.data = StoreProducts['events'][users_class].onUsersChangeD;
@@ -502,7 +508,7 @@ StoreProducts.initSelector = function(config)
         }
 
         if(years_class != null) {
-            var elements = document.getElementsByClassName(years_class);
+            let elements = document.getElementsByClassName(years_class);
             Array.from(elements).forEach(function(element) {
                 element.addEventListener('change', (e) => {
                     e.data = StoreProducts['events'][years_class].onYearsChangeD;
@@ -512,9 +518,9 @@ StoreProducts.initSelector = function(config)
         }
     }
 
-    var r;
+    let r;
     try {
-        var l_hash = location.hash;
+        let l_hash = location.hash;
 
         if (l_hash.length < 1) {
             if ('var' in urlParams)
@@ -522,7 +528,7 @@ StoreProducts.initSelector = function(config)
         }
 
         if (l_hash.length > 1) {
-            var pt = new RegExp(StoreProducts.product[product_id]['product_alias'] + "\\-(\\d{1,2})u\\-(\\d{1})y");
+            const pt = new RegExp(StoreProducts.product[product_id]['product_alias'] + "\\-(\\d{1,2})u\\-(\\d{1})y");
 
             if (pt != null) {
                 r = pt.exec(l_hash);
@@ -531,19 +537,19 @@ StoreProducts.initSelector = function(config)
                     if (r.length == 3) {
                         if (r[1] in StoreProducts.product[product_id]['variations']) {
                             selected_users = r[1];
-                            var elements = document.querySelectorAll('.nousers-' + selected_users);
+                            const elements = document.querySelectorAll('.nousers-' + selected_users);
                             Array.from(elements).forEach(function(element) {
-                                var event = new Event('click');
+                                const event = new Event('click');
                                 element.dispatchEvent(event);
                             });
                         }
                         if (r[2] in StoreProducts.product[product_id]['variations'][selected_users]) {
                             selected_years = r[2];
-                            var yearElement = document.getElementById('year' + selected_years);
-                            var yearBtmElement = document.getElementById('year' + selected_years + '_btm');
-                            var topTimeSelectorElement = document.getElementById('topTimeSelector-' + selected_years);
+                            const yearElement = document.getElementById('year' + selected_years);
+                            const yearBtmElement = document.getElementById('year' + selected_years + '_btm');
+                            const topTimeSelectorElement = document.getElementById('topTimeSelector-' + selected_years);
 
-                            var clickEvent = new Event('click');
+                            const clickEvent = new Event('click');
 
                             yearElement.dispatchEvent(clickEvent);
                             yearBtmElement.dispatchEvent(clickEvent);
@@ -555,7 +561,7 @@ StoreProducts.initSelector = function(config)
     } catch (ex) {
     }
 
-    var users = new Array();
+    const users = new Array();
 
     if(users_class != null)
     {
@@ -571,31 +577,31 @@ StoreProducts.initSelector = function(config)
         {}
 
         users.forEach(function (value) {
-            var label = users_label_prefix + ' ' + value + ' ' + users_label;
+            let label = users_label_prefix + ' ' + value + ' ' + users_label;
             if(value == 1)
                 label = user_label_prefix + ' ' + value + ' ' + user_label;
 
             label = label.trim();
 
-            var parentElement = document.querySelector("."+users_class);
-            var optionElement = document.createElement('option');
+            const parentElement = document.querySelector("."+users_class);
+            const optionElement = document.createElement('option');
             optionElement.value = value;
             optionElement.textContent = label;
             parentElement.appendChild(optionElement);
         });
 
-        var elements = document.querySelectorAll("."+users_class+" [value=\"" + selected_users + "\"]");
+        const elements = document.querySelectorAll("."+users_class+" [value=\"" + selected_users + "\"]");
         Array.from(elements).forEach(function(element) {
             element.selected = true;
         });
 
         if(document.querySelectorAll(`.${users_class}`).length) {
-            var selectElement = document.querySelector("."+users_class);
+            const selectElement = document.querySelector("."+users_class);
             selected_users = selectElement.value;
         }
     }
 
-    var years = new Array();
+    const years = new Array();
 
     if(years_class != null)
     {
@@ -614,31 +620,31 @@ StoreProducts.initSelector = function(config)
 
         years.forEach(function (value) {
 
-            var label = years_label_prefix + ' ' + value + ' ' + years_label;
+            let label = years_label_prefix + ' ' + value + ' ' + years_label;
             if(value == 1)
                 label = year_label_prefix + ' ' + value + ' ' + year_label;
 
             label = label.trim();
 
-            var parentElement = document.querySelector("."+years_class);
-            var optionElement = document.createElement('option');
+            const parentElement = document.querySelector("."+years_class);
+            const optionElement = document.createElement('option');
             optionElement.value = value;
             optionElement.textContent = label;
             parentElement.appendChild(optionElement);
         });
 
-        var elements = document.querySelectorAll("."+years_class+" [value=\"" + selected_years + "\"]");
+        const elements = document.querySelectorAll("."+years_class+" [value=\"" + selected_years + "\"]");
         Array.from(elements).forEach(function(element) {
             element.selected = true;
         });
 
         if(document.querySelectorAll(`.${years_class}`).length) {
-            var selectElement = document.querySelector("."+years_class);
+            const selectElement = document.querySelector("."+years_class);
             selected_years = selectElement.value;
         }
     }
-    var variation = null;
-    var base_uri = '';
+    let variation = null;
+    let base_uri = '';
 
     try
     {
@@ -684,11 +690,11 @@ StoreProducts.initSelector = function(config)
     if(variation == null)
         return false;
 
-    var price = variation['price'] + ' ' + variation['currency_label'];
+    let price = variation['price'] + ' ' + variation['currency_label'];
     price = StoreProducts.formatPrice(variation['price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
 
-    var discounted_price = '';
-    var full_price = price;
+    let discounted_price = '';
+    let full_price = price;
 
     // if (window.location.hostname == 'www.bitdefender.se') {
     //     base_uri = "https://www.bitdefender.se/site";
@@ -698,7 +704,7 @@ StoreProducts.initSelector = function(config)
         base_uri = "https://www.bitdefender.co.uk/site";
     }
 
-    var buy_link = base_uri+'/Store/buy/' + product_id + '/' + selected_users + '/' + selected_years;
+    let buy_link = base_uri+'/Store/buy/' + product_id + '/' + selected_users + '/' + selected_years;
 
     try
     {
@@ -708,6 +714,7 @@ StoreProducts.initSelector = function(config)
             {
                 discounted_price = StoreProducts.formatPrice(variation['discount']['discounted_price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
                 save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                percent_value = `${variation['discount']['discount_value']}%`;
                 price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
             }
 
@@ -734,6 +741,8 @@ StoreProducts.initSelector = function(config)
                 discounted_price = StoreProducts.getDiscountedPrice(variation['price'],discount);
                 discounted_price = StoreProducts.formatPrice(discounted_price,variation['currency_label'],variation['region_id'],variation['currency_iso']);
                 save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                percent_value = (((variation['price'] - variation['discount']) / variation['price']) * 100).toFixed(0);
+                percent_value = `${variation['discount']['discount_value']}%`;
                 price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
             }
         }
@@ -744,7 +753,7 @@ StoreProducts.initSelector = function(config)
 
     try {
         if (extra_params != null) {
-            var params = '';
+            let params = '';
 
             for (op in extra_params) {
                 if (op == 'force_country')
@@ -754,7 +763,7 @@ StoreProducts.initSelector = function(config)
                 if (extra_params[op].length < 1)
                     continue;
 
-                var re = new RegExp(op + '.[^/]*/?', 'g');
+                let re = new RegExp(op + '.[^/]*/?', 'g');
 
                 buy_link = buy_link.replace(re, '');
                 buy_link = buy_link.replace(/\/$/g, '');
@@ -781,12 +790,12 @@ StoreProducts.initSelector = function(config)
     }
 
     if(price_class != null) {
-        var elements = document.getElementsByClassName(price_class);
+        const elements = document.getElementsByClassName(price_class);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = price;
         });
             if (variation['currency_label'].length > 2) {
-                var elements = document.getElementsByClassName(price_class);
+                const elements = document.getElementsByClassName(price_class);
                 Array.from(elements).forEach(function(element) {
                     element.classList.add('makeItSmall');
                 });
@@ -797,24 +806,24 @@ StoreProducts.initSelector = function(config)
     {
         if(price_class != null)
         {
-            var p_len = full_price.length + discounted_price.length;
+            const p_len = full_price.length + discounted_price.length;
 
             if(p_len <= 10) {
-                var elements = document.getElementsByClassName(price_class);
+                const elements = document.getElementsByClassName(price_class);
                 Array.from(elements).forEach(function(element) {
                     element.classList.add("price_small");
                 });
             }
 
             if(p_len > 10 && p_len <= 18) {
-                var elements = document.getElementsByClassName(price_class);
+                const elements = document.getElementsByClassName(price_class);
                 Array.from(elements).forEach(function(element) {
                     element.classList.add("price_medium");
                 });
             }
 
             if(p_len > 18) {
-                var elements = document.getElementsByClassName(price_class);
+                const elements = document.getElementsByClassName(price_class);
                 Array.from(elements).forEach(function(element) {
                     element.classList.add("price_large");
                 });
@@ -827,45 +836,49 @@ StoreProducts.initSelector = function(config)
     full_price = full_price;
     discounted_price = discounted_price;
     save_price = save_price;
+    percent_value = percent_value;
 
     if (discounted_price_class != null) {
-        var elements = document.getElementsByClassName(discounted_price_class);
+        const elements = document.getElementsByClassName(discounted_price_class);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = discounted_price;
         });
     }
 
     if (full_price_class != null) {
-        var elements = document.getElementsByClassName(full_price_class);
+        const elements = document.getElementsByClassName(full_price_class);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = full_price;
         });
     }
     
     if (save_class != null) {
-        var elements = document.getElementsByClassName(save_class);
+        const elements = document.getElementsByClassName(save_class);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = save_price;
+        });
+    }
+    
+    if (percent_class != null) {
+        const elements = document.getElementsByClassName(percent_class);
+        Array.from(elements).forEach(function(element) {
+            element.innerHTML = percent_value;
         });
     }
 
     if (buy_class != null) {
         // DEX-11415
-        var elements = document.querySelectorAll("."+buy_class);
+        const elements = document.querySelectorAll("."+buy_class);
         Array.from(elements).forEach(function(element) {
             element.addEventListener('click', function(e) {
-                var buy_link = element.getAttribute('href');
+                let buy_link = element.getAttribute('href');
                 if (buy_link.indexOf('adobe_mc') === -1) {
                     e.preventDefault();
                     buy_link = StoreProducts.appendVisitorID(buy_link);
                     window.location.href = buy_link;
                 }
             });
-        });
 
-        // buy_link = StoreProducts.appendVisitorID(buy_link);
-        var elements = document.querySelectorAll("."+buy_class);
-        Array.from(elements).forEach(function(element) {
             element.setAttribute('href', buy_link);
         });
 
@@ -887,8 +900,7 @@ StoreProducts.initSelector = function(config)
     {
         ocg = StoreProducts['events'][users_class+years_class].onSelectorLoad;
 
-        var thisObj = new Object();
-
+        const thisObj = new Object();
         thisObj['selected_users'] = selected_users;
         thisObj['selected_years'] = selected_years;
         thisObj['selected_variation'] = variation;
@@ -897,7 +909,7 @@ StoreProducts.initSelector = function(config)
 
         // A: Omniture Buy link, click tracking
         try {
-            var elements = document.getElementsByClassName(config.buy_class);
+            const elements = document.getElementsByClassName(config.buy_class);
             Array.from(elements).forEach(function(element) {
                 element.addEventListener('click', function(e) {
                     if (typeof oBuyLinkClick === 'function') {
@@ -917,9 +929,9 @@ StoreProducts.initSelector = function(config)
         {
             if(variation['promotion_functions'].length > 0)
             {
-                var jsc = Base64.decode(variation['promotion_functions']);
+                let jsc = Base64.decode(variation['promotion_functions']);
 
-                var PromotionFunctions = null;
+                let PromotionFunctions = null;
 
                 eval(jsc);
 
@@ -950,7 +962,7 @@ StoreProducts.initSelector = function(config)
 
 StoreProducts.truncatePrice = function(price)
 {
-    var ret = price;
+    let ret = price;
 
     try {
         if(ret >= 0)
@@ -976,7 +988,7 @@ StoreProducts.formatPrice = function(price,currency,region,currency_iso)
     try {
         getBrowserLocale = StoreProducts.getFirstBrowserLanguage();
 
-        var formatter = new Intl.NumberFormat(getBrowserLocale, {
+        let formatter = new Intl.NumberFormat(getBrowserLocale, {
             style: 'decimal',
             minimumFractionDigits: 0,
         });
@@ -988,7 +1000,7 @@ StoreProducts.formatPrice = function(price,currency,region,currency_iso)
         //replace , only if it's not the decimal seperator
         if(price.toString().indexOf(',') != -1)
         {
-            var priceParts = price.split(',');
+            const priceParts = price.split(',');
             if(priceParts[1].length > 2)
             {
                 price = price.replace(',', '');
@@ -1045,7 +1057,7 @@ StoreProducts.formatPrice = function(price,currency,region,currency_iso)
 
 StoreProducts.getDiscountedPrice = function(val,pc)
 {
-    var dp = (val * pc ) / 100;
+    let dp = (val * pc ) / 100;
     val = val - dp;
     val = val.toFixed(2);
     return val;
@@ -1053,11 +1065,11 @@ StoreProducts.getDiscountedPrice = function(val,pc)
 
 StoreProducts.__onChangeUsers = function(ev)
 {
-    var c_config = ev.data;
-    var selectElement = document.querySelector("."+c_config['users_class']);
-    var selected_users = selectElement.options[selectElement.selectedIndex].value;
+    const c_config = ev.data;
+    const selectElementUsers = document.querySelector("."+c_config['users_class']);
+    const selected_users = selectElementUsers.options[selectElementUsers.selectedIndex].value;
 
-    var years = new Array();
+    const years = new Array();
 
     try
     {
@@ -1070,26 +1082,25 @@ StoreProducts.__onChangeUsers = function(ev)
     {}
 
     //retin valoarea selectata
-    var selectElement = document.querySelector("."+c_config['years_class']);
-    var old_selected_years = selectElement.options[selectElement.selectedIndex].value;
+    const selectElementYears = document.querySelector("."+c_config['years_class']);
+    const old_selected_years = selectElementYears.options[selectElementYears.selectedIndex].value;
 
     //distrug si refac selectorul
-    var elements = document.getElementsByClassName(c_config['years_class']);
-    Array.from(elements).forEach(function(element) {
+    const elementsYears = document.getElementsByClassName(c_config['years_class']);
+    Array.from(elementsYears).forEach(function(element) {
         while (element.firstChild) {
             element.removeChild(element.firstChild);
         }
     });
 
     years.forEach(function (value) {
-        var label = value + ' ' + c_config['years_label'];
+        let label = value + ' ' + c_config['years_label'];
 
         if(value == 1)
             label = value + ' ' + c_config['year_label'];
 
-        var elements = document.getElementsByClassName(c_config['years_class']);
-        Array.from(elements).forEach(function(element) {
-            var option = document.createElement('option');
+        Array.from(elementsYears).forEach(function(element) {
+            const option = document.createElement('option');
             option.value = value;
             option.textContent = label;
             element.appendChild(option);
@@ -1100,16 +1111,16 @@ StoreProducts.__onChangeUsers = function(ev)
     try
     {
         //reselectez vechea valoare, daca initial e selectat 1u 3y si se selecteaza 5u o sa se reselecteze automat 3y
-        var selectElement = document.querySelector("."+c_config['years_class']);
-        var optionElement = selectElement.querySelector('option[value="'+old_selected_years+'"]');
+        const selectElement = document.querySelector("."+c_config['years_class']);
+        const optionElement = selectElement.querySelector('option[value="'+old_selected_years+'"]');
         optionElement.selected = true;
     }
     catch(ex) {}
 
-    var selected_years = document.querySelector(`.${c_config['years_class']}`).value;
+    const selected_years = document.querySelector(`.${c_config['years_class']}`).value;
 
-    var variation = null;
-    var base_uri = '';
+    let variation = null;
+    let base_uri = '';
 
     try
     {
@@ -1121,17 +1132,18 @@ StoreProducts.__onChangeUsers = function(ev)
     if(variation == null)
         return null;
 
-    var price = variation['price'] + ' ' + variation['currency_label'];
+    let price = variation['price'] + ' ' + variation['currency_label'];
     price = StoreProducts.formatPrice(variation['price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
-    var discounted_price = '';
-    var save_price = '';
-    var full_price = price;
+    let discounted_price = '',
+    save_price = '',
+    percent_value = '',
+    full_price = price;
 
     // if (window.location.hostname == 'www.bitdefender.se') {
     //     base_uri = "https://www.bitdefender.se/site";
     // }
 
-    var buy_link = base_uri+'/Store/buy/' + c_config['product_id'] + '/' + selected_users + '/' + selected_years;
+    let buy_link = base_uri+'/Store/buy/' + c_config['product_id'] + '/' + selected_users + '/' + selected_years;
 
     try
     {
@@ -1141,6 +1153,7 @@ StoreProducts.__onChangeUsers = function(ev)
             {
                 discounted_price = StoreProducts.formatPrice(variation['discount']['discounted_price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
                 save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']['discounted_price']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                percent_value = `${variation['discount']['discount_value']}%`;
                 price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
             }
 
@@ -1169,6 +1182,7 @@ StoreProducts.__onChangeUsers = function(ev)
                     discounted_price = StoreProducts.getDiscountedPrice(variation['price'],discount);
                     discounted_price = StoreProducts.formatPrice(discounted_price,variation['currency_label'],variation['region_id'],variation['currency_iso']);
                     save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']['discounted_price']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                    percent_value = `${variation['discount']['discount_value']}%`;
                     price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
                 }
             }
@@ -1182,7 +1196,7 @@ StoreProducts.__onChangeUsers = function(ev)
         {
             if(c_config['extra_params'] != null)
             {
-                var params = '';
+                let params = '';
                 for(op in c_config['extra_params'])
                 {
                     if(op == 'force_country')
@@ -1192,7 +1206,7 @@ StoreProducts.__onChangeUsers = function(ev)
                     if(c_config['extra_params'][op].length < 1)
                         continue;
 
-                    var re = new RegExp(op+'.[^/]*/?','g');
+                    let re = new RegExp(op+'.[^/]*/?','g');
 
                     buy_link = buy_link.replace(re,'');
                     buy_link = buy_link.replace(/\/$/g,'');
@@ -1213,47 +1227,55 @@ StoreProducts.__onChangeUsers = function(ev)
     }
     catch(ex) {}
 
-    var elements = document.getElementsByClassName(c_config['price_class']);
-    Array.from(elements).forEach(function(element) {
+    const elementsPrice = document.getElementsByClassName(c_config['price_class']);
+    Array.from(elementsPrice).forEach(function(element) {
         element.innerHTML = price;
     });
 
     full_price = full_price;
     discounted_price = discounted_price;
     save_price = save_price;
+    percent_value = percent_value;
 
     if(c_config['discounted_price_class'] != null) {
-        var elements = document.getElementsByClassName(c_config['discounted_price_class']);
+        const elements = document.getElementsByClassName(c_config['discounted_price_class']);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = discounted_price;
         });
     }
 
     if(c_config['full_price_class'] != null) {
-        var elements = document.getElementsByClassName(c_config['full_price_class']);
+        const elements = document.getElementsByClassName(c_config['full_price_class']);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = full_price;
         });
     }
 
     if(c_config['save_class'] != null) {
-        var elements = document.getElementsByClassName(c_config['save_class']);
+        const elements = document.getElementsByClassName(c_config['save_class']);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = save_price;
+        });
+    }
+    
+    if(c_config['percent_class'] != null) {
+        const elements = document.getElementsByClassName(c_config['percent_class']);
+        Array.from(elements).forEach(function(element) {
+            element.innerHTML = percent_value;
         });
     }
 
     buy_link = StoreProducts.filterBuyLink(c_config, buy_link);
     buy_link = StoreProducts.appendVisitorID(buy_link);
-    var elements = document.querySelectorAll("."+c_config['buy_class']);
+    const elements = document.querySelectorAll("."+c_config['buy_class']);
     Array.from(elements).forEach(function(element) {
         element.setAttribute('href', buy_link);
     });
 
     try
     {
-        var ocg = c_config['onChangeUsers'];
-        var thisObj = new Object();
+        const ocg = c_config['onChangeUsers'];
+        const thisObj = new Object();
 
         thisObj['selected_users'] = selected_users;
         thisObj['selected_years'] = selected_years;
@@ -1266,8 +1288,8 @@ StoreProducts.__onChangeUsers = function(ev)
             ocg.call(thisObj);
         }
 
-        var users_class = c_config['users_class'];
-        var years_class = c_config['years_class'];
+        const users_class = c_config['users_class'];
+        const years_class = c_config['years_class'];
 
         if('promotionsCleanUp' in StoreProducts['events'][users_class+years_class])
         {
@@ -1282,9 +1304,9 @@ StoreProducts.__onChangeUsers = function(ev)
         {
             if(variation['promotion_functions'].length > 0)
             {
-                var jsc = Base64.decode(variation['promotion_functions']);
+                const jsc = Base64.decode(variation['promotion_functions']);
 
-                var PromotionFunctions = null;
+                let PromotionFunctions = null;
 
                 eval(jsc);
 
@@ -1330,12 +1352,12 @@ StoreProducts.__onChangeUsers = function(ev)
 
 StoreProducts.__onChangeYears = function(ev)
 {
-    var c_config = ev.data;
-    var selected_users = document.querySelector(`.${c_config['users_class']}`).value;
-    var selected_years = document.querySelector(`.${c_config['years_class']}`).value;
+    const c_config = ev.data;
+    const selected_users = document.querySelector(`.${c_config['users_class']}`).value;
+    const selected_years = document.querySelector(`.${c_config['years_class']}`).value;
 
-    var variation = null;
-    var base_uri = '';
+    let variation = null;
+    let base_uri = '';
 
     try
     {
@@ -1347,17 +1369,18 @@ StoreProducts.__onChangeYears = function(ev)
     if(variation == null)
         return false;
 
-    var price = variation['price'] + ' ' + variation['currency_label'];
+    let price = variation['price'] + ' ' + variation['currency_label'];
     price = StoreProducts.formatPrice(variation['price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
-    var discounted_price = '';
-    var save_price = '';
-    var full_price = price;
+    let discounted_price = '',
+    save_price = '',
+    percent_value = '',
+    full_price = price;
 
     // if (window.location.hostname == 'www.bitdefender.se') {
     //     base_uri = "https://www.bitdefender.se/site";
     // }
 
-    var buy_link = base_uri+'/Store/buy/' + c_config['product_id'] + '/' + selected_users + '/' + selected_years;
+    let buy_link = base_uri+'/Store/buy/' + c_config['product_id'] + '/' + selected_users + '/' + selected_years;
 
     try
     {
@@ -1367,6 +1390,7 @@ StoreProducts.__onChangeYears = function(ev)
             {
                 discounted_price = StoreProducts.formatPrice(variation['discount']['discounted_price'],variation['currency_label'],variation['region_id'],variation['currency_iso']);
                 save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']['discounted_price']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                percent_value = `${variation['discount']['discount_value']}%`;
                 price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
             }
 
@@ -1395,6 +1419,7 @@ StoreProducts.__onChangeYears = function(ev)
                     discounted_price = StoreProducts.getDiscountedPrice(variation['price'],discount);
                     discounted_price = StoreProducts.formatPrice(discounted_price,variation['currency_label'],variation['region_id'],variation['currency_iso']);
                     save_price = StoreProducts.formatPrice(Math.ceil(variation['price'] - variation['discount']['discounted_price']),variation['currency_label'],variation['region_id'],variation['currency_iso']);
+                    percent_value = `${variation['discount']['discount_value']}%`;
                     price = '<span class="store_price_full">'+price+'</span><span class="store_price_cut">'+discounted_price+'</span>';
                 }
             }
@@ -1408,7 +1433,7 @@ StoreProducts.__onChangeYears = function(ev)
         {
             if(c_config['extra_params'] != null)
             {
-                var params = '';
+                let params = '';
                 for(op in c_config['extra_params'])
                 {
                     if(op == 'force_country')
@@ -1418,7 +1443,7 @@ StoreProducts.__onChangeYears = function(ev)
                     if(c_config['extra_params'][op].length < 1)
                         continue;
 
-                    var re = new RegExp(op+'.[^/]*/?','g');
+                    let re = new RegExp(op+'.[^/]*/?','g');
 
                     buy_link = buy_link.replace(re,'');
                     buy_link = buy_link.replace(/\/$/g,'');
@@ -1439,47 +1464,55 @@ StoreProducts.__onChangeYears = function(ev)
     }
     catch(ex) {}
 
-    var elements = document.getElementsByClassName(c_config['price_class']);
-    Array.from(elements).forEach(function(element) {
+    const elementsPrice = document.getElementsByClassName(c_config['price_class']);
+    Array.from(elementsPrice).forEach(function(element) {
         element.innerHTML = price;
     });
 
     full_price = full_price;
     discounted_price = discounted_price;
-    save_price = discounted_price;
+    save_price = save_price;
+    percent_value = percent_value;
 
     if(c_config['discounted_price_class'] != null) {
-        var elements = document.getElementsByClassName(c_config['discounted_price_class']);
+        const elements = document.getElementsByClassName(c_config['discounted_price_class']);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = discounted_price;
         });
     }
 
     if(c_config['full_price_class'] != null) {
-        var elements = document.getElementsByClassName(c_config['full_price_class']);
+        const elements = document.getElementsByClassName(c_config['full_price_class']);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = full_price;
         });
     }
 
     if(c_config['save_class'] != null) {
-        var elements = document.getElementsByClassName(c_config['save_class']);
+        const elements = document.getElementsByClassName(c_config['save_class']);
         Array.from(elements).forEach(function(element) {
             element.innerHTML = save_price;
         });
     }
 
+    if(c_config['percent_class'] != null) {
+        var elements = document.getElementsByClassName(c_config['percent_class']);
+        Array.from(elements).forEach(function(element) {
+            element.innerHTML = percent_value;
+        });
+    }
+
     buy_link = StoreProducts.filterBuyLink(c_config, buy_link);
     buy_link = StoreProducts.appendVisitorID(buy_link);
-    var elements = document.getElementsByClassName(c_config['buy_class']);
-    Array.from(elements).forEach(function(element) {
+    const elementsBuy = document.getElementsByClassName(c_config['buy_class']);
+    Array.from(elementsBuy).forEach(function(element) {
         element.setAttribute('href', buy_link);
     });
 
     try
     {
-        var ocg = c_config['onChangeYears'];
-        var thisObj = new Object();
+        const ocg = c_config['onChangeYears'];
+        const thisObj = new Object();
 
         thisObj['selected_users'] = selected_users;
         thisObj['selected_years'] = selected_years;
@@ -1508,9 +1541,9 @@ StoreProducts.__onChangeYears = function(ev)
         {
             if(variation['promotion_functions'].length > 0)
             {
-                var jsc = Base64.decode(variation['promotion_functions']);
+                let jsc = Base64.decode(variation['promotion_functions']);
 
-                var PromotionFunctions = null;
+                let PromotionFunctions = null;
 
                 eval(jsc);
 
@@ -1557,9 +1590,9 @@ StoreProducts.__onChangeYears = function(ev)
 
 StoreProducts.loadProducts = function(config)
 {
-    var so = new Object();
+    const so = new Object();
     so.ev = 2;
-    var async = false;
+    let async = false;
 
     if('async' in config)
         async = config.async == true ? true : false;
@@ -1573,7 +1606,7 @@ StoreProducts.loadProducts = function(config)
     if(config.products.length < 1)
         return false;
 
-    var hasPID = false;
+    let hasPID = false;
     if(typeof tagit_params !== 'undefined') {
         for (i in tagit_params.obj) {
             if ('pid' in tagit_params.obj[i]) {
@@ -1585,9 +1618,9 @@ StoreProducts.loadProducts = function(config)
     }
 
     so.config = config;
-    var url = '/site/Store/ajax';
+    let url = '/site/Store/ajax';
 
-    var urlParams = {};
+    const urlParams = {};
 
     try
     {
@@ -1630,10 +1663,10 @@ StoreProducts.loadProducts = function(config)
     catch(ex)
     {}
 
-    var onload = function(data)
+    const onload = function(data)
     {
-        var response_code = data['code'];
-        var response_data = data['data'];
+        const response_code = data['code'];
+        const response_data = data['data'];
 
         if(response_code != 0)
         {
@@ -1643,7 +1676,7 @@ StoreProducts.loadProducts = function(config)
         {
             if('products' in response_data)
             {
-                for(var i in response_data['products'])
+                for(let i in response_data['products'])
                 {
                     StoreProducts['product'][response_data['products'][i]['product_id']] = response_data['products'][i];
                     StoreProducts['product'][response_data['products'][i]['product_alias']] = response_data['products'][i];
@@ -1681,7 +1714,7 @@ StoreProducts.loadProducts = function(config)
 
 StoreProducts.getBundleProductsInfo = function(va, vb, config)
 {
-    var base_uri = StoreProducts.product[va.product_id]['base_uri'];
+    let base_uri = StoreProducts.product[va.product_id]['base_uri'];
 
     // if (window.location.hostname == 'www.bitdefender.se') {
     //     base_uri = "https://www.bitdefender.se/site";
@@ -1691,12 +1724,12 @@ StoreProducts.getBundleProductsInfo = function(va, vb, config)
         base_uri = "https://www.bitdefender.co.uk/site";
     }
 
-    var buy_link = base_uri+'/Store/buybundle';
+    let buy_link = base_uri+'/Store/buybundle';
 
-    var pa = StoreProducts.product[va.product_id];
-    var pb = StoreProducts.product[vb.product_id];
+    const pa = StoreProducts.product[va.product_id];
+    const pb = StoreProducts.product[vb.product_id];
 
-    var extra_params = {};
+    const extra_params = {};
 
     try
     {
@@ -1830,7 +1863,7 @@ StoreProducts.getBundleProductsInfo = function(va, vb, config)
     catch(ex) {}
 
 
-    var ret_price = 0;
+    let ret_price = 0;
 
     ret_price = (va.price * 100) / 100 + (vb.price * 100) / 100;
     ret_price = ret_price.toFixed(2);
@@ -1843,24 +1876,24 @@ StoreProducts.getBundleProductsInfo = function(va, vb, config)
 
 StoreProducts.setInfo = function(buy_class, product_id, variation){
     if(buy_class != null && buy_class != ""){
-        var elements = document.getElementsByClassName(buy_class);
-        Array.from(elements).forEach(function(element) {
+        const elementsBuy = document.getElementsByClassName(buy_class);
+        Array.from(elementsBuy).forEach(function(element) {
             element.setAttribute('data-product', product_id);
         });
 
         if(typeof(variation.discount) !== 'undefined'){
-            var elements = document.getElementsByClassName(buy_class);
+            const elements = document.getElementsByClassName(buy_class);
             Array.from(elements).forEach(function(element) {
                 element.setAttribute('data-buy-price', variation.discount.discounted_price);
             });
         } else {
-            var elements = document.getElementsByClassName(buy_class);
+            const elements = document.getElementsByClassName(buy_class);
             Array.from(elements).forEach(function(element) {
                 element.setAttribute('data-buy-price', variation.price);
             });
         }
-        var elements = document.getElementsByClassName(buy_class);
-        Array.from(elements).forEach(function(element) {
+
+        Array.from(elementsBuy).forEach(function(element) {
             element.setAttribute('data-old-price', variation.price);
             element.setAttribute('data-currency', variation.currency_label);
             element.setAttribute('data-region', variation.region_id);
@@ -1871,7 +1904,7 @@ StoreProducts.setInfo = function(buy_class, product_id, variation){
 
 StoreProducts.requestPricingInfo = function (so) {
     const url = so.url;
-    let config = so.config;
+    const config = so.config;
     so = JSON.stringify(so);
 
     if (config.method && config.method.toLowerCase() == 'get') {
@@ -1941,7 +1974,7 @@ const handleResponse = function(data) {
  * @returns {*}
  */
 StoreProducts.getPromoCode = function(productAlias, discount) {
-    var promoSteps = {
+    const promoSteps = {
         "av": [
             {"min": 0, "max": 20, "pid": "DPAV01OFF"},
             {"min": 21, "max": 29, "pid": "DPAV02OFF"},
@@ -2013,9 +2046,9 @@ StoreProducts.filterRequestObject = function (so) {
         return false;
     }
 
-    var experience = false;
+    let experience = false;
     if ('undefined' !== typeof ttMETA) {
-        for (var i in ttMETA) {
+        for (let i in ttMETA) {
             if (ttMETA[i].campaign === 'COM - Dynamic Pricing Split') {
                 if (ttMETA[i].experience.indexOf('Experience B') !== -1) {
                     experience = 'B';
@@ -2032,7 +2065,7 @@ StoreProducts.filterRequestObject = function (so) {
         return false;
     }
 
-    var product = '';
+    let product = '';
     switch (so.product_id) {
         case "av":
             product = 'Antivirus';
@@ -2065,8 +2098,8 @@ StoreProducts.filterRequestObject = function (so) {
         digitalData.user.profileConsumer = new Object();
     }
 
-    var cloud_id = _satellite.getVisitorId().getMarketingCloudVisitorID();
-    var requestObj = {family: product, marketing_cloud_id: cloud_id };
+    const cloud_id = _satellite.getVisitorId().getMarketingCloudVisitorID();
+    const requestObj = {family: product, marketing_cloud_id: cloud_id };
     requestObj = JSON.stringify(requestObj);
     fetch("https://onza5mmwed.execute-api.us-east-1.amazonaws.com/dev/dyn-price", {
         method: "POST",
@@ -2084,9 +2117,9 @@ StoreProducts.filterRequestObject = function (so) {
       })
       .then(function(data) {
           if (data.discount) {
-              var discount = parseFloat(data.discount);
+            const discount = parseFloat(data.discount);
               if (!isNaN(discount)) {
-                  var promoCode = StoreProducts.getPromoCode(so.product_id, discount);
+                const promoCode = StoreProducts.getPromoCode(so.product_id, discount);
                   if (experience === "B") {
                       if (typeof digitalData.user.profileConsumer.dynamic === "undefined") {
                           digitalData.user.profileConsumer.dynamic = "applied|";
@@ -2113,9 +2146,9 @@ StoreProducts.filterRequestObject = function (so) {
       });
 };
 
-var all_page_products = [];
-var oneTimeSendData = false;
-var satellite_track_once = 1;
+const all_page_products = [];
+let oneTimeSendData = false;
+let satellite_track_once = 1;
 StoreProducts.setDigitalData = function(product_id, variation) {
     try {
         if (typeof digitalData !== "undefined") {
@@ -2149,7 +2182,7 @@ StoreProducts.setDigitalData = function(product_id, variation) {
              **/
 
             if (digitalData.page.info.subSubSection == "viewproduct" && digitalData.page.info.name.indexOf(StoreProducts.product[product_id].product_id) !== -1) {
-                var found = false;
+                let found = false;
                 if (digitalData.product !== "undefined") {
                     for (i in digitalData.product) {
                         if (digitalData.product[i].info.ID == StoreProducts.product[product_id].product_id) {
@@ -2169,14 +2202,14 @@ StoreProducts.setDigitalData = function(product_id, variation) {
                 }
 
                 if (!found) {
-                    var productName = StoreProducts.product[product_id].product_name.replace(/\d/g, '').trim();
-                    var productVersion = parseInt(StoreProducts.product[product_id].product_name.replace(/\D/g, ''));
+                    const productName = StoreProducts.product[product_id].product_name.replace(/\d/g, '').trim();
+                    let productVersion = parseInt(StoreProducts.product[product_id].product_name.replace(/\D/g, ''));
 
                     if (isNaN(productVersion)) {
                         productVersion = 0;
                     }
 
-                    var productInfo = {
+                    const productInfo = {
                         ID: parseInt(StoreProducts.product[product_id].product_id).toString(),
                         name: productName,
                         version: productVersion.toString(),
@@ -2191,8 +2224,8 @@ StoreProducts.setDigitalData = function(product_id, variation) {
                         digitalData.product = [];
                     }
 
-                    var primaryCategory = "";
-                    var subCategory = "";
+                    let primaryCategory = "";
+                    let subCategory = "";
                     switch (StoreProducts.product[product_id].product_type) {
                         case "1" :
                             primaryCategory = "consumer";
@@ -2210,18 +2243,18 @@ StoreProducts.setDigitalData = function(product_id, variation) {
                             break;
                     }
 
-                    var productCategory = {
+                    const productCategory = {
                         primary: primaryCategory,
                         secondary: subCategory
                     };
 
-                    var product = {
+                    const product = {
                         info: productInfo,
                         productCategory: productCategory
                     };
 
-                    var dvcs = productInfo.devices;
-                    var yrs = parseInt(variation.variation.years);
+                    const dvcs = productInfo.devices;
+                    const yrs = parseInt(variation.variation.years);
 
                     if ('undefined' !== typeof StoreProducts.product[product_id]) {
                         var StorePrd = StoreProducts.product[product_id];
@@ -2264,7 +2297,7 @@ StoreProducts.setDigitalData = function(product_id, variation) {
                 }
             }
         } else {
-            var productTemp = {
+            const productTemp = {
                 "product_id": product_id,
                 "variation": variation
             };
@@ -2276,8 +2309,6 @@ StoreProducts.setDigitalData = function(product_id, variation) {
     }
 };
 
-
-
 StoreProducts.price_format = function (number, decimals) {
 
     decimals = decimals || 0;
@@ -2286,10 +2317,10 @@ StoreProducts.price_format = function (number, decimals) {
     thousandsSep = '';
 
 
-    var roundedNumber = Math.round( Math.abs( number ) * ('1e' + decimals) ) + '';
-    var numbersString = decimals ? roundedNumber.slice(0, decimals * -1) : roundedNumber;
-    var decimalsString = decimals ? roundedNumber.slice(decimals * -1) : '';
-    var formattedNumber = "";
+    const roundedNumber = Math.round( Math.abs( number ) * ('1e' + decimals) ) + '';
+    const numbersString = decimals ? roundedNumber.slice(0, decimals * -1) : roundedNumber;
+    const decimalsString = decimals ? roundedNumber.slice(decimals * -1) : '';
+    let formattedNumber = "";
 
     while(numbersString.length > 3){
         formattedNumber += thousandsSep + numbersString.slice(-3)
@@ -2318,7 +2349,7 @@ StoreProducts.filterBuyLink = function (config, buyLink) {
 
     /* aici este setat A/B testul cu shopping cartul */
     if ('undefined' !== typeof ttMETA) {
-        for (var i in ttMETA) {
+        for (let i in ttMETA) {
             if (ttMETA[i].campaign === 'COM - Classic Line (New Cart BUY Links v6)') {
                 if (ttMETA[i].experience.indexOf('v6 New Cart (Variation 1)') !== -1) {
                     buyLink = buyLink + (buyLink.split('?')[1] ? '&' : '?') + 'ORDERSTYLE=nLWs5JSpkHE=&SHORT_FORM=1';
@@ -2347,7 +2378,7 @@ StoreProducts.appendVisitorID = function (buyLink) {
 };
 
 StoreProducts.getFirstBrowserLanguage = function () {
-    var nav = window.navigator,
+    let nav = window.navigator,
       browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],
       i,
       language;
@@ -2380,9 +2411,9 @@ Base64 = {
 
     // public method for encoding
     "encode" : function (input) {
-        var output = "";
-        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-        var i = 0;
+        let output = "";
+        let chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        let i = 0;
 
         input = Base64._utf8_encode(input);
 
@@ -2414,10 +2445,9 @@ Base64 = {
 
     // public method for decoding
     "decode" : function (input) {
-        var output = "";
-        var chr1, chr2, chr3;
-        var enc1, enc2, enc3, enc4;
-        var i = 0;
+        let output = "";
+        let chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        let i = 0;
 
         input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 
@@ -2452,11 +2482,11 @@ Base64 = {
     // private method for UTF-8 encoding
     "_utf8_encode" : function (string) {
         string = string.replace(/\r\n/g,"\n");
-        var utftext = "";
+        let utftext = "";
 
-        for (var n = 0; n < string.length; n++) {
+        for (let n = 0; n < string.length; n++) {
 
-            var c = string.charCodeAt(n);
+            let c = string.charCodeAt(n);
 
             if (c < 128) {
                 utftext += String.fromCharCode(c);
@@ -2478,11 +2508,11 @@ Base64 = {
 
     // private method for UTF-8 decoding
     "_utf8_decode" : function (utftext) {
-        var string = "";
-        var i = 0;
-        var c = 0;
-        var c1 = 0;
-        var c2 = 0;
+        let string = "";
+        let i = 0;
+        let c = 0;
+        let c1 = 0;
+        let c2 = 0;
 
         while ( i < utftext.length ) {
 

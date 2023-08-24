@@ -120,7 +120,6 @@ export default function decorate(block) {
       var tagDiv = document.createElement('div');
       tagDiv.className = 'tag redTag';
       tagDiv.innerHTML = `<i>${tagText}<i>`;
-      console.log('sdfasdf ', tagDiv)
     }
 
     /// ///////////////////////////////////////////////////////////////////////
