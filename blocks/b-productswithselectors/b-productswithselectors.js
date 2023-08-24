@@ -25,7 +25,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, selectorsName, taxesText, discountText, tagText1, buttonText,
+    products, selectorsName, taxesText, discountText, tagText, buttonText,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -115,13 +115,11 @@ export default function decorate(block) {
     }
 
     /// ///////////////////////////////////////////////////////////////////////
-    // add red tag
-    if (tagText1) {
-      const prod1box = block.querySelector('.b-productswithselectors > div:nth-child(2)');
-      const tagDiv = document.createElement('div');
+    // create red tag
+    const tagDiv = document.createElement('div');
+    if (tagText) {
       tagDiv.className = 'tag redTag';
-      tagDiv.innerHTML = `<i>${tagText1}<i>`;
-      prod1box.appendChild(tagDiv);
+      tagDiv.innerHTML = `<i>${tagText}<i>`;
     }
 
     /// ///////////////////////////////////////////////////////////////////////
@@ -139,9 +137,18 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
       pricesDiv.innerHTML += `<a class="red-buy-button buylink-${onSelectorClass}">${buttonText}</a>`;
 
-      const renderedProductSection = block.querySelector(`.b-productswithselectors > div:nth-child(${idx + 2})`);
+      const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');
       renderedProductSection.querySelector('ul').after(pricesDiv);
+
+      // add selected element
+      const selectedProductSection = block.children[idx + 1].querySelector('p:first-of-type u');
+      if (selectedProductSection) {
+        selectedProductSection.parentNode.parentNode.parentNode.classList.add('selected');
+        if (tagDiv) {
+          selectedProductSection.parentNode.parentNode.before(tagDiv);
+        }
+      }
     });
   }
 }

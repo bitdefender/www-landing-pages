@@ -687,6 +687,8 @@ function initSelectors() {
         discounted_price_class: `newprice-${onSelectorClass}`,
         price_class: `price-${onSelectorClass}`,
         buy_class: `buylink-${onSelectorClass}`,
+        save_class: `save-${onSelectorClass}`,
+        percent_class: `percent-${onSelectorClass}`,
         selected_users: prodUsers,
         selected_years: prodYears,
         users_class: `users_${onSelectorClass}_fake`,
