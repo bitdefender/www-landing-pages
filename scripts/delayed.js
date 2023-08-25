@@ -5,6 +5,7 @@ import { sendAnalyticsPageLoadedEvent, sendAnalyticsProducts, getParamValue } fr
 import {
   addScript, getInstance, GLOBAL_EVENTS, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
 } from './utils.js';
+import { productAliases } from './scripts.js';
 import ZuoraNLClass from './zuora.js';
 
 // Core Web Vitals RUM collection
@@ -13,13 +14,20 @@ sampleRUM('cwv');
 // add more delayed functionality here
 function initZuoraProductPriceLogic() {
   window.config = ZuoraNLClass.config();
+  showLoaderSpinner(false);
 
   addScript('https://checkout.bitdefender.com/static/js/sdk.js', {}, 'async', () => {
     if (productsList.length) {
       productsList.forEach(async (item) => {
+        const prodSplit = item.split('/');
+        const prodAlias = productAliases(prodSplit[0].trim());
+        const prodUsers = prodSplit[1].trim();
+        const prodYears = prodSplit[2].trim();
+        const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+
         const zuoraResult = await ZuoraNLClass.loadProduct(item);
         showPrices(zuoraResult);
-        showLoaderSpinner(true);
+        showLoaderSpinner(true, onSelectorClass);
         sendAnalyticsProducts(zuoraResult, 'nl');
       });
     }

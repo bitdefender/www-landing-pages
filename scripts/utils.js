@@ -162,13 +162,14 @@ export function isZuoraForNetherlandsLangMode() {
 }
 
 // showLoaderSpinner
-export function showLoaderSpinner(showSpinner) {
-  const prodLoadBox = document.querySelectorAll('.prodLoad');
+export function showLoaderSpinner(showSpinner, pid = null) {
   if (showSpinner) {
+    const prodLoadBox = document.querySelectorAll(`.prodLoad-${pid}`);
     prodLoadBox.forEach((item) => {
       item.classList.remove('awaitLoader');
     });
   } else {
+    const prodLoadBox = document.querySelectorAll('.prodLoad');
     prodLoadBox.forEach((item) => {
       item.classList.add('awaitLoader');
     });

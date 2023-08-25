@@ -87,14 +87,14 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDivLeftCard = document.createElement('div');
-      pricesDivLeftCard.classList = 'prices_box awaitLoader prodLoad d-flex justify-content-center';
+      pricesDivLeftCard.classList = `prices_box awaitLoader prodLoad prodLoad-${onSelectorClass} d-flex justify-content-center`;
       pricesDivLeftCard.innerHTML = `
                                       <div>
                                           <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
                                           <span class="prod-newprice newprice-${onSelectorClass} mt-2"></span>
                                       </div>`;
       const pricesDivLeftCard2 = document.createElement('div');
-      pricesDivLeftCard2.classList = 'prices_box awaitLoader prodLoad d-flex justify-content-center';
+      pricesDivLeftCard2.classList = `prices_box awaitLoader prodLoad prodLoad-${onSelectorClass} d-flex justify-content-center`;
       pricesDivLeftCard2.innerHTML = `
                                       <div>
                                           <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
@@ -106,8 +106,8 @@ export default function decorate(block) {
       // add buybtn div & anchor
       const tableBuybtn = block.querySelectorAll('p.button-container > strong > a')[idx];
       const tableBuybtn2 = block.querySelectorAll('p.button-container > strong > a')[idx + 3];
-      tableBuybtn.classList.add(`buylink-${onSelectorClass}`);
-      tableBuybtn2.classList.add(`buylink-${onSelectorClass}`);
+      tableBuybtn.classList.add(`buylink-${onSelectorClass}`, 'awaitLoader', 'prodLoad', `prodLoad-${onSelectorClass}`);
+      tableBuybtn2.classList.add(`buylink-${onSelectorClass}`, 'awaitLoader', 'prodLoad', `prodLoad-${onSelectorClass}`);
     });
   }
 }
