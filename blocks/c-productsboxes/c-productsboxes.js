@@ -118,7 +118,7 @@ export default function decorate(block) {
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
       const divBuybtn = document.createElement('div');
-      divBuybtn.className = 'buybtn_box';
+      divBuybtn.classList.add('buybtn_box', 'buy_box', `buy_box${idx + 1}`);
       divBuybtn.appendChild(aBuybtn);
       tableBuybtn.before(divBuybtn);
 

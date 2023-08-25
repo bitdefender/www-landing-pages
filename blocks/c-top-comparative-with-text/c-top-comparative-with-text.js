@@ -64,7 +64,7 @@ export default function decorate(block) {
 
       // add buybtn div & anchor
       const tableBuybtn = block.querySelector(`div:nth-child(${idx + 1 + 1}) table:last-of-type td`);
-      tableBuybtn.innerHTML = `<a href="#" title="Bitdefender ${onSelectorClass}" class="red-buy-button buylink-${onSelectorClass}">${tableBuybtn.innerText}</a>`;
+      tableBuybtn.innerHTML = `<div class="buy_box buy_box${idx + 1}"><a href="#" title="Bitdefender ${onSelectorClass}" class="red-buy-button buylink-${onSelectorClass}">${tableBuybtn.innerText}</a></div>`;
     });
   }
 }
