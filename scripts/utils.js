@@ -204,7 +204,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   const { region_id: regionId } = storeObj.selected_variation;
   const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
-
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
   let parentDiv = '';
