@@ -111,7 +111,11 @@ export default function decorate(block) {
 
         const tableElServers = tableEl.querySelector('strong:nth-child(1) em');
         if (tableElServers) {
-          tableElServers.innerText = Math.ceil((currentdevices / 100) * 35);
+          let countServ = 35;
+          if (prodiId === 'bs' || prodiId === 'smallbs') {
+            countServ = 30;
+          }
+          tableElServers.innerText = Math.ceil((currentdevices / 100) * countServ);
         }
         const tableElMailboxes = tableEl.querySelector('strong:nth-child(3) em');
         if (tableElMailboxes) {
