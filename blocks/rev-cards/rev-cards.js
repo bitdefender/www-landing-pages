@@ -55,7 +55,7 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDivLeftCard = document.createElement('div');
-      pricesDivLeftCard.classList = `prices_box awaitLoader prodLoad prodLoad-${onSelectorClass} d-flex justify-content-center`;
+      pricesDivLeftCard.classList = `prices_box await-loader prod-load prod-load-${onSelectorClass} d-flex justify-content-center`;
       pricesDivLeftCard.innerHTML = `<div class="me-2">
                                       <div class="save-box">${savePillText} <span class="prod-percent percent-${onSelectorClass}"></span></div>
                                       <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
@@ -65,7 +65,7 @@ export default function decorate(block) {
                                         <span class="sales-tax">${taxText || 'Sales tax included'}</span>
                                     </div>`;
       const pricesDivRightCard = document.createElement('div');
-      pricesDivRightCard.classList = `prices_box awaitLoader prodLoad prodLoad-${onSelectorClass} d-flex flex-column justify-content-center`;
+      pricesDivRightCard.classList = `prices_box await-loader prod-load prod-load-${onSelectorClass} d-flex flex-column justify-content-center`;
       pricesDivRightCard.innerHTML = `<div class="me-2">
                                         <div class="d-inline-block save-box">${savePillText} <span class="prod-percent percent-${onSelectorClass}"></span></div>
                                         <span class="d-block my-2 prod-oldprice oldprice-${onSelectorClass}"></span>
@@ -83,7 +83,7 @@ export default function decorate(block) {
 
       // add buybtn div & anchor
       const tableBuybtn = block.querySelectorAll('p.button-container > strong > a')[idx];
-      tableBuybtn.classList.add(`buylink-${onSelectorClass}`, 'awaitLoader', 'prodLoad', `prodLoad-${onSelectorClass}`);
+      tableBuybtn.classList.add(`buylink-${onSelectorClass}`, 'await-loader', 'prod-load', `prod-load-${onSelectorClass}`);
     });
   }
 }

@@ -691,7 +691,7 @@ main .section.highlight {
     background-position: 800px 0;
   }
 }
-.awaitLoader {
+.await-loader {
   animation-duration: 3s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;

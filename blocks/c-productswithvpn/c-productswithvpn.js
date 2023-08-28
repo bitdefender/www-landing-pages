@@ -99,7 +99,7 @@ export default function decorate(block) {
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
       const pricesDiv = document.createElement('div');
-      pricesDiv.classList = `prices_box awaitLoader prodLoad prodLoad-${onSelectorClass}`;
+      pricesDiv.classList = `prices_box await-loader prod-load prod-load-${onSelectorClass}`;
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
 
@@ -125,7 +125,7 @@ export default function decorate(block) {
 
       const aBuybtn = document.createElement('a');
       aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
-      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} awaitLoader prodLoad prodLoad-${onSelectorClass}`;
+      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prod-load prod-load-${onSelectorClass}`;
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
       const divBuybtn = document.createElement('div');
@@ -162,7 +162,7 @@ export default function decorate(block) {
         vpnContent += '</label>';
 
         const vpnBox = document.createElement('div');
-        vpnBox.classList = `vpn_box awaitLoader prodLoad prodLoad-${onSelectorClass}`;
+        vpnBox.classList = `vpn_box await-loader prod-load prod-load-${onSelectorClass}`;
         vpnBox.innerHTML = `<div>${vpnContent}</div>`;
 
         tableVpn.before(vpnBox);

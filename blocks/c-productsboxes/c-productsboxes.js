@@ -88,7 +88,7 @@ export default function decorate(block) {
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDiv = document.createElement('div');
 
-      pricesDiv.classList = 'prices_box awaitLoader prodLoad';
+      pricesDiv.classList = 'prices_box await-loader prod-load';
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
 
@@ -114,7 +114,7 @@ export default function decorate(block) {
 
       const aBuybtn = document.createElement('a');
       aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
-      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} awaitLoader prodLoad prodLoad-${onSelectorClass}`;
+      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prod-load prod-load-${onSelectorClass}`;
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
       const divBuybtn = document.createElement('div');
