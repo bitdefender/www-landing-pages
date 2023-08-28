@@ -5,7 +5,6 @@ import { sendAnalyticsPageLoadedEvent, sendAnalyticsProducts, getParamValue } fr
 import {
   addScript, getInstance, GLOBAL_EVENTS, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
 } from './utils.js';
-import { productAliases } from './scripts.js';
 import ZuoraNLClass from './zuora.js';
 
 // Core Web Vitals RUM collection
@@ -20,7 +19,7 @@ function initZuoraProductPriceLogic() {
     if (productsList.length) {
       productsList.forEach(async (item) => {
         const prodSplit = item.split('/');
-        const prodAlias = productAliases(prodSplit[0].trim());
+        const prodAlias = prodSplit[0].trim();
         const prodUsers = prodSplit[1].trim();
         const prodYears = prodSplit[2].trim();
         const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
