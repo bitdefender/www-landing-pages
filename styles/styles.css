@@ -294,6 +294,10 @@ main .default-content-wrapper {
   padding-top: 0;
 }
 
+*[data-mtop=4] .default-content-wrapper {
+  margin-top: 2rem;
+}
+
 main .default-content-wrapper h1, main .default-content-wrapper h2, main .default-content-wrapper h3 {
   font-size: 32px;
   color: #111;

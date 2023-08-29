@@ -10,7 +10,22 @@
   padding-right: 0;
   padding-left: 0;
 
+  .b-banner {
+    z-index: 1;
+  }
+
+  &.blue-border {
+    border-bottom: 32px solid #E4F2FF;
+  }
+
+
   .banner-image {
+    img {
+      display: none;
+    }
+  }
+
+  .banner-image--in-container {
     img {
       display: none;
     }
@@ -30,9 +45,42 @@
     padding-left: 0;
     margin: 15px auto;
 
+    .oldprice {
+      font-size: 24px;
+      text-decoration: line-through;
+      margin-right: 10px;
+    }
+    
+    .newprice {
+      font-size: 40px;
+      font-weight: bold;
+    }
+
     table {
       border-collapse: separate;
       border-spacing: 0 1em;
+
+      &.price-table {
+        border-spacing: 0 0;
+
+        tr {
+        
+          &:nth-child(3) {
+            td {
+              p {
+                padding: 0;
+                font-size: 11px;
+
+                a {
+                  text-decoration: none;
+                  color: #0066ff;
+                  outline: none;
+                }
+              }
+            }
+          }
+        }
+      }
 
       p {
         font-size: 21px;
@@ -49,6 +97,10 @@
       tbody {
         tr {
           td {
+            &.newprice {
+              width: 40%;
+            }
+
             p {
               font-size: 16px;
               margin: 0;
@@ -147,6 +199,21 @@
         text-decoration: none;
       }
     }
+
+    ul {
+      padding: 0;
+
+      li {
+        text-align: left;
+        background: url(../../images/icons/check_full.png) 0 3px no-repeat transparent;
+        list-style-type: none;
+        padding-left: 23px;
+        background-size: 16px;
+        font-size: 14px;
+        color: #000;
+        margin-top: 5px;
+      }
+    }
   }
 }
 
@@ -154,6 +221,10 @@
   .b-banner-container {
     padding: 2em 0;
     height: 500px;
+
+    &.bigger-banner {
+      height: 625px;
+    }
 
     &.negative {
       display: block;
@@ -233,6 +304,19 @@
     padding: 0;
 
     .b-banner-wrapper {
+      left: 0;
+      right: 0;
+
+      .banner-image--in-container {
+        img {
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: -1;
+        }
+      }
+      
       h1 {
         font-size: 35px;
         max-width: 610px;
@@ -247,6 +331,10 @@
         max-width: 595px;
         margin-top: 0;
         margin-bottom: 0;
+      }
+
+      p {
+        max-width: 610px;
       }
 
       .smaller-text h2 {
@@ -269,6 +357,11 @@
 
 @media screen and (width >= 1199px) {
   .b-banner-container {
+
+    &.bigger-banner {
+      height: 625px;
+    }
+
     .hasDiscount div {
       right: 15%;
       top: 15%;

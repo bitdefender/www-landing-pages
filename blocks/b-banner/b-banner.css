@@ -8,7 +8,16 @@
   padding-right: 0;
   padding-left: 0;
 }
+.b-banner-container .b-banner {
+  z-index: 1;
+}
+.b-banner-container.blue-border {
+  border-bottom: 32px solid #E4F2FF;
+}
 .b-banner-container .banner-image img {
+  display: none;
+}
+.b-banner-container .banner-image--in-container img {
   display: none;
 }
 .b-banner-container.negative {
@@ -23,9 +32,30 @@
   padding-left: 0;
   margin: 15px auto;
 }
+.b-banner-container .b-banner-wrapper .oldprice {
+  font-size: 24px;
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+.b-banner-container .b-banner-wrapper .newprice {
+  font-size: 40px;
+  font-weight: bold;
+}
 .b-banner-container .b-banner-wrapper table {
   border-collapse: separate;
   border-spacing: 0 1em;
+}
+.b-banner-container .b-banner-wrapper table.price-table {
+  border-spacing: 0 0;
+}
+.b-banner-container .b-banner-wrapper table.price-table tr:nth-child(3) td p {
+  padding: 0;
+  font-size: 11px;
+}
+.b-banner-container .b-banner-wrapper table.price-table tr:nth-child(3) td p a {
+  text-decoration: none;
+  color: #0066ff;
+  outline: none;
 }
 .b-banner-container .b-banner-wrapper table p {
   font-size: 21px;
@@ -36,6 +66,9 @@
 }
 .b-banner-container .b-banner-wrapper table p .prod-percent.green_bck {
   margin-top: 0;
+}
+.b-banner-container .b-banner-wrapper table tbody tr td.newprice {
+  width: 40%;
 }
 .b-banner-container .b-banner-wrapper table tbody tr td p {
   font-size: 16px;
@@ -117,11 +150,27 @@
   background: #b33027 !important;
   text-decoration: none;
 }
+.b-banner-container .b-banner-wrapper ul {
+  padding: 0;
+}
+.b-banner-container .b-banner-wrapper ul li {
+  text-align: left;
+  background: url(../../images/icons/check_full.png) 0 3px no-repeat transparent;
+  list-style-type: none;
+  padding-left: 23px;
+  background-size: 16px;
+  font-size: 14px;
+  color: #000;
+  margin-top: 5px;
+}
 
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
     height: 500px;
+  }
+  .b-banner-container.bigger-banner {
+    height: 625px;
   }
   .b-banner-container.negative {
     display: block;
@@ -187,6 +236,17 @@
   .b-banner-container {
     padding: 0;
   }
+  .b-banner-container .b-banner-wrapper {
+    left: 0;
+    right: 0;
+  }
+  .b-banner-container .b-banner-wrapper .banner-image--in-container img {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+  }
   .b-banner-container .b-banner-wrapper h1 {
     font-size: 35px;
     max-width: 610px;
@@ -200,6 +260,9 @@
     max-width: 595px;
     margin-top: 0;
     margin-bottom: 0;
+  }
+  .b-banner-container .b-banner-wrapper p {
+    max-width: 610px;
   }
   .b-banner-container .b-banner-wrapper .smaller-text h2 {
     font-size: 18px;
@@ -215,6 +278,9 @@
   }
 }
 @media screen and (width >= 1199px) {
+  .b-banner-container.bigger-banner {
+    height: 625px;
+  }
   .b-banner-container .hasDiscount div {
     right: 15%;
     top: 15%;
