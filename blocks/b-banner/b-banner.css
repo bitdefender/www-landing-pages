@@ -45,18 +45,6 @@
   border-collapse: separate;
   border-spacing: 0 1em;
 }
-.b-banner-container .b-banner-wrapper table.price-table {
-  border-spacing: 0 0;
-}
-.b-banner-container .b-banner-wrapper table.price-table tr:nth-child(3) td p {
-  padding: 0;
-  font-size: 11px;
-}
-.b-banner-container .b-banner-wrapper table.price-table tr:nth-child(3) td p a {
-  text-decoration: none;
-  color: #0066ff;
-  outline: none;
-}
 .b-banner-container .b-banner-wrapper table p {
   font-size: 21px;
   font-weight: 400;
@@ -77,6 +65,18 @@
 }
 .b-banner-container .b-banner-wrapper table tbody tr td p:nth-child(2) {
   font-size: 12px;
+}
+.b-banner-container .b-banner-wrapper table.price-table {
+  border-spacing: 0 0;
+}
+.b-banner-container .b-banner-wrapper table.price-table tr:nth-child(3) td p {
+  padding: 0;
+  font-size: 11px;
+}
+.b-banner-container .b-banner-wrapper table.price-table tr:nth-child(3) td p a {
+  text-decoration: none;
+  color: #06f;
+  outline: none;
 }
 .b-banner-container .b-banner-wrapper .text-black {
   color: black !important;
@@ -155,7 +155,7 @@
 }
 .b-banner-container .b-banner-wrapper ul li {
   text-align: left;
-  background: url(../../images/icons/check_full.png) 0 3px no-repeat transparent;
+  background: url("../../images/icons/check_full.png") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
