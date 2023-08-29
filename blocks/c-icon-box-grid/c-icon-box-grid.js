@@ -31,7 +31,6 @@ export default function decorate(block) {
   const bottomText = block.children[4];
 
   if (upperTextWidth === '2/3') {
-    console.log(upperText.firstElementChild);
     upperText.firstElementChild.classList.add('w-lg-65');
     upperText.firstElementChild.style.margin = '0 auto';
   }

@@ -87,6 +87,20 @@ export default function decorate(block) {
     const devicesInput = document.getElementById('devicesInput');
     const prodiId = productAliases(productsAsList[0].split('/')[0]);
 
+    const tableElServers = tableEl.querySelector('strong:nth-child(1) em');
+    if (tableElServers) {
+      let countServ = 35;
+      if (prodiId === 'bs' || prodiId === 'smallbs') {
+        countServ = 30;
+      }
+      tableElServers.innerText = Math.ceil((devicesSelected / 100) * countServ);
+    }
+
+    const tableElMailboxes = tableEl.querySelector('strong:nth-child(3) em');
+    if (tableElMailboxes) {
+      tableElMailboxes.innerText = Math.ceil((devicesSelected / 100) * 150);
+    }
+
     block.querySelectorAll('fieldset button').forEach((item) => {
       item.addEventListener('click', () => {
         const action = item.innerText;
@@ -109,7 +123,6 @@ export default function decorate(block) {
           });
         }
 
-        const tableElServers = tableEl.querySelector('strong:nth-child(1) em');
         if (tableElServers) {
           let countServ = 35;
           if (prodiId === 'bs' || prodiId === 'smallbs') {
@@ -117,7 +130,7 @@ export default function decorate(block) {
           }
           tableElServers.innerText = Math.ceil((currentdevices / 100) * countServ);
         }
-        const tableElMailboxes = tableEl.querySelector('strong:nth-child(3) em');
+
         if (tableElMailboxes) {
           tableElMailboxes.innerText = Math.ceil((currentdevices / 100) * 150);
         }
@@ -132,7 +145,7 @@ export default function decorate(block) {
 
       const pricesDiv = document.createElement('div');
 
-      pricesDiv.classList = 'prices_box awaitLoader prodLoad';
+      pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
       pricesDiv.setAttribute('data-testid', 'prod_box');
       pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
       pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
@@ -140,7 +153,7 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
       pricesDiv.innerHTML += `<p class="prod-save d-flex justify-content-center align-items-center">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
       pricesDiv.innerHTML += `<p class="percent percent-${onSelectorClass}" style="display: none;"></p>`;
-      pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass}">${buylinkText}</a></div>`;
+      pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${buylinkText}</a></div>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
 
       parent2ndDiv.appendChild(pricesDiv);
