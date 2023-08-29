@@ -15,7 +15,7 @@ export default function decorate(block) {
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
       const buylink = document.createElement('a');
-      buylink.className = `red-buy-button buylink-${onSelectorClass} await-loader prod-load prod-load-${onSelectorClass}`;
+      buylink.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
       buylink.setAttribute('data-type', 'buy-btn');
       buylink.textContent = buttonText;
       allChildren[i].prepend(buylink);

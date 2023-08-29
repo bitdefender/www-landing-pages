@@ -56,7 +56,7 @@ export default function decorate(block) {
 
       const nthChildIdx = idx + 2;
       const pricesSection = block.querySelector(`div:nth-child(${nthChildIdx}) table:first-of-type`);
-      let pricesDiv = `<div class="prices_box await-loader prod-load prod-load-${onSelectorClass}">`;
+      let pricesDiv = `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">`;
       pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv += '<div>';
@@ -64,7 +64,7 @@ export default function decorate(block) {
 
       // add buybtn div & anchor
       const tableBuybtn = block.querySelector(`div:nth-child(${idx + 1 + 1}) table:last-of-type td`);
-      tableBuybtn.innerHTML = `<div class="buy_box buy_box${idx + 1}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass} await-loader prod-load prod-load-${onSelectorClass}">${tableBuybtn.innerText}</a></div>`;
+      tableBuybtn.innerHTML = `<div class="buy_box buy_box${idx + 1}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${tableBuybtn.innerText}</a></div>`;
     });
   }
 }

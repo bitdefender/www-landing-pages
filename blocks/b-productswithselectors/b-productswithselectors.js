@@ -130,12 +130,12 @@ export default function decorate(block) {
       const pricesDiv = document.createElement('div');
 
       pricesDiv.id = 'pricesBox';
-      pricesDiv.className = `prices_box await-loader prod-load prod-load-${onSelectorClass}`;
+      pricesDiv.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
       pricesDiv.innerHTML = `<span class="prod-percent green_txt"><b class="percent-${onSelectorClass}">0%</b> ${discountText}<span>`;
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
-      pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prod-load prod-load-${onSelectorClass}">${buttonText}</a></div>`;
+      pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${buttonText}</a></div>`;
 
       const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');
