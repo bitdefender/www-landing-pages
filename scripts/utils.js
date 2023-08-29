@@ -162,15 +162,16 @@ export function isZuoraForNetherlandsLangMode() {
 }
 
 // showLoaderSpinner
-export function showLoaderSpinner(showSpinner) {
-  const prodLoadBox = document.querySelectorAll('.prodLoad');
+export function showLoaderSpinner(showSpinner, pid = null) {
   if (showSpinner) {
+    const prodLoadBox = document.querySelectorAll(`.prodload-${pid}`);
     prodLoadBox.forEach((item) => {
-      item.classList.remove('awaitLoader');
+      item.classList.remove('await-loader');
     });
   } else {
+    const prodLoadBox = document.querySelectorAll('.prodload');
     prodLoadBox.forEach((item) => {
-      item.classList.add('awaitLoader');
+      item.classList.add('await-loader');
     });
   }
 }
@@ -203,7 +204,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   const { region_id: regionId } = storeObj.selected_variation;
   const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
-
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
   let parentDiv = '';
