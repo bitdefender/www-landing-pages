@@ -172,6 +172,9 @@
   .b-banner-container.bigger-banner {
     height: 625px;
   }
+  .b-banner-container.even-bigger-banner {
+    height: 721px;
+  }
   .b-banner-container.negative {
     display: block;
     margin-bottom: -400px;

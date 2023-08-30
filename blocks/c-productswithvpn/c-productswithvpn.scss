@@ -3,6 +3,10 @@
   display: flex;
   justify-content: center;
   font-size: 18px;
+
+  &.overflow-in-header {
+    margin-top: -43rem;
+  }
 }
 
 .c-productswithvpn > div {
@@ -293,6 +297,10 @@
 /* 1st box */
 .c-productswithvpn > div:nth-child(1) {
   border: 9px solid #22ac3b;
+
+  &.no-border {
+    border: 0 none;
+  }
 }
 
 /* 2st box */
@@ -369,6 +377,10 @@
         display: block;
         width: 90%;
         margin: 0 auto;
+
+        &.overflow-in-header {
+          margin-top: 0;
+        }
     }
 
     .c-productswithvpn > div {
