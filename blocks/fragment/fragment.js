@@ -11,6 +11,7 @@ import {
 import {
   loadBlocks,
 } from '../../scripts/lib-franklin.js';
+import { getDefaultLanguage } from '../../scripts/utils.js';
 
 /**
    * Loads a fragment.
@@ -18,12 +19,11 @@ import {
    * @returns {HTMLElement} The root element of the fragment
    */
 async function loadFragment(path) {
-  const url = window.location.href;
-  const laguage = url.split('/')[4];
+  const language = getDefaultLanguage();
   if (path && path.startsWith('/')) {
     try {
       // eslint-disable-next-line no-param-reassign
-      path = path.replace(/lang/g, laguage);
+      path = path.replace(/lang/g, language);
     } catch (error) {
       console.log(error);
     }
