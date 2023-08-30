@@ -647,13 +647,13 @@ function changeCheckboxVPN(checkboxId) {
 }
 
 function initSelectors() {
+  showLoaderSpinner(false);
   const productsExistsOnPage = productsList.length;
 
   if (productsExistsOnPage) {
     const fakeSelectorsBottom = document.createElement('div');
     fakeSelectorsBottom.id = 'fakeSelectors_bottom';
     document.querySelector('footer').before(fakeSelectorsBottom);
-
     productsList.forEach((prod) => {
       const prodSplit = prod.split('/');
       const prodAlias = productAliases(prodSplit[0].trim());
@@ -687,6 +687,8 @@ function initSelectors() {
         discounted_price_class: `newprice-${onSelectorClass}`,
         price_class: `price-${onSelectorClass}`,
         buy_class: `buylink-${onSelectorClass}`,
+        save_class: `save-${onSelectorClass}`,
+        percent_class: `percent-${onSelectorClass}`,
         selected_users: prodUsers,
         selected_years: prodYears,
         users_class: `users_${onSelectorClass}_fake`,
@@ -698,7 +700,7 @@ function initSelectors() {
           try {
             const fp = this;
             showPrices(fp);
-            showLoaderSpinner(true);
+            showLoaderSpinner(true, onSelectorClass);
           } catch (ex) { /* empty */ }
         },
       });

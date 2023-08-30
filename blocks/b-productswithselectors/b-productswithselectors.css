@@ -19,10 +19,11 @@
   height: 85px;
   position: absolute;
   top: -45px;
-  right: -5px;
+  right: -6px;
   background: url("../../images/new_redtag.png") 0 0 no-repeat transparent;
   background-size: 100%;
   color: white;
+  z-index: 1;
 }
 .b-productswithselectors > div .redTag i {
   transform: rotate(45deg);
@@ -46,8 +47,7 @@
   line-height: 1.1;
 }
 
-/* 2st box */
-.b-productswithselectors > div:nth-child(2) {
+.b-productswithselectors > div.selected {
   margin: 1%;
   margin-top: 0;
   border: 1px solid #2cb43d;
@@ -68,6 +68,7 @@
   font-weight: 700;
   padding: 0;
   margin: 0;
+  min-height: 2.5em;
 }
 
 .b-productswithselectors > div:not(:first-child) h4 {
@@ -124,11 +125,6 @@
   text-align: left;
 }
 
-/* 3st box */
-.b-productswithselectors > div:nth-child(3) {
-  padding-right: 0;
-}
-
 .b-productswithselectors > div:not(:first-child) p:first-of-type u {
   background-color: #2cb43d;
   text-align: center;
@@ -178,6 +174,7 @@
   }
   .b-productswithselectors > div:nth-child(1) h3 {
     font-size: 24px;
+    min-height: auto;
   }
   .b-productswithselectors > div:not(:first-child) hr {
     margin: 10px 0;

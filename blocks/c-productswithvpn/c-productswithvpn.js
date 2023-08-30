@@ -99,7 +99,7 @@ export default function decorate(block) {
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
       const pricesDiv = document.createElement('div');
-      pricesDiv.classList = 'prices_box awaitLoader prodLoad';
+      pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
 
@@ -125,11 +125,11 @@ export default function decorate(block) {
 
       const aBuybtn = document.createElement('a');
       aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
-      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} awaitLoader prodLoad`;
+      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
       const divBuybtn = document.createElement('div');
-      divBuybtn.className = 'buybtn_box';
+      divBuybtn.classList.add('buybtn_box', 'buy_box', `buy_box${idx + 1}`);
 
       tableVpn.after(divBuybtn);
       divBuybtn.appendChild(aBuybtn);
@@ -162,7 +162,7 @@ export default function decorate(block) {
         vpnContent += '</label>';
 
         const vpnBox = document.createElement('div');
-        vpnBox.classList = 'vpn_box awaitLoader prodLoad';
+        vpnBox.classList = `vpn_box await-loader prodload prodload-${onSelectorClass}`;
         vpnBox.innerHTML = `<div>${vpnContent}</div>`;
 
         tableVpn.before(vpnBox);

@@ -36,7 +36,7 @@
   display: inline-block;
 }
 
-.b-dropdownbox-container .block > div > div:nth-child(2) {
+.b-dropdownbox-container .block:not(.selected-2) > div > div:nth-child(2), .b-dropdownbox-container .block.selected-1 > div > div:nth-child(2), .b-dropdownbox-container .block.selected-2 > div > div:nth-child(3), .b-dropdownbox-container .block.selected-3 > div > div:nth-child(4) {
   background-color: #f6f6f6;
 }
 
