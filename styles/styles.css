@@ -626,6 +626,14 @@ main .section.highlight {
   outline: none;
 }
 
+.buy_box {
+  min-height: 4em;
+}
+
+.hide-btn-1 .buy_box1 a.red-buy-button, .hide-btn-2 .buy_box2 a.red-buy-button, .hide-btn-3 .buy_box3 a.red-buy-button, .hide-btn-4 .buy_box4 a.red-buy-button {
+  display: none;
+}
+
 .red-buy-button {
   background: #e72325 !important;
   color: #fff !important;
@@ -673,6 +681,28 @@ main .section.highlight {
   width: 160px;
   padding: 2px;
   margin-bottom: 10px;
+}
+
+@keyframes place-holder-shimmer {
+  0% {
+    background-position: -800px 0;
+  }
+  100% {
+    background-position: 800px 0;
+  }
+}
+.await-loader {
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: place-holder-shimmer;
+  animation-timing-function: linear;
+  background: linear-gradient(to right, #eee 8%, #bbb 18%, #eee 33%);
+  background-size: 800px 104px;
+  position: relative;
+  opacity: 0.4;
+  cursor: default;
+  min-height: 1em;
 }
 
 @media (width <= 1387px) {
