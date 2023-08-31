@@ -11,6 +11,20 @@
 .b-banner-container .b-banner {
   z-index: 1;
 }
+.b-banner-container .b-banner.bigger-award-and-text table tbody tr td img {
+  max-height: 90px;
+}
+.b-banner-container .b-banner.bigger-award-and-text table tbody tr td p {
+  font-size: 24px;
+  color: #523516;
+}
+.b-banner-container .b-banner.bigger-award-and-text table tbody tr td p:nth-child(2) {
+  font-size: 16px;
+  color: initial;
+}
+.b-banner-container .b-banner.paragraph-blue p {
+  color: #006dff;
+}
 .b-banner-container.blue-border {
   border-bottom: 32px solid #E4F2FF;
 }
@@ -91,6 +105,11 @@
   max-width: unset;
   margin-top: 10px;
 }
+.b-banner-container .b-banner-wrapper h3 {
+  font-size: 19px;
+  max-width: unset;
+  margin-top: 10px;
+}
 .b-banner-container .b-banner-wrapper #bannerAward {
   width: 250px;
   position: static;
@@ -155,7 +174,7 @@
 }
 .b-banner-container .b-banner-wrapper ul li {
   text-align: left;
-  background: url("../../images/icons/check_full.png") 0 3px no-repeat transparent;
+  background: url("../../images/icons/check_full.svg") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
@@ -173,7 +192,7 @@
     height: 625px;
   }
   .b-banner-container.even-bigger-banner {
-    height: 721px;
+    height: 725px;
   }
   .b-banner-container.negative {
     display: block;
@@ -193,14 +212,6 @@
   .b-banner-container .b-banner-wrapper #bannerAward {
     width: 200px;
     position: absolute;
-  }
-  .b-banner-container .banner-image img {
-    display: block;
-    height: 100%;
-    float: right;
-    width: auto;
-    max-width: none;
-    margin-right: -15px;
   }
   .b-banner-container .hasDiscount {
     display: block;
@@ -275,6 +286,23 @@
   .b-banner-container .b-banner-wrapper .prod-percent.green_bck_pill {
     font-size: 18px;
   }
+  .b-banner-container.center-background-image .banner-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: -50%;
+  }
+  .b-banner-container .banner-image img {
+    display: block;
+    height: 100%;
+    float: right;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+  }
   .b-banner-container .hasDiscount div {
     right: 5%;
     top: 10%;
@@ -284,6 +312,15 @@
   .b-banner-container.bigger-banner {
     height: 625px;
   }
+  .b-banner-container.center-background-image .banner-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: -20%;
+  }
   .b-banner-container .hasDiscount div {
     right: 15%;
     top: 15%;
@@ -291,5 +328,16 @@
   .b-banner-wrapper {
     left: 0;
     right: 0;
+  }
+}
+@media screen and (width >= 1920px) {
+  .b-banner-container.center-background-image .banner-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: 10%;
   }
 }
