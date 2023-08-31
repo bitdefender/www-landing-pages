@@ -172,7 +172,7 @@ export async function sendAnalyticsUserInfo() {
     const queryParams = currentUrl.searchParams;
     const apiUrl = `https://www.bitdefender.com/site/Main/dummyPost?${Math.random()}`;
     const apiWithParams = new URL(apiUrl);
-    Object.keys(queryParams).forEach((key, value) => {
+    queryParams.forEach((key, value) => {
       apiWithParams.searchParams.append(key, value);
     });
 
