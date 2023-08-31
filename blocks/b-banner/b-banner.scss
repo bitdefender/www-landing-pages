@@ -10,49 +10,14 @@
   padding-right: 0;
   padding-left: 0;
 
-  .b-banner {
-    z-index: 1;
-
-    &.bigger-award-and-text {
-      table {
-        tbody {
-          tr {
-            td {
-
-              img {
-                max-height: 90px;
-              }
-
-              p {
-                font-size: 24px;
-                color: #523516;
-  
-                &:nth-child(2) {
-                  font-size: 16px;
-                  color: initial;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    &.paragraph-blue {
-      p {
-        color: #006dff;
-      }
-    }
-  }
-
-  &.blue-border {
-    border-bottom: 32px solid #E4F2FF;
-  }
-
-
   .banner-image {
     img {
-      display: none;
+      display: block;
+      height: 100%;
+      float: right;
+      width: auto;
+      max-width: none;
+      margin-right: -15px;
     }
   }
 
@@ -60,6 +25,10 @@
     img {
       display: none;
     }
+  }
+
+  &.blue-border {
+    border-bottom: 32px solid #E4F2FF;
   }
     
   &.negative {
@@ -124,22 +93,28 @@
           }
         }
       }
+    }
 
-      &.price-table {
-        border-spacing: 0 0;
+    .b-banner.paragraph-blue {
+      p {
+        color: #006dff;
+      }
+    }
 
-        tr {
-          &:nth-child(3) {
-            td {
-              p {
-                padding: 0;
-                font-size: 11px;
+    table.price-table {
+      border-spacing: 0 0;
 
-                a {
-                  text-decoration: none;
-                  color: #06f;
-                  outline: none;
-                }
+      tr {
+        &:nth-child(3) {
+          td {
+            p {
+              padding: 0;
+              font-size: 11px;
+
+              a {
+                text-decoration: none;
+                color: #06f;
+                outline: none;
               }
             }
           }
@@ -167,32 +142,6 @@
       font-size: 19px;
       max-width: unset;
       margin-top: 10px;
-    }
-
-    #bannerAward {
-      width: 250px;
-      position: static;
-      top: 30%;
-      right: 15%;
-
-      p {
-        font-size: 18px;
-        line-height: 20px;
-
-        &:first-of-type {
-          margin: 0;
-        }
-
-        em {
-          font-weight: bold;
-        }
-
-        img {
-          width: 160px;
-          display: block;
-          float: none;
-        }
-      }
     }
     
     .prod-percent.green_bck_pill {
@@ -252,6 +201,60 @@
         margin-top: 5px;
       }
     }
+
+    .b-banner {
+      z-index: 1;
+  
+      &.bigger-award-and-text {
+        table {
+          tbody {
+            tr {
+              td {
+                img {
+                  max-height: 90px;
+                }
+  
+                p {
+                  font-size: 24px;
+                  color: #523516;
+    
+                  &:nth-child(2) {
+                    font-size: 16px;
+                    color: initial;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #bannerAward {
+      width: 250px;
+      position: static;
+      top: 30%;
+      right: 15%;
+
+      p {
+        font-size: 18px;
+        line-height: 20px;
+
+        &:first-of-type {
+          margin: 0;
+        }
+
+        em {
+          font-weight: bold;
+        }
+
+        img {
+          width: 160px;
+          display: block;
+          float: none;
+        }
+      }
+    }
   }
 }
 
@@ -290,8 +293,6 @@
         position: absolute;
       }
     }
-
-
 
     .hasDiscount {
       display: block;
@@ -335,6 +336,17 @@
 @media screen and (width >= 989px) {
   .b-banner-container {
     padding: 0;
+
+    .banner-image {
+      img {
+        display: block;
+        height: 100%;
+        float: right;
+        width: auto;
+        max-width: none;
+        margin-right: -15px;
+      }
+    }
 
     .b-banner-wrapper {
       left: 0;
@@ -392,17 +404,6 @@
           position: absolute;
           right: -50%;
         }
-      }
-    }
-
-    .banner-image {
-      img {
-        display: block;
-        height: 100%;
-        float: right;
-        width: auto;
-        max-width: none;
-        margin-right: -15px;
       }
     }
 
