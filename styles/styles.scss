@@ -645,6 +645,14 @@ main .section.highlight {
   min-height: 4em;
 }
 
+.btn-blue a.red-buy-button {
+  background-color: #006FFF!important;
+
+  &:hover {
+    background-color: #0755ba!important;
+  }
+}
+
 .hide-btn-1 .buy_box1 a.red-buy-button, .hide-btn-2 .buy_box2 a.red-buy-button, .hide-btn-3 .buy_box3 a.red-buy-button, .hide-btn-4 .buy_box4 a.red-buy-button {
   display: none;
 }
@@ -720,19 +728,6 @@ main .section.highlight {
   opacity: 0.4;
   cursor: default;
   min-height: 1em;
-}
-
-.btn-blue a.red-buy-button {
-  background-color: #006FFF!important;
-
-  &:hover {
-    background-color: #0755ba!important;
-  }
-}
-
-.full .banner-image img {
-  height: auto!important;
-  width: 102%!important;
 }
 
 @media (width <= 1387px) {
@@ -834,6 +829,11 @@ main .section.highlight {
 
   main .default-content-wrapper h6 {
     font-size: 15px;
+  }
+
+  .full .banner-image img {
+    height: auto!important;
+    width: 102%!important;
   }
 
   .section.logos {
