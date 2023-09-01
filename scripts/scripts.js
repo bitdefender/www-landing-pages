@@ -749,7 +749,6 @@ function initializeProductsPriceLogic() {
 function eventOnDropdownSlider() {
   document.querySelectorAll('.dropdownSlider').forEach((slider) => {
     const titles = slider.querySelectorAll('.title');
-    const descriptions = slider.querySelectorAll('.description');
     const loadingBars = slider.querySelectorAll('.loading-bar');
     let activeIndex = 0;
     let interval;

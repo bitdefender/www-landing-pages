@@ -93,7 +93,7 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
 
       prodBox?.querySelector('table').after(pricesDiv);
-      
+
       /// ///////////////////////////////////////////////////////////////////////
       // adding top tag to each box
       let tagTextKey = `tagText${idx}`;
