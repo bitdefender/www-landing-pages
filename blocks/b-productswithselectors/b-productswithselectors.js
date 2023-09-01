@@ -135,7 +135,6 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
-      // pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">`;
 
       if (idx === 1 && buttonText2) {
         // btn 2
@@ -162,10 +161,10 @@ export default function decorate(block) {
           } else {
             pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${btn1txt}</a></div>`;
           }
-        } else {}
+        } else {
+          pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">Buy Now</a></div>`;
+        }
       }
-
-      //pricesDiv.innerHTML += '</div>';
 
       const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');
