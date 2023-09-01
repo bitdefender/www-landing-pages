@@ -97,26 +97,6 @@
 .b-banner-container .b-banner-wrapper .w-full h1, .b-banner-container .b-banner-wrapper .w-full h2 {
   max-width: 100%;
 }
-.b-banner-container .b-banner-wrapper a.button {
-  background: #e72325 !important;
-  color: #fff !important;
-  text-transform: uppercase;
-  display: inline-block;
-  text-align: center;
-  border-radius: 5px;
-  padding: 13px 3%;
-  font-size: 14px;
-  font-weight: bold;
-  transition: background-color 0.2s;
-  width: auto;
-  border-style: none;
-  cursor: pointer;
-  margin: 5px 0;
-}
-.b-banner-container .b-banner-wrapper a.button:hover {
-  background: #b33027 !important;
-  text-decoration: none;
-}
 
 @media screen and (width >= 768px) {
   .b-banner-container {

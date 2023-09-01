@@ -749,6 +749,7 @@ function initializeProductsPriceLogic() {
 function eventOnDropdownSlider() {
   document.querySelectorAll('.dropdownSlider').forEach((slider) => {
     const titles = slider.querySelectorAll('.title');
+    const descriptions = slider.querySelectorAll('.description');
     const loadingBars = slider.querySelectorAll('.loading-bar');
     let activeIndex = 0;
     let interval;
@@ -770,7 +771,7 @@ function eventOnDropdownSlider() {
       titles.forEach((title, index) => {
         if (index === activeIndex) {
           title.parentNode.classList.add('active');
-          title.closest('.b-dropdownbox-container').setAttribute('style', `min-height: ${title.parentNode.querySelector('.description').offsetHeight}px`);
+          title.closest('.b-dropdownbox-container').setAttribute('style', `min-height: ${title.parentNode.querySelector('.description').offsetHeight + 50}px`);
           showLoadingBar(index);
         } else {
           title.parentNode.classList.remove('active');
@@ -806,6 +807,7 @@ function eventOnDropdownSlider() {
         startAutomaticMovement();
       });
     });
+
   });
 }
 

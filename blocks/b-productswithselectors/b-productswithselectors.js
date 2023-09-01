@@ -25,7 +25,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, selectorsName, taxesText, discountText, tagText, buttonText,
+    products, selectorsName, taxesText, discountText, tagText, buttonText3, buttonText2, buttonText,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -135,7 +135,37 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
-      pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${buttonText}</a></div>`;
+     // pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">`;
+
+      if (idx === 1 && buttonText2) {
+        // btn 2
+        const [btn2txt, btn2link] = buttonText2.split(',');
+        if (btn2link) {
+          pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button await-loader prodload prodload-${onSelectorClass}" href="${btn2link}">${btn2txt}</a></div>`;
+        } else {
+          pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${btn2txt}</a></div>`;
+        }
+      } else if (idx === 2 && buttonText3) {
+        // btn 3
+        const [btn3txt, btn3link] = buttonText3.split(',');
+        if (btn3link) {
+          pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button await-loader prodload prodload-${onSelectorClass}" href="${btn3link}">${btn3txt}</a>`;
+        } else {
+          pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${btn3txt}</a></div>`;
+        }
+      } else {
+        // default
+        if (buttonText) {
+          const [btn1txt, btn1link] = buttonText.split(',');
+          if (btn1link) {
+            pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button await-loader prodload prodload-${onSelectorClass} href="${btn1link}">${buttonText}</a></div>`;
+          } else {
+            pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${btn1txt}</a></div>`;
+          }
+        }
+      }
+
+      //pricesDiv.innerHTML += '</div>';
 
       const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');

@@ -5,7 +5,7 @@ export default function decorate(block) {
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
-  const { products, buttonText } = metaData;
+  const { products, buttonText3, buttonText2, buttonText } = metaData;
   const productsList = products.split(',');
   const allChildren = block.children[0].children;
 
@@ -14,10 +14,40 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsList[i - 1].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
-      const buylink = document.createElement('a');
-      buylink.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
-      buylink.setAttribute('data-type', 'buy-btn');
-      buylink.textContent = buttonText;
+      const buylink = document.createElement('span');
+      //const buylink = document.createElement('a');
+      //buylink.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
+      //buylink.setAttribute('data-type', 'buy-btn');
+
+      if (i === 2 && buttonText2) {
+        // btn 2
+        const [btn2txt, btn2link] = buttonText2.split(',');
+        if (btn2link) {
+          buylink.innerHTML += `<a class="red-buy-button await-loader prodload prodload-${onSelectorClass}" href="${btn2link}" data-type="buy-btn">${btn2txt}</a>`;
+        } else {
+          buylink.innerHTML += `<a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" data-type="buy-btn">${btn2txt}</a>`;
+        }
+      } else if (i === 3 && buttonText3) {
+        // btn 3
+        const [btn3txt, btn3link] = buttonText3.split(',');
+        if (btn3link) {
+          buylink.innerHTML += `<a class="red-buy-button await-loader prodload prodload-${onSelectorClass}" href="${btn3link}" data-type="buy-btn">${btn3txt}</a>`;
+        } else {
+          buylink.innerHTML += `<a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" data-type="buy-btn">${btn3txt}</a>`;
+        }
+      } else {
+        // default
+        if (buttonText) {
+          const [btn1txt, btn1link] = buttonText.split(',');
+          if (btn1link) {
+            buylink.innerHTML += `<a class="red-buy-button await-loader prodload prodload-${onSelectorClass} href="${btn1link}" data-type="buy-btn">${buttonText}</a>`;
+          } else {
+            buylink.innerHTML += `<a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" data-type="buy-btn">${btn1txt}</a>`;
+          }
+        }
+      }
+
+      //buylink.textContent = buttonText;
       allChildren[i].prepend(buylink);
     }
   }

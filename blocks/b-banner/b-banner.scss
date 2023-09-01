@@ -125,28 +125,6 @@
     .w-full h1, .w-full h2 {
       max-width: 100%;
     }
-
-    a.button {
-      background: #e72325 !important;
-      color: #fff !important;
-      text-transform: uppercase;
-      display: inline-block;
-      text-align: center;
-      border-radius: 5px;
-      padding: 13px 3%;
-      font-size: 14px;
-      font-weight: bold;
-      transition: background-color 0.2s;
-      width: auto;
-      border-style: none;
-      cursor: pointer;
-      margin: 5px 0;
-
-      &:hover {
-        background: #b33027 !important;
-        text-decoration: none;
-      }
-    }
   }
 }
 
