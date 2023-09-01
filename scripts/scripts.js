@@ -806,7 +806,6 @@ function eventOnDropdownSlider() {
         startAutomaticMovement();
       });
     });
-
   });
 }
 
