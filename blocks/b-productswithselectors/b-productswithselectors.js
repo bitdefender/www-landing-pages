@@ -140,23 +140,23 @@ export default function decorate(block) {
         // btn 2
         const [btn2txt, btn2link] = buttonText2.split(',');
         pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
-        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn2link ? 'buylink-' + onSelectorClass : ''}" ${btn2link ? `href="${btn2link}"` : ''}>${btn2txt}</a>
+        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn2link ? `buylink-${onSelectorClass}` : ''}" ${btn2link ? `href="${btn2link}"` : ''}>${btn2txt}</a>
         </div>`;
       } else if (idx === 2 && buttonText3) {
         // btn 3
         const [btn3txt, btn3link] = buttonText3.split(',');
         pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
-          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn3link ? 'buylink-' + onSelectorClass : ''}" ${btn3link ? `href="${btn3link}"` : ''}>${btn3txt}</a>
+          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn3link ? `buylink-${onSelectorClass}` : ''}" ${btn3link ? `href="${btn3link}"` : ''}>${btn3txt}</a>
         </div>`;
       } else if (buttonText) {
         // default
         const [btn1txt, btn1link] = buttonText.split(',');
         pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
-          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn1link ? 'buylink-' + onSelectorClass : ''}" ${btn1link ? `href="${btn1link}"` : ''}>${btn1txt}</a>
+          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn1link ? `buylink-${onSelectorClass}` : ''}" ${btn1link ? `href="${btn1link}"` : ''}>${btn1txt}</a>
         </div>`;
       } else {
         pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
-          <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">Buy Now</a>
+          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}">Buy Now</a>
         </div>`;
       }
 
