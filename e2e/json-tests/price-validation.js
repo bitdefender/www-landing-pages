@@ -93,7 +93,7 @@ return value;`,
           "private": false,
           "sequence": 3,
           "target": "",
-          "value": "const totalPrice = Number(window.omniture_vars.CART_PRODUCTS[0].ProductTotalPriceWithTaxAndDiscount.toFixed(2))\nconst subtotalPrice = Number(window.omniture_vars.CART_PRODUCTS[0].ProductPriceInDisplayedCurrency.toFixed(2));\n\nconsole.log('totalPrice', totalPrice);\nconsole.log('subtotalPrice', subtotalPrice);\n\nreturn totalPrice === {{productPrice}} || subtotalPrice === {{productPrice}}\n",
+          "value": "const totalPrice = Number(window.omniture_vars.CART_PRODUCTS[0].ProductTotalPriceWithTaxAndDiscount.toFixed(2))\nconst subtotalPrice = Number(window.omniture_vars.CART_PRODUCTS[0].ProductPriceInDisplayedCurrency.toFixed(2));\n\nconsole.log('totalPrice', totalPrice);\nconsole.log('subtotalPrice', subtotalPrice);\nconsole.log('initialPrice', {{productPrice}});\n\nconst landingPagePriceEqualsShoppingCartTotalPrice = totalPrice === {{productPrice}};\nconst landingPagePriceEqualsShoppingCartSubtotalPrice = subtotalPrice === {{productPrice}};\nconst shoppingCartTotalPriceIsTheSameOrSmallerBy1Cent = totalPrice === Number(({{productPrice}} - 0.01).toFixed(2));\nconst shoppingCartSubtotalPriceIsTheSameOrSmallerBy1Cent = subtotalPrice === Number(({{productPrice}} - 0.01).toFixed(2));\n\n\nreturn landingPagePriceEqualsShoppingCartTotalPrice\n|| landingPagePriceEqualsShoppingCartSubtotalPrice\n|| shoppingCartTotalPriceIsTheSameOrSmallerBy1Cent\n|| shoppingCartSubtotalPriceIsTheSameOrSmallerBy1Cent\n",
           "variableName": ""
         }
       ],
