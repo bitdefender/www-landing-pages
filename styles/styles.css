@@ -712,6 +712,11 @@ main .section.highlight {
   min-height: 1em;
 }
 
+.full .banner-image img {
+  height: auto !important;
+  width: 102% !important;
+}
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
@@ -790,10 +795,6 @@ main .section.highlight {
   }
   main .default-content-wrapper h6 {
     font-size: 15px;
-  }
-  .full .banner-image img {
-    height: auto !important;
-    width: 102% !important;
   }
   .section.logos h4 {
     font-size: 30px;
