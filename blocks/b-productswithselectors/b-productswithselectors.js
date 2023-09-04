@@ -25,7 +25,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, selectorsName, taxesText, discountText, tagText, buttonText,
+    products, selectorsName, taxesText, discountText, tagText, buttonText3, buttonText2, buttonText,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -135,7 +135,30 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
-      pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${buttonText}</a></div>`;
+
+      if (idx === 1 && buttonText2) {
+        // btn 2
+        const [btn2txt, btn2link] = buttonText2.split(',');
+        pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
+        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn2link ? `buylink-${onSelectorClass}` : ''}" ${btn2link ? `href="${btn2link}"` : ''}>${btn2txt}</a>
+        </div>`;
+      } else if (idx === 2 && buttonText3) {
+        // btn 3
+        const [btn3txt, btn3link] = buttonText3.split(',');
+        pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
+          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn3link ? `buylink-${onSelectorClass}` : ''}" ${btn3link ? `href="${btn3link}"` : ''}>${btn3txt}</a>
+        </div>`;
+      } else if (buttonText) {
+        // default
+        const [btn1txt, btn1link] = buttonText.split(',');
+        pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
+          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn1link ? `buylink-${onSelectorClass}` : ''}" ${btn1link ? `href="${btn1link}"` : ''}>${btn1txt}</a>
+        </div>`;
+      } else {
+        pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
+          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}">Buy Now</a>
+        </div>`;
+      }
 
       const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');
