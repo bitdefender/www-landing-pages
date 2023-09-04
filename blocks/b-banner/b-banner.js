@@ -166,4 +166,6 @@ export default function decorate(block) {
       }
     }
   }
+
+  // TODO: Add logic betwen the card and banner component.
 }
