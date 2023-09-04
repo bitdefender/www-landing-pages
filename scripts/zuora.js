@@ -39,9 +39,9 @@ export default class ZuoraNLClass {
   };
 
   static zuoraConfig = {
-    cartUrl: "https://checkout.bitdefender.com",
-    key: "bb22f980-fa19-11ed-b443-87a99951e6d5",
-    endpoint: "https://checkout-service.bitdefender.com"
+    cartUrl: 'https://checkout.bitdefender.com',
+    key: 'bb22f980-fa19-11ed-b443-87a99951e6d5',
+    endpoint: 'https://checkout-service.bitdefender.com',
   };
 
   static getKey() {
