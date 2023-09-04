@@ -38,6 +38,7 @@ export default function decorate(block) {
     bulinaText,
     borderColor,
     listStyle,
+    noBorder,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -208,6 +209,13 @@ export default function decorate(block) {
       lists.forEach((item) => {
         item.classList.add(listStyle);
       });
+    }
+
+    /// ///////////////////////////////////////////////////////////////////////
+    // remove the border of the first box
+    if (noBorder) {
+      const primaryBox = block.querySelector('.c-productswithvpn > div:nth-child(1)');
+      primaryBox.classList.add('no-border');
     }
   }
 }
