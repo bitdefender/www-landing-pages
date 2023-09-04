@@ -396,6 +396,12 @@ main .default-content-wrapper img {
   text-align: center;
 }
 
+.full .banner-image img {
+  height: auto !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
 .section.logos p:last-of-type img {
   max-height: 90pt;
   max-width: 15%;
@@ -710,11 +716,6 @@ main .section.highlight {
   opacity: 0.4;
   cursor: default;
   min-height: 1em;
-}
-
-.full .banner-image img {
-  height: auto !important;
-  width: 102% !important;
 }
 
 @media (width <= 1387px) {

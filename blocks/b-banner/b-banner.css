@@ -100,7 +100,7 @@
 
 @media screen and (width >= 768px) {
   .b-banner-container {
-    padding: 2em 0;
+    padding: 2em 0 !important;
     height: 500px;
   }
   .b-banner-container.negative {
