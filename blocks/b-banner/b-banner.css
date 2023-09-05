@@ -8,6 +8,9 @@
   padding-right: 0;
   padding-left: 0;
 }
+.b-banner-container.full {
+  padding: 2em 0;
+}
 .b-banner-container .banner-image img {
   display: none;
 }
