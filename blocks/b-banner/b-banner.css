@@ -9,12 +9,7 @@
   padding-left: 0;
 }
 .b-banner-container .banner-image img {
-  display: block;
-  height: 100%;
-  float: right;
-  width: auto;
-  max-width: none;
-  margin-right: -15px;
+  display: none;
 }
 .b-banner-container .banner-image--in-container img {
   display: none;
