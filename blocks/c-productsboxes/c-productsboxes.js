@@ -88,11 +88,11 @@ export default function decorate(block) {
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDiv = document.createElement('div');
 
-      pricesDiv.classList = 'prices_box await-loader prodload';
+      pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
       pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
 
-      block.children[idx].querySelector('table').after(pricesDiv);
+      prodBox?.querySelector('table').after(pricesDiv);
 
       /// ///////////////////////////////////////////////////////////////////////
       // adding top tag to each box
@@ -105,30 +105,30 @@ export default function decorate(block) {
         divTag.innerText = metaData[tagTextKey];
         divTag.className = 'tag';
         // prodBox.parentNode.querySelector(`p:nth-child(1)`).before(divTag);
-        prodBox.querySelector('div').before(divTag);
+        prodBox?.querySelector('div').before(divTag);
       }
 
       /// ///////////////////////////////////////////////////////////////////////
       // add buybtn div & anchor
-      const tableBuybtn = prodBox.querySelector('table:last-of-type td');
+      const tableBuybtn = prodBox?.querySelector('table:last-of-type td');
 
       const aBuybtn = document.createElement('a');
-      aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
+      aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
       aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
       const divBuybtn = document.createElement('div');
       divBuybtn.classList.add('buybtn_box', 'buy_box', `buy_box${idx + 1}`);
       divBuybtn.appendChild(aBuybtn);
-      tableBuybtn.before(divBuybtn);
+      tableBuybtn?.before(divBuybtn);
 
       /// ///////////////////////////////////////////////////////////////////////
       // removing last table
-      tableBuybtn.remove();
+      tableBuybtn?.remove();
 
       // add prod class on block
-      prodBox.classList.add(`${onSelectorClass}_box`, 'prod_box');
-      prodBox.setAttribute('data-testid', 'prod_box');
+      prodBox?.classList.add(`${onSelectorClass}_box`, 'prod_box');
+      prodBox?.setAttribute('data-testid', 'prod_box');
     });
   }
 }
