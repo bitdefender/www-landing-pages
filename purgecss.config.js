@@ -18,5 +18,6 @@ module.exports = {
     'carousel-control-next-icon',
     'carousel-control-prev-icon',
     'pointer-event',
+    'justify-content-end',
   ],
 };

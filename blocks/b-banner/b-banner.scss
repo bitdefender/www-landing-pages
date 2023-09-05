@@ -12,8 +12,23 @@
 
   .banner-image {
     img {
+      display: block;
+      height: 100%;
+      float: right;
+      width: auto;
+      max-width: none;
+      margin-right: -15px;
+    }
+  }
+
+  .banner-image--in-container {
+    img {
       display: none;
     }
+  }
+
+  &.blue-border {
+    border-bottom: 32px solid #E4F2FF;
   }
     
   &.negative {
@@ -29,6 +44,19 @@
     position: relative;
     padding-left: 0;
     margin: 15px auto;
+
+    .oldprice {
+      font-size: 24px;
+      text-decoration: line-through;
+      margin-right: 10px;
+    }
+    
+    .newprice {
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    
 
     table {
       border-collapse: separate;
@@ -49,6 +77,10 @@
       tbody {
         tr {
           td {
+            &.newprice {
+              width: 40%;
+            }
+
             p {
               font-size: 16px;
               margin: 0;
@@ -56,6 +88,33 @@
 
               &:nth-child(2) {
                 font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .b-banner.paragraph-blue {
+      p {
+        color: #006dff;
+      }
+    }
+
+    table.price-table {
+      border-spacing: 0 0;
+
+      tr {
+        &:nth-child(3) {
+          td {
+            p {
+              padding: 0;
+              font-size: 11px;
+
+              a {
+                text-decoration: none;
+                color: #06f;
+                outline: none;
               }
             }
           }
@@ -77,6 +136,76 @@
       font-size: 21px;
       max-width: unset;
       margin-top: 10px;
+    }
+
+    h3 {
+      font-size: 19px;
+      max-width: unset;
+      margin-top: 10px;
+    }
+    
+    .prod-percent.green_bck_pill {
+      background-color: #2FB43E;
+      display: inline-block;
+      color: #fff;
+      border-radius: 15px;
+      margin-top: 15px;
+      margin-left: 0 !important;
+      font-size: 16px;
+      padding: 2px 11px;
+    }
+
+    .smaller-text h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin: 1em 0;
+    }
+    
+    .w-full h1, .w-full h2 {
+      max-width: 100%;
+    }
+
+    ul {
+      padding: 0;
+
+      li {
+        text-align: left;
+        background: url("../../images/icons/check_full.svg") 0 3px no-repeat transparent;
+        list-style-type: none;
+        padding-left: 23px;
+        background-size: 16px;
+        font-size: 14px;
+        color: #000;
+        margin-top: 5px;
+      }
+    }
+
+    .b-banner {
+      z-index: 1;
+  
+      &.bigger-award-and-text {
+        table {
+          tbody {
+            tr {
+              td {
+                img {
+                  max-height: 90px;
+                }
+  
+                p {
+                  font-size: 24px;
+                  color: #523516;
+    
+                  &:nth-child(2) {
+                    font-size: 16px;
+                    color: initial;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
     #bannerAward {
@@ -104,27 +233,6 @@
         }
       }
     }
-    
-    .prod-percent.green_bck_pill {
-      background-color: #2FB43E;
-      display: inline-block;
-      color: #fff;
-      border-radius: 15px;
-      margin-top: 15px;
-      margin-left: 0 !important;
-      font-size: 16px;
-      padding: 2px 11px;
-    }
-
-    .smaller-text h2 {
-      font-size: 18px;
-      font-weight: 500;
-      margin: 1em 0;
-    }
-    
-    .w-full h1, .w-full h2 {
-      max-width: 100%;
-    }
   }
 }
 
@@ -132,6 +240,14 @@
   .b-banner-container {
     padding: 2em 0!important;
     height: 500px;
+
+    &.bigger-banner {
+      height: 625px;
+    }
+
+    &.even-bigger-banner {
+      height: 725px;
+    }
 
     &.negative {
       display: block;
@@ -153,17 +269,6 @@
       #bannerAward {
         width: 200px;
         position: absolute;
-      }
-    }
-
-    .banner-image {
-      img {
-        display: block;
-        height: 100%;
-        float: right;
-        width: auto;
-        max-width: none;
-        margin-right: -15px;
       }
     }
 
@@ -210,7 +315,31 @@
   .b-banner-container {
     padding: 0;
 
+    .banner-image {
+      img {
+        display: block;
+        height: 100%;
+        float: right;
+        width: auto;
+        max-width: none;
+        margin-right: -15px;
+      }
+    }
+
     .b-banner-wrapper {
+      left: 0;
+      right: 0;
+
+      .banner-image--in-container {
+        img {
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: -1;
+        }
+      }
+      
       h1 {
         font-size: 35px;
         max-width: 610px;
@@ -227,6 +356,10 @@
         margin-bottom: 0;
       }
 
+      p {
+        max-width: 610px;
+      }
+
       .smaller-text h2 {
         font-size: 18px;
         font-weight: 500;
@@ -235,6 +368,20 @@
 
       .prod-percent.green_bck_pill {
         font-size: 18px;
+      }
+    }
+
+    &.center-background-image {
+      .banner-image {
+        img {
+          display: block;
+          height: 100%;
+          width: auto;
+          max-width: none;
+          margin-right: -15px;
+          position: absolute;
+          right: -50%;
+        }
       }
     }
 
@@ -247,6 +394,24 @@
 
 @media screen and (width >= 1199px) {
   .b-banner-container {
+    &.bigger-banner {
+      height: 625px;
+    }
+
+    &.center-background-image {
+      .banner-image {
+        img {
+          display: block;
+          height: 100%;
+          width: auto;
+          max-width: none;
+          margin-right: -15px;
+          position: absolute;
+          right: -20%;
+        }
+      }
+    }
+
     .hasDiscount div {
       right: 15%;
       top: 15%;
@@ -256,5 +421,24 @@
   .b-banner-wrapper {
     left: 0;
     right: 0;
+  }
+}
+
+// 4k res
+@media screen and (width >= 1920px) {
+  .b-banner-container {
+    &.center-background-image {
+      .banner-image {
+        img {
+          display: block;
+          height: 100%;
+          width: auto;
+          max-width: none;
+          margin-right: -15px;
+          position: absolute;
+          right: 10%;
+        }
+      }
+    }
   }
 }
