@@ -10,6 +10,10 @@
   padding-right: 0;
   padding-left: 0;
 
+  &.full {
+    padding: 2em 0;
+  }
+
   .banner-image {
     img {
       display: none;
@@ -130,7 +134,7 @@
 
 @media screen and (width >= 768px) {
   .b-banner-container {
-    padding: 2em 0!important;
+    padding: 2em 0;
     height: 500px;
 
     &.negative {
