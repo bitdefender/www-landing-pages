@@ -8,6 +8,9 @@
   padding-right: 0;
   padding-left: 0;
 }
+.b-banner-container .banner-image {
+  display: none;
+}
 .b-banner-container .banner-image img {
   display: block;
   height: 100%;
@@ -182,6 +185,9 @@
   .b-banner-container.negative {
     display: block;
     margin-bottom: -400px;
+  }
+  .b-banner-container .banner-image {
+    display: block;
   }
   .b-banner-container .b-banner-wrapper {
     position: absolute;

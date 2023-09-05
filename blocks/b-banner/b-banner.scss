@@ -11,6 +11,8 @@
   padding-left: 0;
 
   .banner-image {
+    display: none;
+
     img {
       display: block;
       height: 100%;
@@ -252,6 +254,10 @@
     &.negative {
       display: block;
       margin-bottom: -400px;
+    }
+
+    .banner-image {
+      display: block;
     }
 
     .b-banner-wrapper {
