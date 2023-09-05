@@ -4,6 +4,9 @@
   justify-content: center;
   font-size: 18px;
 }
+.c-productswithvpn.overflow-in-header {
+  margin-top: -43rem;
+}
 
 .c-productswithvpn > div {
   width: 32%;
@@ -280,6 +283,9 @@
 .c-productswithvpn > div:nth-child(1) {
   border: 9px solid #22ac3b;
 }
+.c-productswithvpn > div:nth-child(1).no-border {
+  border: 0 none;
+}
 
 /* 2st box */
 /* 3st box */
@@ -352,6 +358,9 @@
     display: block;
     width: 90%;
     margin: 0 auto;
+  }
+  .c-productswithvpn.overflow-in-header {
+    margin-top: 0;
   }
   .c-productswithvpn > div {
     width: 100% !important;

@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 /**
  * Information:
  * - hero banner - top LandingPage
@@ -25,15 +26,22 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
 
-  // move picture below
-  const bannerImage = block.children[1].querySelector('picture');
-  bannerImage.classList.add('banner-image');
-  parentSelector.append(bannerImage);
-
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
+    headerTextColor, imageInContainer, blueBorder, biggerBanner,
   } = metaData;
+
+  // move picture below
+  const bannerImage = block.children[1].querySelector('picture');
+  bannerImage.classList.add('banner-image');
+
+  if (!imageInContainer) {
+    parentSelector.append(bannerImage);
+  } else {
+    bannerImage.classList.remove('banner-image');
+    bannerImage.classList.add('banner-image--in-container');
+  }
 
   // update background color if set, if not set default: #000
   const block1 = document.querySelector('.b-banner-container');
@@ -46,6 +54,18 @@ export default function decorate(block) {
   if (textColor) {
     block.style.color = textColor;
     block.children[2].style.color = textColor;
+  }
+
+  if (headerTextColor) {
+    block.querySelector('h1').style.color = headerTextColor;
+  }
+
+  if (blueBorder) {
+    parentSelector.classList.add('blue-border');
+  }
+
+  if (biggerBanner) {
+    parentSelector.classList.add('bigger-banner');
   }
 
   if (bottom) {
@@ -91,15 +111,17 @@ export default function decorate(block) {
       finalDiscountText = `<span class="percent-${onSelectorClass}">10%</span> ${finalDiscountText}`;
     }
 
-    let percentRadius;
-    if (block.querySelector('.button-container')) {
-      percentRadius = block.querySelector('.button-container');
-    } else {
-      percentRadius = document.createElement('div');
-    }
+    if (finalDiscountStyle !== 'none') {
+      let percentRadius;
+      if (block.querySelector('.button-container')) {
+        percentRadius = block.querySelector('.button-container');
+      } else {
+        percentRadius = document.createElement('div');
+      }
 
-    percentRadius.innerHTML += ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2">${finalDiscountText}</span>`;
-    block.appendChild(percentRadius);
+      percentRadius.innerHTML += ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2">${finalDiscountText}</span>`;
+      block.appendChild(percentRadius);
+    }
 
     if (bannerDiscount) {
       const discountDiv = document.createElement('div');
@@ -107,5 +129,43 @@ export default function decorate(block) {
       discountDiv.innerHTML = `<span class="percent-${onSelectorClass}"></span><span>${bannerDiscount.split(',')[1]}</span>`;
       parentSelector.querySelector('picture').appendChild(discountDiv);
     }
+
+    const allElements = block.getElementsByTagName('*');
+    // Loop through each element and check if its innerText contains "{$oldprice} or {$newprice}"
+    for (let i = 0; i < allElements.length; i += 1) {
+      const element = allElements[i];
+      let foundOldprice = 0;
+      let foundNewPrice = 0;
+      if (element.innerText === '${oldprice}') {
+        element.classList.add('oldprice', `oldprice-${onSelectorClass}`);
+        foundOldprice = 1;
+      }
+      if (element.innerText === '${newprice}') {
+        element.classList.add('newprice', `newprice-${onSelectorClass}`);
+        foundNewPrice = 1;
+      }
+      // no need to continue if both are found
+      if (foundNewPrice === 1 && foundOldprice === 1) {
+        break;
+      }
+    }
+
+    // check if there is an element with the href of #buylink
+    const buyLink = block.querySelector('a[href="#buylink"]');
+    if (buyLink) {
+      buyLink.classList.add('button', 'primary', `buylink-${onSelectorClass}`);
+      buyLink.innerHTML = buyLink.innerHTML.replace(/0%/g, `<span class="percent-${onSelectorClass}">10%</span>`);
+    }
+
+    // add class to table if it contains oldprice or newprice
+    const tableElements = block.getElementsByTagName('table');
+    for (let i = 0; i < tableElements.length; i += 1) {
+      const tableElement = tableElements[i];
+      if (tableElement.innerHTML.includes('${oldprice}') || tableElement.innerHTML.includes('${newprice}')) {
+        tableElement.classList.add('price-table');
+      }
+    }
   }
+
+  // TODO: Add logic betwen the card and banner component.
 }

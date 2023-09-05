@@ -35,6 +35,24 @@
   border-radius: 10px;
   padding: 2em;
 }
+.c-icon-box-grid-container.box-shadow .col-lg {
+  box-shadow: 0 4px 7px #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 1%;
+}
+.c-icon-box-grid-container.box-shadow .col-lg .icon-box-grid-column {
+  flex-direction: row !important;
+  align-items: center;
+}
+.c-icon-box-grid-container.box-shadow .col-lg .title {
+  font-size: 42px;
+}
+.c-icon-box-grid-container.box-shadow .col-lg .subtitle {
+  font-size: 18px;
+  margin-left: 5px;
+  margin-bottom: 0;
+}
 .c-icon-box-grid-container.grey-box .col-lg {
   background-color: #F5F5F7;
   border-radius: 20px;
