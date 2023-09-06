@@ -10,16 +10,15 @@
   padding-right: 0;
   padding-left: 0;
 
+  &.full {
+    padding: 2em 0;
+  }
+
   .banner-image {
     display: none;
 
     img {
-      display: block;
-      height: 100%;
-      float: right;
-      width: auto;
-      max-width: none;
-      margin-right: -15px;
+      display: none;
     }
   }
 

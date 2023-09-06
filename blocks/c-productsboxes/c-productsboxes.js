@@ -108,7 +108,7 @@ export default function decorate(block) {
         prodBox?.querySelector('div').before(divTag);
       }
 
-      /// ///////////////////////////////////////////////////////////////////////
+      /// ////////////////////////////////////////////////////////////////////////
       // add buybtn div & anchor
       const tableBuybtn = prodBox?.querySelector('table:last-of-type td');
 
