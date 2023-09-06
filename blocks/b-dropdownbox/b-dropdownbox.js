@@ -53,7 +53,6 @@ export default function decorate(block) {
       </div>
     `;
 
-      block.closest('.b-dropdownbox-container').appendChild(sliderBox);
+    block.closest('.b-dropdownbox-container').appendChild(sliderBox);
   }
 }
-
