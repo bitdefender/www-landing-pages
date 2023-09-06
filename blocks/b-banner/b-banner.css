@@ -14,9 +14,6 @@
 .b-banner-container .banner-image {
   display: none;
 }
-.b-banner-container .banner-image img {
-  display: none;
-}
 .b-banner-container .banner-image--in-container img {
   display: none;
 }
