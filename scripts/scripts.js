@@ -709,13 +709,9 @@ function initSelectors() {
 }
 
 function addIdsToEachSection() {
-  document.querySelectorAll('main .section > div:first-of-type').forEach((item, idx) => {
+  document.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
     const getIdentity = item.className.split('-wrapper')[0];
-    if (document.getElementById(getIdentity)) {
-      item.parentElement.id = `${getIdentity}-2`;
-    } else {
-      item.parentElement.id = getIdentity;
-    }
+    item.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
   });
 }
 
