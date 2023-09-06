@@ -661,25 +661,18 @@ function initSelectors() {
       const prodYears = prodSplit[2].trim();
       const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
-      if (!document.getElementById(`u_${onSelectorClass}`)) {
-        fakeSelectorsBottom.innerHTML += `<label for="u_${onSelectorClass}">Fake Devices for ${onSelectorClass}: </label>`;
-        const createSelectForDevices = document.createElement('select');
-        createSelectForDevices.id = `u_${onSelectorClass}`;
-        createSelectForDevices.name = `u_${onSelectorClass}`;
-        createSelectForDevices.classList.add(`users_${prodAlias}`);
-        createSelectForDevices.classList.add(`users_${onSelectorClass}_fake`);
-        document.getElementById('fakeSelectors_bottom').append(createSelectForDevices);
-      }
-
-      if (!document.getElementById(`y_${onSelectorClass}`)) {
-        fakeSelectorsBottom.innerHTML += `<label for="y_${onSelectorClass}">Fake Years for ${onSelectorClass}: </label>`;
-        const createSelectForYears = document.createElement('select');
-        createSelectForYears.id = `y_${onSelectorClass}`;
-        createSelectForYears.name = `y_${onSelectorClass}`;
-        createSelectForYears.classList.add(`years_${prodAlias}`);
-        createSelectForYears.classList.add(`years_${onSelectorClass}_fake`);
-        document.getElementById('fakeSelectors_bottom').append(createSelectForYears);
-      }
+      ['u', 'y'].forEach((prefix) => {
+        const selectorId = `${prefix}_${onSelectorClass}`;
+        const prefixAlias = prefix === 'u' ? 'users' : 'years';
+        if (!document.getElementById(selectorId)) {
+          fakeSelectorsBottom.innerHTML += `<label for="${selectorId}">Fake ${prefix === 'u' ? 'Devices' : 'Years'} for ${onSelectorClass}: </label>`;
+          const createSelect = document.createElement('select');
+          createSelect.id = selectorId;
+          createSelect.name = selectorId;
+          createSelect.classList.add(`${prefixAlias}_${prodAlias}`, `${prefixAlias}_${onSelectorClass}_fake`);
+          document.getElementById('fakeSelectors_bottom').append(createSelect);
+        }
+      });
 
       StoreProducts.initSelector({
         product_id: prodAlias,
@@ -709,13 +702,9 @@ function initSelectors() {
 }
 
 function addIdsToEachSection() {
-  document.querySelectorAll('main .section > div:first-of-type').forEach((item, idx) => {
+  document.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
     const getIdentity = item.className.split('-wrapper')[0];
-    if (document.getElementById(getIdentity)) {
-      item.parentElement.id = `${getIdentity}-${idx + 1}`;
-    } else {
-      item.parentElement.id = getIdentity;
-    }
+    item.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
   });
 }
 
@@ -770,7 +759,7 @@ function eventOnDropdownSlider() {
       titles.forEach((title, index) => {
         if (index === activeIndex) {
           title.parentNode.classList.add('active');
-          title.closest('.b-dropdownbox-container').setAttribute('style', `min-height: ${title.parentNode.querySelector('.description').offsetHeight + 50}px`);
+          title.closest('.dropdownSlider').setAttribute('style', `min-height: ${title.parentNode.querySelector('.description').offsetHeight + 100}px`);
           showLoadingBar(index);
         } else {
           title.parentNode.classList.remove('active');
