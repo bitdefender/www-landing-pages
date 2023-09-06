@@ -34,15 +34,16 @@ export default function decorate(block) {
   }
 
   if (type === 'slider') {
-    parentSelector.classList.remove('slider-box');
-    /* parentSelector.classList.add('slider');
-    if (window.innerWidth > 800) {
-      const infoTextEl = block.children[0].children[0];
-      const infoTextEl2 = block.children[1].children[0];
+    //parentSelector.classList.remove('slider-box');
+    //parentSelector.classList.add('slider');
+    block.closest('.b-dropdownbox-container').classList.add('container', 'dropdownSlider');
+    const sliderParentBox = document.createElement('div');
+    const sliderBox = document.createElement('div');
+    sliderBox.className = 'slider_box';
 
-      parentSelector.classList.remove('slider');
-      parentSelector.classList.add('container', 'dropdownSlider');
-      block.closest('.b-dropdownbox-wrapper').innerHTML = `
+    const infoTextEl = block.children[0].children[0];
+      const infoTextEl2 = block.children[1].children[0];
+      sliderBox.innerHTML = `
         <div class="container">
           <div class="row">
             <div class="col-12 col-md-5 title">
@@ -53,42 +54,8 @@ export default function decorate(block) {
           </div>
         </div>
       `;
-    }*/
-    
 
-    function handleResize() {
-      console.log(window.innerWidth)
-      if (window.innerWidth > 800) {
-        const infoTextEl = block.children[0].children[0];
-        const infoTextEl2 = block.children[1].children[0];
-  
-        parentSelector.classList.remove('slider');
-        parentSelector.classList.add('container', 'dropdownSlider');
-        const dropdownWrapper = block.closest('.b-dropdownbox-wrapper');
-        if (dropdownWrapper) {
-          dropdownWrapper.innerHTML = `
-            <div class="container">
-              <div class="row">
-                <div class="col-12 col-md-5 title">
-                  <div class="loading-bar"></div>
-                  ${infoTextEl.innerHTML}
-                </div>
-                <div class="col-12 col-md-7 description">${infoTextEl2.innerHTML}</div>
-              </div>
-            </div>
-          `;
-        }
-      } else {
-        parentSelector.classList.remove('container', 'dropdownSlider');
-      }
-    }
-    
-    // Attach the event listener to the window's resize event.
-    window.addEventListener('resize', handleResize);
-    
-    // Initial call to handleResize to set the initial state.
-    handleResize();
-
+      block.closest('.b-dropdownbox-container').appendChild(sliderBox);
   }
 }
 
