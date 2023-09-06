@@ -135,7 +135,7 @@ export const sendAnalyticsPageEvent = async () => {
         time: formatUserTime,
         date: currentGMTDate,
         domain: window.location.hostname,
-        domainPeriod: window.location.hostname.split('.').length,
+        domainPeriod: window.location.hostname.split('.').length - 1,
       },
     },
   });
