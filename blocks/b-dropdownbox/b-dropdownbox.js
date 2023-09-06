@@ -33,9 +33,8 @@ export default function decorate(block) {
     block.classList.add(`has${childrenNr}divs`);
   }
 
+  // if it's slider
   if (type === 'slider') {
-    //parentSelector.classList.remove('slider-box');
-    //parentSelector.classList.add('slider');
     block.closest('.b-dropdownbox-container').classList.add('container', 'dropdownSlider');
     const sliderParentBox = document.createElement('div');
     const sliderBox = document.createElement('div');
