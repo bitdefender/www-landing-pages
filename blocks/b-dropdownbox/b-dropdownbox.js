@@ -36,23 +36,22 @@ export default function decorate(block) {
   // if it's slider
   if (type === 'slider') {
     block.closest('.b-dropdownbox-container').classList.add('container', 'dropdownSlider');
-    const sliderParentBox = document.createElement('div');
     const sliderBox = document.createElement('div');
     sliderBox.className = 'slider_box';
 
     const infoTextEl = block.children[0].children[0];
-      const infoTextEl2 = block.children[1].children[0];
-      sliderBox.innerHTML = `
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-md-5 title">
-              <div class="loading-bar"></div>
-              ${infoTextEl.innerHTML}
-            </div>
-            <div class="col-12 col-md-7 description">${infoTextEl2.innerHTML}</div>
+    const infoTextEl2 = block.children[1].children[0];
+    sliderBox.innerHTML = `
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-5 title">
+            <div class="loading-bar"></div>
+            ${infoTextEl.innerHTML}
           </div>
+          <div class="col-12 col-md-7 description">${infoTextEl2.innerHTML}</div>
         </div>
-      `;
+      </div>
+    `;
 
       block.closest('.b-dropdownbox-container').appendChild(sliderBox);
   }
