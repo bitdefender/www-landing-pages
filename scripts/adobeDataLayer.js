@@ -135,7 +135,7 @@ export const sendAnalyticsPageEvent = async () => {
         time: formatUserTime,
         date: currentGMTDate,
         domain: window.location.hostname,
-        domainPeriod: window.location.hostname.split('.').length,
+        domainPeriod: window.location.hostname.split('.').length - 1,
       },
     },
   });
@@ -159,6 +159,40 @@ export async function sendAnalyticsUserInfo() {
 
   if (typeof user.ID !== 'undefined') {
     user.loggedIN = 'true';
+  } else {
+    const headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Pragma: 'no-cache',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      Expires: 'Tue, 01 Jan 1971 02:00:00 GMT',
+      BDUS_A312C09A2666456D9F2B2AA5D6B463D6: 'check.bitdefender',
+    });
+
+    const currentUrl = new URL(window.location.href);
+    const queryParams = currentUrl.searchParams;
+    const apiUrl = `https://www.bitdefender.com/site/Main/dummyPost?${Math.random()}`;
+    const apiWithParams = new URL(apiUrl);
+    queryParams.forEach((value, key) => {
+      apiWithParams.searchParams.append(key, value);
+    });
+
+    try {
+      const response = await fetch(apiWithParams, {
+        method: 'POST',
+        headers,
+      });
+
+      if (response.ok) {
+        const rhv = response.headers.get('BDUSRH_8D053E77FD604F168345E0F77318E993');
+        if (rhv !== null) {
+          localStorage.setItem('rhvID', rhv);
+          user.ID = rhv;
+          user.loggedIN = 'true';
+        }
+      }
+    } catch (error) {
+      // console.error('Fetch failed:', error);
+    }
   }
 
   // Remove properties that are undefined
