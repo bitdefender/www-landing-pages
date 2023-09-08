@@ -222,6 +222,16 @@ export default class ZuoraNLClass {
           years_class: `years_${id}_fake`,
         },
       };
+
+      // DEX-14692
+      document.querySelectorAll(`.buylink-${id}-${devicesNo}${yearsNo}`).forEach((buybtn) => {
+        buybtn.setAttribute('data-product', id);
+        buybtn.setAttribute('data-buy-price', pricing.price);
+        buybtn.setAttribute('data-old-price', pricing.total);
+        buybtn.setAttribute('data-currency', '€');
+        buybtn.setAttribute('data-region', '22');
+        buybtn.setAttribute('data-variation', `${devicesNo}u-${yearsNo}y`);
+      });
     });
 
     return window.StoreProducts.product[id];
