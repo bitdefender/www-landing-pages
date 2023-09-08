@@ -13,9 +13,11 @@ import {
   loadCSS,
 } from './lib-franklin.js';
 
-import { sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts } from './adobeDataLayer.js';
 import {
-  addScript, getDefaultLanguage, getInstance, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
+  sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,
+} from './adobeDataLayer.js';
+import {
+  addScript, getDefaultLanguage, getInstance, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices, GLOBAL_EVENTS,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -153,13 +155,6 @@ async function loadLazy(doc) {
     event: 'gtm.js',
   });
 
-  if (getParam('t') === '1') {
-    if (getInstance() === 'prod') addScript('https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js', {}, 'defer');
-    else addScript('https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'defer');
-
-    addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'defer');
-  }
-
   await sendAnalyticsPageEvent();
   await sendAnalyticsUserInfo();
 
@@ -167,6 +162,18 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon('https://www.bitdefender.com/favicon.ico');
+
+  if (window.location.pathname.indexOf('/drafts/') === -1) {
+    addScript(getInstance() === 'prod'
+      ? 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js'
+      : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', () => {
+      document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
+    });
+
+    addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'async');
+  }
+
+  sendAnalyticsPageLoadedEvent();
 
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
