@@ -113,7 +113,6 @@ export default function decorate(block) {
 
           // DEX-14692
           document.querySelectorAll('.red-buy-button').forEach((buybtn) => {
-            const variationType = triggerType === 'users' ? 'u' : 'y';
             const getCurrency = buybtn.getAttribute('data-currency');
             const newVariationSplit = buybtn.getAttribute('data-variation').split('-');
             const newPrice = buybtn.parentNode.parentNode.querySelector('.prod-newprice').innerText.trim().replace(` ${getCurrency}`, '');
