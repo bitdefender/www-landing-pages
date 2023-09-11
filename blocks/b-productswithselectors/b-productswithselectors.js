@@ -25,7 +25,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, selectorsName, taxesText, discountText, tagText, buttonText3, buttonText2, buttonText,
+    products, selectorsName, taxesText, discountText, tagText, priceText1, priceText2, priceText3, buttonText3, buttonText2, buttonText,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -115,8 +115,8 @@ export default function decorate(block) {
           document.querySelectorAll('.red-buy-button').forEach((buybtn) => {
             const getCurrency = buybtn.getAttribute('data-currency');
             const newVariationSplit = buybtn.getAttribute('data-variation').split('-');
-            const newPrice = buybtn.parentNode.parentNode.querySelector('.prod-newprice').innerText.trim().replace(` ${getCurrency}`, '');
-            const oldPrice = buybtn.parentNode.parentNode.querySelector('.prod-oldprice').innerText.trim().replace(` ${getCurrency}`, '');
+            let newPrice = buybtn.parentNode.parentNode.querySelector('.prod-newprice').innerText.trim().replace(` ${getCurrency}`, '');
+            let oldPrice = buybtn.parentNode.parentNode.querySelector('.prod-oldprice').innerText.trim().replace(` ${getCurrency}`, '');
 
             if (triggerType === 'users') {
               newVariationSplit[0] = `${triggerValue}u`;
@@ -146,12 +146,38 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDiv = document.createElement('div');
+      let customPrice = 0;
+
+      if (priceText1 && idx === 0) {
+        customPrice = priceText1;
+      }
+      if (priceText2 && idx === 1) {
+        customPrice = priceText2;
+      }
+      if (priceText3 && idx === 2) {
+        customPrice = priceText3;
+      }
 
       pricesDiv.id = 'pricesBox';
       pricesDiv.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-      pricesDiv.innerHTML = `<span class="prod-percent green_txt"><b class="percent-${onSelectorClass}">0%</b> ${discountText}<span>`;
-      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
-      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+      pricesDiv.innerHTML = '';
+
+      pricesDiv.innerHTML += `
+        ${customPrice ? '<div class="custom_hide">' : ''}
+        <span class="prod-percent green_txt">
+          <b class="percent-${onSelectorClass}">0%</b>
+          ${discountText}
+        </span>
+        ${customPrice ? '</div>' : ''}
+      `;
+      pricesDiv.innerHTML += `
+        ${customPrice ? '<div class="custom_hide">' : ''}
+        <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+        ${customPrice ? '</div>' : ''}
+      `;
+
+      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${customPrice ? 'custom' : onSelectorClass}">${customPrice ? customPrice : ''}</span>`;
+      
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
 
       if (idx === 1 && buttonText2) {
