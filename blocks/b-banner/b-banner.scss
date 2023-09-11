@@ -15,9 +15,7 @@
   }
 
   .banner-image {
-    img {
-      display: none;
-    }
+    display: none;
   }
 
   .banner-image--in-container {
@@ -251,6 +249,10 @@
     &.negative {
       display: block;
       margin-bottom: -400px;
+    }
+
+    .banner-image {
+      display: block;
     }
 
     .b-banner-wrapper {

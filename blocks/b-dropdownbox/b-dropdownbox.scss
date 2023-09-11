@@ -222,6 +222,10 @@
   }
 
   .b-dropdownbox-wrapper {
+    display: none;
+  }
+
+  .slider_box {
     position: initial;
 
     .title {
@@ -271,7 +275,7 @@
   
     .description {
       position: absolute;
-      top: 13%;
+      top: 4em;
       right: 0;
       padding-left: 5%;
       display: none;
@@ -305,6 +309,20 @@
   .b-dropdownbox-container {
     clear: both;
     padding: 0 15px 5px;
+
+    &.dropdownSlider {
+      .b-dropdownbox-wrapper {
+        display: block;
+
+        img {
+          width: 90%;
+        }
+      }
+
+      .slider_box {
+        display: none;
+      }
+    }
   }
 
   .b-dropdownbox-container .block > div:nth-child(1) > div::before, .b-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div::before {

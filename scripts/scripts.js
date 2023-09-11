@@ -766,7 +766,7 @@ function eventOnDropdownSlider() {
       titles.forEach((title, index) => {
         if (index === activeIndex) {
           title.parentNode.classList.add('active');
-          title.closest('.dropdownSlider').setAttribute('style', `min-height: ${title.parentNode.querySelector('.description').offsetHeight + 100}px`);
+          title.closest('.dropdownSlider').setAttribute('style', `min-height: ${title.parentNode.querySelector('.description').offsetHeight + 50}px`);
           showLoadingBar(index);
         } else {
           title.parentNode.classList.remove('active');
