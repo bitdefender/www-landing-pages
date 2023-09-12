@@ -104,14 +104,26 @@ export default function decorate(block) {
     productsAsList.forEach((item, idx) => {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      let percent = 0;
 
       const pricesDiv = document.createElement('div');
       pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
 
       // if has harcoded prices
-      var percent = 0;
       if (priceText1 || priceText2 || priceText3) {
-        const priceText = idx === 0 ? priceText1 : idx === 1 ? priceText2 : priceText3;
+        let priceText;
+        switch (idx) {
+          case 0:
+            priceText = priceText1;
+            break;
+          case 1:
+            priceText = priceText2;
+            break;
+          default:
+            priceText = priceText3;
+            break;
+        }
+
         if (priceText) {
           const [oldPrice, newPrice] = priceText.split(',');
           pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-custom">${oldPrice}</span>`;
@@ -141,16 +153,25 @@ export default function decorate(block) {
       // add buybtn div & anchor
       const tableVpn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(2)`);
       const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
-
-     
-
       const aBuybtn = document.createElement('a');
+
       aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
       aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
 
-       // if has custom link buy
-       if (buttonText1 || buttonText2 || buttonText3) {
-        const buttonText = idx === 0 ? buttonText1 : idx === 1 ? buttonText2 : buttonText3;
+      // if has custom link buy
+      if (buttonText1 || buttonText2 || buttonText3) {
+        let buttonText;
+        switch (idx) {
+          case 0:
+            buttonText = buttonText1;
+            break;
+          case 1:
+            buttonText = buttonText2;
+            break;
+          default:
+            buttonText = buttonText3;
+            break;
+        }
         if (buttonText) {
           const [btnText, btnLink] = buttonText.split(',');
           aBuybtn.innerHTML = btnText;
