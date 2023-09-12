@@ -30,7 +30,6 @@ export default function decorate(block) {
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
-  console.log(metaData)
   const {
     title,
     subtitle,
