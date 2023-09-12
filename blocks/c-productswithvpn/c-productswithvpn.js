@@ -104,7 +104,7 @@ export default function decorate(block) {
     productsAsList.forEach((item, idx) => {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      let percent = 0;
+      const percent = 0;
 
       const pricesDiv = document.createElement('div');
       pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
