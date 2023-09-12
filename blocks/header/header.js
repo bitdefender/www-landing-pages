@@ -50,13 +50,11 @@ export default async function decorate(block) {
 
     block.classList.add('lp-header', 'py-3');
     block.innerHTML = `
-      <div class="container">
-        <a class="d-flex justify-content-between" href="${homeUrl}">
-          ${spanSvg.map((svg) => `
-              ${svg.outerHTML}
-          `).join('')}
-        </a>
-      </div>`;
+      <a class="d-flex justify-content-between" href="${homeUrl}">
+        ${spanSvg.map((svg) => `
+            ${svg.outerHTML}
+        `).join('')}
+      </a>`;
 
     document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
       adobeMcAppendVisitorId('header');
