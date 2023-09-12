@@ -176,7 +176,7 @@ export default function decorate(block) {
           const [btnText, btnLink] = buttonText.split(',');
           aBuybtn.innerHTML = btnText;
           aBuybtn.className = 'red-buy-button buylink-custom';
-          aBuybtn.setAttribute("href", btnLink);
+          aBuybtn.setAttribute('href', btnLink);
         }
       }
 
