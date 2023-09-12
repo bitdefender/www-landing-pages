@@ -30,11 +30,18 @@ export default function decorate(block) {
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
+  console.log(metaData)
   const {
     title,
     subtitle,
     titlePosition,
     products,
+    priceText1,
+    priceText2,
+    priceText3,
+    buttonText1,
+    buttonText2,
+    buttonText3,
     bulinaText,
     borderColor,
     listStyle,
@@ -101,8 +108,20 @@ export default function decorate(block) {
 
       const pricesDiv = document.createElement('div');
       pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
-      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+
+      // if has harcoded prices
+      var percent = 0;
+      if (priceText1 || priceText2 || priceText3) {
+        const priceText = idx === 0 ? priceText1 : idx === 1 ? priceText2 : priceText3;
+        if (priceText) {
+          const [oldPrice, newPrice] = priceText.split(',');
+          pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-custom">${oldPrice}</span>`;
+          pricesDiv.innerHTML += `<span class="prod-newprice newprice-custom">${newPrice}</span>`;
+        } else {
+          pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+          pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+        }
+      }
 
       block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table`).after(pricesDiv);
 
@@ -124,9 +143,23 @@ export default function decorate(block) {
       const tableVpn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(2)`);
       const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
 
+     
+
       const aBuybtn = document.createElement('a');
-      aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
+      aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
       aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
+
+       // if has custom link buy
+       if (buttonText1 || buttonText2 || buttonText3) {
+        const buttonText = idx === 0 ? buttonText1 : idx === 1 ? buttonText2 : buttonText3;
+        if (buttonText) {
+          const [btnText, btnLink] = buttonText.split(',');
+          aBuybtn.innerHTML = btnText;
+          aBuybtn.className = 'red-buy-button buylink-custom';
+          aBuybtn.setAttribute("href", btnLink);
+        }
+      }
+
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
       const divBuybtn = document.createElement('div');
@@ -188,7 +221,7 @@ export default function decorate(block) {
     const tables = block.querySelectorAll('.c-productswithvpn > div table');
     tables.forEach((table) => {
       if (table.querySelectorAll('tr').length > 1) {
-        table.classList.add('no_vpn_table');
+        table.classList.add(`${buttonText1 && buttonText2 && buttonText3 ? 'no_vpn_table2' : 'no_vpn_table'}`);
       }
     });
 

@@ -294,6 +294,9 @@
   min-height: 126px;
   margin: 1em 0;
 }
+.c-productswithvpn-container.table_fixed_h .c-productswithvpn > div table:nth-of-type(2).no_vpn_table2, .c-productswithvpn-container.table_fixed_h .c-productswithvpn .vpn_box.no_vpn_table2 {
+  min-height: 0;
+}
 
 /* if has 4 elements */
 .c-productswithvpn-container.has4boxes .c-productswithvpn-wrapper {
