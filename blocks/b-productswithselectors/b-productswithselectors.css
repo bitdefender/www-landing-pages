@@ -156,6 +156,16 @@
   margin: 10px 0;
 }
 
+.b-productswithselectors .prices_box .custom_hide {
+  visibility: hidden !important;
+}
+.b-productswithselectors .prices_box .custom_hide span {
+  visibility: hidden !important;
+}
+.b-productswithselectors .prices_box .custom_hide span b {
+  visibility: hidden !important;
+}
+
 /* for mobile */
 @media (width <= 768px) {
   .b-productswithselectors-container {
