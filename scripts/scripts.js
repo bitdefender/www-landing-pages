@@ -17,7 +17,15 @@ import {
   sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,
 } from './adobeDataLayer.js';
 import {
-  addScript, getDefaultLanguage, getInstance, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices, GLOBAL_EVENTS,
+  addScript,
+  getDefaultLanguage,
+  getInstance,
+  isZuoraForNetherlandsLangMode,
+  productsList,
+  showLoaderSpinner,
+  showPrices,
+  GLOBAL_EVENTS,
+  adobeMcAppendVisitorId,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -163,7 +171,13 @@ async function loadLazy(doc) {
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon('https://www.bitdefender.com/favicon.ico');
 
-  if (window.location.pathname.indexOf('/drafts/') === -1) {
+  document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+    adobeMcAppendVisitorId('main');
+  });
+
+  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1 || true;
+
+  if (isPageNotInDraftsFolder) {
     addScript(getInstance() === 'prod'
       ? 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js'
       : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', () => {
