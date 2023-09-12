@@ -106,14 +106,12 @@ export function adobeMcAppendVisitorId(selector) {
     });
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*="bitdefender"]';
-    wrapperSelector.querySelectorAll(hrefSelector).forEach((href) => {
-      href.addEventListener('mousedown', (event) => {
-        const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(event.currentTarget.href);
-        event.currentTarget.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
-      });
+    wrapperSelector.querySelectorAll(hrefSelector).forEach((link) => {
+      const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link.href);
+      link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
   } catch (e) {
-    console.error('Failed to load https://assets.adobedtm.com script, Visitor will not be defined');
+    console.error(e);
   }
 }
 
