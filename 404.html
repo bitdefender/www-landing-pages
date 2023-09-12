@@ -35,31 +35,104 @@
       min-height: calc(100vh - var(--nav-height));
       display: flex;
       align-items: center;
+      justify-content: center;
+      flex-direction: column;
     }
 
     main.error .error-number {
       width: 100%;
+      font-size: 9rem;
+      font-weight: bold;
+      height: 150px;
+      margin: 0px;
+      text-align: center;
     }
 
-    main.error .error-number text {
-      font-family: var(--fixed-font-family);
+    main.error .error-message {
+      font-size: 32px;
+      margin: 0;
+    }
+    main.error .error-message-2 {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+
+    main.error .links-section {
+      border-radius: 1rem;
+      background-color: #f4f4f4;
+    }
+
+    main.error .links-pair {
+      display: flex;
+      flex-direction: column;
+    }
+
+    main.error .links-pair a {
+      color: #005ed9;
+      padding-bottom: 15px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    main.error .links-pair a::after {
+      background: url(/images/blue-arrow.svg);
+      content: "";
+      display: inline-block;
+      width: 15px;
+      height: 10px;
+      margin-left: 5px;
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+      background-size: cover;
+      -webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
+      transition: all .2s cubic-bezier(.4,0,.2,1);
+      position: relative;
+      top: 0;
+    }
+
+    main.error .popular-sections {
+      color: #676767;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    @media (width >= 576px) {
+      main.error .links-pair a {
+        width: 250px;
+      }
+
+      main.error .links-pair {
+        flex-direction: row;
+      }
     }
   </style>
+  <link rel="stylesheet" href="/styles/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="/styles/lazy-styles.css">
 </head>
 
 <body>
   <header></header>
-  <main class="error">
-    <div class="section">
-      <svg viewBox="1 0 38 18" class="error-number">
-        <text x="0" y="17">404</text>
-      </svg>
+  <main class="error section">
+      <h1 class="error-number">404</h1>
       <h2 class="error-message">Page Not Found</h2>
-      <p class="button-container">
-        <a href="/" class="button secondary error-button-home">Go home</a>
-      </p>
-    </div>
+      <p class="error-message-2">The page you are looking for might have been removed,<br class="d-none d-md-block"> had its name changed, or is temporarily unavailable.</p>
+      <div class="links-section p-5 my-5">
+        <h3 class="popular-sections text-center">Our most popular sections</h3>
+        <div>
+          <div class="links-pair">
+            <a href="https://bitdefender.com/solutions">Consumer Solutions</a>
+            <a href="https://bitdefender.com/consumer/support">Support for Home Products</a>
+          </div>
+          <div class="links-pair">
+            <a href="https://bitdefender.com/business">Business Solutions</a>
+            <a href="https://bitdefender.com/business/customer-portal/enterprise-standard-support.html"> Support for Business Products</a>
+          </div>
+          <div class="links-pair">
+            <a href="https://bitdefender.com/blog.html">Blog</a>
+            <a href="https://community.bitdefender.com/?adobe_mc=MCMID%3D81456644415834506274289340531997001586%7CMCORGID%3D0E920C0F53DA9E9B0A490D45%2540AdobeOrg%7CTS%3D1694427239">Community</a>
+          </div>
+        </div>
+      </div>
   </main>
   <footer></footer>
 </body>

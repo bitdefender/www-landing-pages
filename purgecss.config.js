@@ -19,5 +19,6 @@ module.exports = {
     'carousel-control-prev-icon',
     'pointer-event',
     'justify-content-end',
+    'p-5', 'my-5',
   ],
 };
