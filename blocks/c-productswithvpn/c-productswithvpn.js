@@ -132,6 +132,9 @@ export default function decorate(block) {
           pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
           pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
         }
+      } else {
+        pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+        pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       }
 
       block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table`).after(pricesDiv);
