@@ -183,6 +183,7 @@
   }
   .b-banner-container .banner-image {
     display: block;
+    height: 100%;
   }
   .b-banner-container .b-banner-wrapper {
     position: absolute;
