@@ -181,7 +181,7 @@ export default function decorate(block) {
       } else {
         pricesDiv.innerHTML += `<span class="prod-newprice newprice-${customPrice || onSelectorClass}">${customPrice || ''}</span>`;
       }
-      
+
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
 
       if (idx === 1 && buttonText2) {
