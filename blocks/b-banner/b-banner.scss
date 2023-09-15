@@ -37,6 +37,25 @@
     display: none;
   }
 
+  &.form {
+    height: auto;
+
+    .b-banner-wrapper {
+      table {
+        display: none;
+      }
+
+      p {
+        font-size: 11px;
+        margin: 0;
+
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
   .b-banner-wrapper {
     position: relative;
     padding-left: 0;
@@ -256,19 +275,6 @@
 
       .form-logo {
         width: 100px;
-      }
-
-      table {
-        display: none;
-      }
-
-      p {
-        font-size: 11px;
-        margin: 0;
-
-        a {
-          text-decoration: underline;
-        }
       }
 
       #formBox {
