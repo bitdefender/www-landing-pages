@@ -85,7 +85,9 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // create form section
   const hasForm = parentSelector.classList.contains('form');
-  if (hasForm) {
+  if (hash) {
+    block.classList.add('form-banner');
+
     // adding reCaptcha script
     const recaptchaScript = document.createElement('script');
     recaptchaScript.src = 'https://www.google.com/recaptcha/api.js';

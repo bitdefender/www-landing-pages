@@ -178,6 +178,72 @@
     .b-banner {
       z-index: 1;
   
+      &.form-banner {
+        h1 {
+          font-size: 23px;
+          font-weight: bold;
+        }
+    
+        h2 {
+          font-size: 20px;
+          font-weight: normal;
+        }
+  
+        h3 {
+          font-size: 18px;
+          font-weight: bold;
+        }
+  
+        h4 {
+          font-size: 18px;
+          font-weight: bold;
+        }
+  
+        .form-logo {
+          width: 100px;
+        }
+  
+        table {
+          display: none;
+        }
+  
+        p {
+          font-size: 11px;
+          margin: 0;
+  
+          a {
+            text-decoration: underline;
+          }
+        }
+  
+        #formBox {
+          width: 215px;
+          margin-bottom: 1em;
+  
+          label {
+            display: none;
+            font-size: 11px;
+          }
+  
+          input {
+            font-size: 14px;
+            border-radius: 8px;
+            padding: 13px 15px;
+            line-height: 14px;
+          }
+  
+          button {
+            width: 100%;
+            border-radius: 8px;
+          }
+  
+          p.form_err {
+            font-size: 12px;
+            color: red;
+          }
+        }
+      }
+
       &.bigger-award-and-text {
         table {
           tbody {
@@ -225,76 +291,6 @@
           width: 160px;
           display: block;
           float: none;
-        }
-      }
-    }
-  }
-
-  &.form {
-    height: auto;
-
-    .b-banner-wrapper {
-      h1 {
-        font-size: 23px;
-        font-weight: bold;
-      }
-  
-      h2 {
-        font-size: 20px;
-        font-weight: normal;
-      }
-
-      h3 {
-        font-size: 18px;
-        font-weight: bold;
-      }
-
-      h4 {
-        font-size: 18px;
-        font-weight: bold;
-      }
-
-      .form-logo {
-        width: 100px;
-      }
-
-      table {
-        display: none;
-      }
-
-      p {
-        font-size: 11px;
-        margin: 0;
-
-        a {
-          text-decoration: underline;
-        }
-      }
-
-      #formBox {
-        width: 215px;
-        margin-bottom: 1em;
-
-        label {
-          display: none;
-          font-size: 11px;
-        }
-
-        input {
-          font-size: 14px;
-          border-radius: 8px;
-          padding: 13px 15px;
-          line-height: 14px;
-        }
-
-        button {
-          width: 100%;
-          border-radius: 8px;
-        }
-
-        p.form_err {
-          font-size: 12px;
-          color: red;
         }
       }
     }
