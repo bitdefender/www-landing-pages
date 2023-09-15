@@ -114,10 +114,10 @@ export default function decorate(block) {
 
     parentSelector.querySelector('table').before(formBox);
 
-
-    function validateEmail(email) {
+    const validateEmail = (email) => {
       return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
     }
+
     formBox.addEventListener('submit', (event) => {
       event.preventDefault();
       // grecaptcha.execute();
