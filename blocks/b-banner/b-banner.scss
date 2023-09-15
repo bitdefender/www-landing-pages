@@ -276,20 +276,25 @@
     padding: 2em 0;
     height: 500px;
   }
+
   .b-banner-container.bigger-banner {
     height: 625px;
   }
+
   .b-banner-container.even-bigger-banner {
     height: 725px;
   }
+
   .b-banner-container.negative {
     display: block;
     margin-bottom: -400px;
   }
+
   .b-banner-container .banner-image {
     display: block;
     height: 100%;
   }
+
   .b-banner-container .b-banner-wrapper {
     position: absolute;
     height: 100%;
@@ -298,32 +303,41 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+
   .b-banner-container .b-banner-wrapper h1, .b-banner-container .b-banner-wrapper h2 {
     max-width: 60%;
   }
+
   .b-banner-container .b-banner-wrapper #bannerAward {
     width: 200px;
     position: absolute;
   }
+
   .b-banner-container.form .b-banner-wrapper h1 {
     font-size: 36px;
   }
+
   .b-banner-container.form .b-banner-wrapper h2 {
     font-size: 36px;
   }
+
   .b-banner-container.form .b-banner-wrapper h3, .b-banner-container.form .b-banner-wrapper h4 {
     font-size: 20px;
   }
+
   .b-banner-container.form .b-banner-wrapper form-logo {
     width: 125px;
   }
+
   .b-banner-container .hasDiscount {
     display: block;
   }
+
   .b-banner-container .hasDiscount img {
     width: auto;
     float: right;
   }
+
   .b-banner-container .hasDiscount div {
     background: url("../../images/bubble_discount.png") no-repeat 0 0 transparent;
     position: absolute;
@@ -338,6 +352,7 @@
     justify-content: center;
     align-items: center;
   }
+
   .b-banner-container .hasDiscount div span {
     color: red;
     display: block;
@@ -346,14 +361,17 @@
     font-size: 40px;
     text-align: center;
   }
+
   .b-banner-container .hasDiscount div span:last-of-type {
     font-size: 22px;
   }
 }
+
 @media screen and (width >= 989px) {
   .b-banner-container {
     padding: 0;
   }
+
   .b-banner-container .banner-image img {
     display: block;
     height: 100%;
@@ -362,10 +380,12 @@
     max-width: none;
     margin-right: -15px;
   }
+
   .b-banner-container .b-banner-wrapper {
     left: 0;
     right: 0;
   }
+
   .b-banner-container .b-banner-wrapper .banner-image--in-container img {
     display: block;
     position: absolute;
@@ -373,6 +393,7 @@
     right: 0;
     z-index: -1;
   }
+
   .b-banner-container .b-banner-wrapper h1 {
     font-size: 35px;
     max-width: 610px;
@@ -380,6 +401,7 @@
     padding-bottom: 0;
     margin-bottom: 0;
   }
+
   .b-banner-container .b-banner-wrapper h2 {
     font-weight: 700;
     font-size: 35px;
@@ -387,17 +409,21 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+
   .b-banner-container .b-banner-wrapper p {
     max-width: 610px;
   }
+
   .b-banner-container .b-banner-wrapper .smaller-text h2 {
     font-size: 18px;
     font-weight: 500;
     margin: 1em 0;
   }
+
   .b-banner-container .b-banner-wrapper .prod-percent.green_bck_pill {
     font-size: 18px;
   }
+
   .b-banner-container.center-background-image .banner-image img {
     display: block;
     height: 100%;
@@ -407,15 +433,18 @@
     position: absolute;
     right: -50%;
   }
+
   .b-banner-container .hasDiscount div {
     right: 5%;
     top: 10%;
   }
 }
+  
 @media screen and (width >= 1199px) {
   .b-banner-container.bigger-banner {
     height: 625px;
   }
+
   .b-banner-container.center-background-image .banner-image img {
     display: block;
     height: 100%;
@@ -425,15 +454,19 @@
     position: absolute;
     right: -20%;
   }
+
   .b-banner-container .hasDiscount div {
     right: 15%;
     top: 15%;
   }
+
   .b-banner-wrapper {
     left: 0;
     right: 0;
   }
+
 }
+
 @media screen and (width >= 1920px) {
   .b-banner-container.center-background-image .banner-image img {
     display: block;
