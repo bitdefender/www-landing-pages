@@ -114,10 +114,6 @@ export default function decorate(block) {
 
     parentSelector.querySelector('table').before(formBox);
 
-    const validateEmail = (email) => {
-      return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
-    }
-
     formBox.addEventListener('submit', (event) => {
       event.preventDefault();
       // grecaptcha.execute();
@@ -127,7 +123,7 @@ export default function decorate(block) {
       const formBtn = formBox.querySelector('button');
       const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
 
-      if (validateEmail(email) && email.includes('@energizer.com')) {
+      if (email.includes('@energizer.com')) {
         formBtn.disabled = true;
         formBox.classList.add('await-loader');
         formErr.style.display = 'none';
