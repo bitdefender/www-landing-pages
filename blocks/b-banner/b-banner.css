@@ -30,6 +30,50 @@
 .b-banner-container.form {
   height: auto;
 }
+.b-banner-container.form {
+  height: auto;
+}
+.b-banner-container.form .b-banner-wrapper h1 {
+  font-size: 23px;
+  font-weight: bold;
+}
+.b-banner-container.form .b-banner-wrapper h2 {
+  font-size: 20px;
+  font-weight: normal;
+}
+.b-banner-container.form .b-banner-wrapper h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+.b-banner-container.form .b-banner-wrapper h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+.b-banner-container.form .b-banner-wrapper .form-logo {
+  width: 100px;
+}
+.b-banner-container.form .b-banner-wrapper #formBox {
+  width: 215px;
+  margin-bottom: 1em;
+}
+.b-banner-container.form .b-banner-wrapper #formBox label {
+  display: none;
+  font-size: 11px;
+}
+.b-banner-container.form .b-banner-wrapper #formBox input {
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 13px 15px;
+  line-height: 14px;
+}
+.b-banner-container.form .b-banner-wrapper #formBox button {
+  width: 100%;
+  border-radius: 8px;
+}
+.b-banner-container.form .b-banner-wrapper #formBox p.form_err {
+  font-size: 12px;
+  color: red;
+}
 .b-banner-container.form .b-banner-wrapper table {
   display: none;
 }
@@ -177,50 +221,6 @@
   width: 160px;
   display: block;
   float: none;
-}
-.b-banner-container.form {
-  height: auto;
-}
-.b-banner-container.form .b-banner-wrapper h1 {
-  font-size: 23px;
-  font-weight: bold;
-}
-.b-banner-container.form .b-banner-wrapper h2 {
-  font-size: 20px;
-  font-weight: normal;
-}
-.b-banner-container.form .b-banner-wrapper h3 {
-  font-size: 18px;
-  font-weight: bold;
-}
-.b-banner-container.form .b-banner-wrapper h4 {
-  font-size: 18px;
-  font-weight: bold;
-}
-.b-banner-container.form .b-banner-wrapper .form-logo {
-  width: 100px;
-}
-.b-banner-container.form .b-banner-wrapper #formBox {
-  width: 215px;
-  margin-bottom: 1em;
-}
-.b-banner-container.form .b-banner-wrapper #formBox label {
-  display: none;
-  font-size: 11px;
-}
-.b-banner-container.form .b-banner-wrapper #formBox input {
-  font-size: 14px;
-  border-radius: 8px;
-  padding: 13px 15px;
-  line-height: 14px;
-}
-.b-banner-container.form .b-banner-wrapper #formBox button {
-  width: 100%;
-  border-radius: 8px;
-}
-.b-banner-container.form .b-banner-wrapper #formBox p.form_err {
-  font-size: 12px;
-  color: red;
 }
 
 @media screen and (width >= 768px) {
