@@ -84,7 +84,6 @@ export default function decorate(block) {
 
   /// ///////////////////////////////////////////////////////////////////////
   // create form section
-  const hasForm = parentSelector.classList.contains('form');
   if (hash) {
     block.classList.add('form-banner');
 
