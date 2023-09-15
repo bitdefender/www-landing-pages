@@ -132,7 +132,7 @@ export default function decorate(block) {
         formBox.classList.add('await-loader');
         formErr.style.display = 'none';
 
-        fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+        fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
           method: 'POST',
           body: new FormData(document.getElementById('formBox')),
         }).then((response) => response.json())
