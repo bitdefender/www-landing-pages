@@ -846,20 +846,6 @@ main .section.highlight {
     width: 100% !important;
   }
 
-  .below-form-banner {
-    width: 95%;
-    flex-direction: column;
-
-    > div {
-      width: 100%;
-
-      &:nth-child(1) p:nth-child(1) {
-        font-size: 24px;
-        line-height: 32px;
-      }
-    }
-  }
-
   .prod-percent.green_bck_pill {
     margin-left: 0 !important;
     font-size: 16px;
@@ -947,6 +933,20 @@ main .section.highlight {
 
   main .default-content-wrapper p {
     font-size: 16px;
+  }
+
+  .below-form-banner {
+    width: 95%;
+    flex-direction: column;
+
+    > div {
+      width: 100%;
+
+      &:nth-child(1) p:nth-child(1) {
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
   }
 
   .red-buy-button p em {
