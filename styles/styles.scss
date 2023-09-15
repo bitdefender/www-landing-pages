@@ -681,6 +681,10 @@ main .section.highlight {
   text-decoration: none !important;
 }
 
+.green-buy-button {
+  background: #21B53D !important;
+}
+
 .red-buy-button:hover {
   background: #b33027 !important;
   text-decoration: none;
@@ -736,6 +740,61 @@ main .section.highlight {
   min-height: 1em;
 }
 
+.below-form-banner {
+  border: 2px solid #EAEAEA;
+  border-radius: 10px;
+  display: flex;
+  width: 768px;
+  margin: 3em auto 0;
+  padding: 0!important;
+
+  > div {
+    width: 50%;
+    padding: 1em;
+
+    &:nth-child(1) {
+      text-align: center;
+
+      p:nth-child(1) {
+        font-size: 24px;
+        line-height: 32px;
+      }
+
+      p:nth-child(2) {
+        font-size: 16px;
+      }
+
+      p:nth-child(3) {
+        font-size: 14px;
+        border-top: 1px solid #E5E5E5;
+        border-bottom: 1px solid #E5E5E5;
+        margin: 10px;
+        padding: 5px 0;
+      }
+    }
+
+    &:nth-child(2) {
+      background-color: #F7F6F7;
+
+      ul {
+        padding-left: 0;
+
+        li {
+          font-size: 14px;
+          background: url("../../images/icons/simple_green_check.png") 0 3px no-repeat transparent;
+          list-style-type: none;
+          padding-left: 23px;
+          background-size: 16px;
+          line-height: 20px;
+          color: #000;
+          text-align: left;
+          margin-top: 6px;
+        }
+      }
+    }
+  }
+}
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
@@ -785,6 +844,20 @@ main .section.highlight {
     margin: 6px 0;
     padding: 5px;
     width: 100% !important;
+  }
+
+  .below-form-banner {
+    width: 95%;
+    flex-direction: column;
+
+    > div {
+      width: 100%;
+
+      &:nth-child(1) p:nth-child(1) {
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
   }
 
   .prod-percent.green_bck_pill {
