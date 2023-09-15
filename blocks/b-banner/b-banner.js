@@ -99,16 +99,16 @@ export default function decorate(block) {
     formBox.id = 'formBox';
     formBox.action = '?';
     formBox.method = 'POST';
-    
+
     if (inputText) {
       formBox.innerHTML = '<label for="fromEmail">Email:</label>';
-      formBox.innerHTML += `<p class="form_err"></p>`;
+      formBox.innerHTML += '<p class="form_err"></p>';
       formBox.innerHTML += `<input class='input' id='fromEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email' data-hash='${hash}'></input>`;
       formBox.innerHTML += `<input class="normal spreads_country" name='nfo[hash_page]' type='hidden' value='${hash}'/>`;
     }
 
     if (buttonText) {
-      formBox.innerHTML += `<div class="g-recaptcha" data-sitekey="6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR" data-size="invisible" data-callback="onSubmit"></div>`;
+      formBox.innerHTML += '<div class="g-recaptcha" data-sitekey="6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR" data-size="invisible" data-callback="onSubmit"></div>';
       formBox.innerHTML += `<button class='green-buy-button'>${buttonText.innerText}</button>`;
     }
 
@@ -116,16 +116,16 @@ export default function decorate(block) {
 
 
     function validateEmail(email) {
-      return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+      return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
     }
-    formBox.addEventListener('submit', function(event) {
+    formBox.addEventListener('submit', (event) => {
       event.preventDefault();
-      grecaptcha.execute();
+      // grecaptcha.execute();
 
       const email = document.getElementById('fromEmail').value;
       const formErr = formBox.querySelector('.form_err');
       const formBtn = formBox.querySelector('button');
-      const formErrData = {'001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha',}
+      const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
 
       if (validateEmail(email) && email.includes('@energizer.com')) {
         formBtn.disabled = true;
@@ -135,19 +135,19 @@ export default function decorate(block) {
         fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotionsPages', {
           method: 'POST',
           body: new FormData(document.getElementById('formBox')),
-        }).then(response => response.json())
-          .then(json_obj => {
-            if (json_obj.error) {
+        }).then((response) => response.json())
+          .then((jsonObj) => {
+            if (jsonObj.error) {
               formErr.style.display = 'block';
-              formErr.innerText = formErrData[json_obj.error] || 'Please try again later';
-            } else if (json_obj.success) {
-              window.location.replace(json_obj.redirect);
+              formErr.innerText = formErrData[jsonObj.error] || 'Please try again later';
+            } else if (jsonObj.success) {
+              window.location.replace(jsonObj.redirect);
             }
 
             formBtn.disabled = false;
             formBox.classList.remove('await-loader');
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
             formBtn.disabled = false;
             formBox.classList.remove('await-loader');
@@ -158,8 +158,6 @@ export default function decorate(block) {
       }
     });
   }
-
-
 
   // has award in banner
   if (block.children.length === 3) {
