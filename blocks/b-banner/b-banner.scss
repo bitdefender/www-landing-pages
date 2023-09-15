@@ -78,6 +78,15 @@
   padding-left: 10px;
 }
 
+.b-banner-container.form .b-banner-wrapper p {
+  font-size: 11px;
+  margin: 0;
+}
+
+.b-banner-container.form .b-banner-wrapper p a {
+  text-decoration: underline;
+}
+
 .b-banner-container .b-banner-wrapper table tbody tr td p:nth-child(2) {
   font-size: 12px;
 }
@@ -260,15 +269,6 @@
 
 .b-banner-container.form .b-banner-wrapper table {
   display: none;
-}
-
-.b-banner-container.form .b-banner-wrapper p {
-  font-size: 11px;
-  margin: 0;
-}
-
-.b-banner-container.form .b-banner-wrapper p a {
-  text-decoration: underline;
 }
 
 @media screen and (width >= 768px) {
