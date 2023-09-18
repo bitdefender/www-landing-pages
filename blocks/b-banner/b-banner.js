@@ -29,7 +29,7 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, imageInContainer, blueBorder, logo,  config, biggerBanner,
+    headerTextColor, imageInContainer, blueBorder, logo, config, biggerBanner,
   } = metaData;
 
   // move picture below
