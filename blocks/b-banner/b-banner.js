@@ -29,7 +29,7 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, imageInContainer, blueBorder, logo, hash, biggerBanner,
+    headerTextColor, imageInContainer, blueBorder, logo, hash, config, biggerBanner,
   } = metaData;
 
   // move picture below
@@ -84,7 +84,8 @@ export default function decorate(block) {
 
   /// //////////////////////////////////////////////////////////////////////
   // create form section
-  if (hash) {
+  if (config) {
+    const [hash, begin_date, end_date, prod, no_days, no_users, keys, allowed_email, allowed_countries] = config.split(',');
     block.classList.add('form-banner');
 
     // adding reCaptcha script
@@ -104,8 +105,8 @@ export default function decorate(block) {
     if (inputText) {
       formBox.innerHTML = '<label for="fromEmail">Email:</label>';
       formBox.innerHTML += '<p class="form_err"></p>';
-      formBox.innerHTML += `<input class='input' id='fromEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email' data-hash='${hash}'></input>`;
-      formBox.innerHTML += `<input class="normal spreads_country" name='nfo[hash_page]' type='hidden' value='${hash}'/>`;
+      formBox.innerHTML += `<input class='input' id='fromEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>`;
+      formBox.innerHTML += `<input class='input' name='nfo[hash_page]' placeholder='${inputText.innerText}' value='${hash.split(':')[1].trim()}' type='hidden'></input>`;
     }
 
     if (buttonText) {
@@ -129,9 +130,21 @@ export default function decorate(block) {
         formBox.classList.add('await-loader');
         formErr.style.display = 'none';
 
-        fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+        const formData = new FormData(document.getElementById('formBox'));
+        formData.append('nfo[hash]', hash.split(':')[1].trim());
+        formData.append('nfo[prod]', prod.split(':')[1].trim());
+        formData.append('nfo[max_keys]', keys.split(':')[1].trim());
+        formData.append('nfo[begin_date]', begin_date.split(':')[1].trim());
+        formData.append('nfo[end_date]', end_date.split(':')[1].trim());
+        formData.append('nfo[no_days]', no_days.split(':')[1].trim());
+        formData.append('nfo[no_users]', no_users.split(':')[1].trim());
+        formData.append('nfo[allowed_email]', allowed_email.split(':')[1].trim());
+        formData.append('nfo[allowed_countries]', allowed_countries.split(':')[1].trim());
+        
+        fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+        // fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotions2020', {
           method: 'POST',
-          body: new FormData(document.getElementById('formBox')),
+          body: formData,
         }).then((response) => response.json())
           .then((jsonObj) => {
             if (jsonObj.error) {
