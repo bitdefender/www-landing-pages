@@ -29,7 +29,7 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, imageInContainer, blueBorder, logo, hash, config, biggerBanner,
+    headerTextColor, imageInContainer, blueBorder, logo,  config, biggerBanner,
   } = metaData;
 
   // move picture below
@@ -85,7 +85,7 @@ export default function decorate(block) {
   /// //////////////////////////////////////////////////////////////////////
   // create form section
   if (config) {
-    const [hash, begin_date, end_date, prod, no_days, no_users, keys, allowed_email, allowed_countries] = config.split(',');
+    const [hash, beginDate, endDate, prod, noDays, noUsers, keys, allowedEmail, allowedCountries] = config.split(',');
     block.classList.add('form-banner');
 
     // adding reCaptcha script
@@ -134,12 +134,12 @@ export default function decorate(block) {
         formData.append('nfo[hash]', hash.split(':')[1].trim());
         formData.append('nfo[prod]', prod.split(':')[1].trim());
         formData.append('nfo[max_keys]', keys.split(':')[1].trim());
-        formData.append('nfo[begin_date]', begin_date.split(':')[1].trim());
-        formData.append('nfo[end_date]', end_date.split(':')[1].trim());
-        formData.append('nfo[no_days]', no_days.split(':')[1].trim());
-        formData.append('nfo[no_users]', no_users.split(':')[1].trim());
-        formData.append('nfo[allowed_email]', allowed_email.split(':')[1].trim());
-        formData.append('nfo[allowed_countries]', allowed_countries.split(':')[1].trim());
+        formData.append('nfo[begin_date]', beginDate.split(':')[1].trim());
+        formData.append('nfo[end_date]', endDate.split(':')[1].trim());
+        formData.append('nfo[no_days]', noDays.split(':')[1].trim());
+        formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
+        formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
+        formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
         
         fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotionsPages', {
         // fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotions2020', {
