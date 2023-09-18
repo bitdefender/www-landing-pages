@@ -141,7 +141,7 @@ export default function decorate(block) {
         formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
         formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
 
-        fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+        fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
         // fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotions2020', {
           method: 'POST',
           body: formData,
