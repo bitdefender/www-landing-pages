@@ -29,7 +29,7 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, imageInContainer, blueBorder, biggerBanner,
+    headerTextColor, imageInContainer, blueBorder, logo, config, biggerBanner,
   } = metaData;
 
   // move picture below
@@ -70,6 +70,103 @@ export default function decorate(block) {
 
   if (bottom) {
     parentSelector.classList.add(bottom);
+  }
+
+  /// ///////////////////////////////////////////////////////////////////////
+  // adding logo
+  if (logo) {
+    const logoBox = document.createElement('img');
+    logoBox.src = logo;
+    logoBox.alt = 'Bitdefender';
+    logoBox.className = 'form-logo';
+    block.children[0].children[0].prepend(logoBox);
+  }
+
+  /// //////////////////////////////////////////////////////////////////////
+  // create form section
+  if (config) {
+    const [hash, beginDate, endDate, prod, noDays, noUsers, keys, allowedEmail, allowedCountries] = config.split(',');
+    block.classList.add('form-banner');
+
+    // adding reCaptcha script
+    const recaptchaScript = document.createElement('script');
+    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js';
+    recaptchaScript.async = true;
+    recaptchaScript.defer = true;
+    document.body.appendChild(recaptchaScript);
+
+    // Create the form element
+    const formBox = document.createElement('form');
+    const [inputText, buttonText] = parentSelector.querySelectorAll('table td');
+    formBox.id = 'formBox';
+    formBox.action = '?';
+    formBox.method = 'POST';
+
+    if (inputText) {
+      formBox.innerHTML = '<label for="fromEmail">Email:</label>';
+      formBox.innerHTML += '<p class="form_err"></p>';
+      formBox.innerHTML += `<input class='input' id='fromEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>`;
+      formBox.innerHTML += `<input class='input' name='nfo[hash_page]' placeholder='${inputText.innerText}' value='${hash.split(':')[1].trim()}' type='hidden'></input>`;
+    }
+
+    if (buttonText) {
+      formBox.innerHTML += '<div class="g-recaptcha" data-sitekey="6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR" data-size="invisible" data-callback="onSubmit"></div>';
+      formBox.innerHTML += `<button class='green-buy-button'>${buttonText.innerText}</button>`;
+    }
+
+    parentSelector.querySelector('table').before(formBox);
+
+    formBox.addEventListener('submit', (event) => {
+      event.preventDefault();
+      // grecaptcha.execute();
+
+      const email = document.getElementById('fromEmail').value;
+      const formErr = formBox.querySelector('.form_err');
+      const formBtn = formBox.querySelector('button');
+      const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
+
+      if (email.includes('@energizer.com')) {
+        formBtn.disabled = true;
+        formBox.classList.add('await-loader');
+        formErr.style.display = 'none';
+
+        const formData = new FormData(document.getElementById('formBox'));
+        formData.append('nfo[hash]', hash.split(':')[1].trim());
+        formData.append('nfo[prod]', prod.split(':')[1].trim());
+        formData.append('nfo[max_keys]', keys.split(':')[1].trim());
+        formData.append('nfo[begin_date]', beginDate.split(':')[1].trim());
+        formData.append('nfo[end_date]', endDate.split(':')[1].trim());
+        formData.append('nfo[no_days]', noDays.split(':')[1].trim());
+        formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
+        formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
+        formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
+
+        fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+        // fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotions2020', {
+          method: 'POST',
+          body: formData,
+        }).then((response) => response.json())
+          .then((jsonObj) => {
+            if (jsonObj.error) {
+              formErr.style.display = 'block';
+              formErr.innerText = formErrData[jsonObj.error] || 'Please try again later';
+            } else if (jsonObj.success) {
+              window.location.replace(jsonObj.redirect);
+            }
+
+            formBtn.disabled = false;
+            formBox.classList.remove('await-loader');
+          })
+          .catch((error) => {
+            console.error(error);
+            formBtn.disabled = false;
+            formBox.classList.remove('await-loader');
+          });
+      } else {
+        formErr.style.display = 'block';
+        formErr.innerText = 'Invalid email address';
+      }
+    });
   }
 
   // has award in banner
