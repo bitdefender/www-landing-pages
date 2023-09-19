@@ -93,6 +93,7 @@ export default function decorate(block) {
     recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
     recaptchaScript.defer = true;
     document.body.appendChild(recaptchaScript);
+    /* global grecaptcha */
 
     // Create the form element
     const formBox = document.createElement('form');
@@ -111,13 +112,11 @@ export default function decorate(block) {
       formBox.innerHTML += `<button class='green-buy-button'>${buttonText.innerText}</button>`;
       formBox.innerHTML += '<div id="captchaBox"></div>';
       window.onRecaptchaLoadCallback = () => {
-        if (grecaptcha) {
-          window.clientId = grecaptcha.render('captchaBox', {
-            sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
-            badge: 'inline',
-            size: 'invisible',
-          });
-        }
+        window.clientId = grecaptcha.render('captchaBox', {
+          sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
+          badge: 'inline',
+          size: 'invisible',
+        });
       };
     }
 
@@ -125,9 +124,7 @@ export default function decorate(block) {
 
     formBox.addEventListener('submit', async (event) => {
       event.preventDefault();
-      if (grecaptcha) {
-        const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
-      }
+      const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
 
       const email = document.getElementById('formEmail').value;
       const formErr = formBox.querySelector('.form_err');
