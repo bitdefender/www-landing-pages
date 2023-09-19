@@ -160,6 +160,7 @@ export default function decorate(block) {
 
       aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
       aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
+      aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
 
       // if has custom link buy
       if (buttonText1 || buttonText2 || buttonText3) {
@@ -180,6 +181,7 @@ export default function decorate(block) {
           aBuybtn.innerHTML = btnText;
           aBuybtn.className = 'red-buy-button buylink-custom';
           aBuybtn.setAttribute('href', btnLink);
+          aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
         }
       }
 

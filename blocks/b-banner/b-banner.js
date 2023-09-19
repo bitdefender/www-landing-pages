@@ -90,8 +90,7 @@ export default function decorate(block) {
 
     // adding reCaptcha script
     const recaptchaScript = document.createElement('script');
-    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js';
-    recaptchaScript.async = true;
+    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
     recaptchaScript.defer = true;
     document.body.appendChild(recaptchaScript);
 
@@ -103,24 +102,32 @@ export default function decorate(block) {
     formBox.method = 'POST';
 
     if (inputText) {
-      formBox.innerHTML = '<label for="fromEmail">Email:</label>';
+      formBox.innerHTML = '<label for="formEmail">Email:</label>';
       formBox.innerHTML += '<p class="form_err"></p>';
-      formBox.innerHTML += `<input class='input' id='fromEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>`;
-      formBox.innerHTML += `<input class='input' name='nfo[hash_page]' placeholder='${inputText.innerText}' value='${hash.split(':')[1].trim()}' type='hidden'></input>`;
+      formBox.innerHTML += `<input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>`;
+      
     }
 
     if (buttonText) {
-      formBox.innerHTML += '<div class="g-recaptcha" data-sitekey="6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR" data-size="invisible" data-callback="onSubmit"></div>';
       formBox.innerHTML += `<button class='green-buy-button'>${buttonText.innerText}</button>`;
+      formBox.innerHTML += '<div id="captchaBox"></div>';
+      window.onRecaptchaLoadCallback = function () {
+        window.clientId = grecaptcha.render('captchaBox', {
+          'sitekey': '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
+          'badge': 'inline',
+          'size': 'invisible'
+        });
+      }
     }
 
     parentSelector.querySelector('table').before(formBox);
 
-    formBox.addEventListener('submit', (event) => {
-      event.preventDefault();
-      // grecaptcha.execute();
 
-      const email = document.getElementById('fromEmail').value;
+    formBox.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const captchaToken = await grecaptcha.execute(window.clientId, {action: 'submit'});
+
+      const email = document.getElementById('formEmail').value;
       const formErr = formBox.querySelector('.form_err');
       const formBtn = formBox.querySelector('button');
       const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
@@ -140,8 +147,9 @@ export default function decorate(block) {
         formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
         formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
         formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
+        formData.append('nfo[captcha_token]', captchaToken);
 
-        fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+        fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotionsPages', {
         // fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotions2020', {
           method: 'POST',
           body: formData,
