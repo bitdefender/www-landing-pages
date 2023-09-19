@@ -138,7 +138,7 @@ export default function decorate(block) {
         formErr.style.display = 'none';
 
         const formData = new FormData(document.getElementById('formBox'));
-        formData.append('nfo[hash]', hash.split(':')[1].trim());
+        formData.append('nfo[hash_page]', hash.split(':')[1].trim());
         formData.append('nfo[prod]', prod.split(':')[1].trim());
         formData.append('nfo[max_keys]', keys.split(':')[1].trim());
         formData.append('nfo[begin_date]', beginDate.split(':')[1].trim());
@@ -149,8 +149,7 @@ export default function decorate(block) {
         formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
         formData.append('nfo[captcha_token]', captchaToken);
 
-        fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotionsPages', {
-        // fetch('https://ltiseanu.bitdefender.com/site/Promotions/spreadPromotions2020', {
+        fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
           method: 'POST',
           body: formData,
         }).then((response) => response.json())
