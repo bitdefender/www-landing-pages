@@ -105,27 +105,25 @@ export default function decorate(block) {
       formBox.innerHTML = '<label for="formEmail">Email:</label>';
       formBox.innerHTML += '<p class="form_err"></p>';
       formBox.innerHTML += `<input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>`;
-      
     }
 
     if (buttonText) {
       formBox.innerHTML += `<button class='green-buy-button'>${buttonText.innerText}</button>`;
       formBox.innerHTML += '<div id="captchaBox"></div>';
-      window.onRecaptchaLoadCallback = function () {
-        window.clientId = grecaptcha.render('captchaBox', {
+      window.onRecaptchaLoadCallback = () => {
+        window.clientId = grecaptcha?.render('captchaBox', {
           'sitekey': '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
           'badge': 'inline',
-          'size': 'invisible'
+          'size': 'invisible',
         });
       }
     }
 
     parentSelector.querySelector('table').before(formBox);
 
-
     formBox.addEventListener('submit', async (event) => {
       event.preventDefault();
-      const captchaToken = await grecaptcha.execute(window.clientId, {action: 'submit'});
+      const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
 
       const email = document.getElementById('formEmail').value;
       const formErr = formBox.querySelector('.form_err');
