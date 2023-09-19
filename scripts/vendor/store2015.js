@@ -271,10 +271,9 @@ StoreProducts.initSelector = function (config) {
       // }
 
       let forceBussiness = false;
-      if (typeof geoip_code !== 'undefined' && ['bus-security', 'adv_security', 'elite_1000', 'abs_1000', 'bs_1000', 'p_management', 'fde'].indexOf(so.product_id) > -1 && ['us', 'uk', 'gb', 'ro', 'fr', 'ca', 'de', 'es', 'it', 'pt', 'nl', 'se', 'au', 'br', 'no'].indexOf(geoip_code) == -1) {
+      const siteSection = window.location.pathname.indexOf('/business/') !== -1 ? 'business' : 'consumer';
+      if (siteSection === 'business') {
         forceBussiness = true;
-
-        BASE_URI = 'https://www.bitdefender.com/site';
       }
 
       let BASE_URI = 'https://www.bitdefender.com/site';
@@ -313,8 +312,14 @@ StoreProducts.initSelector = function (config) {
         if (forceBussiness == true) {
           urlParams.force_country = 'us';
         }
-        if ('force_country' in urlParams) {
+
+        // if it's us
+        if (window.location.pathname.indexOf(`/us/`) !== -1) {
           url = `${url}?force_country=${urlParams.force_country}`;
+        } else {
+          if ('force_country' in urlParams) {
+            url = `${url}?force_country=${urlParams.force_country}`;
+          }
         }
       } catch (ex) {
         console.log(ex);
