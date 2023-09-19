@@ -112,11 +112,11 @@ export default function decorate(block) {
       formBox.innerHTML += '<div id="captchaBox"></div>';
       window.onRecaptchaLoadCallback = () => {
         window.clientId = grecaptcha?.render('captchaBox', {
-          'sitekey': '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
-          'badge': 'inline',
-          'size': 'invisible',
+          sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
+          badge: 'inline',
+          size: 'invisible',
         });
-      }
+      };
     }
 
     parentSelector.querySelector('table').before(formBox);
