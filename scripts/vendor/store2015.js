@@ -312,13 +312,14 @@ StoreProducts.initSelector = function (config) {
         if (forceBussiness == true) {
           urlParams.force_country = 'us';
         }
-        /*if ('force_country' in urlParams) {
-          url = `${url}?force_country=${urlParams.force_country}`;
-        }*/
 
         // if it's us
         if (window.location.pathname.indexOf(`/us/`) !== -1) {
           url = `${url}?force_country=${urlParams.force_country}`;
+        } else {
+          if ('force_country' in urlParams) {
+            url = `${url}?force_country=${urlParams.force_country}`;
+          }
         }
       } catch (ex) {
         console.log(ex);
