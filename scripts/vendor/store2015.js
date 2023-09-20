@@ -309,9 +309,9 @@ StoreProducts.initSelector = function (config) {
       }
 
       try {
-        if (forceBussiness == true) {
+        /* if (forceBussiness == true) {
           urlParams.force_country = 'us';
-        }
+        }*/
 
         // if it's us
         if (window.location.pathname.indexOf(`/us/`) !== -1) {
