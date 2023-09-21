@@ -820,11 +820,11 @@ function eventOnDropdownSlider() {
 }
 
 function appendMetaReferrer() {
-  var metaTag = document.createElement('meta');
+  const metaTag = document.createElement('meta');
   metaTag.name = 'referrer';
   metaTag.content = 'no-referrer-when-downgrade';
 
-  var head = document.head || document.getElementsByTagName('head')[0];
+  const head = document.head || document.getElementsByTagName('head')[0];
 
   head.appendChild(metaTag);
 }
