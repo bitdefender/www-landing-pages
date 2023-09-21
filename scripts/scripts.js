@@ -819,6 +819,16 @@ function eventOnDropdownSlider() {
   });
 }
 
+function appendMetaReferrer() {
+  var metaTag = document.createElement('meta');
+  metaTag.name = 'referrer';
+  metaTag.content = 'no-referrer-when-downgrade';
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+
+  head.appendChild(metaTag);
+}
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
@@ -830,6 +840,8 @@ async function loadPage() {
   initializeProductsPriceLogic();
 
   eventOnDropdownSlider();
+
+  appendMetaReferrer();
 
   loadDelayed();
 }
