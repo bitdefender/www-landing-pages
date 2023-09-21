@@ -314,6 +314,7 @@ StoreProducts.initSelector = function (config) {
         }*/
 
         // if it's us
+        console.log('loadedd');
         if (window.location.pathname.indexOf(`/us/`) !== -1) {
           url = `${url}?force_country=us`;
         } else {
