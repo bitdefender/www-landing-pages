@@ -315,7 +315,7 @@ StoreProducts.initSelector = function (config) {
 
         // if it's us
         if (window.location.pathname.indexOf(`/us/`) !== -1) {
-          url = `${url}?force_country=${urlParams.force_country}`;
+          url = `${url}?force_country=us`;
         } else {
           if ('force_country' in urlParams) {
             url = `${url}?force_country=${urlParams.force_country}`;
