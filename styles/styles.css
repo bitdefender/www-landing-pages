@@ -209,9 +209,11 @@ a.button:any-link:hover, button:hover {
   background: #b33027;
 }
 
-button:disabled, button:disabled:hover {
-  background-color: #e72325;
-  cursor: unset;
+[data-button-color=blue] a.button:any-link, [data-button-color=blue] button {
+  background: #006DFF;
+}
+[data-button-color=blue] a.button:any-link:hover, [data-button-color=blue] button:hover {
+  background-color: #00439c;
 }
 
 a.button.secondary, button.secondary {
