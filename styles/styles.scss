@@ -218,6 +218,16 @@ a.button:hover, a.button:focus, button:hover, button:focus {
   text-decoration: none;
 }
 
+[data-button-color="blue"] {
+  a.button:any-link, button {
+    background: #006DFF;
+  }
+
+  a.button:any-link:hover, button:hover {
+    background-color: #00439c;
+  }
+}
+
 a.button:any-link:hover, button:hover {
   background: #b33027;
 }
