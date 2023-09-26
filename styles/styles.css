@@ -624,6 +624,7 @@ main .section.highlight {
   font-weight: 400;
   position: relative;
   transition: background-color 0.3s ease-in-out;
+  background-color: #fff;
   width: 96%;
   border: 0 none;
   appearance: none;
