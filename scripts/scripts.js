@@ -175,7 +175,7 @@ async function loadLazy(doc) {
     adobeMcAppendVisitorId('main');
   });
 
-  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1 || true;
+  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
 
   if (isPageNotInDraftsFolder) {
     addScript(getInstance() === 'prod'
