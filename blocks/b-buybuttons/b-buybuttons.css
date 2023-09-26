@@ -1,6 +1,7 @@
 .b-buybuttons {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 .b-buybuttons > div {
   display: flex;
