@@ -138,7 +138,7 @@ export default function decorate(block) {
 
         const formData = new FormData(document.getElementById('formBox'));
         formData.append('nfo[hash_page]', hash.split(':')[1].trim());
-        formData.append('nfo[generator_ref]', hash.split(':')[1].trim()); 
+        formData.append('nfo[generator_ref]', hash.split(':')[1].trim());
         formData.append('nfo[promotion_url]', window.location.href);
         formData.append('nfo[prod]', prod.split(':')[1].trim());
         formData.append('nfo[max_keys]', keys.split(':')[1].trim());
