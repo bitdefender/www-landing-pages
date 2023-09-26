@@ -204,11 +204,16 @@ export async function decorateIcons(element) {
     }
   }));
 
-  const symbols = Object.values(ICONS_CACHE).filter((v) => !v.styled).map((v) => v.html).join('\n');
+  const symbols = Object
+    .keys(ICONS_CACHE).filter((k) => !svgSprite.querySelector(`#icons-sprite-${k}`))
+    .map((k) => ICONS_CACHE[k])
+    .filter((v) => !v.styled)
+    .map((v) => v.html)
+    .join('\n');
   svgSprite.innerHTML += symbols;
 
   icons.forEach((span) => {
-    const iconName = Array.from(span.classList).find((c) => c.startsWith('icon-')).split('-')[1];
+    const iconName = Array.from(span.classList).find((c) => c.startsWith('icon-')).substring(5);
     const parent = span.firstElementChild?.tagName === 'A' ? span.firstElementChild : span;
     // Styled icons need to be inlined as-is, while unstyled ones can leverage the sprite
     if (ICONS_CACHE[iconName].styled) {
