@@ -204,7 +204,7 @@
     margin-bottom: 4em !important;
   }
   .b-productswithselectors > div:not(:nth-child(1)) {
-    width: 45%;
+    width: 49%;
     float: left;
   }
   .b-productswithselectors > div:not(:first-child) h4 {

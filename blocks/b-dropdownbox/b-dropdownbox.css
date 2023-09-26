@@ -305,7 +305,6 @@
   .b-dropdownbox-container .block > div:nth-child(1) > div {
     padding: 10px 3% !important;
     display: flex;
-    justify-content: space-between;
     font-size: 15px;
     line-height: 17px;
   }
