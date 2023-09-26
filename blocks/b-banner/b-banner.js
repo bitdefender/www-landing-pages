@@ -131,13 +131,15 @@ export default function decorate(block) {
       const formBtn = formBox.querySelector('button');
       const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
 
-      if (email.includes('@energizer.com')) {
+      if (email.includes(allowedEmail.split(':')[1].trim())) {
         formBtn.disabled = true;
         formBox.classList.add('await-loader');
         formErr.style.display = 'none';
 
         const formData = new FormData(document.getElementById('formBox'));
         formData.append('nfo[hash_page]', hash.split(':')[1].trim());
+        formData.append('nfo[generator_ref]', hash.split(':')[1].trim()); 
+        formData.append('nfo[promotion_url]', window.location.href);
         formData.append('nfo[prod]', prod.split(':')[1].trim());
         formData.append('nfo[max_keys]', keys.split(':')[1].trim());
         formData.append('nfo[begin_date]', beginDate.split(':')[1].trim());
