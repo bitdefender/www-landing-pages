@@ -9,7 +9,7 @@
   - savePillText: text in the green pill  Ex.: save 5%
 
   Samples:
-  - https://main--helix-poc--enake.hlx.page/consumer/en/new/ps-ts-vpn-opt/
+  - https://main--www-landing-pages--bitdefender.hlx.page/drafts/test-page/consumer/en/new/ps-ts-vpn-opt/
 */
 import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.js';
 import { productAliases } from '../../scripts/scripts.js';

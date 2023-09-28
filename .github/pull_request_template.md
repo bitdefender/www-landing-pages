@@ -3,5 +3,5 @@ Please always provide the [GitHub issue(s)](../issues) your PR is for, as well a
 Fix #<gh-issue-id>
 
 Test URLs:
-- Before: https://main--helix-poc--enake.hlx.page/drafts/test-page/
-- After: https://<branch>--helix-poc--enake.hlx.page/drafts/test-page/
+- Before: https://main--www-landing-pages--bitdefender.hlx.page/drafts/test-page/
+- After: https://<branch>--www-landing-pages--bitdefender.hlx.page/drafts/test-page/
