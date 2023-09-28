@@ -10,7 +10,7 @@ const activeLandingPagesUrl = 'https://main--helix-poc--enake.hlx.page/active-la
 const pathToBlocks = 'sidekick/blocks';
 const skippedTestLabel = '0';
 
-// todo those should come from other place
+// todo those should come from other placee
 const blockSnapshotsToTest = [
   'b-banner',
   'b-single-quote',
