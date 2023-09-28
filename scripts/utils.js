@@ -95,8 +95,7 @@ export const GLOBAL_EVENTS = {
   ADOBE_MC_LOADED: 'adobe_mc::loaded',
 };
 
-export function adobeMcAppendVisitorId(selector) {
-  // https://experienceleague.adobe.com/docs/id-service/using/id-service-api/methods/appendvisitorid.html?lang=en
+export function appendAdobeMcLinks(selector) {
   try {
     const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
       trackingServer: 'sstats.bitdefender.com',
@@ -112,6 +111,18 @@ export function adobeMcAppendVisitorId(selector) {
     });
   } catch (e) {
     console.error(e);
+  }
+}
+
+export function adobeMcAppendVisitorId(selector) {
+  // https://experienceleague.adobe.com/docs/id-service/using/id-service-api/methods/appendvisitorid.html?lang=en
+
+  if (window.ADOBE_MC_EVENT_LOADED) {
+    appendAdobeMcLinks(selector);
+  } else {
+    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+      appendAdobeMcLinks(selector);
+    });
   }
 }
 

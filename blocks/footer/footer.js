@@ -1,5 +1,5 @@
 import { loadFragment } from '../../scripts/scripts.js';
-import { adobeMcAppendVisitorId, GLOBAL_EVENTS, getLocalizedResourceUrl } from '../../scripts/utils.js';
+import { adobeMcAppendVisitorId, getLocalizedResourceUrl } from '../../scripts/utils.js';
 
 export default async function decorate(block) {
   const fragment = await loadFragment(getLocalizedResourceUrl('footer'));
@@ -14,7 +14,5 @@ export default async function decorate(block) {
 
   footer.innerHTML = footer.innerHTML.replace('[year]', new Date().getFullYear());
 
-  document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
-    adobeMcAppendVisitorId('footer');
-  });
+  adobeMcAppendVisitorId('footer');
 }
