@@ -1,6 +1,6 @@
 {
   "project": "Bitdefender Pages",
-  "host": "https://main--helix-poc--enake.hlx.live",
+  "host": "https://main--www-landing-pages--bitdefender.hlx.live",
   "plugins": [
     {
       "id": "library",

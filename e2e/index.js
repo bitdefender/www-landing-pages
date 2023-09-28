@@ -5,8 +5,8 @@ const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
 const priceValidationSuiteId = '64be463282bf299ccb6b9341';
 const snapshotsSuiteId = '64c8d884960593b38bb68331';
-const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--helix-poc--enake.hlx.page`;
-const activeLandingPagesUrl = 'https://main--helix-poc--enake.hlx.page/active-landingpages.json';
+const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.page`;
+const activeLandingPagesUrl = 'https://main--www-landing-pages--bitdefender.hlx.page/active-landingpages.json';
 const pathToBlocks = 'sidekick/blocks';
 const skippedTestLabel = '0';
 
