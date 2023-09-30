@@ -17,7 +17,7 @@ async function initZuoraProductPriceLogic() {
 
   if (productsList.length) {
     try {
-      const results = await Promise.all(
+      await Promise.all(
         productsList.map(async (item) => {
           const prodSplit = item.split('/');
           const prodAlias = prodSplit[0].trim();
