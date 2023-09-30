@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-cycle
+// eslint-disable no-await-in-loop
 import { sampleRUM } from './lib-franklin.js';
 
 import { sendAnalyticsProducts } from './adobeDataLayer.js';
@@ -34,10 +35,6 @@ async function initZuoraProductPriceLogic() {
     }
   }
 }
-
-
-
-
 
 if (isZuoraForNetherlandsLangMode()) {
   initZuoraProductPriceLogic();
