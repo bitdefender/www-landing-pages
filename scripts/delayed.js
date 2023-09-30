@@ -31,7 +31,7 @@ async function initZuoraProductPriceLogic() {
           sendAnalyticsProducts(zuoraResult, 'nl');
 
           return zuoraResult;
-        })
+        }),
       );
 
       // results is an array of the resolved promises
