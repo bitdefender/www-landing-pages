@@ -11,27 +11,33 @@ import ZuoraNLClass from './zuora.js';
 sampleRUM('cwv');
 
 // add more delayed functionality here
-function initZuoraProductPriceLogic() {
-  window.config = ZuoraNLClass.config();
+async function initZuoraProductPriceLogic() {
+  // window.config = ZuoraNLClass.config();
   showLoaderSpinner(false);
 
-  addScript('https://checkout.bitdefender.com/static/js/sdk.js', {}, 'async', () => {
-    if (productsList.length) {
-      productsList.forEach(async (item) => {
-        const prodSplit = item.split('/');
-        const prodAlias = prodSplit[0].trim();
-        const prodUsers = prodSplit[1].trim();
-        const prodYears = prodSplit[2].trim();
-        const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+  if (productsList.length) {
+    for (const item of productsList) {
+      const prodSplit = item.split('/');
+      const prodAlias = prodSplit[0].trim();
+      const prodUsers = prodSplit[1].trim();
+      const prodYears = prodSplit[2].trim();
+      const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
+      try {
         const zuoraResult = await ZuoraNLClass.loadProduct(item);
         showPrices(zuoraResult);
         showLoaderSpinner(true, onSelectorClass);
         sendAnalyticsProducts(zuoraResult, 'nl');
-      });
+      } catch (error) {
+        console.error(error);
+      }
     }
-  });
+  }
 }
+
+
+
+
 
 if (isZuoraForNetherlandsLangMode()) {
   initZuoraProductPriceLogic();
