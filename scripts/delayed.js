@@ -1,5 +1,4 @@
 // eslint-disable-next-line import/no-cycle
-// eslint-disable no-await-in-loop
 import { sampleRUM } from './lib-franklin.js';
 
 import { sendAnalyticsProducts } from './adobeDataLayer.js';
@@ -12,6 +11,7 @@ import ZuoraNLClass from './zuora.js';
 sampleRUM('cwv');
 
 // add more delayed functionality here
+/* eslint-disable no-await-in-loop */
 async function initZuoraProductPriceLogic() {
   // window.config = ZuoraNLClass.config();
   showLoaderSpinner(false);
@@ -35,6 +35,7 @@ async function initZuoraProductPriceLogic() {
     }
   }
 }
+/* eslint-enable no-await-in-loop */
 
 if (isZuoraForNetherlandsLangMode()) {
   initZuoraProductPriceLogic();
