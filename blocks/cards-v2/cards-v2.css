@@ -8,6 +8,9 @@
   border-radius: 8px;
   margin: 20px 0;
 }
+.cards-v2 > div > div img {
+  width: 100%;
+}
 .cards-v2 > div > div p {
   margin-top: 0;
 }
