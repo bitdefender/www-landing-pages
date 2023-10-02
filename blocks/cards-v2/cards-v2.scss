@@ -1,0 +1,30 @@
+.cards-v2 {
+
+  >div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    >div {
+      box-shadow: 0 3px 6px 0 rgba(0,0,0,.08);
+      border-radius: 8px;
+      margin: 20px 0;
+
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media screen and (width >= 520px) {
+  .cards-v2 {
+
+    >div {
+  
+      >div {
+        width: calc(30% - 20px);
+      }
+    }
+  }
+}
