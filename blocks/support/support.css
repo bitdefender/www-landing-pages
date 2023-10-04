@@ -1,5 +1,35 @@
-.support-container.section {
+.support-container {
   padding: 0;
   position: relative;
   background-color: #006dff;
+  color: white;
+}
+.support-container .title {
+  padding: 10px; /* Add padding for spacing within the divs */
+}
+.support-container .title:first-child {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+}
+.support-container .content {
+  margin-top: 1rem;
+}
+.support-container .content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.support-container a {
+  color: white;
+}
+.support-container .wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.support-container .column {
+  flex: 1;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
 }
