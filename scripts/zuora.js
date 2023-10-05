@@ -1,5 +1,5 @@
 export default class ZuoraNLClass {
-  static coupon = 'BTS2023';
+  static coupon = 'Cyber2023';
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
@@ -41,16 +41,13 @@ export default class ZuoraNLClass {
   static zuoraConfig = {
     cartUrl: 'https://checkout.bitdefender.com',
     key: 'bb22f980-fa19-11ed-b443-87a99951e6d5',
+    // key: 'f1da8e40-f3dc-11e9-aeb6-33499e25f9e2',
     endpoint: 'https://checkout-service.bitdefender.com',
   };
 
-  static getKey() {
-    return 'bb22f980-fa19-11ed-b443-87a99951e6d5';
-  }
-
   static config(key) {
     return {
-      key: key || this.getKey(),
+      key: key || this.zuoraConfig.key,
       country: 'NL',
       language: 'nl_NL',
       debug: false,
