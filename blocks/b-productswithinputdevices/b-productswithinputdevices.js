@@ -61,8 +61,7 @@ export default function decorate(block) {
   if (bulinaText) {
     const divBulina = document.createElement('div');
     divBulina.className = 'prod-percent green_bck_circle bigger has2txt';
-    divBulina.innerHTML = `${bulinaText.replace(/0,/g, '<b class=\'max-discount\'></b><p>')}`;
-    divBulina.innerHTML += '</p>';
+    divBulina.innerHTML = `${bulinaText.replace(/0,/g, '<b class=\'max-discount\'></b>')}`;
     block.before(divBulina);
   }
 
@@ -160,6 +159,9 @@ export default function decorate(block) {
 
       pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
       pricesDiv.setAttribute('data-testid', 'prod_box');
+      if (bulinaText) {
+        pricesDiv.innerHTML += `<div class="prod-percent green_bck_circle small has${bulinaText.split(',').length}txt"><b class="percent percent-${onSelectorClass}">10%</b><p>${bulinaText.split(',')[1]}</p></div>`;
+      }
       pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
       pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
