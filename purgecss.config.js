@@ -21,4 +21,5 @@ module.exports = {
     'justify-content-end',
     'p-5', 'my-5',
   ],
+  blocklist: ['strong'],
 };
