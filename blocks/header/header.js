@@ -1,6 +1,6 @@
 import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
 import {
-  adobeMcAppendVisitorId, GLOBAL_EVENTS, getLocalizedResourceUrl, getDefaultBaseUrl,
+  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl,
 } from '../../scripts/utils.js';
 
 /**
@@ -56,8 +56,6 @@ export default async function decorate(block) {
         `).join('')}
       </a>`;
 
-    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
-      adobeMcAppendVisitorId('header');
-    });
+    adobeMcAppendVisitorId('header');
   }
 }

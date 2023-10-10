@@ -32,6 +32,7 @@ function getPageNameAndSections() {
     return {
       pageName: 'us:404',
       section: 'us',
+      sections: [],
       subSection: '404',
     };
   }

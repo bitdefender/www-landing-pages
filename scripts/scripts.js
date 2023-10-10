@@ -30,6 +30,7 @@ import {
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
 window.DEFAULT_LANGUAGE = DEFAULT_LANGUAGE;
+window.ADOBE_MC_EVENT_LOADED = false;
 
 const defaultBuyLinks = {};
 
@@ -147,7 +148,23 @@ function addFavIcon(href) {
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
-async function loadLazy(doc) {
+
+export function loadTrackers() {
+  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
+
+  if (isPageNotInDraftsFolder) {
+    addScript(getInstance() === 'prod'
+      ? 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js'
+      : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', () => {
+      document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
+      window.ADOBE_MC_EVENT_LOADED = true;
+    });
+
+    addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'async');
+  }
+}
+
+export async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
 
@@ -171,21 +188,9 @@ async function loadLazy(doc) {
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon('https://www.bitdefender.com/favicon.ico');
 
-  document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
-    adobeMcAppendVisitorId('main');
-  });
+  adobeMcAppendVisitorId('main');
 
-  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
-
-  if (isPageNotInDraftsFolder) {
-    addScript(getInstance() === 'prod'
-      ? 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js'
-      : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', () => {
-      document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
-    });
-
-    addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'async');
-  }
+  loadTrackers();
 
   sendAnalyticsPageLoadedEvent();
 
