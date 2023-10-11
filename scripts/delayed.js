@@ -46,6 +46,7 @@ if (isZuoraForNetherlandsLangMode()) {
   initZuoraProductPriceLogic();
 }
 
-if (window.location.pathname.indexOf('/drafts/') === -1) {
+// DEX-15092 - Deazctivare Cookiebot - Old CMS si Franklin
+/* if (window.location.pathname.indexOf('/drafts/') === -1) {
   addScript('https://consent.cookiebot.com/uc.js', { culture: window.DEFAULT_LANGUAGE || 'en', cbid: '4a55b566-7010-4633-9b03-7ba7735be0b6' }, 'async');
-}
+} */
