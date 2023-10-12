@@ -30,14 +30,14 @@
   padding: 15px 30px;
 }
 
-.b-dropdownbox-container .block.hide-title > div:nth-child(1) > div {
-  display: none;
-}
-
 .b-dropdownbox-container .block > div:not(:first-child) > div {
   width: 33%;
   padding: 15px 2%;
   display: inline-block;
+}
+
+.b-dropdownbox-container .block.hide-title > div:nth-child(1) > div {
+  display: none;
 }
 
 .b-dropdownbox-container .block:not(.selected-2) > div > div:nth-child(2), .b-dropdownbox-container .block.selected-1 > div > div:nth-child(2), .b-dropdownbox-container .block.selected-2 > div > div:nth-child(3), .b-dropdownbox-container .block.selected-3 > div > div:nth-child(4) {
@@ -47,10 +47,6 @@
 .b-dropdownbox-container .block > div:not(:first-child) > div:first-child {
   display: block;
   align-items: center;
-}
-
-.b-dropdownbox-container .block.baby-blue > div:not(:first-child) > div:first-child {
-  background-color: #e3f2ff;
 }
 
 .b-dropdownbox-container .block > div:not(:first-child) > div:first-child p {
@@ -68,6 +64,10 @@
 
 .b-dropdownbox-container .block.inactive > div:not(:first-child) > div, .b-dropdownbox-container .block.closed > div:not(:first-child) > div {
   display: none;
+}
+
+.b-dropdownbox-container .block.baby-blue > div:not(:first-child) > div:first-child {
+  background-color: #e3f2ff;
 }
 
 .b-dropdownbox-container .block.closed.inactive > div:not(:first-child) > div {
