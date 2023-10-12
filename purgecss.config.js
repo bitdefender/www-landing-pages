@@ -20,5 +20,6 @@ module.exports = {
     'pointer-event',
     'justify-content-end',
     'p-5', 'my-5',
+    'table-bordered',
   ],
 };
