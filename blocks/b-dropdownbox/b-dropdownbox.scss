@@ -30,6 +30,10 @@
   padding: 15px 30px;
 }
 
+.b-dropdownbox-container .block.hide-title > div:nth-child(1) > div {
+  display: none;
+}
+
 .b-dropdownbox-container .block > div:not(:first-child) > div {
   width: 33%;
   padding: 15px 2%;
@@ -43,6 +47,10 @@
 .b-dropdownbox-container .block > div:not(:first-child) > div:first-child {
   display: block;
   align-items: center;
+}
+
+.b-dropdownbox-container .block.baby-blue > div:not(:first-child) > div:first-child {
+  background-color: #e3f2ff;
 }
 
 .b-dropdownbox-container .block > div:not(:first-child) > div:first-child p {
