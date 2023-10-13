@@ -842,7 +842,7 @@ main .section.highlight {
   width: 100%;
   border-bottom: 2px solid #3C3C3C;
   height: 40px;
-  box-shadow: 0px 32px 73px rgba(0, 0, 0, 80%);
+  box-shadow: 0 32px 73px rgba(0, 0, 0, 80%);
 
   div div {
     margin-top: -10px;
@@ -867,14 +867,13 @@ main .section.highlight {
         padding-bottom: 10px;
         position: relative;
 
-        &:before {
+        &::before {
           content: '';
           position: absolute;
           bottom: -2px;
           height: 4px;
           background: #006EFF;
           transition: all .3s ease;
-          transition-property: transform;
           transition-property: transform;
           width: 100%;
           -webkit-transform: scaleX(0);
@@ -886,7 +885,7 @@ main .section.highlight {
         &:hover {
           text-decoration: none;
 
-          &:before {
+          &::before {
             transform: scaleX(1);
             transform-origin: left;
           }
@@ -930,130 +929,6 @@ main .section.highlight {
       }
     }
   }
-}
-
-#footerFerrari {
-  background-color: #000;
-}
-
-#footerFerrari ul {
-  margin-left: 0;
-  padding-left: 0;
-}
-
-#footerFerrari ul li {
-  list-style-type: none;
-}
-
-#footerFerrari .section:nth-of-type(1) p {
-  width: 40%;
-}
-
-#footerFerrari .section:nth-of-type(1) ul {
-  width: 60%;
-  display: flex;
-  justify-content: space-between;
-  padding-top: 0;
-  margin-top: 0;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) {
-  width: 40%;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) strong {
-  width: 120px;
-  display: block;
-  margin-bottom: 28px;
-  color: #fff;
-  font-size: 40px;
-  line-height: 45px;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) li:not(:first-of-type) {
-  float: left;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) li:not(:first-of-type) img {
-  width: 40px;
-  margin-right: 12px;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) {
-  width: 60%;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:first-of-type {
-  width: 100%;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:first-of-type strong {
-  width: 100%;
-  display: block;
-  font-size: 14px;
-  line-height: 1.71;
-  letter-spacing: 1.12px;
-  color: #fff;
-  padding-bottom: 13px;
-  border-bottom: 2px solid white;
-  margin-bottom: 25px;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:not(:first-of-type) {
-  width: 50%;
-  float: left;
-  margin-bottom: 25px;
-}
-
-#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:not(:first-of-type) a {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-#footerFerrari .section:nth-of-type(3) p {
-  width: 100%;
-  border-bottom: 2px solid white;
-  margin-top: 100px;
-  padding-top: 10px;
-}
-
-#footerFerrari .section:nth-of-type(3) strong {
-  font-size: 31px;
-}
-
-#footerFerrari .section:nth-of-type(4) {
-  padding-top: 1em;
-}
-
-#footerFerrari .section:nth-of-type(4) div {
-  display: flex;
-}
-
-#footerFerrari .section:nth-of-type(4) ul {
-  display: flex;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-#footerFerrari .section:nth-of-type(4) ul li a {
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.14;
-  color: #fff;
-  position: relative;
-  margin-right: 10px;
-  padding-right: 20px;
-  border-right: 1px solid white;
-}
-
-#footerFerrari .section:nth-of-type(4) ul li:last-of-type a {
-  border-right: 0 none;
-}
-
-#footerFerrari .section:nth-of-type(4) ul p {
-  font-size: 14px;
-  line-height: 1.14;
 }
 
 @keyframes place-holder-shimmer {
@@ -1133,6 +1008,130 @@ main .section.highlight {
       }
     }
   }
+}
+
+#footerFerrari {
+  background-color: #000;
+}
+
+#footerFerrari section ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#footerFerrari section ul li {
+  list-style-type: none;
+}
+
+#footerFerrari .section:nth-of-type(1) p {
+  width: 40%;
+}
+
+#footerFerrari .section:nth-of-type(1) ul {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) {
+  width: 40%;
+}
+
+#footerFerrari .section:nth-of-type(3) strong {
+  font-size: 31px;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) strong {
+  width: 120px;
+  display: block;
+  margin-bottom: 28px;
+  color: #fff;
+  font-size: 40px;
+  line-height: 45px;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) li:not(:first-of-type) {
+  float: left;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) li:not(:first-of-type) img {
+  width: 40px;
+  margin-right: 12px;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) {
+  width: 60%;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:first-of-type {
+  width: 100%;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:first-of-type strong {
+  width: 100%;
+  display: block;
+  font-size: 14px;
+  line-height: 1.71;
+  letter-spacing: 1.12px;
+  color: #fff;
+  padding-bottom: 13px;
+  border-bottom: 2px solid white;
+  margin-bottom: 25px;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:not(:first-of-type) {
+  width: 50%;
+  float: left;
+  margin-bottom: 25px;
+}
+
+#footerFerrari .section:nth-of-type(4) ul li a {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.14;
+  color: #fff;
+  position: relative;
+  margin-right: 10px;
+  padding-right: 20px;
+  border-right: 1px solid white;
+}
+
+#footerFerrari .section:nth-of-type(4) ul li:last-of-type a {
+  border-right: 0 none;
+}
+
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:not(:first-of-type) a {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+#footerFerrari .section:nth-of-type(3) p {
+  width: 100%;
+  border-bottom: 2px solid white;
+  margin-top: 100px;
+  padding-top: 10px;
+}
+
+#footerFerrari .section:nth-of-type(4) {
+  padding-top: 1em;
+}
+
+#footerFerrari .section:nth-of-type(4) div {
+  display: flex;
+}
+
+#footerFerrari .section:nth-of-type(4) ul {
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#footerFerrari .section:nth-of-type(4) ul p {
+  font-size: 14px;
+  line-height: 1.14;
 }
 
 @media (width <= 1387px) {
