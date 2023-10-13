@@ -23,7 +23,7 @@ export default async function decorate(block) {
     [/>Facebook Bitdefender</, '><img src="/icons/facebook.svg" /><'],
     [/>Youtube Bitdefender</, '><img src="/icons/youtube.svg" /><'],
   ];
-  
+
   replacements.forEach(([pattern, replacement]) => {
     footer.innerHTML = footer.innerHTML.replace(pattern, replacement);
   });
