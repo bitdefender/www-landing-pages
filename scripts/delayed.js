@@ -3,7 +3,7 @@ import { sampleRUM } from './lib-franklin.js';
 
 import { sendAnalyticsProducts } from './adobeDataLayer.js';
 import {
-  addScript, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
+  isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
 } from './utils.js';
 import ZuoraNLClass from './zuora.js';
 

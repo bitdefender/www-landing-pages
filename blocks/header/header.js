@@ -26,10 +26,6 @@ function checkForRevolut(spanSvgs, block) {
     spanSvgs.map((svg) => svg.classList.add('reverse-filter'));
     block.closest('.header-wrapper').classList.add('rev-header');
   }
-
-  if (window.location.href.indexOf('scuderiaferrari')) {
-    block.closest('.header-wrapper').classList.add('ferrari-header');
-  }
 }
 
 /**
