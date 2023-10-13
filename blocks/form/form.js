@@ -135,18 +135,13 @@ function fill(form) {
 
 async function createForm(formURL) {
   const { pathname } = new URL(formURL);
-  console.log('aaaaa');
   const resp = await fetch(pathname);
-  console.log('aaaaa');
-  console.log(resp);
   const json = await resp.json();
-  console.log(json);
   const form = document.createElement('form');
   const rules = [];
   // eslint-disable-next-line prefer-destructuring
   form.dataset.action = pathname.split('.json')[0];
   json.data.forEach((fd) => {
-    console.log(fd);
     fd.Type = fd.Type || 'text';
     const fieldWrapper = document.createElement('div');
     const style = fd.Style ? ` form-${fd.Style}` : '';
