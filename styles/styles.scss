@@ -411,20 +411,10 @@ main .default-content-wrapper img {
   text-align: left;
 }
 
-.section.logos p:last-of-type {
-  text-align: center;
-}
-
 .full .banner-image img {
   height: auto !important;
   width: 100% !important;
   margin: 0 !important;
-}
-
-.section.logos p:last-of-type img {
-  max-height: 90pt;
-  max-width: 15%;
-  margin: 0 2%;
 }
 
 main .blue-quote .default-content-wrapper {
@@ -440,31 +430,22 @@ main .blue-quote .default-content-wrapper p {
   font-size: 25px;
   line-height: 38px;
 }
-
 main .blue-quote .default-content-wrapper p:nth-of-type(1) {
   padding: 1em;
   background-color: #006dff;
   border-radius: 5px;
 }
 
-main .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
-  margin-top: 36%;
-  display: inline-block;
-  font-size: 20px;
-  line-height: 22px;
-}
-
-main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
-  font-style: normal;
-  font-size: 20px;
-  line-height: 26px;
-  display: block;
-}
-
 main .blue-quote .default-content-wrapper p img {
   min-width: 100%;
   height: 100%;
   margin-top: 0;
+}
+
+.section.logos p:last-of-type img {
+  max-height: 90pt;
+  max-width: 15%;
+  margin: 0 2%;
 }
 
 main .blue-title-left .default-content-wrapper h2:nth-child(1) {
@@ -523,6 +504,10 @@ main .splitted .default-content-wrapper p {
   column-gap: 20px;
 }
 
+.section.logos p:last-of-type {
+  text-align: center;
+}
+
 main .single-blue-quote .default-content-wrapper {
   color: #006dff;
 }
@@ -538,6 +523,20 @@ main .single-blue-quote .default-content-wrapper strong,  main .single-blue-quot
   line-height: 22px;
   font-style: normal;
   display: inline-block;
+}
+
+main .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
+  margin-top: 36%;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 22px;
+}
+
+main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
+  font-style: normal;
+  font-size: 20px;
+  line-height: 26px;
+  display: block;
 }
 
 @media (width >=  900px) {
@@ -835,10 +834,6 @@ main .section.highlight {
   margin-bottom: 10px;
 }
 
-#headerFerrari {
-  
-}
-
 #headerFerrari  {
   position: fixed;
   top: 0;
@@ -846,7 +841,7 @@ main .section.highlight {
   width: 100%;
   border-bottom: 2px solid #3C3C3C;
   height: 40px;
-  box-shadow: 0px 32px 73px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 32px 73px rgba(0, 0, 0, 80%);
 
   div div {
     margin-top: -10px;
@@ -863,7 +858,7 @@ main .section.highlight {
       font-size: 12px;
       list-style-type: none;
       display: inline-block;
-      padding: 0 10px 0;
+      padding: 0 10px;
 
       a {
         color: #DEDEDE;
@@ -872,19 +867,18 @@ main .section.highlight {
         position: relative;
 
         &:before {
-          content: "";
+          content: '';
           position: absolute;
           bottom: -2px;
           height: 4px;
           background: #006EFF;
           transition: all .3s ease;
           transition-property: transform;
-          transition-property: transform, -webkit-transform;
+          transition-property: transform;
           width: 100%;
           -webkit-transform: scaleX(0);
           transform: scaleX(0);
           will-change: transform;
-          -webkit-backface-visibility: hidden;
           transform-origin: right;
         }
 
@@ -896,7 +890,6 @@ main .section.highlight {
             transform-origin: left;
           }
         }
-        
       }
     }
 
@@ -922,7 +915,7 @@ main .section.highlight {
 
           span.icon-logo-white {
             display: inline-block;
-            background: url(../images/sigla_bd_white.svg) 0 0 no-repeat;
+            background: url('../images/sigla_bd_white.svg') 0 0 no-repeat;
             width: 165px;
             height: 25px;
           }
@@ -940,136 +933,126 @@ main .section.highlight {
 
 #footerFerrari {
   background-color: #000;
+}
 
-  ul {
-    margin-left: 0;
-    padding-left: 0;
+#footerFerrari ul {
+  margin-left: 0;
+  padding-left: 0;
+}
 
-    li {
-      list-style-type: none;
-    }
-  }
-  
-  .section:nth-of-type(1) {
-    p {
-      width: 40%;
-    }
+#footerFerrari ul li {
+  list-style-type: none;
+}
 
-    ul {
-      width: 60%;
-      display: flex; 
-      justify-content: space-between;
-      padding-top: 0;
-      margin-top: 0;
-    }
-  }
+#footerFerrari .section:nth-of-type(1) p {
+  width: 40%;
+}
 
-  .section:nth-of-type(2) {
-    ul:nth-of-type(1) {
-      width: 40%;
+#footerFerrari .section:nth-of-type(1) ul {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0;
+  margin-top: 0;
+}
 
-      strong { 
-        width: 120px;
-        display: block;
-        margin-bottom: 28px;
-        color: #fff;
-        font-size: 40px;
-        line-height: 45px;
-      }
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) {
+  width: 40%;
+}
 
-      li:not(:first-of-type) {
-        float: left;
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) strong {
+  width: 120px;
+  display: block;
+  margin-bottom: 28px;
+  color: #fff;
+  font-size: 40px;
+  line-height: 45px;
+}
 
-        img {
-          width: 40px;
-          margin-right: 12px;
-        }
-      }
-    }
-    
-    ul:nth-of-type(2) {
-      width: 60%;
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) li:not(:first-of-type) {
+  float: left;
+}
 
-      li:first-of-type {
-        width: 100%;
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(1) li:not(:first-of-type) img {
+  width: 40px;
+  margin-right: 12px;
+}
 
-        strong {
-          width: 100%;
-          display: block;
-          font-size: 14px;
-          line-height: 1.71;
-          letter-spacing: 1.12px;
-          color: #fff;
-          padding-bottom: 13px;
-          border-bottom: 2px solid white;
-          margin-bottom: 25px;
-        }
-      }
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) {
+  width: 60%;
+}
 
-      li:not(:first-of-type) {
-        width: 50%;
-        float: left;
-        margin-bottom: 25px;
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:first-of-type {
+  width: 100%;
+}
 
-        a {
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 1.5;
-        }
-      }
-    }
-  }
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:first-of-type strong {
+  width: 100%;
+  display: block;
+  font-size: 14px;
+  line-height: 1.71;
+  letter-spacing: 1.12px;
+  color: #fff;
+  padding-bottom: 13px;
+  border-bottom: 2px solid white;
+  margin-bottom: 25px;
+}
 
-  .section:nth-of-type(3) {
-    p {
-      width: 100%;
-      border-bottom: 2px solid white;
-      margin-top: 100px;
-      padding-top: 10px;
-    }
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:not(:first-of-type) {
+  width: 50%;
+  float: left;
+  margin-bottom: 25px;
+}
 
-    strong {
-      font-size: 31px;
-    }
-  }
+#footerFerrari .section:nth-of-type(2) ul:nth-of-type(2) li:not(:first-of-type) a {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
 
-  .section:nth-of-type(4) {
-    padding-top: 1em;
-    
+#footerFerrari .section:nth-of-type(3) p {
+  width: 100%;
+  border-bottom: 2px solid white;
+  margin-top: 100px;
+  padding-top: 10px;
+}
 
-    div {
-      display: flex;
-    }
+#footerFerrari .section:nth-of-type(3) strong {
+  font-size: 31px;
+}
 
-    ul {
-      display: flex;
-      margin-top: 0;
-      margin-bottom: 0;
+#footerFerrari .section:nth-of-type(4) {
+  padding-top: 1em;
+}
 
-      li a {
-        font-size: 14px;
-        font-weight: normal;
-        line-height: 1.14;
-        color: #fff;
-        position: relative;
-        margin-right: 10px;
-        padding-right: 20px;
-        border-right: 1px solid white;
-      }
+#footerFerrari .section:nth-of-type(4) div {
+  display: flex;
+}
 
-      li:last-of-type {
-        a {
-          border-right: 0 none;
-        }
-      }
+#footerFerrari .section:nth-of-type(4) ul {
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
+}
 
-      p {
-        font-size: 14px;
-        line-height: 1.14;
-      }
-    }
-  }
+#footerFerrari .section:nth-of-type(4) ul li a {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.14;
+  color: #fff;
+  position: relative;
+  margin-right: 10px;
+  padding-right: 20px;
+  border-right: 1px solid white;
+}
 
+#footerFerrari .section:nth-of-type(4) ul li:last-of-type a {
+  border-right: 0 none;
+}
+
+#footerFerrari .section:nth-of-type(4) ul p {
+  font-size: 14px;
+  line-height: 1.14;
 }
 
 @keyframes place-holder-shimmer {
@@ -1233,19 +1216,13 @@ main .section.highlight {
   }
 
   #headerFerrari {
-    height: auto;
-
-    ul {
-      width: 100%;
-    }
-  }
-
-  #headerFerrari {
     box-shadow: none;
     position: static;
+    height: auto;
   }
 
   #headerFerrari ul {
+    width: 100%;
     float: none;
 
     li {
