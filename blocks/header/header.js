@@ -28,6 +28,12 @@ function checkForRevolut(spanSvgs, block) {
   }
 }
 
+function checkForFerrari(block) {
+  if (window.location.href.contains('scuderiaferrari')) {
+    block.closest('.header-wrapper').classList.add('ferrari-header');
+  }
+}
+
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -45,6 +51,8 @@ export default async function decorate(block) {
     const spanSvg = [...await extractSpanSvgs(html)];
 
     checkForRevolut(spanSvg, block);
+
+    checkForFerrari(block); 
 
     const homeUrl = getDefaultBaseUrl();
 
