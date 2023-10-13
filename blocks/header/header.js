@@ -28,10 +28,9 @@ function checkForRevolut(spanSvgs, block) {
   }
 }
 
-function checkForFerrari(block) {
-  if (window.location.href.contains('scuderiaferrari')) {
-    block.closest('.header-wrapper').classList.add('ferrari-header');
-  }
+let isFerrariPage = false;
+if (window.location.href.indexOf('scuderiaferrari') !== -1) {
+  isFerrariPage = true;
 }
 
 /**
@@ -52,17 +51,21 @@ export default async function decorate(block) {
 
     checkForRevolut(spanSvg, block);
 
-    checkForFerrari(block); 
-
     const homeUrl = getDefaultBaseUrl();
 
     block.classList.add('lp-header', 'py-3');
-    block.innerHTML = `
+    if (isFerrariPage) {
+      block.closest('.header-wrapper').classList.add('ferrari-header');
+      block.innerHTML = html;
+    } else {
+      block.innerHTML = `
       <a class="d-flex justify-content-between" href="${homeUrl}">
         ${spanSvg.map((svg) => `
             ${svg.outerHTML}
         `).join('')}
       </a>`;
+    }
+    
 
     adobeMcAppendVisitorId('header');
   }
