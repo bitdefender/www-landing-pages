@@ -67,17 +67,17 @@ const loadCSS = async (href, shadowDom) => {
  * Franklin decorator logic
  */
 const decorateBlock = async (block, shadowDom) => {
-    const logicModule = await import(/* webpackIgnore: true */`${dataApinDomain}/blocks/${block}/${block}.js`);
-    const blockElement = shadowDom.querySelector(`.${block}`);
-    logicModule.default(blockElement);
+  const logicModule = await import(/* webpackIgnore: true */`${dataApinDomain}/blocks/${block}/${block}.js`);
+  const blockElement = shadowDom.querySelector(`.${block}`);
+  logicModule.default(blockElement);
 
-    blockElement.classList.add('block');
-    blockElement.dataset.blockName = block;
-    blockElement.dataset.blockStatus = 'initialized';
-    const blockWrapper = blockElement.parentElement;
-    blockWrapper.classList.add(`${block}-wrapper`);
-    const section = blockWrapper.parentElement;
-    if (section) section.classList.add(`${block}-container`);
+  blockElement.classList.add('block');
+  blockElement.dataset.blockName = block;
+  blockElement.dataset.blockStatus = 'initialized';
+  const blockWrapper = blockElement.parentElement;
+  blockWrapper.classList.add(`${block}-wrapper`);
+  const section = blockWrapper.parentElement;
+  if (section) section.classList.add(`${block}-container`);
 };
 
 /**
@@ -100,7 +100,7 @@ export default async function addFranklinComponentToContainer(offer, block, cont
   const shadowDomBody = document.createElement('body');
   shadowDomBody.appendChild(plainHTMLContainer);
   shadowDom.appendChild(shadowDomBody);
-  
+
   // load the block CSS file
   loadCSS(`${dataApinDomain}/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
 
