@@ -400,31 +400,6 @@ main .default-content-wrapper img {
   margin: 0 !important;
 }
 
-main .blue-title-left .default-content-wrapper h2:nth-child(1) {
-  color: #006dff;
-  line-height: 58px;
-  font-size: 49px;
-  font-weight: 300;
-  float: left;
-  width: 50%;
-  padding-right: 2%;
-  margin-bottom: 4em;
-}
-
-main .blue-title-left .default-content-wrapper p:nth-of-type(1) {
-  font-size: 26px;
-  line-height: 37px;
-  font-weight: 100;
-  margin-bottom: 1em;
-}
-
-main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
-  font-size: 18px;
-  line-height: 26px;
-  column-count: 2;
-  column-gap: 20px;
-}
-
 main .has-2-cols .default-content-wrapper {
   display: flex;
 }
@@ -489,6 +464,31 @@ main .blue-quote .default-content-wrapper p img {
 
 .section.logos p:last-of-type {
   text-align: center;
+}
+
+main .blue-title-left .default-content-wrapper h2:nth-child(1) {
+  color: #006dff;
+  line-height: 58px;
+  font-size: 49px;
+  font-weight: 300;
+  float: left;
+  width: 50%;
+  padding-right: 2%;
+  margin-bottom: 4em;
+}
+
+main .blue-title-left .default-content-wrapper p:nth-of-type(1) {
+  font-size: 26px;
+  line-height: 37px;
+  font-weight: 100;
+  margin-bottom: 1em;
+}
+
+main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
+  font-size: 18px;
+  line-height: 26px;
+  column-count: 2;
+  column-gap: 20px;
 }
 
 main .single-blue-quote .default-content-wrapper {
@@ -968,12 +968,12 @@ main .section.highlight {
   background-color: #000;
 }
 
-#footerFerrari section ul {
+#footerFerrari ul {
   margin-left: 0;
   padding-left: 0;
 }
 
-#footerFerrari section ul li {
+#footerFerrari ul li {
   list-style-type: none;
 }
 
