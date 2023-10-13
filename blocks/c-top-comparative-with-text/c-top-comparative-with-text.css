@@ -30,6 +30,11 @@
   border-top-color: #e60093;
 }
 
+.c-top-comparative-with-text.no-highlight > div:nth-child(3) {
+  box-shadow: initial;
+  border-top-color: transparent;
+}
+
 .c-top-comparative-with-text > div picture img {
   height: 20px;
   margin: 0 5px;
@@ -231,6 +236,10 @@
 .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div h2 {
   font-size: 30px;
   line-height: 27px;
+}
+
+.c-top-comparative-with-text-container.has2boxes .c-top-comparative-with-text > div {
+  width: 33.3%;
 }
 
 /* for mobile */
