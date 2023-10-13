@@ -28,11 +28,6 @@ function checkForRevolut(spanSvgs, block) {
   }
 }
 
-let isFerrariPage = false;
-if (window.location.href.indexOf('scuderiaferrari') !== -1) {
-  isFerrariPage = true;
-}
-
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -54,8 +49,9 @@ export default async function decorate(block) {
     const homeUrl = getDefaultBaseUrl();
 
     block.classList.add('lp-header', 'py-3');
-    if (isFerrariPage) {
-      block.closest('.header-wrapper').classList.add('ferrari-header');
+
+    if (window.location.href.indexOf('scuderiaferrari') !== -1) {
+      block.closest('.header-wrapper').id = 'headerFerrari';
       block.innerHTML = html;
     } else {
       block.innerHTML = `
@@ -66,7 +62,6 @@ export default async function decorate(block) {
       </a>`;
     }
     
-
     adobeMcAppendVisitorId('header');
   }
 }
