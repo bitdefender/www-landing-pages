@@ -59,7 +59,7 @@ export default async function decorate(block) {
         ${spanSvg.map((svg) => `
             ${svg.outerHTML}
         `).join('')}
-      </a>`;
+      </a>`; 
     }
 
     adobeMcAppendVisitorId('header');

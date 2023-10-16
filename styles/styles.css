@@ -212,6 +212,7 @@ a.button:any-link:hover, button:hover {
 [data-button-color=blue] a.button:any-link, [data-button-color=blue] button {
   background: #006DFF;
 }
+
 [data-button-color=blue] a.button:any-link:hover, [data-button-color=blue] button:hover {
   background-color: #00439c;
 }
@@ -291,6 +292,7 @@ main .default-content-wrapper {
 *[data-mtop=none] {
   margin-top: 0;
 }
+
 *[data-mtop=none] .default-content-wrapper {
   margin-top: 0;
   padding-top: 0;
@@ -760,6 +762,7 @@ main .section.highlight {
 .btn-blue a.red-buy-button {
   background-color: #006FFF !important;
 }
+
 .btn-blue a.red-buy-button:hover {
   background-color: #0755ba !important;
 }
@@ -819,21 +822,24 @@ main .section.highlight {
 #headerFerrari {
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 4;
   width: 100%;
   border-bottom: 2px solid #3C3C3C;
   height: 40px;
-  box-shadow: 0 32px 73px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 32px 73px #000;
 }
+
 #headerFerrari div div {
   margin-top: -10px;
 }
+
 #headerFerrari ul {
   padding: 0;
   margin: 0;
   width: 50%;
   float: left;
 }
+
 #headerFerrari ul li {
   color: white;
   font-size: 12px;
@@ -841,12 +847,18 @@ main .section.highlight {
   display: inline-block;
   padding: 0 10px;
 }
+
+#headerFerrari ul:nth-of-type(1) li:nth-of-type(1) {
+  padding-left: 0;
+}
+
 #headerFerrari ul li a {
   color: #DEDEDE;
   font-size: 12px;
   padding-bottom: 10px;
   position: relative;
 }
+
 #headerFerrari ul li a::before {
   content: "";
   position: absolute;
@@ -861,37 +873,46 @@ main .section.highlight {
   will-change: transform;
   transform-origin: right;
 }
+
 #headerFerrari ul li a:hover {
   text-decoration: none;
 }
+
 #headerFerrari ul li a:hover::before {
   transform: scaleX(1);
   transform-origin: left;
 }
+
 #headerFerrari ul:nth-of-type(2) {
   text-align: right;
 }
+
 #headerFerrari ul:nth-of-type(2) li {
   border-left: 1px solid #616161;
 }
+
 #headerFerrari ul:nth-of-type(3) {
   width: 100%;
   margin-top: 20px;
 }
+
 #headerFerrari ul:nth-of-type(3) li {
   padding: 0 25px 0 0;
 }
+
 #headerFerrari ul:nth-of-type(3) li a {
-  color: #DEDEDE;
+  color: #FFF;
   font-size: 16px;
   font-weight: 500;
 }
+
 #headerFerrari ul:nth-of-type(3) li a span.icon-logo-white {
   display: inline-block;
   background: url("../images/sigla_bd_white.svg") 0 0 no-repeat;
   width: 165px;
   height: 25px;
 }
+
 #headerFerrari ul:nth-of-type(3) :nth-of-type(3) a {
   font-weight: bold;
 }
@@ -926,20 +947,25 @@ main .section.highlight {
   margin: 3em auto 0;
   padding: 0 !important;
 }
+
 .below-form-banner > div {
   width: 50%;
   padding: 1em;
 }
+
 .below-form-banner > div:nth-child(1) {
   text-align: center;
 }
+
 .below-form-banner > div:nth-child(1) p:nth-child(1) {
   font-size: 24px;
   line-height: 32px;
 }
+
 .below-form-banner > div:nth-child(1) p:nth-child(2) {
   font-size: 16px;
 }
+
 .below-form-banner > div:nth-child(1) p:nth-child(3) {
   font-size: 14px;
   border-top: 1px solid #E5E5E5;
@@ -947,12 +973,15 @@ main .section.highlight {
   margin: 10px;
   padding: 5px 0;
 }
+
 .below-form-banner > div:nth-child(2) {
   background-color: #F7F6F7;
 }
+
 .below-form-banner > div:nth-child(2) ul {
   padding-left: 0;
 }
+
 .below-form-banner > div:nth-child(2) ul li {
   font-size: 14px;
   background: url("../../images/icons/simple_green_check.png") 0 3px no-repeat transparent;
