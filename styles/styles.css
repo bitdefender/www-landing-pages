@@ -1161,17 +1161,14 @@ main .section.highlight {
     position: static;
     height: auto;
   }
-  #headerFerrari ul {
-    width: 100%;
-    float: none;
-  }
-  #headerFerrari ul li {
-    padding: 0 10px 0 0;
-  }
   #headerFerrari div div {
     margin-top: 0;
     flex-direction: column;
     display: flex;
+  }
+  #headerFerrari ul {
+    width: 100%;
+    float: none;
   }
   #headerFerrari ul:nth-of-type(1) {
     order: 2;
@@ -1179,6 +1176,9 @@ main .section.highlight {
   #headerFerrari ul:nth-of-type(2) {
     text-align: left;
     order: 3;
+  }
+  #headerFerrari ul li {
+    padding: 0 10px 0 0;
   }
   #headerFerrari ul:nth-of-type(2) li {
     border-left: 0 none;

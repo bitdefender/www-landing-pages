@@ -1172,6 +1172,7 @@ main .section.highlight {
     font-size: 17px;
     line-height: 24px;
   }
+
   main .blue-title-left .default-content-wrapper p:nth-of-type(2), main .splitted .default-content-wrapper p {
     column-count: 1;
   }
@@ -1194,6 +1195,7 @@ main .section.highlight {
   main .blue-quote .default-content-wrapper p:nth-of-type(1), main .blue-quote .default-content-wrapper p:nth-of-type(2) {
     border-radius: 0;
   }
+  
   main .blue-quote .default-content-wrapper p:nth-of-type(1) strong, main .single-blue-quote .default-content-wrapper strong {
     margin-top: 15px;
     font-size: 15px;
@@ -1221,19 +1223,15 @@ main .section.highlight {
     height: auto;
   }
 
-  #headerFerrari ul {
-    width: 100%;
-    float: none;
-
-    li {
-      padding: 0 10px 0 0;
-    }
-  }
-
   #headerFerrari div div {
     margin-top: 0;
     flex-direction: column;
     display: flex;
+  }
+
+  #headerFerrari ul {
+    width: 100%;
+    float: none;
   }
 
   #headerFerrari ul:nth-of-type(1) {
@@ -1243,6 +1241,10 @@ main .section.highlight {
   #headerFerrari ul:nth-of-type(2) {
     text-align: left;
     order: 3;
+  }
+
+  #headerFerrari ul li {
+    padding: 0 10px 0 0;
   }
 
   #headerFerrari ul:nth-of-type(2) li {
