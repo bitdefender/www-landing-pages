@@ -831,15 +831,15 @@ main .section.highlight {
   margin-top: -10px;
 }
 
+.below-form-banner > div:nth-child(2) ul {
+  padding-left: 0;
+}
+
 #headerFerrari ul {
   padding: 0;
   margin: 0;
   width: 50%;
   float: left;
-}
-
-.below-form-banner > div:nth-child(2) ul {
-  padding-left: 0;
 }
 
 #footerFerrari ul {
