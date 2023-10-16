@@ -416,23 +416,10 @@ main .has-2-cols .default-content-wrapper p {
   font-size: 20px;
   line-height: 30px;
 }
-main .has-2-cols .default-content-wrapper p:nth-of-type(1) {
-  font-size: 20px;
-  line-height: 30px;
-}
-
-main .splitted .default-content-wrapper h2:nth-child(1) {
-  margin-bottom: 1em;
-}
 
 main .splitted .default-content-wrapper p {
   column-count: 2;
   column-gap: 20px;
-}
-
-main .blue-quote .default-content-wrapper {
-  display: flex;
-  justify-content: space-between;
 }
 
 main .blue-quote .default-content-wrapper p {
@@ -442,6 +429,24 @@ main .blue-quote .default-content-wrapper p {
   color: #fff;
   font-size: 25px;
   line-height: 38px;
+}
+
+.section.logos p:last-of-type {
+  text-align: center;
+}
+
+main .has-2-cols .default-content-wrapper p:nth-of-type(1) {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+main .splitted .default-content-wrapper h2:nth-child(1) {
+  margin-bottom: 1em;
+}
+
+main .blue-quote .default-content-wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 main .blue-quote .default-content-wrapper p:nth-of-type(1) {
@@ -460,10 +465,6 @@ main .blue-quote .default-content-wrapper p img {
   max-height: 90pt;
   max-width: 15%;
   margin: 0 2%;
-}
-
-.section.logos p:last-of-type {
-  text-align: center;
 }
 
 main .blue-title-left .default-content-wrapper h2:nth-child(1) {
@@ -499,6 +500,11 @@ main .single-blue-quote .default-content-wrapper p:nth-of-type(1) {
   line-height: 55px;
   font-size: 40px;
   font-weight: 300;
+}
+
+.red-buy-button p em {
+  font-weight: 300;
+  font-size: 14px;
 }
 
 main .single-blue-quote .default-content-wrapper strong, main .single-blue-quote .default-content-wrapper em {
@@ -787,11 +793,6 @@ main .section.highlight {
 .red-buy-button:hover {
   background: #b33027 !important;
   text-decoration: none;
-}
-
-.red-buy-button p em {
-  font-weight: 300;
-  font-size: 14px;
 }
 
 #fakeSelectors_bottom {
