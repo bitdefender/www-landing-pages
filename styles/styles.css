@@ -40,17 +40,6 @@
   --nav-height: 64px;
 }
 
-/* 
-@media (min-width: 900px) {
-  :root {
-    --heading-font-size-xxl: 60px;
-    --heading-font-size-xl: 48px;
-    --heading-font-size-l: 36px;
-    --heading-font-size-m: 30px;
-    --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;
-  }
-} */
 body {
   font-size: var(--body-font-size-xs);
   margin: 0;
@@ -65,10 +54,6 @@ body.appear {
   display: unset;
 }
 
-/* .row>* { */
-/*  width: auto; */
-/*  max-width: none; */
-/* } */
 *[data-align=center] {
   text-align: center;
 }
@@ -547,7 +532,7 @@ main .section.highlight {
 }
 
 .greenTag {
-  background-color: rgb(47, 180, 62);
+  background-color: #2fb43e;
   font-size: 11px;
   display: inline;
   padding: 2px 6px;
@@ -581,11 +566,11 @@ main .section.highlight {
 }
 
 .prod-percent.green_bck_pill {
-  background-color: rgb(47, 180, 62);
+  background-color: #2fb43e;
   font-size: 18px;
   display: inline-block;
   padding: 5px 20px;
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   border-radius: 15px;
   margin-top: 15px;
 }
@@ -600,7 +585,7 @@ main .section.highlight {
   line-height: 81px;
   text-align: center;
   padding: 0;
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   display: inline-block;
 }
 
@@ -822,11 +807,11 @@ main .section.highlight {
 #headerFerrari {
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 4;
   width: 100%;
   border-bottom: 2px solid #3C3C3C;
   height: 40px;
-  box-shadow: 0 32px 73px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 32px 73px #000;
 }
 
 #headerFerrari div div {
@@ -848,6 +833,10 @@ main .section.highlight {
   padding: 0 10px;
 }
 
+#headerFerrari ul:nth-of-type(1) li:nth-of-type(1) {
+  padding-left: 0;
+}
+
 #headerFerrari ul li a {
   color: #DEDEDE;
   font-size: 12px;
@@ -864,7 +853,6 @@ main .section.highlight {
   transition: all 0.3s ease;
   transition-property: transform;
   width: 100%;
-  -webkit-transform: scaleX(0);
   transform: scaleX(0);
   will-change: transform;
   transform-origin: right;
@@ -897,7 +885,7 @@ main .section.highlight {
 }
 
 #headerFerrari ul:nth-of-type(3) li a {
-  color: #DEDEDE;
+  color: #FFF;
   font-size: 16px;
   font-weight: 500;
 }
