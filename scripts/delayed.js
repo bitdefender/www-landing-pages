@@ -27,6 +27,7 @@ async function initZuoraProductPriceLogic() {
 
           const zuoraResult = await ZuoraNLClass.loadProduct(item);
           showPrices(zuoraResult);
+          adobeMcAppendVisitorId('main');
           showLoaderSpinner(true, onSelectorClass);
           sendAnalyticsProducts(zuoraResult, 'nl');
 
