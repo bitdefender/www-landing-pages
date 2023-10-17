@@ -3,36 +3,24 @@
   border-collapse: separate;
   border-left: 0;
   border-radius: 4px;
-  border-spacing: 0px;
-}
-.b-table table > tbody:first-child > tr:first-child > td:first-child {
-  border-radius: 4px 0 0 0;
-}
-.b-table table > tbody:last-child > tr:last-child > td:first-child {
-  border-radius: 0 0 0 4px;
-}
-.b-table table > tbody:first-child > tr:first-child > td {
-  color: #fff;
-  background-color: #006EFF;
-}
-.b-table table > tbody:first-child > tr:first-child > td:not(:last-child) {
-  border-right: 1px solid #fff;
+  border-spacing: 0;
+  width: 100%;
 }
 .b-table table tr {
   display: table-row;
   vertical-align: inherit;
   border-color: inherit;
 }
-.b-table table th, .b-table table td {
+.b-table table td {
   padding: 10px;
   text-align: center;
   border: 1px solid #006EFF;
 }
-.b-table table td:not(:first-child) {
-  border-right: 1px solid #006EFF;
-}
 .b-table table td p {
   margin: 0;
+}
+.b-table table td:has(> table) {
+  padding: 0;
 }
 .b-table table td table {
   border: 0;
@@ -45,10 +33,25 @@
   color: black !important;
   background-color: #fff !important;
 }
-.b-table table td:has(> table) {
-  padding: 0;
+.b-table table td:not(:first-child) {
+  border-right: 1px solid #006EFF;
 }
-.b-table > table > tbody:first-child > tr:first-child > td {
+.b-table table > tbody:first-child > tr:first-child > td {
   color: #fff;
   background-color: #006EFF;
+}
+.b-table table > tbody:last-child > tr:last-child > td:first-child {
+  border-radius: 0 0 0 4px;
+}
+.b-table table > tbody:first-child > tr:first-child > td:first-child {
+  border-radius: 4px 0 0;
+}
+.b-table table > tbody:first-child > tr:first-child > td:not(:last-child) {
+  border-right: 1px solid #fff;
+}
+
+@media screen and (width >= 900px) {
+  .b-table table {
+    width: 68%;
+  }
 }

@@ -1,14 +1,19 @@
 main .form {
-  background-color: var(--color-white);
-  padding: var(--spacing-s);
-  border-radius: var(--card-border-radius-l);
-  filter: var(--image-filter-drop-shadow-small);
-  border: solid 1px var(--bg-color-grey);
+  background-color: #F3F3F3;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 main .form h2 {
   padding: var(--spacing-s) 0;
   font-size: var(--type-heading-l-lh);
+}
+
+main .form .title {
+  color: #6A6A6A;
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 main .form h3 {
@@ -19,48 +24,31 @@ main .form h3 {
 main .form input,
 main .form textarea,
 main .form select {
-  border: solid 1px var(--bg-color-grey);
-  padding: var(--spacing-xxs) var(--spacing-xs);
+  border: solid 0.5px #707070;
+  padding: 5px 10px;
   width: 100%;
   max-width: 50rem;
   box-sizing: border-box;
-  border-radius: var(--input-border-radius);
-  font-size: var(--type-body-s-size);
-  line-height: var(--type-body-s-lh);
-  font-family: var(--body-font-family);
+  font-size: 14px;
 }
 
 main .form textarea {
   min-height: 100px;
-}
-
-main .form input:hover,
-main .form select:hover {
-  border-color: var(--color-font-grey);
+  margin-bottom: 1rem;
 }
 
 main .form label {
   display: block;
-  padding-bottom: var(--spacing-xxs);
   box-sizing: border-box;
-  font-size: var(--type-body-s-size);
-  line-height: var(--type-body-s-lh);
 }
 
 main .form label.required::after {
   content: "*";
-  color: var(--color-black);
-  padding-left: var(--spacing-xxxs);
-}
-
-main .form .field-wrapper {
-  margin-bottom: var(--spacing-m);
 }
 
 main .form .form-checkbox-wrapper {
   display: flex;
   align-items: center;
-  margin: var(--spacing-xs) 0;
 }
 
 main .form .form-checkbox-wrapper input[type=checkbox] {
@@ -74,7 +62,6 @@ main .form .form-checkbox-wrapper input[type=checkbox] {
   position: relative;
   border: unset;
   padding: unset;
-  margin-right: var(--spacing-xxs);
   margin-left: 0;
 }
 
@@ -98,29 +85,37 @@ main .form .form-checkbox-wrapper input[type=checkbox]:checked::after {
 
 main .form .form-checkbox-wrapper label {
   display: block;
-  font-size: var(--type-body-xxs-size);
-  line-height: var(--type-body-xxs-lh);
+  line-height: normal;
+  padding: 10px;
   padding-bottom: 0;
+  width: 100%;
 }
 
 main .form-legal-wrapper p {
-  font-size: var(--type-body-xxs-size);
-  line-height: var(--type-body-xxs-lh);
   font-style: italic;
 }
 
 main .form button {
-  font-family: var(--body-font-family);
+  width: 100%;
 }
 
-@media screen and (min-width: 900px) {
-  main .form {
-    padding: var(--spacing-ml);
-  }
+@media screen and (width >= 900px) {
   main .form .field-wrapper {
     display: flex;
   }
-  main .form label {
-    width: 72%;
+  main .form .field-wrapper.form-short {
+    display: inline-flex;
+    width: 50%;
+  }
+  main .form .field-wrapper.form-short:first-of-type {
+    padding-right: 10px;
+  }
+  main .form-wrapper:has(.form-besides-table) {
+    display: flex;
+    justify-content: end;
+    margin-top: -563px;
+  }
+  main .form {
+    max-width: 31%;
   }
 }

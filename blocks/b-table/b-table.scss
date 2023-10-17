@@ -4,24 +4,8 @@
         border-collapse: separate;
         border-left: 0;
         border-radius: 4px;
-        border-spacing: 0px;
-
-        >tbody:first-child >tr:first-child >td:first-child {
-            border-radius: 4px 0 0 0;
-        }
-        
-        >tbody:last-child >tr:last-child >td:first-child {
-            border-radius: 0 0 0 4px;
-        }
-
-        >tbody:first-child >tr:first-child >td {
-            color: #fff;
-            background-color: #006EFF;
-
-            &:not(:last-child) {
-                border-right: 1px solid #fff;
-            }
-        }
+        border-spacing: 0;
+        width: 100%;
 
         tr {
             display: table-row;
@@ -29,20 +13,17 @@
             border-color: inherit;
         }
 
-        th, td {
+        td {
             padding: 10px; 
             text-align: center;
-            border: 1px solid #006EFF;    
-        }
-
-        td {
-            
-            &:not(:first-child) {
-                border-right: 1px solid #006EFF;
-            }
+            border: 1px solid #006EFF;  
 
             p {
                 margin: 0;
+            }
+
+            &:has(> table) {
+                padding: 0;
             }
 
             table {
@@ -58,14 +39,34 @@
                 }
             }
 
-            &:has(> table) {
-                padding: 0;
+            &:not(:first-child) {
+                border-right: 1px solid #006EFF;
             }
         }
-    }
 
-    >table >tbody:first-child >tr:first-child >td {
-        color: #fff;
-        background-color: #006EFF;
+        >tbody:first-child >tr:first-child >td {
+            color: #fff;
+            background-color: #006EFF;
+        }
+
+        >tbody:last-child >tr:last-child >td:first-child {
+            border-radius: 0 0 0 4px;
+        }
+
+        >tbody:first-child >tr:first-child >td:first-child {
+            border-radius: 4px 0 0;
+        }
+
+        >tbody:first-child >tr:first-child >td:not(:last-child) {
+                border-right: 1px solid #fff;
+        }
     }
 }
+
+@media screen and (width >= 900px) {
+    .b-table {
+        table {
+            width: 68%;
+        }
+    }
+  }

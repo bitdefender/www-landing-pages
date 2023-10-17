@@ -37,7 +37,7 @@ function constructPayload(form) {
 async function submitForm(form) {
   const payload = constructPayload(form);
   payload.timestamp = new Date().toJSON();
-  console.log(form.dataset.action);
+  console.log(payload);
   const resp = await fetch(form.dataset.action, {
     method: 'POST',
     cache: 'no-cache',
@@ -148,6 +148,7 @@ async function createForm(formURL) {
     const fieldId = `form-${fd.Type}-wrapper${style}`;
     fieldWrapper.className = fieldId;
     fieldWrapper.classList.add('field-wrapper');
+    console.log(fd);
     switch (fd.Type) {
       case 'select':
         fieldWrapper.append(createLabel(fd));
@@ -164,14 +165,16 @@ async function createForm(formURL) {
         fieldWrapper.append(createLabel(fd));
         break;
       case 'text-area':
-        fieldWrapper.append(createLabel(fd));
+        // console.log(fd);
+        // fieldWrapper.append(createLabel(fd));
         fieldWrapper.append(createTextArea(fd));
         break;
       case 'submit':
         fieldWrapper.append(createButton(fd));
         break;
       default:
-        fieldWrapper.append(createLabel(fd));
+        console.log(fd);
+        // fieldWrapper.append(createLabel(fd));
         fieldWrapper.append(createInput(fd));
     }
 
@@ -193,10 +196,35 @@ async function createForm(formURL) {
 }
 
 export default async function decorate(block) {
+  const title = block.querySelector('div > div > div:nth-child(1) > div > div');
+  if (title) {
+    title.classList.add('title');
+  }
+
   const form = block.querySelector('a[href$=".json"]');
-  console.log(form);
   addInViewAnimationToSingleElement(block, 'fade-up');
   if (form) {
     form.replaceWith(await createForm(form.href));
+  }
+
+  const formElement = document.querySelector('main .form-wrapper:has(.form-besides-table)');
+  const tableElement = document.querySelector('.section.b-table-container table');
+  if (formElement && tableElement) {
+    const resizeOb = new ResizeObserver((entries) => {
+      // since we are observing only a single element, so we access the first element in entries array
+      const rect = entries[0].contentRect;
+
+      const height = rect.height;
+
+      const mediaQuery = window.matchMedia('(min-width: 900px)');
+      if (mediaQuery.matches) {
+        formElement.style.marginTop = `-${height}px`;
+      } else {
+        formElement.style.marginTop = '2rem';
+      }
+      console.log(`Current Height : ${height}`);
+    });
+
+    resizeOb.observe(tableElement);
   }
 }
