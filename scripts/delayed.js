@@ -3,7 +3,7 @@ import { sampleRUM } from './lib-franklin.js';
 
 import { sendAnalyticsProducts } from './adobeDataLayer.js';
 import {
-  addScript, adobeMcAppendVisitorId, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
+  adobeMcAppendVisitorId, isZuoraForNetherlandsLangMode, productsList, showLoaderSpinner, showPrices,
 } from './utils.js';
 import ZuoraNLClass from './zuora.js';
 
@@ -45,8 +45,4 @@ async function initZuoraProductPriceLogic() {
 
 if (isZuoraForNetherlandsLangMode()) {
   initZuoraProductPriceLogic();
-}
-
-if (window.location.pathname.indexOf('/drafts/') === -1) {
-  addScript('https://consent.cookiebot.com/uc.js', { culture: window.DEFAULT_LANGUAGE || 'en', cbid: '4a55b566-7010-4633-9b03-7ba7735be0b6' }, 'async');
 }
