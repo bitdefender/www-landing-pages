@@ -703,63 +703,6 @@ main .section.highlight {
   margin-bottom: 10px;
 }
 
-.section.logos p {
-  color: #3c3c3c;
-  font-size: 18px;
-  margin-bottom: 2em;
-  text-align: left;
-}
-
-main .blue-quote .default-content-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-main .blue-quote .default-content-wrapper p {
-  width: 48%;
-  border-radius: 5px;
-  overflow: hidden;
-  color: #fff;
-  font-size: 25px;
-  line-height: 38px;
-}
-
-.section.logos p:last-of-type {
-  text-align: center;
-}
-
-main .blue-quote .default-content-wrapper p:nth-of-type(1) {
-  padding: 1em;
-  background-color: #006dff;
-  border-radius: 5px;
-}
-
-main .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
-  margin-top: 36%;
-  display: inline-block;
-  font-size: 20px;
-  line-height: 22px;
-}
-
-main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
-  font-style: normal;
-  font-size: 20px;
-  line-height: 26px;
-  display: inline-block;
-}
-
-main .blue-quote .default-content-wrapper p img {
-  min-width: 100%;
-  height: 100%;
-  margin-top: 0;
-}
-
-.section.logos p:last-of-type img {
-  max-height: 90pt;
-  max-width: 15%;
-  margin: 0 2%;
-}
-
 @keyframes place-holder-shimmer {
   0% {
     background-position: -800px 0;
