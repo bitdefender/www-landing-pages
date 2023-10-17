@@ -49,12 +49,18 @@ export default async function decorate(block) {
     const homeUrl = getDefaultBaseUrl();
 
     block.classList.add('lp-header', 'py-3');
-    block.innerHTML = `
+
+    if (window.location.href.indexOf('scuderiaferrari') !== -1) {
+      block.closest('.header-wrapper').id = 'headerFerrari';
+      block.innerHTML = html;
+    } else {
+      block.innerHTML = `
       <a class="d-flex justify-content-between" href="${homeUrl}">
         ${spanSvg.map((svg) => `
             ${svg.outerHTML}
         `).join('')}
       </a>`;
+    }
 
     adobeMcAppendVisitorId('header');
   }
