@@ -34,17 +34,13 @@ const updateLinkSources = (plainHTMLContainer) => {
 const loadBlock = async (offer) => {
   const plainHTMLContainer = document.createElement('div');
 
-  try {
-    // make a call to get all the plain HTML
-    const plainHTMLResponse = await fetch(offer);
-    const plainHTML = await plainHTMLResponse.text();
+  // make a call to get all the plain HTML
+  const plainHTMLResponse = await fetch(offer);
+  const plainHTML = await plainHTMLResponse.text();
 
-    // fill the div node with HTML
-    plainHTMLContainer.innerHTML = plainHTML;
-    updateLinkSources(plainHTMLContainer);
-  } catch (error) {
-    console.log('Failed to fetch HTML', error);
-  }
+  // fill the div node with HTML
+  plainHTMLContainer.innerHTML = plainHTML;
+  updateLinkSources(plainHTMLContainer);
 
   return plainHTMLContainer;
 };
@@ -71,12 +67,17 @@ const loadCSS = async (href, shadowDom) => {
  * Franklin decorator logic
  */
 const decorateBlock = async (block, shadowDom) => {
-  try {
-    const logicModule = await import(/* webpackIgnore: true */`${dataApinDomain}/blocks/${block}/${block}.js`);
-    logicModule.default(shadowDom.querySelector(`.${block}`));
-  } catch (error) {
-    console.log('Error caused by js import', error);
-  }
+  const logicModule = await import(/* webpackIgnore: true */`${dataApinDomain}/blocks/${block}/${block}.js`);
+  const blockElement = shadowDom.querySelector(`.${block}`);
+  logicModule.default(blockElement);
+
+  blockElement.classList.add('block');
+  blockElement.dataset.blockName = block;
+  blockElement.dataset.blockStatus = 'initialized';
+  const blockWrapper = blockElement.parentElement;
+  blockWrapper.classList.add(`${block}-wrapper`);
+  const section = blockWrapper.parentElement;
+  if (section) section.classList.add(`${block}-container`);
 };
 
 /**
@@ -89,24 +90,16 @@ const decorateBlock = async (block, shadowDom) => {
 export default async function addFranklinComponentToContainer(offer, block, containerId) {
   // create a shadow DOM in the container
   const container = document.querySelector(`#${containerId}`);
-
-  if (!container) {
-    console.log('Process Failed due to incorrect container ID (No container was found)');
-    return;
-  }
-
   const shadowDom = container.attachShadow({ mode: 'open' });
 
   // load the Franklin block plain HTML
   const plainHTMLContainer = await loadBlock(offer, block);
 
-  if (!plainHTMLContainer.innerHTML) {
-    return;
-  }
-
   // add head section to the shadowDom and append the received HTML
   shadowDom.appendChild(document.createElement('head'));
-  shadowDom.appendChild(plainHTMLContainer);
+  const shadowDomBody = document.createElement('body');
+  shadowDomBody.appendChild(plainHTMLContainer);
+  shadowDom.appendChild(shadowDomBody);
 
   // load the block CSS file
   loadCSS(`${dataApinDomain}/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
