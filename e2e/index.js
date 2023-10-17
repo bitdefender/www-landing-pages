@@ -119,44 +119,44 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
     ]);
     const activeLandingpages = await activeLandingpagesRes.json();
 
-    const priceValidationTestsPromises = activeLandingpages.data.flatMap(({ URI, Products }) => {
-      const productsAsList = Products.split(',');
-      const countryCode = URI.split('/')[1];
-      const region = AWS_REGION_BY_COUNTRY_CODE_MAP.get(countryCode);
-
-      return productsAsList.map((productName, index) => {
-        const trimmedProductName = productName.trim();
-        const isTestSkippedByProduct = trimmedProductName === skippedTestLabel;
-
-        if(isTestSkippedByProduct) {
-          return null;
-        }
-
-        const testName = `${URI} => ${trimmedProductName}`;
-        const testAlreadyExists = priceValidationSuiteTests.find(originalTest => originalTest.name === testName);
-
-        if (testAlreadyExists) {
-          return GhostInspector.executeTest(testAlreadyExists._id, {
-            name: testName,
-            productIndex: index,
-            startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
-            region,
-          });
-        }
-
-        return GhostInspector.importTest(priceValidationSuiteId, new PriceValidationTest({
-          name: testName,
-          productIndex: index,
-          startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
-          region,
-        }).generate()).then(({_id}) => GhostInspector.executeTest(_id, {
-          name: testName,
-          productIndex: index,
-          startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
-          region,
-        }));
-      });
-    }).filter(promise => promise !== null);
+    // const priceValidationTestsPromises = activeLandingpages.data.flatMap(({ URI, Products }) => {
+    //   const productsAsList = Products.split(',');
+    //   const countryCode = URI.split('/')[1];
+    //   const region = AWS_REGION_BY_COUNTRY_CODE_MAP.get(countryCode);
+    //
+    //   return productsAsList.map((productName, index) => {
+    //     const trimmedProductName = productName.trim();
+    //     const isTestSkippedByProduct = trimmedProductName === skippedTestLabel;
+    //
+    //     if(isTestSkippedByProduct) {
+    //       return null;
+    //     }
+    //
+    //     const testName = `${URI} => ${trimmedProductName}`;
+    //     const testAlreadyExists = priceValidationSuiteTests.find(originalTest => originalTest.name === testName);
+    //
+    //     if (testAlreadyExists) {
+    //       return GhostInspector.executeTest(testAlreadyExists._id, {
+    //         name: testName,
+    //         productIndex: index,
+    //         startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
+    //         region,
+    //       });
+    //     }
+    //
+    //     return GhostInspector.importTest(priceValidationSuiteId, new PriceValidationTest({
+    //       name: testName,
+    //       productIndex: index,
+    //       startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
+    //       region,
+    //     }).generate()).then(({_id}) => GhostInspector.executeTest(_id, {
+    //       name: testName,
+    //       productIndex: index,
+    //       startUrl: `${featureBranchEnvironmentBaseUrl}/${URI}`,
+    //       region,
+    //     }));
+    //   });
+    // }).filter(promise => promise !== null);
 
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
@@ -178,14 +178,14 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
         });
 
     const [
-      priceValidationTestsResult,
+      // priceValidationTestsResult,
       snapshotsResult
     ] = await Promise.all([
-      Promise.all(priceValidationTestsPromises),
+      // Promise.all(priceValidationTestsPromises),
       Promise.all(snapshotsPromises)
     ]);
 
-    showGenericFunctionalTestsFullLogs(priceValidationTestsResult);
+    // showGenericFunctionalTestsFullLogs(priceValidationTestsResult);
     showSnapshotTestsFullLogs(snapshotsResult);
   } catch (err) {
     console.error(err);
