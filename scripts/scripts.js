@@ -719,6 +719,7 @@ function initSelectors() {
           try {
             const fp = this;
             showPrices(fp);
+            adobeMcAppendVisitorId('main');
             showLoaderSpinner(true, onSelectorClass);
           } catch (ex) { /* empty */ }
         },
