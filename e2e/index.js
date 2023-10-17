@@ -172,7 +172,7 @@ const AWS_REGION_BY_COUNTRY_CODE_MAP = new Map([
 
           return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
             name: testName,
-            startUrl: `${featureBranchEnvironmentBaseUrl}/drafts/blocks/${testName}`
+            startUrl: `${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testName}`
           }).generate())
             .then(({_id}) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then(res => res.json()))
         });
