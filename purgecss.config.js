@@ -22,4 +22,5 @@ module.exports = {
     'p-5', 'my-5',
     'table-bordered',
   ],
+  blocklist: ['strong'],
 };

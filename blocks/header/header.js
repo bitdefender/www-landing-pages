@@ -1,6 +1,6 @@
 import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
 import {
-  adobeMcAppendVisitorId, GLOBAL_EVENTS, getLocalizedResourceUrl, getDefaultBaseUrl,
+  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl,
 } from '../../scripts/utils.js';
 
 /**
@@ -49,15 +49,19 @@ export default async function decorate(block) {
     const homeUrl = getDefaultBaseUrl();
 
     block.classList.add('lp-header', 'py-3');
-    block.innerHTML = `
+
+    if (window.location.href.indexOf('scuderiaferrari') !== -1) {
+      block.closest('.header-wrapper').id = 'headerFerrari';
+      block.innerHTML = html;
+    } else {
+      block.innerHTML = `
       <a class="d-flex justify-content-between" href="${homeUrl}">
         ${spanSvg.map((svg) => `
             ${svg.outerHTML}
         `).join('')}
       </a>`;
+    }
 
-    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
-      adobeMcAppendVisitorId('header');
-    });
+    adobeMcAppendVisitorId('header');
   }
 }

@@ -1,5 +1,7 @@
 export default class ZuoraNLClass {
-  static coupon = 'BTS2023';
+  static campaignDefault = 'Cyber2023';
+
+  static campaignParam = new URLSearchParams(window.location.search).get('campaign');
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
@@ -41,16 +43,13 @@ export default class ZuoraNLClass {
   static zuoraConfig = {
     cartUrl: 'https://checkout.bitdefender.com',
     key: 'bb22f980-fa19-11ed-b443-87a99951e6d5',
+    // key: 'f1da8e40-f3dc-11e9-aeb6-33499e25f9e2',
     endpoint: 'https://checkout-service.bitdefender.com',
   };
 
-  static getKey() {
-    return 'bb22f980-fa19-11ed-b443-87a99951e6d5';
-  }
-
   static config(key) {
     return {
-      key: key || this.getKey(),
+      key: key || this.zuoraConfig.key,
       country: 'NL',
       language: 'nl_NL',
       debug: false,
@@ -91,13 +90,13 @@ export default class ZuoraNLClass {
     }
   }
 
-  static async getProductVariationsPrice(product, campaignId = this.coupon) {
+  static async getProductVariationsPrice(product, campaign) {
     const prod = product.split('/');
     const id = prod[0];
     const devicesNo = prod[1];
     const yearsNo = prod[2];
 
-    let payload = (await this.getProductVariations(this.productId[id], campaignId))?.payload;
+    let payload = (await this.getProductVariations(this.productId[id], campaign))?.payload;
 
     if (!payload || payload.length === 0) {
       return null;
@@ -153,7 +152,7 @@ export default class ZuoraNLClass {
       const windowURL = new URL(window.location.href);
       const zuoraCart = new URL('/index.html:step=cart?theme=light', this.zuoraConfig.cartUrl);
 
-      zuoraCart.searchParams.set('campaign', campaignId);
+      zuoraCart.searchParams.set('campaign', campaign);
       if (windowURL.searchParams.has('lang')) {
         zuoraCart.searchParams.set('language', windowURL.searchParams.get('lang'));
       }
@@ -206,7 +205,7 @@ export default class ZuoraNLClass {
             discounted_price: pricing.price,
             discount_value: pricing.discount,
           },
-          promotion: campaignId,
+          promotion: campaign,
         },
         buy_link: zuoraCart.href,
         config: {
@@ -237,9 +236,9 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static loadProduct(id, campaign) {
+  static loadProduct(id) {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
-    return this.getProductVariationsPrice(id, campaign);
+    return this.getProductVariationsPrice(id, this.campaignParam || this.campaignDefault);
   }
 }
