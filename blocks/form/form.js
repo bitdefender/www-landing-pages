@@ -35,7 +35,6 @@ function constructPayload(form) {
 async function submitForm(form) {
   const payload = constructPayload(form);
   payload.timestamp = new Date().toJSON();
-  console.log(payload);
   const resp = await fetch(form.dataset.action, {
     method: 'POST',
     cache: 'no-cache',
@@ -45,7 +44,6 @@ async function submitForm(form) {
     body: JSON.stringify({ data: payload }),
   });
   await resp.text();
-  console.log(payload);
   return payload;
 }
 
@@ -146,7 +144,6 @@ async function createForm(formURL) {
     const fieldId = `form-${fd.Type}-wrapper${style}`;
     fieldWrapper.className = fieldId;
     fieldWrapper.classList.add('field-wrapper');
-    console.log(fd);
     switch (fd.Type) {
       case 'select':
         fieldWrapper.append(createLabel(fd));
@@ -163,7 +160,6 @@ async function createForm(formURL) {
         fieldWrapper.append(createLabel(fd));
         break;
       case 'text-area':
-        // console.log(fd);
         // fieldWrapper.append(createLabel(fd));
         fieldWrapper.append(createTextArea(fd));
         break;
@@ -171,7 +167,6 @@ async function createForm(formURL) {
         fieldWrapper.append(createButton(fd));
         break;
       default:
-        console.log(fd);
         // fieldWrapper.append(createLabel(fd));
         fieldWrapper.append(createInput(fd));
     }
@@ -219,7 +214,6 @@ export default async function decorate(block) {
       } else {
         formElement.style.marginTop = '2rem';
       }
-      console.log(`Current Height : ${height}`);
     });
 
     resizeOb.observe(tableElement);
