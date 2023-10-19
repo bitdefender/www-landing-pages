@@ -251,10 +251,11 @@ export default function decorate(block) {
   }
 
    // adding height if content is bigger than default banner:
-   const bannerHeight = document.querySelector('.b-banner-wrapper').offsetHeight;
-   // const contentHeight = document.querySelector('.b-banner-wrapper').offsetHeight;
+   const bannerHeight = block.closest('.b-banner-container').offsetHeight;
    const contentHeight = block.offsetHeight;
-   block.closest('.b-banner-container').style.height = `${contentHeight}px`;
+   if (contentHeight > bannerHeight) {
+    block.closest('.b-banner-container').style.height = `${contentHeight}px`;
+   }
 
   // TODO: Add logic betwen the card and banner component.
 }
