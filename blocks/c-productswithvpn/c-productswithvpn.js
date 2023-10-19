@@ -34,6 +34,7 @@ export default function decorate(block) {
     title,
     subtitle,
     titlePosition,
+    marginTop,
     products,
     priceText1,
     priceText2,
@@ -49,6 +50,10 @@ export default function decorate(block) {
   const productsAsList = products && products.split(',');
 
   if (productsAsList.length) {
+    if (marginTop) {
+      block.style.marginTop = marginTop;
+    }
+
     /// ///////////////////////////////////////////////////////////////////////
     // set the title
     if (typeof title !== 'undefined') {
@@ -195,7 +200,7 @@ export default function decorate(block) {
 
       /// ///////////////////////////////////////////////////////////////////////
       let hasVPN = false;
-      if (tableVpn.innerText.indexOf('X') !== -1 && tableVpn.innerText.indexOf('Y') !== -1 && tableVpn.innerText.indexOf('Z') !== -1) {
+      if (tableVpn.innerText.indexOf('X') !== -1 && tableVpn.innerText.indexOf('Y') !== -1 && tableVpn.innerText.indexOf('Z') !== -1 && productsAsList.length !== 1) {
         hasVPN = true;
       }
 
@@ -229,8 +234,10 @@ export default function decorate(block) {
       } else { // no VPN
         // if we don't have vpn we need to set a min-height for the text that comes in place of it
         parentSelector.classList.contains('table_fixed_h');
-        if (!parentSelector.classList.contains('table_fixed_h')) {
+        if (!parentSelector.classList.contains('table_fixed_h') && productsAsList.length !== 1) {
           parentSelector.classList.add('table_fixed_h');
+        } else {
+          parentSelector.classList.add('no_vpn');
         }
       }
 
