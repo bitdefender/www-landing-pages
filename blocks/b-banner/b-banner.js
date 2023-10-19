@@ -29,7 +29,7 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, imageInContainer, blueBorder, logo, config, biggerBanner,
+    headerTextColor, blueBorder, logo, config, biggerBanner,
   } = metaData;
 
   // move picture below
@@ -250,12 +250,12 @@ export default function decorate(block) {
     }
   }
 
-   // adding height if content is bigger than default banner:
-   const bannerHeight = block.closest('.b-banner-container').offsetHeight;
-   const contentHeight = block.offsetHeight;
-   if (contentHeight > bannerHeight) {
-    block.closest('.b-banner-container').style.height = `${contentHeight}px`;
-   }
+  // adding height if content is bigger than default banner:
+  const bannerHeight = block.closest('.b-banner-container').offsetHeight;
+  const contentHeight = block.offsetHeight;
+  if (contentHeight > bannerHeight) {
+  block.closest('.b-banner-container').style.height = `${contentHeight}px`;
+  }
 
   // TODO: Add logic betwen the card and banner component.
 }
