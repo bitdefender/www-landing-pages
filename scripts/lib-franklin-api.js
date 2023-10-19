@@ -82,14 +82,37 @@ const decorateBlock = async (block, shadowDom) => {
 
 /**
  *
+ * @param {string} selector
+ * Validates the selector string
+ */
+function isValidSelector(selector) {
+  if (typeof selector !== 'string' || !selector.trim()) {
+    return false;
+  }
+
+  try {
+    const element = document.querySelector(selector);
+    return !!element;
+  } catch (e) {
+    // Invalid selector syntax
+    return false;
+  }
+}
+
+/**
+ *
  * @param {string} offer -> url to the plain html
  * @param {string} block -> the requested block (needed for css and js)
- * @param {string} containerId
+ * @param {string} selector
  * adds the requested Franklin component in the container specified through its id
  */
-export default async function addFranklinComponentToContainer(offer, block, containerId) {
+export default async function addFranklinComponentToContainer(offer, block, selector) {
+  if (!isValidSelector(selector)) {
+    throw new Error('Invalid selector provided');
+  }
+
+  const container = document.querySelector(selector);
   // create a shadow DOM in the container
-  const container = document.querySelector(`#${containerId}`);
   const shadowDom = container.attachShadow({ mode: 'open' });
 
   // load the Franklin block plain HTML
