@@ -289,10 +289,6 @@
     display: block;
     margin-bottom: -400px;
   }
-  .b-banner-container .banner-image {
-    display: block;
-    height: 100%;
-  }
   .b-banner-container .b-banner-wrapper {
     position: absolute;
     height: 100%;
@@ -368,6 +364,10 @@
   .b-banner-container .b-banner-wrapper {
     left: 0;
     right: 0;
+  }
+  .b-banner-container .banner-image {
+    display: block;
+    height: 100%;
   }
   .b-banner-container .b-banner-wrapper .banner-image--in-container img {
     display: block;
