@@ -29,19 +29,13 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, imageInContainer, blueBorder, logo, config, biggerBanner,
+    headerTextColor, blueBorder, logo, config, biggerBanner,
   } = metaData;
 
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
   bannerImage.classList.add('banner-image');
-
-  if (!imageInContainer) {
-    parentSelector.append(bannerImage);
-  } else {
-    bannerImage.classList.remove('banner-image');
-    bannerImage.classList.add('banner-image--in-container');
-  }
+  parentSelector.append(bannerImage);
 
   // update background color if set, if not set default: #000
   const block1 = document.querySelector('.b-banner-container');
@@ -235,25 +229,9 @@ export default function decorate(block) {
       parentSelector.querySelector('picture').appendChild(discountDiv);
     }
 
-    const allElements = block.getElementsByTagName('*');
-    // Loop through each element and check if its innerText contains "{$oldprice} or {$newprice}"
-    for (let i = 0; i < allElements.length; i += 1) {
-      const element = allElements[i];
-      let foundOldprice = 0;
-      let foundNewPrice = 0;
-      if (element.innerText === '${oldprice}') {
-        element.classList.add('oldprice', `oldprice-${onSelectorClass}`);
-        foundOldprice = 1;
-      }
-      if (element.innerText === '${newprice}') {
-        element.classList.add('newprice', `newprice-${onSelectorClass}`);
-        foundNewPrice = 1;
-      }
-      // no need to continue if both are found
-      if (foundNewPrice === 1 && foundOldprice === 1) {
-        break;
-      }
-    }
+    const priceTable = block.querySelector('table');
+    priceTable.querySelector('tr:nth-of-type(1) td:nth-of-type(1)').classList.add('oldprice', `oldprice-${onSelectorClass}`);
+    priceTable.querySelector('tr:nth-of-type(2) td:nth-of-type(1)').classList.add('newprice', `newprice-${onSelectorClass}`);
 
     // check if there is an element with the href of #buylink
     const buyLink = block.querySelector('a[href="#buylink"]');
@@ -270,6 +248,13 @@ export default function decorate(block) {
         tableElement.classList.add('price-table');
       }
     }
+  }
+
+  // adding height if content is bigger than default banner:
+  const bannerHeight = block.closest('.b-banner-container').offsetHeight;
+  const contentHeight = block.offsetHeight;
+  if (contentHeight > bannerHeight) {
+    block.closest('.b-banner-container').style.height = `${contentHeight}px`;
   }
 
   // TODO: Add logic betwen the card and banner component.

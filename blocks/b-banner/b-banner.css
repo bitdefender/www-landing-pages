@@ -44,16 +44,18 @@
   font-size: 24px;
   text-decoration: line-through;
   margin-right: 10px;
+  line-height: 19px;
 }
 
 .b-banner-container .b-banner-wrapper .newprice {
   font-size: 40px;
   font-weight: bold;
+  line-height: 0;
 }
 
 .b-banner-container .b-banner-wrapper table {
   border-collapse: separate;
-  border-spacing: 0 1em;
+  border-spacing: 0 5px;
 }
 
 .b-banner-container .b-banner-wrapper table p {
@@ -277,13 +279,13 @@
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
-    height: 500px;
+    min-height: 500px;
   }
   .b-banner-container.bigger-banner {
-    height: 625px;
+    min-height: 625px;
   }
   .b-banner-container.even-bigger-banner {
-    height: 725px;
+    min-height: 725px;
   }
   .b-banner-container.negative {
     display: block;
@@ -299,6 +301,7 @@
   }
   .b-banner-container .b-banner-wrapper h1, .b-banner-container .b-banner-wrapper h2 {
     max-width: 60%;
+    margin-top: 10px;
   }
   .b-banner-container .b-banner-wrapper #bannerAward {
     width: 200px;
@@ -378,6 +381,7 @@
   }
   .b-banner-container .b-banner-wrapper h1 {
     font-size: 35px;
+    line-height: 35px;
     max-width: 610px;
     font-weight: normal;
     padding-bottom: 0;
@@ -386,12 +390,15 @@
   .b-banner-container .b-banner-wrapper h2 {
     font-weight: 700;
     font-size: 35px;
+    line-height: 35px;
     max-width: 595px;
     margin-top: 0;
     margin-bottom: 0;
   }
   .b-banner-container .b-banner-wrapper p {
     max-width: 610px;
+    margin: 10px 0;
+    line-height: 20px;
   }
   .b-banner-container .b-banner-wrapper .smaller-text h2 {
     font-size: 18px;
@@ -417,7 +424,7 @@
 }
 @media screen and (width >= 1199px) {
   .b-banner-container.bigger-banner {
-    height: 625px;
+    min-height: 625px;
   }
   .b-banner-container.center-background-image .banner-image img {
     display: block;
