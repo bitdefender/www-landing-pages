@@ -219,7 +219,7 @@ export default async function decorate(block) {
         targetNode.style.marginTop = `-${formHeight - 15}px`;
       } else {
         formElement.style.marginTop = '2rem';
-        targetNode.style.marginTop = `initial`;
+        targetNode.style.marginTop = 'initial';
       }
     });
 
