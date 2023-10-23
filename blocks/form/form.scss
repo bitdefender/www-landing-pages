@@ -49,6 +49,7 @@ main .form {
   main .form .form-checkbox-wrapper {
     display: flex;
     align-items: center;
+    margin-bottom: 1rem;
   }
   
   main .form .form-checkbox-wrapper input[type='checkbox'] {
@@ -118,8 +119,8 @@ main .form {
     main .form-wrapper {
       &:has(.form-besides-table) {
         display: flex;
+        position: relative;
         justify-content: end;
-        margin-top: -563px;
       }
     } 
 

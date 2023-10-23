@@ -200,6 +200,10 @@ export default async function decorate(block) {
   }
 
   const formElement = document.querySelector('main .form-wrapper:has(.form-besides-table)');
+  const formContainer = document.querySelector('.section.form-container');
+  // select the target node below the formContainer node
+  const targetNode = formContainer.nextElementSibling;
+
   const tableElement = document.querySelector('.section.b-table-container table');
   if (formElement && tableElement) {
     const resizeOb = new ResizeObserver((entries) => {
@@ -207,12 +211,15 @@ export default async function decorate(block) {
       const rect = entries[0].contentRect;
 
       const height = rect.height;
+      const formHeight = formElement.offsetHeight;
 
       const mediaQuery = window.matchMedia('(min-width: 900px)');
       if (mediaQuery.matches) {
-        formElement.style.marginTop = `-${height}px`;
+        formElement.style.top = `-${height}px`;
+        targetNode.style.marginTop = `-${formHeight - 15}px`;
       } else {
         formElement.style.marginTop = '2rem';
+        targetNode.style.marginTop = `initial`;
       }
     });
 
