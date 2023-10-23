@@ -341,6 +341,7 @@
   .b-dropdownbox-container .block > div:nth-child(1) > div {
     padding: 10px 3% !important;
     display: flex;
+    justify-content: space-between;
     font-size: 15px;
     line-height: 17px;
   }
@@ -355,6 +356,11 @@
     right: 0;
     width: 135px;
     height: 90pt;
+    display: none;
+  }
+
+  .b-dropdownbox-container.dropdownSlider::after {
+    display: none;
   }
 
   .b-dropdownbox-container .block > div:not(:first-child) > div {
