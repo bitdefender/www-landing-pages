@@ -29,7 +29,7 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, blueBorder, logo, config, biggerBanner,
+    headerTextColor, blueBorder, logo, config, productBox, biggerBanner,
   } = metaData;
 
   // move picture below
@@ -172,7 +172,7 @@ export default function decorate(block) {
   }
 
   // has award in banner
-  if (block.children.length === 3) {
+  if (block.children.length === 3 && !productBox) {
     block.children[2].id = 'bannerAward';
     const targetElement = block.children[2].children[0];
     const paragraphs = targetElement.querySelectorAll('p:last-of-type');
@@ -195,7 +195,7 @@ export default function decorate(block) {
     }
   }
 
-  if (typeof product !== 'undefined' && product !== '') {
+  if (product) {
     const [prodName, prodUsers, prodYears] = product.split('/');
     const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
@@ -250,11 +250,37 @@ export default function decorate(block) {
     }
   }
 
+  /// //////////////////////////////////////////////////////////////////////
+  // create product box section
+  if (productBox) {
+    block.closest('.b-banner-wrapper').classList.add('flex-prod');
+    const [prodName, prodUsers, prodYears] = productBox.split('/');
+    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+    updateProductsList(productBox);
+
+    block.children[2].id = 'productBoxDiv';
+
+    block.querySelector('table:nth-of-type(2)').innerHTML = `<div class="prices_box prodload prodload-${onSelectorClass}">
+      <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+      <span class="prod-newprice newprice-${onSelectorClass}"></span>
+    </div>`;
+
+    const buyTable = block.querySelector('table:last-of-type');
+    buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
+      <a class="red-buy-button buylink-${onSelectorClass} prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText} Bitdefender" href="#">
+        <strong>${buyTable.innerText}</strong>
+      </a>
+    </div>`;
+
+  }
+  
+
   // adding height if content is bigger than default banner:
   const bannerHeight = block.closest('.b-banner-container').offsetHeight;
   const contentHeight = block.offsetHeight;
   if (contentHeight > bannerHeight) {
-    block.closest('.b-banner-container').style.height = `${contentHeight}px`;
+    block.closest('.b-banner-container').style.height = `${contentHeight + 20}px`;
   }
 
   // TODO: Add logic betwen the card and banner component.
