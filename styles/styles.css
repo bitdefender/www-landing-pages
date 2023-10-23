@@ -515,6 +515,11 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
   display: block;
 }
 
+.bck-black {
+  background-color: black;
+  padding-bottom: 2em;
+}
+
 @media (width >= 900px) {
   .section > div {
     max-width: 1200px;
