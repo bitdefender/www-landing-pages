@@ -272,9 +272,7 @@ export default function decorate(block) {
         <strong>${buyTable.innerText}</strong>
       </a>
     </div>`;
-
   }
-  
 
   // adding height if content is bigger than default banner:
   const bannerHeight = block.closest('.b-banner-container').offsetHeight;
