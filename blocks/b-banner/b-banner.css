@@ -7,6 +7,7 @@
   overflow: hidden;
   padding-right: 0;
   padding-left: 0;
+  margin-bottom: 2em;
 }
 
 .b-banner-container.full {
@@ -19,6 +20,12 @@
 
 .b-banner-container .banner-image--in-container img {
   display: none;
+}
+
+.b-banner-container.full .banner-image img {
+  height: 100% !important;
+  width: auto !important;
+  max-width: unset;
 }
 
 .b-banner-container.blue-border {
@@ -37,7 +44,15 @@
 .b-banner-container .b-banner-wrapper {
   position: relative;
   padding-left: 0;
-  margin: 15px auto;
+  margin: 15px;
+}
+
+.b-banner-container .b-banner-wrapper .b-banner {
+  z-index: 1;
+}
+
+.b-banner-container .b-banner-wrapper.flex-prod .b-banner {
+  flex-direction: column;
 }
 
 .b-banner-container .b-banner-wrapper .oldprice {
@@ -169,10 +184,6 @@
   margin-top: 5px;
 }
 
-.b-banner-container .b-banner-wrapper .b-banner {
-  z-index: 1;
-}
-
 .b-banner-container .b-banner-wrapper .b-banner.bigger-award-and-text table tbody tr td img {
   max-height: 90px;
 }
@@ -203,12 +214,24 @@
   line-height: 20px;
 }
 
+.b-banner-container .b-banner-wrapper #productBoxDiv p {
+  max-width: unset;
+  margin: 5px 0 0;
+  line-height: 17px;
+  font-size: 15px;
+}
+
 .b-banner-container .b-banner-wrapper #bannerAward p:first-of-type {
   margin: 0;
 }
 
 .b-banner-container .b-banner-wrapper #bannerAward p em {
   font-weight: bold;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv img {
+  height: 20px;
+  margin: 0 5px;
 }
 
 .b-banner-container .b-banner-wrapper #bannerAward p img {
@@ -276,6 +299,90 @@
   display: none;
 }
 
+.b-banner-container .b-banner-wrapper #productBoxDiv {
+  width: 90%;
+  position: relative;
+  padding: 0 10px 10px;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px 0 #000;
+  color: black;
+  margin: 0 auto;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv table {
+  width: 100%;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv table:nth-of-type(1) {
+  background-color: #22ac3b;
+  text-align: center;
+  color: #fff;
+  padding: 10px 0;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 0;
+  width: 108%;
+  margin-left: -10px;
+}
+.b-banner-container .b-banner-wrapper #productBoxDiv table:nth-of-type(1) td {
+  text-align: center;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv .prices_box {
+  text-align: center;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv .prices_box span.prod-oldprice {
+  margin-top: 10px;
+  font-size: 24px;
+  line-height: 24px;
+  color: #666;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv .prices_box span.prod-newprice {
+  font-size: 36px;
+  margin-bottom: 3px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv h2 {
+  max-width: 100%;
+  font-size: 36px;
+  margin: 10px 0 0;
+  line-height: 20px;
+}
+.b-banner-container .b-banner-wrapper #productBoxDiv h2::after {
+  content: "";
+  border-bottom: 2px solid #9A9A9A;
+  width: 117px;
+  display: block;
+  margin: 15px auto;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv p em {
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 0;
+  line-height: 12px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 10px;
+  font-style: normal;
+  width: 100%;
+  display: block;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv p:last-of-type em {
+  border-bottom: 0 none;
+  border-top: 1px dashed #ccc;
+  padding-top: 10px;
+}
+
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
@@ -291,13 +398,26 @@
     display: block;
     margin-bottom: -400px;
   }
+  .b-banner-container .banner-image {
+    display: block;
+    height: 100%;
+  }
   .b-banner-container .b-banner-wrapper {
     position: absolute;
     height: 100%;
-    display: flex;
     align-items: center;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 15px auto;
+    display: flex;
+  }
+  .b-banner-container .b-banner-wrapper.flex-prod {
+    display: block;
+  }
+  .b-banner-container .b-banner-wrapper.flex-prod .b-banner {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
   }
   .b-banner-container .b-banner-wrapper h1, .b-banner-container .b-banner-wrapper h2 {
     max-width: 60%;
@@ -312,6 +432,9 @@
   }
   .b-banner-container.form .b-banner-wrapper h2 {
     font-size: 36px;
+  }
+  .b-banner-container .b-banner-wrapper #productBoxDiv h2 {
+    max-width: 100%;
   }
   .b-banner-container.form .b-banner-wrapper h3, .b-banner-container.form .b-banner-wrapper h4 {
     font-size: 20px;
@@ -351,6 +474,9 @@
   .b-banner-container .hasDiscount div span:last-of-type {
     font-size: 22px;
   }
+  .b-banner-container .b-banner-wrapper #productBoxDiv {
+    width: 360px;
+  }
 }
 @media screen and (width >= 989px) {
   .b-banner-container {
@@ -367,10 +493,7 @@
   .b-banner-container .b-banner-wrapper {
     left: 0;
     right: 0;
-  }
-  .b-banner-container .banner-image {
-    display: block;
-    height: 100%;
+    top: 0;
   }
   .b-banner-container .b-banner-wrapper .banner-image--in-container img {
     display: block;
