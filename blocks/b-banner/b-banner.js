@@ -29,7 +29,7 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, blueBorder, logo, config, biggerBanner,
+    headerTextColor, blueBorder, logo, config, productBox, biggerBanner,
   } = metaData;
 
   // move picture below
@@ -172,7 +172,7 @@ export default function decorate(block) {
   }
 
   // has award in banner
-  if (block.children.length === 3) {
+  if (block.children.length === 3 && !productBox) {
     block.children[2].id = 'bannerAward';
     const targetElement = block.children[2].children[0];
     const paragraphs = targetElement.querySelectorAll('p:last-of-type');
@@ -195,7 +195,7 @@ export default function decorate(block) {
     }
   }
 
-  if (typeof product !== 'undefined' && product !== '') {
+  if (product) {
     const [prodName, prodUsers, prodYears] = product.split('/');
     const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
@@ -249,6 +249,19 @@ export default function decorate(block) {
       }
     }
   }
+
+  /// //////////////////////////////////////////////////////////////////////
+  // create product box section
+  if (productBox) {
+    const [prodName, prodUsers, prodYears] = productBox.split('/');
+    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+    updateProductsList(productBox);
+
+    block.children[2].id = 'productBoxDiv';
+
+  }
+  
 
   // adding height if content is bigger than default banner:
   const bannerHeight = block.closest('.b-banner-container').offsetHeight;
