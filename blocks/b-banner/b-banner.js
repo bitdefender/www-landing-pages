@@ -234,7 +234,6 @@ export default function decorate(block) {
       priceTable.querySelector('tr:nth-of-type(1) td:nth-of-type(1)').classList.add('oldprice', `oldprice-${onSelectorClass}`);
       priceTable.querySelector('tr:nth-of-type(2) td:nth-of-type(1)').classList.add('newprice', `newprice-${onSelectorClass}`);
     }
-    
 
     // check if there is an element with the href of #buylink
     const buyLink = block.querySelector('a[href="#buylink"]');
