@@ -95,9 +95,14 @@ export default function decorate(block) {
       tableElServers.innerText = Math.ceil((devicesSelected / 100) * countServ);
     }
 
-    const tableElMailboxes = tableEl.querySelector('strong:nth-child(3) em');
+    const tableElMailboxes = tableEl.querySelector('strong:nth-child(2) em');
     if (tableElMailboxes) {
       tableElMailboxes.innerText = Math.ceil((devicesSelected / 100) * 150);
+    }
+
+    const tableElMailboxes2 = tableEl.querySelector('strong:nth-child(3) em');
+    if (tableElMailboxes2) {
+      tableElMailboxes2.innerText = Math.ceil((devicesSelected / 100) * 150);
     }
 
     block.querySelectorAll('fieldset button').forEach((item) => {
