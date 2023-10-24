@@ -110,7 +110,7 @@ export default function decorate(block) {
 
       /// ////////////////////////////////////////////////////////////////////////
       // add buybtn div & anchor
-      const tableBuybtn = prodBox?.querySelector('table:last-of-type td');
+      const tableBuybtn = prodBox?.querySelector('table:last-of-type');
 
       const aBuybtn = document.createElement('a');
       aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
