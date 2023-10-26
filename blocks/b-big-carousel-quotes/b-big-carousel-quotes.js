@@ -28,18 +28,21 @@ export default function decorate(block) {
           </div>
   
           <div class="carousel-inner">
-            ${carouselSlides.map((slide, idx) => `
-              <div class="carousel-item ${idx === 0 ? 'active' : ''}">
-                <div class="inner">
-                  <q>${slide.children[0].children[0].innerText}</q>
-                  <div class="separator"></div>
-                  <p class="author">${slide.children[0].children[1].innerText}</p>
-                  <p class="position">${slide.children[0].children[2].innerText}</p>
-                  <a class="read-more" href="${slide.children[0].children[3].children[0].href}">Read More</a> 
+            ${carouselSlides.map((slide, idx) => {
+    const [quoteEl, authorEl, positionEl, readMoreEl] = slide.children[0].children;
+    return `
+                <div class="carousel-item ${idx === 0 ? 'active' : ''}">
+                  <div class="inner">
+                    <q>${quoteEl.innerText}</q>
+                    <div class="separator"></div>
+                    <div class="author">${authorEl.innerText}</div>
+                    <div class="position">${positionEl.innerText}</div>
+                    ${readMoreEl ? `<a class="read-more" href="${readMoreEl.children[0].href}">Read More</a>` : ''}
+                  </div>
+                  ${isDesktopView ? slide.children[0].children[5].innerHTML : ''}
                 </div>
-                ${isDesktopView ? slide.children[0].children[5].innerHTML : ''}
-              </div>
-              `).join('')}
+                `;
+  }).join('')}
           </div>
   
           <button class="carousel-control-prev disabled" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" >

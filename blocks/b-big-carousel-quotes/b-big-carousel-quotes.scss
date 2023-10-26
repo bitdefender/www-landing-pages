@@ -3,7 +3,7 @@
   background: black;
   color: white;
   padding: 0!important;
- 
+
   .carousel-indicators {
     bottom: -55px;
     width: 265px;
@@ -59,13 +59,13 @@
     padding-bottom: 50px;
 
     .carousel-item {
-      padding: 50px 20px;
+      padding: 25px 20px;
       position: relative;
 
       q {
         position: relative;
         display: block;
-        padding:0 40px;
+        padding:0 20px;
         font-size: 24px;
         color: #fff;
         font-weight: 400;
@@ -75,8 +75,8 @@
         letter-spacing: normal;
 
         &::before {
-          width: 30px;
-          height: 30px;
+          width: 15px;
+          height: 15px;
           left: 0;
           top: 0;
           background: url('../../icons/blue-quotes.svg') no-repeat;
@@ -87,8 +87,8 @@
         }
 
         &::after {
-          width: 30px;
-          height: 30px;
+          width: 15px;
+          height: 15px;
           right: 0;
           bottom: 0;
           background: url('../../icons/blue-quotes.svg') no-repeat;
@@ -96,6 +96,16 @@
           content: "";
           display: block;
           position: absolute;
+        }
+
+        @media screen and (min-width: 992px) {
+          padding: 0 40px;
+
+          &::before,
+          &::after {
+            width: 30px;
+            height: 30px;
+          }
         }
       }
 
@@ -121,12 +131,11 @@
         }
 
         .inner {
-          width: 50%;
+          width: 55%;
           height: 100%;
           position: absolute;
           z-index: 1;
           color: white;
-          padding: 20px;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -187,7 +196,6 @@
     color: #fff;
     opacity: .8;
     display: inline-block;
-    margin-top: 10px;
     font-size: 1pc;
     font-weight: 400;
     font-stretch: normal;
@@ -203,13 +211,18 @@
     border-radius: 7px;
     display: block;
     width: max-content;
+    margin-top: 10px;
   }
 
   .separator,
   .author,
   .position,
   .read-more {
-    margin-left: 40px;
+    margin-left: 20px;
+
+    @media screen and (min-width: 992px) {
+      margin-left: 40px;
+    }
   }
 
   @media (width >= 768px) {
