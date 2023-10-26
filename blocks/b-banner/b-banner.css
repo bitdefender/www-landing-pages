@@ -7,7 +7,6 @@
   overflow: hidden;
   padding-right: 0;
   padding-left: 0;
-  margin-bottom: 2em;
 }
 
 .b-banner-container.full {
@@ -383,6 +382,24 @@
   padding-top: 10px;
 }
 
+.b-banner-container.text-top .b-banner-wrapper {
+  align-items: flex-start;
+}
+
+.b-banner-container.text-top-centered .b-banner-wrapper {
+  align-items: flex-start;
+  text-align: center;
+}
+
+.b-banner-container.text-top-centered .b-banner-wrapper .b-banner {
+  width: 100%;
+}
+
+.b-banner-container.text-top-centered .b-banner-wrapper .b-banner h1 {
+  width: 100%;
+  max-width: 100%;
+}
+
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
@@ -397,6 +414,9 @@
   .b-banner-container.negative {
     display: block;
     margin-bottom: -400px;
+  }
+  .b-banner-container.negative-mid {
+    margin-bottom: -20em;
   }
   .b-banner-container .banner-image {
     display: block;

@@ -276,8 +276,7 @@ main {
 
 main .section {
   position: relative;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 15px;
 }
 
 main .default-content-wrapper {
@@ -528,6 +527,14 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
 .bck-black {
   background-color: black;
   padding-bottom: 2em;
+}
+
+.text-black {
+  color: black!important;
+}
+
+.text-white {
+  color: white!important;
 }
 
 @media (width >= 900px) {
