@@ -266,8 +266,7 @@ main {
 
 main .section {
   position: relative;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 15px;
 }
 
 main .default-content-wrapper {
