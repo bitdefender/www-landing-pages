@@ -54,13 +54,13 @@
   padding-bottom: 50px;
 }
 .b-big-carousel-quotes-container .carousel-inner .carousel-item {
-  padding: 50px 20px;
+  padding: 25px 20px;
   position: relative;
 }
 .b-big-carousel-quotes-container .carousel-inner .carousel-item q {
   position: relative;
   display: block;
-  padding: 0 40px;
+  padding: 0 20px;
   font-size: 24px;
   color: #fff;
   font-weight: 400;
@@ -70,8 +70,8 @@
   letter-spacing: normal;
 }
 .b-big-carousel-quotes-container .carousel-inner .carousel-item q::before {
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   left: 0;
   top: 0;
   background: url("../../icons/blue-quotes.svg") no-repeat;
@@ -81,8 +81,8 @@
   position: absolute;
 }
 .b-big-carousel-quotes-container .carousel-inner .carousel-item q::after {
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   right: 0;
   bottom: 0;
   background: url("../../icons/blue-quotes.svg") no-repeat;
@@ -90,6 +90,15 @@
   content: "";
   display: block;
   position: absolute;
+}
+@media screen and (width >= 992px) {
+  .b-big-carousel-quotes-container .carousel-inner .carousel-item q {
+    padding: 0 40px;
+  }
+  .b-big-carousel-quotes-container .carousel-inner .carousel-item q::before, .b-big-carousel-quotes-container .carousel-inner .carousel-item q::after {
+    width: 30px;
+    height: 30px;
+  }
 }
 .b-big-carousel-quotes-container .carousel-inner .carousel-item img {
   width: 100%;
@@ -112,12 +121,11 @@
     border-radius: 0 50% 50% 0;
   }
   .b-big-carousel-quotes-container .carousel-inner .carousel-item .inner {
-    width: 50%;
+    width: 55%;
     height: 100%;
     position: absolute;
     z-index: 1;
     color: white;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -173,7 +181,6 @@
   color: #fff;
   opacity: 0.8;
   display: inline-block;
-  margin-top: 10px;
   font-size: 1pc;
   font-weight: 400;
   font-stretch: normal;
@@ -188,12 +195,21 @@
   border-radius: 7px;
   display: block;
   width: max-content;
+  margin-top: 10px;
 }
 .b-big-carousel-quotes-container .separator,
 .b-big-carousel-quotes-container .author,
 .b-big-carousel-quotes-container .position,
 .b-big-carousel-quotes-container .read-more {
-  margin-left: 40px;
+  margin-left: 20px;
+}
+@media screen and (width >= 992px) {
+  .b-big-carousel-quotes-container .separator,
+  .b-big-carousel-quotes-container .author,
+  .b-big-carousel-quotes-container .position,
+  .b-big-carousel-quotes-container .read-more {
+    margin-left: 40px;
+  }
 }
 @media (width >= 768px) {
   .b-big-carousel-quotes-container {
