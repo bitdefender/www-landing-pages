@@ -98,7 +98,7 @@
           position: absolute;
         }
 
-        @media screen and (min-width: 992px) {
+        @media screen and (width >= 992px) {
           padding: 0 40px;
 
           &::before,
@@ -220,7 +220,7 @@
   .read-more {
     margin-left: 20px;
 
-    @media screen and (min-width: 992px) {
+    @media screen and (width >= 992px) {
       margin-left: 40px;
     }
   }

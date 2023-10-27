@@ -10,11 +10,18 @@ export default function decorate(block) {
   const maxSlideNr = carouselSlides.length - 1;
   let isDesktopView = isView('desktop');
 
+  function getReadMoreEl(el) {
+    return el.children[0].children[3]?.classList
+      .contains('button-container') && el.children[0].children[3];
+  }
   function render() {
     block.innerHTML = `
        <div id="${carouselId}" class="carousel slide carousel-fade" data-bs-wrap="false">
           <div class="carousel-indicators">
-            ${carouselSlides.map((slide, idx) => `
+            ${carouselSlides.map((slide, idx) => {
+    const readMoreEl = getReadMoreEl(slide);
+    const slideImgEl = slide.children[0].children[readMoreEl ? 4 : 3];
+    return `
               <div
                 role="button"
                 data-bs-target="#${carouselId}"
@@ -22,14 +29,17 @@ export default function decorate(block) {
                 class="${idx === 0 ? 'active' : ''}"
                 aria-current="${idx === 0 ? 'true' : 'false'}"
                 aria-label="Slide ${idx + 1}">
-                ${slide.children[0].children[4].innerHTML}
+                ${slideImgEl.innerHTML}
               </div>
-            `).join('')}
+            `;
+  }).join('')}
           </div>
   
           <div class="carousel-inner">
             ${carouselSlides.map((slide, idx) => {
-    const [quoteEl, authorEl, positionEl, readMoreEl] = slide.children[0].children;
+    const [quoteEl, authorEl, positionEl] = slide.children[0].children;
+    const readMoreEl = getReadMoreEl(slide);
+    const pictureEl = slide.children[0].children[readMoreEl ? 5 : 4];
     return `
                 <div class="carousel-item ${idx === 0 ? 'active' : ''}">
                   <div class="inner">
@@ -39,7 +49,7 @@ export default function decorate(block) {
                     <div class="position">${positionEl.innerText}</div>
                     ${readMoreEl ? `<a class="read-more" href="${readMoreEl.children[0].href}">Read More</a>` : ''}
                   </div>
-                  ${isDesktopView ? slide.children[0].children[5].innerHTML : ''}
+                  ${isDesktopView ? pictureEl.innerHTML : ''}
                 </div>
                 `;
   }).join('')}

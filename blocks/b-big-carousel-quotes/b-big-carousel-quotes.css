@@ -91,7 +91,7 @@
   display: block;
   position: absolute;
 }
-@media screen and (min-width: 992px) {
+@media screen and (width >= 992px) {
   .b-big-carousel-quotes-container .carousel-inner .carousel-item q {
     padding: 0 40px;
   }
@@ -203,7 +203,7 @@
 .b-big-carousel-quotes-container .read-more {
   margin-left: 20px;
 }
-@media screen and (min-width: 992px) {
+@media screen and (width >= 992px) {
   .b-big-carousel-quotes-container .separator,
   .b-big-carousel-quotes-container .author,
   .b-big-carousel-quotes-container .position,
