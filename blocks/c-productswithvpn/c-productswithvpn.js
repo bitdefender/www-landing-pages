@@ -257,6 +257,11 @@ export default function decorate(block) {
       }
     });
 
+    // if there is no vpn on all prod-boxes
+    if (!block.querySelector('.checkboxVPN')) {
+      parentSelector.classList.add('no_vpn_table');
+    }
+
     /// ///////////////////////////////////////////////////////////////////////
     // change the border color of the main box
     if (borderColor) {

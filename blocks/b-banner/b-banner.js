@@ -240,6 +240,7 @@ export default function decorate(block) {
     if (buyLink) {
       buyLink.classList.add('button', 'primary', `buylink-${onSelectorClass}`);
       buyLink.innerHTML = buyLink.innerHTML.replace(/0%/g, `<span class="percent-${onSelectorClass}">10%</span>`);
+      buyLink.innerHTML = buyLink.innerHTML.replace(/0 %/g, `<span class="percent-${onSelectorClass}">10%</span>`);
     }
 
     // add class to table if it contains oldprice or newprice
