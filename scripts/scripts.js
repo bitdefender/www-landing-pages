@@ -756,25 +756,27 @@ async function initializeProductsPriceLogic() {
   if (!isZuoraForNetherlandsLangMode()) {
     let pid = getParam('pid');
 
-    /* global adobe */
-    if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined') {
-      const targetResponse = await adobe.target.getOffers({
-        request: {
-          execute: {
-            mboxes: [
-              {
-                index: 0,
-                name: 'initSelector-mbox',
-              },
-            ],
+    try {
+      /* global adobe */
+      if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined') {
+        const targetResponse = await adobe.target.getOffers({
+          request: {
+            execute: {
+              mboxes: [
+                {
+                  index: 0,
+                  name: 'initSelector-mbox',
+                },
+              ],
+            },
           },
-        },
-      });
+        });
 
-      if (targetResponse.execute.mboxes[0].options !== undefined && targetResponse.execute.mboxes[0].options[0].content !== undefined) {
-        pid = targetResponse.execute.mboxes[0].options[0].content.pid;
+        if (targetResponse.execute.mboxes[0].options !== undefined && targetResponse.execute.mboxes[0].options[0].content !== undefined) {
+          pid = targetResponse.execute.mboxes[0].options[0].content.pid;
+        }
       }
-    }
+    } catch (ex) { /* empty */ }
 
     addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
       initSelectors(pid);
@@ -863,9 +865,15 @@ async function loadPage() {
 
   addIdsToEachSection();
 
-  addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
+  if (window.ADOBE_MC_EVENT_LOADED) {
+    initializeProductsPriceLogic();
+  } else {
+    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+      initializeProductsPriceLogic();
+    });
+  }
 
-  initializeProductsPriceLogic();
+  addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 
   eventOnDropdownSlider();
 
