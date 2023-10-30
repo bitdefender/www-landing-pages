@@ -672,7 +672,7 @@ function changeCheckboxVPN(checkboxId) {
   }
 }
 
-function initSelectors() {
+function initSelectors(pid) {
   showLoaderSpinner(false);
   const productsExistsOnPage = productsList.length;
 
@@ -712,7 +712,7 @@ function initSelectors() {
         selected_years: prodYears,
         users_class: `users_${onSelectorClass}_fake`,
         years_class: `years_${onSelectorClass}_fake`,
-        extra_params: { pid: getParam('pid') },
+        extra_params: { pid },
 
         onSelectorLoad() {
           sendAnalyticsProducts(this);
@@ -752,10 +752,32 @@ function addEventListenersOnVpnCheckboxes() {
   }
 }
 
-function initializeProductsPriceLogic() {
+async function initializeProductsPriceLogic() {
   if (!isZuoraForNetherlandsLangMode()) {
+    let pid = getParam('pid');
+
+    /* global adobe */
+    if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined') {
+      const targetResponse = await adobe.target.getOffers({
+        request: {
+          execute: {
+            mboxes: [
+              {
+                index: 0,
+                name: 'initSelector-mbox',
+              },
+            ],
+          },
+        },
+      });
+
+      if (targetResponse.execute.mboxes[0].options !== undefined && targetResponse.execute.mboxes[0].options[0].content !== undefined) {
+        pid = targetResponse.execute.mboxes[0].options[0].content.pid;
+      }
+    }
+
     addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
-      initSelectors();
+      initSelectors(pid);
     });
   }
 
