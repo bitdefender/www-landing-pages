@@ -288,6 +288,10 @@
   border: 0 none;
 }
 
+.c-productswithvpn-container.no-borders .prod_box {
+  border: 0 none;
+}
+
 /* 2st box */
 /* 3st box */
 /* if has no vpn - is normal text */
@@ -297,6 +301,10 @@
 }
 .c-productswithvpn-container.table_fixed_h .c-productswithvpn > div table:nth-of-type(2).no_vpn_table2, .c-productswithvpn-container.table_fixed_h .c-productswithvpn .vpn_box.no_vpn_table2 {
   min-height: 0;
+}
+
+.c-productswithvpn-container.no_vpn .c-productswithvpn > div table:nth-of-type(2) {
+  display: none;
 }
 
 /* if has 4 elements */
