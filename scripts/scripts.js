@@ -847,13 +847,13 @@ function counterFlipClock() {
     const counterHeadings = flopdownBox.getAttribute('data-headings');
 
     // config
-    const flipConfig = { 
-      theme: counterTheme, 
-      headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds']
+    const flipConfig = {
+      theme: counterTheme,
+      headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
     };
 
-    new FlipDown(Number(counterSwitchOn), flipConfig)
-      .start()
+    const firstCounter = new FlipDown(Number(counterSwitchOn), flipConfig);
+    firstCounter.start()
       .ifEnded(() => {
         // switch images:
         blackFridayElement.style.display = 'none';
@@ -865,7 +865,8 @@ function counterFlipClock() {
         currentDate.setHours(currentDate.getHours() + 48);
         const newTime = currentDate.getTime() / 1000;
 
-        new FlipDown(newTime, flipConfig).start().ifEnded(() => {});
+        const secondCounter = FlipDown(newTime, flipConfig);
+        secondCounter.start().ifEnded(() => {});
       });
   }
 }
