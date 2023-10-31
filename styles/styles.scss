@@ -1306,13 +1306,13 @@ main .section.highlight {
     order: 3;
   }
 
-  #flipdown .flip-clock-wrapper ul li {
-    line-height: 48px;
-  }
-
   #headerFerrari ul li {
     padding: 0 10px 0 0;
     font-size: 12px;
+  }
+
+  #flipdown .flip-clock-wrapper ul li {
+    line-height: 48px;
   }
 
   #headerFerrari ul:nth-of-type(2) li {
@@ -1396,18 +1396,23 @@ main .section.highlight {
   #flipdown .flip-clock-divider .flip-clock-label {
     width: 64px;
   }
+
   #flipdown .flip-clock-wrapper ul li a div div.inn {
     font-size: 34px !important;
   }
+
   #flipdown .flip-clock-wrapper ul li a div.up::after {
     top: 24px;
   }
+
   #flipdown .flip-clock-divider {
     height: 56px;
   }
+
   #flipdown .flip-clock-dot.top {
     top: 17px;
   }
+
   #flipdown .flip-clock-dot.bottom {
     bottom: 14px;
   }
