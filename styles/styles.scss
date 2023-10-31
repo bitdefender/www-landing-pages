@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -10,9 +11,11 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
 /* load components style */
 @import "/components/column/column.css";
 @import "/components/review/review.css";
+
 :root {
   /* colors */
   --link-color: #000;
@@ -21,14 +24,17 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ececec;
   --text-color: #000;
+
   /* fonts */
   --body-font-family: "Roboto", sans-serif;
   --heading-font-family: var(--body-font-family);
   --fixed-font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace;
+
   /* body sizes */
   --body-font-size-m: 22px;
   --body-font-size-s: 18px;
   --body-font-size-xs: 16px;
+
   /* heading sizes */
   --heading-font-size-xxl: 48px;
   --heading-font-size-xl: 40px;
@@ -36,6 +42,7 @@
   --heading-font-size-m: 24px;
   --heading-font-size-s: 20px;
   --heading-font-size-xs: 18px;
+
   /* nav height */
   --nav-height: 64px;
 }
@@ -54,7 +61,7 @@ body.appear {
   display: unset;
 }
 
-*[data-align=center] {
+*[data-align='center'] {
   text-align: center;
 }
 
@@ -80,16 +87,19 @@ body [data-desktop-detector] {
     display: none;
   }
 }
+
 @media (width >= 768px) {
   body [data-tablet-detector] {
     display: block;
   }
 }
+
 @media (width >= 992px) {
   body [data-desktop-detector] {
     display: block;
   }
 }
+
 h1, h2, h3,
 h4, h5, h6 {
   font-family: var(--heading-font-family);
@@ -194,11 +204,11 @@ a.button:any-link:hover, button:hover {
   background: #b33027;
 }
 
-[data-button-color=blue] a.button:any-link, [data-button-color=blue] button {
+[data-button-color='blue'] a.button:any-link, [data-button-color='blue'] button {
   background: #006DFF;
 }
 
-[data-button-color=blue] a.button:any-link:hover, [data-button-color=blue] button:hover {
+[data-button-color='blue'] a.button:any-link:hover, [data-button-color='blue'] button:hover {
   background-color: #00439c;
 }
 
@@ -277,11 +287,11 @@ main .default-content-wrapper {
   padding: 1em 15px;
 }
 
-*[data-mtop=none] {
+*[data-mtop='none'] {
   margin-top: 0;
 }
 
-*[data-mtop=none] .default-content-wrapper {
+*[data-mtop='none'] .default-content-wrapper {
   margin-top: 0;
   padding-top: 0;
 }
@@ -317,27 +327,27 @@ main .default-content-wrapper h1:last-of-type, main .default-content-wrapper h2:
   margin-bottom: 15px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h1 {
+main .section[data-size='bigger'] .default-content-wrapper h1 {
   font-size: 38px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h2 {
+main .section[data-size='bigger'] .default-content-wrapper h2 {
   font-size: 37px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h3 {
+main .section[data-size='bigger'] .default-content-wrapper h3 {
   font-size: 35px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h4 {
+main .section[data-size='bigger'] .default-content-wrapper h4 {
   font-size: 33px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h5 {
+main .section[data-size='bigger'] .default-content-wrapper h5 {
   font-size: 31px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h6 {
+main .section[data-size='bigger'] .default-content-wrapper h6 {
   font-size: 29px;
 }
 
@@ -524,11 +534,11 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
 }
 
 .text-black {
-  color: black !important;
+  color: black!important;
 }
 
 .text-white {
-  color: white !important;
+  color: white!important;
 }
 
 @media (width >= 900px) {
@@ -537,8 +547,9 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
     margin: auto;
   }
 }
+
 /* section metadata */
-.section[data-backgroundcolor=grey] {
+.section[data-backgroundcolor='grey'] {
   background: #ececec;
   padding: 2em 0;
 }
@@ -668,7 +679,7 @@ main .section.highlight {
 
 .prod-percent.green_txt {
   color: #2cb43d;
-  background-color: rgba(44, 180, 61, 0.2);
+  background-color: #2cb43d33;
   border-radius: 8px;
   display: inline-block;
   font-size: 14px;
@@ -963,10 +974,12 @@ main .section.highlight {
   0% {
     background-position: -800px 0;
   }
+
   100% {
     background-position: 800px 0;
   }
 }
+
 .await-loader {
   animation-duration: 3s;
   animation-fill-mode: forwards;
@@ -1252,7 +1265,7 @@ main .section.highlight {
     line-height: 22px;
   }
 
-  main .single-blue-quote .default-content-wrapper em, main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
+  main .single-blue-quote .default-content-wrapper em , main .blue-quote .default-content-wrapper p:nth-of-type(1) em{
     font-size: 15px;
     line-height: 22px;
   }
@@ -1277,11 +1290,6 @@ main .section.highlight {
     margin-top: 0;
     flex-direction: column;
     display: flex;
-  }
-
-  #flipdown .flip-clock-wrapper ul {
-    width: 26px;
-    height: 50px;
   }
 
   #headerFerrari ul {
@@ -1385,26 +1393,21 @@ main .section.highlight {
     line-height: 17px;
   }
 
-  .flip-clock-divider .flip-clock-label {
+  #flipdown .flip-clock-divider .flip-clock-label {
     width: 64px;
   }
-
   #flipdown .flip-clock-wrapper ul li a div div.inn {
     font-size: 34px !important;
   }
-
   #flipdown .flip-clock-wrapper ul li a div.up::after {
     top: 24px;
   }
-
   #flipdown .flip-clock-divider {
     height: 56px;
   }
-
   #flipdown .flip-clock-dot.top {
     top: 17px;
   }
-
   #flipdown .flip-clock-dot.bottom {
     bottom: 14px;
   }
@@ -1414,7 +1417,7 @@ main .section.highlight {
   header {
     border-bottom: 1px solid white;
   }
-
+  
   .section {
     padding: 10px;
   }
@@ -1444,7 +1447,7 @@ main .section.highlight {
     display: none;
   }
 
-  .section[data-backgroundcolor=grey] {
+  .section[data-backgroundcolor='grey'] {
     padding: 1em 0;
   }
 
@@ -1493,27 +1496,27 @@ main .section.highlight {
     max-width: 43%;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h1 {
+  main .section[data-size='bigger'] .default-content-wrapper h1 {
     font-size: 31px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h2 {
+  main .section[data-size='bigger'] .default-content-wrapper h2 {
     font-size: 29px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h3 {
+  main .section[data-size='bigger'] .default-content-wrapper h3 {
     font-size: 27px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h4 {
+  main .section[data-size='bigger'] .default-content-wrapper h4 {
     font-size: 25px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h5 {
+  main .section[data-size='bigger'] .default-content-wrapper h5 {
     font-size: 23px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h6 {
+  main .section[data-size='bigger'] .default-content-wrapper h6 {
     font-size: 21px;
   }
 

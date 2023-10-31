@@ -1260,10 +1260,6 @@ main .section.highlight {
     flex-direction: column;
     display: flex;
   }
-  #flipdown .flip-clock-wrapper ul {
-    width: 26px;
-    height: 50px;
-  }
   #headerFerrari ul {
     width: 100%;
     float: none;
@@ -1345,7 +1341,7 @@ main .section.highlight {
     text-align: right;
     line-height: 17px;
   }
-  .flip-clock-divider .flip-clock-label {
+  #flipdown .flip-clock-divider .flip-clock-label {
     width: 64px;
   }
   #flipdown .flip-clock-wrapper ul li a div div.inn {
