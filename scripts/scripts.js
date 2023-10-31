@@ -1,3 +1,4 @@
+/* global FlipDown */
 import {
   sampleRUM,
   buildBlock,
@@ -865,7 +866,7 @@ function counterFlipClock() {
         currentDate.setHours(currentDate.getHours() + 48);
         const newTime = currentDate.getTime() / 1000;
 
-        const secondCounter = FlipDown(newTime, flipConfig);
+        const secondCounter = new FlipDown(newTime, flipConfig);
         secondCounter.start().ifEnded(() => {});
       });
   }
