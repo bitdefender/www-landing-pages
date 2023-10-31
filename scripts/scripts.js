@@ -835,6 +835,46 @@ function appendMetaReferrer() {
   head.appendChild(metaTag);
 }
 
+function counterFlipClock() {
+  const flopdownBox = document.getElementById('flipdown');
+  if (flopdownBox) {
+    // const counterSwitchOn = new Date('November 27, 2023 10:00:00');
+    document.getElementById('blackFriday').style.display = 'block';
+    const counterSwitchOn = flopdownBox.getAttribute('data-switchOn');
+    const counterTheme = flopdownBox.getAttribute('data-theme');
+    const counterHeadings = flopdownBox.getAttribute('data-headings');
+    
+    // config
+    const flipConfig = {};
+    counterTheme ? flipConfig.theme = counterTheme : 'dark';
+    if (counterHeadings) {
+      flipConfig.headings = counterHeadings.split(',');
+    }
+
+    const flipdown = new FlipDown(Number(counterSwitchOn), flipConfig)
+      .start()
+      .ifEnded(() => {
+        // switch images:
+        document.getElementById('blackFriday').style.display = 'none';
+        document.getElementById('cyberMonday').style.display = 'block';
+
+        // The initial counter has ended; start a new one 48 hours from now
+        document.getElementById('flipdown').innerHTML = '';
+        const currentDate = new Date();
+        currentDate.setHours(currentDate.getHours() + 48);
+        const newTime = currentDate.getTime() / 1000;
+
+        const newFlipdown = new FlipDown(newTime, flipConfig)
+          .start()
+          .ifEnded(() => {
+            // The new counter has ended; you can add more actions here if needed.
+          });
+      });
+  }
+  
+
+}
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
@@ -848,6 +888,8 @@ async function loadPage() {
   eventOnDropdownSlider();
 
   appendMetaReferrer();
+
+  counterFlipClock();
 
   loadDelayed();
 }

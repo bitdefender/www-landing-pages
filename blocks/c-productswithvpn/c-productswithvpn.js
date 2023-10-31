@@ -56,15 +56,15 @@ export default function decorate(block) {
 
     /// ///////////////////////////////////////////////////////////////////////
     // set the title
-    if (typeof title !== 'undefined') {
+    if (title) {
       const divTagTitle = document.createElement('div');
-      divTagTitle.classList = `top_title ${typeof titlePosition !== 'undefined' ? `p_${titlePosition}` : ''}`;
+      divTagTitle.classList = `top_title ${titlePosition ? `p_${titlePosition}` : ''}`;
 
       // adding title
       divTagTitle.innerHTML = document.querySelectorAll('h1').length === 0 ? `<h1>${title}</h1>` : `<h2>${title}</h2>`;
 
       // adding subtitle
-      if (typeof subtitle !== 'undefined') {
+      if (subtitle) {
         divTagTitle.innerHTML += `<h2>${subtitle}</h2>`;
       }
 
