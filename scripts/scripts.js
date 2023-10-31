@@ -871,8 +871,6 @@ function counterFlipClock() {
           });
       });
   }
-  
-
 }
 
 async function loadPage() {
