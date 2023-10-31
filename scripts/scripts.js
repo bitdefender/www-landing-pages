@@ -845,11 +845,14 @@ function counterFlipClock() {
     const counterSwitchOn = flopdownBox.getAttribute('data-switchOn');
     const counterTheme = flopdownBox.getAttribute('data-theme');
     const counterHeadings = flopdownBox.getAttribute('data-headings');
-    
-    // config
-    const flipConfig = {theme: counterTheme, headings: counterHeadings ? counterHeadings.split(',') : ["Days", "Hours", "Minutes", "Seconds"]};
 
-    const flipdown = new FlipDown(Number(counterSwitchOn), flipConfig)
+    // config
+    const flipConfig = { 
+      theme: counterTheme, 
+      headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds']
+    };
+
+    new FlipDown(Number(counterSwitchOn), flipConfig)
       .start()
       .ifEnded(() => {
         // switch images:
@@ -862,7 +865,7 @@ function counterFlipClock() {
         currentDate.setHours(currentDate.getHours() + 48);
         const newTime = currentDate.getTime() / 1000;
 
-        const newFlipdown = new FlipDown(newTime, flipConfig).start().ifEnded(() => {});
+        new FlipDown(newTime, flipConfig).start().ifEnded(() => {});
       });
   }
 }
