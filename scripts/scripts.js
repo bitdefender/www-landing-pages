@@ -672,7 +672,7 @@ function changeCheckboxVPN(checkboxId) {
   }
 }
 
-function initSelectors(pid) {
+function initSelectors() {
   showLoaderSpinner(false);
   const productsExistsOnPage = productsList.length;
 
@@ -712,7 +712,7 @@ function initSelectors(pid) {
         selected_years: prodYears,
         users_class: `users_${onSelectorClass}_fake`,
         years_class: `years_${onSelectorClass}_fake`,
-        extra_params: { pid },
+        extra_params: { pid: getParam('pid') },
 
         onSelectorLoad() {
           sendAnalyticsProducts(this);
@@ -752,34 +752,10 @@ function addEventListenersOnVpnCheckboxes() {
   }
 }
 
-async function initializeProductsPriceLogic() {
+function initializeProductsPriceLogic() {
   if (!isZuoraForNetherlandsLangMode()) {
-    let pid = getParam('pid');
-
-    try {
-      /* global adobe */
-      if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined') {
-        const targetResponse = await adobe.target.getOffers({
-          request: {
-            execute: {
-              mboxes: [
-                {
-                  index: 0,
-                  name: 'initSelector-mbox',
-                },
-              ],
-            },
-          },
-        });
-
-        if (targetResponse.execute.mboxes[0].options !== undefined && targetResponse.execute.mboxes[0].options[0].content !== undefined) {
-          pid = targetResponse.execute.mboxes[0].options[0].content.pid;
-        }
-      }
-    } catch (ex) { /* empty */ }
-
     addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
-      initSelectors(pid);
+      initSelectors();
     });
   }
 
@@ -859,25 +835,61 @@ function appendMetaReferrer() {
   head.appendChild(metaTag);
 }
 
+function counterFlipClock() {
+  const flopdownBox = document.getElementById('flipdown');
+  if (flopdownBox) {
+    // const counterSwitchOn = new Date('November 27, 2023 10:00:00');
+    document.getElementById('blackFriday').style.display = 'block';
+    const counterSwitchOn = flopdownBox.getAttribute('data-switchOn');
+    const counterTheme = flopdownBox.getAttribute('data-theme');
+    const counterHeadings = flopdownBox.getAttribute('data-headings');
+    
+    // config
+    const flipConfig = {};
+    counterTheme ? flipConfig.theme = counterTheme : 'dark';
+    if (counterHeadings) {
+      flipConfig.headings = counterHeadings.split(',');
+    }
+
+    const flipdown = new FlipDown(Number(counterSwitchOn), flipConfig)
+      .start()
+      .ifEnded(() => {
+        // switch images:
+        document.getElementById('blackFriday').style.display = 'none';
+        document.getElementById('cyberMonday').style.display = 'block';
+
+        // The initial counter has ended; start a new one 48 hours from now
+        document.getElementById('flipdown').innerHTML = '';
+        const currentDate = new Date();
+        currentDate.setHours(currentDate.getHours() + 48);
+        const newTime = currentDate.getTime() / 1000;
+
+        const newFlipdown = new FlipDown(newTime, flipConfig)
+          .start()
+          .ifEnded(() => {
+            // The new counter has ended; you can add more actions here if needed.
+          });
+      });
+  }
+  
+
+}
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
 
   addIdsToEachSection();
 
-  if (window.ADOBE_MC_EVENT_LOADED) {
-    initializeProductsPriceLogic();
-  } else {
-    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
-      initializeProductsPriceLogic();
-    });
-  }
-
   addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
+
+  initializeProductsPriceLogic();
 
   eventOnDropdownSlider();
 
   appendMetaReferrer();
+
+  counterFlipClock();
 
   loadDelayed();
 }

@@ -1131,6 +1131,68 @@ main .section.highlight {
   line-height: 1.14;
 }
 
+#flipdown {
+  .flip-clock-divider .flip-clock-label {
+    color: #fff;
+    width: 88px;
+    right: 0;
+    left: 24px;
+    font-size: 14px;
+    text-transform: capitalize;
+  }
+  
+  .flip-clock-divider .flip-clock-label::before {
+    font-size: 14px;
+  }
+  
+  .flip-clock-wrapper ul {
+    width: 38px;
+    height: 70px;
+  }
+  
+  .flip-clock-wrapper {
+    margin: 25px 0 0 0;
+  }
+  
+  .flip-clock-divider:first-child .flip-clock-label {
+    left: 4px;
+  }
+  
+  .flip-clock-wrapper ul li a div div.inn {
+    font-size: 48px !important;
+  }
+  
+  .flip-clock-wrapper ul li a div.up::after {
+    top: 34px;
+  }
+  
+  .flip-clock-wrapper ul li {
+    line-height: 66px;
+  }
+  
+  .flip-clock-divider {
+    height: 76px;
+  }
+  
+  .flip-clock-dot.bottom {
+    bottom: 23px;
+  }
+  
+  .flip-clock-dot.top {
+    top: 23px;
+  }
+  
+  &.flipdown.flipdown__theme-dark .rotor-group-heading:before {
+    color: #FFF!important;
+  }
+
+  &.flipdown.flipdown__theme-light .rotor-group-heading:before {
+    color: #000!important;
+  }
+}
+
+.counter picture {display: none;} 
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
@@ -1326,6 +1388,39 @@ main .section.highlight {
     text-align: right;
     line-height: 17px;
   }
+
+  .flip-clock-wrapper ul {
+    width: 26px;
+    height: 50px;
+  }
+
+  .flip-clock-divider .flip-clock-label{
+      width: 64px;
+  }
+
+  .flip-clock-wrapper ul li a div div.inn {
+      font-size: 34px !important;
+  }
+
+  .flip-clock-wrapper ul li a div.up::after {
+      top: 24px;
+  }
+
+  .flip-clock-wrapper ul li {
+      line-height: 48px;
+  }
+
+  .flip-clock-divider {
+      height: 56px;
+  }
+
+  .flip-clock-dot.top {
+      top: 17px;
+  }
+
+  .flip-clock-dot.bottom {
+      bottom: 14px;
+  }
 }
 
 @media (width <= 768px) {
@@ -1465,6 +1560,12 @@ main .section.highlight {
     font-size: 27px;
     line-height: 30px;
     margin-top: 10px;
+  }
+
+  .flip-clock-wrapper {
+    width: 385px;
+    transform: scale(0.9);
+    margin-left: -20px;
   }
 }
 

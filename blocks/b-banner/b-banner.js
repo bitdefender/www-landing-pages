@@ -29,13 +29,42 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, blueBorder, logo, config, productBox, biggerBanner,
+    headerTextColor, blueBorder, logo, config, productBox, counterSwitchOn, counterHeadings, counterTheme, biggerBanner,
   } = metaData;
 
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
   bannerImage.classList.add('banner-image');
   parentSelector.append(bannerImage);
+
+  if (counterSwitchOn) {
+    bannerImage.id = 'blackFriday';
+    bannerImage.classList.add('flipClock-image');
+
+    // adding neccessary scripts:
+    // js
+    const flipClockJs = document.createElement('script');
+    flipClockJs.src = 'https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js';
+    document.head.appendChild(flipClockJs);
+    
+    // css
+    var flipClockCss = document.createElement('link');
+    flipClockCss.rel = 'stylesheet';
+    flipClockCss.type = 'text/css';
+    flipClockCss.href = 'https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css';
+    document.head.appendChild(flipClockCss);
+
+    block.innerHTML = block.innerHTML.replace('[counter]', `<div id="flipdown" class="flipdown" data-theme=${counterTheme ? counterTheme : 'dark'} data-switchOn=${new Date(counterSwitchOn).getTime() / 1000} ${counterHeadings ? `data-headings="${counterHeadings}"` : ''}></div>`);
+
+    if (block.children.length === 3) {
+      const secondImage = block.children[2];
+      const bannerImage = block.children[2].querySelector('picture');
+      bannerImage.classList.add('banner-image', 'flipClock-image');
+      bannerImage.style.display = 'none';
+      bannerImage.id = 'cyberMonday';
+      parentSelector.append(bannerImage);
+    }
+  }
 
   // update background color if set, if not set default: #000
   const block1 = document.querySelector('.b-banner-container');
@@ -172,7 +201,7 @@ export default function decorate(block) {
   }
 
   // has award in banner
-  if (block.children.length === 3 && !productBox) {
+  if (block.children.length === 3 && !productBox && !counterSwitchOn) {
     block.children[2].id = 'bannerAward';
     const targetElement = block.children[2].children[0];
     const paragraphs = targetElement.querySelectorAll('p:last-of-type');
