@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -11,11 +10,9 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-
 /* load components style */
 @import "/components/column/column.css";
 @import "/components/review/review.css";
-
 :root {
   /* colors */
   --link-color: #000;
@@ -24,17 +21,14 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ececec;
   --text-color: #000;
-
   /* fonts */
   --body-font-family: "Roboto", sans-serif;
   --heading-font-family: var(--body-font-family);
   --fixed-font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace;
-
   /* body sizes */
   --body-font-size-m: 22px;
   --body-font-size-s: 18px;
   --body-font-size-xs: 16px;
-
   /* heading sizes */
   --heading-font-size-xxl: 48px;
   --heading-font-size-xl: 40px;
@@ -42,7 +36,6 @@
   --heading-font-size-m: 24px;
   --heading-font-size-s: 20px;
   --heading-font-size-xs: 18px;
-
   /* nav height */
   --nav-height: 64px;
 }
@@ -61,7 +54,7 @@ body.appear {
   display: unset;
 }
 
-*[data-align='center'] {
+*[data-align=center] {
   text-align: center;
 }
 
@@ -87,19 +80,16 @@ body [data-desktop-detector] {
     display: none;
   }
 }
-
 @media (width >= 768px) {
   body [data-tablet-detector] {
     display: block;
   }
 }
-
 @media (width >= 992px) {
   body [data-desktop-detector] {
     display: block;
   }
 }
-
 h1, h2, h3,
 h4, h5, h6 {
   font-family: var(--heading-font-family);
@@ -204,11 +194,11 @@ a.button:any-link:hover, button:hover {
   background: #b33027;
 }
 
-[data-button-color='blue'] a.button:any-link, [data-button-color='blue'] button {
+[data-button-color=blue] a.button:any-link, [data-button-color=blue] button {
   background: #006DFF;
 }
 
-[data-button-color='blue'] a.button:any-link:hover, [data-button-color='blue'] button:hover {
+[data-button-color=blue] a.button:any-link:hover, [data-button-color=blue] button:hover {
   background-color: #00439c;
 }
 
@@ -287,11 +277,11 @@ main .default-content-wrapper {
   padding: 1em 15px;
 }
 
-*[data-mtop='none'] {
+*[data-mtop=none] {
   margin-top: 0;
 }
 
-*[data-mtop='none'] .default-content-wrapper {
+*[data-mtop=none] .default-content-wrapper {
   margin-top: 0;
   padding-top: 0;
 }
@@ -327,27 +317,27 @@ main .default-content-wrapper h1:last-of-type, main .default-content-wrapper h2:
   margin-bottom: 15px;
 }
 
-main .section[data-size='bigger'] .default-content-wrapper h1 {
+main .section[data-size=bigger] .default-content-wrapper h1 {
   font-size: 38px;
 }
 
-main .section[data-size='bigger'] .default-content-wrapper h2 {
+main .section[data-size=bigger] .default-content-wrapper h2 {
   font-size: 37px;
 }
 
-main .section[data-size='bigger'] .default-content-wrapper h3 {
+main .section[data-size=bigger] .default-content-wrapper h3 {
   font-size: 35px;
 }
 
-main .section[data-size='bigger'] .default-content-wrapper h4 {
+main .section[data-size=bigger] .default-content-wrapper h4 {
   font-size: 33px;
 }
 
-main .section[data-size='bigger'] .default-content-wrapper h5 {
+main .section[data-size=bigger] .default-content-wrapper h5 {
   font-size: 31px;
 }
 
-main .section[data-size='bigger'] .default-content-wrapper h6 {
+main .section[data-size=bigger] .default-content-wrapper h6 {
   font-size: 29px;
 }
 
@@ -534,11 +524,11 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
 }
 
 .text-black {
-  color: black!important;
+  color: black !important;
 }
 
 .text-white {
-  color: white!important;
+  color: white !important;
 }
 
 @media (width >= 900px) {
@@ -547,9 +537,8 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
     margin: auto;
   }
 }
-
 /* section metadata */
-.section[data-backgroundcolor='grey'] {
+.section[data-backgroundcolor=grey] {
   background: #ececec;
   padding: 2em 0;
 }
@@ -679,7 +668,7 @@ main .section.highlight {
 
 .prod-percent.green_txt {
   color: #2cb43d;
-  background-color: #2cb43d33;
+  background-color: rgba(44, 180, 61, 0.2);
   border-radius: 8px;
   display: inline-block;
   font-size: 14px;
@@ -915,6 +904,10 @@ main .section.highlight {
   padding: 0 25px 0 0;
 }
 
+#flipdown .flip-clock-wrapper ul li {
+  line-height: 66px;
+}
+
 #headerFerrari ul:nth-of-type(1) li:nth-of-type(1) {
   padding-left: 0;
 }
@@ -970,12 +963,10 @@ main .section.highlight {
   0% {
     background-position: -800px 0;
   }
-
   100% {
     background-position: 800px 0;
   }
 }
-
 .await-loader {
   animation-duration: 3s;
   animation-fill-mode: forwards;
@@ -1022,6 +1013,11 @@ main .section.highlight {
 
 #footerFerrari .section:nth-of-type(1) p {
   width: 40%;
+}
+
+#flipdown .flip-clock-wrapper ul {
+  width: 38px;
+  height: 70px;
 }
 
 #footerFerrari .section:nth-of-type(1) ul {
@@ -1131,67 +1127,58 @@ main .section.highlight {
   line-height: 1.14;
 }
 
-#flipdown {
-  .flip-clock-divider .flip-clock-label {
-    color: #fff;
-    width: 88px;
-    right: 0;
-    left: 24px;
-    font-size: 14px;
-    text-transform: capitalize;
-  }
-  
-  .flip-clock-divider .flip-clock-label::before {
-    font-size: 14px;
-  }
-  
-  .flip-clock-wrapper ul {
-    width: 38px;
-    height: 70px;
-  }
-  
-  .flip-clock-wrapper {
-    margin: 25px 0 0 0;
-  }
-  
-  .flip-clock-divider:first-child .flip-clock-label {
-    left: 4px;
-  }
-  
-  .flip-clock-wrapper ul li a div div.inn {
-    font-size: 48px !important;
-  }
-  
-  .flip-clock-wrapper ul li a div.up::after {
-    top: 34px;
-  }
-  
-  .flip-clock-wrapper ul li {
-    line-height: 66px;
-  }
-  
-  .flip-clock-divider {
-    height: 76px;
-  }
-  
-  .flip-clock-dot.bottom {
-    bottom: 23px;
-  }
-  
-  .flip-clock-dot.top {
-    top: 23px;
-  }
-  
-  &.flipdown.flipdown__theme-dark .rotor-group-heading:before {
-    color: #FFF!important;
-  }
-
-  &.flipdown.flipdown__theme-light .rotor-group-heading:before {
-    color: #000!important;
-  }
+#flipdown .flip-clock-divider .flip-clock-label {
+  color: #fff;
+  width: 88px;
+  right: 0;
+  left: 24px;
+  font-size: 14px;
+  text-transform: capitalize;
 }
 
-.counter picture {display: none;} 
+#flipdown .flip-clock-divider .flip-clock-label::before {
+  font-size: 14px;
+}
+
+#flipdown .flip-clock-wrapper {
+  margin: 25px 0 0;
+}
+
+#flipdown .flip-clock-divider:first-child .flip-clock-label {
+  left: 4px;
+}
+
+#flipdown .flip-clock-wrapper ul li a div div.inn {
+  font-size: 48px !important;
+}
+
+#flipdown .flip-clock-wrapper ul li a div.up::after {
+  top: 34px;
+}
+
+#flipdown .flip-clock-divider {
+  height: 76px;
+}
+
+#flipdown .flip-clock-dot.bottom {
+  bottom: 23px;
+}
+
+#flipdown .flip-clock-dot.top {
+  top: 23px;
+}
+
+#flipdown.flipdown.flipdown__theme-dark .rotor-group-heading::before {
+  color: #FFF !important;
+}
+
+#flipdown.flipdown.flipdown__theme-light .rotor-group-heading::before {
+  color: #000 !important;
+}
+
+.counter picture {
+  display: none;
+}
 
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
@@ -1265,7 +1252,7 @@ main .section.highlight {
     line-height: 22px;
   }
 
-  main .single-blue-quote .default-content-wrapper em , main .blue-quote .default-content-wrapper p:nth-of-type(1) em{
+  main .single-blue-quote .default-content-wrapper em, main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
     font-size: 15px;
     line-height: 22px;
   }
@@ -1292,6 +1279,11 @@ main .section.highlight {
     display: flex;
   }
 
+  #flipdown .flip-clock-wrapper ul {
+    width: 26px;
+    height: 50px;
+  }
+
   #headerFerrari ul {
     width: 100%;
     float: none;
@@ -1304,6 +1296,10 @@ main .section.highlight {
   #headerFerrari ul:nth-of-type(2) {
     text-align: left;
     order: 3;
+  }
+
+  #flipdown .flip-clock-wrapper ul li {
+    line-height: 48px;
   }
 
   #headerFerrari ul li {
@@ -1389,37 +1385,28 @@ main .section.highlight {
     line-height: 17px;
   }
 
-  .flip-clock-wrapper ul {
-    width: 26px;
-    height: 50px;
+  .flip-clock-divider .flip-clock-label {
+    width: 64px;
   }
 
-  .flip-clock-divider .flip-clock-label{
-      width: 64px;
+  #flipdown .flip-clock-wrapper ul li a div div.inn {
+    font-size: 34px !important;
   }
 
-  .flip-clock-wrapper ul li a div div.inn {
-      font-size: 34px !important;
+  #flipdown .flip-clock-wrapper ul li a div.up::after {
+    top: 24px;
   }
 
-  .flip-clock-wrapper ul li a div.up::after {
-      top: 24px;
+  #flipdown .flip-clock-divider {
+    height: 56px;
   }
 
-  .flip-clock-wrapper ul li {
-      line-height: 48px;
+  #flipdown .flip-clock-dot.top {
+    top: 17px;
   }
 
-  .flip-clock-divider {
-      height: 56px;
-  }
-
-  .flip-clock-dot.top {
-      top: 17px;
-  }
-
-  .flip-clock-dot.bottom {
-      bottom: 14px;
+  #flipdown .flip-clock-dot.bottom {
+    bottom: 14px;
   }
 }
 
@@ -1427,7 +1414,7 @@ main .section.highlight {
   header {
     border-bottom: 1px solid white;
   }
-  
+
   .section {
     padding: 10px;
   }
@@ -1457,7 +1444,7 @@ main .section.highlight {
     display: none;
   }
 
-  .section[data-backgroundcolor='grey'] {
+  .section[data-backgroundcolor=grey] {
     padding: 1em 0;
   }
 
@@ -1506,27 +1493,27 @@ main .section.highlight {
     max-width: 43%;
   }
 
-  main .section[data-size='bigger'] .default-content-wrapper h1 {
+  main .section[data-size=bigger] .default-content-wrapper h1 {
     font-size: 31px;
   }
 
-  main .section[data-size='bigger'] .default-content-wrapper h2 {
+  main .section[data-size=bigger] .default-content-wrapper h2 {
     font-size: 29px;
   }
 
-  main .section[data-size='bigger'] .default-content-wrapper h3 {
+  main .section[data-size=bigger] .default-content-wrapper h3 {
     font-size: 27px;
   }
 
-  main .section[data-size='bigger'] .default-content-wrapper h4 {
+  main .section[data-size=bigger] .default-content-wrapper h4 {
     font-size: 25px;
   }
 
-  main .section[data-size='bigger'] .default-content-wrapper h5 {
+  main .section[data-size=bigger] .default-content-wrapper h5 {
     font-size: 23px;
   }
 
-  main .section[data-size='bigger'] .default-content-wrapper h6 {
+  main .section[data-size=bigger] .default-content-wrapper h6 {
     font-size: 21px;
   }
 
@@ -1562,7 +1549,7 @@ main .section.highlight {
     margin-top: 10px;
   }
 
-  .flip-clock-wrapper {
+  #flipdown .flip-clock-wrapper {
     width: 385px;
     transform: scale(0.9);
     margin-left: -20px;
