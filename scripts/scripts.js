@@ -876,6 +876,7 @@ function counterFlipClock() {
       headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
     };
 
+    // eslint-disable-next-line no-undef
     const firstCounter = new FlipDown(Number(counterSwitchOn), flipConfig);
     firstCounter.start()
       .ifEnded(() => {
@@ -889,6 +890,7 @@ function counterFlipClock() {
         currentDate.setHours(currentDate.getHours() + 48);
         const newTime = currentDate.getTime() / 1000;
 
+        // eslint-disable-next-line no-undef
         const secondCounter = new FlipDown(newTime, flipConfig);
         secondCounter.start().ifEnded(() => {});
       });
