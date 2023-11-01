@@ -904,6 +904,10 @@ main .section.highlight {
   padding: 0 25px 0 0;
 }
 
+#flipdown .flip-clock-wrapper ul li {
+  line-height: 66px;
+}
+
 #headerFerrari ul:nth-of-type(1) li:nth-of-type(1) {
   padding-left: 0;
 }
@@ -1009,6 +1013,11 @@ main .section.highlight {
 
 #footerFerrari .section:nth-of-type(1) p {
   width: 40%;
+}
+
+#flipdown .flip-clock-wrapper ul {
+  width: 38px;
+  height: 70px;
 }
 
 #footerFerrari .section:nth-of-type(1) ul {
@@ -1118,6 +1127,59 @@ main .section.highlight {
   line-height: 1.14;
 }
 
+#flipdown .flip-clock-divider .flip-clock-label {
+  color: #fff;
+  width: 88px;
+  right: 0;
+  left: 24px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+#flipdown .flip-clock-divider .flip-clock-label::before {
+  font-size: 14px;
+}
+
+#flipdown .flip-clock-wrapper {
+  margin: 25px 0 0;
+}
+
+#flipdown .flip-clock-divider:first-child .flip-clock-label {
+  left: 4px;
+}
+
+#flipdown .flip-clock-wrapper ul li a div div.inn {
+  font-size: 48px !important;
+}
+
+#flipdown .flip-clock-wrapper ul li a div.up::after {
+  top: 34px;
+}
+
+#flipdown .flip-clock-divider {
+  height: 76px;
+}
+
+#flipdown .flip-clock-dot.bottom {
+  bottom: 23px;
+}
+
+#flipdown .flip-clock-dot.top {
+  top: 23px;
+}
+
+#flipdown.flipdown.flipdown__theme-dark .rotor-group-heading::before {
+  color: #FFF !important;
+}
+
+#flipdown.flipdown.flipdown__theme-light .rotor-group-heading::before {
+  color: #000 !important;
+}
+
+.counter picture {
+  display: none;
+}
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
@@ -1213,6 +1275,9 @@ main .section.highlight {
     padding: 0 10px 0 0;
     font-size: 12px;
   }
+  #flipdown .flip-clock-wrapper ul li {
+    line-height: 48px;
+  }
   #headerFerrari ul:nth-of-type(2) li {
     border-left: 0 none;
   }
@@ -1275,6 +1340,24 @@ main .section.highlight {
   #footerFerrari .section:nth-of-type(4) p {
     text-align: right;
     line-height: 17px;
+  }
+  #flipdown .flip-clock-divider .flip-clock-label {
+    width: 64px;
+  }
+  #flipdown .flip-clock-wrapper ul li a div div.inn {
+    font-size: 34px !important;
+  }
+  #flipdown .flip-clock-wrapper ul li a div.up::after {
+    top: 24px;
+  }
+  #flipdown .flip-clock-divider {
+    height: 56px;
+  }
+  #flipdown .flip-clock-dot.top {
+    top: 17px;
+  }
+  #flipdown .flip-clock-dot.bottom {
+    bottom: 14px;
   }
 }
 @media (width <= 768px) {
@@ -1383,6 +1466,11 @@ main .section.highlight {
     font-size: 27px;
     line-height: 30px;
     margin-top: 10px;
+  }
+  #flipdown .flip-clock-wrapper {
+    width: 385px;
+    transform: scale(0.9);
+    margin-left: -20px;
   }
 }
 @media (width >= 991px) {
