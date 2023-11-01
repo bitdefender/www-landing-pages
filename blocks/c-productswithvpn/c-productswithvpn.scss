@@ -28,7 +28,7 @@
   font-size: 36px;
   margin: 0;
   line-height: 32px;
-  min-height: 2em;
+  min-height: 1.5em;
 }
 
 .c-productswithvpn > div h2::after {
@@ -90,6 +90,15 @@
 .c-productswithvpn > div p {
   margin: 5px 0;
   line-height: 22px;
+
+  u {
+    background-color: #5FB053;
+    color: white;
+    text-decoration: none;
+    border-radius: 11px;
+    padding: 2px 10px;
+    font-size: 14px;
+  }
 }
 
 .c-productswithvpn > div p:nth-of-type(4) {
