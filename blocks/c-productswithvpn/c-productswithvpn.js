@@ -36,9 +36,6 @@ export default function decorate(block) {
     titlePosition,
     marginTop,
     products,
-    buttonText1,
-    buttonText2,
-    buttonText3,
     bulinaText,
     borderColor,
     listStyle,
@@ -221,7 +218,7 @@ export default function decorate(block) {
     const tables = block.querySelectorAll('.c-productswithvpn > div table');
     tables.forEach((table) => {
       if (table.querySelectorAll('tr').length > 1) {
-        table.classList.add(`${buttonText1 && buttonText2 && buttonText3 ? 'no_vpn_table2' : 'no_vpn_table'}`);
+        table.classList.add('no_vpn_table');
       }
     });
 
