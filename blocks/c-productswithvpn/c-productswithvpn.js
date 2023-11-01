@@ -36,9 +36,6 @@ export default function decorate(block) {
     titlePosition,
     marginTop,
     products,
-    priceText1,
-    priceText2,
-    priceText3,
     buttonText1,
     buttonText2,
     buttonText3,
@@ -115,28 +112,12 @@ export default function decorate(block) {
       pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
 
       // if has harcoded prices
-      if (priceText1 || priceText2 || priceText3) {
-        let priceText;
-        switch (idx) {
-          case 0:
-            priceText = priceText1;
-            break;
-          case 1:
-            priceText = priceText2;
-            break;
-          default:
-            priceText = priceText3;
-            break;
-        }
-
-        if (priceText) {
-          const [oldPrice, newPrice] = priceText.split(',');
-          pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-custom">${oldPrice}</span>`;
-          pricesDiv.innerHTML += `<span class="prod-newprice newprice-custom">${newPrice}</span>`;
-        } else {
-          pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
-          pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
-        }
+      const tablePriceBox = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table`);
+      const tablePriceTexts = tablePriceBox.querySelectorAll('p');
+      if (tablePriceTexts.length > 0) {
+        tablePriceBox.className= "prices_box";
+        tablePriceTexts[0].className = 'prod-oldprice oldprice-custom';
+        tablePriceTexts[1].className = 'prod-newprice newprice-custom';
       } else {
         pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
         pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
@@ -161,37 +142,24 @@ export default function decorate(block) {
       // add buybtn div & anchor
       const tableVpn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(2)`);
       const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
-      const aBuybtn = document.createElement('a');
+      const tableBuybtnHref = tableBuybtn.querySelector('a');
+      let aBuybtn = document.createElement('a');
 
-      aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
-      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
-      aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-
-      // if has custom link buy
-      if (buttonText1 || buttonText2 || buttonText3) {
-        let buttonText;
-        switch (idx) {
-          case 0:
-            buttonText = buttonText1;
-            break;
-          case 1:
-            buttonText = buttonText2;
-            break;
-          default:
-            buttonText = buttonText3;
-            break;
-        }
-        if (buttonText) {
-          const [btnText, btnLink] = buttonText.split(',');
-          aBuybtn.innerHTML = btnText;
-          aBuybtn.className = 'red-buy-button buylink-custom';
-          aBuybtn.setAttribute('href', btnLink);
-          aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-        }
+      // if already has a link attached
+      if (tableBuybtnHref) {
+        aBuybtn = tableBuybtnHref;
+        aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        tableBuybtnHref.className = 'red-buy-button buylink-custom';
+        tableBuybtnHref.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
+      } else {
+        aBuybtn = document.createElement('a');
+        aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
+        aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
       }
-
-      aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
-
+      
       const divBuybtn = document.createElement('div');
       divBuybtn.classList.add('buybtn_box', 'buy_box', `buy_box${idx + 1}`);
 
