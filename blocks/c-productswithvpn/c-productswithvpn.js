@@ -36,6 +36,9 @@ export default function decorate(block) {
     titlePosition,
     marginTop,
     products,
+    buttonText1,
+    buttonText2,
+    buttonText3,
     bulinaText,
     borderColor,
     listStyle,
@@ -144,24 +147,25 @@ export default function decorate(block) {
 
       // if already has a link attached
       if (tableBuybtnHref) {
-        aBuybtn = tableBuybtnHref;
-        aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
-        tableBuybtnHref.className = 'red-buy-button buylink-custom';
-        tableBuybtnHref.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-        aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
+        aBuybtn.innerHTML = tableBuybtnHref.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        aBuybtn.className = 'red-buy-button buylink-custom';
+        aBuybtn.href = tableBuybtnHref.href;
       } else {
-        aBuybtn = document.createElement('a');
-        aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
         aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
-        aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-        aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
+        aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
       }
-      
+
+      aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
+
       const divBuybtn = document.createElement('div');
       divBuybtn.classList.add('buybtn_box', 'buy_box', `buy_box${idx + 1}`);
 
       tableVpn.after(divBuybtn);
       divBuybtn.appendChild(aBuybtn);
+      
+      // removing last table
+      block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:last-of-type`).remove();
 
       /// ///////////////////////////////////////////////////////////////////////
       let hasVPN = false;
@@ -191,7 +195,7 @@ export default function decorate(block) {
         vpnContent += '</label>';
 
         const vpnBox = document.createElement('div');
-        vpnBox.classList = `vpn_box await-loader prodload prodload-${onSelectorClass}`;
+        vpnBox.classList = `vpn_box await-loader prodload prodload-${onSelectorClass} ${tableBuybtnHref ? 'hide_vpn' : ''}`;
         vpnBox.innerHTML = `<div>${vpnContent}</div>`;
 
         tableVpn.before(vpnBox);
@@ -206,20 +210,10 @@ export default function decorate(block) {
         }
       }
 
-      // removing last table
-      block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:last-of-type`).remove();
-
       // add prod class on block
       const priceBoxSelector = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1})`);
       priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
-    });
-
-    const tables = block.querySelectorAll('.c-productswithvpn > div table');
-    tables.forEach((table) => {
-      if (table.querySelectorAll('tr').length > 1) {
-        table.classList.add('no_vpn_table');
-      }
     });
 
     // if there is no vpn on all prod-boxes
