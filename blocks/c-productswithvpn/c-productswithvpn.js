@@ -36,9 +36,6 @@ export default function decorate(block) {
     titlePosition,
     marginTop,
     products,
-    buttonText1,
-    buttonText2,
-    buttonText3,
     bulinaText,
     borderColor,
     listStyle,
@@ -115,7 +112,7 @@ export default function decorate(block) {
       const tablePriceBox = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table`);
       const tablePriceTexts = tablePriceBox.querySelectorAll('p');
       if (tablePriceTexts.length > 0) {
-        tablePriceBox.className= "prices_box";
+        tablePriceBox.className = 'prices_box';
         tablePriceTexts[0].className = 'prod-oldprice oldprice-custom';
         tablePriceTexts[1].className = 'prod-newprice newprice-custom';
       } else {
@@ -143,7 +140,7 @@ export default function decorate(block) {
       const tableVpn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(2)`);
       const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
       const tableBuybtnHref = tableBuybtn.querySelector('a');
-      let aBuybtn = document.createElement('a');
+      const aBuybtn = document.createElement('a');
 
       // if already has a link attached
       if (tableBuybtnHref) {
@@ -163,7 +160,7 @@ export default function decorate(block) {
 
       tableVpn.after(divBuybtn);
       divBuybtn.appendChild(aBuybtn);
-      
+
       // removing last table
       block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:last-of-type`).remove();
 
