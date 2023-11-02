@@ -26,7 +26,7 @@ import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
-  /// ///////////////////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
@@ -44,7 +44,7 @@ export default function decorate(block) {
   } = metaData;
   const productsAsList = products && products.split(',');
 
-  if (!window.skipZuoraFor) {
+  if (!window.skipZuoraFor && skipZuoraFor) {
     window.skipZuoraFor = skipZuoraFor.split(',');
   }
 
