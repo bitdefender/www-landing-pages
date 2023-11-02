@@ -44,7 +44,7 @@ export default function decorate(block) {
   } = metaData;
   const productsAsList = products && products.split(',');
 
-  if (!window.skipZuoraFor) {
+  if (!window.skipZuoraFor && skipZuoraFor) {
     window.skipZuoraFor = skipZuoraFor.split(',');
   }
 
