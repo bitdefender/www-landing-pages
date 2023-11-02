@@ -834,7 +834,7 @@ async function initializeProductsPriceLogic() {
   } catch (ex) { /* empty */ }
 
   // skip Zuora if specific pids are applied
-  let skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid) ? true : false;
+  const skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid) ? true : false;
 
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
     addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
