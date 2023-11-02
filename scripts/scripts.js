@@ -229,7 +229,7 @@ export async function loadFragment(path) {
 }
 
 // trigger for VPN checkbox click - not for ZuoraNL
-function changeCheckboxVPN(checkboxId) {
+function changeCheckboxVPN(checkboxId, pid) {
   const parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
   const comparativeDiv = document.querySelector('.c-top-comparative-with-text');
   const productId = checkboxId.split('-')[1];
@@ -266,14 +266,18 @@ function changeCheckboxVPN(checkboxId) {
   let newPrice = '';
   let ref = '';
 
-  let promoPid = getParam('pid');
+  let promoPid = pid;
   if (promoPid) {
     promoPid = promoPid.split('_PGEN')[0];
   }
-  const pidUrlBundle = `/pid.${promoPid}`;
+
+  let pidUrlBundle = `/pid.${promoPid}`;
+  if (pid === 'ignore') {
+    pidUrlBundle = '';
+  }
 
   let renewLps = false;
-  if (getParam('renew_lps') || (getParam('pid') && getParam('pid').toLowerCase().indexOf('renew') !== -1)) {
+  if (getParam('renew_lps') || (pid && pid.toLowerCase().indexOf('renew') !== -1)) {
     renewLps = true;
   }
   // const v = StoreProducts.getBundleProductsInfo(selectedVariation, vpnObj);
@@ -555,6 +559,12 @@ function changeCheckboxVPN(checkboxId) {
       buyLink += `/${vpnId}/${10}/${1}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
     }
 
+    /* this is a hack */
+    if (pidUrlBundle === '') {
+      const regex = /COUPON\.[^/]+\//gi;
+      buyLink = buyLink.replace(regex, '');
+    }
+
     if (selectedVariation.discount && vpnObj.discount) {
       fullPrice = Math.round((parseFloat(selectedVariation.price) + parseFloat(priceVpn)) * 100) / 100;
       newPrice = Math.round((parseFloat(selectedVariation.discount.discounted_price) + parseFloat(vpnObj.discount.discounted_price)) * 100) / 100;
@@ -700,7 +710,7 @@ function initSelectors(pid) {
         }
       });
 
-      StoreProducts.initSelector({
+      const initSelectorConfig = {
         product_id: prodAlias,
         full_price_class: `oldprice-${onSelectorClass}`,
         discounted_price_class: `newprice-${onSelectorClass}`,
@@ -712,7 +722,9 @@ function initSelectors(pid) {
         selected_years: prodYears,
         users_class: `users_${onSelectorClass}_fake`,
         years_class: `years_${onSelectorClass}_fake`,
-        extra_params: { pid },
+
+        ...(pid === 'ignore' ? { ignore_promotions: true } : {}),
+        ...(pid !== false && pid !== 'ignore' ? { extra_params: { pid } } : {}),
 
         onSelectorLoad() {
           sendAnalyticsProducts(this);
@@ -723,7 +735,9 @@ function initSelectors(pid) {
             showLoaderSpinner(true, onSelectorClass);
           } catch (ex) { /* empty */ }
         },
-      });
+      };
+
+      StoreProducts.initSelector(initSelectorConfig);
     });
   }
 }
@@ -735,7 +749,7 @@ function addIdsToEachSection() {
   });
 }
 
-function addEventListenersOnVpnCheckboxes() {
+function addEventListenersOnVpnCheckboxes(pid) {
   if (document.querySelector('.checkboxVPN')) {
     document.querySelectorAll('.checkboxVPN').forEach((item) => {
       item.addEventListener('click', (e) => {
@@ -745,45 +759,89 @@ function addEventListenersOnVpnCheckboxes() {
           const storeObjprod = window.StoreProducts.product[prodxId] || {};
           showPrices(storeObjprod, e.target.checked, checkboxId);
         } else {
-          changeCheckboxVPN(checkboxId);
+          changeCheckboxVPN(checkboxId, pid);
         }
       });
     });
   }
 }
 
+async function initZuoraProductPriceLogic(campaign) {
+  import('./zuora.js').then(async (module) => {
+    const ZuoraNLClass = module.default;
+    // window.config = ZuoraNLClass.config();
+    showLoaderSpinner(false);
+
+    if (productsList.length) {
+      try {
+        await Promise.all(
+          productsList.map(async (item) => {
+            const prodSplit = item.split('/');
+            const prodAlias = prodSplit[0].trim();
+            const prodUsers = prodSplit[1].trim();
+            const prodYears = prodSplit[2].trim();
+            const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+
+            const zuoraResult = await ZuoraNLClass.loadProduct(item, campaign);
+            showPrices(zuoraResult);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(true, onSelectorClass);
+            sendAnalyticsProducts(zuoraResult, 'nl');
+
+            return zuoraResult;
+          }),
+        );
+
+        // results is an array of the resolved promises
+        // console.log(results);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
+}
+
 async function initializeProductsPriceLogic() {
-  if (!isZuoraForNetherlandsLangMode()) {
-    let pid = getParam('pid');
+  let pid = getParam('pid');
+  let campaign = getParam('campaign');
 
-    try {
-      /* global adobe */
-      if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined') {
-        const targetResponse = await adobe.target.getOffers({
-          request: {
-            execute: {
-              mboxes: [
-                {
-                  index: 0,
-                  name: 'initSelector-mbox',
-                },
-              ],
-            },
+  try {
+    /* global adobe */
+    if (window.adobe?.target) {
+      const targetResponse = await adobe.target.getOffers({
+        request: {
+          execute: {
+            mboxes: [{ index: 0, name: 'initSelector-mbox' }],
           },
-        });
+        },
+      });
 
-        if (targetResponse.execute.mboxes[0].options !== undefined && targetResponse.execute.mboxes[0].options[0].content !== undefined) {
-          pid = targetResponse.execute.mboxes[0].options[0].content.pid;
+      const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
+      const content = mboxOptions?.[0]?.content;
+
+      if (content) {
+        pid = content.pid ?? pid;
+        campaign = content.campaign ?? campaign;
+        const promotionID = content.pid || content.campaign;
+
+        if (promotionID) {
+          window.adobeDataLayer.push({
+            page: { attributes: { promotionID } },
+          });
         }
       }
-    } catch (ex) { /* empty */ }
+    }
+  } catch (ex) { /* empty */ }
 
+  if (!isZuoraForNetherlandsLangMode()) {
     addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
       initSelectors(pid);
     });
+  } else {
+    initZuoraProductPriceLogic(campaign);
   }
 
-  addEventListenersOnVpnCheckboxes();
+  addEventListenersOnVpnCheckboxes(pid);
 }
 
 function eventOnDropdownSlider() {

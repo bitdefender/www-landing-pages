@@ -14,6 +14,11 @@ if (typeof StoreProducts.initCount === 'undefined' || StoreProducts.initCount ==
   StoreProducts.initCount = 0;
 }
 
+let DEBUG = false;
+if (window.location.host.indexOf('localhost:3000') == 0) {
+  DEBUG = true;
+}
+
 StoreProducts.initSelector = function (config) {
   is_product = true;
   if (typeof forcePL !== 'undefined' && forcePL == true) {
@@ -187,7 +192,7 @@ StoreProducts.initSelector = function (config) {
       config.icid = urlParams.icid;
     }
   } catch (ex) {
-
+    DEBUG && console.log(ex);
   }
 
   if (typeof StoreProducts.product[product_id] === 'undefined' || StoreProducts.product[product_id] === null) {
@@ -305,7 +310,7 @@ StoreProducts.initSelector = function (config) {
           }
         }
       } catch (ex) {
-
+        DEBUG && console.log(ex);
       }
 
       try {
@@ -322,7 +327,7 @@ StoreProducts.initSelector = function (config) {
           }
         }
       } catch (ex) {
-        console.log(ex);
+        DEBUG && console.log(ex);
       }
       so.url = url;
       StoreProducts.filterRequestObject(so);
@@ -488,16 +493,19 @@ StoreProducts.initSelector = function (config) {
       }
     }
   } catch (ex) {
+    DEBUG && console.log(ex);
   }
 
-  const users = new Array();
+  let users = new Array();
 
   if (users_class != null) {
     try {
       for (i in StoreProducts.product[product_id].variations) { users.push(i); }
 
       users = users.sort((a, b) => a - b);
-    } catch (ex) {}
+    } catch (ex) {
+      DEBUG && console.log(ex);
+    }
 
     users.forEach((value) => {
       let label = `${users_label_prefix} ${value} ${users_label}`;
@@ -523,7 +531,7 @@ StoreProducts.initSelector = function (config) {
     }
   }
 
-  const years = new Array();
+  let years = new Array();
 
   if (years_class != null) {
     try {
@@ -531,7 +539,7 @@ StoreProducts.initSelector = function (config) {
 
       years = years.sort((a, b) => a - b);
     } catch (ex) {
-
+      DEBUG && console.log(ex);
     }
 
     years.forEach((value) => {
@@ -563,7 +571,9 @@ StoreProducts.initSelector = function (config) {
   try {
     variation = StoreProducts.product[product_id].variations[selected_users][selected_years];
     base_uri = StoreProducts.product[product_id].base_uri;
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   if (variation == null) {
     try {
@@ -587,7 +597,9 @@ StoreProducts.initSelector = function (config) {
           base_uri = StoreProducts.product[product_id].base_uri;
         }
       }
-    } catch (ex) {}
+    } catch (ex) {
+      DEBUG && console.log(ex);
+    }
   }
 
   if (variation == null) { return false; }
@@ -666,7 +678,7 @@ StoreProducts.initSelector = function (config) {
       buy_link = StoreProducts.filterBuyLink(config, buy_link);
     }
   } catch (ex) {
-    console.log(ex);
+    DEBUG && console.log(ex);
   }
 
   if (price_class != null) {
@@ -707,12 +719,14 @@ StoreProducts.initSelector = function (config) {
         });
       }
     }
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   full_price = full_price;
   discounted_price = discounted_price;
-  save_price = save_price;
-  percent_value = percent_value;
+  //save_price = save_price;
+  //percent_value = percent_value;
 
   if (discounted_price_class != null) {
     const elements = document.getElementsByClassName(discounted_price_class);
@@ -730,16 +744,28 @@ StoreProducts.initSelector = function (config) {
 
   if (save_class != null) {
     const elements = document.getElementsByClassName(save_class);
-    Array.from(elements).forEach((element) => {
-      element.innerHTML = save_price;
-    });
+    if (typeof save_price !== 'undefined') {
+      Array.from(elements).forEach((element) => {
+        element.innerHTML = save_price;
+      });
+    } else {
+      Array.from(elements).forEach((element) => {
+        element.style.display = "none";
+      });
+    }
   }
 
   if (percent_class != null) {
     const elements = document.getElementsByClassName(percent_class);
-    Array.from(elements).forEach((element) => {
-      element.innerHTML = percent_value;
-    });
+    if (typeof percent_value !== 'undefined') {
+      Array.from(elements).forEach((element) => {
+        element.innerHTML = percent_value;
+      });
+    } else {
+      Array.from(elements).forEach((element) => {
+        element.style.display = "none";
+      });
+    }
   }
 
   if (buy_class != null) {
@@ -770,7 +796,9 @@ StoreProducts.initSelector = function (config) {
   try {
     StoreProducts.setInfo(buy_class, product_id, variation);
     StoreProducts.setDigitalData(product_id, variation);
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   try {
     ocg = StoreProducts.events[users_class + years_class].onSelectorLoad;
@@ -792,7 +820,9 @@ StoreProducts.initSelector = function (config) {
           }
         }.bind({ config, selected_users: thisObj.selected_users, selected_years: thisObj.selected_years }));
       });
-    } catch (ex) {}
+    } catch (ex) {
+      DEBUG && console.log(ex);
+    }
     // end Omniture Buy link
 
     if (ocg != null) {
@@ -823,8 +853,12 @@ StoreProducts.initSelector = function (config) {
       if (typeof StoreCBS !== 'undefined' && StoreCBS != null && ('go' in StoreCBS)) {
         StoreCBS.go(thisObj, ['selector', 'onload', StoreProducts.product[product_id].product_id, StoreProducts.product[product_id].product_alias, `initCount:${config.initCount}`, `productType:${StoreProducts.product[product_id].product_type}`]);
       }
-    } catch (ex) {}
-  } catch (ex) {}
+    } catch (ex) {
+      DEBUG && console.log(ex);
+    }
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 };
 
 StoreProducts.truncatePrice = function (price) {
@@ -835,7 +869,7 @@ StoreProducts.truncatePrice = function (price) {
 
     if (price != ret) { ret = price; }
   } catch (ex) {
-
+    DEBUG && console.log(ex);
   }
 
   return ret;
@@ -853,7 +887,9 @@ StoreProducts.formatPrice = function (price, currency, region, currency_iso) {
     });
 
     price = formatter.format(price);
-  } catch (err) {}
+  } catch (err) {
+    DEBUG && console.log(ex);
+  }
 
   try {
     // replace , only if it's not the decimal seperator
@@ -863,7 +899,9 @@ StoreProducts.formatPrice = function (price, currency, region, currency_iso) {
         price = price.replace(',', '');
       }
     }
-  } catch (err) {}
+  } catch (err) {
+    DEBUG && console.log(ex);
+  }
 
   // petre
   if (region == 3) { return currency + price; }
@@ -883,7 +921,9 @@ StoreProducts.formatPrice = function (price, currency, region, currency_iso) {
   if (region == 16 && DEFAULT_LANGUAGE == 'nl') {
     try {
       price = price.replace('.', ',');
-    } catch (err) {}
+    } catch (err) {
+      DEBUG && console.log(ex);
+    }
 
     return `${currency} ${price}`;
   }
@@ -893,7 +933,9 @@ StoreProducts.formatPrice = function (price, currency, region, currency_iso) {
 
     try {
       fprice = `${parseFloat(price).toFixed(2)} ${currency}`;
-    } catch (ex) {}
+    } catch (ex) {
+      DEBUG && console.log(ex);
+    }
 
     return fprice;
   }
@@ -919,7 +961,9 @@ StoreProducts.__onChangeUsers = function (ev) {
     for (i in StoreProducts.product[c_config.product_id].variations[selected_users]) { years.push(i); }
 
     years = years.sort((a, b) => a - b);
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   // retin valoarea selectata
   const selectElementYears = document.querySelector(`.${c_config.years_class}`);
@@ -951,7 +995,9 @@ StoreProducts.__onChangeUsers = function (ev) {
     const selectElement = document.querySelector(`.${c_config.years_class}`);
     const optionElement = selectElement.querySelector(`option[value="${old_selected_years}"]`);
     optionElement.selected = true;
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   const selected_years = document.querySelector(`.${c_config.years_class}`).value;
 
@@ -961,7 +1007,9 @@ StoreProducts.__onChangeUsers = function (ev) {
   try {
     variation = StoreProducts.product[c_config.product_id].variations[selected_users][selected_years];
     base_uri = StoreProducts.product[c_config.product_id].base_uri;
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   if (variation == null) { return null; }
 
@@ -1006,7 +1054,9 @@ StoreProducts.__onChangeUsers = function (ev) {
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
       }
     }
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   try {
     if ('extra_params' in c_config) {
@@ -1031,7 +1081,9 @@ StoreProducts.__onChangeUsers = function (ev) {
         if ('force_country' in c_config.extra_params) { buy_link = `${buy_link}?force_country=${c_config.extra_params.force_country}`; }
       }
     }
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   const elementsPrice = document.getElementsByClassName(c_config.price_class);
   Array.from(elementsPrice).forEach((element) => {
@@ -1125,16 +1177,20 @@ StoreProducts.__onChangeUsers = function (ev) {
       if (typeof StoreCBS !== 'undefined' && StoreCBS != null && ('go' in StoreCBS)) {
         StoreCBS.go(thisObj, ['selector', 'onchange', 'onchangeusers', StoreProducts.product[c_config.product_id].product_id, StoreProducts.product[c_config.product_id].product_alias, `initCount:${c_config.initCount}`, `productType:${StoreProducts.product[c_config.product_id].product_type}`]);
       }
-    } catch (ex) {}
+    } catch (ex) {
+      DEBUG && console.log(ex);
+    }
   } catch (ex) {
-
+    DEBUG && console.log(ex);
   }
 
   try {
     delete digitalData.product;
     StoreProducts.setInfo(c_config.buy_class, c_config.product_id, variation);
     StoreProducts.setDigitalData(c_config.product_id, variation);
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   if (typeof __targetCallBack !== 'undefined') {
     try {
@@ -1154,7 +1210,9 @@ StoreProducts.__onChangeYears = function (ev) {
   try {
     variation = StoreProducts.product[c_config.product_id].variations[selected_users][selected_years];
     base_uri = StoreProducts.product[c_config.product_id].base_uri;
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   if (variation == null) { return false; }
 
@@ -1199,7 +1257,9 @@ StoreProducts.__onChangeYears = function (ev) {
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
       }
     }
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   try {
     if ('extra_params' in c_config) {
@@ -1224,7 +1284,9 @@ StoreProducts.__onChangeYears = function (ev) {
         if ('force_country' in c_config.extra_params) { buy_link = `${buy_link}?force_country=${c_config.extra_params.force_country}`; }
       }
     }
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   const elementsPrice = document.getElementsByClassName(c_config.price_class);
   Array.from(elementsPrice).forEach((element) => {
@@ -1320,14 +1382,16 @@ StoreProducts.__onChangeYears = function (ev) {
       }
     } catch (ex) {}
   } catch (ex) {
-
+    DEBUG && console.log(ex);
   }
 
   try {
     delete digitalData.product;
     StoreProducts.setInfo(c_config.buy_class, c_config.product_id, variation);
     StoreProducts.setDigitalData(c_config.product_id, variation);
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   if (typeof __targetCallBack !== 'undefined') {
     try {
@@ -1375,7 +1439,9 @@ StoreProducts.loadProducts = function (config) {
 
       while (e = r.exec(q)) { urlParams[d(e[1])] = d(e[2]); }
     }());
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   // if (window.location.hostname == 'www.bitdefender.se') {
   //     BASE_URI = "https://www.bitdefender.se";
@@ -1387,13 +1453,17 @@ StoreProducts.loadProducts = function (config) {
         if (BASE_URI.length > 0) { url = `${BASE_URI}/Store/ajax`; }
       }
     }
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   try {
     if ('force_country' in urlParams) {
       url = `${url}?force_country=${urlParams.force_country}`;
     }
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   const onload = function (data) {
     const response_code = data.code;
@@ -1411,7 +1481,9 @@ StoreProducts.loadProducts = function (config) {
 
     try {
       if ('onLoad' in config) { config.onLoad(); }
-    } catch (ex) {}
+    } catch (ex) {
+      DEBUG && console.log(ex);
+    }
   };
 
   so = JSON.stringify(so);
@@ -1427,7 +1499,7 @@ StoreProducts.loadProducts = function (config) {
     .then((response) => response.json())
     .then(onload)
     .catch((error) => {
-      // Handle any error that occurred during the request
+      DEBUG && console.log(error);
     });
 };
 
@@ -1474,7 +1546,9 @@ StoreProducts.getBundleProductsInfo = function (va, vb, config) {
                     }
             }
             */
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   try {
     /*
@@ -1507,7 +1581,9 @@ StoreProducts.getBundleProductsInfo = function (va, vb, config) {
                     buy_link = buy_link + params;
             }
             */
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   try {
     vb.selected_users = vb.variation.dimension_value;
@@ -1534,7 +1610,9 @@ StoreProducts.getBundleProductsInfo = function (va, vb, config) {
                     }
             }
             */
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   try {
     /*
@@ -1569,7 +1647,9 @@ StoreProducts.getBundleProductsInfo = function (va, vb, config) {
             */
 
     if ('force_country' in extra_params) { buy_link = `${buy_link}?force_country=${extra_params.force_country}`; }
-  } catch (ex) {}
+  } catch (ex) {
+    DEBUG && console.log(ex);
+  }
 
   let ret_price = 0;
 
@@ -1638,7 +1718,7 @@ StoreProducts.requestPricingInfo = function (so) {
       .then((response) => response.json())
       .then(handleResponse)
       .catch((error) => {
-        // Handle any error that occurred during the request
+        DEBUG && console.log(error);
       });
   }
 };
@@ -1661,7 +1741,9 @@ const handleResponse = function (data) {
       StoreProducts.product[response_data.product.product_alias] = response_data.product;
 
       StoreProducts.initSelector(response_data.config);
-    } catch (ex) {}
+    } catch (ex) {
+      DEBUG && console.log(ex);
+    }
   }
 };
 
@@ -2033,7 +2115,7 @@ StoreProducts.filterBuyLink = function (config, buyLink) {
       buyLink = `${buyLink}spid.1/`;
     }
   } catch (ex) {
-    // console.log(ex);
+    DEBUG && console.log(ex);
   }
 
   /* aici este setat A/B testul cu shopping cartul */
