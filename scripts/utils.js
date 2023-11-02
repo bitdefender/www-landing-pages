@@ -93,6 +93,7 @@ export function getDefaultSection() {
 
 export const GLOBAL_EVENTS = {
   ADOBE_MC_LOADED: 'adobe_mc::loaded',
+  PAGE_LOADED: 'page::loaded',
 };
 
 export function appendAdobeMcLinks(selector) {

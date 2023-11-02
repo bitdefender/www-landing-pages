@@ -1,4 +1,4 @@
-import { getDefaultLanguage, getInstance } from './utils.js';
+import { getDefaultLanguage, getInstance, GLOBAL_EVENTS } from './utils.js';
 
 /**
  * Formats a number to have 2 digits
@@ -144,6 +144,7 @@ export const sendAnalyticsPageEvent = async () => {
   if (subSection && subSection === '404') {
     window.adobeDataLayer.push({ event: 'page error' });
     window.adobeDataLayer.push({ event: 'page loaded' });
+    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 };
 
@@ -246,6 +247,7 @@ export async function sendAnalyticsProducts(product, region) {
     window.adobeDataLayer.push({
       event: 'page loaded',
     });
+    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 }
 
@@ -261,5 +263,6 @@ export async function sendAnalyticsPageLoadedEvent() {
 
   if (typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) {
     window.adobeDataLayer.push({ event: 'page loaded' });
+    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 }
