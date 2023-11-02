@@ -833,7 +833,10 @@ async function initializeProductsPriceLogic() {
     }
   } catch (ex) { /* empty */ }
 
-  if (!isZuoraForNetherlandsLangMode()) {
+  // skip Zuora if specific pids are applied
+  const skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid);
+
+  if (!isZuoraForNetherlandsLangMode() || skipZuora) {
     addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
       initSelectors(pid);
     });

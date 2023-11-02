@@ -90,6 +90,15 @@
 .c-productswithvpn > div p {
   margin: 5px 0;
   line-height: 22px;
+
+  u {
+    background-color: #5FB053;
+    color: white;
+    text-decoration: none;
+    border-radius: 11px;
+    padding: 2px 10px;
+    font-size: 14px;
+  }
 }
 
 .c-productswithvpn > div p:nth-of-type(4) {
