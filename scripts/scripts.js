@@ -229,7 +229,7 @@ export async function loadFragment(path) {
 }
 
 // trigger for VPN checkbox click - not for ZuoraNL
-function changeCheckboxVPN(checkboxId) {
+function changeCheckboxVPN(checkboxId, pid) {
   const parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
   const comparativeDiv = document.querySelector('.c-top-comparative-with-text');
   const productId = checkboxId.split('-')[1];
@@ -266,14 +266,18 @@ function changeCheckboxVPN(checkboxId) {
   let newPrice = '';
   let ref = '';
 
-  let promoPid = getParam('pid');
+  let promoPid = pid;
   if (promoPid) {
     promoPid = promoPid.split('_PGEN')[0];
   }
-  const pidUrlBundle = `/pid.${promoPid}`;
+
+  let pidUrlBundle = `/pid.${promoPid}`;
+  if (pid === 'ignore') {
+    pidUrlBundle = '';
+  }
 
   let renewLps = false;
-  if (getParam('renew_lps') || (getParam('pid') && getParam('pid').toLowerCase().indexOf('renew') !== -1)) {
+  if (getParam('renew_lps') || (pid && pid.toLowerCase().indexOf('renew') !== -1)) {
     renewLps = true;
   }
   // const v = StoreProducts.getBundleProductsInfo(selectedVariation, vpnObj);
@@ -555,6 +559,12 @@ function changeCheckboxVPN(checkboxId) {
       buyLink += `/${vpnId}/${10}/${1}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
     }
 
+    /* this is a hack */
+    if (pidUrlBundle === '') {
+      const regex = /COUPON\.[^/]+\//gi;
+      buyLink = buyLink.replace(regex, '');
+    }
+
     if (selectedVariation.discount && vpnObj.discount) {
       fullPrice = Math.round((parseFloat(selectedVariation.price) + parseFloat(priceVpn)) * 100) / 100;
       newPrice = Math.round((parseFloat(selectedVariation.discount.discounted_price) + parseFloat(vpnObj.discount.discounted_price)) * 100) / 100;
@@ -672,7 +682,7 @@ function changeCheckboxVPN(checkboxId) {
   }
 }
 
-function initSelectors() {
+function initSelectors(pid) {
   showLoaderSpinner(false);
   const productsExistsOnPage = productsList.length;
 
@@ -700,7 +710,7 @@ function initSelectors() {
         }
       });
 
-      StoreProducts.initSelector({
+      const initSelectorConfig = {
         product_id: prodAlias,
         full_price_class: `oldprice-${onSelectorClass}`,
         discounted_price_class: `newprice-${onSelectorClass}`,
@@ -712,7 +722,9 @@ function initSelectors() {
         selected_years: prodYears,
         users_class: `users_${onSelectorClass}_fake`,
         years_class: `years_${onSelectorClass}_fake`,
-        extra_params: { pid: getParam('pid') },
+
+        ...(pid === 'ignore' ? { ignore_promotions: true } : {}),
+        ...(pid !== false && pid !== 'ignore' ? { extra_params: { pid } } : {}),
 
         onSelectorLoad() {
           sendAnalyticsProducts(this);
@@ -723,7 +735,9 @@ function initSelectors() {
             showLoaderSpinner(true, onSelectorClass);
           } catch (ex) { /* empty */ }
         },
-      });
+      };
+
+      StoreProducts.initSelector(initSelectorConfig);
     });
   }
 }
@@ -735,7 +749,7 @@ function addIdsToEachSection() {
   });
 }
 
-function addEventListenersOnVpnCheckboxes() {
+function addEventListenersOnVpnCheckboxes(pid) {
   if (document.querySelector('.checkboxVPN')) {
     document.querySelectorAll('.checkboxVPN').forEach((item) => {
       item.addEventListener('click', (e) => {
@@ -745,21 +759,92 @@ function addEventListenersOnVpnCheckboxes() {
           const storeObjprod = window.StoreProducts.product[prodxId] || {};
           showPrices(storeObjprod, e.target.checked, checkboxId);
         } else {
-          changeCheckboxVPN(checkboxId);
+          changeCheckboxVPN(checkboxId, pid);
         }
       });
     });
   }
 }
 
-function initializeProductsPriceLogic() {
-  if (!isZuoraForNetherlandsLangMode()) {
+async function initZuoraProductPriceLogic(campaign) {
+  import('./zuora.js').then(async (module) => {
+    const ZuoraNLClass = module.default;
+    // window.config = ZuoraNLClass.config();
+    showLoaderSpinner(false);
+
+    if (productsList.length) {
+      try {
+        await Promise.all(
+          productsList.map(async (item) => {
+            const prodSplit = item.split('/');
+            const prodAlias = prodSplit[0].trim();
+            const prodUsers = prodSplit[1].trim();
+            const prodYears = prodSplit[2].trim();
+            const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+
+            const zuoraResult = await ZuoraNLClass.loadProduct(item, campaign);
+            showPrices(zuoraResult);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(true, onSelectorClass);
+            sendAnalyticsProducts(zuoraResult, 'nl');
+
+            return zuoraResult;
+          }),
+        );
+
+        // results is an array of the resolved promises
+        // console.log(results);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
+}
+
+async function initializeProductsPriceLogic() {
+  let pid = getParam('pid');
+  let campaign = getParam('campaign');
+
+  try {
+    /* global adobe */
+    if (window.adobe?.target) {
+      const targetResponse = await adobe.target.getOffers({
+        request: {
+          execute: {
+            mboxes: [{ index: 0, name: 'initSelector-mbox' }],
+          },
+        },
+      });
+
+      const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
+      const content = mboxOptions?.[0]?.content;
+
+      if (content) {
+        pid = content.pid ?? pid;
+        campaign = content.campaign ?? campaign;
+        const promotionID = content.pid || content.campaign;
+
+        if (promotionID) {
+          window.adobeDataLayer.push({
+            page: { attributes: { promotionID } },
+          });
+        }
+      }
+    }
+  } catch (ex) { /* empty */ }
+
+  // skip Zuora if specific pids are applied
+  const skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid);
+
+  if (!isZuoraForNetherlandsLangMode() || skipZuora) {
     addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
-      initSelectors();
+      initSelectors(pid);
     });
+  } else {
+    initZuoraProductPriceLogic(campaign);
   }
 
-  addEventListenersOnVpnCheckboxes();
+  addEventListenersOnVpnCheckboxes(pid);
 }
 
 function eventOnDropdownSlider() {
@@ -836,43 +921,41 @@ function appendMetaReferrer() {
 }
 
 function counterFlipClock() {
-  const flopdownBox = document.getElementById('flipdown');
-  if (flopdownBox) {
-    // const counterSwitchOn = new Date('November 27, 2023 10:00:00');
-    document.getElementById('blackFriday').style.display = 'block';
-    const counterSwitchOn = flopdownBox.getAttribute('data-switchOn');
-    const counterTheme = flopdownBox.getAttribute('data-theme');
-    const counterHeadings = flopdownBox.getAttribute('data-headings');
-    
-    // config
-    const flipConfig = {};
-    counterTheme ? flipConfig.theme = counterTheme : 'dark';
-    if (counterHeadings) {
-      flipConfig.headings = counterHeadings.split(',');
-    }
+  const flipdownBox = document.getElementById('flipdown');
+  if (flipdownBox) {
+    const blackFridayElement = document.getElementById('blackFriday');
+    const cyberMondayElement = document.getElementById('cyberMonday');
 
-    const flipdown = new FlipDown(Number(counterSwitchOn), flipConfig)
-      .start()
+    blackFridayElement.style.display = 'block';
+    const counterSwitchOn = flipdownBox.getAttribute('data-switchOn');
+    const counterTheme = flipdownBox.getAttribute('data-theme');
+    const counterHeadings = flipdownBox.getAttribute('data-headings');
+
+    // config
+    const flipConfig = {
+      theme: counterTheme,
+      headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
+    };
+
+    // eslint-disable-next-line no-undef
+    const firstCounter = new FlipDown(Number(counterSwitchOn), flipConfig);
+    firstCounter.start()
       .ifEnded(() => {
         // switch images:
-        document.getElementById('blackFriday').style.display = 'none';
-        document.getElementById('cyberMonday').style.display = 'block';
+        blackFridayElement.style.display = 'none';
+        cyberMondayElement.style.display = 'block';
 
         // The initial counter has ended; start a new one 48 hours from now
-        document.getElementById('flipdown').innerHTML = '';
+        flipdownBox.innerHTML = '';
         const currentDate = new Date();
         currentDate.setHours(currentDate.getHours() + 48);
         const newTime = currentDate.getTime() / 1000;
 
-        const newFlipdown = new FlipDown(newTime, flipConfig)
-          .start()
-          .ifEnded(() => {
-            // The new counter has ended; you can add more actions here if needed.
-          });
+        // eslint-disable-next-line no-undef
+        const secondCounter = new FlipDown(newTime, flipConfig);
+        secondCounter.start().ifEnded(() => {});
       });
   }
-  
-
 }
 
 async function loadPage() {
@@ -881,9 +964,15 @@ async function loadPage() {
 
   addIdsToEachSection();
 
-  addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
+  if (window.ADOBE_MC_EVENT_LOADED) {
+    initializeProductsPriceLogic();
+  } else {
+    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+      initializeProductsPriceLogic();
+    });
+  }
 
-  initializeProductsPriceLogic();
+  addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 
   eventOnDropdownSlider();
 

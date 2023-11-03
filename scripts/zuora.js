@@ -1,8 +1,6 @@
 export default class ZuoraNLClass {
   static campaignDefault = 'Cyber2023';
 
-  static campaignParam = new URLSearchParams(window.location.search).get('campaign');
-
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
   // this products come with device_no set differently from the init-selector api where they are set to 1
@@ -236,9 +234,9 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static loadProduct(id) {
+  static loadProduct(id, campaign) {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
-    return this.getProductVariationsPrice(id, this.campaignParam || this.campaignDefault);
+    return this.getProductVariationsPrice(id, campaign || this.campaignDefault);
   }
 }

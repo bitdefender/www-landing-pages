@@ -67,18 +67,19 @@
   line-height: 14px;
 }
 
-.c-productswithvpn > div div.prices_box span.prod-oldprice {
+.c-productswithvpn > div .prices_box .prod-oldprice {
   margin-top: 10px;
   font-size: 24px;
   line-height: 24px;
   color: #666;
 }
 
-.c-productswithvpn > div div.prices_box span.prod-newprice {
+.c-productswithvpn > div .prices_box .prod-newprice {
   font-size: 36px;
   margin-bottom: 3px;
   font-weight: bold;
   line-height: 1.2;
+  color: black;
 }
 
 .c-productswithvpn > div picture img {
@@ -89,6 +90,15 @@
 .c-productswithvpn > div p {
   margin: 5px 0;
   line-height: 22px;
+
+  u {
+    background-color: #5FB053;
+    color: white;
+    text-decoration: none;
+    border-radius: 11px;
+    padding: 2px 10px;
+    font-size: 14px;
+  }
 }
 
 .c-productswithvpn > div p:nth-of-type(4) {
@@ -242,6 +252,11 @@
   padding: 10px 0 10px 38px;
   background: #eaf5ec;
   margin-left: -36px;
+}
+
+.c-productswithvpn .hide_vpn {
+  visibility: hidden;
+  color: white;
 }
 
 .c-productswithvpn .vpn_box input {
@@ -458,13 +473,13 @@
        height: auto;
     }
 
-    .c-productswithvpn > div div.prices_box span.prod-newprice {
+    .c-productswithvpn > div .prices_box .prod-newprice {
       font-size: 29px;
       margin-bottom: 0;
       line-height: 36px;
     }
 
-    .c-productswithvpn > div div.prices_box span.prod-oldprice {
+    .c-productswithvpn > div .prices_box .prod-oldprice {
       font-size: 21px;
     }
 
