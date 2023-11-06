@@ -90,7 +90,6 @@ export default function decorate(block) {
         let newItem = item;
         if (item.indexOf('0%') !== -1) {
           newItem = item.replace(/0%/g, '<b class=\'max-discount\'></b>');
-          // newItem = item.replace(/0 %/g, '<b class=\'max-discount\'></b>');
         }
         divBulina += `<span class='bulina_text${idx + 1}'>${newItem}</span>`;
       });
