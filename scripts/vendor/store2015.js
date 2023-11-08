@@ -1696,9 +1696,9 @@ StoreProducts.requestPricingInfo = function (so) {
   so = JSON.stringify(so);
 
   if (config.method && config.method.toLowerCase() == 'get') {
-    const urlGet = new URL(url);
+    let urlGet = new URL(url);
     const soBase64 = Base64.encode(so);
-    urlGet.searchParams.set('data', encodeURI(soBase64));
+    urlGet += `/${encodeURI(soBase64)}/`;
     fetch(urlGet.toString())
       .then((response) => response.json())
       .then(handleResponse)
