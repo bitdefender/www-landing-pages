@@ -1698,7 +1698,12 @@ StoreProducts.requestPricingInfo = function (so) {
   if (config.method && config.method.toLowerCase() == 'get') {
     let urlGet = new URL(url);
     const soBase64 = Base64.encode(so);
-    urlGet += `/${encodeURI(soBase64)}/`;
+
+    if (!urlGet.pathname.endsWith('/')) {
+      urlGet.pathname += '/';
+    }
+    urlGet.pathname += `${encodeURI(soBase64)}/`;
+    
     fetch(urlGet.toString())
       .then((response) => response.json())
       .then(handleResponse)
