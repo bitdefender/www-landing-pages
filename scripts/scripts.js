@@ -1005,7 +1005,6 @@ async function loadPage() {
 
   appendMetaReferrer();
 
-
   if (window.location.href.indexOf('spurs')) {
     appendIBMplex();
   }
