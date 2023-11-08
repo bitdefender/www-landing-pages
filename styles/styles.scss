@@ -493,6 +493,13 @@ main .single-blue-quote .default-content-wrapper p:nth-of-type(1) {
   padding: 5px 0;
 }
 
+main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
+  font-size: 18px;
+  line-height: 26px;
+  column-count: 2;
+  column-gap: 20px;
+}
+
 main .blue-quote.spurs .default-content-wrapper p:nth-of-type(1) {
   font-weight: normal;
   font-size: 28px;
@@ -532,13 +539,6 @@ main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1) {
   font-weight: normal;
   font-size: 28px;
   line-height: 39px;
-}
-
-main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
-  font-size: 18px;
-  line-height: 26px;
-  column-count: 2;
-  column-gap: 20px;
 }
 
 main .blue-title-left.normal-text .default-content-wrapper p:nth-of-type(2) {
