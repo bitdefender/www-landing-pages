@@ -57,11 +57,11 @@ export default function decorate(block) {
     const flipClockConfig = {
       dataTheme: counterTheme || 'dark',
       dataSwitchOn: new Date(counterSwitchOn).getTime() / 1000,
-      dataHeadings: counterHeadings ? `data-headings="${counterHeadings}"` : '',
+      dataHeadings: counterHeadings ? counterHeadings : '',
     };
 
     block.innerHTML = block.innerHTML.replace('[counter]', `
-      <div id="flipdown" class="flipdown" data-theme=${flipClockConfig.dataTheme} data-switchOn=${flipClockConfig.dataSwitchOn} data-headings=${flipClockConfig.dataHeadings}></div>
+      <div id="flipdown" class="flipdown" data-theme="${flipClockConfig.dataTheme}" data-switchOn=${flipClockConfig.dataSwitchOn} data-headings="${flipClockConfig.dataHeadings.trim()}"></div>
     `);
 
     if (block.children.length === 3) {
