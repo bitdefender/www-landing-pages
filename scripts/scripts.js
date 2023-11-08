@@ -921,6 +921,31 @@ function appendMetaReferrer() {
   head.appendChild(metaTag);
 }
 
+function appendIBMplex() {
+    var link1 = document.createElement('link');
+    link1.rel = 'preconnect';
+    link1.href = 'https://fonts.googleapis.com';
+
+    var link2 = document.createElement('link');
+    link2.rel = 'preconnect';
+    link2.href = 'https://fonts.gstatic.com';
+    link2.crossOrigin = '';
+
+    var link3 = document.createElement('link');
+    link3.rel = 'stylesheet';
+    link3.href = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap';
+
+    const metaTag = document.createElement('meta');
+    metaTag.name = 'referrer';
+    metaTag.content = 'no-referrer-when-downgrade';
+
+    var head = document.head || document.getElementsByTagName('head')[0];
+    head.appendChild(metaTag);
+    head.appendChild(link1);
+    head.appendChild(link2);
+    head.appendChild(link3);
+}
+
 function counterFlipClock() {
   const flipdownBox = document.getElementById('flipdown');
   if (flipdownBox) {
@@ -978,6 +1003,8 @@ async function loadPage() {
   eventOnDropdownSlider();
 
   appendMetaReferrer();
+
+  appendIBMplex();
 
   counterFlipClock();
 

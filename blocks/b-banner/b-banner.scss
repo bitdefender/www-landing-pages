@@ -569,6 +569,12 @@
     margin-bottom: 0;
   }
 
+  .b-banner-container.spurs .b-banner-wrapper h1 {
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 66px;
+  }
+
   .b-banner-container .b-banner-wrapper h2 {
     font-weight: 700;
     font-size: 35px;
@@ -582,6 +588,12 @@
     max-width: 610px;
     margin: 10px 0;
     line-height: 20px;
+  }
+
+  .b-banner-container.spurs .b-banner-wrapper p { 
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 42px;
   }
 
   .b-banner-container .b-banner-wrapper .smaller-text h2 {

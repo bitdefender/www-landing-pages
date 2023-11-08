@@ -372,6 +372,10 @@ main .default-content-wrapper img {
   margin-top: 2rem;
 }
 
+main .corner-rounded .default-content-wrapper img {
+  border-radius: 10px;
+}
+
 .topHeader .heading {
   font-size: 13px;
   text-transform: uppercase;
@@ -455,6 +459,12 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) {
   border-radius: 5px;
 }
 
+main .blue-quote.spurs .default-content-wrapper p:nth-of-type(1) {
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 37px;
+}
+
 main .blue-quote .default-content-wrapper p img {
   min-width: 100%;
   height: 100%;
@@ -478,6 +488,12 @@ main .blue-title-left .default-content-wrapper h2:nth-child(1) {
   margin-bottom: 4em;
 }
 
+main .blue-title-left.spurs .default-content-wrapper h2:nth-child(1) {
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 52px;
+}
+
 main .blue-title-left .default-content-wrapper p:nth-of-type(1) {
   font-size: 26px;
   line-height: 37px;
@@ -485,11 +501,41 @@ main .blue-title-left .default-content-wrapper p:nth-of-type(1) {
   margin-bottom: 1em;
 }
 
+main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1) {
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 39px;
+}
+
 main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
   font-size: 18px;
   line-height: 26px;
   column-count: 2;
   column-gap: 20px;
+}
+
+main .blue-title-left.normal-text .default-content-wrapper p:nth-of-type(2) {
+  column-count: 1;
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 39px;
+}
+
+.ibm-plex * {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.btn-white .button-container a, .btn-white .button-container a:hover {
+  background-color: white;
+  color: #006DFF;
+  transition: all 0.5s ease-out;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+}
+
+.btn-white .button-container a:hover {
+  opacity: 0.9;
 }
 
 main .single-blue-quote .default-content-wrapper {
@@ -1219,7 +1265,7 @@ main .section.highlight {
     height: 95px;
   }
 
-  main .blue-title-left .default-content-wrapper h2:nth-child(1) {
+  main .blue-title-left .default-content-wrapper h2:nth-child(1), main .blue-title-left.spurs .default-content-wrapper h2:nth-child(1) {
     line-height: 27px;
     font-size: 23px;
     width: 100%;
@@ -1238,7 +1284,7 @@ main .section.highlight {
     column-count: 1;
   }
 
-  main .blue-title-left .default-content-wrapper p:nth-of-type(1), main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
+  main .blue-title-left .default-content-wrapper p:nth-of-type(1), main .blue-title-left .default-content-wrapper p:nth-of-type(2), main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(2) {
     font-size: 17px;
     line-height: 24px;
   }
@@ -1253,6 +1299,12 @@ main .section.highlight {
 
   main .blue-quote .default-content-wrapper {
     flex-direction: column;
+  }
+
+  main .blue-quote.spurs .default-content-wrapper p:nth-of-type(1) {
+    font-weight: normal;
+    line-height: 27px;
+    font-size: 23px;
   }
 
   main .blue-quote .default-content-wrapper p:nth-of-type(1), main .blue-quote .default-content-wrapper p:nth-of-type(2) {
