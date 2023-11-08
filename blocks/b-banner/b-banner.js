@@ -57,7 +57,7 @@ export default function decorate(block) {
     const flipClockConfig = {
       dataTheme: counterTheme || 'dark',
       dataSwitchOn: new Date(counterSwitchOn).getTime() / 1000,
-      dataHeadings: counterHeadings ? counterHeadings : '',
+      dataHeadings: counterHeadings || '',
     };
 
     block.innerHTML = block.innerHTML.replace('[counter]', `
