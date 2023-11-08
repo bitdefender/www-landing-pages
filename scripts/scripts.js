@@ -1005,7 +1005,10 @@ async function loadPage() {
 
   appendMetaReferrer();
 
-  appendIBMplex();
+
+  if (window.location.href.indexOf('spurs') !== -1) {
+    appendIBMplex();
+  }
 
   counterFlipClock();
 
