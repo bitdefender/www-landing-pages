@@ -110,7 +110,6 @@
 }
 
 .c-productswithvpn > div p:nth-of-type(5) {
-  text-transform: uppercase;
   color: #000;
   font-size: 14px;
   text-align: center;
