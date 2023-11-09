@@ -56,7 +56,7 @@ export default async function decorate(block) {
       block.innerHTML = html;
 
       const lpHeader = block.closest('.lp-header');
-      lpHeader.addEventListener('click', () => {
+      lpHeader.addEventListener('click',() => {
         lpHeader.classList.toggle('active');
       });
     } else {
