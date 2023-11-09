@@ -72,12 +72,12 @@
   font-family: "IBM Plex Sans", sans-serif;
 }
 
-main.spurs.flex .default-content-wrapper p {
-  width: 50%;
+main .spurs .blue-quote .default-content-wrapper p {
+  width: 49%;
 }
 
-main.spurs .blue-quote .default-content-wrapper p {
-  width: 49%;
+.spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
+  width: 50%;
 }
 
 main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(2) {
