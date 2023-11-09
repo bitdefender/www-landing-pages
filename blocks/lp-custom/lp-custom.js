@@ -39,7 +39,7 @@ export default function decorate(block) {
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
   bannerImage.classList.add('custom-image');
-  parentSelector.append(bannerImage);
+  // parentSelector.append(bannerImage);
 
   // update background color if set, if not set default: #000
   const block1 = document.querySelector('.lp-custom-container');

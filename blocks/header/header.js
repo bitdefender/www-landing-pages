@@ -50,7 +50,7 @@ export default async function decorate(block) {
 
     block.classList.add('lp-header', 'py-3');
 
-    if (window.location.href.indexOf('scuderiaferrari') !== -1) {
+    if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
       block.closest('.header-wrapper').id = 'headerFerrari';
       block.innerHTML = html;
     } else {

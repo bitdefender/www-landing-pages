@@ -1,4 +1,5 @@
 .lp-custom-container {
+  width: 100%;
   color: white;
   height: auto;
   background-color: black;
@@ -21,6 +22,18 @@
 
 .lp-custom-container .lp-custom-wrapper .lp-custom {
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5em;
+}
+
+.lp-custom-container .lp-custom-wrapper .lp-custom > div {
+  width: 50%;
+}
+
+.lp-custom-container .lp-custom-wrapper .lp-custom > div img {
+  width: 90%;
 }
 
 .lp-custom-container .lp-custom-wrapper h1 {
@@ -82,12 +95,40 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
   font-weight: 600;
   font-size: 18px;
   line-height: 23px;
+  text-transform: none;
+  padding: 15px 2em
 }
- 
+
+.spurs.flex .default-content-wrapper {
+  display: flex;
+}
+
+.spurs.flex .default-content-wrapper h2 {
+  width: 50%;
+}
+
+.spurs.flex .default-content-wrapper p {
+  width: 50%;
+}
+
+.spurs.flex .default-content-wrapper br {
+  content: "";
+  margin: 1em;
+  display: block;
+}
+
+main.spurs .blue-quote .default-content-wrapper p {
+  width: 49%;
+}
+
+main.spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
+  margin-top: 3em;
+}
+
 @media screen and (width >= 768px) {
   .lp-custom-container {
     padding: 2em 0;
-    min-height: 450px;
+    min-height: 600px;
   }
 
   .lp-custom-container .custom-image {
@@ -115,7 +156,7 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
   // full page custom styling
   main .blue-quote.spurs .default-content-wrapper p:nth-of-type(1) {
     font-weight: normal;
-    font-size: 28px;
+    font-size: 26px;
     line-height: 37px;
   }
 
@@ -134,7 +175,7 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
     line-height: 52px;
   }
   
-  main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1) {
+  main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
     font-weight: normal;
     font-size: 28px;
     line-height: 39px;
@@ -180,8 +221,8 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
 
   .lp-custom-container.spurs .lp-custom-wrapper h1 {
     font-weight: 300;
-    font-size: 56px;
-    line-height: 66px;
+    font-size: 48px;
+    line-height: 60px;
   }
 
   .lp-custom-container .lp-custom-wrapper h2 {
@@ -201,8 +242,12 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
 
   .lp-custom-container.spurs .lp-custom-wrapper p { 
     font-weight: normal;
-    font-size: 32px;
-    line-height: 42px;
+    font-size: 27px;
+    line-height: 34px;
+    
+    &:first-of-type {
+      margin: 1em 0;
+    }
   }
 
   .lp-custom-container.center-background-image .custom-image img {
