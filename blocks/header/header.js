@@ -54,9 +54,9 @@ export default async function decorate(block) {
       block.closest('.header-wrapper').id = 'headerFerrari';
       block.closest('.header-wrapper').classList.add('headerSpurs');
       block.innerHTML = html;
-
+      
       const lpHeader = block.closest('.lp-header');
-      lpHeader.addEventListener('click', (item) => {
+      lpHeader.addEventListener('click', () => {
         lpHeader.classList.toggle('active');
       });
     } else {
