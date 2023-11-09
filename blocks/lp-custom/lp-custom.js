@@ -26,7 +26,7 @@ function appendIBMplex() {
 
 export default function decorate(block) {
   appendIBMplex();
-  
+
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
