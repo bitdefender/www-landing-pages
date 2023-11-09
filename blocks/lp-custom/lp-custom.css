@@ -25,12 +25,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 5em;
   width: 100%;
+  flex-direction: column;
 }
 
 .lp-custom-container .lp-custom-wrapper .lp-custom > div {
-  width: 50%;
+  width: 100%;
 }
 
 .lp-custom-container .lp-custom-wrapper .lp-custom > div img {
@@ -73,6 +73,15 @@ main .spurs.blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   margin-top: 1em;
 }
 
+.spurs.lp-custom-container {
+  min-height: auto;
+  height: auto;
+}
+
+.spurs.lp-custom-container .lp-custom-wrapper {
+  position: inherit;
+}
+
 .ibm-plex * {
   font-family: "IBM Plex Sans", sans-serif;
 }
@@ -82,7 +91,7 @@ main .spurs .blue-quote .default-content-wrapper p {
 }
 
 .spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
-  width: 50%;
+  width: 100%;
 }
 
 main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(2) {
@@ -112,6 +121,7 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
 
 .spurs.flex .default-content-wrapper {
   display: flex;
+  flex-direction: column;
 }
 
 .spurs.flex .default-content-wrapper h2 {
@@ -128,10 +138,23 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   margin-top: 3em;
 }
 
+.spurs.lp-custom-container .lp-custom-wrapper .lp-custom {
+  margin-top: 0;
+}
+
 @media screen and (width >= 768px) {
   .lp-custom-container {
     padding: 2em 0;
     min-height: 600px;
+  }
+  .spurs.lp-custom-container .lp-custom-wrapper .lp-custom {
+    margin-top: 5em;
+  }
+  .lp-custom-container .lp-custom-wrapper .lp-custom {
+    flex-direction: row;
+  }
+  .lp-custom-container .lp-custom-wrapper .lp-custom > div {
+    width: 50%;
   }
   .lp-custom-container .custom-image {
     display: block;
@@ -183,6 +206,12 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
 @media screen and (width >= 989px) {
   .lp-custom-container {
     padding: 0;
+  }
+  .spurs.flex .default-content-wrapper {
+    flex-direction: row;
+  }
+  .spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
+    width: 50%;
   }
   .lp-custom-container .custom-image img {
     display: block;
