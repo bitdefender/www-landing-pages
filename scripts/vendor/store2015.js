@@ -639,14 +639,14 @@ StoreProducts.initSelector = function (config) {
         if (variation.discount.ref.length > 0) { buy_link = `${buy_link}/ref.${variation.discount.ref}`; }
       }
     } else
-    if (discount != null) {
-      discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-      discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-      save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
-      percent_value = (((variation.price - variation.discount) / variation.price) * 100).toFixed(0);
-      percent_value = `${variation.discount.discount_value}%`;
-      price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
-    }
+      if (discount != null) {
+        discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
+        discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
+        percent_value = (((variation.price - variation.discount) / variation.price) * 100).toFixed(0);
+        percent_value = `${variation.discount.discount_value}%`;
+        price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
+      }
   } catch (ex) {
     console.log(ex);
   }
@@ -1045,15 +1045,15 @@ StoreProducts.__onChangeUsers = function (ev) {
         if (variation.discount.ref.length > 0) { buy_link = `${buy_link}/ref.${variation.discount.ref}`; }
       }
     } else
-    if (discount in c_config) {
-      if (c_config.discount != null) {
-        discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-        discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
-        percent_value = `${variation.discount.discount_value}%`;
-        price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
+      if (discount in c_config) {
+        if (c_config.discount != null) {
+          discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
+          discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+          save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+          percent_value = `${variation.discount.discount_value}%`;
+          price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
+        }
       }
-    }
   } catch (ex) {
     DEBUG && console.log(ex);
   }
@@ -1248,15 +1248,15 @@ StoreProducts.__onChangeYears = function (ev) {
         if (variation.discount.ref.length > 0) { buy_link = `${buy_link}/ref.${variation.discount.ref}`; }
       }
     } else
-    if (discount in c_config) {
-      if (c_config.discount != null) {
-        discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-        discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
-        percent_value = `${variation.discount.discount_value}%`;
-        price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
+      if (discount in c_config) {
+        if (c_config.discount != null) {
+          discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
+          discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+          save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+          percent_value = `${variation.discount.discount_value}%`;
+          price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
+        }
       }
-    }
   } catch (ex) {
     DEBUG && console.log(ex);
   }
@@ -1380,7 +1380,7 @@ StoreProducts.__onChangeYears = function (ev) {
       if (typeof StoreCBS !== 'undefined' && StoreCBS != null && ('go' in StoreCBS)) {
         StoreCBS.go(thisObj, ['selector', 'onchange', 'onchangeyears', StoreProducts.product[c_config.product_id].product_id, StoreProducts.product[c_config.product_id].product_alias, `initCount:${c_config.initCount}`, `productType:${StoreProducts.product[c_config.product_id].product_type}`]);
       }
-    } catch (ex) {}
+    } catch (ex) { }
   } catch (ex) {
     DEBUG && console.log(ex);
   }
@@ -1472,12 +1472,12 @@ StoreProducts.loadProducts = function (config) {
     if (response_code != 0) {
 
     } else
-    if ('products' in response_data) {
-      for (const i in response_data.products) {
-        StoreProducts.product[response_data.products[i].product_id] = response_data.products[i];
-        StoreProducts.product[response_data.products[i].product_alias] = response_data.products[i];
+      if ('products' in response_data) {
+        for (const i in response_data.products) {
+          StoreProducts.product[response_data.products[i].product_id] = response_data.products[i];
+          StoreProducts.product[response_data.products[i].product_alias] = response_data.products[i];
+        }
       }
-    }
 
     try {
       if ('onLoad' in config) { config.onLoad(); }
@@ -1698,7 +1698,12 @@ StoreProducts.requestPricingInfo = function (so) {
   if (config.method && config.method.toLowerCase() == 'get') {
     let urlGet = new URL(url);
     const soBase64 = Base64.encode(so);
-    urlGet += `/${encodeURI(soBase64)}/`;
+
+    if (!urlGet.pathname.endsWith('/')) {
+      urlGet.pathname += '/';
+    }
+    urlGet.pathname += `${encodeURI(soBase64)}/`;
+
     fetch(urlGet.toString())
       .then((response) => response.json())
       .then(handleResponse)
@@ -1815,11 +1820,11 @@ StoreProducts.filterRequestObject = function (so) {
   }
 
   if (typeof digitalData !== 'undefined'
-      && digitalData.page.info.subSubSubSection != '5001'
-      && digitalData.page.info.subSubSubSection != '5002'
-      && digitalData.page.info.subSubSubSection != '5004'
-      && digitalData.page.info.subSubSubSection != '7001'
-      && digitalData.page.info.subSubSubSection != '8001'
+    && digitalData.page.info.subSubSubSection != '5001'
+    && digitalData.page.info.subSubSubSection != '5002'
+    && digitalData.page.info.subSubSubSection != '5004'
+    && digitalData.page.info.subSubSubSection != '7001'
+    && digitalData.page.info.subSubSubSection != '8001'
   ) {
     StoreProducts.requestPricingInfo(so);
     return false;
@@ -1949,14 +1954,14 @@ StoreProducts.setDigitalData = function (product_id, variation) {
                 }
 
                 if (!oneTimeSendData && digitalData.page.category.secondary !== "") {
-					if (digitalData.page.category.secondary == "consumer") {
+          if (digitalData.page.category.secondary == "consumer") {
                         _satellite.track("DLConsumerCampaign");
                         oneTimeSendData = true;
-					} else if (digitalData.page.category.secondary == "business") {
+          } else if (digitalData.page.category.secondary == "business") {
                         _satellite.track("DLBusinessCampaign");
                         oneTimeSendData = true;
-					}
-				}
+          }
+        }
             }
              * */
 
@@ -2107,8 +2112,8 @@ StoreProducts.filterBuyLink = function (config, buyLink) {
   try {
     if (
       typeof config !== 'undefined'
-          && typeof config.ignore_promotions !== 'undefined'
-          && config.ignore_promotions == true
+      && typeof config.ignore_promotions !== 'undefined'
+      && config.ignore_promotions == true
     ) {
       if (buyLink.slice(-1) !== '/') buyLink += '/';
 
@@ -2205,8 +2210,8 @@ Base64 = {
       }
 
       output = output
-              + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2)
-              + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+        + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2)
+        + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
     }
 
     return output;
@@ -2315,8 +2320,8 @@ StoreProducts.filterProductIDExceptions = function (product_id) {
   return product_id;
 };
 
-let JSON; if (!JSON) { JSON = {}; }(function () {
-  function str(a, b) { let c; let d; let e; let f; const g = gap; let h; let i = b[a]; if (i && typeof i === 'object' && typeof i.toJSON === 'function') { i = i.toJSON(a); } if (typeof rep === 'function') { i = rep.call(b, a, i); } switch (typeof i) { case 'string': return quote(i); case 'number': return isFinite(i) ? String(i) : 'null'; case 'boolean': case 'null': return String(i); case 'object': if (!i) { return 'null'; }gap += indent; h = []; if (Object.prototype.toString.apply(i) === '[object Array]') { f = i.length; for (c = 0; c < f; c += 1) { h[c] = str(c, i) || 'null'; }e = h.length === 0 ? '[]' : gap ? `[\n${gap}${h.join(`,\n${gap}`)}\n${g}]` : `[${h.join(',')}]`; gap = g; return e; } if (rep && typeof rep === 'object') { f = rep.length; for (c = 0; c < f; c += 1) { if (typeof rep[c] === 'string') { d = rep[c]; e = str(d, i); if (e) { h.push(quote(d) + (gap ? ': ' : ':') + e); } } } } else { for (d in i) { if (Object.prototype.hasOwnProperty.call(i, d)) { e = str(d, i); if (e) { h.push(quote(d) + (gap ? ': ' : ':') + e); } } } }e = h.length === 0 ? '{}' : gap ? `{\n${gap}${h.join(`,\n${gap}`)}\n${g}}` : `{${h.join(',')}}`; gap = g; return e; } } function quote(a) { escapable.lastIndex = 0; return escapable.test(a) ? `"${a.replace(escapable, (a) => { const b = meta[a]; return typeof b === 'string' ? b : `\\u${(`0000${a.charCodeAt(0).toString(16)}`).slice(-4)}`; })}"` : `"${a}"`; } function f(a) { return a < 10 ? `0${a}` : a; }'use strict'; if (typeof Date.prototype.toJSON !== 'function') { Date.prototype.toJSON = function (a) { return isFinite(this.valueOf()) ? `${this.getUTCFullYear()}-${f(this.getUTCMonth() + 1)}-${f(this.getUTCDate())}T${f(this.getUTCHours())}:${f(this.getUTCMinutes())}:${f(this.getUTCSeconds())}Z` : null; }; String.prototype.toJSON = Number.prototype.toJSON = Boolean.prototype.toJSON = function (a) { return this.valueOf(); }; } const cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; var escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; let gap; let indent; var meta = {
+let JSON; if (!JSON) { JSON = {}; } (function () {
+  function str(a, b) { let c; let d; let e; let f; const g = gap; let h; let i = b[a]; if (i && typeof i === 'object' && typeof i.toJSON === 'function') { i = i.toJSON(a); } if (typeof rep === 'function') { i = rep.call(b, a, i); } switch (typeof i) { case 'string': return quote(i); case 'number': return isFinite(i) ? String(i) : 'null'; case 'boolean': case 'null': return String(i); case 'object': if (!i) { return 'null'; } gap += indent; h = []; if (Object.prototype.toString.apply(i) === '[object Array]') { f = i.length; for (c = 0; c < f; c += 1) { h[c] = str(c, i) || 'null'; } e = h.length === 0 ? '[]' : gap ? `[\n${gap}${h.join(`,\n${gap}`)}\n${g}]` : `[${h.join(',')}]`; gap = g; return e; } if (rep && typeof rep === 'object') { f = rep.length; for (c = 0; c < f; c += 1) { if (typeof rep[c] === 'string') { d = rep[c]; e = str(d, i); if (e) { h.push(quote(d) + (gap ? ': ' : ':') + e); } } } } else { for (d in i) { if (Object.prototype.hasOwnProperty.call(i, d)) { e = str(d, i); if (e) { h.push(quote(d) + (gap ? ': ' : ':') + e); } } } } e = h.length === 0 ? '{}' : gap ? `{\n${gap}${h.join(`,\n${gap}`)}\n${g}}` : `{${h.join(',')}}`; gap = g; return e; } } function quote(a) { escapable.lastIndex = 0; return escapable.test(a) ? `"${a.replace(escapable, (a) => { const b = meta[a]; return typeof b === 'string' ? b : `\\u${(`0000${a.charCodeAt(0).toString(16)}`).slice(-4)}`; })}"` : `"${a}"`; } function f(a) { return a < 10 ? `0${a}` : a; } 'use strict'; if (typeof Date.prototype.toJSON !== 'function') { Date.prototype.toJSON = function (a) { return isFinite(this.valueOf()) ? `${this.getUTCFullYear()}-${f(this.getUTCMonth() + 1)}-${f(this.getUTCDate())}T${f(this.getUTCHours())}:${f(this.getUTCMinutes())}:${f(this.getUTCSeconds())}Z` : null; }; String.prototype.toJSON = Number.prototype.toJSON = Boolean.prototype.toJSON = function (a) { return this.valueOf(); }; } const cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; var escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g; let gap; let indent; var meta = {
     '\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"': '\\"', '\\': '\\\\',
-  }; let rep; if (typeof JSON.stringify !== 'function') { JSON.stringify = function (a, b, c) { let d; gap = ''; indent = ''; if (typeof c === 'number') { for (d = 0; d < c; d += 1) { indent += ' '; } } else if (typeof c === 'string') { indent = c; }rep = b; if (b && typeof b !== 'function' && (typeof b !== 'object' || typeof b.length !== 'number')) { throw new Error('JSON.stringify'); } return str('', { '': a }); }; } if (typeof JSON.parse !== 'function') { JSON.parse = function (text, reviver) { function walk(a, b) { let c; let d; const e = a[b]; if (e && typeof e === 'object') { for (c in e) { if (Object.prototype.hasOwnProperty.call(e, c)) { d = walk(e, c); if (d !== undefined) { e[c] = d; } else { delete e[c]; } } } } return reviver.call(a, b, e); } let j; text = String(text); cx.lastIndex = 0; if (cx.test(text)) { text = text.replace(cx, (a) => `\\u${(`0000${a.charCodeAt(0).toString(16)}`).slice(-4)}`); } if (/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) { j = eval(`(${text})`); return typeof reviver === 'function' ? walk({ '': j }, '') : j; } throw new SyntaxError('JSON.parse'); }; }
+  }; let rep; if (typeof JSON.stringify !== 'function') { JSON.stringify = function (a, b, c) { let d; gap = ''; indent = ''; if (typeof c === 'number') { for (d = 0; d < c; d += 1) { indent += ' '; } } else if (typeof c === 'string') { indent = c; } rep = b; if (b && typeof b !== 'function' && (typeof b !== 'object' || typeof b.length !== 'number')) { throw new Error('JSON.stringify'); } return str('', { '': a }); }; } if (typeof JSON.parse !== 'function') { JSON.parse = function (text, reviver) { function walk(a, b) { let c; let d; const e = a[b]; if (e && typeof e === 'object') { for (c in e) { if (Object.prototype.hasOwnProperty.call(e, c)) { d = walk(e, c); if (d !== undefined) { e[c] = d; } else { delete e[c]; } } } } return reviver.call(a, b, e); } let j; text = String(text); cx.lastIndex = 0; if (cx.test(text)) { text = text.replace(cx, (a) => `\\u${(`0000${a.charCodeAt(0).toString(16)}`).slice(-4)}`); } if (/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) { j = eval(`(${text})`); return typeof reviver === 'function' ? walk({ '': j }, '') : j; } throw new SyntaxError('JSON.parse'); }; }
 }());
