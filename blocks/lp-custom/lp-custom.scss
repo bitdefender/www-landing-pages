@@ -74,6 +74,14 @@
   font-family: 'IBM Plex Sans', sans-serif;
 }
 
+main.spurs.flex .default-content-wrapper p {
+  width: 50%;
+}
+
+main.spurs .blue-quote .default-content-wrapper p {
+  width: 49%;
+}
+
 main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(2) {
   font-size: 17px;
   line-height: 24px;
@@ -107,18 +115,10 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
   width: 50%;
 }
 
-.spurs.flex .default-content-wrapper p {
-  width: 50%;
-}
-
 .spurs.flex .default-content-wrapper br {
   content: "";
   margin: 1em;
   display: block;
-}
-
-main.spurs .blue-quote .default-content-wrapper p {
-  width: 49%;
 }
 
 main.spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
@@ -154,6 +154,12 @@ main.spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   }
 
   // full page custom styling
+  main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 39px;
+  }
+
   main .blue-quote.spurs .default-content-wrapper p:nth-of-type(1) {
     font-weight: normal;
     font-size: 26px;
@@ -175,7 +181,7 @@ main.spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
     line-height: 52px;
   }
   
-  main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
+  main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1) {
     font-weight: normal;
     font-size: 28px;
     line-height: 39px;
