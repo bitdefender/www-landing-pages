@@ -1,0 +1,246 @@
+.lp-custom-container {
+  color: white;
+  height: auto;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-position: top right;
+  overflow: hidden;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.lp-custom-container .custom-image {
+  display: none;
+}
+
+.lp-custom-container .lp-custom-wrapper {
+  position: relative;
+  padding-left: 0;
+  margin: 15px;
+}
+
+.lp-custom-container .lp-custom-wrapper .lp-custom {
+  z-index: 1;
+}
+
+.lp-custom-container .lp-custom-wrapper h1 {
+  font-size: 24px;
+  max-width: unset;
+  margin-top: 0;
+}
+
+.lp-custom-container .lp-custom-wrapper h2 {
+  font-size: 21px;
+  max-width: unset;
+  margin-top: 10px;
+}
+
+.lp-custom-container .lp-custom-wrapper h3 {
+  font-size: 19px;
+  max-width: unset;
+  margin-top: 10px;
+}
+
+.lp-custom-container .lp-custom-wrapper ul {
+  padding: 0;
+}
+
+.lp-custom-container .lp-custom-wrapper ul li {
+  text-align: left;
+  background: url("../../images/icons/check_full.svg") 0 3px no-repeat transparent;
+  list-style-type: none;
+  padding-left: 23px;
+  background-size: 16px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+
+// full page custom styling
+.ibm-plex * {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(2) {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
+  background: url('../../images/spurs.jpg') 0 0 no-repeat #006dff;
+  background-size: 100%;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 300;
+  padding: 1em 0 1em 1em;
+}
+
+.btn-white .button-container a, .btn-white.button-container a:hover {
+  background-color: white!important; 
+  color: #006DFF;
+  transition: all 0.5s ease-out;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+}
+ 
+@media screen and (width >= 768px) {
+  .lp-custom-container {
+    padding: 2em 0;
+    min-height: 450px;
+  }
+
+  .lp-custom-container .custom-image {
+    display: block;
+    height: 100%;
+  }
+
+  .lp-custom-container .lp-custom-wrapper {
+    position: absolute;
+    height: 100%;
+    align-items: center;
+    margin: 15px auto;
+    display: flex;
+  }
+
+  .lp-custom-container.content-top .lp-custom-wrapper {
+    align-items: flex-start;
+  }
+
+  .lp-custom-container .lp-custom-wrapper h1, .lp-custom-container .lp-custom-wrapper h2 {
+    max-width: 60%;
+    margin-top: 10px;
+  }
+
+  // full page custom styling
+  main .blue-quote.spurs .default-content-wrapper p:nth-of-type(1) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 37px;
+  }
+
+  main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
+    background: url('../../images/spurs.jpg') 0 0 no-repeat #006dff;
+    background-size: auto 100%;
+    font-size: 38px;
+    line-height: 45px;
+    font-weight: 300;
+    padding: 1em 0 0 1em;
+  }
+  
+  main .blue-title-left.spurs .default-content-wrapper h2:nth-child(1) {
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 52px;
+  }
+  
+  main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 39px;
+  }
+}
+
+@media screen and (width >= 989px) {
+  .lp-custom-container {
+    padding: 0;
+  }
+
+  .lp-custom-container .custom-image img {
+    display: block;
+    height: 100%;
+    float: right;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+  }
+
+  .lp-custom-container .lp-custom-wrapper {
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  .lp-custom-container .lp-custom-wrapper .custom-image--in-container img {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+  }
+
+  .lp-custom-container .lp-custom-wrapper h1 {
+    font-size: 35px;
+    line-height: 43px;
+    max-width: 610px;
+    font-weight: normal;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .lp-custom-container.spurs .lp-custom-wrapper h1 {
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 66px;
+  }
+
+  .lp-custom-container .lp-custom-wrapper h2 {
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 35px;
+    max-width: 595px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .lp-custom-container .lp-custom-wrapper p {
+    max-width: 610px;
+    margin: 10px 0;
+    line-height: 20px;
+  }
+
+  .lp-custom-container.spurs .lp-custom-wrapper p { 
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .lp-custom-container.center-background-image .custom-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: -50%;
+  }
+}
+
+@media screen and (width >= 1199px) {
+  .lp-custom-container.center-background-image .custom-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: -20%;
+  }
+
+  .lp-custom-wrapper {
+    left: 0;
+    right: 0;
+  }
+}
+
+@media screen and (width >= 1920px) {
+  .lp-custom-container.center-background-image .custom-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: 10%;
+  }
+}
