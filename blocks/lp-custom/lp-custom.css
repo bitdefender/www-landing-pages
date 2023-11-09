@@ -26,6 +26,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 5em;
+  width: 100%;
 }
 
 .lp-custom-container .lp-custom-wrapper .lp-custom > div {
