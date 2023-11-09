@@ -86,8 +86,8 @@ main .spurs.blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   font-family: "IBM Plex Sans", sans-serif;
 }
 
-main .spurs .blue-quote .default-content-wrapper p {
-  width: 49%;
+main .spurs.blue-quote .default-content-wrapper p {
+  width: 100%;
 }
 
 .spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
@@ -100,10 +100,11 @@ main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blu
 }
 
 main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
-  background: url("../../images/spurs.jpg") 0 0 no-repeat #006dff;
-  background-size: 100%;
-  font-size: 20px;
-  line-height: 24px;
+  min-height: 300px;
+  background: url("../../images/spurs.jpg") top right no-repeat #006dff;
+  background-size: cover;
+  font-size: 30px;
+  line-height: 34px;
   font-weight: 300;
   padding: 1em 0 1em 1em;
 }
@@ -146,6 +147,68 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   font-weight: normal;
 }
 
+main .single-blue-quote.spurs .default-content-wrapper strong {
+  margin-top: 2em;
+}
+
+main .spurs.corner-rounded .default-content-wrapper img {
+  border-radius: 10px;
+}
+
+@media screen and (width <= 989px) {
+  .headerSpurs {
+    background-color: white;
+    border-bottom: 0 none !important;
+  }
+  .headerSpurs::before {
+    content: "";
+    background: url("../../images/black_company_logo.svg") no-repeat 0 0 transparent;
+    width: 100px;
+    height: 30px;
+    display: block;
+    background-size: 100%;
+  }
+  .headerSpurs .lp-header {
+    padding: 0 !important;
+  }
+  .headerSpurs .lp-header::before {
+    content: "";
+    background: url("../../images/icons/burger_menu.JPG") no-repeat 0 0 transparent;
+    width: 29px;
+    height: 29px;
+    display: block;
+    background-size: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+  .headerSpurs .lp-header > div {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    width: 100%;
+    visibility: hidden;
+  }
+  .headerSpurs .lp-header.active > div {
+    visibility: visible;
+  }
+  .headerSpurs .lp-header > div ul li {
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .headerSpurs .lp-header > div ul li a, .headerSpurs .lp-header > div ul li {
+    width: 100%;
+    color: black !important;
+    text-transform: none;
+    font-size: 15px !important;
+    font-family: "IBM Plex Sans", sans-serif;
+    text-transform: uppercase;
+  }
+  .headerSpurs ul:last-of-type li:first-of-type {
+    display: none !important;
+  }
+}
 @media screen and (width >= 768px) {
   .lp-custom-container {
     padding: 2em 0;
@@ -178,6 +241,10 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
     max-width: 60%;
     margin-top: 10px;
   }
+  main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
+    font-size: 40px;
+    line-height: 44px;
+  }
   main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
     font-weight: normal;
     font-size: 28px;
@@ -187,14 +254,6 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
     font-weight: normal;
     font-size: 26px;
     line-height: 37px;
-  }
-  main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
-    background: url("../../images/spurs.jpg") 0 0 no-repeat #006dff;
-    background-size: auto 100%;
-    font-size: 38px;
-    line-height: 45px;
-    font-weight: 300;
-    padding: 1em 0 0 1em;
   }
   main .blue-title-left.spurs .default-content-wrapper h2:nth-child(1) {
     font-weight: 300;
@@ -206,13 +265,16 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
     font-size: 28px;
     line-height: 39px;
   }
+  main .spurs.blue-quote .default-content-wrapper p {
+    width: 49%;
+  }
+  .spurs.flex .default-content-wrapper, main .spurs.blue-quote .default-content-wrapper {
+    flex-direction: row;
+  }
 }
 @media screen and (width >= 989px) {
   .lp-custom-container {
     padding: 0;
-  }
-  .spurs.flex .default-content-wrapper {
-    flex-direction: row;
   }
   .spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
     width: 50%;

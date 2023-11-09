@@ -52,7 +52,12 @@ export default async function decorate(block) {
 
     if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
       block.closest('.header-wrapper').id = 'headerFerrari';
+      block.closest('.header-wrapper').classList.add('headerSpurs');
       block.innerHTML = html;
+
+      block.closest('.lp-header').addEventListener('click', function(item){
+        block.closest('.lp-header').classList.toggle('active');
+      })
     } else {
       block.innerHTML = `
       <a class="d-flex justify-content-between" href="${homeUrl}">

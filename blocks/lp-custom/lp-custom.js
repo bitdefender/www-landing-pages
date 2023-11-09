@@ -56,5 +56,5 @@ export default function decorate(block) {
 
   if (headerTextColor) {
     block.querySelector('h1').style.color = headerTextColor;
-  }
+  }  
 }
