@@ -67,7 +67,9 @@ main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blu
 main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
   background: url("../../images/spurs.jpg") 0 0 no-repeat #006dff;
   background-size: 100%;
-  font: normal normal 300 20px/24px IBM Plex Sans;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 300;
   padding: 1em 0 1em 1em;
 }
 
@@ -102,7 +104,9 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
   main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
     background: url("../../images/spurs.jpg") 0 0 no-repeat #006dff;
     background-size: auto 100%;
-    font: normal normal 300 38px/45px IBM Plex Sans;
+    font-size: 38px;
+    line-height: 45px;
+    font-weight: 300;
     padding: 1em 0 0 1em;
   }
   main .blue-title-left.spurs .default-content-wrapper h2:nth-child(1) {
