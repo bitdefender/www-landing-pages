@@ -6,7 +6,6 @@ export default async function decorate(block) {
   const footer = block.closest('.footer-wrapper');
 
   if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
-    console.log('here ')
     block.closest('.footer-wrapper').id = 'footerFerrari';
   }
 
