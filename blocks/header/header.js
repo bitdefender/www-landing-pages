@@ -29,7 +29,7 @@ function checkForRevolut(spanSvgs, block) {
 }
 
 /**
- * decorates the header, mainly the nav
+ * decorates the header, mainly the navv
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
