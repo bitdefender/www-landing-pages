@@ -33,7 +33,7 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    textColor, backgroundColor, headerTextColor, 
+    textColor, backgroundColor, headerTextColor,
   } = metaData;
 
   // move picture below
