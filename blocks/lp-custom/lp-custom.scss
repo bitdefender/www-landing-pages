@@ -75,6 +75,15 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
   padding: 1em 0 1em 1em;
 }
 
+.btn-white .button-container a, .btn-white .button-container a:hover {
+  background-color: white;
+  color: #006DFF;
+  transition: all 0.5s ease-out;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+}
+
 @media screen and (width >= 768px) {
   .lp-custom-container {
     padding: 2em 0;
