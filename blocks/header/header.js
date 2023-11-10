@@ -56,6 +56,7 @@ export default async function decorate(block) {
       block.innerHTML = html;
 
       const lpHeader = block.closest('.lp-header');
+      // eslint-disable-next-line no-trailing-spaces
       lpHeader.addEventListener('click', () => { lpHeader.classList.toggle('active'); });
     } else {
       block.innerHTML = `
