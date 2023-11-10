@@ -33,6 +33,10 @@
   width: 100%;
 }
 
+.spurs.corner-rounded .default-content-wrapper img {
+  border-radius: 10px;
+}
+
 .lp-custom-container .lp-custom-wrapper .lp-custom > div img {
   width: 90%;
 }
@@ -69,8 +73,18 @@
   margin-top: 5px;
 }
 
-main .spurs.blue-quote .default-content-wrapper p:nth-of-type(1) strong {
-  margin-top: 1em;
+
+// full page custom styling
+.ibm-plex * {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.spurs.single-blue-quote .default-content-wrapper strong {
+  margin-top: 2em;
+}
+
+.spurs.blue-quote .default-content-wrapper p:nth-of-type(1) strong {
+  margin-top: 3em;
 }
 
 .spurs.lp-custom-container {
@@ -82,35 +96,31 @@ main .spurs.blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   position: inherit;
 }
 
-// full page custom styling
-.ibm-plex * {
-  font-family: 'IBM Plex Sans', sans-serif;
-}
-
-main .spurs .blue-quote .default-content-wrapper p {
-  width: 49%;
-}
-
-.spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
+.spurs.flex .default-content-wrapper p {
   width: 100%;
 }
 
-main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1), main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(2) {
+.spurs.blue-quote .default-content-wrapper p {
+  width: 100%;
+}
+
+.spurs.blue-title-left .default-content-wrapper p:nth-of-type(1), .spurs.blue-title-left .default-content-wrapper p:nth-of-type(2) {
   font-size: 17px;
   line-height: 24px;
 }
 
-main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
-  background: url('../../images/spurs.jpg') 0 0 no-repeat #006dff;
-  background-size: 100%;
-  font-size: 20px;
-  line-height: 24px;
+.spurs-img-right.blue-quote .default-content-wrapper p:nth-of-type(2) {
+  min-height: 300px;
+  background: url('../../images/spurs.jpg') top right no-repeat #006dff;
+  background-size: cover;
+  font-size: 30px;
+  line-height: 34px;
   font-weight: 300;
   padding: 1em 0 1em 1em;
 }
 
 .btn-white .button-container a, .btn-white.button-container a:hover {
-  background-color: white!important; 
+  background-color: white!important;
   color: #006DFF;
   transition: all 0.5s ease-out;
   font-weight: 600;
@@ -135,10 +145,6 @@ main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
   display: block;
 }
 
-main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
-  margin-top: 3em;
-}
-
 .spurs.lp-custom-container .lp-custom-wrapper .lp-custom {
   margin-top: 0;
 }
@@ -147,17 +153,116 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   font-weight: normal;
 }
 
+@media screen and (width <= 989px) {
+  #headerFerrari.headerSpurs {
+    background-color: white;
+    border-bottom: 0 none;
+  }
+
+  #headerFerrari.headerSpurs::before {
+    content: '';
+    background: url('../../images/black_company_logo.svg') no-repeat 0 0 transparent;
+    width: 100px;
+    height: 20px;
+    display: block;
+    background-size: 100%;
+    margin: 10px;
+  }
+
+  #headerFerrari.headerSpurs .lp-header {
+    padding: 0!important;
+  }
+
+  #headerFerrari.headerSpurs .lp-header::before {
+    content: '';
+    background: url('../../images/icons/burger_menu.JPG') no-repeat 0 0 transparent;
+    width: 29px;
+    height: 29px;
+    display: block;
+    background-size: 100%;
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    cursor: pointer;
+  }
+
+  #headerFerrari.headerSpurs .lp-header > div {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    width: 100%;
+    visibility: hidden;
+  }
+
+  #headerFerrari.headerSpurs .lp-header.active > div {
+    visibility: visible;
+  }
+
+  #headerFerrari.headerSpurs .lp-header > div ul li {
+    border-bottom: 1px solid #0003;
+    padding-left: 15px;
+  }
+
+  .btn-white .button-container a, .btn-white.button-container a:hover {
+    font-size: 14px;
+    line-height: 17px;
+    padding: 10px 1em;
+  }
+
+  #headerFerrari.headerSpurs .lp-header > div ul li, #headerFerrari.headerSpurs .lp-header > div ul li a {
+    width: 100%;
+    display: block;
+    padding-bottom: 0;
+    color: black;
+    font-size: 15px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-transform: uppercase;
+  }
+
+  #headerFerrari.headerSpurs .lp-header > div ul li a::before {
+    display: none;
+  }
+
+  #headerFerrari.headerSpurs ul:last-of-type li:first-of-type {
+    display: none;
+  }
+
+  .spurs.blue-quote .default-content-wrapper {
+    flex-direction: row;
+  }
+
+  .spurs.blue-title-left .default-content-wrapper h2:nth-child(1) {
+    font-weight: 300;
+    line-height: 27px;
+    font-size: 23px;
+  }
+
+  .spurs-img-right.blue-quote .default-content-wrapper p:nth-of-type(2) {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .spurs.blue-quote .default-content-wrapper p:nth-of-type(1) {
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 24px;
+  }
+}
+
+@media screen and (width <= 768px) {
+  .spurs.blue-quote .default-content-wrapper {
+    flex-direction: column;
+  }
+}
+
 @media screen and (width >= 768px) {
   .lp-custom-container {
     padding: 2em 0;
     min-height: 600px;
   }
 
-  .spurs.lp-custom-container .lp-custom-wrapper .lp-custom {
-    margin-top: 5em;
-  }
-
   .lp-custom-container .lp-custom-wrapper .lp-custom {
+    margin-top: 5em;
     flex-direction: row;
   }
 
@@ -187,52 +292,15 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
     margin-top: 10px;
   }
 
-  // full page custom styling
-  main .blue-title-left .default-content-wrapper p:nth-of-type(2) {
-    font-weight: normal;
-    font-size: 28px;
-    line-height: 39px;
-  }
-
-  main .blue-quote.spurs .default-content-wrapper p:nth-of-type(1) {
-    font-weight: normal;
-    font-size: 26px;
-    line-height: 37px;
-  }
-
-  main .blue-quote.spurs-img-right .default-content-wrapper p:nth-of-type(2) {
-    background: url('../../images/spurs.jpg') 0 0 no-repeat #006dff;
-    background-size: auto 100%;
-    font-size: 38px;
-    line-height: 45px;
-    font-weight: 300;
-    padding: 1em 0 0 1em;
-  }
-  
-  main .blue-title-left.spurs .default-content-wrapper h2:nth-child(1) {
-    font-weight: 300;
-    font-size: 40px;
-    line-height: 52px;
-  }
-  
-  main .blue-title-left.spurs .default-content-wrapper p:nth-of-type(1) {
-    font-weight: normal;
-    font-size: 28px;
-    line-height: 39px;
+  .spurs.blue-quote .default-content-wrapper p {
+    width: 49%;
+    flex-direction: row;
   }
 }
 
 @media screen and (width >= 989px) {
-  .lp-custom-container {
-    padding: 0;
-  }
-
-  .spurs.flex .default-content-wrapper {
-    flex-direction: row;
-  }
-
-  .spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
-    width: 50%;
+  main .section.lp-custom-container {
+    padding: 7em 15px 2em;
   }
 
   .lp-custom-container .custom-image img {
@@ -259,18 +327,12 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   }
 
   .lp-custom-container .lp-custom-wrapper h1 {
-    font-size: 35px;
-    line-height: 43px;
-    max-width: 610px;
-    font-weight: normal;
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-
-  .lp-custom-container.spurs .lp-custom-wrapper h1 {
-    font-weight: 300;
     font-size: 48px;
     line-height: 60px;
+    font-weight: 300;
+    max-width: 610px;
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
 
   .lp-custom-container .lp-custom-wrapper h2 {
@@ -285,14 +347,10 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
   .lp-custom-container .lp-custom-wrapper p {
     max-width: 610px;
     margin: 10px 0;
-    line-height: 20px;
-  }
-
-  .lp-custom-container.spurs .lp-custom-wrapper p { 
     font-weight: normal;
     font-size: 27px;
     line-height: 34px;
-    
+
     &:first-of-type {
       margin: 1em 0;
     }
@@ -306,6 +364,48 @@ main .spurs .blue-quote .default-content-wrapper p:nth-of-type(1) strong {
     margin-right: -15px;
     position: absolute;
     right: -50%;
+  }
+
+  // full page custom styling
+  .spurs.flex .default-content-wrapper {
+    flex-direction: row;
+  }
+
+  .spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
+    width: 50%;
+  }
+
+  .spurs.blue-quote .default-content-wrapper p:nth-of-type(1) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 37px;
+  }
+
+  .spurs-img-right.blue-quote .default-content-wrapper p:nth-of-type(2) {
+    font-size: 40px;
+    line-height: 44px;
+  }
+
+  .spurs.blue-title-left .default-content-wrapper p:nth-of-type(2) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 39px;
+  }
+
+  .spurs.blue-title-left .default-content-wrapper h2:nth-child(1) {
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 52px;
+  }
+
+  .spurs.blue-title-left .default-content-wrapper p:nth-of-type(1) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 39px;
+  }
+
+  main .spurs.blue-quote .default-content-wrapper {
+    flex-direction: row;
   }
 }
 
