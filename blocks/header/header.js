@@ -57,9 +57,9 @@ export default async function decorate(block) {
 
       const lpHeader = block.closest('.lp-header');
       lpHeader.addEventListener('click', () => {
-        // eslint-disable-line no-trailing-spaces
         lpHeader.classList.toggle('active', !lpHeader.classList.contains('active'));
       });
+
     } else {
       block.innerHTML = `
       <a class="d-flex justify-content-between" href="${homeUrl}">
