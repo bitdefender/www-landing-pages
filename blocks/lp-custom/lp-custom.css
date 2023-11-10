@@ -231,9 +231,6 @@
     font-size: 17px;
     line-height: 24px;
   }
-  .spurs.blue-quote .default-content-wrapper {
-    flex-direction: row;
-  }
 }
 @media screen and (width <= 768px) {
   .spurs.blue-quote .default-content-wrapper {
