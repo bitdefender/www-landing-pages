@@ -225,13 +225,15 @@ export default function decorate(block) {
 
     const tables = block.querySelectorAll('.c-productswithvpn > div table');
     let foundLogo = false;
-    tables.forEach((table) => {
+    for (let i = 0; i < tables.length; i += 1) {
+      const table = tables[i];
       const tableImgs = table.querySelectorAll('img');
       if (tableImgs.length > 0) {
         table.classList.add('logo_table');
         foundLogo = true;
+        break;
       }
-    });
+    }
 
     if (foundLogo) {
       parentSelector.classList.remove('no_vpn_table');
