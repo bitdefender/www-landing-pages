@@ -223,6 +223,20 @@ export default function decorate(block) {
       parentSelector.classList.add('no_vpn_table');
     }
 
+    const tables = block.querySelectorAll('.c-productswithvpn > div table');
+    let foundLogo = false;
+    tables.forEach((table) => {
+      const tableImgs = table.querySelectorAll('img');
+      if (tableImgs.length > 0) {
+        table.classList.add('logo_table');
+        foundLogo = true;
+      }
+    });
+
+    if (foundLogo) {
+      parentSelector.classList.remove('no_vpn_table');
+    }
+
     /// ///////////////////////////////////////////////////////////////////////
     // change the border color of the main box
     if (borderColor) {
