@@ -1,18 +1,13 @@
 .section.c-banner-container {
-  background-color: white;
+  background-color: black;
+  color: white;
   padding: 0;
-}
-.section .c-banner {
-  background-color: white;
-}
-.section .c-banner .col-12.p-0 {
-  background-color: #006EFF;
 }
 .section .c-banner img {
   width: 50%;
 }
 .section .c-banner h1 {
-  color: #006EFF;
+  color: white;
   font-size: 28px;
   text-align: center;
 }
@@ -26,11 +21,7 @@
   }
 }
 @media screen and (width >= 991px) {
-  .section .c-banner {
-    background-color: #006EFF;
-  }
   .section .c-banner h1 {
-    color: white;
     font-size: 40px;
     text-align: left;
   }

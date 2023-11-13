@@ -1,8 +1,30 @@
 export default function decorate(block) {
+  const parentSelector = block.closest('.section');
+  const metaData = parentSelector.dataset;
+  const {
+    textColor, backgroundColor, padding
+  } = metaData;
   const [richTextEl, pictureEl] = [...block.children];
 
+  if (backgroundColor) {
+    parentSelector.style.backgroundColor = backgroundColor;
+  }
+
+  if (textColor) {
+    block.style.textColor = textColor;
+    const elements = block.querySelectorAll('*');
+
+    elements.forEach(element => {
+      element.style.color = textColor;
+    });
+  }
+
+  if (padding) {
+    block.style.padding = padding;
+  }
+
   block.innerHTML = `
-      <div class="container-fluid pt-lg-5">
+    <div class="container-fluid pt-lg-5">
         <div class="row d-none d-lg-flex">
           <div class="col-5 ps-4">${richTextEl.innerHTML}</div>
           <div class="col-7">

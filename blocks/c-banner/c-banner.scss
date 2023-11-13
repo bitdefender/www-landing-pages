@@ -1,27 +1,18 @@
 
-$bd-blue: #006EFF;
-
 .section {
     &.c-banner-container {
-        background-color: white;
+        background-color: black;
+        color: white;
         padding: 0;
     }
 
     .c-banner {
-        background-color: white;
-
-        .col-12 {
-            &.p-0 {
-                background-color: $bd-blue;
-            } 
-        }
-
         img {
             width: 50%;
         }
 
         h1 {
-            color: $bd-blue;
+            color: white;
             font-size: 28px;
             text-align: center;
         }
@@ -46,10 +37,7 @@ $bd-blue: #006EFF;
 @media screen and (width >= 991px) {
     .section {
         .c-banner {
-            background-color: $bd-blue;
-
             h1 {
-                color: white;
                 font-size: 40px;
                 text-align: left;
             }
