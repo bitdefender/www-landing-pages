@@ -2,7 +2,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    textColor, backgroundColor, padding, margin
+    textColor, backgroundColor, padding, margin,
   } = metaData;
   const [richTextEl, pictureEl] = [...block.children];
 
@@ -14,7 +14,7 @@ export default function decorate(block) {
     block.style.textColor = textColor;
     const elements = block.querySelectorAll('*');
 
-    elements.forEach(element => {
+    elements.forEach((element) => {
       element.style.color = textColor;
     });
   }
