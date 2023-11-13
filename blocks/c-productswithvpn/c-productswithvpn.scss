@@ -165,29 +165,12 @@
 
 .c-productswithvpn > div table,
 .c-productswithvpn > div table tbody,
-.c-productswithvpn > div table tbody tr,
-.c-productswithvpn > div table tbody tr td {
+.c-productswithvpn > div table tbody tr {
   width: 100%;
-  display: block;
 }
 
-.c-productswithvpn > div table:nth-of-type(2) {
-    font-size: 14px;
-    text-align: left;
-    border-radius: 5px;
-    margin: 1em 0;
-    line-height: 14px;
-    cursor: pointer;
-}
 
-.c-productswithvpn .no_vpn_table {
-  border-collapse: separate;
-  border-spacing: 5px 1em;
-  border-top: 1px dashed #ccc;
-  border-bottom: 1px dashed #ccc;
-  padding-bottom: 1em;
-
-
+.c-productswithvpn .logo_table {
   tbody {
     tr {
       padding-top: 10px;
@@ -214,6 +197,30 @@
       }
     }
   }
+}
+
+
+.c-productswithvpn > div .logo_table,
+.c-productswithvpn > div .logo_table tbody,
+.c-productswithvpn > div .logo_table tbody tr {
+  display: block;
+}
+
+.c-productswithvpn > div table:nth-of-type(2) {
+    font-size: 14px;
+    text-align: left;
+    border-radius: 5px;
+    margin: 1em 0;
+    line-height: 14px;
+    cursor: pointer;
+}
+
+.c-productswithvpn .no_vpn_table {
+  border-collapse: separate;
+  border-spacing: 5px 1em;
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 1em;
 }
 
 .c-productswithvpn > div ul {
