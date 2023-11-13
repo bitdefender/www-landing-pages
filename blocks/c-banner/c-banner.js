@@ -1,31 +1,15 @@
 export default function decorate(block) {
-  const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
+  const blockStyle = block.style;
+  const metaData = block.closest('.section').dataset;
   const {
     textColor, backgroundColor, padding, margin,
   } = metaData;
   const [richTextEl, pictureEl] = [...block.children];
 
-  if (backgroundColor) {
-    parentSelector.style.backgroundColor = backgroundColor;
-  }
-
-  if (textColor) {
-    block.style.textColor = textColor;
-    const elements = block.querySelectorAll('*');
-
-    elements.forEach((element) => {
-      element.style.color = textColor;
-    });
-  }
-
-  if (padding) {
-    block.style.padding = padding;
-  }
-
-  if (margin) {
-    block.style.margin = margin;
-  }
+  if (backgroundColor) blockStyle.backgroundColor = backgroundColor;
+  if (textColor) blockStyle.color = textColor;
+  if (padding) blockStyle.padding = padding;
+  if (margin) blockStyle.margin = margin;
 
   block.innerHTML = `
     <div class="container-fluid pt-lg-5">
