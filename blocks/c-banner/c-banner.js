@@ -2,7 +2,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    textColor, backgroundColor, padding
+    textColor, backgroundColor, padding, margin
   } = metaData;
   const [richTextEl, pictureEl] = [...block.children];
 
@@ -21,6 +21,10 @@ export default function decorate(block) {
 
   if (padding) {
     block.style.padding = padding;
+  }
+
+  if (margin) {
+    block.style.margin = margin;
   }
 
   block.innerHTML = `
