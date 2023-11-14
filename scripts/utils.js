@@ -240,6 +240,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     let selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
     if (triggerVPN) {
       selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
+      selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
     const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
