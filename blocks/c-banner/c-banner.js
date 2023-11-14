@@ -1,4 +1,5 @@
 export default function decorate(block) {
+  const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
@@ -6,7 +7,7 @@ export default function decorate(block) {
   } = metaData;
   const [richTextEl, pictureEl] = [...block.children];
 
-  if (backgroundColor) blockStyle.backgroundColor = backgroundColor;
+  if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
   if (padding) blockStyle.padding = padding;
   if (margin) blockStyle.margin = margin;
