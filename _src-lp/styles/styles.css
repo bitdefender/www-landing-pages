@@ -11,8 +11,8 @@
  * governing permissions and limitations under the License.
  */
 /* load components style */
-@import "/components/column/column.css";
-@import "/components/review/review.css";
+@import "/_src-lp/components/column/column.css";
+@import "/_src-lp/components/review/review.css";
 :root {
   /* colors */
   --link-color: #000;

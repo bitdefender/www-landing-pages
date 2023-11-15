@@ -1,6 +1,6 @@
 helix-importer-ui
 **/*.css
-scripts/vendor/**/*.js
+_src-lp/scripts/vendor/**/*.js
 sass-compile.js
 **/*.spec.js
 e2e

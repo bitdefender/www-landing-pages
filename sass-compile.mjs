@@ -28,7 +28,7 @@ const processFiles = async (parent) => {
     }
 }
 
-for (const folder of ["styles","blocks"]) {
+for (const folder of ["_src-lp/styles","_src-lp/blocks"]) {
     try {
         await processFiles(path.join(__dirname, folder));
     } catch (err) {
