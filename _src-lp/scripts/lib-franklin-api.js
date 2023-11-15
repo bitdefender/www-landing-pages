@@ -1,4 +1,4 @@
-let dataApinDomain = 'https://main--helix-poc--enake.hlx.page';
+let dataApinDomain = 'https://www.bitdefender.com/pages';
 if (import.meta && import.meta.url) {
   const urlObj = new URL(import.meta.url);
   dataApinDomain = urlObj.origin;
@@ -124,7 +124,7 @@ export default async function addFranklinComponentToContainer(offer, block, sele
   shadowDom.appendChild(shadowDomBody);
 
   // load the block CSS file
-  loadCSS(`${dataApinDomain}/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
+  loadCSS(`${dataApinDomain}/_src-lp/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
 
   // run the Franklin decorator logic for this block
   await decorateBlock(block, shadowDom);
