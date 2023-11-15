@@ -444,7 +444,7 @@ export function getLocalizedResourceUrl(resourceName) {
 
   pathnameAsArray = pathnameAsArray.filter((x, i) => i <= 2); // "/consumer/en";
 
-  return `${pathnameAsArray.join('/')}/${resourceName}`;
+  return `../${resourceName}`;
 }
 
 export function generateUuidv4() {
