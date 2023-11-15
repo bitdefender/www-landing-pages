@@ -67,7 +67,7 @@ const loadCSS = async (href, shadowDom) => {
  * Franklin decorator logic
  */
 const decorateBlock = async (block, shadowDom) => {
-  const logicModule = await import(/* webpackIgnore: true */`${dataApinDomain}/blocks/${block}/${block}.js`);
+  const logicModule = await import(/* webpackIgnore: true */`${dataApinDomain}/_src-lp/blocks/${block}/${block}.js`);
   const blockElement = shadowDom.querySelector(`.${block}`);
   logicModule.default(blockElement);
 
