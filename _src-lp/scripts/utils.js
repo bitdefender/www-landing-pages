@@ -442,7 +442,8 @@ export function getLocalizedResourceUrl(resourceName) {
     return `${pathnameAsArray.join('/')}${resourceName}`;
   }
 
-  pathnameAsArray = pathnameAsArray.filter((x, i) => i <= 2); // "/consumer/en";
+  const basePathIndex = pathname.startsWith('/pages/') ? 3 : 2;
+  pathnameAsArray = pathnameAsArray.slice(0, basePathIndex + 1); // "/consumer/en";
 
   return `${pathnameAsArray.join('/')}/${resourceName}`;
 }

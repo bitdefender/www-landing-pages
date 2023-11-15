@@ -838,7 +838,7 @@ async function initializeProductsPriceLogic() {
   const skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid);
 
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
-    addScript('/scripts/vendor/store2015.js', {}, 'async', () => {
+    addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
       initSelectors(pid);
     });
   } else {
@@ -973,7 +973,7 @@ async function loadPage() {
     });
   }
 
-  addScript('/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
+  addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 
   eventOnDropdownSlider();
 
