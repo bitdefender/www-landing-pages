@@ -3,7 +3,7 @@ import {
   DOMAIN_NAME_MAP,
   getDefaultBaseUrl,
   getLocalizedResourceUrl
-} from "../../scripts/utils.js";
+} from "../../_src-lp/scripts/utils.js";
 
 describe('utils.js', () => {
   describe('addScript function', () => {
