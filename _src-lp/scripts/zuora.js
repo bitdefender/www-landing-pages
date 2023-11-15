@@ -1,5 +1,6 @@
 export default class ZuoraNLClass {
-  static campaignDefault = 'CyberPU2023';
+  // static campaignDefault = 'CyberPU2023';
+  static campaignDefault = 'BFPU2023';
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
