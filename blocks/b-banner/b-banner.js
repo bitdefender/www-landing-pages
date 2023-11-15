@@ -86,7 +86,7 @@ export default function decorate(block) {
     block.children[2].style.color = textColor;
   }
 
-  if (headerTextColor) {
+  if (headerTextColor && block.querySelector('h1')) {
     block.querySelector('h1').style.color = headerTextColor;
   }
 
