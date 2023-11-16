@@ -21,6 +21,16 @@ import { getDefaultLanguage } from '../../scripts/utils.js';
 async function loadFragment(path) {
   const language = getDefaultLanguage();
   if (path && path.startsWith('/')) {
+    /**
+     * this makes fragments work on the www.bitdefender.com domain
+     * once we move everything to www, we sghould remove this
+     */
+    const loc = window.location;
+    if (loc.hostname === 'wwww.bitdefender.com' && !path.startsWith('/pages')) {
+      // eslint-disable-next-line no-param-reassign
+      path = `/pages${path}`;
+    }
+
     try {
       // eslint-disable-next-line no-param-reassign
       path = path.replace(/lang/g, language);
