@@ -1,27 +1,17 @@
 
-$bd-blue: #006EFF;
-
 .section {
-    &.c-banner-container {
-        background-color: white;
+    &.banner-container {
+        background-color: black;
+        color: white;
         padding: 0;
     }
 
-    .c-banner {
-        background-color: white;
-
-        .col-12 {
-            &.p-0 {
-                background-color: $bd-blue;
-            } 
-        }
-
+    .banner {
         img {
-            width: 50%;
+            width: 100%;
         }
 
         h1 {
-            color: $bd-blue;
             font-size: 28px;
             text-align: center;
         }
@@ -32,10 +22,9 @@ $bd-blue: #006EFF;
     }
 }
 
-
 @media (width >= 768px) {
     .section {
-        .c-banner {
+        .banner {
             h1 {
                 font-size: 30px;
             }
@@ -45,11 +34,8 @@ $bd-blue: #006EFF;
 
 @media screen and (width >= 991px) {
     .section {
-        .c-banner {
-            background-color: $bd-blue;
-
+        .banner {
             h1 {
-                color: white;
                 font-size: 40px;
                 text-align: left;
             }
