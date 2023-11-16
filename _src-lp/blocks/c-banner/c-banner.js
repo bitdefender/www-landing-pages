@@ -23,7 +23,7 @@ export default function decorate(block) {
           </div>
         </div>
         <div class="row d-lg-none justify-content-center">
-          <div class="col-12 p-0">
+          <div class="col-12 p-0 text-center">
           ${pictureEl.innerHTML}
           </div>
           <div class="col-12 col-md-7 text-center">${richTextEl.innerHTML}</div>
