@@ -220,7 +220,7 @@ export async function loadFragment(path) {
      * this makes fragments work on the www.bitdefender.com domain
      * once we move everything to www, we sghould remove this
      */
-    if (window.location.hostname === 'wwww.bitdefender.com' && !path.startsWith('/pages')) {
+    if (window.location.hostname === 'www.bitdefender.com' && !path.startsWith('/pages')) {
       // eslint-disable-next-line no-param-reassign
       path = `/pages${path}`;
     }
