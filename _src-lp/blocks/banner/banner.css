@@ -1,0 +1,33 @@
+.section.c-banner-container {
+  background-color: black;
+  color: white;
+  padding: 0;
+}
+.section .c-banner img {
+  width: 100%;
+}
+.section .c-banner h1 {
+  font-size: 28px;
+  text-align: center;
+}
+.section .c-banner .button-container {
+  display: none;
+}
+
+@media (width >= 768px) {
+  .section .c-banner h1 {
+    font-size: 30px;
+  }
+}
+@media screen and (width >= 991px) {
+  .section .c-banner h1 {
+    font-size: 40px;
+    text-align: left;
+  }
+  .section .c-banner .button-container {
+    display: block;
+  }
+  .section .c-banner img {
+    width: initial;
+  }
+}
