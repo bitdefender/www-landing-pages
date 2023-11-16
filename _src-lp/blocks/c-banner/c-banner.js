@@ -3,17 +3,19 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    textColor, backgroundColor, padding, margin,
+    textColor, backgroundColor, paddingTop, paddingBottom, marginTop, marginBottom,
   } = metaData;
   const [richTextEl, pictureEl] = [...block.children];
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
-  if (padding) blockStyle.padding = padding;
-  if (margin) blockStyle.margin = margin;
+  if (paddingTop) blockStyle.paddingTop = `${paddingTop}rem`;
+  if (paddingBottom) blockStyle.paddingBottom = `${paddingBottom}rem`;
+  if (marginTop) blockStyle.marginTop = `${marginTop}rem`;
+  if (marginBottom) blockStyle.marginBottom = `${marginBottom}rem`;
 
   block.innerHTML = `
-    <div class="container-fluid pt-lg-5">
+    <div class="container-fluid">
         <div class="row d-none d-lg-flex">
           <div class="col-5 ps-4">${richTextEl.innerHTML}</div>
           <div class="col-7">
