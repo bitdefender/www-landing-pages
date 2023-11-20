@@ -15,12 +15,11 @@
                 height: 100%;
                 background-color: #F6F6F6;
                 border-radius: 30px;
-                padding: 1rem 1.5rem;
+                padding: 25px;
 
                 .greenTag2 {
-                    position: absolute;
                     height: 37px;
-                    width: 78%;
+                    width: 100%;
                     font-size: var(--body-font-size-xs);
                     color: white;
                     text-align: center;
@@ -29,7 +28,8 @@
                     border-top-left-radius: 10px;
                     border-top-right-radius: 10px;
                     padding-top: 7px;
-                    margin-top: -54px;
+                    margin-top: -62px;
+                    margin-bottom: 47px;
                 }
 
                 h2 {
@@ -52,8 +52,9 @@
                     }
 
                     img {
-                        height: 15px;
+                        height: 14px;
                         margin-right: 5px;
+                        margin-top: -5px;
                     }
                 }
 

@@ -14,12 +14,11 @@
   height: 100%;
   background-color: #F6F6F6;
   border-radius: 30px;
-  padding: 1rem 1.5rem;
+  padding: 25px;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .greenTag2 {
-  position: absolute;
   height: 37px;
-  width: 78%;
+  width: 100%;
   font-size: var(--body-font-size-xs);
   color: white;
   text-align: center;
@@ -28,7 +27,8 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding-top: 7px;
-  margin-top: -54px;
+  margin-top: -62px;
+  margin-bottom: 47px;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box h2 {
   font-weight: bold;
@@ -48,8 +48,9 @@
   display: flex;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .blueTag img {
-  height: 15px;
+  height: 14px;
   margin-right: 5px;
+  margin-top: -5px;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .subtitle {
   font-size: 14px;
