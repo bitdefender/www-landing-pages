@@ -1,3 +1,11 @@
+header {
+  height: var(--nav-height);
+
+  &.dark {
+    background-color: black;
+  }
+}
+
 .header {
   padding: 1em 15px;
 }
@@ -15,6 +23,43 @@ header span.reverse-filter {
 header {
   &.rev-header {
     background-color: #fff;
+  }
+}
+
+header#headerBlue {
+  background-color: #fff;
+  border-bottom: 1px solid #EDEDED;
+  margin-bottom: 1em;
+  height: auto;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    text-align: center;
+  }
+
+  img {
+    height: 26px;
+    display: inline-block;
+    width: auto;
+  }
+
+  .section-metadata {
+    display: none;
+  }
+
+  .header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+@media screen and (width >= 768px) {
+  header#headerBlue a {
+    text-align: left;
   }
 }
 

@@ -14,6 +14,7 @@
         h1 {
             font-size: 28px;
             text-align: center;
+            margin-top: 0;
         }
 
         .button-container {
@@ -64,6 +65,7 @@
                 font-weight: lighter;
                 font-size: var(--heading-font-size-l);
                 line-height: var(--heading-font-size-l);
+                margin-top: 1em;
             }
 
             p {
