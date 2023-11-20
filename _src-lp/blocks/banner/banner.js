@@ -21,7 +21,7 @@ export default function decorate(block) {
   } */
 
   if (corners && corners === 'round') {
-    blockStyle.borderRadius = '5px';
+    blockStyle.borderRadius = '20px';
   }
 
   if (imageCover && imageCover === 'small') {

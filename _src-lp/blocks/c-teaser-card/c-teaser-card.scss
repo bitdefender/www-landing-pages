@@ -5,7 +5,7 @@
 }
 
 .c-teaser-card-container.new {
-  margin: 8rem 0 3rem;
+  margin: 0 0 1em;
 }
 
 .c-teaser-card .main-wrapper {
@@ -56,11 +56,19 @@
   .c-teaser-card .inner-wrapper {
     padding: 50px 0 90px;
   }
+
+  .c-teaser-card-container.new {
+    margin: 4rem 0 1.5rem;
+  }
 }
 
 @media (width >= 992px) {
   .c-teaser-card h3 {
     font-size: 40px;
+  }
+
+  .c-teaser-card-container.new {
+    margin: 8rem 0 3rem;
   }
 }
 

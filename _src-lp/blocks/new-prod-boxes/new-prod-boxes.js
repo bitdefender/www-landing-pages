@@ -19,7 +19,7 @@ export default function decorate(block) {
       [...block.children][key].innerHTML = '';
 
       block.innerHTML += `
-        <div class="pod_box">
+        <div class="pod_box${greenTag.innerText.trim() && ' hasGreenTag'}">
           <div class="inner_pod_box">
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
@@ -31,7 +31,7 @@ export default function decorate(block) {
                 <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
                 <sup>${price.innerText.trim() && price.innerText.trim().replace('0', '')}<sup>
               </div>
-              ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`)}</div>` : ''}
+              ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="oldprice-${onSelectorClass}"></span>`)}</div>` : ''}
               <div class="buy-btn">
                 <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender ${buyLink.innerText.trim() && buyLink.innerText.trim()}">${buyLink.innerText.trim() && buyLink.innerText.trim()}</a>
               </div>

@@ -7,10 +7,11 @@
 }
 
 .columns-container.new .columns h2 {
-  font-size: var(--heading-font-size-xl);
-  line-height: var(--heading-font-size-xl);
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-s);
   font-weight: bold;
   color: black;
+  font-family: "Arial", sans-serif;
 }
 
 .columns h3 {
@@ -29,8 +30,9 @@
 }
 
 .columns-container.new .columns p {
-  font-size: var(--body-font-size-s);
+  font-size: 12px;
   color: black;
+  font-family: "Arial", sans-serif;
 }
 
 .columns-container.new .columns p.button-container a {
@@ -47,6 +49,10 @@
   display: flex;
   flex-direction: column;
   padding: 15px;
+}
+
+.columns-container.new .columns > div {
+  padding: 15px 0;
 }
 
 .columns > div > div {
@@ -81,6 +87,16 @@
   .columns > div > .columns-img-col--right img {
     max-width: 100%;
     margin-right: auto;
+  }
+  .columns-container.new .columns > div {
+    padding: 15px;
+  }
+  .columns-container.new .columns h2 {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+  }
+  .columns-container.new .columns p {
+    font-size: var(--heading-font-size-2);
   }
 }
 @media (width <= 768px) {
