@@ -7,8 +7,6 @@ export default function decorate(block) {
   } = metaData;
   const [richTextEl, pictureEl] = [...block.children];
 
-  const bckImg = pictureEl.querySelector('img').getAttribute('src');
-
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
   if (paddingTop) blockStyle.paddingTop = `${paddingTop}rem`;
@@ -56,5 +54,4 @@ export default function decorate(block) {
       </div>
     `;
   }
-
 }
