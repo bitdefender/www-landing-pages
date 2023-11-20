@@ -183,7 +183,6 @@
   position: relative;
 
   img {
-    left: 10%;
     position: relative;
     z-index: 0;
   }
@@ -451,7 +450,6 @@
   }
 
   .b-banner-container .b-banner-wrapper {
-    position: absolute;
     height: 100%;
     align-items: center;
     margin: 15px;
@@ -565,6 +563,7 @@
     right: 0;
     top: 0;
     margin: 15px auto;
+    position: absolute;
   }
 
   .b-banner-container .b-banner-wrapper .banner-image--in-container img {
