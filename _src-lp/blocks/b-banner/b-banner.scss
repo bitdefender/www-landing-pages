@@ -646,4 +646,8 @@
     position: absolute;
     right: 10%;
   }
+
+  .b-banner-container.full .banner-image img {
+    width: 100% !important;
+  }
 }
