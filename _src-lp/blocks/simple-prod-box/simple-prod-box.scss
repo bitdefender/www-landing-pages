@@ -1,9 +1,5 @@
 
 .simple-prod-box-container {
-    &.width-small .block {
-        padding: 0 20px;
-    }
-
     .block {
         margin: 0 auto;
 
@@ -121,6 +117,10 @@
                 }
             }
         }
+    }
+
+    &.width-small .block {
+        padding: 0 20px;
     }
 }
 

@@ -38,12 +38,6 @@
   font-family: Arial, sans-serif;
 }
 
-.c-icon-box-grid-container.new .quotes hr {
-  margin-top: 1rem;
-  margin-bottom: 10px;
-  opacity: 1;
-}
-
 .c-icon-box-grid-container .quotes .icon-box-grid-column {
   padding: 2em 2em 1em 70px;
   width: 100%;
@@ -99,6 +93,12 @@
   width: 100%;
 }
 
+.c-icon-box-grid-container.new .quotes hr {
+  margin-top: 1rem;
+  margin-bottom: 10px;
+  opacity: 1;
+}
+
 .c-icon-box-grid-container.new .quotes .icon-box-grid-column {
   background: url("../../images/dark-blue-quote.svg") no-repeat top 3em left 20px #FFF;
   margin: 0.2em 0;
@@ -138,14 +138,14 @@
   .c-icon-box-grid-container.new .title {
     font-size: var(--heading-font-size-m);
   }
+  .c-icon-box-grid-container .subtitle {
+    font-size: 14px;
+  }
   .c-icon-box-grid-container.color-black .title, .c-icon-box-grid-container.color-black .subtitle {
     color: black;
   }
   .c-icon-box-grid-container .w-lg-65 {
     width: 65%;
-  }
-  .c-icon-box-grid-container .subtitle {
-    font-size: 14px;
   }
   .c-icon-box-grid-container.grey-box .col-lg .title {
     font-size: var(--heading-font-size-xl);
