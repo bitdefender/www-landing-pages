@@ -1,0 +1,125 @@
+.new-prod-boxes-container {
+  padding-bottom: 0;
+}
+.new-prod-boxes-container .block {
+  margin: 0 auto;
+  display: flex;
+}
+.new-prod-boxes-container .block .pod_box {
+  flex: 1;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box {
+  position: relative;
+  width: 92%;
+  height: 100%;
+  background-color: #F6F6F6;
+  border-radius: 30px;
+  padding: 1rem 1.5rem;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .greenTag2 {
+  position: absolute;
+  height: 37px;
+  width: 78%;
+  font-size: var(--body-font-size-xs);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  background-color: #1C7928;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding-top: 7px;
+  margin-top: -54px;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box h2 {
+  font-weight: bold;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-font-size-m);
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .blueTag {
+  font-size: var(--body-font-size-xs);
+  color: white;
+  text-align: center;
+  background-color: #026DFF;
+  display: inline-block;
+  border-radius: 20px;
+  padding: 1px 12px;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .blueTag div {
+  display: flex;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .blueTag img {
+  height: 15px;
+  margin-right: 5px;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .subtitle {
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  margin-bottom: 0;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box hr {
+  border: 1px solid #D1D1D1;
+  margin: 10px 0;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .prices_box {
+  display: flex;
+  justify-content: left;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .prices_box .prod-newprice {
+  font-size: var(--heading-font-size-xl);
+  line-height: var(--heading-font-size-xl);
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .prices_box sup {
+  margin: -5px 0 0 5px;
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-s);
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .billed {
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  line-height: 13px;
+  margin: 7px 0;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .buy-btn a.red-buy-button {
+  width: 100%;
+  text-transform: none;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 500 !important;
+  padding: 10px 1% !important;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .undeBuyLink {
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  line-height: 13px;
+  margin: 7px 0;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists {
+  font-family: "Arial", sans-serif;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists p {
+  margin: 0;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists u {
+  font-size: var(--body-font-size-xs);
+  text-decoration: none;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul {
+  margin-top: 0;
+  padding: 0;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li {
+  font-size: 14px;
+  list-style-type: none;
+  background: url(../../images/icons/ok.png) top 5px left no-repeat transparent;
+  padding-left: 24px;
+  background-size: 15px;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li u {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+  padding: 2px 23px 2px 7px;
+  background: url(../../images/icons/1x.png) center right 6px no-repeat #026DFF;
+  background-size: auto 14px;
+}

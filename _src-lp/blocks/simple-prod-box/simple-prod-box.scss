@@ -1,0 +1,103 @@
+
+.simple-prod-box-container {
+    .block {
+        margin: 0 auto;
+
+        .container-fluid {
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 20px;
+
+            .icon {
+                width: 64px;
+
+                img {
+                    margin-top: -3rem;
+                }
+
+            }
+
+            h2 {
+                color: #006DFF;
+                margin-top: 0.5em;
+            }
+
+            .prices_box {
+                display: flex;
+                justify-content: center;
+
+                .prod-newprice {
+                    font-size: var(--heading-font-size-xl);
+                    line-height: var(--heading-font-size-xl);
+
+                }
+
+                sup {
+                    margin: -5px 0 0 5px;
+                    font-size: var(--heading-font-size-s);
+                    line-height: var(--heading-font-size-s);
+                }
+            }
+
+            .billed {
+                font-size: 10px;
+                line-height: 13px;
+                margin: 7px 0;
+            }
+
+            .buy-btn {
+                a.red-buy-button {
+                    width: 220px;
+                    text-transform: none;
+                    font-size: var(--body-font-size-xs);
+                    line-height: var(--body-font-size-xs);
+                    font-weight: 500!important;
+                    padding: 13px 1%!important;
+                }
+            }
+
+            .benefits {
+                width: 580px;
+                text-align: left;
+                font-size: 12px;
+                line-height: 14px;
+                justify-content: space-between;
+                background-color: #F4F8FF;
+                border-radius: 20px;
+                margin: 2rem auto;
+                padding: 1rem;
+
+                div {
+                    width: 115px;
+
+                    p {
+                        margin: 0;
+                    }
+
+                    img {
+                        height: 20px;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+
+            .w-80 {
+                width: 510px;
+                margin: 0 auto;
+            }
+        }
+    }
+}
+
+@media (width >= 768px) {
+    .simple-prod-box-container.width-small {
+        .container-fluid {
+            width: 767px;
+        }
+    }
+}
+
+@media screen and (width >= 991px) {
+
+}
+

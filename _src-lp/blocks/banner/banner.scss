@@ -20,6 +20,25 @@
             display: none;
         }
     }
+
+    &.lp-brand .banner {
+        background: url('../../images/lp-brand.jpg') 0 0 / cover no-repeat transparent;
+
+        .col-5 {
+            width: 322px;
+
+            h1 {
+                font-weight: lighter;
+                font-size: var(--heading-font-size-xl);
+                line-height: var(--heading-font-size-xl);
+            }
+
+            p {
+                font-size: var(--body-font-size-xs);
+                line-height: var(--body-font-size-s);
+            }
+        }
+    }
 }
 
 @media (width >= 768px) {

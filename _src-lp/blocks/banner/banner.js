@@ -3,9 +3,11 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    textColor, backgroundColor, paddingTop, paddingBottom, marginTop, marginBottom,
+    textColor, backgroundColor, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
   const [richTextEl, pictureEl] = [...block.children];
+
+  const bckImg = pictureEl.querySelector('img').getAttribute('src');
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -14,12 +16,35 @@ export default function decorate(block) {
   if (marginTop) blockStyle.marginTop = `${marginTop}rem`;
   if (marginBottom) blockStyle.marginBottom = `${marginBottom}rem`;
 
-  block.innerHTML = `
+  /* if (imageCover && imageCover === 'small') {
+    blockStyle.background = `url(${bckImg}) no-repeat 0 0 / cover ${backgroundColor ? backgroundColor : 'transparent'}`;
+  } */
+
+  if (corners && corners === 'round') {
+    blockStyle.borderRadius = '5px';
+  }
+
+  if (imageCover && imageCover === 'small') {
+    block.innerHTML = `
+    <div class="container-fluid">
+        <div class="row d-none d-lg-flex">
+          <div class="col-5 ps-4">${richTextEl.innerHTML}</div>
+        </div>
+        <div class="row d-lg-none justify-content-center">
+          <div class="col-12 col-md-7 text-center">${richTextEl.innerHTML}</div>
+          <div class="col-12 p-0 text-center">
+            ${pictureEl.innerHTML}
+          </div>
+        </div>
+      </div>
+    `;
+  } else {
+    block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">
           <div class="col-5 ps-4">${richTextEl.innerHTML}</div>
           <div class="col-7">
-          ${pictureEl.innerHTML}
+            ${pictureEl.innerHTML}
           </div>
         </div>
         <div class="row d-lg-none justify-content-center">
@@ -30,4 +55,6 @@ export default function decorate(block) {
         </div>
       </div>
     `;
+  }
+
 }

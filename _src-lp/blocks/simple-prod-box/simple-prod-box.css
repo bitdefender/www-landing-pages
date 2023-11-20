@@ -1,0 +1,75 @@
+.simple-prod-box-container .block {
+  margin: 0 auto;
+}
+.simple-prod-box-container .block .container-fluid {
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 20px;
+}
+.simple-prod-box-container .block .container-fluid .icon {
+  width: 64px;
+}
+.simple-prod-box-container .block .container-fluid .icon img {
+  margin-top: -3rem;
+}
+.simple-prod-box-container .block .container-fluid h2 {
+  color: #006DFF;
+  margin-top: 0.5em;
+}
+.simple-prod-box-container .block .container-fluid .prices_box {
+  display: flex;
+  justify-content: center;
+}
+.simple-prod-box-container .block .container-fluid .prices_box .prod-newprice {
+  font-size: var(--heading-font-size-xl);
+  line-height: var(--heading-font-size-xl);
+}
+.simple-prod-box-container .block .container-fluid .prices_box sup {
+  margin: -5px 0 0 5px;
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-s);
+}
+.simple-prod-box-container .block .container-fluid .billed {
+  font-size: 10px;
+  line-height: 13px;
+  margin: 7px 0;
+}
+.simple-prod-box-container .block .container-fluid .buy-btn a.red-buy-button {
+  width: 220px;
+  text-transform: none;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-font-size-xs);
+  font-weight: 500 !important;
+  padding: 13px 1% !important;
+}
+.simple-prod-box-container .block .container-fluid .benefits {
+  width: 580px;
+  text-align: left;
+  font-size: 12px;
+  line-height: 14px;
+  justify-content: space-between;
+  background-color: #F4F8FF;
+  border-radius: 20px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.simple-prod-box-container .block .container-fluid .benefits div {
+  width: 115px;
+}
+.simple-prod-box-container .block .container-fluid .benefits div p {
+  margin: 0;
+}
+.simple-prod-box-container .block .container-fluid .benefits div img {
+  height: 20px;
+  margin-bottom: 5px;
+}
+.simple-prod-box-container .block .container-fluid .w-80 {
+  width: 510px;
+  margin: 0 auto;
+}
+
+@media (width >= 768px) {
+  .simple-prod-box-container.width-small .container-fluid {
+    width: 767px;
+  }
+}

@@ -6,6 +6,13 @@
   margin-top: 0;
 }
 
+.columns-container.new .columns h2 {
+  font-size: var(--heading-font-size-xl);
+  line-height: var(--heading-font-size-xl);
+  font-weight: bold;
+  color: black;
+}
+
 .columns h3 {
   font-size: 13px;
   text-transform: uppercase;
@@ -19,6 +26,17 @@
   font-size: 18px;
   margin-top: 20px;
   line-height: 23px;
+}
+
+.columns-container.new .columns p {
+  font-size: var(--body-font-size-s);
+  color: black;
+}
+
+.columns-container.new .columns p.button-container a {
+  text-transform: none;
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
 }
 
 .columns img {

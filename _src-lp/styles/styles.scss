@@ -172,6 +172,10 @@ a:any-link {
   text-decoration: none;
 }
 
+.underlined a:any-link {
+  text-decoration: underline;
+}
+
 a:hover {
   text-decoration: underline;
   color: var(--link-hover-color);
@@ -349,6 +353,21 @@ main .section[data-size='bigger'] .default-content-wrapper h5 {
 
 main .section[data-size='bigger'] .default-content-wrapper h6 {
   font-size: 29px;
+}
+
+main .section.size-40-normal .default-content-wrapper h2 {
+  font-size: var(--heading-font-size-xl);
+  font-weight: normal;
+}
+
+main .section.size-12-normal .default-content-wrapper p {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+main .section.width-medium .block {
+  width: 940px;
+  margin: 0 auto;
 }
 
 .red-buy-button p {
@@ -1422,7 +1441,7 @@ main .section.highlight {
   header {
     border-bottom: 1px solid white;
   }
-  
+
   .section {
     padding: 10px;
   }

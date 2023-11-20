@@ -9,6 +9,45 @@
   margin-top: 0;
 }
 
+.c-icon-box-grid-container.new h3 {
+  font-size: var(--heading-font-size-xl);
+  font-weight: normal;
+}
+
+.c-icon-box-grid-container.new p {
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-m);
+}
+
+.c-icon-box-grid-container.new .quotes .icon-box-grid-column {
+  background: url(../../images/dark-blue-quote.svg) no-repeat top 3em left 20px #FFF;
+}
+
+.c-icon-box-grid-container.new .quotes hr {
+  margin-top: 1rem;
+  margin-bottom: 10px;
+  opacity: 1;
+}
+
+.c-icon-box-grid-container.new .quotes .icon-box-grid-column {
+  margin-top: 2em;
+}
+
+.c-icon-box-grid-container.new .quotes .icon-box-grid-column p {
+  margin-top: 0;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.c-icon-box-grid-container.new .quotes .icon-box-grid-column p:nth-of-type(2) {
+  min-height: 4rem;
+}
+
+.c-icon-box-grid-container.new .container > div:last-of-type{
+  color: #7E7E7E;
+  font-size: 12px;
+}
+
 .c-icon-box-grid-container.bordered .col-lg {
   border-radius: 5px;
   border: 1px solid #F2F2F2;
@@ -69,7 +108,7 @@
     .col-lg {
       background-color: #F5F5F7;
       border-radius: 20px;
-      padding: 5%;
+      padding: 3rem 5%;
 
       .title {
         font-size: 24px;
@@ -84,7 +123,19 @@
 
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
-    font-size: 18px;
+    font-size: var(--body-font-size-s);
+  }
+
+  .c-icon-box-grid-container.new {
+    color: black;
+  }
+
+  .c-icon-box-grid-container.new .title {
+    font-size: var(--heading-font-size-m);
+  }
+
+  .c-icon-box-grid-container.color-black .title, .c-icon-box-grid-container.color-black .subtitle {
+    color: black;
   }
 
   .c-icon-box-grid-container .w-lg-65 {
@@ -99,12 +150,24 @@
     &.grey-box {
       .col-lg {
         .title {
-          font-size: 32px;
+          font-size: var(--heading-font-size-xl);
+          line-height: var(--heading-font-size-xl);
         }
-  
+
+        p {
+          font-size: var(--body-font-size-s);
+        }
+
+        a.button:any-link {
+          text-transform: none;
+          font-size: var(--body-font-size-xs);
+          font-weight: 500;
+        }
+
         .subtitle {
           font-size: 20px;
         }
+
       }
     }
   }
