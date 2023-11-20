@@ -41,11 +41,7 @@ export default function decorate(block) {
           </div>
         </div>
       `;
-
     })
-
-
-
   } else {
     block.innerHTML = `
     <div class="container-fluid">

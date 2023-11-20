@@ -82,5 +82,6 @@
 @media screen and (width <= 768px) {
   .section.lp-brand .banner {
     padding-bottom: 5.5rem !important;
+    border-radius: 10px !important;
   }
 }

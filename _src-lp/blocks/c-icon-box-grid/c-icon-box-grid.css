@@ -188,6 +188,7 @@
   }
   .c-icon-box-grid-container.grey-box .col-lg {
     padding: 3rem 5%;
+    margin: 0 15px;
   }
   .c-icon-box-grid-container.grey-box .col-lg .title {
     font-size: var(--heading-font-size-xl);
