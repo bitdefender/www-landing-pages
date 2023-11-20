@@ -1,7 +1,7 @@
-let dataApinDomain = 'https://www.bitdefender.com/pages';
+let dataApiDomain = 'https://www.bitdefender.com/pages';
 if (import.meta && import.meta.url) {
   const urlObj = new URL(import.meta.url);
-  dataApinDomain = urlObj.origin;
+  dataApiDomain = urlObj.origin;
 }
 
 /**
@@ -13,7 +13,7 @@ const updateLinkSources = (plainHTMLContainer) => {
   allSources.forEach((source) => {
     if (source.srcset.startsWith('./') || source.srcset.startsWith('/')) {
       const srcSet = source.srcset.startsWith('.') ? source.srcset.slice(1) : source.srcset;
-      source.srcset = `${dataApinDomain}${srcSet}`;
+      source.srcset = `${dataApiDomain}${srcSet}`;
     }
   });
 
@@ -21,7 +21,7 @@ const updateLinkSources = (plainHTMLContainer) => {
   allImages.forEach((image) => {
     if (image.src.startsWith('./') || image.src.startsWith('/')) {
       const imgSrc = image.src.startsWith('.') ? image.src.slice(1) : image.src;
-      image.src = `${dataApinDomain}${imgSrc}`;
+      image.src = `${dataApiDomain}${imgSrc}`;
     }
   });
 };
@@ -67,7 +67,7 @@ const loadCSS = async (href, shadowDom) => {
  * Franklin decorator logic
  */
 const decorateBlock = async (block, shadowDom) => {
-  const logicModule = await import(/* webpackIgnore: true */`${dataApinDomain}/_src-lp/blocks/${block}/${block}.js`);
+  const logicModule = await import(/* webpackIgnore: true */`${dataApiDomain}/_src-lp/blocks/${block}/${block}.js`);
   const blockElement = shadowDom.querySelector(`.${block}`);
   logicModule.default(blockElement);
 
@@ -113,10 +113,30 @@ export default async function addFranklinComponentToContainer(offer, block, sele
   const container = document.querySelector(selector);
   // create a shadow DOM in the container
   const shadowDom = container.attachShadow({ mode: 'open' });
-
   // load the Franklin block plain HTML
-  const plainHTMLContainer = await loadBlock(offer, block);
-
+  const plainHTMLContainer = await loadBlock(offer);
+  // add head section to the shadowDom and append the received HTML
+  shadowDom.appendChild(document.createElement('head'));
+  const shadowDomBody = document.createElement('body');
+  shadowDomBody.appendChild(plainHTMLContainer);
+  shadowDom.appendChild(shadowDomBody);
+  // load the block CSS file
+  loadCSS(`${dataApiDomain}/_src-lp/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
+  // run the Franklin decorator logic for this block
+  await decorateBlock(block, shadowDom);
+}
+/**
+ *
+ * @param {string} offer -> url to the plain html
+ * @param {string} block -> the requested block (needed for css and js)
+ * @return {Promise<HTMLDivElement>} -> get a div element containing the Franklin component
+ */
+export async function getFranklinComponent(offer, block) {
+  const container = document.createElement('div');
+  // create a shadow DOM in the container
+  const shadowDom = container.attachShadow({ mode: 'open' });
+  // load the Franklin block plain HTML
+  const plainHTMLContainer = await loadBlock(offer);
   // add head section to the shadowDom and append the received HTML
   shadowDom.appendChild(document.createElement('head'));
   const shadowDomBody = document.createElement('body');
@@ -124,8 +144,8 @@ export default async function addFranklinComponentToContainer(offer, block, sele
   shadowDom.appendChild(shadowDomBody);
 
   // load the block CSS file
-  loadCSS(`${dataApinDomain}/_src-lp/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
-
+  loadCSS(`${dataApiDomain}/_src-lp/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
   // run the Franklin decorator logic for this block
   await decorateBlock(block, shadowDom);
+  return container;
 }
