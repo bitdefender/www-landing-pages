@@ -99,10 +99,6 @@
 }
 
 @media (width >= 768px) {
-  .simple-prod-box-container.width-small .block .container-fluid {
-    width: 767px;
-    border-radius: 20px;
-  }
   .simple-prod-box-container .block .container-fluid h2 {
     font-size: var(--heading-font-size-xl);
   }
@@ -130,5 +126,9 @@
     height: 20px;
     margin-bottom: 5px;
     margin-right: 0;
+  }
+  .simple-prod-box-container.width-small .block .container-fluid {
+    width: 767px;
+    border-radius: 20px;
   }
 }

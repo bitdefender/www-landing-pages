@@ -126,15 +126,6 @@
 
 @media (width >= 768px) {
     .simple-prod-box-container {
-        &.width-small {
-            .block {
-                .container-fluid {
-                    width: 767px;
-                    border-radius: 20px;
-                }
-            }
-        }
-
         .block {
             .container-fluid {
                 h2 {
@@ -171,6 +162,15 @@
                     }
                 }
 
+            }
+        }
+
+        &.width-small {
+            .block {
+                .container-fluid {
+                    width: 767px;
+                    border-radius: 20px;
+                }
             }
         }
     }
