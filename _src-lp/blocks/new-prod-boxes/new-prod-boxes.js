@@ -2,11 +2,9 @@ import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
-  const parentBlockStyle = block.closest('.section').style;
-  const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    products,
+    products, priceType,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -29,8 +27,8 @@ export default function decorate(block) {
             ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerText.trim()}</p>` : ''}
             <hr />
             <div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                <span class="prod-oldprice d-none oldprice-${onSelectorClass}-monthly"></span>
-                <span class="prod-newprice newprice-${onSelectorClass}-monthly"></span>
+                <span class="prod-oldprice d-none oldprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
+                <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
                 <sup>${price.innerText.trim() && price.innerText.trim().replace('0', '')}<sup>
               </div>
               ${billed ? `<div class="billed">${billed.innerHTML}</div>` : ''}

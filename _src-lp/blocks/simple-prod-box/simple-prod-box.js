@@ -2,11 +2,9 @@ import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
-  const parentBlockStyle = block.closest('.section').style;
-  const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product,
+    product, priceType,
   } = metaData;
   const [icon, title, subtitle, text, price, billed, buyLink, benefits] = [...block.children];
 
@@ -22,8 +20,8 @@ export default function decorate(block) {
         <p class="subtitle">${subtitle.innerHTML}</p>
         <p class="subsubtitle">${text.innerHTML}</p>
         <div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-          <span class="prod-oldprice d-none oldprice-${onSelectorClass}-monthly"></span>
-          <span class="prod-newprice newprice-${onSelectorClass}-monthly"></span>
+          <span class="prod-oldprice d-none oldprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
+          <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
           <sup>${price.innerText.replace('0', '')}<sup>
         </div>
         <div class="billed">${billed.innerHTML}</div>
