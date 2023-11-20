@@ -30,9 +30,13 @@
   line-height: var(--heading-font-size-s);
 }
 .simple-prod-box-container .block .container-fluid .billed {
-  font-size: 10px;
-  line-height: 13px;
+  font-size: 12px;
+  line-height: 14px;
   margin: 7px 0;
+}
+.simple-prod-box-container .block .container-fluid .billed span {
+  font-size: 12px;
+  line-height: 14px;
 }
 .simple-prod-box-container .block .container-fluid .buy-btn a.red-buy-button {
   width: 220px;
@@ -42,8 +46,15 @@
   font-weight: 500 !important;
   padding: 13px 1% !important;
 }
+.simple-prod-box-container .block .container-fluid .tosText {
+  font-size: 12px;
+  font-weight: normal;
+}
+.simple-prod-box-container .block .container-fluid .tosText a {
+  text-decoration: underline;
+}
 .simple-prod-box-container .block .container-fluid .benefits {
-  width: 580px;
+  width: 500px;
   text-align: left;
   font-size: 12px;
   line-height: 14px;

@@ -6,11 +6,16 @@ export default function decorate(block) {
   const {
     product, priceType,
   } = metaData;
-  const [icon, title, subtitle, text, price, billed, buyLink, benefits] = [...block.children];
+  const [icon, title, subtitle, text, price, billed, buyLink, tosText, benefits] = [...block.children];
 
   updateProductsList(product);
   const [prodName, prodUsers, prodYears] = product.split('/');
   const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+  [...benefits.children].forEach((item) => {
+    item.innerHTML && item.innerHTML
+  })
+
 
   block.innerHTML = `
     <div class="container-fluid">
@@ -24,13 +29,19 @@ export default function decorate(block) {
           <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
           <sup>${price.innerText.replace('0', '')}<sup>
         </div>
-        <div class="billed">${billed.innerHTML}</div>
+        <div class="billed">${billed.innerHTML.replace('0', `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`)}</div>
         <div class="buy-btn">
           <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender ${buyLink.innerText}">${buyLink.innerText}</a>
         </div>
+        <div class="tosText">${tosText.innerHTML}</div>
       </div>
       <div class="benefits d-flex">
-        ${benefits.innerHTML}
+        ${[...benefits.children].map((item) => {
+          if (item.innerText) {
+            return `<div>${item.innerHTML}</div>`;
+          }
+          return '';
+        }).join('')}
       </div>
     </div>
     `;
