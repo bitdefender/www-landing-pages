@@ -4,26 +4,27 @@ header {
   &.dark {
     background-color: black;
   }
+
+  &.rev-header {
+    background-color: #fff;
+  }
+
+  span {
+    &.icon {
+      height: unset;
+      width: unset;
+      display: block;
+    }
+
+    &.reverse-filter {
+      filter: invert(0);
+    }
+  }
+
 }
 
 .header {
   padding: 1em 15px;
-}
-
-header span.icon {
-  height: unset;
-  width: unset;
-  display: block;
-}
-
-header span.reverse-filter {
-  filter: invert(0);
-}
-
-header {
-  &.rev-header {
-    background-color: #fff;
-  }
 }
 
 header#headerBlue {
@@ -64,18 +65,18 @@ header#headerBlue {
 }
 
 @media screen and (width >= 991px) {
-  .header {
-    max-width: 1200px;
-    margin: auto;
-  }
-
-  header span.reverse-filter {
-    filter: invert(1);
-  }
-
   header {
     &.rev-header {
       background-color: #000;
     }
+
+    span.reverse-filter {
+      filter: invert(1);
+    }
+  }
+
+  .header {
+    max-width: 1200px;
+    margin: auto;
   }
 }

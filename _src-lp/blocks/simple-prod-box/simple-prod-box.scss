@@ -1,5 +1,9 @@
 
 .simple-prod-box-container {
+    &.width-small .block {
+        padding: 0 20px;
+    }
+
     .block {
         margin: 0 auto;
 
@@ -24,7 +28,7 @@
             }
 
             .subtitle {
-                font-family: "Arial", sans-serif;
+                font-family: Arial, sans-serif;
                 font-size: 12px;
                 line-height: 14px;
                 width: auto;
@@ -33,7 +37,7 @@
             }
 
             .subsubtitle {
-                font-family: "Arial", sans-serif;
+                font-family: Arial, sans-serif;
                 font-size: 12px;
                 line-height: 14px;
                 margin: 1em 0;
@@ -42,7 +46,7 @@
             .prices_box {
                 display: flex;
                 justify-content: center;
-                font-family: "Arial", sans-serif;
+                font-family: Arial, sans-serif;
 
                 .prod-newprice {
                     font-size: var(--heading-font-size-xl);
@@ -69,7 +73,7 @@
 
             .buy-btn {
                 a.red-buy-button {
-                    font-family: "Arial", sans-serif;
+                    font-family: Arial, sans-serif;
                     width: 220px;
                     text-transform: none;
                     font-size: var(--body-font-size-xs);
@@ -118,10 +122,6 @@
             }
         }
     }
-
-    &.width-small .block {
-        padding: 0 20px;
-    }
 }
 
 @media (width >= 768px) {
@@ -147,14 +147,8 @@
                     line-height: var(--body-font-size-m);
                 }
 
-                .subtitle {
-                    width: 535px;
-                    font-size: var(--heading-font-size-s);
-                    line-height: var(--body-font-size-m);
-                }
-
                 .subsubtitle {
-                    font-family: "Arial", sans-serif;
+                    font-family: Arial, sans-serif;
                     font-size: var(--body-font-size-xs);
                     line-height: var(--body-font-size-xs);
                 }
@@ -181,8 +175,3 @@
         }
     }
 }
-
-@media screen and (width >= 991px) {
-
-}
-

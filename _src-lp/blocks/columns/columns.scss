@@ -11,7 +11,7 @@
   line-height: var(--heading-font-size-s);
   font-weight: bold;
   color: black;
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .columns h3 {
@@ -32,7 +32,7 @@
 .columns-container.new .columns p {
   font-size: 12px;
   color: black;
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .columns-container.new .columns p.button-container a {
@@ -51,12 +51,12 @@
   padding: 15px;
 }
 
-.columns-container.new .columns > div {
-  padding: 15px 0;
-}
-
 .columns > div > div {
   order: 1;
+}
+
+.columns-container.new .columns > div {
+  padding: 15px 0;
 }
 
 .columns > div > .columns-img-col {

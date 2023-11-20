@@ -27,7 +27,7 @@
   height: 37px;
   width: 100%;
   font-size: var(--body-font-size-xs);
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   color: white;
   text-align: center;
   font-weight: bold;
@@ -42,12 +42,12 @@
   font-weight: bold;
   font-size: var(--body-font-size-m);
   line-height: var(--body-font-size-m);
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   margin-top: 10px;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .blueTag {
   font-size: var(--body-font-size-xs);
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   color: white;
   text-align: center;
   background-color: #026DFF;
@@ -65,7 +65,7 @@
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .subtitle {
   font-size: 14px;
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   margin-bottom: 0;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box hr {
@@ -87,7 +87,7 @@
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .billed {
   font-size: 12px;
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   line-height: 13px;
   margin: 7px 0;
 }
@@ -101,12 +101,12 @@
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .undeBuyLink {
   font-size: 12px;
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   line-height: 13px;
   margin: 7px 0;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists {
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists p {
   margin: 0;
@@ -122,7 +122,7 @@
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li {
   font-size: 14px;
   list-style-type: none;
-  background: url(../../images/icons/ok.png) top 5px left no-repeat transparent;
+  background: url("../../images/icons/ok.png") top 5px left no-repeat transparent;
   padding-left: 24px;
   background-size: 15px;
 }
@@ -132,7 +132,7 @@
   color: white;
   border-radius: 20px;
   padding: 2px 23px 2px 7px;
-  background: url(../../images/icons/1x.png) center right 6px no-repeat #026DFF;
+  background: url("../../images/icons/1x.png") center right 6px no-repeat #026DFF;
   background-size: auto 14px;
 }
 
