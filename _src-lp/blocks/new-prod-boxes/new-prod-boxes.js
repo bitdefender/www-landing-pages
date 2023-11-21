@@ -18,12 +18,11 @@ export default function decorate(block) {
 
       [...block.children][key].innerHTML = '';
 
-
       const featuresSet = benefitsLists.querySelectorAll('table');
       const featureList = Array.from(featuresSet).map((table) => {
         const trList = Array.from(table.querySelectorAll('tr'));
 
-        const liString = trList.map((tr, trIndex) => {
+        const liString = trList.map((tr) => {
           const tdList = Array.from(tr.querySelectorAll('td'));
 
           // Extract the content of the first <td> to be placed outside the <li>

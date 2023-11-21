@@ -18,8 +18,6 @@ export default function decorate(block) {
     blockStyle.borderRadius = '20px';
   }
 
-  console.log(pictureEl.querySelector('img').getAttribute('src'))
-
   if (imageCover && imageCover === 'small') {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor ? backgroundColor : 'transparent'}`;
     block.innerHTML = `
