@@ -95,7 +95,6 @@
         }
 
         &.lp-brand .banner {
-            background: url('../../images/lp-brand.jpg') 0 0 / cover no-repeat transparent;
             padding-bottom: 9rem;
 
             h1 {
@@ -112,6 +111,7 @@
     .section {
         &.lp-brand .banner {
             padding-bottom: 3rem!important;
+            background: none!important;
         }
     }
 }

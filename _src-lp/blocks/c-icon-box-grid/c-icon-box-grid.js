@@ -26,6 +26,7 @@ export default function decorate(block) {
     iconImg: svgNameEl.innerHTML,
     title: block.children[1].children[tableIndex].innerText,
     subtitle: block.children[2].children[tableIndex].innerHTML,
+    buttons: block.children[5]?.children[tableIndex].innerHTML,
   }));
 
   const upperText = block.children[3];
@@ -47,6 +48,7 @@ export default function decorate(block) {
               ${col.svgName && !col.iconImg.includes('img') ? new SvgLoaderComponent(col.svgName, svgColor, svgSize).render() : ''}
               ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
               ${col.subtitle ? `<div class="subtitle">${col.subtitle}</div>` : ''}
+              ${col.buttons ? `<div class="buttons">${col.buttons}</div>` : ''}
             </div>
           </div>
         `).join('')}

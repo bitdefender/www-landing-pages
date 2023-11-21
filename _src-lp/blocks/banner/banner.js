@@ -14,15 +14,14 @@ export default function decorate(block) {
   if (marginTop) blockStyle.marginTop = `${marginTop}rem`;
   if (marginBottom) blockStyle.marginBottom = `${marginBottom}rem`;
 
-  /* if (imageCover && imageCover === 'small') {
-    blockStyle.background = `url(${bckImg}) no-repeat 0 0 / cover ${backgroundColor ? backgroundColor : 'transparent'}`;
-  } */
-
   if (corners && corners === 'round') {
     blockStyle.borderRadius = '20px';
   }
 
+  console.log(pictureEl.querySelector('img').getAttribute('src'))
+
   if (imageCover && imageCover === 'small') {
+    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor ? backgroundColor : 'transparent'}`;
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">

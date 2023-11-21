@@ -59,7 +59,7 @@
 
   .new-blue {
     background: #d9eeff;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 1em;
   }
 
@@ -94,6 +94,10 @@
       padding: 1rem 5%;
       margin: 1em 0;
 
+      .icon-box-grid-column {
+        height: 100%;
+      }
+
       .title {
         font-size: var(--heading-font-size-s);
         font-family: Arial, sans-serif;
@@ -102,6 +106,14 @@
       .subtitle {
         font-size: 12px;
         font-family: Arial, sans-serif;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+
+        p.button-container {
+          align-items: self-end;
+          display: inline;
+        }
       }
 
       p.button-container a {
@@ -118,7 +130,7 @@
 }
 
 .c-icon-box-grid-container.new .quotes .icon-box-grid-column {
-  background: url('../../images/dark-blue-quote.svg') no-repeat top 3em left 20px #FFF;
+  background: url('../../images/dark-blue-quote.svg') no-repeat top 2.3em left 20px #FFF;
   margin: 0.2em 0;
   box-shadow: 5px 8px 11px -12px #000;
 }
@@ -140,9 +152,9 @@
 }
 
 .c-icon-box-grid-container.bordered .col-lg {
-  border-radius: 5px;
+  border-radius: 20px;
   border: 1px solid #F2F2F2;
-  margin: 1%;
+  margin: 15px 1%;
   padding: 3%;
 }
 
@@ -203,6 +215,7 @@
 @media (width >= 768px) {
   .c-icon-box-grid-container .new-blue {
     padding: 2em;
+    margin-bottom: 2em;
   }
 
   .c-icon-box-grid-container.new .title {
@@ -233,7 +246,7 @@
         margin: 0 15px;
 
         .title {
-          font-size: var(--heading-font-size-xl);
+          font-size: 36px;
         }
 
         .subtitle {

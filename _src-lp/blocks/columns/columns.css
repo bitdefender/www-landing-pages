@@ -42,7 +42,7 @@
 }
 
 .columns img {
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 .columns > div {
@@ -75,10 +75,19 @@
     flex-direction: unset;
     padding: 18px;
   }
+  .columns div.text-content {
+    padding: 2em;
+  }
   .columns > div > div {
     flex: 1;
     order: unset;
     padding: 2rem;
+  }
+  .columns > div > div:first-of-type {
+    padding-left: 0;
+  }
+  .columns > div > div:last-of-type {
+    padding-right: 0;
   }
   .columns > div > .columns-img-col--left img {
     max-width: 100%;
@@ -89,11 +98,11 @@
     margin-right: auto;
   }
   .columns-container.new .columns > div {
-    padding: 15px;
+    padding: 15px 0;
   }
   .columns-container.new .columns h2 {
-    font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
+    font-size: 36px;
+    line-height: 36px;
   }
   .columns-container.new .columns p {
     font-size: var(--heading-font-size-2);

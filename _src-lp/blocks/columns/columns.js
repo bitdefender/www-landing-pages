@@ -25,7 +25,7 @@ export default function decorate(block) {
         }
       } else {
         col.innerHTML = `
-          <div>
+          <div class="text-content">
             ${col.innerHTML}
           </div>
         `;

@@ -19,7 +19,7 @@
   width: 100%;
   height: 100%;
   background-color: #F6F6F6;
-  border-radius: 30px;
+  border-radius: 20px;
   padding: 25px;
   margin: 0 auto;
 }
@@ -35,8 +35,8 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding-top: 7px;
-  margin-top: -62px;
-  margin-bottom: 47px;
+  margin-top: -64px;
+  margin-bottom: 37px;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box h2 {
   font-weight: bold;
@@ -107,6 +107,7 @@
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists {
   font-family: Arial, sans-serif;
+  color: transparent;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists p {
   margin: 0;
@@ -116,24 +117,61 @@
   text-decoration: none;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul {
-  margin-top: 0;
+  margin: 0;
   padding: 0;
+  color: black;
 }
-.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li {
-  font-size: 14px;
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:first-of-type {
+  font-size: var(--body-font-size-xs);
+  text-decoration: none;
   list-style-type: none;
-  background: url("../../images/icons/ok.png") top 5px left no-repeat transparent;
-  padding-left: 24px;
-  background-size: 15px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px;
 }
-.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li u {
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) {
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 8px;
+  list-style-type: none;
+  background: url("../../images/icons/ok.png") top 2px left no-repeat transparent;
+  padding-left: 22px;
+  background-size: 13px;
+  position: relative;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type):hover span {
+  display: block;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) span {
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 28px;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  font-size: 12px;
+  box-shadow: 4px 4px 7px -8px #000000;
+  display: none;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) span::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  bottom: -20px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) u {
   font-size: 14px;
   font-weight: bold;
   color: white;
   border-radius: 20px;
-  padding: 2px 23px 2px 7px;
-  background: url("../../images/icons/1x.png") center right 6px no-repeat #026DFF;
-  background-size: auto 14px;
+  padding: 2px 21px 2px 7px;
+  background: url("../../images/icons/individual.svg") center right 6px no-repeat #026DFF;
+  background-size: auto 12px;
 }
 
 @media (width >= 768px) {
@@ -142,7 +180,7 @@
     padding: 0;
   }
   .new-prod-boxes-container .block .pod_box.hasGreenTag {
-    margin-top: 0;
+    margin-top: 1em;
   }
   .new-prod-boxes-container .block .pod_box .inner_pod_box {
     width: 92%;
