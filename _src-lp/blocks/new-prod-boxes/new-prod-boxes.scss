@@ -159,12 +159,6 @@
                             background-size: 13px;
                             position: relative;
 
-                            &:hover {
-                                span {
-                                    display: block;
-                                }
-                            }
-
                             span {
                                 position: absolute;
                                 background-color: white;
@@ -175,7 +169,7 @@
                                 bottom: 0;
                                 z-index: 1;
                                 font-size: 12px;
-                                box-shadow: 4px 4px 7px -8px #000000;
+                                box-shadow: 4px 4px 7px -8px #000;
                                 display: none;
 
                                 &::before {
@@ -185,7 +179,13 @@
                                     bottom: -20px;
                                     border-width: 10px;
                                     border-style: solid;
-                                    border-color: white transparent transparent transparent;
+                                    border-color: white transparent transparent;
+                                }
+                            }
+
+                            &:hover {
+                                span {
+                                    display: block;
                                 }
                             }
 

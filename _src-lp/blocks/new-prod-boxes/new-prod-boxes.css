@@ -139,9 +139,6 @@
   background-size: 13px;
   position: relative;
 }
-.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type):hover span {
-  display: block;
-}
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) span {
   position: absolute;
   background-color: white;
@@ -152,7 +149,7 @@
   bottom: 0;
   z-index: 1;
   font-size: 12px;
-  box-shadow: 4px 4px 7px -8px #000000;
+  box-shadow: 4px 4px 7px -8px #000;
   display: none;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) span::before {
@@ -162,7 +159,10 @@
   bottom: -20px;
   border-width: 10px;
   border-style: solid;
-  border-color: white transparent transparent transparent;
+  border-color: white transparent transparent;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type):hover span {
+  display: block;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) u {
   font-size: 14px;
