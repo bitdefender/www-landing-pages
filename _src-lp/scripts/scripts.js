@@ -67,7 +67,7 @@ export function getParam(param) {
   } catch (ex) { return false; }
 }
 
-const LCP_BLOCKS = []; // add your LCP blocks to the list
+const LCP_BLOCKS = ['banner', 'b-banner', 'c-banner']; // add your LCP blocks to the list
 
 /**
  * Builds hero block and prepends to main in a new section.
