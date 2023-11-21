@@ -179,6 +179,15 @@
   margin-top: 5px;
 }
 
+.b-banner-container .banner-image.flipClock-image {
+  position: relative;
+
+  img {
+    position: relative;
+    z-index: 0;
+  }
+}
+
 .b-banner-container .b-banner-wrapper .b-banner.bigger-award-and-text table tbody tr td img {
   max-height: 90px;
 }
@@ -408,6 +417,10 @@
     padding: 1em 0;
     min-height: 350px;
   }
+  
+  .b-banner-container .banner-image.flipClock-image {
+    position: relative;
+  }
 
   .b-banner-container.smaller {
     padding: 1em 0;
@@ -437,10 +450,9 @@
   }
 
   .b-banner-container .b-banner-wrapper {
-    position: absolute;
     height: 100%;
     align-items: center;
-    margin: 15px auto;
+    margin: 15px;
     display: flex;
   }
 
@@ -550,6 +562,8 @@
     left: 0;
     right: 0;
     top: 0;
+    margin: 15px auto;
+    position: absolute;
   }
 
   .b-banner-container .b-banner-wrapper .banner-image--in-container img {
