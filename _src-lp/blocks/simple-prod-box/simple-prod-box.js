@@ -14,7 +14,7 @@ export default function decorate(block) {
 
   block.innerHTML = `
     <div class="container-fluid">
-      ${icon.innerText.trim() && `<div class="icon">${icon.innerHTML}</div>`}
+      ${icon.innerHTML.trim() && `<div class="icon">${icon.innerHTML}</div>`}
       ${title.innerText.trim() && `<h2>${title.innerText}</h2>`}
 
       <div>
