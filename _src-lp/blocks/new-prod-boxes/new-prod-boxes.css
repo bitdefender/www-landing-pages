@@ -72,6 +72,26 @@
   border: 1px solid #D1D1D1;
   margin: 10px 0;
 }
+.new-prod-boxes-container .block .pod_box .inner_pod_box .save_price_box {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .save_price_box .prod-oldprice {
+  font-size: var(--heading-font-size-xs);
+  line-height: var(--heading-font-size-xs);
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .save_price_box .prod-percent {
+  font-size: 13px;
+  line-height: 15px;
+  color: white;
+  background-color: #68BA68;
+  border-radius: 11px;
+  padding: 4px 10px;
+}
 .new-prod-boxes-container .block .pod_box .inner_pod_box .prices_box {
   display: flex;
   justify-content: left;

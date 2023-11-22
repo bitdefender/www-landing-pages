@@ -12,7 +12,7 @@ export default function decorate(block) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     [...block.children].forEach((prod, key) => {
-      const [greenTag, title, blueTag, subtitle, price, billed, buyLink, undeBuyLink, benefitsLists] = [...prod.querySelectorAll('tr')];
+      const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, undeBuyLink, benefitsLists] = [...prod.querySelectorAll('tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
@@ -48,27 +48,35 @@ export default function decorate(block) {
             ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
             ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerText.trim()}</p>` : ''}
             <hr />
-            <div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                <span class="prod-oldprice d-none oldprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-                <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-                <sup>${price.innerText.trim() && price.innerText.trim().replace('0', '')}<sup>
-              </div>
-              ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="oldprice-${onSelectorClass}"></span>`)}</div>` : ''}
-              <div class="buy-btn">
-                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender ${buyLink.innerText.trim() && buyLink.innerText.trim()}">${buyLink.innerText.trim() && buyLink.innerText.trim()}</a>
-              </div>
-              ${undeBuyLink.innerText.trim() ? `<div class="undeBuyLink">${undeBuyLink.innerText.trim()}</div>` : ''}
-              <hr />
-              ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
+
+            ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
+              <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+              <strong class="prod-percent">
+                ${Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`)}
+              </strong>
+            </div>`}
+
+            ${price.innerText.trim() && `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+              <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
+              <sup>${price.innerText.trim().replace('0', '')}<sup>
+            </div>`}
+
+            ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>` : ''}
+
+            ${buyLink.innerText.trim() && `<div class="buy-btn">
+              <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender ${buyLink.innerText.trim()}">${buyLink.innerText.trim()}</a>
+            </div>`}
+
+            ${undeBuyLink.innerText.trim() ? `<div class="undeBuyLink">${undeBuyLink.innerText.trim()}</div>` : ''}
+            <hr />
+            ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
-        </div>
-      `;
+        </div>`;
     });
   } else {
     block.innerHTML = `
     <div class="container-fluid">
       add some products
-    </div>
-    `;
+    </div>`;
   }
 }

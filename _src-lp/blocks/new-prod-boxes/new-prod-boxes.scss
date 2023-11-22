@@ -81,6 +81,29 @@
                     margin: 10px 0;
                 }
 
+                .save_price_box {
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+                    margin-bottom: 8px;
+
+                    .prod-oldprice {
+                        font-size: var(--heading-font-size-xs);
+                        line-height: var(--heading-font-size-xs);
+                        text-decoration: line-through;
+                        margin-right: 10px;
+                    }
+
+                    .prod-percent {
+                        font-size: 13px;
+                        line-height: 15px;
+                        color: white;
+                        background-color: #68BA68;
+                        border-radius: 11px;
+                        padding: 4px 10px;
+                    }
+                }
+
                 .prices_box {
                     display: flex;
                     justify-content: left;
