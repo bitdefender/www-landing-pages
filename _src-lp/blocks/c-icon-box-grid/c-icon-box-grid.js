@@ -47,7 +47,6 @@ export default function decorate(block) {
         ${formattedDataColumns.map((col) => `
           <div class="col-md-12 col-lg ${columnsAlignment === 'center' ? 'col-lg-4' : ''}">
             <div class="icon-box-grid-column d-flex flex-column justify-content-start">
-              ${col.svgName && !col.iconImg.includes('img') ? new SvgLoaderComponent(col.svgName, svgColor, svgSize).render() : ''}
               ${hasOldSvgImplementation(col.svgName) ? new SvgLoaderComponent(col.svgName, svgColor, svgSize).render() : col.svgName}
               ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
               ${col.subtitle ? `<div class="subtitle">${col.subtitle}</div>` : ''}
