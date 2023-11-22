@@ -237,6 +237,8 @@
 
   .c-icon-box-grid-container.new .quotes .icon-box-grid-column p:nth-of-type(2) {
     min-height: 4rem;
+    display: flex;
+    align-items: end;
   }
 
   .c-icon-box-grid-container {
