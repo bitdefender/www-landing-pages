@@ -14,10 +14,40 @@
         h1 {
             font-size: 28px;
             text-align: center;
+            margin-top: 0;
         }
 
         .button-container {
             display: none;
+        }
+    }
+
+    &.lp-brand .banner {
+        padding: 0 15px;
+        background: unset;
+        padding-bottom: 3rem;
+
+        .col-5 {
+            width: 322px;
+        }
+
+        h1 {
+            font-weight: lighter;
+            font-size: var(--heading-font-size-s);
+            line-height: var(--heading-font-size-s);
+        }
+
+        p {
+            width: 235px;
+            font-size: 12px;
+            line-height: 14px;
+            font-family: Arial, sans-serif;
+            margin: 0 auto 15px;
+        }
+
+        img {
+            width: 97%;
+            border-radius: 10px;
         }
     }
 }
@@ -27,6 +57,21 @@
         .banner {
             h1 {
                 font-size: 30px;
+            }
+        }
+
+        &.lp-brand .banner {
+            h1 {
+                font-weight: lighter;
+                font-size: var(--heading-font-size-l);
+                line-height: var(--heading-font-size-l);
+                margin-top: 1em;
+            }
+
+            p {
+                width: 100%;
+                font-size: var(--body-font-size-xs);
+                line-height: var(--body-font-size-s);
             }
         }
     }
@@ -47,6 +92,35 @@
             img {
                 width: initial;
             }
+        }
+
+        &.lp-brand .banner {
+            padding-bottom: 9rem;
+
+            h1 {
+                font-weight: lighter;
+                font-size: var(--heading-font-size-xl);
+                line-height: var(--heading-font-size-xl);
+            }
+
+        }
+    }
+}
+
+@media screen and (width <= 991px) {
+    .section {
+        &.lp-brand .banner {
+            padding-bottom: 3rem!important;
+            background: none!important;
+        }
+    }
+}
+
+@media screen and (width <= 768px) {
+    .section {
+        &.lp-brand .banner {
+            padding-bottom: 5.5rem !important;
+            border-radius: 10px!important;
         }
     }
 }

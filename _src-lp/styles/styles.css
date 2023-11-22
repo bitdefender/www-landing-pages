@@ -58,11 +58,6 @@ body.appear {
   text-align: center;
 }
 
-header {
-  background-color: black;
-  height: var(--nav-height);
-}
-
 body [data-mobile-detector] {
   display: block;
 }
@@ -160,6 +155,10 @@ main pre {
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
+}
+
+.underlined a:any-link {
+  text-decoration: underline;
 }
 
 a:hover {
@@ -339,6 +338,21 @@ main .section[data-size=bigger] .default-content-wrapper h5 {
 
 main .section[data-size=bigger] .default-content-wrapper h6 {
   font-size: 29px;
+}
+
+main .section.size-40-normal .default-content-wrapper h2 {
+  font-size: var(--heading-font-size-xl);
+  font-weight: normal;
+}
+
+main .section.size-12-normal .default-content-wrapper p {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+main .section.width-medium .block {
+  width: 940px;
+  margin: 0 auto;
 }
 
 .red-buy-button p {
@@ -1359,6 +1373,9 @@ main .section.highlight {
   #flipdown .flip-clock-dot.bottom {
     bottom: 14px;
   }
+  main .section.width-medium .block {
+    width: 100%;
+  }
 }
 @media (width <= 768px) {
   header {
@@ -1395,6 +1412,18 @@ main .section.highlight {
   }
   .awards .title {
     margin-bottom: 0 !important;
+  }
+  main .section.size-40-normal, main .section.size-12-normal {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  main .section.size-40-normal .default-content-wrapper, main .section.size-12-normal .default-content-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  main .section.size-40-normal .default-content-wrapper h2 {
+    font-size: var(--heading-font-size-s);
+    margin-bottom: 0;
   }
   main .default-content-wrapper {
     padding-top: 1em;
