@@ -15,8 +15,9 @@ import { getDatasetFromSection } from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 function hasOldSvgImplementation(svgNameEl) {
-  return !svgNameEl.innerHTML.includes('<span class=');
+  return svgNameEl.childElementCount === 0;
 }
+
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
 
