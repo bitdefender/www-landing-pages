@@ -15,9 +15,7 @@ import { getDatasetFromSection } from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 function hasOldSvgImplementation(svgName) {
-  const condition = !svgName.includes('<span class=');
-  console.log('condition', condition);
-  return condition;
+  return !svgName.includes('<span class=');
 }
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
@@ -32,8 +30,6 @@ export default function decorate(block) {
     title: block.children[1].children[tableIndex].innerText,
     subtitle: block.children[2].children[tableIndex].innerHTML,
   }));
-
-  console.log('formattedDataColumns', formattedDataColumns);
 
   const upperText = block.children[3];
   const bottomText = block.children[4];
