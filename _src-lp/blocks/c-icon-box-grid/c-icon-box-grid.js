@@ -19,7 +19,7 @@ function hasOldSvgImplementation(svgNameEl) {
 }
 
 function sanitiseStrongItalic(el) {
-  return el.firstElementChild.tagName === 'STRONG' ? el.firstElementChild : el;
+  return el.firstElementChild?.tagName === 'STRONG' ? el.firstElementChild : el;
 }
 
 export default function decorate(block) {
