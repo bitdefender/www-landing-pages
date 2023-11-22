@@ -4,7 +4,7 @@
  */
 export function getInstance() {
   const hostToInstance = {
-    'pages.bitdefender.com': 'prod',
+    'bitdefender.com': 'prod',
     'hlx.page': 'stage',
     'hlx.live': 'stage',
   };
