@@ -244,15 +244,18 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
 
     const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
+    const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyLabel, regionId);
     const offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
+    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyLabel, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
     const savings = formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
 
-    if (document.querySelector(`.oldprice-${onSelectorClass}`)) {
-      const allOldPriceBox = document.querySelectorAll(`.oldprice-${onSelectorClass}`);
+    const oldPriceClass = `.oldprice-${onSelectorClass}`;
+    if (document.querySelector(oldPriceClass)) {
+      const allOldPriceBox = document.querySelectorAll(oldPriceClass);
       if (triggerVPN) {
-        parentDiv.querySelector(`.oldprice-${onSelectorClass}`).innerHTML = fullPrice;
+        parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
         if (comparativeTextBox) {
           allOldPriceBox.forEach((item) => {
             item.innerHTML = fullPrice;
@@ -265,10 +268,11 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    if (document.querySelector(`.newprice-${onSelectorClass}`)) {
-      const allNewPriceBox = document.querySelectorAll(`.newprice-${onSelectorClass}`);
+    const onewPriceClass = `.newprice-${onSelectorClass}`;
+    if (document.querySelector(onewPriceClass)) {
+      const allNewPriceBox = document.querySelectorAll(onewPriceClass);
       if (triggerVPN) {
-        parentDiv.querySelector(`.newprice-${onSelectorClass}`).innerHTML = offerPrice;
+        parentDiv.querySelector(onewPriceClass).innerHTML = offerPrice;
         if (comparativeTextBox) {
           allNewPriceBox.forEach((item) => {
             item.innerHTML = offerPrice;
@@ -277,6 +281,40 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       } else {
         allNewPriceBox.forEach((item) => {
           item.innerHTML = offerPrice;
+        });
+      }
+    }
+
+    const oldPriceMonthlyClass = `.oldprice-${onSelectorClass}-monthly`;
+    if (document.querySelector(oldPriceMonthlyClass)) {
+      const allOldPriceBox = document.querySelectorAll(oldPriceMonthlyClass);
+      if (triggerVPN) {
+        parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
+        if (comparativeTextBox) {
+          allOldPriceBox.forEach((item) => {
+            item.innerHTML = fullPriceMonthly;
+          });
+        }
+      } else {
+        allOldPriceBox.forEach((item) => {
+          item.innerHTML = fullPriceMonthly;
+        });
+      }
+    }
+
+    const onewPriceMonthlyClass = `.newprice-${onSelectorClass}-monthly`;
+    if (document.querySelector(onewPriceMonthlyClass)) {
+      const allNewPriceBox = document.querySelectorAll(onewPriceMonthlyClass);
+      if (triggerVPN) {
+        parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
+        if (comparativeTextBox) {
+          allNewPriceBox.forEach((item) => {
+            item.innerHTML = offerPriceMonthly;
+          });
+        }
+      } else {
+        allNewPriceBox.forEach((item) => {
+          item.innerHTML = offerPriceMonthly;
         });
       }
     }
