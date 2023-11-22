@@ -160,6 +160,7 @@
 
                     ul {
                         margin: 0;
+                        margin-bottom: -5px;
                         padding: 0;
                         color: black;
 
@@ -221,6 +222,10 @@
                                 background: url('../../images/icons/individual.svg') center right 6px no-repeat #026DFF;
                                 background-size: auto 12px;
                             }
+                        }
+
+                        &:nth-of-type(2) {
+                            min-height: 5em;
                         }
                     }
                 }
