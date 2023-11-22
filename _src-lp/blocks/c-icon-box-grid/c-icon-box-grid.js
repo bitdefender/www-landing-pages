@@ -18,6 +18,10 @@ function hasOldSvgImplementation(svgNameEl) {
   return svgNameEl.childElementCount === 0;
 }
 
+function sanitiseStrongItalic(el) {
+  return el.firstElementChild.tagName === 'STRONG' ? el.firstElementChild : el;
+}
+
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
 
@@ -27,7 +31,7 @@ export default function decorate(block) {
   const upperTextWidth = metaData.upperTextWidth;
 
   const formattedDataColumns = [...block.children[0].children].map((svgNameEl, tableIndex) => ({
-    svgNameEl,
+    svgNameEl: sanitiseStrongItalic(svgNameEl),
     title: block.children[1].children[tableIndex].innerText,
     subtitle: block.children[2].children[tableIndex].innerHTML,
     buttons: block.children[5]?.children[tableIndex].innerHTML,
