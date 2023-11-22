@@ -14,8 +14,8 @@ import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
 import { getDatasetFromSection } from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
-function hasOldSvgImplementation(svgName) {
-  return !svgName.includes('<span class=');
+function hasOldSvgImplementation(svgNameEl) {
+  return !svgNameEl.innerHTML.includes('<span class=');
 }
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
@@ -26,7 +26,7 @@ export default function decorate(block) {
   const upperTextWidth = metaData.upperTextWidth;
 
   const formattedDataColumns = [...block.children[0].children].map((svgNameEl, tableIndex) => ({
-    svgName: svgNameEl.innerHTML,
+    svgNameEl,
     title: block.children[1].children[tableIndex].innerText,
     subtitle: block.children[2].children[tableIndex].innerHTML,
     buttons: block.children[5]?.children[tableIndex].innerHTML,
@@ -47,7 +47,7 @@ export default function decorate(block) {
         ${formattedDataColumns.map((col) => `
           <div class="col-md-12 col-lg ${columnsAlignment === 'center' ? 'col-lg-4' : ''}">
             <div class="icon-box-grid-column d-flex flex-column justify-content-start">
-              ${hasOldSvgImplementation(col.svgName) ? new SvgLoaderComponent(col.svgName, svgColor, svgSize).render() : col.svgName}
+              ${hasOldSvgImplementation(col.svgNameEl) ? new SvgLoaderComponent(col.svgNameEl.innerText, svgColor, svgSize).render() : col.svgNameEl.innerHTML}
               ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
               ${col.subtitle ? `<div class="subtitle">${col.subtitle}</div>` : ''}
               ${col.buttons ? `<div class="buttons">${col.buttons}</div>` : ''}
