@@ -1,0 +1,254 @@
+
+.new-prod-boxes-container {
+    padding-bottom: 0;
+
+    .block {
+        margin: 0 auto;
+        padding: 0 15px;
+        display: flex;
+        flex-direction: column;
+
+        .pod_box {
+            flex: 1;
+            margin: 1em 0;
+
+            &.hasGreenTag {
+                margin-top: 3em;
+            }
+
+            .inner_pod_box {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                background-color: #F6F6F6;
+                border-radius: 20px;
+                padding: 25px;
+                margin: 0 auto;
+
+                .greenTag2 {
+                    height: 37px;
+                    width: 100%;
+                    font-size: var(--body-font-size-xs);
+                    font-family: Arial, sans-serif;
+                    color: white;
+                    text-align: center;
+                    font-weight: bold;
+                    background-color: #1C7928;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                    padding-top: 7px;
+                    margin-top: -64px;
+                    margin-bottom: 37px;
+                }
+
+                h2 {
+                    font-weight: bold;
+                    font-size: var(--body-font-size-m);
+                    line-height: var(--body-font-size-m);
+                    font-family: Arial, sans-serif;
+                    margin-top: 10px;
+                }
+
+                .blueTag {
+                    font-size: var(--body-font-size-xs);
+                    font-family: Arial, sans-serif;
+                    color: white;
+                    text-align: center;
+                    background-color: #026DFF;
+                    display: inline-block;
+                    border-radius: 20px;
+                    padding: 1px 12px;
+
+                    div {
+                        display: flex;
+                    }
+
+                    img {
+                        height: 14px;
+                        margin-right: 5px;
+                        margin-top: -5px;
+                    }
+                }
+
+                .subtitle {
+                    font-size: 14px;
+                    font-family: Arial, sans-serif;
+                    margin-bottom: 0;
+                }
+
+                hr {
+                    border: 1px solid #D1D1D1;
+                    margin: 10px 0;
+                }
+
+                .save_price_box {
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+                    margin-bottom: 8px;
+
+                    .prod-oldprice {
+                        font-size: var(--heading-font-size-xs);
+                        line-height: var(--heading-font-size-xs);
+                        text-decoration: line-through;
+                        margin-right: 10px;
+                    }
+
+                    .prod-percent {
+                        font-size: 13px;
+                        line-height: 15px;
+                        color: white;
+                        background-color: #68BA68;
+                        border-radius: 11px;
+                        padding: 4px 10px;
+                    }
+                }
+
+                .prices_box {
+                    display: flex;
+                    justify-content: left;
+
+                    .prod-newprice {
+                        font-size: var(--heading-font-size-xl);
+                        line-height: var(--heading-font-size-xl);
+                    }
+
+                    sup {
+                        margin: -5px 0 0 5px;
+                        font-size: var(--heading-font-size-s);
+                        line-height: var(--heading-font-size-s);
+                    }
+                }
+
+                .billed {
+                    font-size: 12px;
+                    font-family: Arial, sans-serif;
+                    line-height: 13px;
+                    margin: 7px 0;
+                }
+
+                .buy-btn {
+                    a.red-buy-button {
+                        width: 100%;
+                        text-transform: none;
+                        font-size: 14px;
+                        line-height: 14px;
+                        font-weight: 500!important;
+                        padding: 10px 1%!important;
+                    }
+                }
+
+                .undeBuyLink {
+                    font-size: 12px;
+                    font-family: Arial, sans-serif;
+                    line-height: 13px;
+                    margin: 7px 0;
+                }
+
+                .benefitsLists {
+                    font-family: Arial, sans-serif;
+                    color: transparent;
+
+                    p {
+                        margin: 0
+                    }
+
+                    u {
+                        font-size: var(--body-font-size-xs);
+                        text-decoration: none;
+                    }
+
+                    ul {
+                        margin: 0;
+                        margin-bottom: -5px;
+                        padding: 0;
+                        color: black;
+
+                        li:first-of-type {
+                            font-size: var(--body-font-size-xs);
+                            text-decoration: none;
+                            list-style-type: none;
+                            font-weight: bold;
+                            font-family: Arial, sans-serif;
+                            margin-bottom: 10px;
+                        }
+
+                        li:not(:first-of-type) {
+                            font-size: 14px;
+                            line-height: 17px;
+                            margin-bottom: 8px;
+                            list-style-type: none;
+                            background: url('../../images/icons/ok.png') top 2px left no-repeat transparent;
+                            padding-left: 22px;
+                            background-size: 13px;
+                            position: relative;
+
+                            span {
+                                position: absolute;
+                                background-color: white;
+                                padding: 10px;
+                                border-radius: 10px;
+                                margin-bottom: 28px;
+                                left: 0;
+                                bottom: 0;
+                                z-index: 1;
+                                font-size: 12px;
+                                box-shadow: 4px 4px 7px -8px #000;
+                                display: none;
+
+                                &::before {
+                                    content: '';
+                                    position: absolute;
+                                    left: 17px;
+                                    bottom: -20px;
+                                    border-width: 10px;
+                                    border-style: solid;
+                                    border-color: white transparent transparent;
+                                }
+                            }
+
+                            &:hover {
+                                span {
+                                    display: block;
+                                }
+                            }
+
+                            u {
+                                font-size: 14px;
+                                font-weight: bold;
+                                color: white;
+                                border-radius: 20px;
+                                padding: 2px 21px 2px 7px;
+                                background: url('../../images/icons/individual.svg') center right 6px no-repeat #026DFF;
+                                background-size: auto 12px;
+                            }
+                        }
+
+                        &:nth-of-type(2) {
+                            min-height: 5em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (width >= 768px) {
+    .new-prod-boxes-container {
+        .block {
+            flex-direction: row;
+            padding: 0;
+
+            .pod_box {
+                &.hasGreenTag {
+                    margin-top: 1em;
+                }
+
+                .inner_pod_box {
+                    width: 92%;
+                }
+            }
+        }
+    }
+}

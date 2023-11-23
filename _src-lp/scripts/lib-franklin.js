@@ -157,11 +157,8 @@ export async function decorateIcons2(element = document) {
 }
 
 const ICONS_CACHE = {};
-/**
- * Replace icons with inline SVG and prefix with codeBasePath.
- * @param {Element} [element] Element containing icons
- */
-export async function decorateIcons(element) {
+
+async function internalDecorateIcons(element) {
   // Prepare the inline sprite
   let svgSprite = document.getElementById('franklin-svg-sprite');
   if (!svgSprite) {
@@ -178,7 +175,8 @@ export async function decorateIcons(element) {
     if (!ICONS_CACHE[iconName]) {
       ICONS_CACHE[iconName] = true;
       try {
-        const response = await fetch(`${window.hlx.codeBasePath}/icons/${iconName}.svg`);
+        const dynamicIconsSharepointPath = '/icons/';
+        const response = await fetch(`${dynamicIconsSharepointPath}${iconName}.svg`);
         if (!response.ok) {
           ICONS_CACHE[iconName] = false;
           return;
@@ -204,24 +202,36 @@ export async function decorateIcons(element) {
     }
   }));
 
-  const symbols = Object
-    .keys(ICONS_CACHE).filter((k) => !svgSprite.querySelector(`#icons-sprite-${k}`))
-    .map((k) => ICONS_CACHE[k])
-    .filter((v) => !v.styled)
-    .map((v) => v.html)
-    .join('\n');
+  const symbols = Object.values(ICONS_CACHE).filter((v) => !v.styled).map((v) => v.html).join('\n');
   svgSprite.innerHTML += symbols;
 
   icons.forEach((span) => {
     const iconName = Array.from(span.classList).find((c) => c.startsWith('icon-')).substring(5);
     const parent = span.firstElementChild?.tagName === 'A' ? span.firstElementChild : span;
+
+    // Set aria-label if the parent is an anchor tag
+    const spanParent = span.parentElement;
+    if (spanParent.tagName === 'A' && !spanParent.hasAttribute('aria-label')) {
+      spanParent.setAttribute('aria-label', iconName);
+    }
     // Styled icons need to be inlined as-is, while unstyled ones can leverage the sprite
-    if (ICONS_CACHE[iconName].styled) {
+    if (ICONS_CACHE[iconName] && ICONS_CACHE[iconName].styled) {
       parent.innerHTML = ICONS_CACHE[iconName].html;
     } else {
       parent.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-${iconName}"/></svg>`;
     }
   });
+}
+
+let previousDecoration = Promise.resolve();
+
+/**
+ * Replace icons with inline SVG and prefix with codeBasePath.
+ * @param {Element} [element] Element containing icons
+ */
+export async function decorateIcons(element) {
+  previousDecoration = previousDecoration.then(() => internalDecorateIcons(element));
+  await previousDecoration;
 }
 
 /**
