@@ -306,8 +306,9 @@ export default function decorate(block) {
     </div>`;
 
     const buyTable = block.querySelector('table:last-of-type');
+    console.log(buyTable.innerText);
     buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
-      <a class="red-buy-button buylink-${onSelectorClass} prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText} Bitdefender" href="#">
+      <a class="red-buy-button buylink-${onSelectorClass} prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
         <strong>${buyTable.innerText}</strong>
       </a>
     </div>`;
