@@ -2,7 +2,21 @@ export default class ZuoraNLClass {
   // static campaignDefault = 'CyberPU2023';
   static campaignDefault = 'BFPU2023';
 
-  static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
+  static monthlyProducts = {
+    "ultsecm": "ultsecm",
+    "ultsecplusm": "ultsecplusm",
+    "psm": "psm",
+    "pspm": "pspm",
+    "vpn-monthly": "vpn-monthly",
+    "passm": "passm",
+    "idtheftsm": "idtheftsm",
+    "idtheftpm": "idtheftpm",
+    "dipm": "dipm",
+    "smarthome_m": "smarthome_m",
+    "vipsupport_m": "vipsupport_m",
+    "pctuneup_m": "pctuneup_m",
+    "pass_spm": "pass_spm"
+} ;
 
   // this products come with device_no set differently from the init-selector api where they are set to 1
   static wrongDeviceNumber = ['bms', 'mobile', 'ios', 'mobileios', 'psm', 'passm'];
@@ -118,35 +132,6 @@ export default class ZuoraNLClass {
     };
 
     payload.forEach((period) => {
-      let billingPeriod;
-      switch (period.billing_period) {
-        case 'Month':
-          billingPeriod = 0;
-          break;
-        case 'Annual':
-          billingPeriod = 1;
-          break;
-        case 'Two_Years':
-          billingPeriod = 2;
-          break;
-        case 'Three_Years':
-          billingPeriod = 3;
-          break;
-        case 'Five_Years':
-          billingPeriod = 5;
-          break;
-        default:
-          billingPeriod = 10;
-      }
-
-      if ((this.monthlyProducts.indexOf(id) === -1 && billingPeriod === 0) || (this.monthlyProducts.indexOf(id) !== -1 && billingPeriod !== 0)) {
-        return;
-      }
-
-      if (this.monthlyProducts.indexOf(id) !== -1) {
-        billingPeriod = 1;
-      }
-
       // buylink:
       const windowURL = new URL(window.location.href);
       const zuoraCart = new URL('/index.html:step=cart?theme=light', this.zuoraConfig.cartUrl);
