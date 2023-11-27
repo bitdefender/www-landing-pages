@@ -304,7 +304,7 @@ StoreProducts.initSelector = function (config) {
         if (so.product_id === 'psp' || so.product_id === 'pspm' || so.product_id === 'dip' || so.product_id === 'dipm') {
           so.config.force_region = '16';
         } else {
-          so.config.force_region = DEFAULT_LANGUAGE === 'hk' ? '41' : '52';
+          so.config.force_region = DEFAULT_LANGUAGE === 'zh-hk' ? '41' : '52';
         }
       }
 
