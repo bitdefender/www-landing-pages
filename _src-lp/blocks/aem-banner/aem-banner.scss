@@ -1,0 +1,42 @@
+.aem-banner-container {
+
+  .aem-banner {
+
+    p:first-of-type {
+      margin: 0;
+    }
+
+    h1 {
+      color: #006DFF;
+      font-size: 40px;
+      font-weight: normal;
+      margin-top: 10px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      font-weight: normal;
+    }
+
+    .aem-banner__mobile-image {
+      
+      img {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        width: 100%;
+      }
+    }
+
+    .aem-banner__desktop-image {
+      display: none;
+    }
+
+    .aem-banner__card-text {
+      padding: 27px;
+      background-color: #F5F5F5;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+  }
+}
