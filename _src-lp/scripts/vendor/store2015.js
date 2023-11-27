@@ -282,6 +282,7 @@ StoreProducts.initSelector = function (config) {
       }
 
       let BASE_URI = 'https://www.bitdefender.com/site';
+      // todo convert this if else to Map
       if (DEFAULT_LANGUAGE) {
         let DOMAIN = DEFAULT_LANGUAGE;
         if (DOMAIN === 'en') {
@@ -292,9 +293,19 @@ StoreProducts.initSelector = function (config) {
           DOMAIN = 'com.au';
         } else if (DOMAIN === 'br') {
           DOMAIN = 'com.br';
+        } else if (DOMAIN === 'zh-hk' || DOMAIN === 'zh-tw') {
+          DOMAIN = 'com';
         }
 
         BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
+      }
+
+      if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw')) {
+        if (so.product_id === 'psp' || so.product_id === 'pspm' || so.product_id === 'dip' || so.product_id === 'dipm') {
+          so.config.force_region = '16';
+        } else {
+          so.config.force_region = DEFAULT_LANGUAGE === 'zh-hk' ? '41' : '52';
+        }
       }
 
       try {

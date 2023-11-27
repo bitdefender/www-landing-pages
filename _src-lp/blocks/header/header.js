@@ -41,25 +41,29 @@ export default async function decorate(block) {
 
   if (resp.ok) {
     const html = await resp.text();
-
     const spanSvg = [...await extractSpanSvgs(html)];
+    const homeUrl = getDefaultBaseUrl();
+    const headerWrapper = block.closest('header');
 
     checkForRevolut(spanSvg, block);
-
-    const homeUrl = getDefaultBaseUrl();
 
     block.classList.add('lp-header', 'py-3');
 
     if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
-      block.closest('.header-wrapper').id = 'headerFerrari';
-      block.closest('.header-wrapper').classList.add('headerSpurs');
+      headerWrapper.id = 'headerFerrari';
+      headerWrapper.classList.add('headerSpurs', 'dark');
       block.innerHTML = html;
 
       const lpHeader = block.closest('.lp-header');
       lpHeader.addEventListener('click', () => {
         lpHeader.classList.toggle('active', !lpHeader.classList.contains('active'));
       });
+    } else if (html.indexOf('blue-logo') !== -1) {
+      headerWrapper.id = 'headerBlue';
+      block.innerHTML = `<a title="Bitdefender" href="${homeUrl}">${html}</a>`;
+      block.querySelector('.section-metadata').remove();
     } else {
+      headerWrapper.classList.add('dark');
       block.innerHTML = `
       <a class="d-flex justify-content-between" href="${homeUrl}">
         ${spanSvg.map((svg) => `
