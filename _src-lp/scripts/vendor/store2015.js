@@ -300,6 +300,14 @@ StoreProducts.initSelector = function (config) {
         BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
       }
 
+      if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw')) {
+        if (so.product_id === 'psp' || so.product_id === 'pspm' || so.product_id === 'dip' || so.product_id === 'dipm') {
+          so.config.force_region = '16';
+        } else {
+          so.config.force_region = DEFAULT_LANGUAGE === 'hk' ? '41' : '52';
+        }
+      }
+
       try {
         if (typeof multilang_js !== 'undefined' && multilang_js != null && window.location.href.match(/www2.bitdefender.com/gi)) {
           if ('DEFAULT_LANGUAGE' in multilang_js) { url = `/${multilang_js.DEFAULT_LANGUAGE}/Store/ajax`; }
