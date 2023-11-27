@@ -35,11 +35,11 @@ export default function decorate(block) {
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
   bannerImage.classList.add('banner-image');
-  parentSelector.append(bannerImage);
 
   if (counterSwitchOn) {
     bannerImage.id = 'blackFriday';
     bannerImage.classList.add('flipClock-image');
+    bannerImage.style.display = 'none';
 
     // adding neccessary scripts:
     // js
@@ -71,6 +71,8 @@ export default function decorate(block) {
       bannerImage2.id = 'cyberMonday';
       parentSelector.append(bannerImage2);
     }
+  } else {
+    parentSelector.append(bannerImage);
   }
 
   // update background color if set, if not set default: #000
@@ -306,7 +308,6 @@ export default function decorate(block) {
     </div>`;
 
     const buyTable = block.querySelector('table:last-of-type');
-    console.log(buyTable.innerText);
     buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
       <a class="red-buy-button buylink-${onSelectorClass} prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
         <strong>${buyTable.innerText}</strong>
