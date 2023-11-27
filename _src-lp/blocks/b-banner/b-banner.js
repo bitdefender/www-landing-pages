@@ -35,11 +35,12 @@ export default function decorate(block) {
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
   bannerImage.classList.add('banner-image');
-  parentSelector.append(bannerImage);
 
   if (counterSwitchOn) {
+    console.log('counterSwitchOn ', counterSwitchOn)
     bannerImage.id = 'blackFriday';
     bannerImage.classList.add('flipClock-image');
+    bannerImage.style.display = 'none';
 
     // adding neccessary scripts:
     // js
@@ -71,6 +72,8 @@ export default function decorate(block) {
       bannerImage2.id = 'cyberMonday';
       parentSelector.append(bannerImage2);
     }
+  } else {
+    parentSelector.append(bannerImage);
   }
 
   // update background color if set, if not set default: #000

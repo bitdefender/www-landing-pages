@@ -936,7 +936,6 @@ function counterFlipClock() {
     const blackFridayElement = document.getElementById('blackFriday');
     const cyberMondayElement = document.getElementById('cyberMonday');
 
-    blackFridayElement.style.display = 'block';
     const counterSwitchOn = flipdownBox.getAttribute('data-switchOn');
     const counterTheme = flipdownBox.getAttribute('data-theme');
     const counterHeadings = flipdownBox.getAttribute('data-headings');
@@ -949,6 +948,11 @@ function counterFlipClock() {
 
     // eslint-disable-next-line no-undef
     const firstCounter = new FlipDown(Number(counterSwitchOn), flipConfig);
+    if (!firstCounter.countdownEnded) {
+      blackFridayElement.style.display = 'block';
+      cyberMondayElement.style.display = 'none';
+    }
+
     firstCounter.start()
       .ifEnded(() => {
         // switch images:
@@ -957,9 +961,7 @@ function counterFlipClock() {
 
         // The initial counter has ended; start a new one 48 hours from now
         flipdownBox.innerHTML = '';
-        const currentDate = new Date();
-        currentDate.setHours(currentDate.getHours() + 48);
-        const newTime = currentDate.getTime() / 1000;
+        const newTime = Number(counterSwitchOn) + 48 * 60 * 60;
 
         // eslint-disable-next-line no-undef
         const secondCounter = new FlipDown(newTime, flipConfig);
