@@ -17,6 +17,10 @@
   display: none;
 }
 
+.b-banner-container.image-visible-on-mobile .banner-image {
+  display: block;
+}
+
 .b-banner-container .banner-image--in-container img {
   display: none;
 }
