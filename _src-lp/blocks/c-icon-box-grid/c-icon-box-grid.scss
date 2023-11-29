@@ -152,9 +152,9 @@
 }
 
 .c-icon-box-grid-container.bordered .col-lg {
-  border-radius: 20px;
+  border-radius: 10px;
   border: 1px solid #F2F2F2;
-  margin: 15px 1%;
+  margin: 15px 10px;
   padding: 3%;
 }
 
@@ -162,6 +162,16 @@
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-s);
+  }
+
+  .c-icon-box-grid-container.items-smaller .row {
+    justify-content: space-between;
+  }
+
+  .c-icon-box-grid-container.items-smaller .row .col-md-12 {
+    width: 275px;
+    max-width: none;
+    flex: none;
   }
 
   .c-icon-box-grid-container.new {
@@ -244,7 +254,7 @@
   .c-icon-box-grid-container {
     &.grey-box {
       .col-lg {
-        padding: 3rem 5%;
+        padding: 3rem 6rem;
         margin: 0 15px;
 
         .title {

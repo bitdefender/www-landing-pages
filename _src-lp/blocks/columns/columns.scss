@@ -23,8 +23,7 @@
 }
 
 .columns p {
-  color: #666;
-  font-size: 18px;
+  font-size: 20px;
   margin-top: 20px;
   line-height: 23px;
 }
@@ -78,6 +77,10 @@
 
   .columns div.text-content {
     padding: 2em;
+  }
+
+  .columns div.text-content h5 {
+    font-size: var(--heading-font-size-l);
   }
 
   .columns > div > div {
