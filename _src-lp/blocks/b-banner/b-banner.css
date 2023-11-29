@@ -161,6 +161,11 @@
   margin: 1em 0;
 }
 
+.b-banner-container.custom-counter h1 {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
 .b-banner-container .b-banner-wrapper .w-full h1, .b-banner-container .b-banner-wrapper .w-full h2 {
   max-width: 100%;
 }
@@ -402,11 +407,6 @@
 .b-banner-container.text-top-centered .b-banner-wrapper .b-banner h1 {
   width: 100%;
   max-width: 100%;
-}
-
-.b-banner-container.custom-counter h1 {
-  max-width: 100% !important;
-  width: 100% !important;
 }
 
 @media screen and (width >= 768px) {
