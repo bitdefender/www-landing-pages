@@ -407,6 +407,11 @@
   max-width: 100%;
 }
 
+.b-banner-container.custom-counter h1 {
+  max-width: 100%!important;
+  width: 100%!important;
+}
+
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
@@ -418,9 +423,24 @@
     min-height: 350px;
   }
 
+  .b-banner-container.custom-counter {
+    padding-bottom: 10em;
+    min-height: 350px!important;
+  }
+
+  .b-banner-container.custom-counter .item-align-center {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .b-banner-container.custom-counter img {
+    height: 350px;
+  }
+
+
   .b-banner-container .banner-image {
     display: block;
-    height: 100%;
+    max-height: 375px;
   }
 
   .b-banner-container .banner-image.flipClock-image {
