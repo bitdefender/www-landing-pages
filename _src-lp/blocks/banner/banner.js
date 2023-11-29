@@ -10,12 +10,12 @@ export default function decorate(block) {
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
   if (underlinedInclinedTextColor) {
-    block.querySelectorAll('em u').forEach(element => {
+    block.querySelectorAll('em u').forEach((element) => {
       element.style.color = underlinedInclinedTextColor;
       element.style.fontStyle = 'normal';
       element.style.textDecoration = 'none';
     });
-  };
+  }
   if (paddingTop) blockStyle.paddingTop = `${paddingTop}rem`;
   if (paddingBottom) blockStyle.paddingBottom = `${paddingBottom}rem`;
   if (marginTop) blockStyle.marginTop = `${marginTop}rem`;
