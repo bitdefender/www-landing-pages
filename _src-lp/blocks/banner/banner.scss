@@ -81,7 +81,8 @@
     .section {
         .banner {
             h1 {
-                font-size: 40px;
+                font-size: var(--heading-font-size-xl);
+                line-height: var(--heading-font-size-xl);
                 text-align: left;
             }
 

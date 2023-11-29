@@ -70,6 +70,10 @@ body [data-desktop-detector] {
   display: none;
 }
 
+.arial * {
+  font-family: Arial, sans-serif;
+}
+
 @media (width >= 768px) {
   body [data-mobile-detector] {
     display: none;
