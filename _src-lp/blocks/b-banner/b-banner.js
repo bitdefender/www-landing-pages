@@ -326,7 +326,7 @@ export default function decorate(block) {
 
   if (parentSelector.classList.contains('counter')) {
     parentSelector.classList.add('custom-counter');
-    const [richTextEl, pictureEl] = [...block.children];
+    const [richTextEl] = [...block.children];
     block.style.width = '100%';
 
     if (backgroundColor) {
