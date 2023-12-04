@@ -173,7 +173,7 @@ a.button:any-link, button {
   text-transform: uppercase;
   display: inline-block;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 10px 3em;
   font-size: 14px;
   font-weight: bold;
@@ -203,8 +203,13 @@ a.button:any-link:hover, button:hover {
 
 a.button.secondary, button.secondary {
   background-color: unset;
-  border: 2px solid currentcolor;
   color: var(--text-color);
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+a.button.secondary:hover, button.secondary:hover {
+  background: initial;
 }
 
 main input {

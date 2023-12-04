@@ -38,5 +38,82 @@
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
     }
+
+    p.button-container {
+      text-align: center;
+
+      .button.primary {
+        width: 100%;
+      }
+    }
+
+    .prod-oldprice {
+      font-size: 16px;
+    }
+
+    .prod-save {
+      color: #1C7928;
+      font-weight: bold;
+    }
+
+    .prod-newprice {
+      font-size: 40px;
+    }
+
+    .newprice-container {
+      line-height: 1;
+
+      sup {
+        position: relative;
+        top: -10px;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .aem-banner-container {
+
+    .aem-banner {
+
+      display: flex;
+
+      .aem-banner__mobile-image {
+        display: none;
+      }
+
+      .aem-banner__desktop-image {
+        display: block;
+        height: 100%;
+
+        img {
+          height: -webkit-fill-available;
+          object-fit: cover;
+        }
+      }
+
+      .aem-banner__card-text {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        background-color: initial;
+        padding: 0;
+      }
+
+      .aem-banner__card__desktop {
+        padding: 27px;
+        background-color: #F5F5F5;
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 20px;
+      }
+
+      p.button-container {
+        text-align: left;
+        display: inline-block;
+        
+        .button.primary {
+          width: auto;
+        }
+      }
+    }
   }
 }
