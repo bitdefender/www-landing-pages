@@ -22,9 +22,9 @@
   --highlight-background-color: #ececec;
   --text-color: #000;
   /* fonts */
-  --body-font-family: "Roboto", sans-serif;
+  --body-font-family: "Arial", sans-serif;
   --heading-font-family: var(--body-font-family);
-  --fixed-font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace;
+  --fixed-font-family: "Arial", sans-serif;
   /* body sizes */
   --body-font-size-m: 22px;
   --body-font-size-s: 18px;
@@ -97,6 +97,7 @@ h4, h5, h6 {
 
 h1 {
   font-size: var(--heading-font-size-xxl);
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 h2 {
@@ -170,7 +171,6 @@ a:hover {
 a.button:any-link, button {
   background: #e72325;
   color: #fff;
-  text-transform: uppercase;
   display: inline-block;
   text-align: center;
   border-radius: 5px;
@@ -365,7 +365,16 @@ main .section.width-medium .block {
 main .default-content-wrapper p {
   font-size: 20px;
   font-weight: normal;
+  line-height: 25px;
   margin: 0;
+}
+
+main .text-spaced .default-content-wrapper p {
+  margin: 5px 0;
+}
+
+main .text-spaced .default-content-wrapper p:first-of-type {
+  margin-bottom: 15px;
 }
 
 main .default-content-wrapper p.button-container {
@@ -1505,5 +1514,17 @@ main .section.highlight {
 @media (width >= 991px) {
   .overflow-top {
     margin-top: -2rem;
+  }
+}
+@media (width >= 768px) {
+  .w95 .block {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .w90 .block {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
