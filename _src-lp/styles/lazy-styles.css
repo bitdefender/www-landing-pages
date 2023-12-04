@@ -1,17 +1,9 @@
 /* below the fold CSS goes here */
-
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: Roboto;
+    font-family: 'IBM Plex Sans'; /* https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap */
     font-style: normal;
     font-weight: 400;
-    src: url('fonts/roboto-v30-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-@font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 700;
-    src: url('fonts/roboto-v30-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    font-display: swap;
+    src: url('../styles/fonts/IMBplex-normal.woff2') format('woff2');
+    unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }

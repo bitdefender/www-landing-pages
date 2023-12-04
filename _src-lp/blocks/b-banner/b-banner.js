@@ -34,7 +34,9 @@ export default function decorate(block) {
 
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
-  bannerImage.classList.add('banner-image');
+  if (!parentSelector.classList.contains('counter')) {
+    bannerImage.classList.add('banner-image');
+  }
 
   if (counterSwitchOn) {
     bannerImage.id = 'blackFriday';
@@ -83,7 +85,7 @@ export default function decorate(block) {
     block1.style.backgroundColor = '#000';
   }
 
-  if (textColor) {
+  if (textColor && block.children[2]) {
     block.style.color = textColor;
     block.children[2].style.color = textColor;
   }
@@ -320,6 +322,35 @@ export default function decorate(block) {
   const contentHeight = block.offsetHeight;
   if (contentHeight > bannerHeight) {
     block.closest('.b-banner-container').style.height = `${contentHeight + 20}px`;
+  }
+
+  if (parentSelector.classList.contains('counter')) {
+    parentSelector.classList.add('custom-counter');
+    const [richTextEl] = [...block.children];
+    block.style.width = '100%';
+
+    if (backgroundColor) {
+      block.style.backgroundColor = backgroundColor;
+    } else {
+      block.style.backgroundColor = '#000';
+    }
+
+    block.innerHTML = `
+    <div class="container-fluid">
+        <div class="d-none d-lg-flex item-align-center">
+          <div class="ps-4">${richTextEl.innerHTML}</div>
+          <div class="text-center">
+            ${bannerImage.innerHTML}
+          </div>
+        </div>
+        <div class="d-lg-none justify-content-center">
+          <div class="col-12 p-0 text-center">
+            ${bannerImage.innerHTML}
+          </div>
+          <div class="col-12 col-sm-7 text-center">${richTextEl.innerHTML}</div>
+        </div>
+      </div>
+    `;
   }
 
   // TODO: Add logic betwen the card and banner component.
