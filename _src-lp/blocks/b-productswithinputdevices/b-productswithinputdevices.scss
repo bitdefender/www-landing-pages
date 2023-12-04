@@ -283,4 +283,9 @@
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) {
     display: block;
   }
+
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div {
+    width: auto;
+    margin-bottom: 2em;
+  }
 }
