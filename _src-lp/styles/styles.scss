@@ -1274,6 +1274,10 @@ main .section.highlight {
     margin-top: 10px;
   }
 
+  main .default-content-wrapper p img {
+    margin-top: 0;
+  }
+
   main .blue-quote .default-content-wrapper {
     flex-direction: column;
   }
