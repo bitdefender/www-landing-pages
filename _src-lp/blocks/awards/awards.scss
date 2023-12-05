@@ -1,28 +1,47 @@
 .awards {
-  border-radius: 0.25rem;
-  background-color: rgb(242 242 242 / 75%);
-  padding: 2rem 0;
-  margin: 3rem 0;
+  border-radius: 10px;
+  background-color: #E4F2FF;
+  padding: 1em 0;
+  margin: 0;
+
 }
 
 .awards .title {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: #ff9f00;
+  font-size: 14px;
+  line-height: 14px;
 }
 
 .awards .subtitle {
-  font-size: 0.75rem;
-  line-height: 1;
+  font-size: 12px;
+  line-height: 12px;
 }
 
 .awards img {
-  height: 100px;
+  height: auto;
+  width: 80px;
   object-fit: contain;
+}
+
+.awards .col-12 {
+  margin: 0.5em 0;
 }
 
 @media screen and (width >= 992px) {
   .awards img {
     height: 90px;
   }
+}
+
+@media screen and (width >= 768px) {
+  .awards {
+    border-radius: 20px;
+    padding: 2rem 0;
+    margin: 3rem 0;
+  }
+
+  .awards img {
+    width: auto;
+    height: 100px;
+  }
+
 }
