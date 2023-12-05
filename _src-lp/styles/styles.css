@@ -385,6 +385,11 @@ main .default-content-wrapper img {
   margin-top: 2rem;
 }
 
+main .default-content-wrapper p img {
+  margin-top: 0;
+  height: 35px;
+}
+
 .topHeader .heading {
   font-size: 13px;
   text-transform: uppercase;
@@ -1249,9 +1254,6 @@ main .section.highlight {
   }
   main .default-content-wrapper img {
     margin-top: 10px;
-  }
-  main .default-content-wrapper p img {
-    margin-top: 0;
   }
   main .blue-quote .default-content-wrapper {
     flex-direction: column;
