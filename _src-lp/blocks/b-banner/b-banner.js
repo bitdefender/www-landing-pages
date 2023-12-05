@@ -29,7 +29,7 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, blueBorder, logo, config, productBox, counterSwitchOn, counterHeadings, counterTheme, biggerBanner,
+    headerTextColor, blueBorder, logo, config, productBox, counterSwitchOn, counterHeadings, counterTheme, biggerBanner, discountStyleNoPercent,
   } = metaData;
 
   // move picture below
@@ -233,6 +233,19 @@ export default function decorate(block) {
       const block3 = document.querySelector('picture');
       block3.style.marginLeft = 'auto';
     }
+  }
+
+  if (discountText && discountStyle !== 'none' && discountStyleNoPercent !== 'none') {
+    let percentRadius;
+    if (block.querySelector('.button-container')) {
+      percentRadius = block.querySelector('.button-container');
+    } else {
+      percentRadius = document.createElement('div');
+    }
+
+    percentRadius.innerHTML += ` <span class="prod-percent strong green_bck_${discountStyle} mx-2">${discountText}</span>`;
+    // replace [discount] with the percent
+    block.innerHTML = block.innerHTML.replace('[coupon-text]', percentRadius.innerHTML);
   }
 
   if (product) {
