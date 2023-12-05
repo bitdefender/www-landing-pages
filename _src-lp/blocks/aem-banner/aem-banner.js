@@ -1,18 +1,18 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
-function createPricesElement(onSelectorClass) {
+function createPricesElement(onSelectorClass, conditionText, saveText) {
   const priceElement = document.createElement('div');
   priceElement.classList.add('aem-banner__prices');
   priceElement.innerHTML = `
     <div class="aem-banner__price mt-3">
       <div>
           <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-          <span class="prod-save">Save <span class="save-${onSelectorClass}"></span></span>
+          <span class="prod-save">${saveText} <span class="save-${onSelectorClass}"></span></span>
       </div>
       <div class="newprice-container mt-2">
         <span class="prod-newprice newprice-${onSelectorClass}"></span>
-        <sup>/ First year price</sup>
+        <sup>${conditionText}</sup>
       </div>
     </div>`;
   return priceElement;
@@ -25,12 +25,10 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    product,
+    product, conditionText, saveText,
   } = metaData;
 
-  let [richText, columns] = block.children;
-  console.log('columns', columns);
-  console.log('richText', richText);
+  const [richText, columns] = block.children;
 
   // TODO: This is a dirty hack to get the columns to work, should be fixed in the future
   richText.classList.add('aem-banner__card__desktop', 'col-md-6');
@@ -74,14 +72,13 @@ export default function decorate(block) {
 
     updateProductsList(product);
 
-    // check if there is an element with the href of #buylink
     const buyLink = block.querySelector('a[href*="#buylink"]');
     if (buyLink) {
       buyLink.classList.add('button', 'primary', `buylink-${onSelectorClass}`);
       buyLink.innerHTML = buyLink.innerHTML.replace(/0%/g, `<span class="percent-${onSelectorClass}">10%</span>`);
     }
 
-    const pricesBox = createPricesElement(onSelectorClass);
+    const pricesBox = createPricesElement(onSelectorClass, conditionText, saveText);
     buyLink.parentNode.parentNode.insertBefore(pricesBox, buyLink.parentNode);
   }
 }
