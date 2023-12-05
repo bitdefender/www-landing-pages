@@ -34,7 +34,7 @@
 
     .aem-banner__card-text {
       padding: 27px;
-      background-color: #F5F5F5;
+      background-color: #F7F7F7;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
     }
@@ -89,6 +89,8 @@
         img {
           height: -webkit-fill-available;
           object-fit: cover;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
         }
       }
 
@@ -101,7 +103,7 @@
 
       .aem-banner__card__desktop {
         padding: 4%;
-        background-color: #F5F5F5;
+        background-color: #F7F7F7;
         border-bottom-left-radius: 20px;
         border-top-left-radius: 20px;
       }

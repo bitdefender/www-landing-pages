@@ -1,17 +1,10 @@
 export default function decorate(block) {
-  // get data attributes set in metaData
-  const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
-
-  // config new elements
-  const {
-    product,
-  } = metaData;
+  // eslint-disable-next-line prefer-const
   let [richText, columns] = block.children;
   columns = [...columns.children];
 
   block.innerHTML = `
-    <div class="row">
+    <div class="row row-gap-3">
       <div class="col-md-6">
         ${richText.innerHTML}
       </div>
