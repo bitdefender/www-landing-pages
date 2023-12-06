@@ -26,14 +26,10 @@ export default function decorate(block) {
     blockStyle.borderRadius = '20px';
   }
 
-  if (corners && corners === 'round') {
-    blockStyle.borderRadius = '20px';
-  }
-
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
   if (imageCover && imageCover === 'small') {
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || 'transparent'}`;
+    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">
