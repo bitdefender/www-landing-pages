@@ -112,11 +112,13 @@ export default function decorate(block) {
           });
 
           // DEX-14692
+          console.log('sadfasd')
           document.querySelectorAll('.red-buy-button').forEach((buybtn) => {
             const getCurrency = buybtn.getAttribute('data-currency');
             const newVariationSplit = buybtn.getAttribute('data-variation').split('-');
-            const newPrice = buybtn.parentNode.parentNode.querySelector('.prod-newprice').innerText.trim().replace(` ${getCurrency}`, '');
-            const oldPrice = buybtn.parentNode.parentNode.querySelector('.prod-oldprice').innerText.trim().replace(` ${getCurrency}`, '');
+
+            const newPrice = buybtn.parentNode.parentNode.querySelector('.prod-newpricee')?.innerText.trim().replace(` ${getCurrency}`, '');
+            const oldPrice = buybtn.parentNode.parentNode.querySelector('.prod-oldprice')?.innerText.trim().replace(` ${getCurrency}`, '');
 
             if (triggerType === 'users') {
               newVariationSplit[0] = `${triggerValue}u`;
