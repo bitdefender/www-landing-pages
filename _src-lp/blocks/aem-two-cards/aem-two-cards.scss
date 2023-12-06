@@ -1,0 +1,45 @@
+.aem-two-cards-container {
+
+  .aem-two-cards {
+
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    h2 {
+      color: #006DFF;
+      font-size: 24px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    &_card {
+      border-radius: 20px;
+      background-color: #F7F7F7;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      // select all p elements that are not .button-container or have a span element (svg icon)
+      p:not(.button-container, :has(span)) {
+        height: 100%;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .aem-two-cards-container {
+    .aem-two-cards {
+      h1 {
+        font-size: 56px;
+
+        + p {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
