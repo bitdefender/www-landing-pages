@@ -64,7 +64,7 @@ const decorateBlock = async (dataApiDomain, block, shadowDom) => {
   const blockWrapper = blockElement.parentElement;
   blockWrapper.classList.add(`${block}-wrapper`);
   const section = blockWrapper.parentElement;
-  if (section) section.classList.add(`${block}-container`);
+  if (section) section.classList.add(`${block}-container`, 'section');
 };
 /**
  *
