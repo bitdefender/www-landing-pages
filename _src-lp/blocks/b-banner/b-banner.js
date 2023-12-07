@@ -80,9 +80,9 @@ export default function decorate(block) {
       const blackFridayElement = document.getElementById('blackFriday');
       const cyberMondayElement = document.getElementById('cyberMonday');
 
-      const counterSwitchOn = flipdownBox.getAttribute('data-switchOn');
-      const counterTheme = flipdownBox.getAttribute('data-theme');
-      const counterHeadings = flipdownBox.getAttribute('data-headings');
+      const counterSwitchOn = flipClockConfig.dataSwitchOn;
+      const counterTheme = flipClockConfig.dataTheme;
+      const counterHeadings = flipClockConfig.dataHeadings;
 
       // config
       const flipConfig = {
@@ -93,25 +93,25 @@ export default function decorate(block) {
       // eslint-disable-next-line no-undef
       setTimeout(function(){
         const firstCounter = new FlipDown(Number(counterSwitchOn), flipConfig);
-      if (!firstCounter.countdownEnded) {
-        blackFridayElement.style.display = 'block';
-        cyberMondayElement.style.display = 'none';
-      }
+        if (!firstCounter.countdownEnded) {
+          blackFridayElement.style.display = 'block';
+          cyberMondayElement.style.display = 'none';
+        }
 
-      firstCounter.start()
-        .ifEnded(() => {
-          // switch images:
-          blackFridayElement.style.display = 'none';
-          cyberMondayElement.style.display = 'block';
+        firstCounter.start()
+          .ifEnded(() => {
+            // switch images:
+            blackFridayElement.style.display = 'none';
+            cyberMondayElement.style.display = 'block';
 
-          // The initial counter has ended; start a new one 48 hours from now
-          flipdownBox.innerHTML = '';
-          const newTime = Number(counterSwitchOn) + 48 * 60 * 60;
+            // The initial counter has ended; start a new one 48 hours from now
+            flipdownBox.innerHTML = '';
+            const newTime = Number(counterSwitchOn) + 48 * 60 * 60;
 
-          // eslint-disable-next-line no-undef
-          const secondCounter = new FlipDown(newTime, flipConfig);
-          secondCounter.start().ifEnded(() => {});
-        });
+            // eslint-disable-next-line no-undef
+            const secondCounter = new FlipDown(newTime, flipConfig);
+            secondCounter.start().ifEnded(() => {});
+          });
       }, 1000);
     }
   } else {
