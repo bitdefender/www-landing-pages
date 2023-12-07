@@ -23,7 +23,7 @@ export default function decorate(block) {
   const getFirstTabs = block.querySelectorAll('.c-dropdownbox-container .block > div:first-child');
   [].forEach.call(getFirstTabs, (tab) => {
     tab.addEventListener('click', () => {
-      tab.parentNode.classList.toggle('inactive');
+      parentSelector.classList.toggle('closed');
     });
   });
 

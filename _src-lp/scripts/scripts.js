@@ -930,46 +930,6 @@ function appendMetaReferrer() {
   head.appendChild(metaTag);
 }
 
-function counterFlipClock() {
-  const flipdownBox = document.getElementById('flipdown');
-  if (flipdownBox) {
-    const blackFridayElement = document.getElementById('blackFriday');
-    const cyberMondayElement = document.getElementById('cyberMonday');
-
-    const counterSwitchOn = flipdownBox.getAttribute('data-switchOn');
-    const counterTheme = flipdownBox.getAttribute('data-theme');
-    const counterHeadings = flipdownBox.getAttribute('data-headings');
-
-    // config
-    const flipConfig = {
-      theme: counterTheme,
-      headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
-    };
-
-    // eslint-disable-next-line no-undef
-    const firstCounter = new FlipDown(Number(counterSwitchOn), flipConfig);
-    if (!firstCounter.countdownEnded) {
-      blackFridayElement.style.display = 'block';
-      cyberMondayElement.style.display = 'none';
-    }
-
-    firstCounter.start()
-      .ifEnded(() => {
-        // switch images:
-        blackFridayElement.style.display = 'none';
-        cyberMondayElement.style.display = 'block';
-
-        // The initial counter has ended; start a new one 48 hours from now
-        flipdownBox.innerHTML = '';
-        const newTime = Number(counterSwitchOn) + 48 * 60 * 60;
-
-        // eslint-disable-next-line no-undef
-        const secondCounter = new FlipDown(newTime, flipConfig);
-        secondCounter.start().ifEnded(() => {});
-      });
-  }
-}
-
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
@@ -989,8 +949,6 @@ async function loadPage() {
   eventOnDropdownSlider();
 
   appendMetaReferrer();
-
-  counterFlipClock();
 
   loadDelayed();
 }
