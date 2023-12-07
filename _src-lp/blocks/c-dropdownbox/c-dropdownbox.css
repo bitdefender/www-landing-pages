@@ -36,6 +36,10 @@
   background-color: #fefcfc;
 }
 
+.c-dropdownbox-container .block.closed > div:not(:nth-child(1)), .c-dropdownbox-container.closed .block > div:not(:nth-child(1)), .c-dropdownbox-container.closed .block.inactive > div:not(:nth-child(1)), .c-dropdownbox-container .block.inactive > div:not(:nth-child(1)) {
+  display: none;
+}
+
 .c-dropdownbox-container .block > div:first-of-type > div:first-of-type,
 .c-dropdownbox-container .block > div:not(:nth-child(1)) > div:first-of-type {
   width: 35%;
@@ -45,10 +49,6 @@
 .c-dropdownbox-container .block > div:first-of-type > div:nth-child(3),
 .c-dropdownbox-container .block > div:not(:nth-child(1)) > div:nth-child(3) {
   background: #fff;
-}
-
-.c-dropdownbox-container .block.closed > div:not(:nth-child(1)), .c-dropdownbox-container.closed .block > div:not(:nth-child(1)), .c-dropdownbox-container.closed .block.inactive > div:not(:nth-child(1)), .c-dropdownbox-container .block.inactive > div:not(:nth-child(1)) {
-  display: none;
 }
 
 /* grey tbs */
