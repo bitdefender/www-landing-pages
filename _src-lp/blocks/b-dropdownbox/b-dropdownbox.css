@@ -48,7 +48,7 @@
   background-color: #f6f6f6;
 }
 
-.b-dropdownbox-container.selected-2 .block > div > div:nth-child(2), .b-dropdownbox-container.selected-3 .block > div > div:nth-child(2), .b-dropdownbox-container.selected-3 .block > div > div:nth-child(2) {
+.b-dropdownbox-container.selected-2 .block > div > div:nth-child(2), .b-dropdownbox-container.selected-3 .block > div > div:nth-child(2) {
   background-color: white;
 }
 
