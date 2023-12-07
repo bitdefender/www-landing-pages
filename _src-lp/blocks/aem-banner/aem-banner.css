@@ -50,7 +50,7 @@
   top: -20px;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .aem-banner-container .aem-banner {
     display: flex;
   }
@@ -62,7 +62,7 @@
     height: 100%;
   }
   .aem-banner-container .aem-banner .aem-banner__desktop-image img {
-    height: -webkit-fill-available;
+    height: fill-available;
     object-fit: cover;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
