@@ -56,14 +56,8 @@ export default function decorate(block) {
     flipClockCss.href = 'https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css';
     document.head.appendChild(flipClockCss);
 
-    const flipClockConfig = {
-      dataTheme: counterTheme || 'dark',
-      dataSwitchOn: new Date(counterSwitchOn).getTime() / 1000,
-      dataHeadings: counterHeadings || '',
-    };
-
     block.innerHTML = block.innerHTML.replace('[counter]', `
-      <div id="flipdown" class="flipdown" data-theme="${flipClockConfig.dataTheme}" data-switchOn=${flipClockConfig.dataSwitchOn} data-headings="${flipClockConfig.dataHeadings.trim()}"></div>
+      <div id="flipdown" class="flipdown"></div>
     `);
 
     if (block.children.length === 3) {
@@ -80,19 +74,17 @@ export default function decorate(block) {
       const blackFridayElement = document.getElementById('blackFriday');
       const cyberMondayElement = document.getElementById('cyberMonday');
 
-      const counterSwitchOn = flipClockConfig.dataSwitchOn;
-      const counterTheme = flipClockConfig.dataTheme;
-      const counterHeadings = flipClockConfig.dataHeadings;
+      const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
 
       // config
       const flipConfig = {
-        theme: counterTheme,
+        theme: counterTheme || 'dark',
         headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
       };
 
       // eslint-disable-next-line no-undef
-      setTimeout(function(){
-        const firstCounter = new FlipDown(Number(counterSwitchOn), flipConfig);
+      setTimeout(() => {
+        const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipConfig);
         if (!firstCounter.countdownEnded) {
           blackFridayElement.style.display = 'block';
           cyberMondayElement.style.display = 'none';
@@ -106,7 +98,7 @@ export default function decorate(block) {
 
             // The initial counter has ended; start a new one 48 hours from now
             flipdownBox.innerHTML = '';
-            const newTime = Number(counterSwitchOn) + 48 * 60 * 60;
+            const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
 
             // eslint-disable-next-line no-undef
             const secondCounter = new FlipDown(newTime, flipConfig);
