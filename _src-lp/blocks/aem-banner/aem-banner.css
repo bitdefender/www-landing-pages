@@ -62,7 +62,7 @@
     height: 100%;
   }
   .aem-banner-container .aem-banner .aem-banner__desktop-image img {
-    height: fill-available;
+    height: 100%;
     object-fit: cover;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
