@@ -82,30 +82,28 @@ export default function decorate(block) {
         headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
       };
 
-      // eslint-disable-next-line no-undef
       setTimeout(() => {
-        if (typeof FlipDown !== 'undefined') {
-          const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipConfig);
-          if (!firstCounter.countdownEnded) {
-            blackFridayElement.style.display = 'block';
-            cyberMondayElement.style.display = 'none';
-          }
-
-          firstCounter.start()
-            .ifEnded(() => {
-              // switch images:
-              blackFridayElement.style.display = 'none';
-              cyberMondayElement.style.display = 'block';
-
-              // The initial counter has ended; start a new one 48 hours from now
-              flipdownBox.innerHTML = '';
-              const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
-
-              // eslint-disable-next-line no-undef
-              const secondCounter = new FlipDown(newTime, flipConfig);
-              secondCounter.start().ifEnded(() => {});
-            });
+        // eslint-disable-next-line no-undef
+        const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipConfig);
+        if (!firstCounter.countdownEnded) {
+          blackFridayElement.style.display = 'block';
+          cyberMondayElement.style.display = 'none';
         }
+
+        firstCounter.start()
+          .ifEnded(() => {
+            // switch images:
+            blackFridayElement.style.display = 'none';
+            cyberMondayElement.style.display = 'block';
+
+            // The initial counter has ended; start a new one 48 hours from now
+            flipdownBox.innerHTML = '';
+            const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
+
+            // eslint-disable-next-line no-undef
+            const secondCounter = new FlipDown(newTime, flipConfig);
+            secondCounter.start().ifEnded(() => {});
+          });
       }, 1000);
     }
   } else {
