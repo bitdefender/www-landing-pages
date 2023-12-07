@@ -130,7 +130,7 @@ export async function getFranklinComponent(offer, block) {
   shadowDom.appendChild(shadowDomBody);
   // load the block CSS file
   loadCSS(`${dataApiDomain}/_src-lp/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
-  loadCSS(`${dataApiDomain}/_src-lp/styles/styles.css`, shadowDom, plainHTMLContainer);
+  // loadCSS(`${dataApiDomain}/_src-lp/styles/styles.css`, shadowDom, plainHTMLContainer);
   loadCSS(`${dataApiDomain}/_src-lp/styles/vendor/bootstrap.min.css`, shadowDom, plainHTMLContainer);
   // run the Franklin decorator logic for this block
   await decorateBlock(dataApiDomain, block, shadowDom);
