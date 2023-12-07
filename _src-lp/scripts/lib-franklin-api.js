@@ -104,8 +104,11 @@ export default async function addFranklinComponentToContainer(offer, block, sele
   // add head section to the shadowDom and append the received HTML
   shadowDom.appendChild(document.createElement('head'));
   const shadowDomBody = document.createElement('body');
-  shadowDomBody.appendChild(plainHTMLContainer);
+  const shadowDomMain = document.createElement('main');
+  shadowDomBody.appendChild(shadowDomMain);
+  shadowDomMain.appendChild(plainHTMLContainer);
   shadowDom.appendChild(shadowDomBody);
+  shadowDomBody.classList.add('appear');
   // load the block CSS file
   loadCSS(`${dataApiDomain}/_src-lp/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
   // run the Franklin decorator logic for this block
@@ -126,11 +129,14 @@ export async function getFranklinComponent(offer, block) {
   // add head section to the shadowDom and append the received HTML
   shadowDom.appendChild(document.createElement('head'));
   const shadowDomBody = document.createElement('body');
-  shadowDomBody.appendChild(plainHTMLContainer);
+  const shadowDomMain = document.createElement('main');
+  shadowDomBody.appendChild(shadowDomMain);
+  shadowDomMain.appendChild(plainHTMLContainer);
   shadowDom.appendChild(shadowDomBody);
+  shadowDomBody.classList.add('appear');
   // load the block CSS file
   loadCSS(`${dataApiDomain}/_src-lp/blocks/${block}/${block}.css`, shadowDom, plainHTMLContainer);
-  // loadCSS(`${dataApiDomain}/_src-lp/styles/styles.css`, shadowDom, plainHTMLContainer);
+  loadCSS(`${dataApiDomain}/_src-lp/styles/styles.css`, shadowDom, plainHTMLContainer);
   loadCSS(`${dataApiDomain}/_src-lp/styles/vendor/bootstrap.min.css`, shadowDom, plainHTMLContainer);
   // run the Franklin decorator logic for this block
   await decorateBlock(dataApiDomain, block, shadowDom);
