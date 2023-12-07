@@ -84,26 +84,28 @@ export default function decorate(block) {
 
       // eslint-disable-next-line no-undef
       setTimeout(() => {
-        const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipConfig);
-        if (!firstCounter.countdownEnded) {
-          blackFridayElement.style.display = 'block';
-          cyberMondayElement.style.display = 'none';
+        if (typeof FlipDown !== 'undefined') {
+          const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipConfig);
+          if (!firstCounter.countdownEnded) {
+            blackFridayElement.style.display = 'block';
+            cyberMondayElement.style.display = 'none';
+          }
+
+          firstCounter.start()
+            .ifEnded(() => {
+              // switch images:
+              blackFridayElement.style.display = 'none';
+              cyberMondayElement.style.display = 'block';
+
+              // The initial counter has ended; start a new one 48 hours from now
+              flipdownBox.innerHTML = '';
+              const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
+
+              // eslint-disable-next-line no-undef
+              const secondCounter = new FlipDown(newTime, flipConfig);
+              secondCounter.start().ifEnded(() => {});
+            });
         }
-
-        firstCounter.start()
-          .ifEnded(() => {
-            // switch images:
-            blackFridayElement.style.display = 'none';
-            cyberMondayElement.style.display = 'block';
-
-            // The initial counter has ended; start a new one 48 hours from now
-            flipdownBox.innerHTML = '';
-            const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
-
-            // eslint-disable-next-line no-undef
-            const secondCounter = new FlipDown(newTime, flipConfig);
-            secondCounter.start().ifEnded(() => {});
-          });
       }, 1000);
     }
   } else {
@@ -111,7 +113,6 @@ export default function decorate(block) {
   }
 
   // update background color if set, if not set default: #000
-  const block1 = parentSelector.querySelector('.b-banner-container');
   if (backgroundColor) {
     parentSelector.style.backgroundColor = backgroundColor;
   } else {
