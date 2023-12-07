@@ -57,7 +57,7 @@ const loadCSS = async (href, shadowDom) => {
 const decorateBlock = async (dataApiDomain, block, shadowDom) => {
   const logicModule = await import(/* webpackIgnore: true */`${dataApiDomain}/_src-lp/blocks/${block}/${block}.js`);
   const blockElement = shadowDom.querySelector(`.${block}`);
-  
+
   blockElement.classList.add('block');
   blockElement.dataset.blockName = block;
   blockElement.dataset.blockStatus = 'initialized';
