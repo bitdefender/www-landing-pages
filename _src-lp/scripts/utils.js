@@ -79,61 +79,8 @@ export function addScript(src, data = {}, type = undefined, callback = undefined
   document.body.appendChild(s);
 }
 
-const COUNTRY_ENUM = {
-  AUSTRALIA: 'au',
-  UNITED_ARAB_EMIRATES: 'ae',
-  AUSTRIA: 'at',
-  BELGIUM: 'be',
-  BULGARIA: 'bg',
-  BRAZIL: 'br',
-  CANADA: 'ca',
-  CHILE: 'cl',
-  COLOMBIA: 'co',
-  CYPRUS: 'cy',
-  GERMANY: 'de',
-  DENMARK: 'dk',
-  ESTONIA: 'ee',
-  EN: 'en',
-  SPAIN: 'es',
-  FINLAND: 'fi',
-  FRANCE: 'fr',
-  GREECE: 'gr',
-  CROATIA: 'hr',
-  HUNGARY: 'hu',
-  INDONESIA: 'id',
-  IRELAND: 'ie',
-  ISRAEL: 'il',
-  INDIA: 'in',
-  ITALIA: 'it',
-  SOUTH_KOREA: 'kr',
-  LATVIA: 'lv',
-  LITHUANIA: 'lt',
-  LUXEMBOURG: 'lu',
-  MALTA: 'mt',
-  MEXICO: 'mx',
-  MALAYSIA: 'my',
-  NETHERLANDS: 'nl',
-  NORWAY: 'no',
-  PERU: 'pe',
-  PHILIPPINES: 'ph',
-  POLAND: 'pl',
-  PORTUGAL: 'pt',
-  ROMANIA: 'ro',
-  SAUDI_ARABIA: 'sa',
-  SWEDEN: 'se',
-  SINGAPORE: 'sg',
-  SLOVENIA: 'si',
-  SLOVAKIA: 'sk',
-  THAILAND: 'th',
-  UNITED_KINGDOM: 'uk',
-  US: 'us',
-  SOUTH_AFRICA: 'za',
-  TAIWAN: 'zh-tw',
-  HONG_KONG: 'zh-hk',
-};
-
 export function getDefaultLanguage() {
-  const localisationList = Object.keys(COUNTRY_ENUM).map((country) => COUNTRY_ENUM[country]);
+  const localisationList = ['au', 'be', 'br', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pt', 'ro', 'se', 'uk', 'zh-tw'];
   const currentPathUrl = window.location.pathname;
   const foundLanguage = localisationList.find((item) => currentPathUrl.indexOf(`/${item}/`) !== -1);
   return foundLanguage || 'en';
