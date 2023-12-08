@@ -281,31 +281,121 @@ StoreProducts.initSelector = function (config) {
         forceBussiness = true;
       }
 
-      let BASE_URI = 'https://www.bitdefender.com/site';
-      // todo convert this if else to Map
-      if (DEFAULT_LANGUAGE) {
-        let DOMAIN = DEFAULT_LANGUAGE;
-        if (DOMAIN === 'en') {
-          DOMAIN = 'com';
-        } else if (DOMAIN === 'uk') {
-          DOMAIN = 'co.uk';
-        } else if (DOMAIN === 'au') {
-          DOMAIN = 'com.au';
-        } else if (DOMAIN === 'br') {
-          DOMAIN = 'com.br';
-        } else if (DOMAIN === 'zh-hk' || DOMAIN === 'zh-tw') {
-          DOMAIN = 'com';
-        }
+      // todo this is duplicated with the one from scripts because this file needs to be refactored and be prepared as a module
+      const COUNTRY_ENUM = {
+        AUSTRALIA: 'au',
+        UNITED_ARAB_EMIRATES: 'ae',
+        AUSTRIA: 'at',
+        BELGIUM: 'be',
+        BULGARIA: 'bg',
+        BRAZIL: 'br',
+        CANADA: 'ca',
+        CHILE: 'cl',
+        COLOMBIA: 'co',
+        CYPRUS: 'cy',
+        GERMANY: 'de',
+        DENMARK: 'dk',
+        ESTONIA: 'ee',
+        EN: 'en',
+        SPAIN: 'es',
+        FINLAND: 'fi',
+        FRANCE: 'fr',
+        GREECE: 'gr',
+        CROATIA: 'hr',
+        HUNGARY: 'hu',
+        INDONESIA: 'id',
+        IRELAND: 'ie',
+        ISRAEL: 'il',
+        INDIA: 'in',
+        ITALIA: 'it',
+        SOUTH_KOREA: 'kr',
+        LATVIA: 'lv',
+        LITHUANIA: 'lt',
+        LUXEMBOURG: 'lu',
+        MALTA: 'mt',
+        MEXICO: 'mx',
+        MALAYSIA: 'my',
+        NETHERLANDS: 'nl',
+        NORWAY: 'no',
+        PERU: 'pe',
+        PHILIPPINES: 'ph',
+        POLAND: 'pl',
+        PORTUGAL: 'pt',
+        ROMANIA: 'ro',
+        SAUDI_ARABIA: 'sa',
+        SWEDEN: 'se',
+        SINGAPORE: 'sg',
+        SLOVENIA: 'si',
+        SLOVAKIA: 'sk',
+        THAILAND: 'th',
+        UNITED_KINGDOM: 'uk',
+        US: 'us',
+        SOUTH_AFRICA: 'za',
+        TAIWAN: 'zh-tw',
+        HONG_KONG: 'zh-hk',
+      };
 
-        BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
-      }
+      const DOMAIN_AND_REGION_BY_LANGUAGE_MAP = new Map([
+        [COUNTRY_ENUM.UNITED_ARAB_EMIRATES, { domain: 'com', regionId: 38 }],
+        [COUNTRY_ENUM.AUSTRALIA, { domain: 'com.au', regionId: null }],
+        [COUNTRY_ENUM.AUSTRIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.BELGIUM, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.BULGARIA, { domain: 'com', regionId: 29 }],
+        [COUNTRY_ENUM.BRAZIL, { domain: 'com.br', regionId: null }],
+        [COUNTRY_ENUM.CANADA, { domain: 'com', regionId: 10 }],
+        [COUNTRY_ENUM.CHILE, { domain: 'es', regionId: 54 }],
+        [COUNTRY_ENUM.COLOMBIA, { domain: 'com', regionId: 21 }],
+        [COUNTRY_ENUM.CYPRUS, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.GERMANY, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.DENMARK, { domain: 'com', regionId: 27 }],
+        [COUNTRY_ENUM.ESTONIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.EN, { domain: 'com', regionId: null }],
+        [COUNTRY_ENUM.SPAIN, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.FINLAND, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.FRANCE, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.GREECE, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.CROATIA, { domain: 'com', regionId: 59 }],
+        [COUNTRY_ENUM.HUNGARY, { domain: 'com', regionId: 28 }],
+        [COUNTRY_ENUM.INDONESIA, { domain: 'com', regionId: 50 }],
+        [COUNTRY_ENUM.IRELAND, { domain: null, regionId: 16 }],
+        [COUNTRY_ENUM.ISRAEL, { domain: 'com', regionId: 39 }],
+        [COUNTRY_ENUM.INDIA, { domain: 'com', regionId: 11 }],
+        [COUNTRY_ENUM.ITALIA, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.SOUTH_KOREA, { domain: 'com', regionId: 23 }],
+        [COUNTRY_ENUM.LATVIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.LITHUANIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.LUXEMBOURG, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.MALTA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.MEXICO, { domain: 'com', regionId: 20 }],
+        [COUNTRY_ENUM.MALAYSIA, { domain: 'com', regionId: 55 }],
+        [COUNTRY_ENUM.NETHERLANDS, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.NORWAY, { domain: 'com', regionId: 31 }],
+        [COUNTRY_ENUM.PERU, { domain: 'com', regionId: 57 }],
+        [COUNTRY_ENUM.PHILIPPINES, { domain: 'com', regionId: 51 }],
+        [COUNTRY_ENUM.POLAND, { domain: 'com', regionId: 46 }],
+        [COUNTRY_ENUM.PORTUGAL, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.ROMANIA, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.SAUDI_ARABIA, { domain: 'com', regionId: 36 }],
+        [COUNTRY_ENUM.SWEDEN, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.SINGAPORE, { domain: 'com', regionId: 25 }],
+        [COUNTRY_ENUM.SLOVENIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.SLOVAKIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.THAILAND, { domain: 'com', regionId: 66 }],
+        [COUNTRY_ENUM.UNITED_KINGDOM, { domain: 'co.uk', regionId: null }],
+        [COUNTRY_ENUM.US, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.SOUTH_AFRICA, { domain: 'com', regionId: 19 }],
+        [COUNTRY_ENUM.TAIWAN, { domain: 'com', regionId: 52 }],
+        [COUNTRY_ENUM.HONG_KONG, { domain: 'com', regionId: 41 }],
+      ]);
 
-      if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw')) {
-        if (so.product_id === 'psp' || so.product_id === 'pspm' || so.product_id === 'dip' || so.product_id === 'dipm') {
-          so.config.force_region = '16';
-        } else {
-          so.config.force_region = DEFAULT_LANGUAGE === 'zh-hk' ? '41' : '52';
-        }
+      const DOMAIN = DOMAIN_AND_REGION_BY_LANGUAGE_MAP.get(DEFAULT_LANGUAGE).domain || DEFAULT_LANGUAGE || 'com';
+
+      const BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
+
+      so.config.force_region = DOMAIN_AND_REGION_BY_LANGUAGE_MAP.get(DEFAULT_LANGUAGE).regionId;
+
+      if ((DEFAULT_LANGUAGE === COUNTRY_ENUM.HONG_KONG || DEFAULT_LANGUAGE === COUNTRY_ENUM.TAIWAN) && ['psp', 'pspm', 'dip', 'dipm'].includes(so.product_id)) {
+        so.config.force_region = '16';
       }
 
       try {
