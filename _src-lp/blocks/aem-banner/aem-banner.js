@@ -85,4 +85,9 @@ export default function decorate(block) {
     const pricesBox = createPricesElement(onSelectorClass, conditionText, saveText);
     buyLink.parentNode.parentNode.insertBefore(pricesBox, buyLink.parentNode);
   }
+
+  window.dispatchEvent(new CustomEvent('shadowDomLoaded'), {
+    bubbles: true,
+    composed: true, // This allows the event to cross the shadow DOM boundary
+  });
 }
