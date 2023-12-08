@@ -79,7 +79,7 @@ export function addScript(src, data = {}, type = undefined, callback = undefined
   document.body.appendChild(s);
 }
 
-export const COUNTRY_ENUM = {
+const COUNTRY_ENUM = {
   AUSTRALIA: 'au',
   UNITED_ARAB_EMIRATES: 'ae',
   AUSTRIA: 'at',
