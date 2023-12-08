@@ -394,7 +394,7 @@ StoreProducts.initSelector = function (config) {
 
       so.config.force_region = DOMAIN_AND_REGION_BY_LANGUAGE_MAP.get(DEFAULT_LANGUAGE).regionId;
 
-      if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw') && ['psp', 'pspm', 'dip', 'dipm'].includes(so.product_id)) {
+      if ((DEFAULT_LANGUAGE === COUNTRY_ENUM.HONG_KONG || DEFAULT_LANGUAGE === COUNTRY_ENUM.TAIWAN) && ['psp', 'pspm', 'dip', 'dipm'].includes(so.product_id)) {
         so.config.force_region = '16';
       }
 
