@@ -361,31 +361,31 @@ StoreProducts.initSelector = function (config) {
         [COUNTRY_ENUM.ISRAEL, { domain: 'com', regionId: 39 }],
         [COUNTRY_ENUM.INDIA, { domain: 'com', regionId: 11 }],
         [COUNTRY_ENUM.ITALIA, { domain: null, regionId: null }],
-        [COUNTRY_ENUM.SOUTH_KOREA, { domain: 'com', regionId: 23 }], // south korea // todo from here check sharepoint
-        [COUNTRY_ENUM.LATVIA, { domain: 'com', regionId: 16 }], // latvia // todo from here check sharepoint
-        [COUNTRY_ENUM.LITHUANIA, { domain: 'com', regionId: 16 }], // lithuania // todo from here check sharepoint
-        [COUNTRY_ENUM.LUXEMBOURG, { domain: 'com', regionId: 16 }], // luxembourg // todo from here check sharepoint
-        [COUNTRY_ENUM.MALTA, { domain: 'com', regionId: 16 }], // malta // todo from here check sharepoint
-        [COUNTRY_ENUM.MEXICO, { domain: 'com', regionId: 20 }], // mexico // todo from here check sharepoint
-        [COUNTRY_ENUM.MALAYSIA, { domain: 'com', regionId: 55 }], // malaysia // todo from here check sharepoint
-        [COUNTRY_ENUM.NETHERLANDS, { domain: null, regionId: null }], // netherlands
-        [COUNTRY_ENUM.NORWAY, { domain: 'com', regionId: 31 }], // norway // todo from here check sharepoint
-        [COUNTRY_ENUM.PERU, { domain: 'com', regionId: 57 }], // peru // todo from here check sharepoint
-        [COUNTRY_ENUM.PHILIPPINES, { domain: 'com', regionId: 51 }], // philippines // todo from here check sharepoint
-        [COUNTRY_ENUM.POLAND, { domain: 'com', regionId: 46 }], // poland // todo from here check sharepoint
-        [COUNTRY_ENUM.PORTUGAL, { domain: null, regionId: null }], // portugal // todo from here check sharepoint
-        [COUNTRY_ENUM.ROMANIA, { domain: null, regionId: null }], // romania
-        [COUNTRY_ENUM.SAUDI_ARABIA, { domain: 'com', regionId: 36 }], // saudi arabia // todo from here check sharepoint
-        [COUNTRY_ENUM.SWEDEN, { domain: null, regionId: null }], // sweden
-        [COUNTRY_ENUM.SINGAPORE, { domain: 'com', regionId: 25 }], // singapore // todo from here check sharepoint
-        [COUNTRY_ENUM.SLOVENIA, { domain: 'com', regionId: 16 }], // slovenia // todo from here check sharepoint
-        [COUNTRY_ENUM.SLOVAKIA, { domain: 'com', regionId: 16 }], // slovakia // todo from here check sharepoint
-        [COUNTRY_ENUM.THAILAND, { domain: 'com', regionId: 66 }], // thailand // todo from here check sharepoint
-        [COUNTRY_ENUM.UNITED_KINGDOM, { domain: 'co.uk', regionId: null }], // united kingdom
+        [COUNTRY_ENUM.SOUTH_KOREA, { domain: 'com', regionId: 23 }],
+        [COUNTRY_ENUM.LATVIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.LITHUANIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.LUXEMBOURG, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.MALTA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.MEXICO, { domain: 'com', regionId: 20 }],
+        [COUNTRY_ENUM.MALAYSIA, { domain: 'com', regionId: 55 }],
+        [COUNTRY_ENUM.NETHERLANDS, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.NORWAY, { domain: 'com', regionId: 31 }],
+        [COUNTRY_ENUM.PERU, { domain: 'com', regionId: 57 }],
+        [COUNTRY_ENUM.PHILIPPINES, { domain: 'com', regionId: 51 }],
+        [COUNTRY_ENUM.POLAND, { domain: 'com', regionId: 46 }],
+        [COUNTRY_ENUM.PORTUGAL, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.ROMANIA, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.SAUDI_ARABIA, { domain: 'com', regionId: 36 }],
+        [COUNTRY_ENUM.SWEDEN, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.SINGAPORE, { domain: 'com', regionId: 25 }],
+        [COUNTRY_ENUM.SLOVENIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.SLOVAKIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.THAILAND, { domain: 'com', regionId: 66 }],
+        [COUNTRY_ENUM.UNITED_KINGDOM, { domain: 'co.uk', regionId: null }],
         [COUNTRY_ENUM.US, { domain: null, regionId: null }],
-        [COUNTRY_ENUM.SOUTH_AFRICA, { domain: 'com', regionId: 19 }], // south africa
+        [COUNTRY_ENUM.SOUTH_AFRICA, { domain: 'com', regionId: 19 }],
         [COUNTRY_ENUM.TAIWAN, { domain: 'com', regionId: 52 }],
-        [COUNTRY_ENUM.HONG_KONG, { domain: 'com', regionId: 41 }], // hong kong
+        [COUNTRY_ENUM.HONG_KONG, { domain: 'com', regionId: 41 }],
       ]);
 
       const DOMAIN = DOMAIN_AND_REGION_BY_LANGUAGE_MAP.get(DEFAULT_LANGUAGE).domain || DEFAULT_LANGUAGE || 'com';
