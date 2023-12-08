@@ -1,3 +1,5 @@
+import {COUNTRY_ENUM} from "../utils.js";
+
 if (typeof StoreProducts === 'undefined' || StoreProducts === null) {
   StoreProducts = new Object();
 }
@@ -281,31 +283,67 @@ StoreProducts.initSelector = function (config) {
         forceBussiness = true;
       }
 
-      let BASE_URI = 'https://www.bitdefender.com/site';
-      // todo convert this if else to Map
-      if (DEFAULT_LANGUAGE) {
-        let DOMAIN = DEFAULT_LANGUAGE;
-        if (DOMAIN === 'en') {
-          DOMAIN = 'com';
-        } else if (DOMAIN === 'uk') {
-          DOMAIN = 'co.uk';
-        } else if (DOMAIN === 'au') {
-          DOMAIN = 'com.au';
-        } else if (DOMAIN === 'br') {
-          DOMAIN = 'com.br';
-        } else if (DOMAIN === 'zh-hk' || DOMAIN === 'zh-tw') {
-          DOMAIN = 'com';
-        }
+      const DOMAIN_AND_REGION_BY_LANGUAGE_MAP = new Map([
+        [COUNTRY_ENUM.UNITED_ARAB_EMIRATES, { domain: 'com', regionId: 38 }],
+        [COUNTRY_ENUM.AUSTRALIA, { domain: 'com.au', regionId: null }],
+        [COUNTRY_ENUM.AUSTRIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.BELGIUM, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.BULGARIA, { domain: 'com', regionId: 29 }],
+        [COUNTRY_ENUM.BRAZIL, { domain: 'com.br', regionId: null }],
+        [COUNTRY_ENUM.CANADA, { domain: 'com', regionId: 10 }],
+        [COUNTRY_ENUM.CHILE, { domain: 'es', regionId: 54 }],
+        [COUNTRY_ENUM.COLOMBIA, { domain: 'com', regionId: 21 }],
+        [COUNTRY_ENUM.CYPRUS, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.GERMANY, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.DENMARK, { domain: 'com', regionId: 27 }],
+        [COUNTRY_ENUM.ESTONIA, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.EN, { domain: 'com', regionId: null }],
+        [COUNTRY_ENUM.SPAIN, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.FINLAND, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.FRANCE, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.GREECE, { domain: 'com', regionId: 16 }],
+        [COUNTRY_ENUM.CROATIA, { domain: 'com', regionId: 59 }],
+        [COUNTRY_ENUM.HUNGARY, { domain: 'com', regionId: 28 }],
+        [COUNTRY_ENUM.INDONESIA, { domain: 'com', regionId: 50 }],
+        [COUNTRY_ENUM.IRELAND, { domain: null, regionId: 16 }],
+        [COUNTRY_ENUM.ISRAEL, { domain: 'com', regionId: 39 }],
+        [COUNTRY_ENUM.INDIA, { domain: 'com', regionId: 11 }],
+        [COUNTRY_ENUM.ITALIA, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.SOUTH_KOREA, { domain: 'com', regionId: 23 }], // south korea // todo from here check sharepoint
+        [COUNTRY_ENUM.LATVIA, { domain: 'com', regionId: 16 }], // latvia // todo from here check sharepoint
+        [COUNTRY_ENUM.LITHUANIA, { domain: 'com', regionId: 16 }], // lithuania // todo from here check sharepoint
+        [COUNTRY_ENUM.LUXEMBOURG, { domain: 'com', regionId: 16 }], // luxembourg // todo from here check sharepoint
+        [COUNTRY_ENUM.MALTA, { domain: 'com', regionId: 16 }], // malta // todo from here check sharepoint
+        [COUNTRY_ENUM.MEXICO, { domain: 'com', regionId: 20 }], // mexico // todo from here check sharepoint
+        [COUNTRY_ENUM.MALAYSIA, { domain: 'com', regionId: 55 }], // malaysia // todo from here check sharepoint
+        [COUNTRY_ENUM.NETHERLANDS, { domain: null, regionId: null }], // netherlands
+        [COUNTRY_ENUM.NORWAY, { domain: 'com', regionId: 31 }], // norway // todo from here check sharepoint
+        [COUNTRY_ENUM.PERU, { domain: 'com', regionId: 57 }], // peru // todo from here check sharepoint
+        [COUNTRY_ENUM.PHILIPPINES, { domain: 'com', regionId: 51 }], // philippines // todo from here check sharepoint
+        [COUNTRY_ENUM.POLAND, { domain: 'com', regionId: 46 }], // poland // todo from here check sharepoint
+        [COUNTRY_ENUM.PORTUGAL, { domain: null, regionId: null }], // portugal // todo from here check sharepoint
+        [COUNTRY_ENUM.ROMANIA, { domain: null, regionId: null }], // romania
+        [COUNTRY_ENUM.SAUDI_ARABIA, { domain: 'com', regionId: 36 }], // saudi arabia // todo from here check sharepoint
+        [COUNTRY_ENUM.SWEDEN, { domain: null, regionId: null }], // sweden
+        [COUNTRY_ENUM.SINGAPORE, { domain: 'com', regionId: 25 }], // singapore // todo from here check sharepoint
+        [COUNTRY_ENUM.SLOVENIA, { domain: 'com', regionId: 16 }], // slovenia // todo from here check sharepoint
+        [COUNTRY_ENUM.SLOVAKIA, { domain: 'com', regionId: 16 }], // slovakia // todo from here check sharepoint
+        [COUNTRY_ENUM.THAILAND, { domain: 'com', regionId: 66 }], // thailand // todo from here check sharepoint
+        [COUNTRY_ENUM.UNITED_KINGDOM, { domain: 'co.uk', regionId: null }], // united kingdom
+        [COUNTRY_ENUM.US, { domain: null, regionId: null }],
+        [COUNTRY_ENUM.SOUTH_AFRICA, { domain: 'com', regionId: 19 }], // south africa
+        [COUNTRY_ENUM.TAIWAN, { domain: 'com', regionId: 52 }],
+        [COUNTRY_ENUM.HONG_KONG, { domain: 'com', regionId: 41 }], // hong kong
+      ]);
 
-        BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
-      }
+      const DOMAIN = DOMAIN_AND_REGION_BY_LANGUAGE_MAP.get(DEFAULT_LANGUAGE).domain || DEFAULT_LANGUAGE || 'com';
 
-      if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw')) {
-        if (so.product_id === 'psp' || so.product_id === 'pspm' || so.product_id === 'dip' || so.product_id === 'dipm') {
-          so.config.force_region = '16';
-        } else {
-          so.config.force_region = DEFAULT_LANGUAGE === 'zh-hk' ? '41' : '52';
-        }
+      const BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
+
+      so.config.force_region = DOMAIN_AND_REGION_BY_LANGUAGE_MAP.get(DEFAULT_LANGUAGE).regionId;
+
+      if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw') && ['psp', 'pspm', 'dip', 'dipm'].includes(so.product_id)) {
+        so.config.force_region = '16';
       }
 
       try {
