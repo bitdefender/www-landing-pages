@@ -1,22 +1,22 @@
-// import { productAliases } from '../../scripts/scripts.js';
-// import { updateProductsList } from '../../scripts/utils.js';
+import { productAliases } from '../../scripts/scripts.js';
+import { updateProductsList } from '../../scripts/utils.js';
 
-// function createPricesElement(onSelectorClass, conditionText, saveText) {
-//   const priceElement = document.createElement('div');
-//   priceElement.classList.add('aem-banner__prices');
-//   priceElement.innerHTML = `
-//     <div class="aem-banner__price mt-3">
-//       <div>
-//           <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-//           <span class="prod-save">${saveText} <span class="save-${onSelectorClass}"></span></span>
-//       </div>
-//       <div class="newprice-container mt-2">
-//         <span class="prod-newprice newprice-${onSelectorClass}"></span>
-//         <sup>${conditionText}</sup>
-//       </div>
-//     </div>`;
-//   return priceElement;
-// }
+function createPricesElement(onSelectorClass, conditionText, saveText) {
+  const priceElement = document.createElement('div');
+  priceElement.classList.add('aem-banner__prices');
+  priceElement.innerHTML = `
+    <div class="aem-banner__price mt-3">
+      <div>
+          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+          <span class="prod-save">${saveText} <span class="save-${onSelectorClass}"></span></span>
+      </div>
+      <div class="newprice-container mt-2">
+        <span class="prod-newprice newprice-${onSelectorClass}"></span>
+        <sup>${conditionText}</sup>
+      </div>
+    </div>`;
+  return priceElement;
+}
 
 function createCardElementContainer(elements, mobileImage) {
   const cardElementContainer = document.createElement('div');
@@ -73,16 +73,16 @@ export default function decorate(block) {
   const desktopImage = block.querySelector('.aem-banner > div > div > picture');
   desktopImage.classList.add('aem-banner__desktop-image');
 
-  // if (product) {
-  //   const [prodName, prodUsers, prodYears] = product.split('/');
-  //   const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+  if (product) {
+    const [prodName, prodUsers, prodYears] = product.split('/');
+    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
-  //   updateProductsList(product);
+    updateProductsList(product);
 
-  //   const buyLink = block.querySelector('a[href*="#buylink"]');
-  //   decorateBuyLink(buyLink, onSelectorClass);
+    const buyLink = block.querySelector('a[href*="#buylink"]');
+    decorateBuyLink(buyLink, onSelectorClass);
 
-  //   const pricesBox = createPricesElement(onSelectorClass, conditionText, saveText);
-  //   buyLink.parentNode.parentNode.insertBefore(pricesBox, buyLink.parentNode);
-  // }
+    const pricesBox = createPricesElement(onSelectorClass, conditionText, saveText);
+    buyLink.parentNode.parentNode.insertBefore(pricesBox, buyLink.parentNode);
+  }
 }
