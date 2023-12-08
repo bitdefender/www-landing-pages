@@ -36,13 +36,8 @@
   background-color: #fefcfc;
 }
 
-.c-dropdownbox-container .block.closed > div:not(:nth-child(1)) {
+.c-dropdownbox-container .block.closed > div:not(:nth-child(1)), .c-dropdownbox-container.closed .block > div:not(:nth-child(1)), .c-dropdownbox-container .block.inactive > div:not(:nth-child(1)) {
   display: none;
-}
-
-/* grey tbs */
-.c-dropdownbox-container .block.inactive > div:not(:nth-child(1)) {
-  display: flex;
 }
 
 .c-dropdownbox-container .block > div:first-of-type > div:first-of-type,
@@ -51,13 +46,18 @@
   border-left: 0;
 }
 
-.c-dropdownbox-container .block > div img {
-  width: 20px;
-}
-
 .c-dropdownbox-container .block > div:first-of-type > div:nth-child(3),
 .c-dropdownbox-container .block > div:not(:nth-child(1)) > div:nth-child(3) {
   background: #fff;
+}
+
+.c-dropdownbox-container.closed .block.inactive > div:not(:nth-child(1)) {
+  display: none;
+}
+
+/* grey tbs */
+.c-dropdownbox-container .block > div img {
+  width: 20px;
 }
 
 .c-dropdownbox-container p {
@@ -114,7 +114,8 @@
 }
 
 .c-dropdownbox-container .block.inactive > div:nth-child(1) > div strong::after,
-.c-dropdownbox-container .block.closed > div:nth-child(1) > div strong::after {
+.c-dropdownbox-container .block.closed > div:nth-child(1) > div strong::after,
+.c-dropdownbox-container.closed .block > div:nth-child(1) > div strong::after {
   background: url("../../images/icons/arrow_down_blue.png") bottom left no-repeat transparent;
   transform: rotate(0deg);
   background-size: 100%;
@@ -123,7 +124,8 @@
 /* handling - arrow down/up */
 /* stylelint-disable no-descending-specificity */
 .c-dropdownbox-container .block > div:nth-child(1) > div strong::after,
-.c-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div strong::after {
+.c-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div strong::after,
+.c-dropdownbox-container.closed .block.inactive > div:nth-child(1) > div strong::after {
   content: "";
   width: 13px;
   height: 13px;
@@ -154,7 +156,7 @@
   .c-dropdownbox-container .block .bottom-text {
     font-size: 14px;
   }
-  
+
   .c-dropdownbox-container .block > div:not(:first-child) > div:nth-child(1) {
     width: 100%;
   }
@@ -193,7 +195,7 @@
     float: left;
     border: 0 none;
   }
-  
+
   .c-dropdownbox-container .block.has2divs > div:not(:first-child) > div:not(:first-child) {
     width: 100%;
   }

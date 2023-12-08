@@ -1,7 +1,5 @@
 .aem-banner-container {
-
   .aem-banner {
-
     p:first-of-type {
       margin: 0;
     }
@@ -20,7 +18,6 @@
     }
 
     .aem-banner__mobile-image {
-      
       img {
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
@@ -71,11 +68,9 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .aem-banner-container {
-
     .aem-banner {
-
       display: flex;
 
       .aem-banner__mobile-image {
@@ -87,7 +82,7 @@
         height: 100%;
 
         img {
-          height: -webkit-fill-available;
+          height: fill-available;
           object-fit: cover;
           border-top-right-radius: 20px;
           border-bottom-right-radius: 20px;

@@ -20,7 +20,7 @@
   height: 100%;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .aem-two-cards-container .aem-two-cards h1 {
     font-size: 56px;
   }
