@@ -24,9 +24,9 @@
 }
 
 .c-productswithvpn > div h2 {
-  font-size: var(--heading-font-size-l);
+  font-size: 28px;
   margin: 0;
-  line-height: var(--heading-font-size-l);
+  line-height: 28px;
   min-height: 2em;
 }
 

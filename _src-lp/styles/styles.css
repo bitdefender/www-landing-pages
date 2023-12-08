@@ -391,8 +391,11 @@ main .default-content-wrapper img {
   margin-top: 2rem;
 }
 
-main .default-content-wrapper p img {
+main .section .default-content-wrapper p img {
   margin-top: 0;
+}
+
+main .section.small-image .default-content-wrapper p img {
   height: 35px;
 }
 
@@ -646,7 +649,7 @@ main .section.highlight {
 
 .prod-percent.green_bck_circle.medium span:first-of-type {
   margin-top: 23%;
-  font-size: 36px;
+  font-size: var(--heading-font-size-l);
   font-weight: bold;
   line-height: 1;
 }
