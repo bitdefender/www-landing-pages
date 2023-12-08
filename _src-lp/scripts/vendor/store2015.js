@@ -281,6 +281,7 @@ StoreProducts.initSelector = function (config) {
         forceBussiness = true;
       }
 
+      // todo this is duplicated with the one from scripts because this file needs to be refactored and be prepared as a module
       const COUNTRY_ENUM = {
         AUSTRALIA: 'au',
         UNITED_ARAB_EMIRATES: 'ae',
