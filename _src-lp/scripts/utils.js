@@ -54,7 +54,8 @@ export const getIpCountry = async () => {
 export function addScript(src, data = {}, type = undefined, callback = undefined) {
   const s = document.createElement('script');
 
-  s.setAttribute('src', src);
+  const link = import.meta ? new URL(import.meta.url).origin : '';
+  s.setAttribute('src', link + src);
 
   if (type) {
     s.setAttribute(type, true);
