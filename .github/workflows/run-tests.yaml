@@ -3,7 +3,7 @@ name: Linting
 on: [pull_request]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,14 +13,34 @@ jobs:
           node-version: '20.4'
       - run: npm install
       - run: npm run lint
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.4'
+      - run: npm install
       - run: npm run test:unit
+
+  snapshots-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.4'
+      - run: npm install
 
       # Dynamically extract the branch name from GITHUB_REF
       - name: Get Branch Name
         id: extract_branch_name
         run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
 
-      - run: npm run test:e2e
+      - run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
