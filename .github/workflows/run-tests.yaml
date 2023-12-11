@@ -12,7 +12,6 @@ jobs:
         with:
           node-version: '20.4'
       - run: npm install
-      - run: ls -R
 
   lint:
     needs: setup-nodejs
@@ -26,12 +25,17 @@ jobs:
     needs: setup-nodejs
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - run: npm install
       - run: npm run test:unit
 
   snapshots-tests:
     needs: setup-nodejs
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+
       # Dynamically extract the branch name from GITHUB_REF
       - name: Get Branch Name
         id: extract_branch_name
