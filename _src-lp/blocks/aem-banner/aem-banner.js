@@ -1,5 +1,5 @@
 window.personalization = true;
-import {loadPage} from '../../scripts/scripts.js';
+const { loadPage } = await import('../../scripts/scripts.js');
 import { updateProductsList } from '../../scripts/utils.js';
 
 
