@@ -152,15 +152,19 @@ function addFavIcon(href) {
 export function loadTrackers() {
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
 
+  const onAdobeMcLoaded = () => {
+    document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
+    window.ADOBE_MC_EVENT_LOADED = true;
+  };
+
   if (isPageNotInDraftsFolder) {
     addScript(getInstance() === 'prod'
       ? 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js'
-      : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', () => {
-      document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
-      window.ADOBE_MC_EVENT_LOADED = true;
-    });
+      : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', onAdobeMcLoaded, onAdobeMcLoaded);
 
     addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'async');
+  } else {
+    onAdobeMcLoaded();
   }
 }
 
