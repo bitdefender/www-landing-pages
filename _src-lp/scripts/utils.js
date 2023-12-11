@@ -51,7 +51,7 @@ export const getIpCountry = async () => {
 */
 
 // add new script file
-export function addScript(src, data = {}, type = undefined, callback = undefined) {
+export function addScript(src, data = {}, type = undefined, onLoadCallback = undefined, onErrorCallback = undefined) {
   const s = document.createElement('script');
 
   s.setAttribute('src', src);
@@ -70,10 +70,12 @@ export function addScript(src, data = {}, type = undefined, callback = undefined
     }
   }
 
-  if (callback) {
-    s.addEventListener('load', () => {
-      callback();
-    });
+  if (onLoadCallback) {
+    s.onload = onLoadCallback;
+  }
+
+  if (onErrorCallback) {
+    s.onerror = onErrorCallback;
   }
 
   document.body.appendChild(s);

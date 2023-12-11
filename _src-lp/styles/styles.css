@@ -1020,7 +1020,11 @@ main .section.highlight {
   position: relative;
   opacity: 0.4;
   cursor: default;
-  min-height: 1em;
+  min-height: 4.3rem;
+}
+
+.await-loader * {
+  visibility: hidden;
 }
 
 .below-form-banner {
