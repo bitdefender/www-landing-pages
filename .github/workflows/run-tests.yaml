@@ -3,7 +3,7 @@ name: Workflow
 on: [pull_request]
 
 jobs:
-  setup-node:
+  setup-nodejs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,23 +12,22 @@ jobs:
         with:
           node-version: '20.4'
       - run: npm install
-        env:
-          CI: true
+      - run: ls -R
 
   lint:
-    needs: setup-node
+    needs: setup-nodejs
     runs-on: ubuntu-latest
     steps:
       - run: npm run lint
 
   unit-tests:
-    needs: setup-node
+    needs: setup-nodejs
     runs-on: ubuntu-latest
     steps:
       - run: npm run test:unit
 
   snapshots-tests:
-    needs: setup-node
+    needs: setup-nodejs
     runs-on: ubuntu-latest
     steps:
       # Dynamically extract the branch name from GITHUB_REF
