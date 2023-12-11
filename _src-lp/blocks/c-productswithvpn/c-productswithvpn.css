@@ -56,7 +56,7 @@
   position: absolute;
   border-radius: 0;
   color: #fff;
-  padding: 3px 0 12px 0;
+  padding: 3px 0 12px;
   left: 0;
   top: 0;
   right: 0;
@@ -343,7 +343,7 @@
 }
 
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div div.tag {
-  padding: 3px 0 12px 0;
+  padding: 3px 0 12px;
 }
 
 .c-productswithvpn-container .top_title h1, .c-productswithvpn-container .top_title h2 {
