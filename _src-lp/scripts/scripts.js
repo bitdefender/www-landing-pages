@@ -172,31 +172,34 @@ export async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadHeader(doc.querySelector('header'));
+  if (!window.personalization) {
+    loadHeader(doc.querySelector('header'));
 
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    'gtm.start': new Date().getTime(),
-    event: 'gtm.js',
-  });
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    });
 
-  await sendAnalyticsPageEvent();
-  await sendAnalyticsUserInfo();
+    await sendAnalyticsPageEvent();
+    await sendAnalyticsUserInfo();
 
-  loadFooter(doc.querySelector('footer'));
+    loadFooter(doc.querySelector('footer'));
 
-  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
-  addFavIcon('https://www.bitdefender.com/favicon.ico');
+    loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
+    addFavIcon('https://www.bitdefender.com/favicon.ico');
+  
+    
+
+    loadTrackers();
+
+    sendAnalyticsPageLoadedEvent();
+  }
 
   adobeMcAppendVisitorId('main');
-
-  loadTrackers();
-
-  sendAnalyticsPageLoadedEvent();
-
-  sampleRUM('lazy');
-  sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
-  sampleRUM.observe(main.querySelectorAll('picture > img'));
+  // sampleRUM('lazy');
+  // sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
+  // sampleRUM.observe(main.querySelectorAll('picture > img'));
 }
 
 /**
