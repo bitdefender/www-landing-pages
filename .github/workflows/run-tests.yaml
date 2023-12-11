@@ -12,7 +12,8 @@ jobs:
         with:
           node-version: '20.4'
       - run: npm install
-      - run: cd $GITHUB_WORKSPACE
+        env:
+          CI: true
 
   lint:
     needs: setup-node
