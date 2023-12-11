@@ -368,6 +368,8 @@ export function decorateSections(main) {
       });
       if (!window.personalization) {
         sectionMeta.parentNode.remove();
+      } else {
+        sectionMeta.remove();
       }
     }
   });
