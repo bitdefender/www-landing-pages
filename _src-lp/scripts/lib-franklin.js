@@ -366,7 +366,9 @@ export function decorateSections(main) {
           section.dataset[toCamelCase(key)] = meta[key];
         }
       });
-      sectionMeta.parentNode.remove();
+      if (!window.personalization) {
+        sectionMeta.parentNode.remove();
+      }
     }
   });
 }
