@@ -110,26 +110,6 @@ export default function decorate(block) {
               fakeSelector.dispatchEvent(new Event('change'));
             }
           });
-
-          // DEX-14692
-          console.log('sadfasd')
-          document.querySelectorAll('.red-buy-button').forEach((buybtn) => {
-            const getCurrency = buybtn.getAttribute('data-currency');
-            const newVariationSplit = buybtn.getAttribute('data-variation').split('-');
-
-            const newPrice = buybtn.parentNode.parentNode.querySelector('.prod-newpricee')?.innerText.trim().replace(` ${getCurrency}`, '');
-            const oldPrice = buybtn.parentNode.parentNode.querySelector('.prod-oldprice')?.innerText.trim().replace(` ${getCurrency}`, '');
-
-            if (triggerType === 'users') {
-              newVariationSplit[0] = `${triggerValue}u`;
-            } else {
-              newVariationSplit[1] = `${triggerValue}y`;
-            }
-
-            buybtn.setAttribute('data-buy-price', newPrice);
-            buybtn.setAttribute('data-old-price', oldPrice);
-            buybtn.setAttribute('data-variation', `${newVariationSplit[0]}-${newVariationSplit[1]}`);
-          });
         });
       });
     }

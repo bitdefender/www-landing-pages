@@ -157,6 +157,35 @@ function truncatePrice(price) {
   return ret;
 }
 
+// DEX-14692 - set data on buy links
+function setDataOnBuyLinks (dataInfo) {
+  try {
+    const { buyLink, productId, variation } = dataInfo;
+    console.log('variation ', variation)
+
+    if (buyLink !== null && buyLink !== '') {
+      const elements = document.getElementsByClassName(buyLink);
+
+      Array.from(elements).forEach((element) => {
+        element.dataset.product = productId;
+
+        if (typeof variation.discount !== 'undefined') {
+          element.dataset.buyPrice = variation.discounted_price || variation.discount.discounted_price;
+        } else {
+          element.dataset.buyPrice = variation.price;
+        }
+
+        element.dataset.oldPrice = variation.price;
+        element.dataset.dataCurrency = variation.currency_label;
+        element.dataset.dataRegion = variation.region_id;
+        element.dataset.variation = variation.variation_name;
+      });
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+};
+
 // formatPrice
 function formatPrice(priceVal, currency, region) {
   const price = truncatePrice(priceVal);
@@ -239,7 +268,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   }
 
   if (storeObj.selected_variation.discount && storeObj.selected_variation.discount?.discount_value) {
-    let selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
+    var selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
     if (triggerVPN) {
       selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
@@ -366,7 +395,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     if (productId === 'vpn' && storeObj.selected_variation.discount) {
       vpnHasDiscount = true;
       if (storeObj.selected_variation.discount) {
-        let selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
+        var selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
@@ -463,6 +492,19 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
   }
 
+  const dataInfo = {
+    buyLink: `buylink-${onSelectorClass}`,
+    productId,
+    variation: {
+      discount: JSON.parse(JSON.stringify(storeObj.selected_variation.discount)),
+      price: triggerVPN ? selectedVarPrice : storeObj.selected_variation.price,
+      discounted_price: selectedVarDiscount,
+      variation_name: `${prodUsers}u-${prodYears}y`,
+      currency_label: storeObj.selected_variation.currency_label,
+      region_id: storeObj.selected_variation.region_id,
+    }
+  }
+  setDataOnBuyLinks(dataInfo);
   maxDiscount();
 }
 

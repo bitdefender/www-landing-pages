@@ -805,7 +805,7 @@ StoreProducts.initSelector = function (config) {
   }
 
   try {
-    StoreProducts.setInfo(buy_class, product_id, variation);
+    // StoreProducts.setInfo(buy_class, product_id, variation);
     StoreProducts.setDigitalData(product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
@@ -1197,7 +1197,7 @@ StoreProducts.__onChangeUsers = function (ev) {
 
   try {
     delete digitalData.product;
-    StoreProducts.setInfo(c_config.buy_class, c_config.product_id, variation);
+    // StoreProducts.setInfo(c_config.buy_class, c_config.product_id, variation);
     StoreProducts.setDigitalData(c_config.product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
@@ -1398,7 +1398,7 @@ StoreProducts.__onChangeYears = function (ev) {
 
   try {
     delete digitalData.product;
-    StoreProducts.setInfo(c_config.buy_class, c_config.product_id, variation);
+    // StoreProducts.setInfo(c_config.buy_class, c_config.product_id, variation);
     StoreProducts.setDigitalData(c_config.product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
