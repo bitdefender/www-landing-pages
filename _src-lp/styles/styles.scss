@@ -1036,8 +1036,8 @@ main .section.highlight {
   min-height: 4.3rem;
 }
 
-.await-loader div {
-  opacity: 0;
+.await-loader * {
+  visibility:hidden;
 }
 
 .below-form-banner {
