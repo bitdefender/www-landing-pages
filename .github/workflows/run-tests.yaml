@@ -18,6 +18,9 @@ jobs:
     needs: setup-nodejs
     runs-on: ubuntu-latest
     steps:
+      - run: ls -R
+      - run: cd ..
+      - run: ls -R
       - run: cd ..
       - run: ls -R
       - run: npm run lint
