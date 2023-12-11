@@ -1,5 +1,15 @@
-import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
+
+function productAliases(name) {
+  let newName = name.trim();
+  if (newName === 'elite') {
+    newName = 'elite_1000';
+  } else if (newName === 'bs') {
+    newName = 'bus-security';
+  }
+
+  return newName;
+}
 
 function createPricesElement(onSelectorClass, conditionText, saveText) {
   const priceElement = document.createElement('div');
