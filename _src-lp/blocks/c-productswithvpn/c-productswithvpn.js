@@ -34,7 +34,11 @@ export default function decorate(block) {
     title,
     subtitle,
     titlePosition,
+    overflowTop,
     marginTop,
+    marginBottom,
+    paddingTop,
+    paddingBottom,
     products,
     bulinaText,
     borderColor,
@@ -49,9 +53,11 @@ export default function decorate(block) {
   }
 
   if (productsAsList.length) {
-    if (marginTop) {
-      block.style.marginTop = marginTop;
-    }
+    if (overflowTop) block.style.marginTop = `${overflowTop}rem`;
+    if (marginTop) parentSelector.style.marginTop = `${marginTop}rem`;
+    if (marginBottom) parentSelector.style.marginBottom = `${marginBottom}rem`;
+    if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
+    if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
 
     /// ///////////////////////////////////////////////////////////////////////
     // set the title
@@ -227,8 +233,8 @@ export default function decorate(block) {
     let foundLogo = false;
     for (let i = 0; i < productBoxes.length; i += 1) {
       const table = productBoxes[i].querySelector('table:nth-of-type(2)');
-      const tableImgs = table.querySelectorAll('img');
-      if (tableImgs.length > 0) {
+      const tableImgs = table?.querySelectorAll('img');
+      if (tableImgs?.length > 0) {
         table.classList.add('logo_table');
         foundLogo = true;
       }
@@ -242,7 +248,7 @@ export default function decorate(block) {
     // change the border color of the main box
     if (borderColor) {
       const primaryBox = block.querySelector('.c-productswithvpn > div:nth-child(1)');
-      primaryBox.style.border = `9px solid ${borderColor}`;
+      primaryBox.style.borderColor = borderColor;
 
       const tag = primaryBox.querySelector('.tag');
       tag.style.backgroundColor = borderColor;
