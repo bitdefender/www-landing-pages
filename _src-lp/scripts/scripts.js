@@ -108,8 +108,9 @@ export function decorateMain(main) {
   // decorateIcons2(main);
   decorateIcons(main);
   buildAutoBlocks(main);
+
+  decorateSections(main);
   if (!window.personalization) {
-    decorateSections(main);
     decorateBlocks(main);
   }
 }
