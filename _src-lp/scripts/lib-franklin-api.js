@@ -66,7 +66,7 @@ const decorateBlock = async (dataApiDomain, block, shadowDom) => {
   const section = blockWrapper.parentElement;
   if (section) section.classList.add(`${block}-container`, 'section');
 
-  logicModule.default(blockElement);
+  logicModule.default(blockElement, shadowDom);
 };
 /**
  *

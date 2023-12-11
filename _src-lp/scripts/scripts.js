@@ -752,10 +752,10 @@ function initSelectors(pid) {
   }
 }
 
-function addIdsToEachSection() {
-  document.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
+function addIdsToEachSection(main) {
+  main.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
     const getIdentity = item.className.split('-wrapper')[0];
-    item.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
+    item.parentElement.id = main.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
   });
 }
 
@@ -970,11 +970,11 @@ function counterFlipClock() {
   }
 }
 
-async function loadPage() {
-  await loadEager(document);
-  await loadLazy(document);
+export async function loadPage(main = document) {
+  await loadEager(main);
+  await loadLazy(main);
 
-  addIdsToEachSection();
+  addIdsToEachSection(main);
 
   if (window.ADOBE_MC_EVENT_LOADED) {
     initializeProductsPriceLogic();
@@ -986,13 +986,15 @@ async function loadPage() {
 
   addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 
-  eventOnDropdownSlider();
+  if (!window.personalization) {
+    eventOnDropdownSlider();
 
-  appendMetaReferrer();
+    appendMetaReferrer();
 
-  counterFlipClock();
+    counterFlipClock();
 
-  loadDelayed();
+    loadDelayed();
+  }
 }
 
 /*
@@ -1025,4 +1027,6 @@ initMobileDetector('desktop');
 
 initBaseUri();
 
-loadPage();
+if (!window.personalization) {
+  loadPage();
+}

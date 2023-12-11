@@ -1,4 +1,7 @@
+window.personalization = true;
+import {loadPage} from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
+
 
 function productAliases(name) {
   let newName = name.trim();
@@ -55,7 +58,8 @@ function decorateBuyLink(buyLink, onSelectorClass) {
   }
 }
 
-export default function decorate(block) {
+export default function decorate(block, shadowDom) {
+  loadPage(shadowDom);
   const metaData = block.closest('.section').dataset;
   const {
     product, conditionText, saveText,
