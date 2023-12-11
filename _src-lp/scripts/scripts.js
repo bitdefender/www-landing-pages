@@ -987,9 +987,11 @@ export async function loadPage(main = document) {
     });
   }
 
-  addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
+  
 
   if (!window.personalization) {
+    addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
+    
     eventOnDropdownSlider();
 
     appendMetaReferrer();
