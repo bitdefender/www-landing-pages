@@ -166,8 +166,9 @@ export function loadTrackers() {
 
 export async function loadLazy(doc) {
   const main = doc.querySelector('main');
-  await loadBlocks(main);
-
+  if (!window.personalization) {
+    await loadBlocks(main);
+  }
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
@@ -991,7 +992,7 @@ export async function loadPage(main = document) {
 
   if (!window.personalization) {
     addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
-    
+
     eventOnDropdownSlider();
 
     appendMetaReferrer();
