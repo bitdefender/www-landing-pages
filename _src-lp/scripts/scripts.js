@@ -983,7 +983,7 @@ export async function loadPage(main = document) {
 
   addIdsToEachSection(main);
 
-  if (window.ADOBE_MC_EVENT_LOADED) {
+  if (window.ADOBE_MC_EVENT_LOADED || window.personalization) {
     initializeProductsPriceLogic();
   } else {
     document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
