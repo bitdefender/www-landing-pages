@@ -59,7 +59,6 @@ export default function decorate(block) {
     if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
     if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
 
-
     /// ///////////////////////////////////////////////////////////////////////
     // set the title
     if (typeof title !== 'undefined') {
@@ -247,7 +246,6 @@ export default function decorate(block) {
 
     /// ///////////////////////////////////////////////////////////////////////
     // change the border color of the main box
-    console.log('borderColor ', borderColor)
     if (borderColor) {
       const primaryBox = block.querySelector('.c-productswithvpn > div:nth-child(1)');
       primaryBox.style.borderColor = borderColor;
