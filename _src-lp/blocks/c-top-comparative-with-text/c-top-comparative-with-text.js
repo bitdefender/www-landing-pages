@@ -47,24 +47,23 @@ export default function decorate(block) {
     // set top class with numbers of products
     parentSelector.classList.add(`has${productsAsList.length}boxes`);
 
-    /// ///////////////////////////////////////////////////////////////////////
-    // create prices sections
-    productsAsList.forEach((item, idx) => {
-      // add prices
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    // set prices and buy buttons
+    block.querySelectorAll(':scope > div').forEach((item, key) => {
+      if (key !== 0) {
+        const [prodName, prodUsers, prodYears] = productsAsList[key - 1].split('/');
+        const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
-      const nthChildIdx = idx + 2;
-      const pricesSection = block.querySelector(`div:nth-child(${nthChildIdx}) table:first-of-type`);
-      let pricesDiv = `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">`;
-      pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
-      pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
-      pricesDiv += '<div>';
-      pricesSection.innerHTML = pricesDiv;
+        const pricesSection = item.querySelector('table:first-of-type');
+        let pricesDiv = `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">`;
+        pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+        pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+        pricesDiv += '<div>';
+        pricesSection.innerHTML = pricesDiv;
 
-      // add buybtn div & anchor
-      const tableBuybtn = block.querySelector(`div:nth-child(${idx + 1 + 1}) table:last-of-type td`);
-      tableBuybtn.innerHTML = `<div class="buy_box buy_box${idx + 1}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
+        // add buybtn div & anchor
+        const tableBuybtn = item.querySelector('table:last-of-type td');
+        tableBuybtn.innerHTML = `<div class="buy_box buy_box${key}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
+      }
     });
   }
 }

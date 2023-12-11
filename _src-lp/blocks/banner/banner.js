@@ -26,14 +26,10 @@ export default function decorate(block) {
     blockStyle.borderRadius = '20px';
   }
 
-  if (corners && corners === 'round') {
-    blockStyle.borderRadius = '20px';
-  }
-
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
   if (imageCover && imageCover === 'small') {
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || 'transparent'}`;
+    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">
@@ -47,8 +43,17 @@ export default function decorate(block) {
         </div>
       </div>
     `;
-  } else if (imageCover && imageCover === 'full') {
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || 'transparent'}`;
+  } else if (imageCover) {
+    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+
+    if (imageCover === 'full-left') {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top left / auto 100% ${backgroundColor || '#000'}`;
+    } else if (imageCover === 'full-center') {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / auto 100% ${backgroundColor || '#000'}`;
+    } else if (imageCover === 'full-right') {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
+    }
+
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">

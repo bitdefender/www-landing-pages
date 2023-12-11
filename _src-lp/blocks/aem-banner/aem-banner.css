@@ -1,0 +1,89 @@
+.aem-banner-container .aem-banner p:first-of-type {
+  margin: 0;
+}
+.aem-banner-container .aem-banner h1 {
+  color: #006DFF;
+  font-size: 40px;
+  font-weight: normal;
+  margin-top: 10px;
+}
+.aem-banner-container .aem-banner h2 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: normal;
+}
+.aem-banner-container .aem-banner .aem-banner__mobile-image img {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 100%;
+}
+.aem-banner-container .aem-banner .aem-banner__desktop-image {
+  display: none;
+}
+.aem-banner-container .aem-banner .aem-banner__card-text {
+  padding: 27px;
+  background-color: #F7F7F7;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.aem-banner-container .aem-banner p.button-container {
+  text-align: center;
+}
+.aem-banner-container .aem-banner p.button-container .button.primary {
+  width: 100%;
+}
+.aem-banner-container .aem-banner .prod-oldprice {
+  font-size: 16px;
+}
+.aem-banner-container .aem-banner .prod-save {
+  color: #1C7928;
+  font-weight: bold;
+}
+.aem-banner-container .aem-banner .prod-newprice {
+  font-size: 40px;
+}
+.aem-banner-container .aem-banner .newprice-container {
+  line-height: 1;
+}
+.aem-banner-container .aem-banner .newprice-container sup {
+  position: relative;
+  top: -20px;
+}
+
+@media (width >= 768px) {
+  .aem-banner-container .aem-banner {
+    display: flex;
+  }
+  .aem-banner-container .aem-banner .aem-banner__mobile-image {
+    display: none;
+  }
+  .aem-banner-container .aem-banner .aem-banner__desktop-image {
+    display: block;
+    height: 100%;
+  }
+  .aem-banner-container .aem-banner .aem-banner__desktop-image img {
+    height: fill-available;
+    object-fit: cover;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  .aem-banner-container .aem-banner .aem-banner__card-text {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: initial;
+    padding: 0;
+  }
+  .aem-banner-container .aem-banner .aem-banner__card__desktop {
+    padding: 4%;
+    background-color: #F7F7F7;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+  .aem-banner-container .aem-banner p.button-container {
+    text-align: left;
+    display: inline-block;
+  }
+  .aem-banner-container .aem-banner p.button-container .button.primary {
+    width: auto;
+  }
+}
