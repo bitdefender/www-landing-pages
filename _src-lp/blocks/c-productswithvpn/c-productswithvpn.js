@@ -34,6 +34,7 @@ export default function decorate(block) {
     title,
     subtitle,
     titlePosition,
+    overflowTop,
     marginTop,
     marginBottom,
     paddingTop,
@@ -52,8 +53,9 @@ export default function decorate(block) {
   }
 
   if (productsAsList.length) {
-    if (marginTop) block.style.marginTop = `${marginTop}rem`;
-    if (marginBottom) block.style.marginBottom = `${marginBottom}rem`;
+    if (overflowTop) block.style.marginTop = `${overflowTop}rem`;
+    if (marginTop) parentSelector.style.marginTop = `${marginTop}rem`;
+    if (marginBottom) parentSelector.style.marginBottom = `${marginBottom}rem`;
     if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
     if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
 
