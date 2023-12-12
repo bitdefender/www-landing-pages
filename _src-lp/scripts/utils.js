@@ -161,7 +161,6 @@ function truncatePrice(price) {
 export function setDataOnBuyLinks (dataInfo) {
   try {
     const { buyLink, productId, variation } = dataInfo;
-    console.log('variation ', variation)
 
     if (buyLink !== null && buyLink !== '') {
       const elements = document.getElementsByClassName(buyLink);
