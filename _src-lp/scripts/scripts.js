@@ -698,7 +698,7 @@ function changeCheckboxVPN(checkboxId, pid) {
   }
 }
 
-function initSelectors(pid) {
+function initSelectors(pid, main = document) {
   showLoaderSpinner(false);
   const productsExistsOnPage = productsList.length;
 
@@ -747,7 +747,7 @@ function initSelectors(pid) {
           sendAnalyticsProducts(this);
           try {
             const fp = this;
-            showPrices(fp);
+            showPrices(fp, false, '', main);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(true, onSelectorClass);
           } catch (ex) { /* empty */ }
@@ -818,7 +818,7 @@ async function initZuoraProductPriceLogic(campaign) {
   });
 }
 
-async function initializeProductsPriceLogic() {
+async function initializeProductsPriceLogic(main = document) {
   let pid = getParam('pid');
   let campaign = getParam('campaign');
 
@@ -855,7 +855,7 @@ async function initializeProductsPriceLogic() {
 
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
     addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
-      initSelectors(pid);
+      initSelectors(pid, main);
     });
   } else {
     initZuoraProductPriceLogic(campaign);
@@ -984,7 +984,7 @@ export async function loadPage(main = document) {
   addIdsToEachSection(main);
 
   if (window.ADOBE_MC_EVENT_LOADED || window.personalization) {
-    initializeProductsPriceLogic();
+    initializeProductsPriceLogic(main);
   } else {
     document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
       initializeProductsPriceLogic();

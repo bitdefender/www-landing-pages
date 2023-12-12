@@ -210,7 +210,7 @@ function maxDiscount() {
 }
 
 // display prices
-export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
+export function showPrices(storeObj, triggerVPN = false, checkboxId = '', main = document) {
   const { currency_label: currencyLabel } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj.config;
@@ -253,8 +253,8 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
 
     const oldPriceClass = `.oldprice-${onSelectorClass}`;
-    if (document.querySelector(oldPriceClass)) {
-      const allOldPriceBox = document.querySelectorAll(oldPriceClass);
+    if (main.querySelector(oldPriceClass)) {
+      const allOldPriceBox = main.querySelectorAll(oldPriceClass);
       if (triggerVPN) {
         parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
         if (comparativeTextBox) {
@@ -270,8 +270,8 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
 
     const onewPriceClass = `.newprice-${onSelectorClass}`;
-    if (document.querySelector(onewPriceClass)) {
-      const allNewPriceBox = document.querySelectorAll(onewPriceClass);
+    if (main.querySelector(onewPriceClass)) {
+      const allNewPriceBox = main.querySelectorAll(onewPriceClass);
       if (triggerVPN) {
         parentDiv.querySelector(onewPriceClass).innerHTML = offerPrice;
         if (comparativeTextBox) {
@@ -287,8 +287,8 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
 
     const oldPriceMonthlyClass = `.oldprice-${onSelectorClass}-monthly`;
-    if (document.querySelector(oldPriceMonthlyClass)) {
-      const allOldPriceBox = document.querySelectorAll(oldPriceMonthlyClass);
+    if (main.querySelector(oldPriceMonthlyClass)) {
+      const allOldPriceBox = main.querySelectorAll(oldPriceMonthlyClass);
       if (triggerVPN) {
         parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
         if (comparativeTextBox) {
@@ -304,8 +304,8 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
 
     const onewPriceMonthlyClass = `.newprice-${onSelectorClass}-monthly`;
-    if (document.querySelector(onewPriceMonthlyClass)) {
-      const allNewPriceBox = document.querySelectorAll(onewPriceMonthlyClass);
+    if (main.querySelector(onewPriceMonthlyClass)) {
+      const allNewPriceBox = main.querySelectorAll(onewPriceMonthlyClass);
       if (triggerVPN) {
         parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
         if (comparativeTextBox) {
@@ -320,26 +320,26 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    if (document.querySelector(`.save-${onSelectorClass}`)) {
+    if (main.querySelector(`.save-${onSelectorClass}`)) {
       if (triggerVPN) {
         const parentSaveBox = parentDiv.querySelector(`.save-${onSelectorClass}`);
         parentSaveBox.innerHTML = savings;
         parentSaveBox.style.visibility = 'visible';
       } else {
-        document.querySelectorAll(`.save-${onSelectorClass}`).forEach((item) => {
+        main.querySelectorAll(`.save-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = savings;
           item.style.visibility = 'visible';
         });
       }
     }
 
-    if (document.querySelector(`.percent-${onSelectorClass}`)) {
+    if (main.querySelector(`.percent-${onSelectorClass}`)) {
       if (triggerVPN) {
         const parentPercentBox = parentDiv.querySelector(`.percent-${onSelectorClass}`);
         parentPercentBox.innerHTML = `${percentageSticker}%`;
         parentPercentBox.parentNode.style.visibility = 'visible';
       } else {
-        document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
+        main.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = `${percentageSticker}%`;
           item.style.visibility = 'visible';
           item.parentNode.style.visibility = 'visible';
@@ -347,12 +347,12 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    if (document.querySelector(`.bulina-${onSelectorClass}`)) {
-      const bulinaElement = document.querySelector(`.bulina-${onSelectorClass}`);
+    if (main.querySelector(`.bulina-${onSelectorClass}`)) {
+      const bulinaElement = main.querySelector(`.bulina-${onSelectorClass}`);
       bulinaElement.closest('div').style.visibility = 'visible';
     }
 
-    const showSaveBox = document.querySelector(`.show_save_${onSelectorClass}`);
+    const showSaveBox = main.querySelector(`.show_save_${onSelectorClass}`);
     if (showSaveBox) {
       showSaveBox.style.visibility = 'visible';
     }
@@ -374,20 +374,20 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    const newPriceBox = document.querySelector(`.newprice-${onSelectorClass}`);
+    const newPriceBox = main.querySelector(`.newprice-${onSelectorClass}`);
     if (newPriceBox) {
       newPriceBox.innerHTML = fullPrice;
       if (vpnHasDiscount) {
-        document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
+        main.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = offerPrice;
         });
       }
     }
 
-    const oldPriceBox = document.querySelector(`.oldprice-${onSelectorClass}`);
+    const oldPriceBox = main.querySelector(`.oldprice-${onSelectorClass}`);
     if (oldPriceBox) {
       if (productId === 'vpn') {
-        document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
+        main.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = fullPrice;
         });
         if (oldPriceBox.parentNode.nodeName === 'P') {
@@ -404,7 +404,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    const saveBox = document.querySelector(`.save-${onSelectorClass}`);
+    const saveBox = main.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
       const siblingElements = saveBox.parentNode.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
@@ -418,7 +418,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    const percentBox = document.querySelector(`.percent-${onSelectorClass}`);
+    const percentBox = main.querySelector(`.percent-${onSelectorClass}`);
     if (percentBox) {
       if (vpnHasDiscount) {
         if (triggerVPN) {
@@ -426,7 +426,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
           parentPercentBox.innerHTML = `${percentageSticker}%`;
           parentPercentBox.parentNode.style.visibility = 'visible';
         } else {
-          document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
+          main.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
             item.innerHTML = `${percentageSticker}%`;
             item.parentNode.style.visibility = 'visible';
           });
@@ -434,20 +434,20 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       }
     }
 
-    const showSaveBox = document.querySelector(`.show_save_${onSelectorClass}`);
+    const showSaveBox = main.querySelector(`.show_save_${onSelectorClass}`);
     if (showSaveBox) {
       showSaveBox.style.visibility = 'hidden';
     }
 
-    const bulinaBox = document.querySelector(`.bulina-${onSelectorClass}`);
+    const bulinaBox = main.querySelector(`.bulina-${onSelectorClass}`);
     if (bulinaBox) {
       bulinaBox.style.display = 'none';
       // bulinaBox.parentNode.style.visibility = 'hidden';
     }
   }
 
-  if (isZuoraForNetherlandsLangMode() && document.querySelector(`.buylink-${onSelectorClass}`)) {
-    const allBuyLinkBox = document.querySelectorAll(`.buylink-${onSelectorClass}`);
+  if (isZuoraForNetherlandsLangMode() && main.querySelector(`.buylink-${onSelectorClass}`)) {
+    const allBuyLinkBox = main.querySelectorAll(`.buylink-${onSelectorClass}`);
     if (triggerVPN) {
       parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
       if (comparativeTextBox) {
