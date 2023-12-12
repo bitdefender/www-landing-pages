@@ -248,7 +248,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
 
   let parentDiv = '';
   let buyLink = storeObj.buy_link;
-  let selectedVarPrice = storeObj.selected_variation.price;
+  var selectedVarPrice = storeObj.selected_variation.price;
 
   const showVpnBox = document.querySelector(`.show_vpn_${productId}`);
   if (showVpnBox) {
@@ -386,7 +386,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       showSaveBox.style.visibility = 'visible';
     }
   } else {
-    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
+    let fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
     let vpnHasDiscount = false;
     let offerPrice = 0;
     let percentageSticker = 0;
@@ -495,11 +495,11 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     buyLink: `buylink-${onSelectorClass}`,
     productId,
     variation: {
-      price: triggerVPN ? selectedVarPrice : storeObj.selected_variation.price,
+      price: selectedVarPrice,
       discounted_price: selectedVarDiscount,
       variation_name: `${prodUsers}u-${prodYears}y`,
-      currency_label: storeObj.selected_variation.currency_label,
-      region_id: storeObj.selected_variation.region_id,
+      currency_label: currencyLabel,
+      region_id: regionId,
     }
   }
   setDataOnBuyLinks(dataInfo);
