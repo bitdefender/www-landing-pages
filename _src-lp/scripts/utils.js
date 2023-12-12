@@ -158,26 +158,27 @@ function truncatePrice(price) {
 }
 
 // DEX-14692 - set data on buy links
-function setDataOnBuyLinks (dataInfo) {
+export function setDataOnBuyLinks (dataInfo) {
   try {
     const { buyLink, productId, variation } = dataInfo;
+    console.log('variation ', variation)
 
     if (buyLink !== null && buyLink !== '') {
       const elements = document.getElementsByClassName(buyLink);
 
       Array.from(elements).forEach((element) => {
-        element.dataset.product = productId;
+        if (productId) element.dataset.product = productId;
 
-        if (typeof variation.discount !== 'undefined') {
-          element.dataset.buyPrice = variation.discounted_price || variation.discount.discounted_price;
+        if (typeof variation.discounted_price) {
+          element.dataset.buyPrice =  variation.discounted_price;
         } else {
-          element.dataset.buyPrice = variation.price;
+          if (variation.price) element.dataset.buyPrice = variation.price;
         }
 
-        element.dataset.oldPrice = variation.price;
-        element.dataset.dataCurrency = variation.currency_label;
-        element.dataset.dataRegion = variation.region_id;
-        element.dataset.variation = variation.variation_name;
+        if (variation.price) element.dataset.oldPrice = variation.price;
+        if (variation.currency_label) element.dataset.dataCurrency = variation.currency_label;
+        if (variation.region_id) element.dataset.dataRegion = variation.region_id;
+        if (variation.variation_name) element.dataset.variation = variation.variation_name;
       });
     }
   } catch (error) {
@@ -495,7 +496,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     buyLink: `buylink-${onSelectorClass}`,
     productId,
     variation: {
-      discount: JSON.parse(JSON.stringify(storeObj.selected_variation.discount)),
       price: triggerVPN ? selectedVarPrice : storeObj.selected_variation.price,
       discounted_price: selectedVarDiscount,
       variation_name: `${prodUsers}u-${prodYears}y`,
@@ -504,6 +504,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
   }
   setDataOnBuyLinks(dataInfo);
+
   maxDiscount();
 }
 

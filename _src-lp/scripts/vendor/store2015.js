@@ -805,7 +805,6 @@ StoreProducts.initSelector = function (config) {
   }
 
   try {
-    // StoreProducts.setInfo(buy_class, product_id, variation);
     StoreProducts.setDigitalData(product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
@@ -1197,7 +1196,6 @@ StoreProducts.__onChangeUsers = function (ev) {
 
   try {
     delete digitalData.product;
-    // StoreProducts.setInfo(c_config.buy_class, c_config.product_id, variation);
     StoreProducts.setDigitalData(c_config.product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
@@ -1398,7 +1396,6 @@ StoreProducts.__onChangeYears = function (ev) {
 
   try {
     delete digitalData.product;
-    // StoreProducts.setInfo(c_config.buy_class, c_config.product_id, variation);
     StoreProducts.setDigitalData(c_config.product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
@@ -1671,34 +1668,6 @@ StoreProducts.getBundleProductsInfo = function (va, vb, config) {
   buy_link = StoreProducts.filterBuyLink(config, buy_link);
   buy_link = StoreProducts.appendVisitorID(buy_link);
   return { buy_link, price: ret_price };
-};
-
-StoreProducts.setInfo = function (buy_class, product_id, variation) {
-  if (buy_class != null && buy_class != '') {
-    const elementsBuy = document.getElementsByClassName(buy_class);
-    Array.from(elementsBuy).forEach((element) => {
-      element.setAttribute('data-product', product_id);
-    });
-
-    if (typeof (variation.discount) !== 'undefined') {
-      const elements = document.getElementsByClassName(buy_class);
-      Array.from(elements).forEach((element) => {
-        element.setAttribute('data-buy-price', variation.discount.discounted_price);
-      });
-    } else {
-      const elements = document.getElementsByClassName(buy_class);
-      Array.from(elements).forEach((element) => {
-        element.setAttribute('data-buy-price', variation.price);
-      });
-    }
-
-    Array.from(elementsBuy).forEach((element) => {
-      element.setAttribute('data-old-price', variation.price);
-      element.setAttribute('data-currency', variation.currency_label);
-      element.setAttribute('data-region', variation.region_id);
-      element.setAttribute('data-variation', variation.variation.variation_name);
-    });
-  }
 };
 
 StoreProducts.requestPricingInfo = function (so) {
