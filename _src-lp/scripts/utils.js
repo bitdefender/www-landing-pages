@@ -158,7 +158,7 @@ function truncatePrice(price) {
 }
 
 // DEX-14692 - set data on buy links
-export function setDataOnBuyLinks (dataInfo) {
+export function setDataOnBuyLinks(dataInfo) {
   try {
     const { buyLink, productId, variation } = dataInfo;
 
@@ -168,11 +168,7 @@ export function setDataOnBuyLinks (dataInfo) {
       Array.from(elements).forEach((element) => {
         if (productId) element.dataset.product = productId;
 
-        if (typeof variation.discounted_price) {
-          element.dataset.buyPrice =  variation.discounted_price;
-        } else {
-          if (variation.price) element.dataset.buyPrice = variation.price;
-        }
+        element.dataset.buyPrice = variation.discounted_price || variation.price || 0;
 
         if (variation.price) element.dataset.oldPrice = variation.price;
         if (variation.currency_label) element.dataset.dataCurrency = variation.currency_label;
