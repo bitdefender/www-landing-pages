@@ -179,7 +179,7 @@ export function setDataOnBuyLinks(dataInfo) {
   } catch (error) {
     console.error('An error occurred:', error);
   }
-};
+}
 
 // formatPrice
 function formatPrice(priceVal, currency, region) {
@@ -244,7 +244,8 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
 
   let parentDiv = '';
   let buyLink = storeObj.buy_link;
-  var selectedVarPrice = storeObj.selected_variation.price;
+  let selectedVarPrice = storeObj.selected_variation.price;
+  let selectedVarDiscount = storeObj.selected_variation.discount?.discounted_price;
 
   const showVpnBox = document.querySelector(`.show_vpn_${productId}`);
   if (showVpnBox) {
@@ -263,7 +264,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   }
 
   if (storeObj.selected_variation.discount && storeObj.selected_variation.discount?.discount_value) {
-    var selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
     if (triggerVPN) {
       selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
@@ -382,7 +382,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       showSaveBox.style.visibility = 'visible';
     }
   } else {
-    let fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
+    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
     let vpnHasDiscount = false;
     let offerPrice = 0;
     let percentageSticker = 0;
@@ -390,7 +390,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     if (productId === 'vpn' && storeObj.selected_variation.discount) {
       vpnHasDiscount = true;
       if (storeObj.selected_variation.discount) {
-        var selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
@@ -496,10 +495,10 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       variation_name: `${prodUsers}u-${prodYears}y`,
       currency_label: currencyLabel,
       region_id: regionId,
-    }
-  }
-  setDataOnBuyLinks(dataInfo);
+    },
+  };
 
+  setDataOnBuyLinks(dataInfo);
   maxDiscount();
 }
 

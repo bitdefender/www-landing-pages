@@ -700,8 +700,9 @@ function changeCheckboxVPN(checkboxId, pid) {
     variation: {
       discounted_price: newPrice.replace(selectedVariation.currency_label, '').trim(),
       price: fullPrice.replace(selectedVariation.currency_label, '').trim(),
-    }
-  }
+    },
+  };
+
   setDataOnBuyLinks(dataInfo);
 }
 
