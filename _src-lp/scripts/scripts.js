@@ -23,6 +23,7 @@ import {
   isZuoraForNetherlandsLangMode,
   productsList,
   showLoaderSpinner,
+  setDataOnBuyLinks,
   showPrices,
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
@@ -693,6 +694,16 @@ function changeCheckboxVPN(checkboxId, pid) {
       comparativeDiv.querySelector(saveClass).innerHTML = save;
     }
   }
+
+  const dataInfo = {
+    buyLink: `buylink-${onSelectorClass}`,
+    variation: {
+      discounted_price: newPrice.replace(selectedVariation.currency_label, '').trim(),
+      price: fullPrice.replace(selectedVariation.currency_label, '').trim(),
+    },
+  };
+
+  setDataOnBuyLinks(dataInfo);
 }
 
 function initSelectors(pid) {
@@ -768,6 +779,7 @@ function addEventListenersOnVpnCheckboxes(pid) {
     document.querySelectorAll('.checkboxVPN').forEach((item) => {
       item.addEventListener('click', (e) => {
         const checkboxId = e.target.getAttribute('id');
+
         if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
           const prodxId = e.target.getAttribute('id').split('-')[1];
           const storeObjprod = window.StoreProducts.product[prodxId] || {};

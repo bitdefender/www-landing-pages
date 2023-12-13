@@ -124,19 +124,6 @@ export default function decorate(block) {
           devicesSelector.forEach((selector) => {
             selector.value = devicesInput.value;
             selector.dispatchEvent(new Event('change'));
-
-            // DEX-14692
-            document.querySelectorAll('.red-buy-button').forEach((buybtn) => {
-              const getCurrency = buybtn.getAttribute('data-currency');
-              const newPrice = buybtn.parentNode.parentNode.querySelector('.prod-newprice').innerText.trim().replace(` ${getCurrency}`, '');
-              const oldPrice = buybtn.parentNode.parentNode.querySelector('.prod-oldprice span').innerText.trim().replace(` ${getCurrency}`, '');
-              buybtn.setAttribute('data-buy-price', newPrice);
-              buybtn.setAttribute('data-old-price', oldPrice);
-
-              const newVariationSplit = buybtn.getAttribute('data-variation').split('-');
-              newVariationSplit[0] = `${devicesInput.value}u`;
-              buybtn.setAttribute('data-variation', `${newVariationSplit[0]}-${newVariationSplit[1]}`);
-            });
           });
         }
 
