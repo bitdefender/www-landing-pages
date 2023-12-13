@@ -5,7 +5,7 @@
   "description": "Starter project for Adobe Helix",
   "scripts": {
     "test:unit": "jest --config",
-    "test:e2e": "node e2e/index.js",
+    "test:snapshots": "node ghosti/index.js",
     "lint:js": "eslint .",
     "lint:css": "stylelint _src-lp/blocks/**/*.css styles/*.css",
     "lint:css:fix": "stylelint _src-lp/blocks/**/*.css styles/*.css --fix",
