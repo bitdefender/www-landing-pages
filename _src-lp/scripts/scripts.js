@@ -860,7 +860,11 @@ async function initializeProductsPriceLogic() {
   } catch (ex) { /* empty */ }
 
   // skip Zuora if specific pids are applied
-  const skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid);
+  let skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid);
+
+  if (getParam('vfone')) {
+    skipZuora = true;
+  }
 
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
     addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
