@@ -316,6 +316,7 @@
 .c-productswithvpn > div:nth-child(1) {
   padding-top: 47px;
   border: 9px solid #22ac3b;
+  margin-top: -2em;
 
   &.no-border {
     border: 0 none;
@@ -356,6 +357,7 @@
 
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div {
   padding: 1%;
+  margin-top: 0;
   border: 0 none;
   overflow: hidden;
 }
@@ -365,7 +367,7 @@
 }
 
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div div.tag {
-  padding: 3px 0 12px;
+  padding: 10px 0;
 }
 
 .c-productswithvpn-container .top_title h1, .c-productswithvpn-container .top_title h2 {
