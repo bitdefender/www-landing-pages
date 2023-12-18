@@ -43,14 +43,9 @@ export default function decorate(block) {
     bulinaText,
     borderColor,
     listStyle,
-    skipZuoraFor,
     noBorder,
   } = metaData;
   const productsAsList = products && products.split(',');
-
-  if (!window.skipZuoraFor && skipZuoraFor) {
-    window.skipZuoraFor = skipZuoraFor.split(',');
-  }
 
   if (productsAsList.length) {
     if (overflowTop) block.style.marginTop = `${overflowTop}rem`;
