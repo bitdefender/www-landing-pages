@@ -11,6 +11,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
+  getMetadata,
 } from './lib-franklin.js';
 
 import {
@@ -860,7 +861,7 @@ async function initializeProductsPriceLogic() {
   } catch (ex) { /* empty */ }
 
   // skip Zuora if specific pids are applied
-  let skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid);
+  let skipZuora = getMetadata('skip-zuora-for') && getMetadata('skip-zuora-for').indexOf(pid) !== -1;
 
   if (getParam('vfone')) {
     skipZuora = true;
