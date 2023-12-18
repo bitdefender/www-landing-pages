@@ -861,7 +861,7 @@ async function initializeProductsPriceLogic() {
   } catch (ex) { /* empty */ }
 
   // skip Zuora if specific pids are applied
-  let skipZuora = getMetadata('skip-zuora-for') && getMetadata('skip-zuora-for').includes(pid);
+  let skipZuora = getMetadata('skip-zuora-for') && getMetadata('skip-zuora-for').indexOf(pid) !== -1;
 
   if (getParam('vfone')) {
     skipZuora = true;
