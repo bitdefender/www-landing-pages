@@ -82,12 +82,12 @@
   display: inline-block;
 }
 
-.b-dropdownbox-container.awards90 .block.has2divs > div > div:nth-child(2) img {
-  width: 90%;
-}
-
 .b-dropdownbox-container .block.has2divs > div > div:nth-child(2) img {
   width: 400px;
+}
+
+.b-dropdownbox-container.awards90 .block.has2divs > div > div:nth-child(2) img {
+  width: 90%;
 }
 
 .b-dropdownbox-container .block.inactive > div:nth-child(1) > div::before,
