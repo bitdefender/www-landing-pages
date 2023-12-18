@@ -47,7 +47,7 @@ export default function decorate(block) {
                     <div class="separator"></div>
                     <div class="author">${authorEl.innerText}</div>
                     <div class="position">${positionEl.innerText}</div>
-                    ${readMoreEl ? `<a class="read-more" href="${readMoreEl.children[0].href}">${readMoreEl.children[0].innerText}</a>` : ''}
+                    ${readMoreEl ? `<a class="read-more" href="${readMoreEl.children[0].href}" title="${readMoreEl.children[0].innerText}">${readMoreEl.children[0].innerText}</a>` : ''}
                   </div>
                   ${isDesktopView ? pictureEl.innerHTML : ''}
                 </div>
