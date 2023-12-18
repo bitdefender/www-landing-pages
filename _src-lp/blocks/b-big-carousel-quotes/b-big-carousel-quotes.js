@@ -34,7 +34,7 @@ export default function decorate(block) {
             `;
   }).join('')}
           </div>
-  
+
           <div class="carousel-inner">
             ${carouselSlides.map((slide, idx) => {
     const [quoteEl, authorEl, positionEl] = slide.children[0].children;
@@ -47,14 +47,14 @@ export default function decorate(block) {
                     <div class="separator"></div>
                     <div class="author">${authorEl.innerText}</div>
                     <div class="position">${positionEl.innerText}</div>
-                    ${readMoreEl ? `<a class="read-more" href="${readMoreEl.children[0].href}">Read More</a>` : ''}
+                    ${readMoreEl ? `<a class="read-more" href="${readMoreEl.children[0].href}" title="${readMoreEl.children[0].innerText}">${readMoreEl.children[0].innerText}</a>` : ''}
                   </div>
                   ${isDesktopView ? pictureEl.innerHTML : ''}
                 </div>
                 `;
   }).join('')}
           </div>
-  
+
           <button class="carousel-control-prev disabled" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" >
             ${arrowSvg}
             <span class="visually-hidden">Previous</span>
