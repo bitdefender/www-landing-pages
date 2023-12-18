@@ -140,6 +140,7 @@
 
 .c-productswithvpn > div p:nth-of-type(2) {
   font-size: 16px;
+  line-height: 16px;
   color: #666;
   font-weight: 500;
 }
@@ -282,7 +283,7 @@
 }
 
 .c-productswithvpn > div div.buybtn_box {
-  height: 80px;
+  height: 85px;
   display: flex;
   width: 100%;
   text-align: center;
@@ -332,8 +333,8 @@
 }
 
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div {
-  width: 24%;
   padding: 1%;
+  margin-top: 0;
   border: 0 none;
   overflow: hidden;
 }
@@ -343,7 +344,7 @@
 }
 
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div div.tag {
-  padding: 3px 0 12px;
+  padding: 10px 0;
 }
 
 .c-productswithvpn-container .top_title h1, .c-productswithvpn-container .top_title h2 {
@@ -417,10 +418,10 @@
     min-height: auto;
   }
   .c-productswithvpn-container.has4boxes .c-productswithvpn > div {
-    width: 100% !important;
     padding: 3% !important;
     margin-bottom: 1em !important;
     padding-bottom: 10px !important;
+    margin-top: 1em;
   }
   .c-productswithvpn-container .top_title h1, .c-productswithvpn-container .top_title h2 {
     width: 100%;
@@ -459,7 +460,6 @@
     width: auto !important;
   }
   .c-productswithvpn > div:nth-child(1) {
-    margin-top: 0;
     padding-top: 50px !important;
   }
   .c-productswithvpn-container .top_title {
