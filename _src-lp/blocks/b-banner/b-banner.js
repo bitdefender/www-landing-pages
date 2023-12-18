@@ -56,14 +56,8 @@ export default function decorate(block) {
     flipClockCss.href = 'https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css';
     document.head.appendChild(flipClockCss);
 
-    const flipClockConfig = {
-      dataTheme: counterTheme || 'dark',
-      dataSwitchOn: new Date(counterSwitchOn).getTime() / 1000,
-      dataHeadings: counterHeadings || '',
-    };
-
     block.innerHTML = block.innerHTML.replace('[counter]', `
-      <div id="flipdown" class="flipdown" data-theme="${flipClockConfig.dataTheme}" data-switchOn=${flipClockConfig.dataSwitchOn} data-headings="${flipClockConfig.dataHeadings.trim()}"></div>
+      <div id="flipdown" class="flipdown"></div>
     `);
 
     if (block.children.length === 3) {
@@ -73,21 +67,58 @@ export default function decorate(block) {
       bannerImage2.id = 'cyberMonday';
       parentSelector.append(bannerImage2);
     }
+
+    // functionality:
+    const flipdownBox = document.getElementById('flipdown');
+    if (flipdownBox) {
+      const blackFridayElement = document.getElementById('blackFriday');
+      const cyberMondayElement = document.getElementById('cyberMonday');
+
+      const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
+
+      // config
+      const flipConfig = {
+        theme: counterTheme || 'dark',
+        headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
+      };
+
+      setTimeout(() => {
+        // eslint-disable-next-line no-undef
+        const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipConfig);
+        if (!firstCounter.countdownEnded) {
+          blackFridayElement.style.display = 'block';
+          cyberMondayElement.style.display = 'none';
+        }
+
+        firstCounter.start()
+          .ifEnded(() => {
+            // switch images:
+            blackFridayElement.style.display = 'none';
+            cyberMondayElement.style.display = 'block';
+
+            // The initial counter has ended; start a new one 48 hours from now
+            flipdownBox.innerHTML = '';
+            const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
+
+            // eslint-disable-next-line no-undef
+            const secondCounter = new FlipDown(newTime, flipConfig);
+            secondCounter.start().ifEnded(() => {});
+          });
+      }, 1000);
+    }
   } else {
     parentSelector.append(bannerImage);
   }
 
   // update background color if set, if not set default: #000
-  const block1 = document.querySelector('.b-banner-container');
   if (backgroundColor) {
-    block1.style.backgroundColor = backgroundColor;
+    parentSelector.style.backgroundColor = backgroundColor;
   } else {
-    block1.style.backgroundColor = '#000';
+    parentSelector.style.backgroundColor = '#000';
   }
 
-  if (textColor && block.children[2]) {
+  if (textColor) {
     block.style.color = textColor;
-    block.children[2].style.color = textColor;
   }
 
   if (headerTextColor) {
@@ -317,17 +348,21 @@ export default function decorate(block) {
 
     block.children[2].id = 'productBoxDiv';
 
-    block.querySelector('table:nth-of-type(2)').innerHTML = `<div class="prices_box prodload prodload-${onSelectorClass}">
-      <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-      <span class="prod-newprice newprice-${onSelectorClass}"></span>
-    </div>`;
+    if (block.querySelector('table:nth-of-type(2)')) {
+      block.querySelector('table:nth-of-type(2)').innerHTML = `<div class="prices_box prodload prodload-${onSelectorClass}">
+        <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+        <span class="prod-newprice newprice-${onSelectorClass}"></span>
+      </div>`;
+    }
 
     const buyTable = block.querySelector('table:last-of-type');
-    buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
-      <a class="red-buy-button buylink-${onSelectorClass} prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
-        <strong>${buyTable.innerText}</strong>
-      </a>
-    </div>`;
+    if (buyTable) {
+      buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
+        <a class="red-buy-button buylink-${onSelectorClass} prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
+          <strong>${buyTable.innerText}</strong>
+        </a>
+      </div>`;
+    }
   }
 
   // adding height if content is bigger than default banner:

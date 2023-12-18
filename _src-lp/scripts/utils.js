@@ -51,7 +51,7 @@ export const getIpCountry = async () => {
 */
 
 // add new script file
-export function addScript(src, data = {}, type = undefined, callback = undefined) {
+export function addScript(src, data = {}, type = undefined, onLoadCallback = undefined, onErrorCallback = undefined) {
   const s = document.createElement('script');
 
   s.setAttribute('src', src);
@@ -70,10 +70,12 @@ export function addScript(src, data = {}, type = undefined, callback = undefined
     }
   }
 
-  if (callback) {
-    s.addEventListener('load', () => {
-      callback();
-    });
+  if (onLoadCallback) {
+    s.onload = onLoadCallback;
+  }
+
+  if (onErrorCallback) {
+    s.onerror = onErrorCallback;
   }
 
   document.body.appendChild(s);
@@ -155,6 +157,30 @@ function truncatePrice(price) {
   return ret;
 }
 
+// DEX-14692 - set data on buy links
+export function setDataOnBuyLinks(dataInfo) {
+  try {
+    const { buyLink, productId, variation } = dataInfo;
+
+    if (buyLink !== null && buyLink !== '') {
+      const elements = document.getElementsByClassName(buyLink);
+
+      Array.from(elements).forEach((element) => {
+        if (productId) element.dataset.product = productId;
+
+        element.dataset.buyPrice = variation.discounted_price || variation.price || 0;
+
+        if (variation.price) element.dataset.oldPrice = variation.price;
+        if (variation.currency_label) element.dataset.dataCurrency = variation.currency_label;
+        if (variation.region_id) element.dataset.dataRegion = variation.region_id;
+        if (variation.variation_name) element.dataset.variation = variation.variation_name;
+      });
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+}
+
 // formatPrice
 function formatPrice(priceVal, currency, region) {
   const price = truncatePrice(priceVal);
@@ -219,6 +245,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   let parentDiv = '';
   let buyLink = storeObj.buy_link;
   let selectedVarPrice = storeObj.selected_variation.price;
+  let selectedVarDiscount = storeObj.selected_variation.discount?.discounted_price;
 
   const showVpnBox = document.querySelector(`.show_vpn_${productId}`);
   if (showVpnBox) {
@@ -237,7 +264,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   }
 
   if (storeObj.selected_variation.discount && storeObj.selected_variation.discount?.discount_value) {
-    let selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
     if (triggerVPN) {
       selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
@@ -364,7 +390,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     if (productId === 'vpn' && storeObj.selected_variation.discount) {
       vpnHasDiscount = true;
       if (storeObj.selected_variation.discount) {
-        let selectedVarDiscount = storeObj.selected_variation.discount.discounted_price;
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
@@ -461,6 +486,19 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     }
   }
 
+  const dataInfo = {
+    buyLink: `buylink-${onSelectorClass}`,
+    productId,
+    variation: {
+      price: selectedVarPrice,
+      discounted_price: selectedVarDiscount,
+      variation_name: `${prodUsers}u-${prodYears}y`,
+      currency_label: currencyLabel,
+      region_id: regionId,
+    },
+  };
+
+  setDataOnBuyLinks(dataInfo);
   maxDiscount();
 }
 

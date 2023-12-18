@@ -11,6 +11,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
+  getMetadata,
 } from './lib-franklin.js';
 
 import {
@@ -23,6 +24,7 @@ import {
   isZuoraForNetherlandsLangMode,
   productsList,
   showLoaderSpinner,
+  setDataOnBuyLinks,
   showPrices,
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
@@ -152,15 +154,19 @@ function addFavIcon(href) {
 export function loadTrackers() {
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
 
+  const onAdobeMcLoaded = () => {
+    document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
+    window.ADOBE_MC_EVENT_LOADED = true;
+  };
+
   if (isPageNotInDraftsFolder) {
     addScript(getInstance() === 'prod'
       ? 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js'
-      : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', () => {
-      document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
-      window.ADOBE_MC_EVENT_LOADED = true;
-    });
+      : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', onAdobeMcLoaded, onAdobeMcLoaded);
 
     addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'async');
+  } else {
+    onAdobeMcLoaded();
   }
 }
 
@@ -689,6 +695,16 @@ function changeCheckboxVPN(checkboxId, pid) {
       comparativeDiv.querySelector(saveClass).innerHTML = save;
     }
   }
+
+  const dataInfo = {
+    buyLink: `buylink-${onSelectorClass}`,
+    variation: {
+      discounted_price: newPrice.replace(selectedVariation.currency_label, '').trim(),
+      price: fullPrice.replace(selectedVariation.currency_label, '').trim(),
+    },
+  };
+
+  setDataOnBuyLinks(dataInfo);
 }
 
 function initSelectors(pid) {
@@ -764,6 +780,7 @@ function addEventListenersOnVpnCheckboxes(pid) {
     document.querySelectorAll('.checkboxVPN').forEach((item) => {
       item.addEventListener('click', (e) => {
         const checkboxId = e.target.getAttribute('id');
+
         if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
           const prodxId = e.target.getAttribute('id').split('-')[1];
           const storeObjprod = window.StoreProducts.product[prodxId] || {};
@@ -844,7 +861,11 @@ async function initializeProductsPriceLogic() {
   } catch (ex) { /* empty */ }
 
   // skip Zuora if specific pids are applied
-  const skipZuora = window.skipZuoraFor && window.skipZuoraFor.includes(pid);
+  let skipZuora = getMetadata('skip-zuora-for') && getMetadata('skip-zuora-for').indexOf(pid) !== -1;
+
+  if (getParam('vfone')) {
+    skipZuora = true;
+  }
 
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
     addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
@@ -930,46 +951,6 @@ function appendMetaReferrer() {
   head.appendChild(metaTag);
 }
 
-function counterFlipClock() {
-  const flipdownBox = document.getElementById('flipdown');
-  if (flipdownBox) {
-    const blackFridayElement = document.getElementById('blackFriday');
-    const cyberMondayElement = document.getElementById('cyberMonday');
-
-    const counterSwitchOn = flipdownBox.getAttribute('data-switchOn');
-    const counterTheme = flipdownBox.getAttribute('data-theme');
-    const counterHeadings = flipdownBox.getAttribute('data-headings');
-
-    // config
-    const flipConfig = {
-      theme: counterTheme,
-      headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
-    };
-
-    // eslint-disable-next-line no-undef
-    const firstCounter = new FlipDown(Number(counterSwitchOn), flipConfig);
-    if (!firstCounter.countdownEnded) {
-      blackFridayElement.style.display = 'block';
-      cyberMondayElement.style.display = 'none';
-    }
-
-    firstCounter.start()
-      .ifEnded(() => {
-        // switch images:
-        blackFridayElement.style.display = 'none';
-        cyberMondayElement.style.display = 'block';
-
-        // The initial counter has ended; start a new one 48 hours from now
-        flipdownBox.innerHTML = '';
-        const newTime = Number(counterSwitchOn) + 48 * 60 * 60;
-
-        // eslint-disable-next-line no-undef
-        const secondCounter = new FlipDown(newTime, flipConfig);
-        secondCounter.start().ifEnded(() => {});
-      });
-  }
-}
-
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
@@ -989,8 +970,6 @@ async function loadPage() {
   eventOnDropdownSlider();
 
   appendMetaReferrer();
-
-  counterFlipClock();
 
   loadDelayed();
 }

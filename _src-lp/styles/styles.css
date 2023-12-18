@@ -18,6 +18,7 @@
   --link-color: #000;
   --link-hover-color: #006EFF;
   --background-color: #fff;
+  --background-color-black: #000;
   --overlay-background-color: #eee;
   --highlight-background-color: #ececec;
   --text-color: #000;
@@ -173,7 +174,7 @@ a.button:any-link, button {
   color: #fff;
   display: inline-block;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 10px 3em;
   font-size: 14px;
   font-weight: bold;
@@ -203,8 +204,13 @@ a.button:any-link:hover, button:hover {
 
 a.button.secondary, button.secondary {
   background-color: unset;
-  border: 2px solid currentcolor;
   color: var(--text-color);
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+a.button.secondary:hover, button.secondary:hover {
+  background: initial;
 }
 
 main input {
@@ -385,6 +391,14 @@ main .default-content-wrapper img {
   margin-top: 2rem;
 }
 
+main .section .default-content-wrapper p img {
+  margin-top: 0;
+}
+
+main .section.small-image .default-content-wrapper p img {
+  height: 35px;
+}
+
 .topHeader .heading {
   font-size: 13px;
   text-transform: uppercase;
@@ -562,7 +576,12 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
 }
 /* section metadata */
 .section[data-backgroundcolor=grey] {
-  background: #ececec;
+  background: var(--highlight-background-color);
+  padding: 2em 0;
+}
+
+.section[data-backgroundcolor=black] {
+  background: var(--background-color-black);
   padding: 2em 0;
 }
 
@@ -630,7 +649,7 @@ main .section.highlight {
 
 .prod-percent.green_bck_circle.medium span:first-of-type {
   margin-top: 23%;
-  font-size: 36px;
+  font-size: var(--heading-font-size-l);
   font-weight: bold;
   line-height: 1;
 }
@@ -1001,7 +1020,11 @@ main .section.highlight {
   position: relative;
   opacity: 0.4;
   cursor: default;
-  min-height: 1em;
+  min-height: 4.3rem;
+}
+
+.await-loader * {
+  visibility: hidden;
 }
 
 .below-form-banner {

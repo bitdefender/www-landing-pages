@@ -30,7 +30,7 @@
   border-top-color: #e60093;
 }
 
-.c-top-comparative-with-text.no-highlight > div:nth-child(3) {
+.c-top-comparative-with-text.no-highlight > div:nth-child(3), .no-highlight .c-top-comparative-with-text > div:nth-child(3) {
   box-shadow: initial;
   border-top-color: transparent;
 }
@@ -310,7 +310,7 @@
     margin-top: 7px;
     font-size: 14px;
   }
-  
+
   .c-top-comparative-with-text-container {
     padding-top: 1em !important;
   }

@@ -1,0 +1,30 @@
+.aem-two-cards-container .aem-two-cards h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+.aem-two-cards-container .aem-two-cards h2 {
+  color: #006DFF;
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0;
+}
+.aem-two-cards-container .aem-two-cards_card {
+  border-radius: 20px;
+  background-color: #F7F7F7;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.aem-two-cards-container .aem-two-cards_card p:not(.button-container, :has(span)) {
+  height: 100%;
+}
+
+@media (width >= 768px) {
+  .aem-two-cards-container .aem-two-cards h1 {
+    font-size: 56px;
+  }
+  .aem-two-cards-container .aem-two-cards h1 + p {
+    font-size: 18px;
+  }
+}
