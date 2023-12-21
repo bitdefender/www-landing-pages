@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .section.banner-container {
   background-color: black;
   color: white;
@@ -13,6 +14,29 @@
 }
 .section .banner .button-container {
   display: none;
+}
+.section .banner ul {
+  padding-left: 0;
+}
+.section .banner ul li {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: var(--body-font-size-xs);
+  line-height: 20px;
+  color: #000;
+  text-align: left;
+  margin-top: 6px;
+  display: flex;
+  align-items: flex-start;
+}
+.section .banner ul li::before {
+  content: "•";
+  color: #4CA154;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 10px;
+  font-size: 40px;
 }
 .section.lp-brand .banner {
   padding: 0 15px;
@@ -43,6 +67,49 @@
   .section .banner h1 {
     font-size: 30px;
   }
+  .section .banner #pricesBox {
+    text-align: left;
+  }
+  .section .banner #pricesBox .d-flex {
+    align-items: center;
+  }
+  .section .banner #pricesBox .d-flex p {
+    margin: 0 10px 0 0;
+  }
+  .section .banner #pricesBox .d-flex span.prod-oldprice {
+    text-decoration: line-through;
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-m);
+    font-weight: normal;
+  }
+  .section .banner #pricesBox .d-flex span.prod-newprice {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+    font-weight: bold;
+  }
+  .section .banner #pricesBox .d-flex .variation {
+    font-size: var(--body-font-size-xs);
+    line-height: 19px;
+    font-weight: bold;
+  }
+  .section .banner #pricesBox .buy_box {
+    margin: 20px 0;
+    min-height: auto;
+  }
+  .section .banner #pricesBox .buy_box a, .section .banner #pricesBox .buy_box span {
+    display: inline;
+  }
+  .section .banner #pricesBox .terms {
+    margin: 5px 0 10px;
+  }
+  .section .banner #pricesBox .terms p {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 5px;
+  }
+  .section .banner #pricesBox .terms p a {
+    color: #006EFF;
+  }
   .section.lp-brand .banner h1 {
     font-weight: lighter;
     font-size: var(--heading-font-size-l);
@@ -58,7 +125,12 @@
 @media screen and (width >= 991px) {
   .section .banner h1 {
     font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
+    line-height: 45px;
+    text-align: left;
+  }
+  .section .banner h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
     text-align: left;
   }
   .section .banner .button-container {
@@ -83,12 +155,62 @@
   }
 }
 @media screen and (width <= 768px) {
+  .section .banner {
+    margin: 1em 0 !important;
+    padding: 1em 0 !important;
+  }
   .section.lp-brand .banner {
     padding-bottom: 5.5rem !important;
     border-radius: 10px !important;
   }
   .section .banner h1 {
     margin-top: 1em;
+    font-size: var(--heading-font-size-m);
+  }
+  .section .banner h2 {
+    margin-bottom: 0;
+    font-size: var(--body-font-size-m);
+  }
+  #pricesBox .d-flex {
+    justify-content: center;
+  }
+  #pricesBox .d-flex p {
+    margin: 0 10px 0 0;
+  }
+  #pricesBox .d-flex span.prod-oldprice {
+    text-decoration: line-through;
+    font-size: var(--heading-font-size-s);
+    line-height: var(--heading-font-size-s);
+    font-weight: normal;
+  }
+  #pricesBox .d-flex span.prod-newprice {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+    font-weight: bold;
+  }
+  #pricesBox .d-flex .variation {
+    font-size: var(--body-font-size-s);
+    line-height: 19px;
+    font-weight: bold;
+  }
+  #pricesBox .buy_box {
+    margin: 20px 0;
+    min-height: auto;
+  }
+  #pricesBox .buy_box a, #pricesBox .buy_box span {
+    display: inline;
+    font-size: var(--body-font-size-s);
+  }
+  #pricesBox .terms {
+    margin: 5px 0 10px;
+  }
+  #pricesBox .terms p {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 5px;
+  }
+  #pricesBox .terms p a {
+    color: #006EFF;
   }
   .hide-mobile {
     background: none !important;

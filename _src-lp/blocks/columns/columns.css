@@ -1,7 +1,7 @@
 .columns h2 {
-  color: #172462;
-  font-size: 32px;
-  font-weight: 500;
+  color: #000;
+  font-size: 30px;
+  font-weight: bold;
   line-height: 1.2;
   margin-top: 0;
 }
@@ -23,7 +23,7 @@
 }
 
 .columns p {
-  font-size: 20px;
+  font-size: var(--heading-font-size-s);
   margin-top: 20px;
   line-height: 23px;
 }
