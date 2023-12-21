@@ -7,7 +7,7 @@ export default function decorate(block) {
   const parentSelector = block.parentNode.parentNode;
   const metaData = parentSelector.dataset;
   const {
-    backgroundColor, title, subtitle, titlePosition, products, bulinaText, marginTop, marginBottom, paddingTop, paddingBottom
+    backgroundColor, title, subtitle, titlePosition, products, bulinaText, marginTop, marginBottom, paddingTop, paddingBottom,
   } = metaData;
   const productsAsList = products && products.split(',');
 

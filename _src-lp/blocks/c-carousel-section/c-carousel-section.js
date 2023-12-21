@@ -2,7 +2,7 @@ export default function decorate(block) {
   const parentSelector = block.parentNode.parentNode;
   const metaData = parentSelector.dataset;
   const {
-    backgroundColor
+    backgroundColor,
   } = metaData;
   const infoTextEl = block.children[0].children[0];
   const carouselSlides = [...block.children[1].children];

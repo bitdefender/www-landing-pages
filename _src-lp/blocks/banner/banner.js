@@ -11,17 +11,17 @@ export default function decorate(block) {
   } = metaData;
   const [contentEl, pictureEl] = [...block.children];
 
-
   [...contentEl.querySelectorAll('table')].forEach((table) => {
-    const alias_tr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
-    if (alias_tr && alias_tr.innerText.trim() === 'price_box' && product?.length) {
+    const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
+    if (aliasTr && aliasTr.innerText.trim() === 'price_box' && product?.length) {
       // add products into the final array
       updateProductsList(product);
 
       const [prodName, prodUsers, prodYears] = product.split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      // eslint-disable-next-line no-unused-vars
       const [alias, prices, terms, buybtn] = [...contentEl.querySelectorAll('table tr')];
-      let pricesBox = document.createElement('div');
+      const pricesBox = document.createElement('div');
 
       if (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1) {
         buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
@@ -44,10 +44,7 @@ export default function decorate(block) {
       table.innerHTML = '';
       table.appendChild(pricesBox);
     }
-
-
-
-  })
+  });
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
