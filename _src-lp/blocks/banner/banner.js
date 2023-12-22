@@ -1,12 +1,50 @@
+import { productAliases } from '../../scripts/scripts.js';
+import { updateProductsList } from '../../scripts/utils.js';
+
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
+    product, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
-  const [richTextEl, pictureEl] = [...block.children];
+  const [contentEl, pictureEl] = [...block.children];
+
+  [...contentEl.querySelectorAll('table')].forEach((table) => {
+    const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
+    if (aliasTr && aliasTr.innerText.trim() === 'price_box' && product?.length) {
+      // add products into the final array
+      updateProductsList(product);
+
+      const [prodName, prodUsers, prodYears] = product.split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      // eslint-disable-next-line no-unused-vars
+      const [alias, prices, terms, buybtn] = [...contentEl.querySelectorAll('table tr')];
+      const pricesBox = document.createElement('div');
+
+      if (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1) {
+        buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+      }
+
+      pricesBox.id = 'pricesBox';
+      pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+      pricesBox.innerHTML += `<div class="d-flex">
+        <p>
+          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+          <span class="prod-newprice newprice-${onSelectorClass}"></span>
+        </p>
+        <p class="variation">${prices.innerHTML}</p>
+      </div>`;
+      pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
+      pricesBox.innerHTML += `<div class="buy_box">
+        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn.innerHTML}</a>
+      </div>`;
+
+      table.innerHTML = '';
+      table.appendChild(pricesBox);
+    }
+  });
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -33,10 +71,10 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">
-          <div class="col-5 ps-4">${richTextEl.innerHTML}</div>
+          <div class="col-5 ps-4">${contentEl.innerHTML}</div>
         </div>
         <div class="row d-lg-none justify-content-center">
-          <div class="col-12 col-md-7 text-center">${richTextEl.innerHTML}</div>
+          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
           <div class="col-12 p-0 text-center bck-img">
             ${pictureEl.innerHTML}
           </div>
@@ -57,10 +95,10 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">
-          <div class="col-12 col-md-7">${richTextEl.innerHTML}</div>
+          <div class="col-12 col-md-7">${contentEl.innerHTML}</div>
         </div>
         <div class="row d-lg-none justify-content-center">
-          <div class="col-12 col-md-7 text-center">${richTextEl.innerHTML}</div>
+          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
         </div>
       </div>
     `;
@@ -68,7 +106,7 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">
-          <div class="col-5 ps-4">${richTextEl.innerHTML}</div>
+          <div class="col-5 ps-4">${contentEl.innerHTML}</div>
           <div class="col-7 img-right bck-img">
             ${pictureEl.innerHTML}
           </div>
@@ -77,7 +115,7 @@ export default function decorate(block) {
           <div class="col-12 p-0 text-center bck-img">
             ${pictureEl.innerHTML}
           </div>
-          <div class="col-12 col-md-7 text-center">${richTextEl.innerHTML}</div>
+          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
         </div>
       </div>
     `;

@@ -1,9 +1,16 @@
 export default function decorate(block) {
+  const parentSelector = block.parentNode.parentNode;
+  const metaData = parentSelector.dataset;
+  const {
+    backgroundColor,
+  } = metaData;
   const infoTextEl = block.children[0].children[0];
   const carouselSlides = [...block.children[1].children];
   let infoImg = '';
-  if (block.children[2]) {
-    infoImg = block.children[2].children[0].innerHTML;
+  if (block.children[2]) infoImg = block.children[2].children[0].innerHTML;
+  if (backgroundColor) {
+    parentSelector.style.backgroundColor = backgroundColor;
+    parentSelector.style.paddingBottom = 0;
   }
 
   block.innerHTML = `
@@ -14,7 +21,7 @@ export default function decorate(block) {
           <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
               ${carouselSlides.map((slide, idx) => `
-                <button 
+                <button
                   type="button"
                   data-bs-target="#carouselExampleIndicators"
                   data-bs-slide-to="${idx}"

@@ -1,24 +1,3 @@
-/*
-  Information:
-  - displays max 3 boxes positioned in flex mode:
-    1. product 1
-    2. product 2
-    3. product 3
-
-  MetaData:
-  - background : ex: grey (background-color of full section)
-  - products : ex: tsmd/5/1, is/3/1, av/3/1 (alias_name/nr_devices/nr_years)
-  - tag_text: ex: BEST BANG FOR YOUR BUCK!
-  - tag_text2: ex: PREMIUM SECURITY AND PRIVACY PACK
-  - tag_text3: ex: BEST BANG FOR YOUR BUCK!
-  - bulina_text: ex: UP TO
-                        0% OFF
-                      SALE TODAY
-
-  Samples:
-  - http://localhost:3000/consumer/fr/new/dip-premiumsecurity-opt
-*/
-
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -28,12 +7,15 @@ export default function decorate(block) {
   const parentSelector = block.parentNode.parentNode;
   const metaData = parentSelector.dataset;
   const {
-    title, subtitle, titlePosition, products, bulinaText,
+    backgroundColor, title, subtitle, titlePosition, products, bulinaText, marginTop, marginBottom, paddingTop, paddingBottom,
   } = metaData;
   const productsAsList = products && products.split(',');
 
   if (productsAsList.length) {
     /// ///////////////////////////////////////////////////////////////////////
+    // set the background-color
+    if (backgroundColor) parentSelector.style.backgroundColor = backgroundColor;
+
     // set the title
     if (title) {
       const divTagTitle = document.createElement('div');
@@ -49,6 +31,11 @@ export default function decorate(block) {
 
       block.parentNode.prepend(divTagTitle);
     }
+
+    if (marginTop) parentSelector.style.marginTop = `${marginTop}rem`;
+    if (marginBottom) parentSelector.style.marginBottom = `${marginBottom}rem`;
+    if (paddingTop) parentSelector.style.paddingTop = `${paddingTop}rem`;
+    if (paddingBottom) parentSelector.style.paddingBottom = `${paddingBottom}rem`;
 
     /// ///////////////////////////////////////////////////////////////////////
     // check and add products into the final array
@@ -87,12 +74,24 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDiv = document.createElement('div');
+      const saveText = prodBox?.querySelector('table:nth-of-type(2)').innerText.trim();
+      const firstYearText = prodBox?.querySelector('table:nth-of-type(3)').innerText.trim();
 
       pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+      if (saveText && saveText.indexOf('0') !== -1) {
+        pricesDiv.innerHTML += `<p class="save-green-pill">
+          ${saveText.replace(/0/g, `<span class="save-${onSelectorClass}"></span>`)}
+        </p>`;
+      } else {
+        pricesDiv.innerHTML += `<span>${saveText}</span>`;
+      }
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
 
-      prodBox?.querySelector('table').after(pricesDiv);
+      if (firstYearText) pricesDiv.innerHTML += `<span class="first_year">${firstYearText}</span>`;
+
+      prodBox.querySelector('table:nth-of-type(3)').innerHTML = '';
+      prodBox.querySelector('table').after(pricesDiv);
 
       /// ///////////////////////////////////////////////////////////////////////
       // adding top tag to each box
@@ -102,7 +101,7 @@ export default function decorate(block) {
       }
       if (metaData[tagTextKey]) {
         const divTag = document.createElement('div');
-        divTag.innerText = metaData[tagTextKey];
+        divTag.innerHTML = metaData[tagTextKey].indexOf('0%') !== -1 || metaData[tagTextKey].indexOf('0 %') !== -1 ? metaData[tagTextKey].replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`) : metaData[tagTextKey];
         divTag.className = 'tag';
         // prodBox.parentNode.querySelector(`p:nth-child(1)`).before(divTag);
         prodBox?.querySelector('div').before(divTag);

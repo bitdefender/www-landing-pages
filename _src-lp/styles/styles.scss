@@ -194,6 +194,25 @@ a.button:any-link, button {
   cursor: pointer;
 }
 
+.save-green-pill {
+  background-color: #DAEFDA;
+  color: #2DB43D!important;
+  font-weight: bold;
+  font-size: var(--body-font-size-xs)!important;
+  line-height: var(--body-font-size-xs)!important;
+  border-radius: 8px;
+  display: inline-block;
+  padding: 3px 6px;
+
+  span {
+    color: #2DB43D;
+    font-weight: bold;
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-font-size-xs);
+    display: inline-block!important;
+  }
+}
+
 a.button:hover, a.button:focus, button:hover, button:focus {
   background-color: #b33027;
   cursor: pointer;
@@ -828,12 +847,11 @@ main .section.highlight {
 .red-buy-button {
   background: #e72325 !important;
   color: #fff !important;
-  text-transform: uppercase;
   display: inline-block;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 13px 3% !important;
-  font-size: 14px;
+  font-size: var(--heading-font-size-xs);
   font-weight: bold !important;
   transition: background-color 0.2s;
   width: 94%;

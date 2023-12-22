@@ -1,21 +1,3 @@
-/*
- * Information:
- * - displays 3 boxes positioned in flex mode:
- *   1. selectors
- *   2. product 1
- *   3. product 2
- *
- * MetaData:
- * - products : ex: elite/10/1, bs/10/1 (alias_name/nr_devices/nr_years)
- * - selectors_name : ex: Devices, Years
- * - taxes_text : ex: Taxes not included
- * - discount_text : ex: OFF
- * - button_text : ex: BUY NOW
- *
- * Samples:
- * - https://www.bitdefender.com/media/html/business/RansomwareTrial/new.html
- */
-
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 

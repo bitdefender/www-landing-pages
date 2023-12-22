@@ -1,9 +1,15 @@
+@charset "UTF-8";
 /* .c-productsboxes */
 .c-productsboxes {
   display: flex;
   justify-content: center;
   align-items: end;
   font-size: 18px;
+}
+
+.c-productsboxes hr {
+  border-top: 1px solid #DEE2E6;
+  margin: 10px 0;
 }
 
 .c-productsboxes > div {
@@ -73,16 +79,23 @@
 
 .c-productsboxes > div div.prices_box span.prod-oldprice {
   margin-top: 10px;
-  font-size: 24px;
-  line-height: 24px;
+  font-size: var(--heading-font-size-l);
+  line-height: var(--heading-font-size-l);
   color: #666;
 }
 
 .c-productsboxes > div div.prices_box span.prod-newprice {
-  font-size: 36px;
+  font-size: var(--heading-font-size-xl);
+  line-height: var(--heading-font-size-xl);
   margin-bottom: 3px;
   font-weight: bold;
-  line-height: 1.2;
+}
+
+.c-productsboxes > div div.prices_box span.first_year {
+  font-size: 10px;
+  line-height: 10px;
+  margin: 10px 0;
+  color: #7E7E7E;
 }
 
 .c-productsboxes > div picture img {
@@ -95,6 +108,13 @@
   line-height: 20px;
   color: black;
   font-size: 16px;
+}
+.c-productsboxes > div p:last-of-type {
+  font-size: 12px;
+  color: #727272;
+}
+.c-productsboxes > div p:last-of-type a {
+  color: #006EFF;
 }
 
 .c-productsboxes > div table,
@@ -124,15 +144,24 @@
 }
 
 .c-productsboxes > div ul li {
-  background: url("../../images/icons/simple_green_check.png") 0 3px no-repeat transparent;
   list-style-type: none;
-  padding-left: 23px;
-  background-size: 16px;
-  font-size: 16px;
+  padding-left: 0;
+  font-size: var(--body-font-size-xs);
   line-height: 20px;
   color: #000;
   text-align: left;
   margin-top: 6px;
+  display: flex;
+  align-items: flex-start;
+}
+.c-productsboxes > div ul li::before {
+  content: "•";
+  color: #4CA154;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 10px;
+  font-size: 40px;
 }
 
 .c-productsboxes > div ul {
