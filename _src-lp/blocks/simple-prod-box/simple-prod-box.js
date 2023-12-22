@@ -12,8 +12,6 @@ export default function decorate(block) {
   const [prodName, prodUsers, prodYears] = product.split('/');
   const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
-  console.log('buyLink ', buyLink)
-
   block.innerHTML = `
     <div class="container-fluid">
       ${icon.innerHTML.trim() && `<div class="icon">${icon.innerHTML}</div>`}
