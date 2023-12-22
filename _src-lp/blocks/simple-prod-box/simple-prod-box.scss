@@ -145,6 +145,12 @@
     &.width-small .block {
         padding: 0 20px;
     }
+
+    &.hide-price .block .container-fluid {
+        .save_price_box, .prices_box, .billed {
+            display: none;
+        }
+    }
 }
 
 @media (width >= 768px) {

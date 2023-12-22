@@ -35,7 +35,10 @@ export default function decorate(block) {
 
         ${billed.innerText.trim() && `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>`}
 
-        ${buyLink.innerText.trim() && `<div class="buy-btn">
+
+        ${buyLink.querySelector('a') ? `<div class="buy-btn">
+          <a class="red-buy-button" href="${buyLink.querySelector('a').getAttribute('href')}" title="Bitdefender">${buyLink.innerText}</a>
+        </div>` : buyLink.innerText.trim() && `<div class="buy-btn">
           <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender ${buyLink.innerText}">${buyLink.innerText}</a>
         </div>`}
 

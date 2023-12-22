@@ -283,6 +283,12 @@ main img {
   height: auto;
 }
 
+.blue-logo .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .icon {
   display: inline-block;
   height: 36px;

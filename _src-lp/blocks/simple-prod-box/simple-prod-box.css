@@ -117,6 +117,9 @@
 .simple-prod-box-container.width-small .block {
   padding: 0 20px;
 }
+.simple-prod-box-container.hide-price .block .container-fluid .save_price_box, .simple-prod-box-container.hide-price .block .container-fluid .prices_box, .simple-prod-box-container.hide-price .block .container-fluid .billed {
+  display: none;
+}
 
 @media (width >= 768px) {
   .simple-prod-box-container .block .container-fluid h2 {
