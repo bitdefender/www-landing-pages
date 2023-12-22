@@ -30,18 +30,29 @@
   line-height: 14px;
   margin: 1em 0;
 }
+
 .simple-prod-box-container .block .container-fluid .save_price_box {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 8px;
 }
+
+.simple-prod-box-container.hide-prices .block .container-fluid .save_price_box {
+  display: none;
+}
+
 .simple-prod-box-container .block .container-fluid .save_price_box .prod-oldprice {
   font-size: var(--heading-font-size-xs);
   line-height: var(--heading-font-size-xs);
   text-decoration: line-through;
   margin-right: 10px;
 }
+
+.simple-prod-box-container.hide-prices .block .container-fluid .prices_box {
+  display: none;
+}
+
 .simple-prod-box-container .block .container-fluid .save_price_box .prod-percent {
   font-size: 13px;
   line-height: 15px;
@@ -69,6 +80,11 @@
   line-height: 14px;
   margin: 7px 0;
 }
+
+.simple-prod-box-container.hide-prices .block .container-fluid .billed {
+  display: none;
+}
+
 .simple-prod-box-container .block .container-fluid .billed span {
   font-size: 12px;
   line-height: 14px;
