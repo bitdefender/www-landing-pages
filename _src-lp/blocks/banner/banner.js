@@ -7,10 +7,12 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
+    product, contentSize, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
-  const [contentEl, pictureEl] = [...block.children];
+  let [contentEl, pictureEl,contentRightEl] = [...block.children];
 
+
+  // tables from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
     if (aliasTr && aliasTr.innerText.trim() === 'price_box' && product?.length) {
@@ -45,6 +47,36 @@ export default function decorate(block) {
       table.appendChild(pricesBox);
     }
   });
+
+  // tables from right content
+  [...contentRightEl.querySelectorAll('table')].forEach((table) => {
+    const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
+    if (aliasTr && aliasTr.innerText.trim() === 'right_content_lidl') {
+      const [alias, title, btn1, btn2] = table.querySelectorAll('tr');
+
+      const getButtonInfo = (buttonRow) => {
+        const anchorEl = buttonRow.querySelector('a');
+        const link = anchorEl.getAttribute('href');
+        const imgClone = buttonRow.querySelector('picture').cloneNode(true);
+        const text = anchorEl.textContent;
+        anchorEl.remove();
+        return { link, imgClone, text };
+      };
+
+      const { link: linkBtn1, imgClone: imgBtn1, text: textBtn1 } = getButtonInfo(btn1);
+      const { link: linkBtn2, imgClone: imgBtn2, text: textBtn2 } = getButtonInfo(btn2);
+
+      const lidlBox = document.createElement('div');
+      lidlBox.id = 'lidlBox';
+      lidlBox.innerHTML = `${title.innerHTML}<hr />`;
+      lidlBox.innerHTML += `<a href="${linkBtn1}" title="Bitdefender" class="red-buy-button d-flex">${imgBtn1.innerHTML} ${textBtn1}</a>`;
+      lidlBox.innerHTML += `<a href="${linkBtn2}" title="Bitdefender" class="red-buy-button d-flex">${imgBtn2.innerHTML} ${textBtn2}</a>`;
+
+      table.innerHTML = '';
+      table.appendChild(lidlBox);
+    }
+  });
+
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -94,12 +126,10 @@ export default function decorate(block) {
 
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex">
-          <div class="col-12 col-md-7">${contentEl.innerHTML}</div>
-        </div>
-        <div class="row d-lg-none justify-content-center">
-          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
-        </div>
+      <div class="row d-md-flex d-sm-block justify-content-center">
+        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
+        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '5'}">${contentRightEl.innerHTML}</div>
+      </div>
       </div>
     `;
   } else {
