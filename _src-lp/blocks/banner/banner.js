@@ -9,8 +9,7 @@ export default function decorate(block) {
   const {
     product, products, contentSize, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
-  let [contentEl, pictureEl,contentRightEl] = [...block.children];
-
+  const [ contentEl, pictureEl,contentRightEl ] = [...block.children];
 
   // tables from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
@@ -60,7 +59,7 @@ export default function decorate(block) {
       lidlBox.id = 'lidlBox';
       lidlBox.innerHTML = `${title.innerHTML}<hr />`;
 
-      function createBuyLink(button, index) {
+      const createBuyLink = (button, index) => {
         const anchor = button.querySelector('a');
         const link = anchor ? anchor.getAttribute('href') : '#';
         const img = button.querySelector('picture')?.cloneNode(true);
@@ -85,11 +84,9 @@ export default function decorate(block) {
       createBuyLink(btn2, 1);
 
       table.innerHTML = '';
-      console.log(table)
       table.appendChild(lidlBox);
     }
   });
-
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
