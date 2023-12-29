@@ -7,7 +7,7 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, contentSize, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
+    product, products, contentSize, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
   let [contentEl, pictureEl,contentRightEl] = [...block.children];
 
@@ -52,27 +52,40 @@ export default function decorate(block) {
   [...contentRightEl.querySelectorAll('table')].forEach((table) => {
     const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
     if (aliasTr && aliasTr.innerText.trim() === 'right_content_lidl') {
+      // eslint-disable-next-line no-unused-vars
       const [alias, title, btn1, btn2] = table.querySelectorAll('tr');
-
-      const getButtonInfo = (buttonRow) => {
-        const anchorEl = buttonRow.querySelector('a');
-        const link = anchorEl.getAttribute('href');
-        const imgClone = buttonRow.querySelector('picture').cloneNode(true);
-        const text = anchorEl.textContent;
-        anchorEl.remove();
-        return { link, imgClone, text };
-      };
-
-      const { link: linkBtn1, imgClone: imgBtn1, text: textBtn1 } = getButtonInfo(btn1);
-      const { link: linkBtn2, imgClone: imgBtn2, text: textBtn2 } = getButtonInfo(btn2);
+      const onSelectorClasses = [];
 
       const lidlBox = document.createElement('div');
       lidlBox.id = 'lidlBox';
       lidlBox.innerHTML = `${title.innerHTML}<hr />`;
-      lidlBox.innerHTML += `<a href="${linkBtn1}" title="Bitdefender" class="red-buy-button d-flex">${imgBtn1.innerHTML} ${textBtn1}</a>`;
-      lidlBox.innerHTML += `<a href="${linkBtn2}" title="Bitdefender" class="red-buy-button d-flex">${imgBtn2.innerHTML} ${textBtn2}</a>`;
+
+      function createBuyLink(button, index) {
+        const anchor = button.querySelector('a');
+        const link = anchor ? anchor.getAttribute('href') : '#';
+        const img = button.querySelector('picture')?.cloneNode(true);
+        const text = button.textContent;
+        const onSelectorClass = onSelectorClasses[index];
+
+        lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? img.innerHTML : ''} ${text}</a>`;
+      }
+
+      if (products) {
+        const productsAsList = products.split(',');
+        productsAsList.forEach((prod) => updateProductsList(prod));
+
+        productsAsList.forEach((prod) => {
+          const [prodName, prodUsers, prodYears] = prod.split('/');
+          const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+          onSelectorClasses.push(onSelectorClass);
+        });
+      }
+
+      createBuyLink(btn1, 0);
+      createBuyLink(btn2, 1);
 
       table.innerHTML = '';
+      console.log(table)
       table.appendChild(lidlBox);
     }
   });
