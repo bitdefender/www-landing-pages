@@ -9,6 +9,17 @@ header {
     background-color: #fff;
   }
 
+  &.customNav .block div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
   span {
     &.icon {
       height: unset;

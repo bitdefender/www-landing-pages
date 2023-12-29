@@ -37,10 +37,13 @@ export default async function decorate(block) {
   // fetch nav content
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : getLocalizedResourceUrl('nav');
+
   const resp = await fetch(`${navPath}.plain.html`);
 
   if (resp.ok) {
     const html = await resp.text();
+    console.log(html)
+
     const spanSvg = [...await extractSpanSvgs(html)];
     const homeUrl = getDefaultBaseUrl();
     const headerWrapper = block.closest('header');
@@ -49,7 +52,7 @@ export default async function decorate(block) {
 
     block.classList.add('lp-header', 'py-3');
 
-    if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
+    if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1 || window.location.href.indexOf('spurs') !== -1) {
       headerWrapper.id = 'headerFerrari';
       headerWrapper.classList.add('headerSpurs', 'dark');
       block.innerHTML = html;
@@ -61,6 +64,19 @@ export default async function decorate(block) {
     } else if (html.indexOf('blue-logo') !== -1) {
       headerWrapper.id = 'headerBlue';
       block.innerHTML = `<a title="Bitdefender" href="${homeUrl}">${html}</a>`;
+      block.querySelector('.section-metadata').remove();
+    } else if (html.indexOf('custom_nav') !== -1) {
+      headerWrapper.classList.add('customNav', 'dark');
+      block.innerHTML = html;
+
+      const logo = block.querySelector('img').getAttribute('src');
+      var pElement = block.querySelector('p');
+      var anchorElement = document.createElement('a');
+      anchorElement.className = 'd-flex justify-content-between';
+      anchorElement.href = homeUrl;
+      anchorElement.innerHTML = `<img src="${logo}" alt="Bitdefender" >`;
+      pElement.outerHTML = anchorElement.outerHTML;
+
       block.querySelector('.section-metadata').remove();
     } else {
       headerWrapper.classList.add('dark');
