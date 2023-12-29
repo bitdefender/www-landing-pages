@@ -42,8 +42,6 @@ export default async function decorate(block) {
 
   if (resp.ok) {
     const html = await resp.text();
-    console.log(html)
-
     const spanSvg = [...await extractSpanSvgs(html)];
     const homeUrl = getDefaultBaseUrl();
     const headerWrapper = block.closest('header');
@@ -70,12 +68,12 @@ export default async function decorate(block) {
       block.innerHTML = html;
 
       const logo = block.querySelector('img').getAttribute('src');
-      var pElement = block.querySelector('p');
-      var anchorElement = document.createElement('a');
-      anchorElement.className = 'd-flex justify-content-between';
-      anchorElement.href = homeUrl;
-      anchorElement.innerHTML = `<img src="${logo}" alt="Bitdefender" >`;
-      pElement.outerHTML = anchorElement.outerHTML;
+      const logoEl = block.querySelector('p');
+      const anchorEl = document.createElement('a');
+      anchorEl.className = 'd-flex justify-content-between';
+      anchorEl.href = homeUrl;
+      anchorEl.innerHTML = `<img src="${logo}" alt="Bitdefender" >`;
+      logoEl.outerHTML = anchorEl.outerHTML;
 
       block.querySelector('.section-metadata').remove();
     } else {
