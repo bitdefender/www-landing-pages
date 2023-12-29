@@ -9,7 +9,7 @@ export default function decorate(block) {
   const {
     product, products, contentSize, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
-  const [ contentEl, pictureEl,contentRightEl ] = [...block.children];
+  const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
   // tables from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
@@ -67,7 +67,7 @@ export default function decorate(block) {
         const onSelectorClass = onSelectorClasses[index];
 
         lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? img.innerHTML : ''} ${text}</a>`;
-      }
+      };
 
       if (products) {
         const productsAsList = products.split(',');
