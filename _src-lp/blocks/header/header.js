@@ -48,8 +48,6 @@ export default async function decorate(block) {
 
     checkForRevolut(spanSvg, block);
 
-    console.log(html)
-
     block.classList.add('lp-header', 'py-3');
     if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
       headerWrapper.id = 'headerFerrari';
