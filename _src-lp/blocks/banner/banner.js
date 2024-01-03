@@ -63,11 +63,11 @@ export default function decorate(block) {
         const createBuyLink = (button, index) => {
           const anchor = button.querySelector('a');
           const link = anchor ? anchor.getAttribute('href') : '#';
-          const img = button.querySelector('picture')?.cloneNode(true);
+          const img = button.querySelector('img')?.getAttribute('src').split('?')[0];
           const text = button.textContent;
           const onSelectorClass = onSelectorClasses[index];
 
-          lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? img.innerHTML : ''} ${text}</a>`;
+          lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? `<img src="${img}" alt="Bitdefender">` : ''} ${text}</a>`;
         };
 
         if (products) {
