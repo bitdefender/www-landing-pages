@@ -196,6 +196,7 @@
 @media screen and (width <= 768px) {
   .section.banner-container .banner {
     padding: 1em 0 !important;
+    margin-bottom: 0;
   }
   .section.lp-brand .banner {
     padding-bottom: 5.5rem !important;
@@ -211,17 +212,21 @@
     font-size: var(--body-font-size-m);
   }
   .section.banner-container .banner p {
-    font: normal normal normal 13px/18px Arial;
+    font-size: 13px;
+    line-height: 18px;
   }
   .section.banner-container .banner ul li {
-    font: normal normal normal 11px/16px Arial;
+    font-size: 11px;
+    line-height: 16px;
   }
   .section.banner-container .banner #lidlBox {
     width: 100%;
     padding: 1rem 20px;
   }
   .section.banner-container .banner #lidlBox strong {
-    font: normal normal bold 13px/17px Arial;
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: bold;
     letter-spacing: -0.2px;
     display: block;
   }
@@ -229,7 +234,9 @@
     margin: 1em 0;
   }
   .section.banner-container .banner #lidlBox a.red-buy-button {
-    font: normal normal bold 11px/25px Arial;
+    font-size: 11px;
+    line-height: 25px;
+    font-weight: bold;
     letter-spacing: -0.17px;
     padding: 10px 15px !important;
     margin: 1rem 0;

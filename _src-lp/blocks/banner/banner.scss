@@ -218,6 +218,7 @@
 @media screen and (width <= 768px) {
   .section.banner-container .banner {
     padding: 1em 0 !important;
+    margin-bottom: 0;
   }
 
   .section.lp-brand .banner {
@@ -237,11 +238,13 @@
   }
 
   .section.banner-container .banner p {
-    font: normal normal normal 13px/18px Arial;
+    font-size: 13px;
+    line-height: 18px;
   }
 
   .section.banner-container .banner ul li {
-    font: normal normal normal 11px/16px Arial;
+    font-size: 11px;
+    line-height: 16px;
   }
 
   .section.banner-container .banner #lidlBox {
@@ -250,7 +253,9 @@
   }
 
   .section.banner-container .banner #lidlBox strong {
-    font: normal normal bold 13px/17px Arial;
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: bold;
     letter-spacing: -0.2px;
     display: block;
   }
@@ -260,7 +265,9 @@
   }
 
   .section.banner-container .banner #lidlBox a.red-buy-button {
-    font: normal normal bold 11px/25px Arial;
+    font-size: 11px;
+    line-height: 25px;
+    font-weight: bold;
     letter-spacing: -0.17px;
     padding: 10px 15px!important;
     margin: 1rem 0;
