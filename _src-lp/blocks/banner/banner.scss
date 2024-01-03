@@ -43,7 +43,7 @@
   display: inline-block;
   margin-left: 0;
   margin-right: 10px;
-  font-size: 40px;
+  font-size: 35px;
 }
 
 .section.banner-container .banner #lidlBox {
@@ -66,6 +66,7 @@
   font-size: var(--body-font-size-xs);
   line-height: var(--body-font-size-m);
   margin: 1.5rem 0;
+  padding: 10px 20px!important;
 }
 
 .section.lp-brand .banner img {
@@ -216,8 +217,8 @@
 
 @media screen and (width <= 768px) {
   .section.banner-container .banner {
-    margin: 1em 0 !important;
     padding: 1em 0 !important;
+    margin-bottom: 0;
   }
 
   .section.lp-brand .banner {
@@ -226,13 +227,55 @@
   }
 
   .section.banner-container .banner h1 {
-    margin-top: 1em;
-    font-size: var(--heading-font-size-m);
+    margin-top: 0;
+    font-size: 30px;
+    text-align: left;
   }
 
   .section.banner-container .banner h2 {
     margin-bottom: 0;
     font-size: var(--body-font-size-m);
+  }
+
+  .section.banner-container .banner p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .section.banner-container .banner ul li {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .section.banner-container .banner #lidlBox {
+    width: 100%;
+    padding: 1rem 20px;
+  }
+
+  .section.banner-container .banner #lidlBox strong {
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: bold;
+    letter-spacing: -0.2px;
+    display: block;
+  }
+
+  .section.banner-container .banner #lidlBox hr {
+    margin: 1em 0;
+  }
+
+  .section.banner-container .banner #lidlBox a.red-buy-button {
+    font-size: 11px;
+    line-height: 25px;
+    font-weight: bold;
+    letter-spacing: -0.17px;
+    padding: 10px 15px!important;
+    margin: 1rem 0;
+  }
+
+  .section.banner-container .banner #lidlBox a.red-buy-button img {
+    max-height: 25px;
+    width: auto;
   }
 
   .section.banner-container #pricesBox .d-flex {

@@ -48,45 +48,47 @@ export default function decorate(block) {
   });
 
   // tables from right content
-  [...contentRightEl.querySelectorAll('table')].forEach((table) => {
-    const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
-    if (aliasTr && aliasTr.innerText.trim() === 'right_content_lidl') {
-      // eslint-disable-next-line no-unused-vars
-      const [alias, title, btn1, btn2] = table.querySelectorAll('tr');
-      const onSelectorClasses = [];
+  if (contentRightEl && contentRightEl.querySelectorAll('table').length) {
+    [...contentRightEl.querySelectorAll('table')].forEach((table) => {
+      const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
+      if (aliasTr && aliasTr.innerText.trim() === 'right_content_lidl') {
+        // eslint-disable-next-line no-unused-vars
+        const [alias, title, btn1, btn2] = table.querySelectorAll('tr');
+        const onSelectorClasses = [];
 
-      const lidlBox = document.createElement('div');
-      lidlBox.id = 'lidlBox';
-      lidlBox.innerHTML = `${title.innerHTML}<hr />`;
+        const lidlBox = document.createElement('div');
+        lidlBox.id = 'lidlBox';
+        lidlBox.innerHTML = `${title.innerHTML}<hr />`;
 
-      const createBuyLink = (button, index) => {
-        const anchor = button.querySelector('a');
-        const link = anchor ? anchor.getAttribute('href') : '#';
-        const img = button.querySelector('picture')?.cloneNode(true);
-        const text = button.textContent;
-        const onSelectorClass = onSelectorClasses[index];
+        const createBuyLink = (button, index) => {
+          const anchor = button.querySelector('a');
+          const link = anchor ? anchor.getAttribute('href') : '#';
+          const img = button.querySelector('img')?.getAttribute('src').split('?')[0];
+          const text = button.textContent;
+          const onSelectorClass = onSelectorClasses[index];
 
-        lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? img.innerHTML : ''} ${text}</a>`;
-      };
+          lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? `<img src="${img}" alt="Bitdefender">` : ''} ${text}</a>`;
+        };
 
-      if (products) {
-        const productsAsList = products.split(',');
-        productsAsList.forEach((prod) => updateProductsList(prod));
+        if (products) {
+          const productsAsList = products.split(',');
+          productsAsList.forEach((prod) => updateProductsList(prod));
 
-        productsAsList.forEach((prod) => {
-          const [prodName, prodUsers, prodYears] = prod.split('/');
-          const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-          onSelectorClasses.push(onSelectorClass);
-        });
+          productsAsList.forEach((prod) => {
+            const [prodName, prodUsers, prodYears] = prod.split('/');
+            const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+            onSelectorClasses.push(onSelectorClass);
+          });
+        }
+
+        createBuyLink(btn1, 0);
+        createBuyLink(btn2, 1);
+
+        table.innerHTML = '';
+        table.appendChild(lidlBox);
       }
-
-      createBuyLink(btn1, 0);
-      createBuyLink(btn2, 1);
-
-      table.innerHTML = '';
-      table.appendChild(lidlBox);
-    }
-  });
+    });
+  }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
