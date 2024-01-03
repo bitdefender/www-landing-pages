@@ -7,10 +7,11 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
+    product, products, contentSize, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
-  const [contentEl, pictureEl] = [...block.children];
+  const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
+  // tables from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
     if (aliasTr && aliasTr.innerText.trim() === 'price_box' && product?.length) {
@@ -43,6 +44,47 @@ export default function decorate(block) {
 
       table.innerHTML = '';
       table.appendChild(pricesBox);
+    }
+  });
+
+  // tables from right content
+  [...contentRightEl.querySelectorAll('table')].forEach((table) => {
+    const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
+    if (aliasTr && aliasTr.innerText.trim() === 'right_content_lidl') {
+      // eslint-disable-next-line no-unused-vars
+      const [alias, title, btn1, btn2] = table.querySelectorAll('tr');
+      const onSelectorClasses = [];
+
+      const lidlBox = document.createElement('div');
+      lidlBox.id = 'lidlBox';
+      lidlBox.innerHTML = `${title.innerHTML}<hr />`;
+
+      const createBuyLink = (button, index) => {
+        const anchor = button.querySelector('a');
+        const link = anchor ? anchor.getAttribute('href') : '#';
+        const img = button.querySelector('picture')?.cloneNode(true);
+        const text = button.textContent;
+        const onSelectorClass = onSelectorClasses[index];
+
+        lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? img.innerHTML : ''} ${text}</a>`;
+      };
+
+      if (products) {
+        const productsAsList = products.split(',');
+        productsAsList.forEach((prod) => updateProductsList(prod));
+
+        productsAsList.forEach((prod) => {
+          const [prodName, prodUsers, prodYears] = prod.split('/');
+          const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+          onSelectorClasses.push(onSelectorClass);
+        });
+      }
+
+      createBuyLink(btn1, 0);
+      createBuyLink(btn2, 1);
+
+      table.innerHTML = '';
+      table.appendChild(lidlBox);
     }
   });
 
@@ -94,12 +136,10 @@ export default function decorate(block) {
 
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex">
-          <div class="col-12 col-md-7">${contentEl.innerHTML}</div>
-        </div>
-        <div class="row d-lg-none justify-content-center">
-          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
-        </div>
+      <div class="row d-md-flex d-sm-block justify-content-center">
+        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
+        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '5'}">${contentRightEl.innerHTML}</div>
+      </div>
       </div>
     `;
   } else {

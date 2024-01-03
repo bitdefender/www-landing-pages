@@ -7,6 +7,15 @@ header.dark {
 header.rev-header {
   background-color: #fff;
 }
+header.customNav .block div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header.customNav .block div p {
+  padding: 0;
+  margin: 0;
+}
 header span.icon {
   height: unset;
   width: unset;

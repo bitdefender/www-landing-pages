@@ -846,7 +846,7 @@ main .section.highlight {
   border-radius: 8px;
   padding: 13px 3% !important;
   font-size: var(--heading-font-size-xs);
-  font-weight: bold !important;
+  font-weight: bold;
   transition: background-color 0.2s;
   width: 94%;
   border-style: none;

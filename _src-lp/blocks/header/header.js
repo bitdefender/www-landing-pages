@@ -37,6 +37,7 @@ export default async function decorate(block) {
   // fetch nav content
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : getLocalizedResourceUrl('nav');
+
   const resp = await fetch(`${navPath}.plain.html`);
 
   if (resp.ok) {
@@ -61,6 +62,19 @@ export default async function decorate(block) {
     } else if (html.indexOf('blue-logo') !== -1) {
       headerWrapper.id = 'headerBlue';
       block.innerHTML = `<a title="Bitdefender" href="${homeUrl}">${html}</a>`;
+      block.querySelector('.section-metadata').remove();
+    } else if (html.indexOf('custom_nav') !== -1) {
+      headerWrapper.classList.add('customNav', 'dark');
+      block.innerHTML = html;
+
+      const logo = block.querySelector('img').getAttribute('src');
+      const logoEl = block.querySelector('p');
+      const anchorEl = document.createElement('a');
+      anchorEl.className = 'd-flex justify-content-between';
+      anchorEl.href = homeUrl;
+      anchorEl.innerHTML = `<img src="${logo}" alt="Bitdefender" >`;
+      logoEl.outerHTML = anchorEl.outerHTML;
+
       block.querySelector('.section-metadata').remove();
     } else {
       headerWrapper.classList.add('dark');

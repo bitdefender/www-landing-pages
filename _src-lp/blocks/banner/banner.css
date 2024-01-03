@@ -4,21 +4,26 @@
   color: white;
   padding: 0;
 }
-.section .banner img {
+
+.section.banner-container .banner img {
   width: 100%;
 }
-.section .banner h1 {
+
+.section.banner-container .banner h1 {
   font-size: 28px;
   text-align: center;
   margin-top: 0;
 }
-.section .banner .button-container {
+
+.section.banner-container .banner .button-container {
   display: none;
 }
-.section .banner ul {
+
+.section.banner-container .banner ul {
   padding-left: 0;
 }
-.section .banner ul li {
+
+.section.banner-container .banner ul li {
   list-style-type: none;
   padding-left: 0;
   font-size: var(--body-font-size-xs);
@@ -29,7 +34,8 @@
   display: flex;
   align-items: flex-start;
 }
-.section .banner ul li::before {
+
+.section.banner-container .banner ul li::before {
   content: "•";
   color: #4CA154;
   font-weight: bold;
@@ -38,19 +44,55 @@
   margin-right: 10px;
   font-size: 40px;
 }
+
+.section.banner-container .banner #lidlBox {
+  width: 380px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.161);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.section.banner-container .banner #lidlBox hr {
+  border-top: 1px solid #DDD;
+}
+
+.section.banner-container .banner #lidlBox a.red-buy-button {
+  width: 100%;
+  text-align: left;
+  font-weight: normal;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-font-size-m);
+  margin: 1.5rem 0;
+}
+
+.section.lp-brand .banner img {
+  width: 97%;
+  border-radius: 10px;
+}
+
+.section.banner-container .banner #lidlBox a.red-buy-button img {
+  width: 40px;
+  margin-right: 15px;
+}
+
 .section.lp-brand .banner {
   padding: 0 15px;
   background: unset;
   padding-bottom: 3rem;
 }
+
 .section.lp-brand .banner .col-5 {
   width: 322px;
 }
+
 .section.lp-brand .banner h1 {
   font-weight: lighter;
   font-size: var(--heading-font-size-s);
   line-height: var(--heading-font-size-s);
 }
+
 .section.lp-brand .banner p {
   width: 235px;
   font-size: 12px;
@@ -58,58 +100,8 @@
   font-family: Arial, sans-serif;
   margin: 0 auto 15px;
 }
-.section.lp-brand .banner img {
-  width: 97%;
-  border-radius: 10px;
-}
 
 @media (width >= 768px) {
-  .section .banner h1 {
-    font-size: 30px;
-  }
-  .section .banner #pricesBox {
-    text-align: left;
-  }
-  .section .banner #pricesBox .d-flex {
-    align-items: center;
-  }
-  .section .banner #pricesBox .d-flex p {
-    margin: 0 10px 0 0;
-  }
-  .section .banner #pricesBox .d-flex span.prod-oldprice {
-    text-decoration: line-through;
-    font-size: var(--heading-font-size-m);
-    line-height: var(--heading-font-size-m);
-    font-weight: normal;
-  }
-  .section .banner #pricesBox .d-flex span.prod-newprice {
-    font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
-    font-weight: bold;
-  }
-  .section .banner #pricesBox .d-flex .variation {
-    font-size: var(--body-font-size-xs);
-    line-height: 19px;
-    font-weight: bold;
-  }
-  .section .banner #pricesBox .buy_box {
-    margin: 20px 0;
-    min-height: auto;
-  }
-  .section .banner #pricesBox .buy_box a, .section .banner #pricesBox .buy_box span {
-    display: inline;
-  }
-  .section .banner #pricesBox .terms {
-    margin: 5px 0 10px;
-  }
-  .section .banner #pricesBox .terms p {
-    font-size: 12px;
-    line-height: 15px;
-    margin: 0 5px;
-  }
-  .section .banner #pricesBox .terms p a {
-    color: #006EFF;
-  }
   .section.lp-brand .banner h1 {
     font-weight: lighter;
     font-size: var(--heading-font-size-l);
@@ -121,22 +113,68 @@
     font-size: var(--body-font-size-xs);
     line-height: var(--body-font-size-s);
   }
+  .section.banner-container .banner h1 {
+    font-size: 30px;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox {
+    text-align: left;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .d-flex {
+    align-items: center;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .d-flex p {
+    margin: 0 10px 0 0;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .d-flex span.prod-oldprice {
+    text-decoration: line-through;
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-m);
+    font-weight: normal;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .d-flex span.prod-newprice {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+    font-weight: bold;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .d-flex .variation {
+    font-size: var(--body-font-size-xs);
+    line-height: 19px;
+    font-weight: bold;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .buy_box {
+    margin: 20px 0;
+    min-height: auto;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .buy_box a, .section.banner-container .banner .section.banner-container #pricesBox .buy_box span {
+    display: inline;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .terms {
+    margin: 5px 0 10px;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .terms p {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 5px;
+  }
+  .section.banner-container .banner .section.banner-container #pricesBox .terms p a {
+    color: #006EFF;
+  }
 }
 @media screen and (width >= 991px) {
-  .section .banner h1 {
+  .section.banner-container .banner h1 {
     font-size: var(--heading-font-size-xl);
     line-height: 45px;
     text-align: left;
   }
-  .section .banner h2 {
+  .section.banner-container .banner h2 {
     font-size: var(--heading-font-size-l);
     line-height: var(--heading-font-size-l);
     text-align: left;
   }
-  .section .banner .button-container {
+  .section.banner-container .banner .button-container {
     display: block;
   }
-  .section .banner img {
+  .section.banner-container .banner img {
     width: initial;
   }
   .section.lp-brand .banner {
@@ -155,7 +193,7 @@
   }
 }
 @media screen and (width <= 768px) {
-  .section .banner {
+  .section.banner-container .banner {
     margin: 1em 0 !important;
     padding: 1em 0 !important;
   }
@@ -163,59 +201,59 @@
     padding-bottom: 5.5rem !important;
     border-radius: 10px !important;
   }
-  .section .banner h1 {
+  .section.banner-container .banner h1 {
     margin-top: 1em;
     font-size: var(--heading-font-size-m);
   }
-  .section .banner h2 {
+  .section.banner-container .banner h2 {
     margin-bottom: 0;
     font-size: var(--body-font-size-m);
   }
-  #pricesBox .d-flex {
+  .section.banner-container #pricesBox .d-flex {
     justify-content: center;
   }
-  #pricesBox .d-flex p {
+  .section.banner-container #pricesBox .d-flex p {
     margin: 0 10px 0 0;
   }
-  #pricesBox .d-flex span.prod-oldprice {
+  .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
     font-size: var(--heading-font-size-s);
     line-height: var(--heading-font-size-s);
     font-weight: normal;
   }
-  #pricesBox .d-flex span.prod-newprice {
+  .section.banner-container #pricesBox .d-flex span.prod-newprice {
     font-size: var(--heading-font-size-l);
     line-height: var(--heading-font-size-l);
     font-weight: bold;
   }
-  #pricesBox .d-flex .variation {
+  .section.banner-container #pricesBox .d-flex .variation {
     font-size: var(--body-font-size-s);
     line-height: 19px;
     font-weight: bold;
   }
-  #pricesBox .buy_box {
+  .section.banner-container #pricesBox .buy_box {
     margin: 20px 0;
     min-height: auto;
   }
-  #pricesBox .buy_box a, #pricesBox .buy_box span {
+  .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
     display: inline;
     font-size: var(--body-font-size-s);
   }
-  #pricesBox .terms {
+  .section.banner-container #pricesBox .terms {
     margin: 5px 0 10px;
   }
-  #pricesBox .terms p {
+  .section.banner-container #pricesBox .terms p {
     font-size: 12px;
     line-height: 15px;
     margin: 0 5px;
   }
-  #pricesBox .terms p a {
+  .section.banner-container #pricesBox .terms p a {
     color: #006EFF;
   }
-  .hide-mobile {
+  .section.banner-container.hide-mobile {
     background: none !important;
   }
-  .hide-mobile .bck-img {
+  .section.banner-container.hide-mobile .bck-img {
     display: none;
   }
 }
