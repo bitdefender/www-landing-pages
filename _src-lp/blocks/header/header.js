@@ -48,8 +48,9 @@ export default async function decorate(block) {
 
     checkForRevolut(spanSvg, block);
 
-    block.classList.add('lp-header', 'py-3');
+    console.log(html)
 
+    block.classList.add('lp-header', 'py-3');
     if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
       headerWrapper.id = 'headerFerrari';
       headerWrapper.classList.add('headerSpurs', 'dark');
@@ -63,8 +64,10 @@ export default async function decorate(block) {
       headerWrapper.id = 'headerBlue';
       block.innerHTML = `<a title="Bitdefender" href="${homeUrl}">${html}</a>`;
       block.querySelector('.section-metadata').remove();
-    } else if (html.indexOf('custom_nav') !== -1) {
-      headerWrapper.classList.add('customNav', 'dark');
+    } else if (html.indexOf('custom_nav') !== -1 || html.indexOf('custom_nav_white') !== -1) {
+      headerWrapper.classList.add('customNav');
+      if (html.indexOf('custom_nav') !== -1) headerWrapper.classList.add('dark');
+      if (html.indexOf('custom_nav_white') !== -1) headerWrapper.classList.add('white');
       block.innerHTML = html;
 
       const logo = block.querySelector('img').getAttribute('src');
@@ -72,7 +75,7 @@ export default async function decorate(block) {
       const anchorEl = document.createElement('a');
       anchorEl.className = 'd-flex justify-content-between';
       anchorEl.href = homeUrl;
-      anchorEl.innerHTML = `<img src="${logo}" alt="Bitdefender" >`;
+      anchorEl.innerHTML = `<img src="${logo}" alt="Bitdefender">`;
       logoEl.outerHTML = anchorEl.outerHTML;
 
       block.querySelector('.section-metadata').remove();
