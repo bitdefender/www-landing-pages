@@ -13,7 +13,7 @@ const formatNumber = (num) => String(num).padStart(2, '0');
 function getPageNameAndSections() {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
 
-  const pageSectionParts = window.location.pathname.split('/').filter((subPath) => subPath !== '');
+  const pageSectionParts = window.location.pathname.split('/').filter((subPath) => subPath !== '' && subPath !== 'pages');
   const subSubSection = pageSectionParts[0];
 
   pageSectionParts[0] = DEFAULT_LANGUAGE === 'en' ? 'us' : DEFAULT_LANGUAGE;
