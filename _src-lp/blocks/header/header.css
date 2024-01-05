@@ -16,6 +16,14 @@ header.customNav .block div p {
   padding: 0;
   margin: 0;
 }
+header.customNav .block div p img {
+  height: 40px;
+  width: auto;
+}
+header.customNav .block div a img {
+  height: 25px;
+  width: auto;
+}
 header span.icon {
   height: unset;
   width: unset;

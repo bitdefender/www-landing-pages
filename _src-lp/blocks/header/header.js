@@ -64,8 +64,8 @@ export default async function decorate(block) {
       block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('custom_nav') !== -1 || html.indexOf('custom_nav_white') !== -1) {
       headerWrapper.classList.add('customNav');
-      if (html.indexOf('custom_nav') !== -1) headerWrapper.classList.add('dark');
-      if (html.indexOf('custom_nav_white') !== -1) headerWrapper.classList.add('white');
+      if (html.indexOf('"custom_nav"') !== -1) headerWrapper.classList.add('dark');
+      if (html.indexOf('"custom_nav_white"') !== -1) headerWrapper.classList.add('white');
       block.innerHTML = html;
 
       const logo = block.querySelector('img').getAttribute('src');
