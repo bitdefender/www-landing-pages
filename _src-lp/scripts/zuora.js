@@ -5,7 +5,7 @@ export default class ZuoraNLClass {
     let jsonFilePath = '/zuoracampaign.json';
 
     if (window.location.hostname === 'www.bitdefender.com') {
-        jsonFilePath = `https://${window.location.hostname}/pages/zuoracampaign.json`;
+      jsonFilePath = `https://${window.location.hostname}/pages/zuoracampaign.json`;
     }
 
     try {
