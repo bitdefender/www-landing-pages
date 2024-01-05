@@ -1,3 +1,20 @@
+async function fetchData() {
+  try {
+    const resp = await fetch(`/zuoracampaign.json`);
+
+    if (!resp.ok) {
+      throw new Error(`HTTP error! Status: ${resp.status}`);
+    }
+
+    const data = await resp.json();
+
+    console.log('Data:', data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+fetchData();
+
 export default class ZuoraNLClass {
   static campaignDefault = 'WinterMC2023';
 
