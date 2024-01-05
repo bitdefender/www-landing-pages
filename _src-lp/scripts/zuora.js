@@ -1,22 +1,18 @@
-async function fetchData() {
-  try {
-    const resp = await fetch(`/zuoracampaign.json`);
-
-    if (!resp.ok) {
-      throw new Error(`HTTP error! Status: ${resp.status}`);
-    }
-
-    const data = await resp.json();
-
-    console.log('Data:', data);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-fetchData();
-
 export default class ZuoraNLClass {
   static campaignDefault = 'WinterMC2023';
+
+  static async fetchCampaignName() {
+    try {
+      const resp = await fetch(`/zuoracampaign.json`);
+      if (!resp.ok) throw new Error(`HTTP error! Status: ${resp.status}`);
+      const data = await resp.json();
+
+      return data.data[0].CAMPAIGN_NAME;
+    } catch (error) {
+      console.error('fetch Campaign Name Error:', error);
+      throw error;
+    }
+  };
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
@@ -241,9 +237,17 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static loadProduct(id, campaign) {
+  static async loadProduct(id, campaign) {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
+
+    try {
+      const cuponCode = await this.fetchCampaignName();
+      return this.getProductVariationsPrice(id, campaign || cuponCode);
+    } catch (error) {
+      console.error('loadProduct error:', error);
+    }
+
     return this.getProductVariationsPrice(id, campaign || this.campaignDefault);
   }
 }
