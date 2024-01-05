@@ -3,7 +3,7 @@ export default class ZuoraNLClass {
 
   static async fetchCampaignName() {
     try {
-      const resp = await fetch(`/zuoracampaign.json`);
+      const resp = await fetch('/zuoracampaign.json');
       if (!resp.ok) throw new Error(`HTTP error! Status: ${resp.status}`);
       const data = await resp.json();
 
