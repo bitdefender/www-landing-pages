@@ -2,8 +2,14 @@ export default class ZuoraNLClass {
   static campaignDefault = 'WinterMC2023';
 
   static async fetchCampaignName() {
+    let jsonFilePath = '/zuoracampaign.json';
+
+    if (window.location.hostname === 'www.bitdefender.com') {
+        jsonFilePath = `https://${window.location.hostname}/pages/zuoracampaign.json`;
+    }
+
     try {
-      const resp = await fetch('/zuoracampaign.json');
+      const resp = await fetch(jsonFilePath);
       if (!resp.ok) throw new Error(`HTTP error! Status: ${resp.status}`);
       const data = await resp.json();
 
