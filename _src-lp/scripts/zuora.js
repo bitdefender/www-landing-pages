@@ -12,7 +12,7 @@ export default class ZuoraNLClass {
       console.error('fetch Campaign Name Error:', error);
       throw error;
     }
-  };
+  }
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
