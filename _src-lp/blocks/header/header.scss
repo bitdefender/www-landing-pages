@@ -17,6 +17,18 @@ header {
     p {
       padding: 0;
       margin: 0;
+
+      img {
+        max-height: 40px;
+        width: auto;
+      }
+    }
+
+    a {
+      img {
+        max-height: 25px;
+        width: auto;
+      }
     }
   }
 
