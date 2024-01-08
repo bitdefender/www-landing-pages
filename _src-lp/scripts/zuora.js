@@ -6,19 +6,14 @@ export default class ZuoraNLClass {
       jsonFilePath = `https://${window.location.hostname}/pages/zuoracampaign.json`;
     }
 
-    try {
-      const resp = await fetch(jsonFilePath);
-      if (!resp.ok) {
-        console.error(`Failed to fetch data. Status: ${resp.status}`);
-        return '';
-      }
-      const data = await resp.json();
-
-      return data.data[0].CAMPAIGN_NAME;
-    } catch (error) {
-      console.error('fetch Campaign Name Error:', error);
-      throw error;
+    const resp = await fetch(jsonFilePath);
+    if (!resp.ok) {
+      console.error(`Failed to fetch data. Status: ${resp.status}`);
+      return '';
     }
+    const data = await resp.json();
+
+    return data.data[0].CAMPAIGN_NAME;
   }
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
