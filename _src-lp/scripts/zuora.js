@@ -1,6 +1,4 @@
 export default class ZuoraNLClass {
-  static campaignDefault = 'WinterMC2023';
-
   static async fetchCampaignName() {
     let jsonFilePath = '/zuoracampaign.json';
 
@@ -10,7 +8,10 @@ export default class ZuoraNLClass {
 
     try {
       const resp = await fetch(jsonFilePath);
-      if (!resp.ok) throw new Error(`HTTP error! Status: ${resp.status}`);
+      if (!resp.ok) {
+        console.error(`Failed to fetch data. Status: ${resp.status}`);
+        return ''; // Return empty string when response is not okay
+      }
       const data = await resp.json();
 
       return data.data[0].CAMPAIGN_NAME;
@@ -81,7 +82,7 @@ export default class ZuoraNLClass {
   static async getProductVariations(productId, campaign) {
     const endpoint = new URL('/v1/info/variations/price', this.zuoraConfig.endpoint);
     endpoint.searchParams.set('product_id', productId);
-    endpoint.searchParams.set('campaign', campaign);
+    if (campaign) endpoint.searchParams.set('campaign', campaign);
     endpoint.searchParams.set('country_code', 'NL');
 
     try {
@@ -243,17 +244,17 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static async loadProduct(id, campaign) {
+  static async loadProduct(id) {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
 
     try {
       const cuponCode = await this.fetchCampaignName();
-      return this.getProductVariationsPrice(id, campaign || cuponCode);
+      return this.getProductVariationsPrice(id, cuponCode);
     } catch (error) {
       console.error('loadProduct error:', error);
     }
 
-    return this.getProductVariationsPrice(id, campaign || this.campaignDefault);
+    return this.getProductVariationsPrice(id, campaign);
   }
 }
