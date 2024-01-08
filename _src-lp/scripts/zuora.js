@@ -1,5 +1,20 @@
 export default class ZuoraNLClass {
-  static campaignDefault = 'WinterMC2023';
+  static async fetchCampaignName() {
+    let jsonFilePath = '/zuoracampaign.json';
+
+    if (window.location.hostname === 'www.bitdefender.com') {
+      jsonFilePath = `https://${window.location.hostname}/pages/zuoracampaign.json`;
+    }
+
+    const resp = await fetch(jsonFilePath);
+    if (!resp.ok) {
+      console.error(`Failed to fetch data. Status: ${resp.status}`);
+      return '';
+    }
+    const data = await resp.json();
+
+    return data.data[0].CAMPAIGN_NAME;
+  }
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
 
@@ -62,7 +77,7 @@ export default class ZuoraNLClass {
   static async getProductVariations(productId, campaign) {
     const endpoint = new URL('/v1/info/variations/price', this.zuoraConfig.endpoint);
     endpoint.searchParams.set('product_id', productId);
-    endpoint.searchParams.set('campaign', campaign);
+    if (campaign) endpoint.searchParams.set('campaign', campaign);
     endpoint.searchParams.set('country_code', 'NL');
 
     try {
@@ -224,9 +239,18 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static loadProduct(id, campaign) {
+  static async loadProduct(id) {
+    let cuponCode = '';
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
-    return this.getProductVariationsPrice(id, campaign || this.campaignDefault);
+
+    try {
+      cuponCode = await this.fetchCampaignName();
+      return this.getProductVariationsPrice(id, cuponCode);
+    } catch (error) {
+      console.error('loadProduct error:', error);
+    }
+
+    return this.getProductVariationsPrice(id, cuponCode);
   }
 }
