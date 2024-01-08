@@ -240,11 +240,12 @@ export default class ZuoraNLClass {
   }
 
   static async loadProduct(id) {
+    let cuponCode = '';
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
 
     try {
-      const cuponCode = await this.fetchCampaignName();
+      cuponCode = await this.fetchCampaignName();
       return this.getProductVariationsPrice(id, cuponCode);
     } catch (error) {
       console.error('loadProduct error:', error);
