@@ -250,6 +250,6 @@ export default class ZuoraNLClass {
       console.error('loadProduct error:', error);
     }
 
-    return this.getProductVariationsPrice(id, campaign);
+    return this.getProductVariationsPrice(id, cuponCode);
   }
 }
