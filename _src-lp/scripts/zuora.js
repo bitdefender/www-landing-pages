@@ -10,7 +10,7 @@ export default class ZuoraNLClass {
       const resp = await fetch(jsonFilePath);
       if (!resp.ok) {
         console.error(`Failed to fetch data. Status: ${resp.status}`);
-        return ''; // Return empty string when response is not okay
+        return '';
       }
       const data = await resp.json();
 
