@@ -835,8 +835,17 @@ async function initializeProductsPriceLogic() {
   try {
     /* global adobe */
     if (window.adobe?.target) {
+      const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
+      /* eslint no-underscore-dangle: ["error", { "allow": ["_supplementalDataIDCurrent"] }] */
+      const theCurrentSDID = visitor._supplementalDataIDCurrent ? visitor._supplementalDataIDCurrent : '';
+      const mcID = visitor.getMarketingCloudVisitorID();
+
       const targetResponse = await adobe.target.getOffers({
+        consumerId: theCurrentSDID,
         request: {
+          id: {
+            marketingCloudVisitorId: mcID,
+          },
           execute: {
             mboxes: [{ index: 0, name: 'initSelector-mbox' }],
           },
