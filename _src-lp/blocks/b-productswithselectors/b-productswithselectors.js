@@ -32,7 +32,8 @@ export default function decorate(block) {
       devicesSelected = devicesLimitsSplit[1];
       devicesMax = devicesLimitsSplit[2];
     }
-
+    // TODO: In the future, we should test with jest that the devicesMin, devicesSelected and devicesMax
+    // are correctly set in the DOM
     const optionsDevices = Array.from({ length: devicesMax }).fill().map((_, d) => {
       const key = d + 1;
       if (key < devicesMin) return ''; // starts from 3
