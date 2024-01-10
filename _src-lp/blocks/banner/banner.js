@@ -190,19 +190,16 @@ export default function decorate(block) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
   }
 
-
   if (animatedText) {
     // Get all rotating text elements
     // const rotatingTexts = document.querySelectorAll('.rotating-text');
     setInterval(() => {
-      console.log('sdfasdfsad')
       const show = block.querySelector('.mask span.d-show');
       const next = show.nextElementSibling || block.querySelector('.mask span:first-child');
       const up = block.querySelector('.mask span.d-up');
       if (up) {
         up.classList.remove('d-up');
       }
-      console.log('show ', show.classList)
       show.classList.remove('d-show');
       show.classList.add('d-up');
       next.classList.add('d-show');
