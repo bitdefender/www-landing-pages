@@ -114,7 +114,7 @@ export default function decorate(block) {
     const animatedTextArr = animatedText.split('|');
 
     const animatedTextBox = document.createElement('div');
-    animatedTextBox.className = 'mask';
+    animatedTextBox.className = 'animated_text';
 
     animatedTextArr.forEach((item, index) => {
       const rotatingText = document.createElement('span');
@@ -194,9 +194,9 @@ export default function decorate(block) {
     // Get all rotating text elements
     // const rotatingTexts = document.querySelectorAll('.rotating-text');
     setInterval(() => {
-      const show = block.querySelector('.mask span.d-show');
-      const next = show.nextElementSibling || block.querySelector('.mask span:first-child');
-      const up = block.querySelector('.mask span.d-up');
+      const show = block.querySelector('.animated_text span.d-show');
+      const next = show.nextElementSibling || block.querySelector('.animated_text span:first-child');
+      const up = block.querySelector('.animated_text span.d-up');
       if (up) {
         up.classList.remove('d-up');
       }
