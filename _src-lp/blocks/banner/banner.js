@@ -194,16 +194,16 @@ export default function decorate(block) {
   if (animatedText) {
     // Get all rotating text elements
     // const rotatingTexts = document.querySelectorAll('.rotating-text');
-    setInterval(function () {
-      const show = document.querySelector('.mask span[data-show]')
-      const next = show.nextElementSibling || document.querySelector('.mask span:first-child')
-      const up = document.querySelector('.mask span[data-up]')
+    setInterval(() => {
+      const show = document.querySelector('.mask span[data-show]');
+      const next = show.nextElementSibling || document.querySelector('.mask span:first-child');
+      const up = document.querySelector('.mask span[data-up]');
       if (up) {
-        up.removeAttribute('data-up')
+        up.removeAttribute('data-up');
       }
-      show.removeAttribute('data-show')
-      show.setAttribute('data-up', '')
-      next.setAttribute('data-show', '')
+      show.removeAttribute('data-show');
+      show.setAttribute('data-up', '');
+      next.setAttribute('data-show', '');
     }, 2000);
   }
 }
