@@ -47,6 +47,47 @@ async function submitForm(form) {
   return payload;
 }
 
+const createModal = () => {
+  const modal = document.createElement('dialog');
+  modal.classList.add('modal');
+
+  const modalTitle = document.createElement('h2');
+  modalTitle.classList.add('modal-title');
+
+  const modalMessage = document.createElement('p');
+  modalMessage.classList.add('modal-message');
+
+  const modalClose = document.createElement('button');
+  modalClose.classList.add('modal-close');
+  modalClose.textContent = 'Close';
+
+  modal.appendChild(modalTitle);
+  modal.appendChild(modalMessage);
+  modal.appendChild(modalClose);
+
+  document.body.appendChild(modal);
+};
+
+async function displayModal(title, message) {
+  createModal();
+  const modal = document.querySelector('.modal');
+  const modalTitle = modal.querySelector('.modal-title');
+  const modalMessage = modal.querySelector('.modal-message');
+  const modalClose = modal.querySelector('.modal-close');
+
+  modalTitle.textContent = title;
+  modalMessage.textContent = message;
+
+  modal.showModal();
+
+  await new Promise((resolve) => {
+    modalClose.addEventListener('click', () => {
+      modal.close();
+      resolve();
+    });
+  });
+}
+
 function createButton(fd) {
   const button = document.createElement('button');
   button.textContent = fd.Label;
@@ -60,6 +101,7 @@ function createButton(fd) {
         button.setAttribute('disabled', '');
         await submitForm(form);
         const redirectTo = fd.Extra;
+        await displayModal('success', 'Your form has been submitted successfully');
         window.location.href = redirectTo;
       }
     });
