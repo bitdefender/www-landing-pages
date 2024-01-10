@@ -4,6 +4,7 @@ module.exports = {
   env: {
     browser: true,
     jquery: true,
+    jest: true,
   },
   globals: {
     StoreProducts: true,
