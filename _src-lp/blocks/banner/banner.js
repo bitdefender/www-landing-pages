@@ -119,7 +119,7 @@ export default function decorate(block) {
     animatedTextArr.forEach((item, index) => {
       const rotatingText = document.createElement('span');
       if (index === 0) {
-        rotatingText.setAttribute('data-show', '');
+        rotatingText.className = 'd-show';
       }
       rotatingText.textContent = item.trim();
       animatedTextBox.appendChild(rotatingText);
@@ -195,15 +195,17 @@ export default function decorate(block) {
     // Get all rotating text elements
     // const rotatingTexts = document.querySelectorAll('.rotating-text');
     setInterval(() => {
-      const show = document.querySelector('.mask span[data-show]');
-      const next = show.nextElementSibling || document.querySelector('.mask span:first-child');
-      const up = document.querySelector('.mask span[data-up]');
+      console.log('sdfasdfsad')
+      const show = block.querySelector('.mask span.d-show');
+      const next = show.nextElementSibling || block.querySelector('.mask span:first-child');
+      const up = block.querySelector('.mask span.d-up');
       if (up) {
-        up.removeAttribute('data-up');
+        up.classList.remove('d-up');
       }
-      show.removeAttribute('data-show');
-      show.setAttribute('data-up', '');
-      next.setAttribute('data-show', '');
+      console.log('show ', show.classList)
+      show.classList.remove('d-show');
+      show.classList.add('d-up');
+      next.classList.add('d-show');
     }, 2000);
   }
 }
