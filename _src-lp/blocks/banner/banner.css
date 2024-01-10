@@ -102,6 +102,47 @@
   margin: 0 auto 15px;
 }
 
+/* animated text */
+.rotating-text {
+  opacity: 1;
+  position: absolute;
+  color: #006DFF;
+  font-weight: lighter;
+  font-size: var(--heading-font-size-xxl);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.mask {
+  height: 35px;
+  width: 1000px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.mask span {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  top: 65px;
+  padding-bottom: 6px;
+  color: #006DFF;
+  font-weight: lighter;
+  font-size: var(--heading-font-size-xxl);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.mask span[data-show] {
+  transform: translateY(-100%);
+  transition: 0.5s transform ease-in-out;
+}
+
+.mask span[data-up] {
+  transform: translateY(-200%);
+  transition: 0.5s transform ease-in-out;
+}
+
 @media (width >= 768px) {
   .section.lp-brand .banner h1 {
     font-weight: lighter;

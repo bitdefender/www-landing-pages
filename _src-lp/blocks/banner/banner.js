@@ -7,7 +7,7 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, contentSize, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
+    product, products, animatedText, contentSize, backgroundColor, backgroundHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -110,6 +110,25 @@ export default function decorate(block) {
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
+  if (animatedText) {
+    const animatedTextArr = animatedText.split('|');
+
+    const animatedTextBox = document.createElement('div');
+    animatedTextBox.className = 'mask';
+
+    animatedTextArr.forEach((item, index) => {
+      const rotatingText = document.createElement('span');
+      if (index === 0) {
+        rotatingText.setAttribute('data-show', '');
+      }
+      rotatingText.textContent = item.trim();
+      animatedTextBox.appendChild(rotatingText);
+    });
+
+    // Append the animated text to the content element
+    contentEl.innerHTML = contentEl.innerHTML.replace('[animated_text]', animatedTextBox.outerHTML);
+  }
+
   if (imageCover && imageCover === 'small') {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
     block.innerHTML = `
@@ -169,5 +188,22 @@ export default function decorate(block) {
 
   if (imageAlign) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
+  }
+
+
+  if (animatedText) {
+    // Get all rotating text elements
+    // const rotatingTexts = document.querySelectorAll('.rotating-text');
+    setInterval(function () {
+      const show = document.querySelector('.mask span[data-show]')
+      const next = show.nextElementSibling || document.querySelector('.mask span:first-child')
+      const up = document.querySelector('.mask span[data-up]')
+      if (up) {
+        up.removeAttribute('data-up')
+      }
+      show.removeAttribute('data-show')
+      show.setAttribute('data-up', '')
+      next.setAttribute('data-show', '')
+    }, 2000);
   }
 }
