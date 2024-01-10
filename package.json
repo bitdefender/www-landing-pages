@@ -44,6 +44,7 @@
     "ghost-inspector": "^7.0.1",
     "jest": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
+    "jsdom": "^23.0.1",
     "purgecss": "^5.0.0",
     "sass": "^1.69.1",
     "sinon": "15.0.1",
