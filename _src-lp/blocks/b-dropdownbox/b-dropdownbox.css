@@ -358,9 +358,6 @@
     width: 50%;
     float: left;
   }
-  .b-dropdownbox-container .block.has4divs > div:not(:first-child) {
-    margin-bottom: 4em;
-  }
   .b-dropdownbox-container .block.has4divs > div:not(:first-child) > div:not(:first-child) {
     width: 33%;
     min-height: 3em;
