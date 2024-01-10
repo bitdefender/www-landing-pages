@@ -8,6 +8,7 @@ export default function decorate(block) {
   const metaData = parentSelector.dataset;
   const {
     products, selectorsName, taxesText, discountText, tagText, priceText1, priceText2, priceText3, buttonText3, buttonText2, buttonText,
+    devicesLimits,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -22,11 +23,22 @@ export default function decorate(block) {
     // create the 2 selectors
     const labelName = selectorsName.split(',');
     // devices
-    const optionsDevices = Array(100).fill().map((_, d) => {
+    let devicesMin = 3;
+    let devicesSelected = 10;
+    let devicesMax = 100;
+    if (devicesLimits) {
+      const devicesLimitsSplit = devicesLimits.split('-');
+      devicesMin = devicesLimitsSplit[0];
+      devicesSelected = devicesLimitsSplit[1];
+      devicesMax = devicesLimitsSplit[2];
+    }
+    // TODO: In the future, we should test with jest that the devicesMin, devicesSelected and devicesMax
+    // are correctly set in the DOM
+    const optionsDevices = Array.from({ length: devicesMax }).fill().map((_, d) => {
       const key = d + 1;
-      if (key < 5) return ''; // starts from 5
+      if (key < devicesMin) return ''; // starts from 3
       let selected = '';
-      if (key === 10) { // default value selected = 10
+      if (key === devicesSelected) { // default value selected = 10
         selected = ' selected';
       }
       return `<option value="${key}" ${selected}>${key}</option>`;
@@ -55,7 +67,7 @@ export default function decorate(block) {
           const triggerValue = e.target.value;
 
           if (triggerType === 'users') {
-            const fileServers1stProd = Math.ceil((Number(triggerValue)) * 0.35);
+            const fileServers1stProd = Math.ceil((Number(triggerValue)) * 0.3);
             const fileServers2ndProd = Math.ceil((Number(triggerValue)) * 0.3);
             const mailboxes = Math.ceil((Number(triggerValue) / 100) * 150);
 
