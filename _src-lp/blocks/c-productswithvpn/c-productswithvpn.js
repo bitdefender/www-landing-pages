@@ -155,7 +155,6 @@ export default function decorate(block) {
         aBuybtn.href = tableBuybtnHref.href;
       } else {
         aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
-        aBuybtn.disabled = true;
         aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
       }
 
