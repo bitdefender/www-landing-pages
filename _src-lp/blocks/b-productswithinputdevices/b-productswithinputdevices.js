@@ -88,10 +88,7 @@ export default function decorate(block) {
 
     const tableElServers = tableEl.querySelector('strong:nth-child(1) em');
     if (tableElServers) {
-      let countServ = 35;
-      if (prodiId === 'bs' || prodiId === 'smallbs') {
-        countServ = 30;
-      }
+      const countServ = 30;
       tableElServers.innerText = Math.ceil((devicesSelected / 100) * countServ);
     }
 

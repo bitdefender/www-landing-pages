@@ -708,7 +708,7 @@ function changeCheckboxVPN(checkboxId, pid) {
 }
 
 function initSelectors(pid) {
-  showLoaderSpinner(false);
+  showLoaderSpinner();
   const productsExistsOnPage = productsList.length;
 
   if (productsExistsOnPage) {
@@ -758,7 +758,7 @@ function initSelectors(pid) {
             const fp = this;
             showPrices(fp);
             adobeMcAppendVisitorId('main');
-            showLoaderSpinner(true, onSelectorClass);
+            showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { /* empty */ }
         },
       };
@@ -797,7 +797,7 @@ async function initZuoraProductPriceLogic(campaign) {
   import('./zuora.js').then(async (module) => {
     const ZuoraNLClass = module.default;
     // window.config = ZuoraNLClass.config();
-    showLoaderSpinner(false);
+    showLoaderSpinner();
 
     if (productsList.length) {
       try {
@@ -818,9 +818,6 @@ async function initZuoraProductPriceLogic(campaign) {
             return zuoraResult;
           }),
         );
-
-        // results is an array of the resolved promises
-        // console.log(results);
       } catch (error) {
         console.error(error);
       }
@@ -835,8 +832,17 @@ async function initializeProductsPriceLogic() {
   try {
     /* global adobe */
     if (window.adobe?.target) {
+      const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
+      /* eslint no-underscore-dangle: ["error", { "allow": ["_supplementalDataIDCurrent"] }] */
+      const theCurrentSDID = visitor._supplementalDataIDCurrent ? visitor._supplementalDataIDCurrent : '';
+      const mcID = visitor.getMarketingCloudVisitorID();
+
       const targetResponse = await adobe.target.getOffers({
+        consumerId: theCurrentSDID,
         request: {
+          id: {
+            marketingCloudVisitorId: mcID,
+          },
           execute: {
             mboxes: [{ index: 0, name: 'initSelector-mbox' }],
           },
@@ -870,12 +876,12 @@ async function initializeProductsPriceLogic() {
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
     addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
       initSelectors(pid);
+      addEventListenersOnVpnCheckboxes(pid);
     });
   } else {
     initZuoraProductPriceLogic(campaign);
+    addEventListenersOnVpnCheckboxes(pid);
   }
-
-  addEventListenersOnVpnCheckboxes(pid);
 }
 
 function eventOnDropdownSlider() {
