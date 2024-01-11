@@ -110,25 +110,6 @@ export default function decorate(block) {
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
-  if (animatedText) {
-    const animatedTextArr = animatedText.split('|');
-
-    const animatedTextBox = document.createElement('div');
-    animatedTextBox.className = 'animated_text';
-
-    animatedTextArr.forEach((item, index) => {
-      const rotatingText = document.createElement('span');
-      if (index === 0) {
-        rotatingText.className = 'd-show';
-      }
-      rotatingText.textContent = item.trim();
-      animatedTextBox.appendChild(rotatingText);
-    });
-
-    // Append the animated text to the content element
-    contentEl.innerHTML = contentEl.innerHTML.replace('[animated_text]', animatedTextBox.outerHTML);
-  }
-
   if (imageCover && imageCover === 'small') {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
     block.innerHTML = `
@@ -190,7 +171,16 @@ export default function decorate(block) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
   }
 
+
+
   if (animatedText) {
+    block.classList.add('animated_box');
+    block.innerHTML += `<div class="animated_text">
+      ${[...animatedText.split('|')].map((item, key) => {
+        return `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`;
+      }).join('')}
+    </div>`;
+
     // Get all rotating text elements
     // const rotatingTexts = document.querySelectorAll('.rotating-text');
     setInterval(() => {
