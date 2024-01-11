@@ -218,7 +218,7 @@
 @media screen and (width <= 768px) {
   .section.banner-container .banner {
     padding: 1em 0 !important;
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 
   .section.lp-brand .banner {
@@ -327,6 +327,10 @@
 
   .section.banner-container #pricesBox .terms p a {
     color: #006EFF;
+  }
+
+  .section.banner-container.block-hide-mobile {
+    display: none !important;
   }
 
   .section.banner-container.hide-mobile {
