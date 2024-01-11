@@ -15,12 +15,12 @@ $checkbox-size: 20px;
     border-radius: $main-border-radius;
     padding: $main-padding;
 
-    $modal-bg-color: #FFFFFF;
+    $modal-bg-color: #FFF;
     $modal-border-radius: 10px;
     $modal-padding: 20px;
     $modal-title-font-size: 24px;
     $modal-message-font-size: 16px;
-    $modal-close-btn-color: #000000;
+    $modal-close-btn-color: #000;
 
     h2 {
       padding: var(--spacing-s) 0;
@@ -66,12 +66,13 @@ $checkbox-size: 20px;
 
     .form-checkbox-wrapper {
       @include flex-center;
+
       margin-bottom: 1rem;
 
       input[type='checkbox'] {
         appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
+        appearance: none;
+        appearance: none;
         height: $checkbox-size;
         width: $checkbox-size;
         position: relative;
@@ -116,12 +117,12 @@ $checkbox-size: 20px;
     }
   }
 
-  $modal-bg-color: #FFFFFF;
+  $modal-bg-color: #FFF;
   $modal-border-radius: 10px;
   $modal-padding: 20px;
   $modal-title-font-size: 24px;
   $modal-message-font-size: 16px;
-  $modal-close-btn-color: #000000;
+  $modal-close-btn-color: #000;
 
   dialog {
     background-color: $modal-bg-color;
