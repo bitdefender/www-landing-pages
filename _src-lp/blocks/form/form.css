@@ -1,29 +1,25 @@
-main .form {
+.form-container .form {
   background-color: #F3F3F3;
   border-radius: 8px;
   padding: 20px;
 }
-
-main .form h2 {
+.form-container .form h2 {
   padding: var(--spacing-s) 0;
   font-size: var(--type-heading-l-lh);
 }
-
-main .form .title {
+.form-container .form .title {
   color: #6A6A6A;
   font-size: 22px;
   text-align: center;
   margin-bottom: 10px;
 }
-
-main .form h3 {
+.form-container .form h3 {
   padding-top: var(--spacing-s);
   font-size: var(--type-heading-m-size);
 }
-
-main .form input,
-main .form textarea,
-main .form select {
+.form-container .form input,
+.form-container .form textarea,
+.form-container .form select {
   border: solid 0.5px #707070;
   padding: 5px 10px;
   width: 100%;
@@ -31,33 +27,26 @@ main .form select {
   box-sizing: border-box;
   font-size: 14px;
 }
-
-main .form textarea {
+.form-container .form textarea {
   min-height: 100px;
   margin-bottom: 1rem;
 }
-
-main .form label {
+.form-container .form label {
   display: block;
   box-sizing: border-box;
 }
-
-main .form label.required::after {
+.form-container .form label.required::after {
   content: "*";
 }
-
-main .form .form-checkbox-wrapper {
+.form-container .form .form-checkbox-wrapper {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
 }
-
-main .form .form-checkbox-wrapper input[type=checkbox] {
+.form-container .form .form-checkbox-wrapper input[type=checkbox] {
   appearance: none;
-  /* stylelint-disable */
   -webkit-appearance: none;
   -moz-appearance: none;
-  /* stylelint-enable */
   height: 20px;
   width: 20px;
   position: relative;
@@ -65,8 +54,7 @@ main .form .form-checkbox-wrapper input[type=checkbox] {
   padding: unset;
   margin-left: 0;
 }
-
-main .form .form-checkbox-wrapper input[type=checkbox]::after {
+.form-container .form .form-checkbox-wrapper input[type=checkbox]::after {
   display: block;
   position: absolute;
   top: 0;
@@ -77,46 +65,58 @@ main .form .form-checkbox-wrapper input[type=checkbox]::after {
   background: url("./checkbox.svg");
   background-size: contain;
 }
-
-main .form .form-checkbox-wrapper input[type=checkbox]:checked::after {
+.form-container .form .form-checkbox-wrapper input[type=checkbox]:checked::after {
   background: url("./checkbox-checked.svg");
   background-size: contain;
   content: " ";
 }
-
-main .form .form-checkbox-wrapper label {
+.form-container .form .form-checkbox-wrapper label {
   display: block;
   line-height: normal;
   padding: 10px;
   padding-bottom: 0;
   width: 100%;
 }
-
-main .form-legal-wrapper p {
+.form-container .form .form-legal-wrapper p {
   font-style: italic;
 }
-
-main .form button {
+.form-container .form button {
   width: 100%;
 }
-
+.form-container dialog {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  padding: 20px;
+  position: fixed;
+  z-index: 1000;
+  width: 80%;
+  max-width: 500px;
+}
+.form-container dialog .modal-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.form-container dialog .modal-message {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
 @media screen and (width >= 900px) {
-  main .form .field-wrapper {
+  .form-container .form {
+    max-width: 31%;
+  }
+  .form-container .form .field-wrapper {
     display: flex;
   }
-  main .form .field-wrapper.form-short {
+  .form-container .form .field-wrapper.form-short {
     display: inline-flex;
     width: 50%;
   }
-  main .form .field-wrapper.form-short:first-of-type {
+  .form-container .form .field-wrapper.form-short:first-of-type {
     padding-right: 10px;
   }
-  main .form-wrapper:has(.form-besides-table) {
+  .form-container .form-wrapper:has(.form-besides-table) {
     display: flex;
     position: relative;
     justify-content: end;
-  }
-  main .form {
-    max-width: 31%;
   }
 }

@@ -47,9 +47,15 @@ async function submitForm(form) {
   return payload;
 }
 
+/*
+  * Creates a modal with title and message
+  * @param {string} title - title of the modal
+  * @param {string} message - message of the modal
+  * @returns {void}
+  */
 const createModal = () => {
   const modal = document.createElement('dialog');
-  modal.classList.add('modal');
+  modal.classList.add('success-form-modal');
 
   const modalTitle = document.createElement('h2');
   modalTitle.classList.add('modal-title');
@@ -65,12 +71,19 @@ const createModal = () => {
   modal.appendChild(modalMessage);
   modal.appendChild(modalClose);
 
-  document.body.appendChild(modal);
+  const formContainer = document.querySelector('.form-container');
+  formContainer.appendChild(modal);
 };
 
+/**
+ * Displays a modal with title and message
+ * @param {string} title - title of the modal
+ * @param {string} message - message of the modal
+ * @returns {void}
+ * */
 async function displayModal(title, message) {
   createModal();
-  const modal = document.querySelector('.modal');
+  const modal = document.querySelector('.success-form-modal');
   const modalTitle = modal.querySelector('.modal-title');
   const modalMessage = modal.querySelector('.modal-message');
   const modalClose = modal.querySelector('.modal-close');
@@ -84,6 +97,14 @@ async function displayModal(title, message) {
     modalClose.addEventListener('click', () => {
       modal.close();
       resolve();
+    });
+
+    // close modal on click outside of modal
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.close();
+        resolve();
+      }
     });
   });
 }
