@@ -329,6 +329,10 @@
     color: #006EFF;
   }
 
+  .section.banner-container.block-hide-mobile {
+    display: none !important;
+  }
+
   .section.banner-container.hide-mobile {
     background: none !important;
   }
