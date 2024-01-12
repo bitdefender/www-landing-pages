@@ -230,13 +230,14 @@
   .b-productswithselectors > div:not(:first-child) h3 {
     font-size: 16px;
     line-height: 18px;
-    height: 35px;
+    height: 50px;
   }
 
   .b-productswithselectors > div:not(:first-child) ul li {
     font-size: 14px;
     line-height: 19px;
     margin-bottom: 6px;
+    word-break: break-word;
   }
 
   .b-productswithselectors > div:not(:first-child) p:last-of-type {
@@ -295,7 +296,7 @@
   }
   
   .b-productswithselectors > div:not(:first-child) ul:first-of-type {
-    min-height: 14.5em;
+    min-height: 17em;
     margin: 6px 0;
   }
 }
