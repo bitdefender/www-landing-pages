@@ -22,7 +22,7 @@ export default function decorate(block) {
       const featureList = Array.from(featuresSet).map((table) => {
         const trList = Array.from(table.querySelectorAll('tr'));
 
-        const liString = trList.map((tr, idx) => {
+        const liString = trList.map((tr) => {
           const tdList = Array.from(tr.querySelectorAll('td'));
 
           // Extract the content of the first <td> to be placed outside the <li>
@@ -39,7 +39,7 @@ export default function decorate(block) {
 
           if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
             liClass += ' has_arrow';
-            firstTdContent = firstTdContent.replace('&lt;-', '')
+            firstTdContent = firstTdContent.replace('&lt;-', '');
           }
 
           const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
@@ -51,7 +51,7 @@ export default function decorate(block) {
       });
 
       if (title.innerHTML.indexOf('href') !== -1) {
-        title.innerHTML = `<a href="#" title="${title.innerText}" class="buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${title.querySelector('tr a').innerHTML}</a>`
+        title.innerHTML = `<a href="#" title="${title.innerText}" class="buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${title.querySelector('tr a').innerHTML}</a>`;
       }
 
       block.innerHTML += `
