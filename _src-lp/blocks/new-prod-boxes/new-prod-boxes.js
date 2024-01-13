@@ -50,6 +50,10 @@ export default function decorate(block) {
         return `<ul>${liString}</ul>`;
       });
 
+      if (title.innerHTML.indexOf('href') !== -1) {
+        title.innerHTML = `<a href="#" title="${title.innerText}" class="buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${title.querySelector('tr a').innerHTML}</a>`
+      }
+
       block.innerHTML += `
         <div class="pod_box${greenTag.innerText.trim() && ' hasGreenTag'}">
           <div class="inner_pod_box">
