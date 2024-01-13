@@ -12,16 +12,6 @@
             flex: 1;
             margin: 1em 0;
 
-            &.hasGreenTag {
-                margin-top: 3em;
-
-                .inner_pod_box {
-                    -webkit-box-shadow: 0px 3px 7px 0px #C1C1C1;
-                    -moz-box-shadow: 0px 3px 7px 0px #C1C1C1;
-                    box-shadow: 0px 3px 7px 0px #C1C1C1;
-                }
-            }
-
             .inner_pod_box {
                 position: relative;
                 width: 100%;
@@ -184,7 +174,7 @@
                             font-family: Arial, sans-serif;
                             margin-bottom: 1.5rem;
 
-                            &.has_arrow:before {
+                            &.has_arrow::before {
                                 content: '';
                                 margin: 0 5px 20px 0;
                                 background: url('../../icons/arrow-left-blue.png') no-repeat center transparent;
@@ -250,6 +240,14 @@
                             min-height: 5em;
                         }
                     }
+                }
+            }
+
+            &.hasGreenTag {
+                margin-top: 3em;
+
+                .inner_pod_box {
+                    box-shadow: 0px 3px 7px 0px #C1C1C1;
                 }
             }
         }

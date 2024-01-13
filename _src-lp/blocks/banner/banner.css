@@ -182,6 +182,12 @@
     margin: 20px 0;
     min-height: auto;
   }
+  .section.banner-container .animated_text span {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+    text-align: left;
+    margin-left: 25px;
+  }
   .section.banner-container .banner .section.banner-container #pricesBox .buy_box a, .section.banner-container .banner .section.banner-container #pricesBox .buy_box span {
     display: inline;
   }
@@ -195,12 +201,6 @@
   }
   .section.banner-container .banner .section.banner-container #pricesBox .terms p a {
     color: #006EFF;
-  }
-  .section.banner-container .animated_text span {
-    font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
-    text-align: left;
-    margin-left: 25px;
   }
 }
 @media screen and (width >= 991px) {
