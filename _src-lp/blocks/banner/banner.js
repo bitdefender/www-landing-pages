@@ -172,14 +172,10 @@ export default function decorate(block) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
   }
 
-
-
   if (animatedText) {
     block.classList.add('animated_box');
     block.innerHTML += `<div class="animated_text">
-      ${[...animatedText.split('|')].map((item, key) => {
-        return `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`;
-      }).join('')}
+      ${[...animatedText.split('|')].map((item, key) => `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`).join('')}
     </div>`;
 
     // Get all rotating text elements
