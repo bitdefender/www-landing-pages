@@ -669,6 +669,7 @@ main .section.highlight {
   padding: 0;
   color: #fff;
   display: inline-block;
+  margin-top: 10px;
 }
 
 .prod-percent.green_bck_circle.medium span:first-of-type {

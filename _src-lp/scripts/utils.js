@@ -198,16 +198,22 @@ export function isZuoraForNetherlandsLangMode() {
 }
 
 // showLoaderSpinner
-export function showLoaderSpinner(showSpinner, pid = null) {
+export function showLoaderSpinner(showSpinner = true, pid = null) {
   if (showSpinner) {
+    const prodLoadBox = document.querySelectorAll('.prodload');
+    prodLoadBox.forEach((item) => {
+      item.classList.add('await-loader');
+    });
+    document.querySelectorAll('.checkboxVPN').forEach((checkbox) => {
+      checkbox.setAttribute('disabled', 'true');
+    });
+  } else {
     const prodLoadBox = document.querySelectorAll(`.prodload-${pid}`);
     prodLoadBox.forEach((item) => {
       item.classList.remove('await-loader');
     });
-  } else {
-    const prodLoadBox = document.querySelectorAll('.prodload');
-    prodLoadBox.forEach((item) => {
-      item.classList.add('await-loader');
+    document.querySelectorAll('.checkboxVPN').forEach((checkbox) => {
+      checkbox.removeAttribute('disabled');
     });
   }
 }
