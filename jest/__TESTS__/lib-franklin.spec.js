@@ -12,7 +12,7 @@ describe('lib-franklin.js', () => {
   describe('internalDecorateIcons function', () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve({ rates: { CAD: 1.42 } }),
+        json: () => Promise.resolve({}),
       })
     );
 
