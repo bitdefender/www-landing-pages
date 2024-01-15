@@ -11,9 +11,6 @@
   flex: 1;
   margin: 1em 0;
 }
-.new-prod-boxes-container .block .pod_box.hasGreenTag {
-  margin-top: 3em;
-}
 .new-prod-boxes-container .block .pod_box .inner_pod_box {
   position: relative;
   width: 100%;
@@ -67,6 +64,10 @@
   font-size: 14px;
   font-family: Arial, sans-serif;
   margin-bottom: 0;
+  line-height: 1.25;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .subtitle.fixed_height {
+  min-height: 80px;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box hr {
   border: 1px solid #D1D1D1;
@@ -144,11 +145,21 @@
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:first-of-type {
   font-size: var(--body-font-size-xs);
+  line-height: var(--heading-font-size-s);
   text-decoration: none;
   list-style-type: none;
   font-weight: bold;
   font-family: Arial, sans-serif;
-  margin-bottom: 10px;
+  margin-bottom: 1.5rem;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:first-of-type.has_arrow::before {
+  content: "";
+  margin: 0 5px 20px 0;
+  background: url("../../icons/arrow-left-blue.png") no-repeat center transparent;
+  width: 20px;
+  height: 20px;
+  background-size: 15px 12px;
+  float: left;
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) {
   font-size: 14px;
@@ -196,6 +207,12 @@
 }
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul:nth-of-type(2) {
   min-height: 5em;
+}
+.new-prod-boxes-container .block .pod_box.hasGreenTag {
+  margin-top: 3em;
+}
+.new-prod-boxes-container .block .pod_box.hasGreenTag .inner_pod_box {
+  box-shadow: 0 3px 7px 0 #C1C1C1;
 }
 
 @media (width >= 768px) {

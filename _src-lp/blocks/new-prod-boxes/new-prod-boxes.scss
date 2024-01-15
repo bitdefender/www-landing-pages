@@ -12,10 +12,6 @@
             flex: 1;
             margin: 1em 0;
 
-            &.hasGreenTag {
-                margin-top: 3em;
-            }
-
             .inner_pod_box {
                 position: relative;
                 width: 100%;
@@ -74,6 +70,11 @@
                     font-size: 14px;
                     font-family: Arial, sans-serif;
                     margin-bottom: 0;
+                    line-height: 1.25;
+
+                    &.fixed_height {
+                        min-height: 80px;
+                    }
                 }
 
                 hr {
@@ -150,7 +151,7 @@
                     color: transparent;
 
                     p {
-                        margin: 0
+                        margin: 0;
                     }
 
                     u {
@@ -166,11 +167,22 @@
 
                         li:first-of-type {
                             font-size: var(--body-font-size-xs);
+                            line-height: var(--heading-font-size-s);
                             text-decoration: none;
                             list-style-type: none;
                             font-weight: bold;
                             font-family: Arial, sans-serif;
-                            margin-bottom: 10px;
+                            margin-bottom: 1.5rem;
+
+                            &.has_arrow::before {
+                                content: '';
+                                margin: 0 5px 20px 0;
+                                background: url('../../icons/arrow-left-blue.png') no-repeat center transparent;
+                                width: 20px;
+                                height: 20px;
+                                background-size: 15px 12px;
+                                float: left;
+                            }
                         }
 
                         li:not(:first-of-type) {
@@ -228,6 +240,14 @@
                             min-height: 5em;
                         }
                     }
+                }
+            }
+
+            &.hasGreenTag {
+                margin-top: 3em;
+
+                .inner_pod_box {
+                    box-shadow: 0 3px 7px 0 #C1C1C1;
                 }
             }
         }
