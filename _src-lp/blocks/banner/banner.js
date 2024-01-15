@@ -7,7 +7,7 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, contentSize, backgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
+    product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -170,5 +170,26 @@ export default function decorate(block) {
 
   if (imageAlign) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
+  }
+
+  if (animatedText) {
+    block.classList.add('animated_box');
+    block.innerHTML += `<div class="animated_text">
+      ${[...animatedText.split('|')].map((item, key) => `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`).join('')}
+    </div>`;
+
+    // Get all rotating text elements
+    // const rotatingTexts = document.querySelectorAll('.rotating-text');
+    setInterval(() => {
+      const show = block.querySelector('.animated_text span.d-show');
+      const next = show.nextElementSibling || block.querySelector('.animated_text span:first-child');
+      const up = block.querySelector('.animated_text span.d-up');
+      if (up) {
+        up.classList.remove('d-up');
+      }
+      show.classList.remove('d-show');
+      show.classList.add('d-up');
+      next.classList.add('d-show');
+    }, 2000);
   }
 }
