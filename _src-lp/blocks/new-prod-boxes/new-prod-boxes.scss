@@ -43,6 +43,15 @@
                     line-height: var(--body-font-size-m);
                     font-family: Arial, sans-serif;
                     margin-top: 10px;
+
+                    a {
+                        transition: all 0.5s ease;
+
+                        &:hover {
+                            text-decoration: none;
+                            transition: all 0.5s ease;
+                        }
+                    }
                 }
 
                 .blueTag {

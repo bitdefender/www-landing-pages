@@ -42,6 +42,13 @@
   font-family: Arial, sans-serif;
   margin-top: 10px;
 }
+.new-prod-boxes-container .block .pod_box .inner_pod_box h2 a {
+  transition: all 0.5s ease;
+}
+.new-prod-boxes-container .block .pod_box .inner_pod_box h2 a:hover {
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
 .new-prod-boxes-container .block .pod_box .inner_pod_box .blueTag {
   font-size: var(--body-font-size-xs);
   font-family: Arial, sans-serif;
