@@ -22,7 +22,7 @@ describe('lib-franklin.js', () => {
       fetch.mockClear();
     });
 
-    it('should match the url correctly ', async () => {
+    it('fetch should be called with /pages/ prefix under bitdefender.com/pages/', async () => {
       window = Object.create(window);
       Object.defineProperty(window, 'location', {
         value: {
@@ -40,7 +40,7 @@ describe('lib-franklin.js', () => {
       expect(fetch).toHaveBeenCalledWith("/pages/icons/keeps-you-informed.svg");
     });
 
-    it('should create the correct page.info.name for bitdefender.com/pages environment', async () => {
+    it('fetch should be called without /pages/ prefix under pages.bitdefender.com', async () => {
       window = Object.create(window);
       Object.defineProperty(window, 'location', {
         value: {
