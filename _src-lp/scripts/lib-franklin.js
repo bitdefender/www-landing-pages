@@ -175,7 +175,8 @@ async function internalDecorateIcons(element) {
     if (!ICONS_CACHE[iconName]) {
       ICONS_CACHE[iconName] = true;
       try {
-        const dynamicIconsSharepointPath = '/icons/';
+        const hasPagesPrefix = window.location.pathname.split('/').filter((path) => path)[0] === 'pages';
+        const dynamicIconsSharepointPath = `${hasPagesPrefix ? '/pages/' : ''}/icons/`;
         const response = await fetch(`${dynamicIconsSharepointPath}${iconName}.svg`);
         if (!response.ok) {
           ICONS_CACHE[iconName] = false;
