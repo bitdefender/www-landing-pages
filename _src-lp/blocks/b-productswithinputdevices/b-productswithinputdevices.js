@@ -19,6 +19,19 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
+/**
+ * Update table element
+ * @param {HTMLElement} tableElement
+ * @param {number} currentdevices
+ * @param {number} multiplier
+ * @returns {void}
+ */
+function updateTableElement(tableElement, currentdevices, multiplier) {
+  if (tableElement) {
+    tableElement.innerText = Math.ceil((currentdevices / 100) * multiplier);
+  }
+}
+
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
@@ -29,7 +42,7 @@ export default function decorate(block) {
 
   const metaData = parentSelector.dataset;
   const {
-    products, yearsText, bulinaText, devicesLimits, titleTag,
+    products, yearsText, bulinaText, devicesLimits, incrementalCounter, titleTag,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -48,6 +61,11 @@ export default function decorate(block) {
     devicesMin = devicesLimitsSplit[0];
     devicesSelected = devicesLimitsSplit[1];
     devicesMax = devicesLimitsSplit[2];
+  }
+
+  let incrementalCounterValue = 1;
+  if (incrementalCounter) {
+    incrementalCounterValue = parseInt(incrementalCounter, 10);
   }
 
   const blockH3 = block.querySelector('h3');
@@ -87,31 +105,24 @@ export default function decorate(block) {
     const prodiId = productAliases(productsAsList[0].split('/')[0]);
 
     const tableElServers = tableEl.querySelector('strong:nth-child(1) em');
-    if (tableElServers) {
-      const countServ = 30;
-      tableElServers.innerText = Math.ceil((devicesSelected / 100) * countServ);
-    }
+    updateTableElement(tableElServers, devicesSelected, 30);
 
     const tableElMailboxes = tableEl.querySelector('strong:nth-child(2) em');
-    if (tableElMailboxes) {
-      tableElMailboxes.innerText = Math.ceil((devicesSelected / 100) * 150);
-    }
+    updateTableElement(tableElMailboxes, devicesSelected, 150);
 
     const tableElMailboxes2 = tableEl.querySelector('strong:nth-child(3) em');
-    if (tableElMailboxes2) {
-      tableElMailboxes2.innerText = Math.ceil((devicesSelected / 100) * 150);
-    }
+    updateTableElement(tableElMailboxes2, devicesSelected, 150);
 
     block.querySelectorAll('fieldset button').forEach((item) => {
       item.addEventListener('click', () => {
         const action = item.innerText;
         let currentdevices = Number(devicesInput.value);
         if (action === '-' && currentdevices > devicesMin) {
-          currentdevices -= 1;
+          currentdevices -= incrementalCounterValue;
           devicesInput.value = (currentdevices).toString();
         }
         if (action === '+' && currentdevices < devicesMax) {
-          currentdevices += 1;
+          currentdevices += incrementalCounterValue;
           devicesInput.value = (currentdevices).toString();
         }
 
@@ -124,17 +135,8 @@ export default function decorate(block) {
           });
         }
 
-        if (tableElServers) {
-          let countServ = 35;
-          if (prodiId === 'bs' || prodiId === 'smallbs') {
-            countServ = 30;
-          }
-          tableElServers.innerText = Math.ceil((currentdevices / 100) * countServ);
-        }
-
-        if (tableElMailboxes) {
-          tableElMailboxes.innerText = Math.ceil((currentdevices / 100) * 150);
-        }
+        updateTableElement(tableElServers, currentdevices, 30);
+        updateTableElement(tableElMailboxes, currentdevices, 150);
       });
     });
 
