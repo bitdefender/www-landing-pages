@@ -256,6 +256,31 @@ function changeCheckboxVPN(checkboxId, pid) {
   let fullPrice = '';
   const selectedUsers = document.querySelector(`.users_${onSelectorClass}_fake`).value;
   const selectedYears = document.querySelector(`.years_${onSelectorClass}_fake`).value;
+
+  if (!productId) {
+    console.error('Missing ProductId', productId);
+  }
+
+  if (!StoreProducts.product[productId]) {
+    console.error('Missing Product');
+  }
+
+  if (!selectedUsers) {
+    console.error('Missing selectedUsers');
+  }
+
+  if (!StoreProducts.product[productId].variations[selectedUsers]) {
+    console.error('Missing product variations first');
+  }
+
+  if (!selectedYears) {
+    console.error('Missing selectedYears');
+  }
+
+  if (!StoreProducts.product[productId].variations[selectedUsers][selectedYears]) {
+    console.error('Missing product variations second');
+  }
+
   const selectedVariation = StoreProducts.product[productId].variations[selectedUsers][selectedYears];
 
   // buy btn
