@@ -29,7 +29,7 @@ export default function decorate(block) {
 
   const metaData = parentSelector.dataset;
   const {
-    products, yearsText, bulinaText, devicesLimits, titleTag,
+    products, yearsText, bulinaText, devicesLimits, incrementalCounter, titleTag,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -48,6 +48,11 @@ export default function decorate(block) {
     devicesMin = devicesLimitsSplit[0];
     devicesSelected = devicesLimitsSplit[1];
     devicesMax = devicesLimitsSplit[2];
+  }
+
+  let incrementalCounterValue = 1;
+  if (incrementalCounter) {
+    incrementalCounterValue = parseInt(incrementalCounter, 10);
   }
 
   const blockH3 = block.querySelector('h3');
@@ -107,11 +112,11 @@ export default function decorate(block) {
         const action = item.innerText;
         let currentdevices = Number(devicesInput.value);
         if (action === '-' && currentdevices > devicesMin) {
-          currentdevices -= 1;
+          currentdevices -= incrementalCounterValue;
           devicesInput.value = (currentdevices).toString();
         }
         if (action === '+' && currentdevices < devicesMax) {
-          currentdevices += 1;
+          currentdevices += incrementalCounterValue;
           devicesInput.value = (currentdevices).toString();
         }
 
