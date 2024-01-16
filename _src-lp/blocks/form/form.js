@@ -47,6 +47,68 @@ async function submitForm(form) {
   return payload;
 }
 
+/*
+  * Creates a modal with title and message
+  * @param {string} title - title of the modal
+  * @param {string} message - message of the modal
+  * @returns {void}
+  */
+const createModal = () => {
+  const modal = document.createElement('dialog');
+  modal.classList.add('success-form-modal');
+
+  const modalTitle = document.createElement('h2');
+  modalTitle.classList.add('modal-title');
+
+  const modalMessage = document.createElement('p');
+  modalMessage.classList.add('modal-message');
+
+  const modalClose = document.createElement('button');
+  modalClose.classList.add('modal-close');
+  modalClose.textContent = 'Close';
+
+  modal.appendChild(modalTitle);
+  modal.appendChild(modalMessage);
+  modal.appendChild(modalClose);
+
+  const formContainer = document.querySelector('.form-container');
+  formContainer.appendChild(modal);
+};
+
+/**
+ * Displays a modal with title and message
+ * @param {string} title - title of the modal
+ * @param {string} message - message of the modal
+ * @returns {void}
+ * */
+async function displayModal(title, message) {
+  createModal();
+  const modal = document.querySelector('.success-form-modal');
+  const modalTitle = modal.querySelector('.modal-title');
+  const modalMessage = modal.querySelector('.modal-message');
+  const modalClose = modal.querySelector('.modal-close');
+
+  modalTitle.textContent = title;
+  modalMessage.textContent = message;
+
+  modal.showModal();
+
+  await new Promise((resolve) => {
+    modalClose.addEventListener('click', () => {
+      modal.close();
+      resolve();
+    });
+
+    // close modal on click outside of modal
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.close();
+        resolve();
+      }
+    });
+  });
+}
+
 function createButton(fd) {
   const button = document.createElement('button');
   button.textContent = fd.Label;
@@ -60,6 +122,7 @@ function createButton(fd) {
         button.setAttribute('disabled', '');
         await submitForm(form);
         const redirectTo = fd.Extra;
+        await displayModal('success', 'Your form has been submitted successfully');
         window.location.href = redirectTo;
       }
     });
