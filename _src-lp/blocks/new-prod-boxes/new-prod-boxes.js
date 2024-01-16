@@ -26,13 +26,23 @@ export default function decorate(block) {
           const tdList = Array.from(tr.querySelectorAll('td'));
 
           // Extract the content of the first <td> to be placed outside the <li>
-          const firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
+          let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
 
           // Extract the content of the second <td> (if present) inside a <span>
           const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span>${tdList[1].innerHTML}</span>` : '';
 
           // Create the <li> combining the first and second td content
-          const liContent = `<li>${firstTdContent}${secondTdContent}</li>`;
+          let liClass = '';
+          if (firstTdContent === '') {
+            liClass += 'd-none';
+          }
+
+          if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
+            liClass += ' has_arrow';
+            firstTdContent = firstTdContent.replace('&lt;-', '');
+          }
+
+          const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
 
           return liContent;
         }).join('');
@@ -40,13 +50,17 @@ export default function decorate(block) {
         return `<ul>${liString}</ul>`;
       });
 
+      if (title.innerHTML.indexOf('href') !== -1) {
+        title.innerHTML = `<a href="#" title="${title.innerText}" class="buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${title.querySelector('tr a').innerHTML}</a>`;
+      }
+
       block.innerHTML += `
         <div class="pod_box${greenTag.innerText.trim() && ' hasGreenTag'}">
           <div class="inner_pod_box">
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
             ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
-            ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerText.trim()}</p>` : ''}
+            ${subtitle.innerText.trim() ? `<p class="subtitle${subtitle.innerText.trim().split(/\s+/).length > 5 ? ' fixed_height' : ''}">${subtitle.innerText.trim()}</p>` : ''}
             <hr />
 
             ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
