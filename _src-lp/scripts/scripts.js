@@ -812,7 +812,7 @@ async function initZuoraProductPriceLogic(campaign) {
             const zuoraResult = await ZuoraNLClass.loadProduct(item, campaign);
             showPrices(zuoraResult);
             adobeMcAppendVisitorId('main');
-            showLoaderSpinner(true, onSelectorClass);
+            showLoaderSpinner(false, onSelectorClass);
             sendAnalyticsProducts(zuoraResult, 'nl');
 
             return zuoraResult;
