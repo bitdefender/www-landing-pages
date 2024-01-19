@@ -539,6 +539,7 @@ export const DOMAIN_NAME_MAP = new Map([
   ['en', 'https://www.bitdefender.com/'],
   ['uk', 'https://www.bitdefender.co.uk/'],
   ['au', 'https://www.bitdefender.com.au/'],
+  ['br', 'https://www.bitdefender.com.br/'],
 ]);
 
 export function getDefaultBaseUrl() {
