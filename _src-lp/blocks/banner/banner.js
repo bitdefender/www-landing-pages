@@ -14,6 +14,8 @@ export default function decorate(block) {
   // tables from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
+
+    // PRICE_BOX
     if (aliasTr && aliasTr.innerText.trim() === 'price_box' && product?.length) {
       // add products into the final array
       updateProductsList(product);
@@ -44,6 +46,60 @@ export default function decorate(block) {
 
       table.innerHTML = '';
       table.appendChild(pricesBox);
+    }
+
+    // GREEN_PILL_BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'green_pill' && product?.length) {
+      // add products into the final array
+      updateProductsList(product);
+
+      const [prodName, prodUsers, prodYears] = product.split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      // eslint-disable-next-line no-unused-vars
+      const [alias, text] = [...contentEl.querySelectorAll('table tr')];
+      const greenPillBox = document.createElement('div');
+
+      if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
+        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+      }
+
+      greenPillBox.id = 'greenPillBox';
+      greenPillBox.className = `green_pill_box await-loader prodload prodload-${onSelectorClass}`;
+      greenPillBox.innerHTML += `<span>${text.innerHTML}</span>`;
+
+      table.innerHTML = '';
+      table.appendChild(greenPillBox);
+    }
+
+    // BUYBTN_AND_GREEN_CIRCLE_BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'buybtn_and_green_circle' && product?.length) {
+      // add products into the final array
+      updateProductsList(product);
+
+      const [prodName, prodUsers, prodYears] = product.split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      // eslint-disable-next-line no-unused-vars
+      const [alias, buybtn_text] = [...contentEl.querySelectorAll('table tr')];
+      const [buybtn, text] = [...buybtn_text.querySelectorAll('tr td')];
+      const greenPillBox = document.createElement('div');
+
+      if (text && text.innerText !== '' && text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
+        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+      }
+
+      if (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1) {
+        buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+      }
+
+      greenPillBox.id = 'buyBtnGreenCircleBox';
+      greenPillBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
+      greenPillBox.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
+          <strong>${buybtn.innerHTML}</strong>
+        </a>`;
+      if (text && text.innerText !== '') greenPillBox.innerHTML += `<span class="green_circle_box">${text.innerHTML}</span>`;
+
+      table.innerHTML = '';
+      table.appendChild(greenPillBox);
     }
   });
 

@@ -139,6 +139,40 @@
   transition: .5s transform ease-in-out;
 }
 
+.section.banner-container #greenPillBox {
+  background-color: #2FB43E;
+  display: inline-block;
+  color: #fff;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
+  font-size: 18px;
+  padding: 2px 11px;
+}
+
+.section.banner-container #buyBtnGreenCircleBox {
+  align-items: center;
+}
+
+.section.banner-container #buyBtnGreenCircleBox a {
+  margin-right: 10px;
+}
+
+.section.banner-container #buyBtnGreenCircleBox span.green_circle_box {
+  position: relative;
+  background: #2cb43d;
+  border-radius: 50%;
+  width: 83px;
+  height: 83px;
+  font-size: 28px;
+  line-height: 81px;
+  text-align: center;
+  padding: 0;
+  color: #fff;
+  display: inline-block;
+  margin-top: 10px;
+}
+
 @media (width >= 768px) {
   .section.lp-brand .banner h1 {
     font-weight: lighter;
