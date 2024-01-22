@@ -193,7 +193,6 @@ export default function decorate(block) {
       parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
     }
 
-    console.log('contentRightEl ', contentRightEl)
     block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
