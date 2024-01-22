@@ -13,13 +13,20 @@ export default function decorate(block) {
 
   // tables from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
+    let prodName;
+    let prodUsers;
+    let prodYears;
+    let onSelectorClass;
     const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
-    if (aliasTr && aliasTr.innerText.trim() === 'price_box' && product?.length) {
-      // add products into the final array
-      updateProductsList(product);
 
-      const [prodName, prodUsers, prodYears] = product.split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    if (product && product.length) {
+      updateProductsList(product);
+      [prodName, prodUsers, prodYears] = product.split('/');
+      onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    }
+
+    // PRICE_BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
       const [alias, prices, terms, buybtn] = [...contentEl.querySelectorAll('table tr')];
       const pricesBox = document.createElement('div');
@@ -44,6 +51,53 @@ export default function decorate(block) {
 
       table.innerHTML = '';
       table.appendChild(pricesBox);
+    }
+
+    // GREEN_PILL_BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'green_pill') {
+      // eslint-disable-next-line no-unused-vars
+      const [alias, text] = [...contentEl.querySelectorAll('table tr')];
+      const greenPillBox = document.createElement('div');
+
+      if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
+        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+      }
+
+      greenPillBox.id = 'greenPillBox';
+      greenPillBox.className = `green_pill_box await-loader prodload prodload-${onSelectorClass}`;
+      greenPillBox.innerHTML += `<span>${text.innerHTML}</span>`;
+
+      table.innerHTML = '';
+      table.appendChild(greenPillBox);
+    }
+
+    // BUYBTN_AND_GREEN_CIRCLE_BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'buybtn_and_green_circle') {
+      // eslint-disable-next-line no-unused-vars
+      const [alias, buybtnText] = [...contentEl.querySelectorAll('table tr')];
+      const [buybtn, text] = [...buybtnText.querySelectorAll('tr td')];
+      const greenCircleBox = document.createElement('div');
+
+      if (text && text.innerText !== '' && (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1)) {
+        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+      }
+
+      if (buybtn && buybtn.innerText !== '' && (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerText.indexOf('0 %') !== -1)) {
+        buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+      }
+
+      greenCircleBox.id = 'buyBtnGreenCircleBox';
+      greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
+      greenCircleBox.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
+          <strong>${buybtn.innerHTML}</strong>
+        </a>`;
+
+      if (text && text.innerHTML !== '') {
+        greenCircleBox.innerHTML += `<span class="green_circle_box">${text.innerHTML}</span>`;
+      }
+
+      table.innerHTML = '';
+      table.appendChild(greenCircleBox);
     }
   });
 
@@ -139,9 +193,9 @@ export default function decorate(block) {
 
     block.innerHTML = `
     <div class="container-fluid">
-      <div class="row d-md-flex d-sm-block justify-content-center">
+      <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
         <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
-        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '5'}">${contentRightEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-md-${contentSize === 'half' ? '6' : '5'}">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
     `;
