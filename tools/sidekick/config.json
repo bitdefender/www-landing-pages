@@ -8,6 +8,13 @@
       "environments": ["edit"],
       "url": "/tools/sidekick/library.html",
       "includePaths": ["**.docx**"]
+    },
+    {
+      "id": "smartling",
+      "title": "Send to Smartling",
+      "passConfig": true,
+      "environments": ["preview", "live"],
+      "event": "smartlingEvent"
     }
   ]
 }

@@ -1011,3 +1011,25 @@ initMobileDetector('desktop');
 initBaseUri();
 
 loadPage();
+
+const sendToSmartling = async () => {
+  const currentPageUrl = window.location.href.replace(/^https?:\/\//i, '');
+  console.log(currentPageUrl);
+};
+
+const sk = document.querySelector('helix-sidekick');
+if (sk) {
+  // sidekick already loaded
+  sk.addEventListener('custom:smartlingEvent', sendToSmartling);
+} else {
+  // wait for sidekick to be loaded
+  document.addEventListener(
+    'sidekick-ready',
+    () => {
+      document
+        .querySelector('helix-sidekick')
+        .addEventListener('custom:smartlingEvent', sendToSmartling);
+    },
+    { once: true },
+  );
+}
