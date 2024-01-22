@@ -6,6 +6,7 @@ export default function decorate(block) {
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
+  let prodName, prodUsers, prodYears, onSelectorClass;
   const {
     product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
@@ -14,8 +15,8 @@ export default function decorate(block) {
   if (product && product.length) {
     updateProductsList(product);
 
-    var [prodName, prodUsers, prodYears] = product.split('/');
-    var onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    [prodName, prodUsers, prodYears] = product.split('/');
+    onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
   }
 
   // tables from left content
