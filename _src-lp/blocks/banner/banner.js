@@ -6,7 +6,10 @@ export default function decorate(block) {
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
-  let prodName, prodUsers, prodYears, onSelectorClass;
+  let prodName;
+  let prodUsers;
+  let prodYears;
+  let onSelectorClass;
   const {
     product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
