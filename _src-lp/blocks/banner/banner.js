@@ -6,25 +6,24 @@ export default function decorate(block) {
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
-  let prodName;
-  let prodUsers;
-  let prodYears;
-  let onSelectorClass;
   const {
     product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
-  if (product && product.length) {
-    updateProductsList(product);
-
-    [prodName, prodUsers, prodYears] = product.split('/');
-    onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-  }
-
   // tables from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
+    let prodName;
+    let prodUsers;
+    let prodYears;
+    let onSelectorClass;
     const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
+
+    if (product && product.length) {
+      updateProductsList(product);
+      [prodName, prodUsers, prodYears] = product.split('/');
+      onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    }
 
     // PRICE_BOX
     if (aliasTr && aliasTr.innerText.trim() === 'price_box') {
@@ -75,8 +74,8 @@ export default function decorate(block) {
     // BUYBTN_AND_GREEN_CIRCLE_BOX
     if (aliasTr && aliasTr.innerText.trim() === 'buybtn_and_green_circle') {
       // eslint-disable-next-line no-unused-vars
-      const [alias, buybtn_text] = [...contentEl.querySelectorAll('table tr')];
-      const [buybtn, text] = [...buybtn_text.querySelectorAll('tr td')];
+      const [alias, buybtnText] = [...contentEl.querySelectorAll('table tr')];
+      const [buybtn, text] = [...buybtnText.querySelectorAll('tr td')];
       const greenCircleBox = document.createElement('div');
 
       if (text && text.innerText !== '' && (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1)) {
