@@ -167,6 +167,7 @@ export default function decorate(block) {
 
   if (imageCover && imageCover === 'small') {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+    blockStyle.backgroundColor = `${backgroundColor || '#000'}`;
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex">
@@ -190,6 +191,8 @@ export default function decorate(block) {
     } else if (imageCover === 'full-right') {
       parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
     }
+
+    parentBlockStyle.backgroundColor = `${backgroundColor || '#000'}`;
 
     block.innerHTML = `
     <div class="container-fluid">
