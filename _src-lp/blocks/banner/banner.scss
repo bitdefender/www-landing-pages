@@ -139,6 +139,40 @@
   transition: .5s transform ease-in-out;
 }
 
+.section.banner-container #greenPillBox {
+  background-color: #2FB43E;
+  display: inline-block;
+  color: #fff;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
+  font-size: 18px;
+  padding: 2px 11px;
+}
+
+.section.banner-container #buyBtnGreenCircleBox {
+  align-items: center;
+}
+
+.section.banner-container #buyBtnGreenCircleBox a {
+  margin-right: 10px;
+}
+
+.section.banner-container #buyBtnGreenCircleBox span.green_circle_box {
+  position: relative;
+  background: #2cb43d;
+  border-radius: 50%;
+  width: 83px;
+  height: 83px;
+  font-size: 28px;
+  line-height: 81px;
+  text-align: center;
+  padding: 0;
+  color: #fff;
+  display: inline-block;
+  margin-top: 10px;
+}
+
 @media (width >= 768px) {
   .section.lp-brand .banner h1 {
     font-weight: lighter;
@@ -146,7 +180,6 @@
     line-height: var(--heading-font-size-l);
     margin-top: 1em;
   }
-
 
   .section.lp-brand .banner p {
     width: 100%;
@@ -158,38 +191,38 @@
     font-size: 30px;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox {
+  .section.banner-container #pricesBox {
     text-align: left;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .d-flex {
+ .section.banner-container #pricesBox .d-flex {
     align-items: center;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .d-flex p {
+  .section.banner-container #pricesBox .d-flex p {
     margin: 0 10px 0 0;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .d-flex span.prod-oldprice {
+  .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
     font-size: var(--heading-font-size-m);
     line-height: var(--heading-font-size-m);
     font-weight: normal;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .d-flex span.prod-newprice {
+  .section.banner-container #pricesBox .d-flex span.prod-newprice {
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
     font-weight: bold;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .d-flex .variation {
+ .section.banner-container #pricesBox .d-flex .variation {
     font-size: var(--body-font-size-xs);
     line-height: 19px;
     font-weight: bold;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .buy_box {
+  .section.banner-container #pricesBox .buy_box {
     margin: 20px 0;
     min-height: auto;
   }
@@ -201,21 +234,21 @@
     margin-left: 25px;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .buy_box a, .section.banner-container .banner .section.banner-container #pricesBox .buy_box span {
+  .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
     display: inline;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .terms {
+  .section.banner-container #pricesBox .terms {
     margin: 5px 0 10px;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .terms p {
+  .section.banner-container #pricesBox .terms p {
     font-size: 12px;
     line-height: 15px;
     margin: 0 5px;
   }
 
-  .section.banner-container .banner .section.banner-container #pricesBox .terms p a {
+  .section.banner-container #pricesBox .terms p a {
     color: #006EFF;
   }
 }
