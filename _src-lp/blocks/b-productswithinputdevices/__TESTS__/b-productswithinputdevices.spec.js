@@ -7,8 +7,6 @@ jest.mock('../../../scripts/lib-franklin.js', () => ({
   loadFooter: jest.fn(),
 }));
 
-// import { updateTableElement } from '../b-productswithinputdevices.js';
-
 describe('b-productswithinputdevices block', () => {
 
   beforeEach(() => {
@@ -26,6 +24,10 @@ describe('b-productswithinputdevices block', () => {
 
     beforeEach(() => {
       b_productswithinputdevicesContainer = document.querySelector('.b-productswithinputdevices-container');
+    });
+
+    test('check if products have been added to the window.productsListCount', () => {
+        expect(window.productsListCount).toBeTruthy();
     });
 
     test('Green tag text should match the one defined in metadata', () => {
@@ -55,9 +57,5 @@ describe('b-productswithinputdevices block', () => {
       minusButton.click();
       expect(inputField.value).toBe('9');
     });
-
-
   });
-
-
 });
