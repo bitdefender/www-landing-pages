@@ -89,7 +89,6 @@ export default function decorate(block) {
       greenCircleBox.id = 'buyBtnGreenCircleBox';
       greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
       if (buybtn.innerHTML.includes('<a')) {
-        console.log('buybtn ', buybtn)
         buybtn.querySelector('a').className = 'button primary';
         greenCircleBox.innerHTML += buybtn.innerHTML;
       } else {
@@ -97,7 +96,6 @@ export default function decorate(block) {
           <strong>${buybtn.innerHTML}</strong>
         </a>`;
       }
-
 
       if (text && text.innerHTML !== '') {
         greenCircleBox.innerHTML += `<span class="green_circle_box">${text.innerHTML}</span>`;
