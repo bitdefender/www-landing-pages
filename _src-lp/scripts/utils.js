@@ -137,6 +137,7 @@ export function updateProductsList(product) {
     productsList.push(productTrim);
   }
   window.productsListCount = productsList.length;
+
 }
 
 // truncatePrice
