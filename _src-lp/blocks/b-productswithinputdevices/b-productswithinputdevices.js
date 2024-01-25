@@ -115,7 +115,7 @@ export default function decorate(block) {
 
     block.querySelectorAll('fieldset button').forEach((item) => {
       item.addEventListener('click', () => {
-        const action = item.innerText;
+        const action = item.textContent;
         let currentdevices = Number(devicesInput.value);
         if (action === '-' && currentdevices > devicesMin) {
           currentdevices -= incrementalCounterValue;
