@@ -372,7 +372,8 @@
     display: none !important;
   }
   .section.banner-container.hide-mobile {
-    background: none !important;
+    background-image: unset !important;
+    background-color: #000;
   }
   .section.banner-container.hide-mobile .bck-img {
     display: none;

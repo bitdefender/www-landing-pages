@@ -22,7 +22,9 @@ module.exports = {
     // allow reassigning param
     'no-param-reassign': [2, { props: false }],
     'prefer-destructuring': ['error', { object: false, array: false }],
-    'linebreak-style': ['error', 'unix'],
+    'linebreak-style': ['error',
+      process.platform === 'win32' ? 'windows' : 'unix',
+    ],
     'padded-blocks': ['error', 'never'],
     'import/extensions': ['error', {
       js: 'always',

@@ -88,9 +88,14 @@ export default function decorate(block) {
 
       greenCircleBox.id = 'buyBtnGreenCircleBox';
       greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
-      greenCircleBox.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
+      if (buybtn.innerHTML.includes('<a')) {
+        buybtn.querySelector('a').className = 'button primary';
+        greenCircleBox.innerHTML += buybtn.innerHTML;
+      } else {
+        greenCircleBox.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
           <strong>${buybtn.innerHTML}</strong>
         </a>`;
+      }
 
       if (text && text.innerHTML !== '') {
         greenCircleBox.innerHTML += `<span class="green_circle_box">${text.innerHTML}</span>`;
