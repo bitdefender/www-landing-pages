@@ -290,6 +290,10 @@
     padding-bottom: 1rem !important;
     background: none !important;
   }
+
+  .banner-container.bckimg-full-right {
+    background-position: right -19rem top!important;
+  }
 }
 
 @media screen and (width <= 768px) {
