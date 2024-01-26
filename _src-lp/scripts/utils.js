@@ -139,24 +139,6 @@ export function updateProductsList(product) {
   window.productsListCount = productsList.length;
 }
 
-// truncatePrice
-function truncatePrice(price) {
-  let ret = price;
-  try {
-    if (ret >= 0) {
-      ret = Math.floor(ret);
-    } else {
-      ret = Math.ceil(ret);
-    }
-
-    if (price !== ret) {
-      ret = price;
-    }
-  } catch (e) { console.log(e); }
-
-  return ret;
-}
-
 // DEX-14692 - set data on buy links
 export function setDataOnBuyLinks(dataInfo) {
   try {
