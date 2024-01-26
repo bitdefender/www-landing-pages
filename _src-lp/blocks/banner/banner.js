@@ -11,6 +11,10 @@ export default function decorate(block) {
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
+  if (imageCover) {
+    parentBlock.classList.add(`bckimg-${imageCover}`);
+  }
+
   // tables from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     let prodName;
