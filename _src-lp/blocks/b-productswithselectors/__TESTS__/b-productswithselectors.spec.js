@@ -31,14 +31,14 @@ describe('b-productswithselectors block', () => {
     });
 
     test('check if the number of servers and mailboxes changes based on number of devices selected', () => {
-      const UsersSelectorBox = b_productswithselectors.querySelectorAll('.selectorBox')[0];
+      const usersSelectorBox = b_productswithselectors.querySelectorAll('.selectorBox')[0];
     
       // Set the target value on the selector
-      UsersSelectorBox.value = '11';
+      usersSelectorBox.value = '11';
       // Dispatch the change event
-      UsersSelectorBox.dispatchEvent(new Event('change'));
+      usersSelectorBox.dispatchEvent(new Event('change'));
 
-      const triggerValue = UsersSelectorBox.value;
+      const triggerValue = usersSelectorBox.value;
       const fileServers1stProd = 4;
       const fileServers2ndProd = 4;
       const mailboxes = 17;
