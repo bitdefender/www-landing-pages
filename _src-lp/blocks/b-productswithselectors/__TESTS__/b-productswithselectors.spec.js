@@ -39,9 +39,9 @@ describe('b-productswithselectors block', () => {
       UsersSelectorBox.dispatchEvent(new Event('change'));
 
       const triggerValue = UsersSelectorBox.value;
-      const fileServers1stProd = Math.ceil((Number(triggerValue)) * 0.3);
-      const fileServers2ndProd = Math.ceil((Number(triggerValue)) * 0.3);
-      const mailboxes = Math.ceil((Number(triggerValue) / 100) * 150);
+      const fileServers1stProd = 4;
+      const fileServers2ndProd = 4;
+      const mailboxes = 17;
 
       const selectors = [
         { index: 2, type: 1, value: triggerValue },
