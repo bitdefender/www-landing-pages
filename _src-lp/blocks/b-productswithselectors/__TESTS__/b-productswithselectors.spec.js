@@ -44,18 +44,18 @@ describe('b-productswithselectors block', () => {
       const mailboxes = 17;
 
       const selectors = [
-        { index: 2, type: 1, value: triggerValue },
-        { index: 3, type: 1, value: triggerValue },
-        { index: 4, type: 1, value: triggerValue },
-        { index: 2, type: 2, value: fileServers1stProd },
-        { index: 3, type: 2, value: fileServers2ndProd },
-        { index: 4, type: 2, value: fileServers2ndProd },
-        { index: 4, type: 3, value: mailboxes },
+        { index: 2, listChildNumber: 1, value: triggerValue },
+        { index: 3, listChildNumber: 1, value: triggerValue },
+        { index: 4, listChildNumber: 1, value: triggerValue },
+        { index: 2, listChildNumber: 2, value: fileServers1stProd },
+        { index: 3, listChildNumber: 2, value: fileServers2ndProd },
+        { index: 4, listChildNumber: 2, value: fileServers2ndProd },
+        { index: 4, listChildNumber: 3, value: mailboxes },
       ];
 
       selectors.forEach((selector) => {
-        const { index, type, value } = selector;
-        const query = `.b-productswithselectors > div:nth-child(${index}) ul:last-of-type li:nth-child(${type}) strong`;
+        const { index, listChildNumber, value } = selector;
+        const query = `.b-productswithselectors > div:nth-child(${index}) ul:last-of-type li:nth-child(${listChildNumber}) strong`;
         const element = b_productswithselectors.querySelector(query);
         if (element) {
           // check if the value has been updated
