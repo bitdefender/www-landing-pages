@@ -23,7 +23,7 @@ if (window.location.host.indexOf('localhost:3000') == 0) {
 
 window.StoreProducts.initSelector = function (config) {
   window.is_product = true;
-  if (typeof forcePL !== 'undefined' && forcePL == true) {
+  if (typeof window.forcePL !== 'undefined' && window.forcePL == true) {
     config.force_region = 16;
     const now = new Date();
     const time = now.getTime();
@@ -120,8 +120,8 @@ window.StoreProducts.initSelector = function (config) {
 
   if ('extra_params' in config) { extra_params = config.extra_params; }
 
-  if (typeof __global_extra_params !== 'undefined') {
-    extra_params = config.extra_params = __global_extra_params;
+  if (typeof window.__global_extra_params !== 'undefined') {
+    extra_params = config.extra_params = window.__global_extra_params;
   }
 
   if ('discount' in config) { discount = config.discount; }
@@ -627,7 +627,7 @@ window.StoreProducts.initSelector = function (config) {
   //     base_uri = "https://www.bitdefender.se/site";
   // }
 
-  if ((typeof geoip_code !== 'undefined' && geoip_code == 'gb') || window.location.hostname == 'www.bitdefender.co.uk' || window.location.hostname == 'old.bitdefender.co.uk') {
+  if ((typeof window.geoip_code !== 'undefined' && window.geoip_code == 'gb') || window.location.hostname == 'www.bitdefender.co.uk' || window.location.hostname == 'old.bitdefender.co.uk') {
     base_uri = 'https://www.bitdefender.co.uk/site';
   }
 
@@ -800,9 +800,9 @@ window.StoreProducts.initSelector = function (config) {
       element.setAttribute('href', buy_link);
     });
 
-    if (typeof __targetCallBack !== 'undefined') {
+    if (typeof window.__targetCallBack !== 'undefined') {
       try {
-        __targetCallBack(buy_class, c_config.product_id, selected_users, selected_years);
+        window.__targetCallBack(buy_class, c_config.product_id, selected_users, selected_years);
       } catch (ex) {
         console.log(`target ex:${ex}`);
       }
