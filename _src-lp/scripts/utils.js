@@ -216,7 +216,7 @@ export function formatPrice(price, currency, region) {
 
     // support for HTML 5.1 "navigator.languages"
     if (Array.isArray(nav.languages)) {
-      for (i = 0; i < nav.languages.length; i++) {
+      for (i = 0; i < nav.languages.length; i += 1) {
         language = nav.languages[i];
         if (language && language.length) {
           return language;
@@ -225,7 +225,7 @@ export function formatPrice(price, currency, region) {
     }
 
     // support for other well known properties in browsers
-    for (i = 0; i < browserLanguagePropertyKeys.length; i++) {
+    for (i = 0; i < browserLanguagePropertyKeys.length; i += 1) {
       language = nav[browserLanguagePropertyKeys[i]];
       if (language && language.length) {
         return language;
