@@ -1,3 +1,5 @@
+import {formatPrice} from "../utils.js";
+
 if (typeof StoreProducts === 'undefined' || StoreProducts === null) {
   StoreProducts = new Object();
 }
@@ -616,7 +618,7 @@ StoreProducts.initSelector = function (config) {
   if (variation == null) { return false; }
 
   let price = `${variation.price} ${variation.currency_label}`;
-  price = StoreProducts.formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
+  price = formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
 
   let discounted_price = '';
   let full_price = price;
@@ -634,8 +636,8 @@ StoreProducts.initSelector = function (config) {
   try {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
-        discounted_price = StoreProducts.formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
+        discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
       }
@@ -652,8 +654,8 @@ StoreProducts.initSelector = function (config) {
     } else
       if (discount != null) {
         discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-        discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
+        discounted_price = formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
         percent_value = (((variation.price - variation.discount) / variation.price) * 100).toFixed(0);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
@@ -871,88 +873,6 @@ StoreProducts.initSelector = function (config) {
   }
 };
 
-StoreProducts.truncatePrice = function (price) {
-  let ret = price;
-
-  try {
-    if (ret >= 0) { ret = Math.floor(ret); } else { ret = Math.ceil(ret); }
-
-    if (price != ret) { ret = price; }
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
-
-  return ret;
-};
-
-StoreProducts.formatPrice = function (price, currency, region, currency_iso) {
-  price = StoreProducts.truncatePrice(price);
-
-  try {
-    getBrowserLocale = StoreProducts.getFirstBrowserLanguage();
-
-    const formatter = new Intl.NumberFormat(getBrowserLocale, {
-      style: 'decimal',
-      minimumFractionDigits: 0,
-    });
-
-    price = formatter.format(price);
-  } catch (err) {
-    DEBUG && console.log(ex);
-  }
-
-  try {
-    // replace , only if it's not the decimal seperator
-    if (price.toString().indexOf(',') != -1) {
-      const priceParts = price.split(',');
-      if (priceParts[1].length > 2) {
-        price = price.replace(',', '');
-      }
-    }
-  } catch (err) {
-    DEBUG && console.log(ex);
-  }
-
-  // petre
-  if (region == 3) { return currency + price; }
-
-  if (region == 4) { return currency + price; }
-
-  if (region == 5) { return `${price} ${currency}`; }
-
-  if (region == 7) { return `${price} ${currency}`; }
-
-  if (region == 25) { return currency + price; }
-
-  if (region == 8 || region == 2 || region == 11) { return currency + price; }
-
-  if (region == 13) { return currency + price; }
-
-  if (region == 16 && DEFAULT_LANGUAGE == 'nl') {
-    try {
-      price = price.replace('.', ',');
-    } catch (err) {
-      DEBUG && console.log(ex);
-    }
-
-    return `${currency} ${price}`;
-  }
-
-  if (region == 17 || region == 18) {
-    let fprice = `${price} ${currency}`;
-
-    try {
-      fprice = `${parseFloat(price).toFixed(2)} ${currency}`;
-    } catch (ex) {
-      DEBUG && console.log(ex);
-    }
-
-    return fprice;
-  }
-
-  return `${price} ${currency}`;
-};
-
 StoreProducts.getDiscountedPrice = function (val, pc) {
   const dp = (val * pc) / 100;
   val -= dp;
@@ -1024,7 +944,7 @@ StoreProducts.__onChangeUsers = function (ev) {
   if (variation == null) { return null; }
 
   let price = `${variation.price} ${variation.currency_label}`;
-  price = StoreProducts.formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
+  price = formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
   let discounted_price = '';
   let save_price = '';
   let percent_value = '';
@@ -1039,8 +959,8 @@ StoreProducts.__onChangeUsers = function (ev) {
   try {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
-        discounted_price = StoreProducts.formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+        discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
       }
@@ -1058,8 +978,8 @@ StoreProducts.__onChangeUsers = function (ev) {
       if (discount in c_config) {
         if (c_config.discount != null) {
           discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-          discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-          save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+          discounted_price = formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+          save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
           percent_value = `${variation.discount.discount_value}%`;
           price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
         }
@@ -1226,7 +1146,7 @@ StoreProducts.__onChangeYears = function (ev) {
   if (variation == null) { return false; }
 
   let price = `${variation.price} ${variation.currency_label}`;
-  price = StoreProducts.formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
+  price = formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
   let discounted_price = '';
   let save_price = '';
   let percent_value = '';
@@ -1241,8 +1161,8 @@ StoreProducts.__onChangeYears = function (ev) {
   try {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
-        discounted_price = StoreProducts.formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+        discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
       }
@@ -1260,8 +1180,8 @@ StoreProducts.__onChangeYears = function (ev) {
       if (discount in c_config) {
         if (c_config.discount != null) {
           discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-          discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-          save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+          discounted_price = formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+          save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
           percent_value = `${variation.discount.discount_value}%`;
           price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
         }
@@ -1663,7 +1583,7 @@ StoreProducts.getBundleProductsInfo = function (va, vb, config) {
 
   ret_price = (va.price * 100) / 100 + (vb.price * 100) / 100;
   ret_price = ret_price.toFixed(2);
-  ret_price = StoreProducts.formatPrice(ret_price, va.currency_label, va.region_id, va.currency_iso);
+  ret_price = formatPrice(ret_price, va.currency_label, va.region_id, va.currency_iso);
 
   buy_link = StoreProducts.filterBuyLink(config, buy_link);
   buy_link = StoreProducts.appendVisitorID(buy_link);
@@ -2130,33 +2050,6 @@ StoreProducts.appendVisitorID = function (buyLink) {
   }
 
   return buyLink;
-};
-
-StoreProducts.getFirstBrowserLanguage = function () {
-  const nav = window.navigator;
-  const browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'];
-  let i;
-  let language;
-
-  // support for HTML 5.1 "navigator.languages"
-  if (Array.isArray(nav.languages)) {
-    for (i = 0; i < nav.languages.length; i++) {
-      language = nav.languages[i];
-      if (language && language.length) {
-        return language;
-      }
-    }
-  }
-
-  // support for other well known properties in browsers
-  for (i = 0; i < browserLanguagePropertyKeys.length; i++) {
-    language = nav[browserLanguagePropertyKeys[i]];
-    if (language && language.length) {
-      return language;
-    }
-  }
-
-  return 'en';
 };
 
 Base64 = {
