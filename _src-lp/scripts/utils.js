@@ -139,24 +139,6 @@ export function updateProductsList(product) {
   window.productsListCount = productsList.length;
 }
 
-// truncatePrice
-function truncatePrice(price) {
-  let ret = price;
-  try {
-    if (ret >= 0) {
-      ret = Math.floor(ret);
-    } else {
-      ret = Math.ceil(ret);
-    }
-
-    if (price !== ret) {
-      ret = price;
-    }
-  } catch (e) { console.log(e); }
-
-  return ret;
-}
-
 // DEX-14692 - set data on buy links
 export function setDataOnBuyLinks(dataInfo) {
   try {
@@ -179,18 +161,6 @@ export function setDataOnBuyLinks(dataInfo) {
   } catch (error) {
     console.error('An error occurred:', error);
   }
-}
-
-// formatPrice
-function formatPrice(priceVal, currency, region) {
-  const price = truncatePrice(priceVal);
-  const currencyPrice = [3, 4, 8, 2, 11, 12, 16];
-
-  if (currencyPrice.includes(region)) {
-    return `${currency} ${price}`;
-  }
-
-  return `${price} ${currency}`;
 }
 
 export function isZuoraForNetherlandsLangMode() {
@@ -275,12 +245,12 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
-    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
-    const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyLabel, regionId);
-    const offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
-    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyLabel, regionId);
+    const fullPrice = StoreProducts.formatPrice(selectedVarPrice, currencyLabel, regionId);
+    const fullPriceMonthly = StoreProducts.formatPrice((selectedVarPrice / 12).toFixed(2), currencyLabel, regionId);
+    const offerPrice = StoreProducts.formatPrice(selectedVarDiscount, currencyLabel, regionId);
+    const offerPriceMonthly = StoreProducts.formatPrice((selectedVarDiscount / 12).toFixed(2), currencyLabel, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
-    const savings = formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
+    const savings = StoreProducts.formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
 
     const oldPriceClass = `.oldprice-${onSelectorClass}`;
@@ -388,7 +358,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       showSaveBox.style.visibility = 'visible';
     }
   } else {
-    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
+    const fullPrice = StoreProducts.formatPrice(selectedVarPrice, currencyLabel, regionId);
     let vpnHasDiscount = false;
     let offerPrice = 0;
     let percentageSticker = 0;
@@ -399,7 +369,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
-        offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
+        offerPrice = StoreProducts.formatPrice(selectedVarDiscount, currencyLabel, regionId);
         percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
       }
     }
