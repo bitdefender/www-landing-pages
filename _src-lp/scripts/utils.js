@@ -51,13 +51,17 @@ export const getIpCountry = async () => {
 */
 
 // add new script file
-export function addScript(src, data = {}, type = undefined, onLoadCallback = undefined, onErrorCallback = undefined) {
+export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallback = undefined, onErrorCallback = undefined, type = undefined) {
   const s = document.createElement('script');
 
   s.setAttribute('src', src);
 
+  if (loadStrategy) {
+    s.setAttribute(loadStrategy, true);
+  }
+
   if (type) {
-    s.setAttribute(type, true);
+    s.setAttribute('type', type);
   }
 
   if (typeof data === 'object' && data !== null) {

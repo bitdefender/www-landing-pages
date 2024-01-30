@@ -877,7 +877,7 @@ async function initializeProductsPriceLogic() {
     addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
       initSelectors(pid);
       addEventListenersOnVpnCheckboxes(pid);
-    });
+    }, {}, 'module');
   } else {
     initZuoraProductPriceLogic(campaign);
     addEventListenersOnVpnCheckboxes(pid);
