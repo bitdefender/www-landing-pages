@@ -51,13 +51,17 @@ export const getIpCountry = async () => {
 */
 
 // add new script file
-export function addScript(src, data = {}, type = undefined, onLoadCallback = undefined, onErrorCallback = undefined) {
+export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallback = undefined, onErrorCallback = undefined, type = undefined) {
   const s = document.createElement('script');
 
   s.setAttribute('src', src);
 
+  if (loadStrategy) {
+    s.setAttribute(loadStrategy, true);
+  }
+
   if (type) {
-    s.setAttribute(type, true);
+    s.setAttribute('type', type);
   }
 
   if (typeof data === 'object' && data !== null) {
@@ -188,6 +192,123 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
   }
 }
 
+export function formatPrice(price, currency, region) {
+  const truncatePrice = (pr) => {
+    let ret = pr;
+
+    try {
+      if (ret >= 0) { ret = Math.floor(ret); } else { ret = Math.ceil(ret); }
+
+      if (price !== ret) { ret = pr; }
+    } catch (ex) {
+      if (window.DEBUG) {
+        console.log(ex);
+      }
+    }
+
+    return ret;
+  };
+  const getFirstBrowserLanguage = () => {
+    const nav = window.navigator;
+    const browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'];
+    let i;
+    let language;
+
+    // support for HTML 5.1 "navigator.languages"
+    if (Array.isArray(nav.languages)) {
+      for (i = 0; i < nav.languages.length; i += 1) {
+        language = nav.languages[i];
+        if (language && language.length) {
+          return language;
+        }
+      }
+    }
+
+    // support for other well known properties in browsers
+    for (i = 0; i < browserLanguagePropertyKeys.length; i += 1) {
+      language = nav[browserLanguagePropertyKeys[i]];
+      if (language && language.length) {
+        return language;
+      }
+    }
+
+    return 'en';
+  };
+
+  let newPrice = truncatePrice(price);
+
+  try {
+    window.getBrowserLocale = getFirstBrowserLanguage();
+
+    const formatter = new Intl.NumberFormat(window.getBrowserLocale, {
+      style: 'decimal',
+      minimumFractionDigits: 0,
+    });
+
+    newPrice = formatter.format(newPrice);
+  } catch (err) {
+    if (window.DEBUG) {
+      console.log(err);
+    }
+  }
+
+  try {
+    // replace , only if it's not the decimal seperator
+    if (price.toString().indexOf(',') !== -1) {
+      const priceParts = newPrice.split(',');
+      if (priceParts[1].length > 2) {
+        newPrice = newPrice.replace(',', '');
+      }
+    }
+  } catch (err) {
+    if (window.DEBUG) {
+      console.log(err);
+    }
+  }
+
+  if (region === 3) { return currency + price; }
+
+  if (region === 4) { return currency + price; }
+
+  if (region === 5) { return `${price} ${currency}`; }
+
+  if (region === 7) { return `${price} ${currency}`; }
+
+  if (region === 25) { return currency + price; }
+
+  if (region === 8 || region === 2 || region === 11) { return currency + price; }
+
+  if (region === 13) { return currency + price; }
+
+  if (region === 16 && window.DEFAULT_LANGUAGE === 'nl') {
+    try {
+      newPrice = newPrice.replace('.', ',');
+    } catch (err) {
+      if (window.DEBUG) {
+        console.log(err);
+      }
+    }
+
+    return `${currency} ${price}`;
+  }
+
+  if (region === 17 || region === 18) {
+    let fprice = `${price} ${currency}`;
+
+    try {
+      fprice = `${parseFloat(price).toFixed(2)} ${currency}`;
+    } catch (err) {
+      if (window.DEBUG) {
+        console.log(err);
+      }
+    }
+
+    return fprice;
+  }
+
+  return `${price} ${currency}`;
+}
+
 // get max discount
 function maxDiscount() {
   const discountAmounts = [];
@@ -228,7 +349,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
     showVpnBox.style.display = 'none';
   }
 
-  const storeObjVPN = window.StoreProducts.product.vpn;
+  const storeObjVPN = StoreProducts.product.vpn;
   if (triggerVPN) {
     parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
     buyLink += '&bundle_id=com.bitdefender.vpn&bundle_payment_period=1d1y';
@@ -245,12 +366,12 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
-    const fullPrice = StoreProducts.formatPrice(selectedVarPrice, currencyLabel, regionId);
-    const fullPriceMonthly = StoreProducts.formatPrice((selectedVarPrice / 12).toFixed(2), currencyLabel, regionId);
-    const offerPrice = StoreProducts.formatPrice(selectedVarDiscount, currencyLabel, regionId);
-    const offerPriceMonthly = StoreProducts.formatPrice((selectedVarDiscount / 12).toFixed(2), currencyLabel, regionId);
+    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
+    const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyLabel, regionId);
+    const offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
+    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyLabel, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
-    const savings = StoreProducts.formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
+    const savings = formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
 
     const oldPriceClass = `.oldprice-${onSelectorClass}`;
@@ -358,7 +479,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       showSaveBox.style.visibility = 'visible';
     }
   } else {
-    const fullPrice = StoreProducts.formatPrice(selectedVarPrice, currencyLabel, regionId);
+    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
     let vpnHasDiscount = false;
     let offerPrice = 0;
     let percentageSticker = 0;
@@ -369,7 +490,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
-        offerPrice = StoreProducts.formatPrice(selectedVarDiscount, currencyLabel, regionId);
+        offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
         percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
       }
     }
