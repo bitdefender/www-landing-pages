@@ -27,7 +27,7 @@ export default function decorate(block) {
 
           // Extract the content of the first <td> to be placed outside the <li>
           let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
-
+          console.log(`td content ${firstTdContent}`);
           // Extract the content of the second <td> (if present) inside a <span>
           const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span>${tdList[1].innerHTML}</span>` : '';
 
@@ -40,6 +40,11 @@ export default function decorate(block) {
           if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
             liClass += ' has_arrow';
             firstTdContent = firstTdContent.replace('&lt;-', '');
+          }
+
+          if (firstTdContent.indexOf('-&gt;') !== -1 || firstTdContent.indexOf('&gt;') !== -1) {
+            liClass += ' has_arrow_right';
+            firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
           }
 
           const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
