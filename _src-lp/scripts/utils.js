@@ -1,3 +1,118 @@
+export const COUNTRY_ENUM = {
+  AUSTRALIA: 'AU',
+  UNITED_ARAB_EMIRATES: 'AE',
+  AUSTRIA: 'AT',
+  BELGIUM: 'BE',
+  BULGARIA: 'BG',
+  BRAZIL: 'BR',
+  CANADA: 'CA',
+  CHILE: 'CL',
+  COLOMBIA: 'CO',
+  CYPRUS: 'CY',
+  GERMANY: 'DE',
+  DENMARK: 'DK',
+  ESTONIA: 'EE',
+  EN: 'EN',
+  SPAIN: 'ES',
+  FINLAND: 'FI',
+  FRANCE: 'FR',
+  GREECE: 'GR',
+  CROATIA: 'HR',
+  HUNGARY: 'HU',
+  INDONESIA: 'ID',
+  IRELAND: 'IE',
+  ISRAEL: 'IL',
+  INDIA: 'IN',
+  ITALIA: 'IT',
+  SOUTH_KOREA: 'KR',
+  LATVIA: 'LV',
+  LITHUANIA: 'LT',
+  LUXEMBOURG: 'LU',
+  MALTA: 'MT',
+  MEXICO: 'MX',
+  MALAYSIA: 'MY',
+  NETHERLANDS: 'NL',
+  NORWAY: 'NO',
+  PERU: 'PE',
+  PHILIPPINES: 'PH',
+  POLAND: 'PL',
+  PORTUGAL: 'PT',
+  ROMANIA: 'RO',
+  SAUDI_ARABIA: 'SA',
+  SWEDEN: 'SE',
+  SINGAPORE: 'SG',
+  SLOVENIA: 'SI',
+  SLOVAKIA: 'SK',
+  THAILAND: 'TH',
+  UNITED_KINGDOM: 'GB',
+  US: 'US',
+  SOUTH_AFRICA: 'ZA',
+  TAIWAN: 'TW',
+  HONG_KONG: 'HK',
+};
+
+export const IANA_BY_REGION_MAP = new Map([
+  [38, COUNTRY_ENUM.UNITED_ARAB_EMIRATES],
+  [4, COUNTRY_ENUM.AUSTRALIA],
+  [16, COUNTRY_ENUM.AUSTRIA],
+  [14, COUNTRY_ENUM.BELGIUM],
+  [29, COUNTRY_ENUM.BULGARIA],
+  [14, COUNTRY_ENUM.BRAZIL],
+  [10, COUNTRY_ENUM.CANADA],
+  [54, COUNTRY_ENUM.CHILE],
+  [21, COUNTRY_ENUM.COLOMBIA],
+  [16, COUNTRY_ENUM.CYPRUS],
+  [16, COUNTRY_ENUM.GERMANY],
+  [27, COUNTRY_ENUM.DENMARK],
+  [16, COUNTRY_ENUM.ESTONIA],
+  [7, COUNTRY_ENUM.SPAIN],
+  [16, COUNTRY_ENUM.FINLAND],
+  [14, COUNTRY_ENUM.FRANCE],
+  [16, COUNTRY_ENUM.GREECE],
+  [59, COUNTRY_ENUM.CROATIA],
+  [28, COUNTRY_ENUM.HUNGARY],
+  [50, COUNTRY_ENUM.INDONESIA],
+  [16, COUNTRY_ENUM.IRELAND],
+  [39, COUNTRY_ENUM.ISRAEL],
+  [11, COUNTRY_ENUM.INDIA],
+  [9, COUNTRY_ENUM.ITALIA],
+  [23, COUNTRY_ENUM.SOUTH_KOREA],
+  [16, COUNTRY_ENUM.LATVIA],
+  [16, COUNTRY_ENUM.LITHUANIA],
+  [16, COUNTRY_ENUM.LUXEMBOURG],
+  [16, COUNTRY_ENUM.MALTA],
+  [20, COUNTRY_ENUM.MEXICO],
+  [55, COUNTRY_ENUM.MALAYSIA],
+  [22, COUNTRY_ENUM.NETHERLANDS],
+  [31, COUNTRY_ENUM.NORWAY],
+  [57, COUNTRY_ENUM.PERU],
+  [51, COUNTRY_ENUM.PHILIPPINES],
+  [46, COUNTRY_ENUM.POLAND],
+  [12, COUNTRY_ENUM.PORTUGAL],
+  [6, COUNTRY_ENUM.ROMANIA],
+  [36, COUNTRY_ENUM.SAUDI_ARABIA],
+  [26, COUNTRY_ENUM.SWEDEN],
+  [25, COUNTRY_ENUM.SINGAPORE],
+  [16, COUNTRY_ENUM.SLOVENIA],
+  [16, COUNTRY_ENUM.SLOVAKIA],
+  [66, COUNTRY_ENUM.THAILAND],
+  [3, COUNTRY_ENUM.UNITED_KINGDOM],
+  [8, COUNTRY_ENUM.US],
+  [2, COUNTRY_ENUM.US],
+  [19, COUNTRY_ENUM.SOUTH_AFRICA],
+  [52, COUNTRY_ENUM.TAIWAN],
+  [41, COUNTRY_ENUM.HONG_KONG],
+]);
+
+export function getBrowserLanguage() {
+  const rawLocale = navigator.language || navigator.userLanguage || 'en-US';
+
+  // Extract the language code from the raw locale
+  const languageCode = rawLocale.split(/[-_]/)[0];
+
+  return languageCode;
+}
+
 /**
  * Returns the instance name based on the hostname
  * @returns {String}
@@ -193,6 +308,12 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
 }
 
 export function formatPrice(price, currency, region) {
+  const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region)) || COUNTRY_ENUM.US;
+  return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
+}
+
+export function formatPrice2(price, currency, reg) {
+  const region = Number(reg);
   const truncatePrice = (pr) => {
     let ret = pr;
 
@@ -309,6 +430,7 @@ export function formatPrice(price, currency, region) {
   return `${price} ${currency}`;
 }
 
+
 // get max discount
 function maxDiscount() {
   const discountAmounts = [];
@@ -333,7 +455,7 @@ function maxDiscount() {
 
 // display prices
 export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
-  const { currency_label: currencyLabel } = storeObj.selected_variation;
+  const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
@@ -366,12 +488,12 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
-    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
-    const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyLabel, regionId);
-    const offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
-    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyLabel, regionId);
+    const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
+    const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
+    const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
+    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
-    const savings = formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
+    const savings = formatPrice(savingsPrice.toFixed(0), currencyIso, regionId);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
 
     const oldPriceClass = `.oldprice-${onSelectorClass}`;
@@ -479,7 +601,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       showSaveBox.style.visibility = 'visible';
     }
   } else {
-    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
+    const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
     let vpnHasDiscount = false;
     let offerPrice = 0;
     let percentageSticker = 0;
@@ -490,7 +612,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
-        offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
+        offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
         percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
       }
     }

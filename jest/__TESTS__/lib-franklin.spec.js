@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions
-import mockData from './mock-data.json';
+import mockData from './mock-data.js';
 
 // mock everything that is not related to the actual main scope
 jest.mock('../../_src-lp/scripts/lib-franklin.js', () => ({

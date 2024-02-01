@@ -27,7 +27,7 @@ import {
   setDataOnBuyLinks,
   showPrices,
   GLOBAL_EVENTS,
-  adobeMcAppendVisitorId,
+  adobeMcAppendVisitorId, formatPrice,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -664,9 +664,9 @@ function changeCheckboxVPN(checkboxId, pid) {
     buyLink = buyLinkDefault;
   }
 
-  fullPrice = StoreProducts.formatPrice(fullPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
-  save = StoreProducts.formatPrice(save, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
-  newPrice = StoreProducts.formatPrice(newPrice, selectedVariation.currency_label, selectedVariation.region_id, selectedVariation.currency_iso);
+  fullPrice = formatPrice(fullPrice, selectedVariation.currency_iso, selectedVariation.region_id);
+  save = formatPrice(save, selectedVariation.currency_iso, selectedVariation.region_id);
+  newPrice = formatPrice(newPrice, selectedVariation.currency_iso, selectedVariation.region_id);
 
   if (parentDiv.querySelector(buyClass)) {
     parentDiv.querySelector(buyClass).setAttribute('href', buyLink);
@@ -759,7 +759,7 @@ function initSelectors(pid) {
             showPrices(fp);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
-          } catch (ex) { /* empty */ }
+          } catch (ex) { console.log(ex); }
         },
       };
 
