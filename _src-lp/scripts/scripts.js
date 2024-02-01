@@ -27,7 +27,8 @@ import {
   setDataOnBuyLinks,
   showPrices,
   GLOBAL_EVENTS,
-  adobeMcAppendVisitorId, formatPrice,
+  adobeMcAppendVisitorId,
+  formatPrice,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
