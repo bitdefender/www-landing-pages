@@ -1,0 +1,44 @@
+.pro-rata-container {
+  text-align: center;
+  margin: 1rem 0 3rem;
+}
+.pro-rata-container h2 {
+  font-size: 32px;
+  margin-bottom: 0.5rem;
+}
+.pro-rata-container strong {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 4rem;
+}
+.pro-rata-container p {
+  font-size: 18px;
+}
+.pro-rata-container p:nth-of-type(2) {
+  margin-top: 0;
+}
+.pro-rata-container a {
+  color: #006EFF;
+  text-decoration: underline;
+  font-weight: bold;
+}
+.pro-rata-container #noteligible {
+  display: none;
+}
+.pro-rata-container #loading-container {
+  width: 220px;
+  height: 12px;
+  border: 1px solid #7E7E7E;
+  position: relative;
+  overflow: hidden;
+  padding: 2px;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+.pro-rata-container #loading-bar {
+  width: 0;
+  height: 6px;
+  background-color: #006EFF;
+  transition: width 2s ease;
+  border-radius: 20px;
+}
