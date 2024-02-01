@@ -30,7 +30,7 @@ export const zuoraNlPriceVariationData = {
       is_base_product: false,
       is_removable: true,
       meta: {
-        self: 'http:\/\/checkout-service.bitdefender.com\/v1\/cart\/{id}?',
+        self: 'http://checkout-service.bitdefender.com/v1/art/{id}?',
         iid: null,
       },
     },
@@ -60,7 +60,7 @@ export const zuoraNlPriceVariationData = {
       is_base_product: false,
       is_removable: true,
       meta: {
-        self: 'http:\/\/checkout-service.bitdefender.com\/v1\/cart\/{id}?',
+        self: 'http://checkout-service.bitdefender.com/v1/art/{id}?',
         iid: null,
       },
     },

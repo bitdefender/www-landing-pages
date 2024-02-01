@@ -430,7 +430,6 @@ export function formatPrice2(price, currency, reg) {
   return `${price} ${currency}`;
 }
 
-
 // get max discount
 function maxDiscount() {
   const discountAmounts = [];
