@@ -10,6 +10,7 @@ export default function decorate(block) {
     try {
       const serviceId = getParameterValue('service_id');
       const url = `https://ltiseanu.bitdefender.com/site/Main/proRata?service_id=${serviceId}`;
+      // const url = `https://en.wikipedia.org/api/rest_v1/page/summary/Dog_(disambiguation)`;
 
       const options = {
         method: 'GET',
@@ -17,9 +18,6 @@ export default function decorate(block) {
           'Content-Type': 'application/json'
         }
       };
-
-      console.log('Request URL:', url);
-      console.log('Request Options:', options);
 
       const response = await fetch(url, options);
 
@@ -29,7 +27,19 @@ export default function decorate(block) {
       }
 
       const data = await response.json();
-      console.log('Data received:', data);
+      if (data.eligible && data.url) {
+        window.location.href = data.url;
+      } else {
+        block.innerHTML = `
+          <div class="container">
+            <div class="row">
+              <div class="text-center">
+                ${neeligibil.innerHTML}
+              </div>
+            </div>
+          </div>
+        `;
+      }
     } catch (error) {
       console.error('Error during fetch:', error);
     }
@@ -64,18 +74,6 @@ export default function decorate(block) {
         </div>
       </div>
     `;
-
-    const loadingBar = block.querySelector("#loading-bar");
-
-    setTimeout(() => {
-      loadingBar.style.width = "30%";
-    }, 2000);
-    setTimeout(() => {
-      loadingBar.style.width = "50%";
-    }, 4000);
-    setTimeout(() => {
-      loadingBar.style.width = "70%";
-    }, 6000);
 
     checkEligibility()
   }

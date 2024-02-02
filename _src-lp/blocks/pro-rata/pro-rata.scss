@@ -43,10 +43,25 @@
   }
 
   #loading-bar {
-    width: 0;
+    width: 90%;
     height: 6px;
     background-color: #006EFF;
-    transition: width 2s ease;
     border-radius: 20px;
+    animation: loadingAnimation 2s ease-out forwards;
+  }
+
+  @keyframes loadingAnimation {
+    0% {
+      width: 0%;
+    }
+    30% {
+      width: 30%;
+    }
+    50% {
+      width: 50%;
+    }
+    90% {
+      width: 90%;
+    }
   }
 }
