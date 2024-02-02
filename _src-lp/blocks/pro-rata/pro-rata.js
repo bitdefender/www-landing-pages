@@ -6,12 +6,11 @@ export default function decorate(block) {
     return urlParams.get(parameterName);
   }
 
+  // check eligibility
   async function checkEligibility() {
     try {
       const serviceId = getParameterValue('service_id');
       const url = `https://ltiseanu.bitdefender.com/site/Main/proRata?service_id=${serviceId}`;
-      // const url = `https://en.wikipedia.org/api/rest_v1/page/summary/Dog_(disambiguation)`;
-
       const options = {
         method: 'GET',
         headers: {
@@ -26,9 +25,11 @@ export default function decorate(block) {
       }
 
       const data = await response.json();
+      // if eligible - redirect
       if (data.eligible && data.url) {
         window.location.href = data.url;
       } else {
+        // if not eligible - display message
         block.innerHTML = `
           <div class="container">
             <div class="row">
@@ -44,6 +45,7 @@ export default function decorate(block) {
     }
   }
 
+  // service_id must be set
   if (!getParameterValue('service_id')) {
     block.innerHTML = `
       <div class="container">
@@ -74,6 +76,6 @@ export default function decorate(block) {
       </div>
     `;
 
-    checkEligibility()
+    checkEligibility();
   }
 }
