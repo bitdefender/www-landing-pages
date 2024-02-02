@@ -4,18 +4,19 @@ export default function decorate(block) {
   const getParameterValue = (parameterName) => {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(parameterName);
-  }
+  };
 
   // check eligibility
   async function checkEligibility() {
     try {
       const serviceId = getParameterValue('service_id');
-      const url = `https://ltiseanu.bitdefender.com/site/Main/proRata?service_id=${serviceId}`;
+      const optionCode = 'psec-10u-1y';
+      const url = `https://www.bitdefender.com/site/Main/proRata?service_id=${serviceId}&option_code=${optionCode}`;
       const options = {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       };
 
       const response = await fetch(url, options);
