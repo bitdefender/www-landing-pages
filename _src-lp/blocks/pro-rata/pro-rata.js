@@ -20,7 +20,6 @@ export default function decorate(block) {
       };
 
       const response = await fetch(url, options);
-
       if (!response.ok) {
         console.error('Response Status:', response.status);
         throw new Error('Network response was not ok');
