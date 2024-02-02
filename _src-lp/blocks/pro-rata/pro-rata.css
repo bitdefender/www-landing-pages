@@ -40,9 +40,9 @@
   height: 6px;
   background-color: #006EFF;
   border-radius: 20px;
-  animation: loadingAnimation 2s ease-out forwards;
+  animation: loading-animation 2s ease-out forwards;
 }
-@keyframes loadingAnimation {
+@keyframes loading-animation {
   0% {
     width: 0%;
   }
