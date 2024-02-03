@@ -1,5 +1,11 @@
 export default function decorate(block) {
+  const { optionCode } = block.closest('.section').dataset;
   const [eligibil, neeligibil] = [...block.children];
+
+  if (!optionCode) {
+    block.innerHTML = 'option_code must be set';
+    return;
+  }
 
   const getParameterValue = (parameterName) => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -10,7 +16,6 @@ export default function decorate(block) {
   async function checkEligibility() {
     try {
       const serviceId = getParameterValue('service_id');
-      const optionCode = 'psec-10u-1y';
       const url = `https://www.bitdefender.com/site/Main/proRata?service_id=${serviceId}&option_code=${optionCode}`;
       const options = {
         method: 'GET',
