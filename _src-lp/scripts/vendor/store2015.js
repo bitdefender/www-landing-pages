@@ -1,17 +1,19 @@
-if (typeof StoreProducts === 'undefined' || StoreProducts === null) {
-  StoreProducts = new Object();
+import {formatPrice} from "../utils.js";
+
+if (typeof window.StoreProducts === 'undefined' || window.StoreProducts === null) {
+  window.StoreProducts = new Object();
 }
 
-if (typeof StoreProducts.product === 'undefined' || StoreProducts.product === null) {
-  StoreProducts.product = new Object();
+if (typeof window.StoreProducts.product === 'undefined' || window.StoreProducts.product === null) {
+  window.StoreProducts.product = new Object();
 }
 
-if (typeof StoreProducts.events === 'undefined' || StoreProducts.events === null) {
-  StoreProducts.events = new Object();
+if (typeof window.StoreProducts.events === 'undefined' || window.StoreProducts.events === null) {
+  window.StoreProducts.events = new Object();
 }
 
-if (typeof StoreProducts.initCount === 'undefined' || StoreProducts.initCount === null) {
-  StoreProducts.initCount = 0;
+if (typeof window.StoreProducts.initCount === 'undefined' || window.StoreProducts.initCount === null) {
+  window.StoreProducts.initCount = 0;
 }
 
 let DEBUG = false;
@@ -19,9 +21,9 @@ if (window.location.host.indexOf('localhost:3000') == 0) {
   DEBUG = true;
 }
 
-StoreProducts.initSelector = function (config) {
-  is_product = true;
-  if (typeof forcePL !== 'undefined' && forcePL == true) {
+window.StoreProducts.initSelector = function (config) {
+  window.is_product = true;
+  if (typeof window.forcePL !== 'undefined' && window.forcePL == true) {
     config.force_region = 16;
     const now = new Date();
     const time = now.getTime();
@@ -72,13 +74,13 @@ StoreProducts.initSelector = function (config) {
   if ('initCount' in config) {
     initCount = config.initCount;
   } else {
-    initCount = ++StoreProducts.initCount;
+    initCount = ++window.StoreProducts.initCount;
     config.initCount = initCount;
   }
 
   if ('product_id' in config) { product_id = config.product_id; }
 
-  product_id = StoreProducts.filterProductIDExceptions(product_id);
+  product_id = window.StoreProducts.filterProductIDExceptions(product_id);
 
   if ('users_class' in config) { users_class = config.users_class; }
 
@@ -118,8 +120,8 @@ StoreProducts.initSelector = function (config) {
 
   if ('extra_params' in config) { extra_params = config.extra_params; }
 
-  if (typeof __global_extra_params !== 'undefined') {
-    extra_params = config.extra_params = __global_extra_params;
+  if (typeof window.__global_extra_params !== 'undefined') {
+    extra_params = config.extra_params = window.__global_extra_params;
   }
 
   if ('discount' in config) { discount = config.discount; }
@@ -146,7 +148,7 @@ StoreProducts.initSelector = function (config) {
 
   let hasPID = false;
   if (typeof tagit_params !== 'undefined') {
-    for (i in tagit_params.obj) {
+    for (let i in tagit_params.obj) {
       if ('pid' in tagit_params.obj[i]) {
         hasPID = true;
 
@@ -195,7 +197,7 @@ StoreProducts.initSelector = function (config) {
     DEBUG && console.log(ex);
   }
 
-  if (typeof StoreProducts.product[product_id] === 'undefined' || StoreProducts.product[product_id] === null) {
+  if (typeof window.StoreProducts.product[product_id] === 'undefined' || window.StoreProducts.product[product_id] === null) {
     if (doAjax == true) {
       // configure events
       const c_config = new Object();
@@ -211,7 +213,7 @@ StoreProducts.initSelector = function (config) {
       c_config.buy_class = buy_class;
       c_config.product_id = product_id;
 
-      c_config.product_id = StoreProducts.filterProductIDExceptions(c_config.product_id);
+      c_config.product_id = window.StoreProducts.filterProductIDExceptions(c_config.product_id);
 
       c_config.extra_params = extra_params;
       c_config.discount = discount;
@@ -237,25 +239,25 @@ StoreProducts.initSelector = function (config) {
       let on_users_change = null;
       let on_years_change = null;
 
-      if (users_class != null) { on_users_change = StoreProducts.__onChangeUsers; }
+      if (users_class != null) { on_users_change = window.StoreProducts.__onChangeUsers; }
 
-      if (years_class != null) { on_years_change = StoreProducts.__onChangeYears; }
+      if (years_class != null) { on_years_change = window.StoreProducts.__onChangeYears; }
 
       if (users_class != null) {
-        StoreProducts.events[users_class] = new Object();
-        StoreProducts.events[users_class].onUsersChangeF = on_users_change;
-        StoreProducts.events[users_class].onUsersChangeD = c_config;
+        window.StoreProducts.events[users_class] = new Object();
+        window.StoreProducts.events[users_class].onUsersChangeF = on_users_change;
+        window.StoreProducts.events[users_class].onUsersChangeD = c_config;
       }
 
       if (years_class != null) {
-        StoreProducts.events[years_class] = new Object();
-        StoreProducts.events[years_class].onYearsChangeF = on_years_change;
-        StoreProducts.events[years_class].onYearsChangeD = c_config;
+        window.StoreProducts.events[years_class] = new Object();
+        window.StoreProducts.events[years_class].onYearsChangeF = on_years_change;
+        window.StoreProducts.events[years_class].onYearsChangeD = c_config;
       }
 
       if (years_class != null && users_class != null) {
-        StoreProducts.events[users_class + years_class] = new Object();
-        StoreProducts.events[users_class + years_class].onSelectorLoad = onSelectorLoad;
+        window.StoreProducts.events[users_class + years_class] = new Object();
+        window.StoreProducts.events[users_class + years_class].onSelectorLoad = onSelectorLoad;
       }
 
       const so = new Object();
@@ -341,24 +343,24 @@ StoreProducts.initSelector = function (config) {
         DEBUG && console.log(ex);
       }
       so.url = url;
-      StoreProducts.filterRequestObject(so);
+      window.StoreProducts.filterRequestObject(so);
 
       return false;
     }
     return false;
   }
 
-  if (!(users_class + years_class in StoreProducts.events)) { StoreProducts.events[users_class + years_class] = new Object(); }
+  if (!(users_class + years_class in window.StoreProducts.events)) { window.StoreProducts.events[users_class + years_class] = new Object(); }
 
-  if (!(users_class in StoreProducts.events)) { StoreProducts.events[users_class] = new Object(); }
+  if (!(users_class in window.StoreProducts.events)) { window.StoreProducts.events[users_class] = new Object(); }
 
-  if (!(years_class in StoreProducts.events)) { StoreProducts.events[years_class] = new Object(); }
+  if (!(years_class in window.StoreProducts.events)) { window.StoreProducts.events[years_class] = new Object(); }
 
   // configure events
-  if (typeof StoreProducts.events[users_class + years_class].onSelectorLoad === 'undefined' || StoreProducts.events[users_class + years_class].onSelectorLoad === null) { StoreProducts.events[users_class + years_class].onSelectorLoad = onSelectorLoad; }
+  if (typeof window.StoreProducts.events[users_class + years_class].onSelectorLoad === 'undefined' || window.StoreProducts.events[users_class + years_class].onSelectorLoad === null) { window.StoreProducts.events[users_class + years_class].onSelectorLoad = onSelectorLoad; }
 
-  if (typeof StoreProducts.events[users_class].onUsersChangeF === 'undefined' || StoreProducts.events[users_class].onUsersChangeF === null) {
-    c_config = new Object();
+  if (typeof window.StoreProducts.events[users_class].onUsersChangeF === 'undefined' || window.StoreProducts.events[users_class].onUsersChangeF === null) {
+    const c_config = new Object();
     c_config.users_class = users_class;
     c_config.years_class = years_class;
     c_config.price_class = price_class;
@@ -371,7 +373,7 @@ StoreProducts.initSelector = function (config) {
     c_config.buy_class = buy_class;
     c_config.product_id = product_id;
 
-    c_config.product_id = StoreProducts.filterProductIDExceptions(c_config.product_id);
+    c_config.product_id = window.StoreProducts.filterProductIDExceptions(c_config.product_id);
 
     c_config.user_label = user_label;
     c_config.users_label = users_label;
@@ -392,16 +394,16 @@ StoreProducts.initSelector = function (config) {
     c_config.onChangeYears = onChangeYears;
 
     let on_users_change = null;
-    if (users_class != null) { on_users_change = StoreProducts.__onChangeUsers; }
+    if (users_class != null) { on_users_change = window.StoreProducts.__onChangeUsers; }
 
     if (users_class != null) {
-      StoreProducts.events[users_class].onUsersChangeF = on_users_change;
-      StoreProducts.events[users_class].onUsersChangeD = c_config;
+      window.StoreProducts.events[users_class].onUsersChangeF = on_users_change;
+      window.StoreProducts.events[users_class].onUsersChangeD = c_config;
     }
   }
 
-  if (typeof StoreProducts.events[years_class].onYearsChangeF === 'undefined' || StoreProducts.events[years_class].onYearsChangeF === null) {
-    c_config = new Object();
+  if (typeof window.StoreProducts.events[years_class].onYearsChangeF === 'undefined' || window.StoreProducts.events[years_class].onYearsChangeF === null) {
+    const c_config = new Object();
     c_config.users_class = users_class;
     c_config.years_class = years_class;
     c_config.price_class = price_class;
@@ -414,7 +416,7 @@ StoreProducts.initSelector = function (config) {
     c_config.buy_class = buy_class;
     c_config.product_id = product_id;
 
-    c_config.product_id = StoreProducts.filterProductIDExceptions(c_config.product_id);
+    c_config.product_id = window.StoreProducts.filterProductIDExceptions(c_config.product_id);
 
     c_config.user_label = user_label;
     c_config.users_label = users_label;
@@ -435,11 +437,11 @@ StoreProducts.initSelector = function (config) {
     c_config.onChangeYears = onChangeYears;
 
     let on_years_change = null;
-    if (years_class != null) { on_years_change = StoreProducts.__onChangeYears; }
+    if (years_class != null) { on_years_change = window.StoreProducts.__onChangeYears; }
 
     if (years_class != null) {
-      StoreProducts.events[years_class].onYearsChangeF = on_years_change;
-      StoreProducts.events[years_class].onYearsChangeD = c_config;
+      window.StoreProducts.events[years_class].onYearsChangeF = on_years_change;
+      window.StoreProducts.events[years_class].onYearsChangeD = c_config;
     }
   }
 
@@ -447,8 +449,8 @@ StoreProducts.initSelector = function (config) {
     const elements = document.getElementsByClassName(users_class);
     Array.from(elements).forEach((element) => {
       element.addEventListener('change', (e) => {
-        e.data = StoreProducts.events[users_class].onUsersChangeD;
-        return StoreProducts.events[users_class].onUsersChangeF(e);
+        e.data = window.StoreProducts.events[users_class].onUsersChangeD;
+        return window.StoreProducts.events[users_class].onUsersChangeF(e);
       });
     });
   }
@@ -457,8 +459,8 @@ StoreProducts.initSelector = function (config) {
     const elements = document.getElementsByClassName(years_class);
     Array.from(elements).forEach((element) => {
       element.addEventListener('change', (e) => {
-        e.data = StoreProducts.events[years_class].onYearsChangeD;
-        return StoreProducts.events[years_class].onYearsChangeF(e);
+        e.data = window.StoreProducts.events[years_class].onYearsChangeD;
+        return window.StoreProducts.events[years_class].onYearsChangeF(e);
       });
     });
   }
@@ -472,14 +474,14 @@ StoreProducts.initSelector = function (config) {
     }
 
     if (l_hash.length > 1) {
-      const pt = new RegExp(`${StoreProducts.product[product_id].product_alias}\\-(\\d{1,2})u\\-(\\d{1})y`);
+      const pt = new RegExp(`${window.StoreProducts.product[product_id].product_alias}\\-(\\d{1,2})u\\-(\\d{1})y`);
 
       if (pt != null) {
         r = pt.exec(l_hash);
 
         if (Array.isArray(r)) {
           if (r.length == 3) {
-            if (r[1] in StoreProducts.product[product_id].variations) {
+            if (r[1] in window.StoreProducts.product[product_id].variations) {
               selected_users = r[1];
               const elements = document.querySelectorAll(`.nousers-${selected_users}`);
               Array.from(elements).forEach((element) => {
@@ -487,7 +489,7 @@ StoreProducts.initSelector = function (config) {
                 element.dispatchEvent(event);
               });
             }
-            if (r[2] in StoreProducts.product[product_id].variations[selected_users]) {
+            if (r[2] in window.StoreProducts.product[product_id].variations[selected_users]) {
               selected_years = r[2];
               const yearElement = document.getElementById(`year${selected_years}`);
               const yearBtmElement = document.getElementById(`year${selected_years}_btm`);
@@ -511,7 +513,7 @@ StoreProducts.initSelector = function (config) {
 
   if (users_class != null) {
     try {
-      for (i in StoreProducts.product[product_id].variations) { users.push(i); }
+      for (let i in window.StoreProducts.product[product_id].variations) { users.push(i); }
 
       users = users.sort((a, b) => a - b);
     } catch (ex) {
@@ -546,7 +548,7 @@ StoreProducts.initSelector = function (config) {
 
   if (years_class != null) {
     try {
-      for (i in StoreProducts.product[product_id].variations[selected_users]) { years.push(i); }
+      for (let i in window.StoreProducts.product[product_id].variations[selected_users]) { years.push(i); }
 
       years = years.sort((a, b) => a - b);
     } catch (ex) {
@@ -580,32 +582,32 @@ StoreProducts.initSelector = function (config) {
   let base_uri = '';
 
   try {
-    variation = StoreProducts.product[product_id].variations[selected_users][selected_years];
-    base_uri = StoreProducts.product[product_id].base_uri;
+    variation = window.StoreProducts.product[product_id].variations[selected_users][selected_years];
+    base_uri = window.StoreProducts.product[product_id].base_uri;
   } catch (ex) {
     DEBUG && console.log(ex);
   }
 
   if (variation == null) {
     try {
-      min_users = 0;
-      for (i in StoreProducts.product[product_id].variations) {
+      let min_users = 0;
+      for (let i in window.StoreProducts.product[product_id].variations) {
         if (min_users < i) { min_users = i; }
       }
 
       if (min_users > 0) {
         selected_users = min_users;
-        min_years = 0;
+        let min_years = 0;
 
-        for (i in StoreProducts.product[product_id].variations[selected_users]) {
+        for (let i in window.StoreProducts.product[product_id].variations[selected_users]) {
           if (min_years < i) { min_years = i; }
         }
 
         if (min_years > 0) {
           selected_years = min_years;
 
-          variation = StoreProducts.product[product_id].variations[selected_users][selected_years];
-          base_uri = StoreProducts.product[product_id].base_uri;
+          variation = window.StoreProducts.product[product_id].variations[selected_users][selected_years];
+          base_uri = window.StoreProducts.product[product_id].base_uri;
         }
       }
     } catch (ex) {
@@ -616,7 +618,7 @@ StoreProducts.initSelector = function (config) {
   if (variation == null) { return false; }
 
   let price = `${variation.price} ${variation.currency_label}`;
-  price = StoreProducts.formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
+  price = formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
 
   let discounted_price = '';
   let full_price = price;
@@ -625,17 +627,20 @@ StoreProducts.initSelector = function (config) {
   //     base_uri = "https://www.bitdefender.se/site";
   // }
 
-  if ((typeof geoip_code !== 'undefined' && geoip_code == 'gb') || window.location.hostname == 'www.bitdefender.co.uk' || window.location.hostname == 'old.bitdefender.co.uk') {
+  if ((typeof window.geoip_code !== 'undefined' && window.geoip_code == 'gb') || window.location.hostname == 'www.bitdefender.co.uk' || window.location.hostname == 'old.bitdefender.co.uk') {
     base_uri = 'https://www.bitdefender.co.uk/site';
   }
 
   let buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}`;
+  let save_price;
+  let percent_value;
+
 
   try {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
-        discounted_price = StoreProducts.formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
+        discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
       }
@@ -651,9 +656,9 @@ StoreProducts.initSelector = function (config) {
       }
     } else
       if (discount != null) {
-        discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-        discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
+        discounted_price = window.StoreProducts.getDiscountedPrice(variation.price, discount);
+        discounted_price = formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_label, variation.region_id, variation.currency_iso);
         percent_value = (((variation.price - variation.discount) / variation.price) * 100).toFixed(0);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
@@ -666,7 +671,7 @@ StoreProducts.initSelector = function (config) {
     if (extra_params != null) {
       let params = '';
 
-      for (op in extra_params) {
+      for (let op in extra_params) {
         if (op == 'force_country') { continue; }
 
         extra_params[op] = extra_params[op].trim();
@@ -682,11 +687,11 @@ StoreProducts.initSelector = function (config) {
 
       if (params.length > 1) buy_link += params;
 
-      buy_link = StoreProducts.filterBuyLink(config, buy_link);
+      buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
 
       if ('force_country' in extra_params) { buy_link = `${buy_link}?force_country=${extra_params.force_country}`; }
     } else {
-      buy_link = StoreProducts.filterBuyLink(config, buy_link);
+      buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
     }
   } catch (ex) {
     DEBUG && console.log(ex);
@@ -787,7 +792,7 @@ StoreProducts.initSelector = function (config) {
         let buy_link = element.getAttribute('href');
         if (buy_link.indexOf('adobe_mc') === -1) {
           e.preventDefault();
-          buy_link = StoreProducts.appendVisitorID(buy_link);
+          buy_link = window.StoreProducts.appendVisitorID(buy_link);
           window.location.href = buy_link;
         }
       });
@@ -795,9 +800,9 @@ StoreProducts.initSelector = function (config) {
       element.setAttribute('href', buy_link);
     });
 
-    if (typeof __targetCallBack !== 'undefined') {
+    if (typeof window.__targetCallBack !== 'undefined') {
       try {
-        __targetCallBack(buy_class, c_config.product_id, selected_users, selected_years);
+        window.__targetCallBack(buy_class, c_config.product_id, selected_users, selected_years);
       } catch (ex) {
         console.log(`target ex:${ex}`);
       }
@@ -805,13 +810,13 @@ StoreProducts.initSelector = function (config) {
   }
 
   try {
-    StoreProducts.setDigitalData(product_id, variation);
+    window.StoreProducts.setDigitalData(product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
   }
 
   try {
-    ocg = StoreProducts.events[users_class + years_class].onSelectorLoad;
+    let ocg = window.StoreProducts.events[users_class + years_class].onSelectorLoad;
 
     const thisObj = new Object();
     thisObj.selected_users = selected_users;
@@ -826,7 +831,7 @@ StoreProducts.initSelector = function (config) {
       Array.from(elements).forEach((element) => {
         element.addEventListener('click', function (e) {
           if (typeof oBuyLinkClick === 'function') {
-            oBuyLinkClick(this, DEFAULT_LANGUAGE, e.currentTarget.dataset.obj.config.product_id, StoreProducts.product[e.currentTarget.dataset.obj.config.product_id].product_name, `${e.currentTarget.dataset.obj.selected_users}u,${e.currentTarget.dataset.obj.selected_years}y`);
+            oBuyLinkClick(this, DEFAULT_LANGUAGE, e.currentTarget.dataset.obj.config.product_id, window.StoreProducts.product[e.currentTarget.dataset.obj.config.product_id].product_name, `${e.currentTarget.dataset.obj.selected_users}u,${e.currentTarget.dataset.obj.selected_years}y`);
           }
         }.bind({ config, selected_users: thisObj.selected_users, selected_years: thisObj.selected_years }));
       });
@@ -847,10 +852,10 @@ StoreProducts.initSelector = function (config) {
 
         eval(jsc);
 
-        StoreProducts.events[users_class + years_class].promotionsCleanUp = {};
+        window.StoreProducts.events[users_class + years_class].promotionsCleanUp = {};
 
         if ('cleanUp' in PromotionFunctions) {
-          StoreProducts.events[users_class + years_class].promotionsCleanUp[variation.promotion] = PromotionFunctions.cleanUp;
+          window.StoreProducts.events[users_class + years_class].promotionsCleanUp[variation.promotion] = PromotionFunctions.cleanUp;
         }
 
         ocg = PromotionFunctions.onLoad;
@@ -861,7 +866,7 @@ StoreProducts.initSelector = function (config) {
 
     try {
       if (typeof StoreCBS !== 'undefined' && StoreCBS != null && ('go' in StoreCBS)) {
-        StoreCBS.go(thisObj, ['selector', 'onload', StoreProducts.product[product_id].product_id, StoreProducts.product[product_id].product_alias, `initCount:${config.initCount}`, `productType:${StoreProducts.product[product_id].product_type}`]);
+        StoreCBS.go(thisObj, ['selector', 'onload', window.StoreProducts.product[product_id].product_id, window.StoreProducts.product[product_id].product_alias, `initCount:${config.initCount}`, `productType:${window.StoreProducts.product[product_id].product_type}`]);
       }
     } catch (ex) {
       DEBUG && console.log(ex);
@@ -871,104 +876,22 @@ StoreProducts.initSelector = function (config) {
   }
 };
 
-StoreProducts.truncatePrice = function (price) {
-  let ret = price;
-
-  try {
-    if (ret >= 0) { ret = Math.floor(ret); } else { ret = Math.ceil(ret); }
-
-    if (price != ret) { ret = price; }
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
-
-  return ret;
-};
-
-StoreProducts.formatPrice = function (price, currency, region, currency_iso) {
-  price = StoreProducts.truncatePrice(price);
-
-  try {
-    getBrowserLocale = StoreProducts.getFirstBrowserLanguage();
-
-    const formatter = new Intl.NumberFormat(getBrowserLocale, {
-      style: 'decimal',
-      minimumFractionDigits: 0,
-    });
-
-    price = formatter.format(price);
-  } catch (err) {
-    DEBUG && console.log(ex);
-  }
-
-  try {
-    // replace , only if it's not the decimal seperator
-    if (price.toString().indexOf(',') != -1) {
-      const priceParts = price.split(',');
-      if (priceParts[1].length > 2) {
-        price = price.replace(',', '');
-      }
-    }
-  } catch (err) {
-    DEBUG && console.log(ex);
-  }
-
-  // petre
-  if (region == 3) { return currency + price; }
-
-  if (region == 4) { return currency + price; }
-
-  if (region == 5) { return `${price} ${currency}`; }
-
-  if (region == 7) { return `${price} ${currency}`; }
-
-  if (region == 25) { return currency + price; }
-
-  if (region == 8 || region == 2 || region == 11) { return currency + price; }
-
-  if (region == 13) { return currency + price; }
-
-  if (region == 16 && DEFAULT_LANGUAGE == 'nl') {
-    try {
-      price = price.replace('.', ',');
-    } catch (err) {
-      DEBUG && console.log(ex);
-    }
-
-    return `${currency} ${price}`;
-  }
-
-  if (region == 17 || region == 18) {
-    let fprice = `${price} ${currency}`;
-
-    try {
-      fprice = `${parseFloat(price).toFixed(2)} ${currency}`;
-    } catch (ex) {
-      DEBUG && console.log(ex);
-    }
-
-    return fprice;
-  }
-
-  return `${price} ${currency}`;
-};
-
-StoreProducts.getDiscountedPrice = function (val, pc) {
+window.StoreProducts.getDiscountedPrice = function (val, pc) {
   const dp = (val * pc) / 100;
   val -= dp;
   val = val.toFixed(2);
   return val;
 };
 
-StoreProducts.__onChangeUsers = function (ev) {
+window.StoreProducts.__onChangeUsers = function (ev) {
   const c_config = ev.data;
   const selectElementUsers = document.querySelector(`.${c_config.users_class}`);
   const selected_users = selectElementUsers.options[selectElementUsers.selectedIndex].value;
 
-  const years = new Array();
+  let years = [];
 
   try {
-    for (i in StoreProducts.product[c_config.product_id].variations[selected_users]) { years.push(i); }
+    for (let i in window.StoreProducts.product[c_config.product_id].variations[selected_users]) { years.push(i); }
 
     years = years.sort((a, b) => a - b);
   } catch (ex) {
@@ -1015,8 +938,8 @@ StoreProducts.__onChangeUsers = function (ev) {
   let base_uri = '';
 
   try {
-    variation = StoreProducts.product[c_config.product_id].variations[selected_users][selected_years];
-    base_uri = StoreProducts.product[c_config.product_id].base_uri;
+    variation = window.StoreProducts.product[c_config.product_id].variations[selected_users][selected_years];
+    base_uri = window.StoreProducts.product[c_config.product_id].base_uri;
   } catch (ex) {
     DEBUG && console.log(ex);
   }
@@ -1024,7 +947,7 @@ StoreProducts.__onChangeUsers = function (ev) {
   if (variation == null) { return null; }
 
   let price = `${variation.price} ${variation.currency_label}`;
-  price = StoreProducts.formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
+  price = formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
   let discounted_price = '';
   let save_price = '';
   let percent_value = '';
@@ -1039,8 +962,8 @@ StoreProducts.__onChangeUsers = function (ev) {
   try {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
-        discounted_price = StoreProducts.formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+        discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
       }
@@ -1057,9 +980,9 @@ StoreProducts.__onChangeUsers = function (ev) {
     } else
       if (discount in c_config) {
         if (c_config.discount != null) {
-          discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-          discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-          save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+          discounted_price = window.StoreProducts.getDiscountedPrice(variation.price, discount);
+          discounted_price = formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+          save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
           percent_value = `${variation.discount.discount_value}%`;
           price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
         }
@@ -1072,7 +995,7 @@ StoreProducts.__onChangeUsers = function (ev) {
     if ('extra_params' in c_config) {
       if (c_config.extra_params != null) {
         let params = '';
-        for (op in c_config.extra_params) {
+        for (let op in c_config.extra_params) {
           if (op == 'force_country') { continue; }
 
           c_config.extra_params[op] = c_config.extra_params[op].trim();
@@ -1133,15 +1056,15 @@ StoreProducts.__onChangeUsers = function (ev) {
     });
   }
 
-  buy_link = StoreProducts.filterBuyLink(c_config, buy_link);
-  buy_link = StoreProducts.appendVisitorID(buy_link);
+  buy_link = window.StoreProducts.filterBuyLink(c_config, buy_link);
+  buy_link = window.StoreProducts.appendVisitorID(buy_link);
   const elements = document.querySelectorAll(`.${c_config.buy_class}`);
   Array.from(elements).forEach((element) => {
     element.setAttribute('href', buy_link);
   });
 
   try {
-    const ocg = c_config.onChangeUsers;
+    let ocg = c_config.onChangeUsers;
     const thisObj = new Object();
 
     thisObj.selected_users = selected_users;
@@ -1157,9 +1080,9 @@ StoreProducts.__onChangeUsers = function (ev) {
     const users_class = c_config.users_class;
     const years_class = c_config.years_class;
 
-    if ('promotionsCleanUp' in StoreProducts.events[users_class + years_class]) {
-      for (iev in StoreProducts.events[users_class + years_class].promotionsCleanUp) {
-        ocg = StoreProducts.events[users_class + years_class].promotionsCleanUp[iev];
+    if ('promotionsCleanUp' in window.StoreProducts.events[users_class + years_class]) {
+      for (let iev in window.StoreProducts.events[users_class + years_class].promotionsCleanUp) {
+        ocg = window.StoreProducts.events[users_class + years_class].promotionsCleanUp[iev];
         ocg.call(thisObj);
       }
     }
@@ -1172,10 +1095,10 @@ StoreProducts.__onChangeUsers = function (ev) {
 
         eval(jsc);
 
-        if (!('promotionsCleanUp' in StoreProducts.events[users_class + years_class])) { StoreProducts.events[users_class + years_class].promotionsCleanUp = {}; }
+        if (!('promotionsCleanUp' in window.StoreProducts.events[users_class + years_class])) { window.StoreProducts.events[users_class + years_class].promotionsCleanUp = {}; }
 
         if ('cleanUp' in PromotionFunctions) {
-          if (!(variation.promotion in StoreProducts.events[users_class + years_class].promotionsCleanUp)) { StoreProducts.events[users_class + years_class].promotionsCleanUp[variation.promotion] = PromotionFunctions.cleanUp; }
+          if (!(variation.promotion in window.StoreProducts.events[users_class + years_class].promotionsCleanUp)) { window.StoreProducts.events[users_class + years_class].promotionsCleanUp[variation.promotion] = PromotionFunctions.cleanUp; }
         }
 
         ocg = PromotionFunctions.onChange;
@@ -1184,8 +1107,8 @@ StoreProducts.__onChangeUsers = function (ev) {
     }
 
     try {
-      if (typeof StoreCBS !== 'undefined' && StoreCBS != null && ('go' in StoreCBS)) {
-        StoreCBS.go(thisObj, ['selector', 'onchange', 'onchangeusers', StoreProducts.product[c_config.product_id].product_id, StoreProducts.product[c_config.product_id].product_alias, `initCount:${c_config.initCount}`, `productType:${StoreProducts.product[c_config.product_id].product_type}`]);
+      if (typeof window.StoreCBS !== 'undefined' && window.StoreCBS != null && ('go' in window.StoreCBS)) {
+        window.StoreCBS.go(thisObj, ['selector', 'onchange', 'onchangeusers', window.StoreProducts.product[c_config.product_id].product_id, window.StoreProducts.product[c_config.product_id].product_alias, `initCount:${c_config.initCount}`, `productType:${window.StoreProducts.product[c_config.product_id].product_type}`]);
       }
     } catch (ex) {
       DEBUG && console.log(ex);
@@ -1195,20 +1118,20 @@ StoreProducts.__onChangeUsers = function (ev) {
   }
 
   try {
-    delete digitalData.product;
-    StoreProducts.setDigitalData(c_config.product_id, variation);
+    delete window.digitalData.product;
+    window.StoreProducts.setDigitalData(c_config.product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
   }
 
-  if (typeof __targetCallBack !== 'undefined') {
+  if (typeof window.__targetCallBack !== 'undefined') {
     try {
-      __targetCallBack(c_config.buy_class, c_config.product_id, selected_users, selected_years);
+      window.__targetCallBack(c_config.buy_class, c_config.product_id, selected_users, selected_years);
     } catch (ex) { console.log(`target ex:${ex}`); }
   }
 };
 
-StoreProducts.__onChangeYears = function (ev) {
+window.StoreProducts.__onChangeYears = function (ev) {
   const c_config = ev.data;
   const selected_users = document.querySelector(`.${c_config.users_class}`).value;
   const selected_years = document.querySelector(`.${c_config.years_class}`).value;
@@ -1217,8 +1140,8 @@ StoreProducts.__onChangeYears = function (ev) {
   let base_uri = '';
 
   try {
-    variation = StoreProducts.product[c_config.product_id].variations[selected_users][selected_years];
-    base_uri = StoreProducts.product[c_config.product_id].base_uri;
+    variation = window.StoreProducts.product[c_config.product_id].variations[selected_users][selected_years];
+    base_uri = window.StoreProducts.product[c_config.product_id].base_uri;
   } catch (ex) {
     DEBUG && console.log(ex);
   }
@@ -1226,7 +1149,7 @@ StoreProducts.__onChangeYears = function (ev) {
   if (variation == null) { return false; }
 
   let price = `${variation.price} ${variation.currency_label}`;
-  price = StoreProducts.formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
+  price = formatPrice(variation.price, variation.currency_label, variation.region_id, variation.currency_iso);
   let discounted_price = '';
   let save_price = '';
   let percent_value = '';
@@ -1241,8 +1164,8 @@ StoreProducts.__onChangeYears = function (ev) {
   try {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
-        discounted_price = StoreProducts.formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-        save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+        discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+        save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
       }
@@ -1259,9 +1182,9 @@ StoreProducts.__onChangeYears = function (ev) {
     } else
       if (discount in c_config) {
         if (c_config.discount != null) {
-          discounted_price = StoreProducts.getDiscountedPrice(variation.price, discount);
-          discounted_price = StoreProducts.formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
-          save_price = StoreProducts.formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
+          discounted_price = window.StoreProducts.getDiscountedPrice(variation.price, discount);
+          discounted_price = formatPrice(discounted_price, variation.currency_label, variation.region_id, variation.currency_iso);
+          save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_label, variation.region_id, variation.currency_iso);
           percent_value = `${variation.discount.discount_value}%`;
           price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
         }
@@ -1274,7 +1197,7 @@ StoreProducts.__onChangeYears = function (ev) {
     if ('extra_params' in c_config) {
       if (c_config.extra_params != null) {
         let params = '';
-        for (op in c_config.extra_params) {
+        for (let op in c_config.extra_params) {
           if (op == 'force_country') { continue; }
 
           c_config.extra_params[op] = c_config.extra_params[op].trim();
@@ -1335,15 +1258,15 @@ StoreProducts.__onChangeYears = function (ev) {
     });
   }
 
-  buy_link = StoreProducts.filterBuyLink(c_config, buy_link);
-  buy_link = StoreProducts.appendVisitorID(buy_link);
+  buy_link = window.StoreProducts.filterBuyLink(c_config, buy_link);
+  buy_link = window.StoreProducts.appendVisitorID(buy_link);
   const elementsBuy = document.getElementsByClassName(c_config.buy_class);
   Array.from(elementsBuy).forEach((element) => {
     element.setAttribute('href', buy_link);
   });
 
   try {
-    const ocg = c_config.onChangeYears;
+    let ocg = c_config.onChangeYears;
     const thisObj = new Object();
 
     thisObj.selected_users = selected_users;
@@ -1359,9 +1282,9 @@ StoreProducts.__onChangeYears = function (ev) {
     const users_class = c_config.users_class;
     const years_class = c_config.years_class;
 
-    if ('promotionsCleanUp' in StoreProducts.events[users_class + years_class]) {
-      for (iev in StoreProducts.events[users_class + years_class].promotionsCleanUp) {
-        ocg = StoreProducts.events[users_class + years_class].promotionsCleanUp[iev];
+    if ('promotionsCleanUp' in window.StoreProducts.events[users_class + years_class]) {
+      for (let iev in window.StoreProducts.events[users_class + years_class].promotionsCleanUp) {
+        ocg = window.StoreProducts.events[users_class + years_class].promotionsCleanUp[iev];
         ocg.call(thisObj);
       }
     }
@@ -1374,10 +1297,10 @@ StoreProducts.__onChangeYears = function (ev) {
 
         eval(jsc);
 
-        if (!('promotionsCleanUp' in StoreProducts.events[users_class + years_class])) { StoreProducts.events[users_class + years_class].promotionsCleanUp = {}; }
+        if (!('promotionsCleanUp' in window.StoreProducts.events[users_class + years_class])) { window.StoreProducts.events[users_class + years_class].promotionsCleanUp = {}; }
 
         if ('cleanUp' in PromotionFunctions) {
-          if (!(variation.promotion in StoreProducts.events[users_class + years_class].promotionsCleanUp)) { StoreProducts.events[users_class + years_class].promotionsCleanUp[variation.promotion] = PromotionFunctions.cleanUp; }
+          if (!(variation.promotion in window.StoreProducts.events[users_class + years_class].promotionsCleanUp)) { window.StoreProducts.events[users_class + years_class].promotionsCleanUp[variation.promotion] = PromotionFunctions.cleanUp; }
         }
 
         ocg = PromotionFunctions.onChange;
@@ -1386,8 +1309,8 @@ StoreProducts.__onChangeYears = function (ev) {
     }
 
     try {
-      if (typeof StoreCBS !== 'undefined' && StoreCBS != null && ('go' in StoreCBS)) {
-        StoreCBS.go(thisObj, ['selector', 'onchange', 'onchangeyears', StoreProducts.product[c_config.product_id].product_id, StoreProducts.product[c_config.product_id].product_alias, `initCount:${c_config.initCount}`, `productType:${StoreProducts.product[c_config.product_id].product_type}`]);
+      if (typeof window.StoreCBS !== 'undefined' && window.StoreCBS != null && ('go' in window.StoreCBS)) {
+        window.StoreCBS.go(thisObj, ['selector', 'onchange', 'onchangeyears', window.StoreProducts.product[c_config.product_id].product_id, window.StoreProducts.product[c_config.product_id].product_alias, `initCount:${c_config.initCount}`, `productType:${window.StoreProducts.product[c_config.product_id].product_type}`]);
       }
     } catch (ex) { }
   } catch (ex) {
@@ -1395,21 +1318,21 @@ StoreProducts.__onChangeYears = function (ev) {
   }
 
   try {
-    delete digitalData.product;
-    StoreProducts.setDigitalData(c_config.product_id, variation);
+    delete window.digitalData.product;
+    window.StoreProducts.setDigitalData(c_config.product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);
   }
 
-  if (typeof __targetCallBack !== 'undefined') {
+  if (typeof window.__targetCallBack !== 'undefined') {
     try {
-      __targetCallBack(c_config.buy_class, c_config.product_id, selected_users, selected_years);
+      window.__targetCallBack(c_config.buy_class, c_config.product_id, selected_users, selected_years);
     } catch (ex) { console.log(`target ex:${ex}`); }
   }
 };
 
-StoreProducts.loadProducts = function (config) {
-  const so = new Object();
+window.StoreProducts.loadProducts = function (config) {
+  let so = new Object();
   so.ev = 2;
   let async = false;
 
@@ -1422,9 +1345,9 @@ StoreProducts.loadProducts = function (config) {
   if (config.products.length < 1) { return false; }
 
   let hasPID = false;
-  if (typeof tagit_params !== 'undefined') {
-    for (i in tagit_params.obj) {
-      if ('pid' in tagit_params.obj[i]) {
+  if (typeof window.tagit_params !== 'undefined') {
+    for (let i in window.tagit_params.obj) {
+      if ('pid' in window.tagit_params.obj[i]) {
         hasPID = true;
 
         break;
@@ -1482,8 +1405,8 @@ StoreProducts.loadProducts = function (config) {
     } else
       if ('products' in response_data) {
         for (const i in response_data.products) {
-          StoreProducts.product[response_data.products[i].product_id] = response_data.products[i];
-          StoreProducts.product[response_data.products[i].product_alias] = response_data.products[i];
+          window.StoreProducts.product[response_data.products[i].product_id] = response_data.products[i];
+          window.StoreProducts.product[response_data.products[i].product_alias] = response_data.products[i];
         }
       }
 
@@ -1511,21 +1434,21 @@ StoreProducts.loadProducts = function (config) {
     });
 };
 
-StoreProducts.getBundleProductsInfo = function (va, vb, config) {
-  let base_uri = StoreProducts.product[va.product_id].base_uri;
+window.StoreProducts.getBundleProductsInfo = function (va, vb, config) {
+  let base_uri = window.StoreProducts.product[va.product_id].base_uri;
 
   // if (window.location.hostname == 'www.bitdefender.se') {
   //     base_uri = "https://www.bitdefender.se/site";
   // }
 
-  if (typeof geoip_code !== 'undefined' && geoip_code == 'gb') {
+  if (typeof window.geoip_code !== 'undefined' && window.geoip_code == 'gb') {
     base_uri = 'https://www.bitdefender.co.uk/site';
   }
 
   let buy_link = `${base_uri}/Store/buybundle`;
 
-  const pa = StoreProducts.product[va.product_id];
-  const pb = StoreProducts.product[vb.product_id];
+  const pa = window.StoreProducts.product[va.product_id];
+  const pb = window.StoreProducts.product[vb.product_id];
 
   const extra_params = {};
 
@@ -1663,14 +1586,14 @@ StoreProducts.getBundleProductsInfo = function (va, vb, config) {
 
   ret_price = (va.price * 100) / 100 + (vb.price * 100) / 100;
   ret_price = ret_price.toFixed(2);
-  ret_price = StoreProducts.formatPrice(ret_price, va.currency_label, va.region_id, va.currency_iso);
+  ret_price = formatPrice(ret_price, va.currency_label, va.region_id, va.currency_iso);
 
-  buy_link = StoreProducts.filterBuyLink(config, buy_link);
-  buy_link = StoreProducts.appendVisitorID(buy_link);
+  buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
+  buy_link = window.StoreProducts.appendVisitorID(buy_link);
   return { buy_link, price: ret_price };
 };
 
-StoreProducts.requestPricingInfo = function (so) {
+window.StoreProducts.requestPricingInfo = function (so) {
   const url = so.url;
   const config = so.config;
   so = JSON.stringify(so);
@@ -1720,12 +1643,12 @@ const handleResponse = function (data) {
       const product_id = response_data.product.product_id;
       const product_alias = response_data.product.product_alias;
 
-      if (!(product_info in StoreProducts.product)) { product_info = product_alias; }
+      if (!(product_info in window.StoreProducts.product)) { product_info = product_alias; }
 
-      StoreProducts.product[response_data.product.product_id] = response_data.product;
-      StoreProducts.product[response_data.product.product_alias] = response_data.product;
+      window.StoreProducts.product[response_data.product.product_id] = response_data.product;
+      window.StoreProducts.product[response_data.product.product_alias] = response_data.product;
 
-      StoreProducts.initSelector(response_data.config);
+      window.StoreProducts.initSelector(response_data.config);
     } catch (ex) {
       DEBUG && console.log(ex);
     }
@@ -1738,7 +1661,7 @@ const handleResponse = function (data) {
  * @param discount
  * @returns {*}
  */
-StoreProducts.getPromoCode = function (productAlias, discount) {
+window.StoreProducts.getPromoCode = function (productAlias, discount) {
   const promoSteps = {
     av: [
       { min: 0, max: 20, pid: 'DPAV01OFF' },
@@ -1765,7 +1688,7 @@ StoreProducts.getPromoCode = function (productAlias, discount) {
       { min: 59, max: 100, pid: 'DPAV06OFF' },
     ],
   };
-  for (i in promoSteps[productAlias]) {
+  for (let i in promoSteps[productAlias]) {
     if (discount >= promoSteps[productAlias][i].min && discount <= promoSteps[productAlias][i].max) {
       return promoSteps[productAlias][i].pid;
     }
@@ -1778,46 +1701,46 @@ StoreProducts.getPromoCode = function (productAlias, discount) {
  * @param so
  * @returns {*}
  */
-StoreProducts.filterRequestObject = function (so) {
+window.StoreProducts.filterRequestObject = function (so) {
   if (typeof DEFAULT_LANGUAGE === 'undefined' || DEFAULT_LANGUAGE !== 'en') {
-    StoreProducts.requestPricingInfo(so);
+    window.StoreProducts.requestPricingInfo(so);
     return false;
   }
 
-  if (typeof _satellite === 'undefined') {
-    StoreProducts.requestPricingInfo(so);
+  if (typeof window._satellite === 'undefined') {
+    window.StoreProducts.requestPricingInfo(so);
     return false;
   }
 
-  if (typeof _satellite.buildInfo !== 'undefined') {
-    if (_satellite.buildInfo.environment == 'development') {
-      StoreProducts.requestPricingInfo(so);
+  if (typeof window._satellite.buildInfo !== 'undefined') {
+    if (window._satellite.buildInfo.environment == 'development') {
+      window.StoreProducts.requestPricingInfo(so);
       return false;
     }
   } else {
-    StoreProducts.requestPricingInfo(so);
+    window.StoreProducts.requestPricingInfo(so);
     return false;
   }
 
   if (typeof digitalData !== 'undefined'
-    && digitalData.page.info.subSubSubSection != '5001'
-    && digitalData.page.info.subSubSubSection != '5002'
-    && digitalData.page.info.subSubSubSection != '5004'
-    && digitalData.page.info.subSubSubSection != '7001'
-    && digitalData.page.info.subSubSubSection != '8001'
+    && window.digitalData.page.info.subSubSubSection != '5001'
+    && window.digitalData.page.info.subSubSubSection != '5002'
+    && window.digitalData.page.info.subSubSubSection != '5004'
+    && window.digitalData.page.info.subSubSubSection != '7001'
+    && window.digitalData.page.info.subSubSubSection != '8001'
   ) {
-    StoreProducts.requestPricingInfo(so);
+    window.StoreProducts.requestPricingInfo(so);
     return false;
   }
 
   let experience = false;
-  if (typeof ttMETA !== 'undefined') {
-    for (const i in ttMETA) {
-      if (ttMETA[i].campaign === 'COM - Dynamic Pricing Split') {
-        if (ttMETA[i].experience.indexOf('Experience B') !== -1) {
+  if (typeof window.ttMETA !== 'undefined') {
+    for (const i in window.ttMETA) {
+      if (window.ttMETA[i].campaign === 'COM - Dynamic Pricing Split') {
+        if (window.ttMETA[i].experience.indexOf('Experience B') !== -1) {
           experience = 'B';
         }
-        if (ttMETA[i].experience.indexOf('Experience C') !== -1) {
+        if (window.ttMETA[i].experience.indexOf('Experience C') !== -1) {
           experience = 'C';
         }
       }
@@ -1825,7 +1748,7 @@ StoreProducts.filterRequestObject = function (so) {
   }
 
   if (!experience) {
-    StoreProducts.requestPricingInfo(so);
+    window.StoreProducts.requestPricingInfo(so);
     return false;
   }
 
@@ -1841,29 +1764,29 @@ StoreProducts.filterRequestObject = function (so) {
       product = 'Total Security';
       break;
     default:
-      StoreProducts.requestPricingInfo(so);
+      window.StoreProducts.requestPricingInfo(so);
       return false;
   }
 
   /* more filtering - by pid this time */
-  if (typeof tagit_params !== 'undefined') {
-    for (i in tagit_params.obj) {
-      if ('pid' in tagit_params.obj[i]) {
+  if (typeof window.tagit_params !== 'undefined') {
+    for (let i in window.tagit_params.obj) {
+      if ('pid' in window.tagit_params.obj[i]) {
         // google_organic
-        if (tagit_params.obj[i].pid.param_value.includes('google_organic')) {
-          StoreProducts.requestPricingInfo(so);
+        if (window.tagit_params.obj[i].pid.param_value.includes('google_organic')) {
+          window.StoreProducts.requestPricingInfo(so);
           break;
         }
       }
     }
   }
 
-  if (typeof digitalData.user.profileConsumer === 'undefined') {
-    digitalData.user.profileConsumer = new Object();
+  if (typeof window.digitalData.user.profileConsumer === 'undefined') {
+    window.digitalData.user.profileConsumer = new Object();
   }
 
   const cloud_id = _satellite.getVisitorId().getMarketingCloudVisitorID();
-  const requestObj = { family: product, marketing_cloud_id: cloud_id };
+  let requestObj = { family: product, marketing_cloud_id: cloud_id };
   requestObj = JSON.stringify(requestObj);
   fetch('https://onza5mmwed.execute-api.us-east-1.amazonaws.com/dev/dyn-price', {
     method: 'POST',
@@ -1883,45 +1806,45 @@ StoreProducts.filterRequestObject = function (so) {
       if (data.discount) {
         const discount = parseFloat(data.discount);
         if (!isNaN(discount)) {
-          const promoCode = StoreProducts.getPromoCode(so.product_id, discount);
+          const promoCode = window.StoreProducts.getPromoCode(so.product_id, discount);
           if (experience === 'B') {
-            if (typeof digitalData.user.profileConsumer.dynamic === 'undefined') {
-              digitalData.user.profileConsumer.dynamic = 'applied|';
+            if (typeof window.digitalData.user.profileConsumer.dynamic === 'undefined') {
+              window.digitalData.user.profileConsumer.dynamic = 'applied|';
             }
-            digitalData.user.profileConsumer.dynamic = `${so.product_id + discount}|`;
+            window.digitalData.user.profileConsumer.dynamic = `${so.product_id + discount}|`;
             so.config.extra_params = { pid: promoCode };
           }
           if (experience === 'C') {
-            digitalData.user.profileConsumer.dynamic = `notapplied|${discount}`;
+            window.digitalData.user.profileConsumer.dynamic = `notapplied|${discount}`;
           }
         } else {
-          digitalData.user.profileConsumer.dynamic = 'error';
+          window.digitalData.user.profileConsumer.dynamic = 'error';
         }
       }
-      StoreProducts.requestPricingInfo(so);
+      window.StoreProducts.requestPricingInfo(so);
     })
     .catch((error) => {
       if (error.message === '403') {
-        digitalData.user.profileConsumer.dynamic = 'none';
+        window.digitalData.user.profileConsumer.dynamic = 'none';
       } else {
-        digitalData.user.profileConsumer.dynamic = `error|${error.message}`;
+        window.digitalData.user.profileConsumer.dynamic = `error|${error.message}`;
       }
-      StoreProducts.requestPricingInfo(so);
+      window.StoreProducts.requestPricingInfo(so);
     });
 };
 
 const all_page_products = [];
 const oneTimeSendData = false;
 let satellite_track_once = 1;
-StoreProducts.setDigitalData = function (product_id, variation) {
+window.StoreProducts.setDigitalData = function (product_id, variation) {
   try {
-    if (typeof digitalData !== 'undefined') {
+    if (typeof window.digitalData !== 'undefined') {
       /**
              if (digitalData.page.category.primary == "landing page") {
-                if (StoreProducts.product[product_id].product_type == 1) {
+                if (window.StoreProducts.product[product_id].product_type == 1) {
                     digitalData.page.category.secondary = "consumer";
                 }
-                if (StoreProducts.product[product_id].product_type == 2) {
+                if (window.StoreProducts.product[product_id].product_type == 2) {
                     digitalData.page.category.secondary = "business";
                 }
 
@@ -1945,19 +1868,19 @@ StoreProducts.setDigitalData = function (product_id, variation) {
             }
              * */
 
-      if (digitalData.page.info.subSubSection == 'viewproduct' && digitalData.page.info.name.indexOf(StoreProducts.product[product_id].product_id) !== -1) {
+      if (window.digitalData.page.info.subSubSection == 'viewproduct' && digitalData.page.info.name.indexOf(window.StoreProducts.product[product_id].product_id) !== -1) {
         let found = false;
-        if (digitalData.product !== 'undefined') {
-          for (i in digitalData.product) {
-            if (digitalData.product[i].info.ID == StoreProducts.product[product_id].product_id) {
+        if (window.digitalData.product !== 'undefined') {
+          for (let i in digitalData.product) {
+            if (window.digitalData.product[i].info.ID == window.StoreProducts.product[product_id].product_id) {
               found = true;
 
-              if (digitalData.product[i].info.devices != parseInt(variation.variation.dimension_value)) {
+              if (window.digitalData.product[i].info.devices != parseInt(variation.variation.dimension_value)) {
                 digitalData.product[i].info.devices = parseInt(variation.variation.dimension_value).toString();
               }
 
-              if (digitalData.product[i].info.subscription != parseInt(variation.variation.years * 12)) {
-                digitalData.product[i].info.subscription = parseInt(variation.variation.years * 12).toString();
+              if (window.digitalData.product[i].info.subscription != parseInt(variation.variation.years * 12)) {
+                window.digitalData.product[i].info.subscription = parseInt(variation.variation.years * 12).toString();
               }
 
               break;
@@ -1966,30 +1889,30 @@ StoreProducts.setDigitalData = function (product_id, variation) {
         }
 
         if (!found) {
-          const productName = StoreProducts.product[product_id].product_name.replace(/\d/g, '').trim();
-          let productVersion = parseInt(StoreProducts.product[product_id].product_name.replace(/\D/g, ''));
+          const productName = window.StoreProducts.product[product_id].product_name.replace(/\d/g, '').trim();
+          let productVersion = parseInt(window.StoreProducts.product[product_id].product_name.replace(/\D/g, ''));
 
           if (isNaN(productVersion)) {
             productVersion = 0;
           }
 
           const productInfo = {
-            ID: parseInt(StoreProducts.product[product_id].product_id).toString(),
+            ID: parseInt(window.StoreProducts.product[product_id].product_id).toString(),
             name: productName,
             version: productVersion.toString(),
             devices: parseInt(variation.variation.dimension_value).toString(),
             subscription: parseInt(variation.variation.years * 12).toString(),
-            basePrice: StoreProducts.product[product_id].variations[parseInt(variation.variation.dimension_value)][parseInt(variation.variation.years)].price,
-            currency: StoreProducts.product[product_id].variations[parseInt(variation.variation.dimension_value)][parseInt(variation.variation.years)].currency_iso,
+            basePrice: window.StoreProducts.product[product_id].variations[parseInt(variation.variation.dimension_value)][parseInt(variation.variation.years)].price,
+            currency: window.StoreProducts.product[product_id].variations[parseInt(variation.variation.dimension_value)][parseInt(variation.variation.years)].currency_iso,
           };
 
-          if (typeof digitalData.product === 'undefined') {
-            digitalData.product = [];
+          if (typeof window.digitalData.product === 'undefined') {
+            window.digitalData.product = [];
           }
 
           let primaryCategory = '';
           let subCategory = '';
-          switch (StoreProducts.product[product_id].product_type) {
+          switch (window.StoreProducts.product[product_id].product_type) {
             case '1':
               primaryCategory = 'consumer';
               subCategory = 'subscriptions';
@@ -2019,8 +1942,8 @@ StoreProducts.setDigitalData = function (product_id, variation) {
           const dvcs = productInfo.devices;
           const yrs = parseInt(variation.variation.years);
 
-          if (typeof StoreProducts.product[product_id] !== 'undefined') {
-            const StorePrd = StoreProducts.product[product_id];
+          if (typeof window.StoreProducts.product[product_id] !== 'undefined') {
+            const StorePrd = window.StoreProducts.product[product_id];
 
             if (typeof StorePrd.variations[dvcs][yrs].discount === 'undefined') {
               product.info.discountValue = 0;
@@ -2028,31 +1951,31 @@ StoreProducts.setDigitalData = function (product_id, variation) {
               product.info.discountRate = 0;
             } else {
               product.info.discountValue = StorePrd.variations[dvcs][yrs].price - StorePrd.variations[dvcs][yrs].discount.discounted_price;
-              product.info.priceWithTax = StoreProducts.price_format(StorePrd.variations[dvcs][yrs].discount.discounted_price, 2);
+              product.info.priceWithTax = window.StoreProducts.price_format(StorePrd.variations[dvcs][yrs].discount.discounted_price, 2);
               const discount_var = ((StorePrd.variations[dvcs][yrs].price - StorePrd.variations[dvcs][yrs].discount.discounted_price) / productInfo.basePrice) * 100;
-              product.info.discountValue = StoreProducts.price_format(product.info.discountValue.toString(), 2);
+              product.info.discountValue = window.StoreProducts.price_format(product.info.discountValue.toString(), 2);
               product.info.discountRate = parseInt(discount_var, 10).toString();
             }
           }
 
-          digitalData.page.category.secondary = 'product';
+          window.digitalData.page.category.secondary = 'product';
 
-          digitalData.product.push(product);
+          window.digitalData.product.push(product);
 
-          if (window.adobeDataLayer && typeof addDigitalDataProduct !== 'undefined') {
-            addDigitalDataProduct(digitalData.product);
+          if (window.adobeDataLayer && typeof window.addDigitalDataProduct !== 'undefined') {
+            window.addDigitalDataProduct(digitalData.product);
           }
 
-          if (typeof _satellite !== 'undefined' && typeof _satellite.pageBottomFired !== 'undefined' && _satellite.pageBottomFired) {
-            digitalData.page.attributes.delayed = 'true';
+          if (typeof window._satellite !== 'undefined' && typeof window._satellite.pageBottomFired !== 'undefined' && window._satellite.pageBottomFired) {
+            window.digitalData.page.attributes.delayed = 'true';
 
             // _satellite.notify("DLPPReady", 1); //WWW-7220
             if (satellite_track_once) { // WWW-7220
-              _satellite.track('DLPPReady');
+              window._satellite.track('DLPPReady');
               satellite_track_once = 0;
             }
           } else {
-            digitalData.page.attributes.delayed = 'false';
+            window.digitalData.page.attributes.delayed = 'false';
           }
         }
       }
@@ -2069,14 +1992,14 @@ StoreProducts.setDigitalData = function (product_id, variation) {
   }
 };
 
-StoreProducts.price_format = function (number, decimals) {
-  decimals = decimals || 0;
-  number = parseFloat(number);
-  decPoint = '.';
-  thousandsSep = '';
+window.StoreProducts.price_format = function (num, dec) {
+  const decimals = dec || 0;
+  const number = parseFloat(num);
+  const decPoint = '.';
+  const thousandsSep = '';
 
   const roundedNumber = `${Math.round(Math.abs(number) * (`1e${decimals}`))}`;
-  const numbersString = decimals ? roundedNumber.slice(0, decimals * -1) : roundedNumber;
+  let numbersString = decimals ? roundedNumber.slice(0, decimals * -1) : roundedNumber;
   const decimalsString = decimals ? roundedNumber.slice(decimals * -1) : '';
   let formattedNumber = '';
 
@@ -2088,7 +2011,7 @@ StoreProducts.price_format = function (number, decimals) {
   return (number < 0 ? '-' : '') + numbersString + formattedNumber + (decimalsString ? (decPoint + decimalsString) : '');
 };
 
-StoreProducts.filterBuyLink = function (config, buyLink) {
+window.StoreProducts.filterBuyLink = function (config, buyLink) {
   try {
     if (
       typeof config !== 'undefined'
@@ -2104,10 +2027,10 @@ StoreProducts.filterBuyLink = function (config, buyLink) {
   }
 
   /* aici este setat A/B testul cu shopping cartul */
-  if (typeof ttMETA !== 'undefined') {
-    for (const i in ttMETA) {
-      if (ttMETA[i].campaign === 'COM - Classic Line (New Cart BUY Links v6)') {
-        if (ttMETA[i].experience.indexOf('v6 New Cart (Variation 1)') !== -1) {
+  if (typeof window.ttMETA !== 'undefined') {
+    for (const i in window.ttMETA) {
+      if (window.ttMETA[i].campaign === 'COM - Classic Line (New Cart BUY Links v6)') {
+        if (window.ttMETA[i].experience.indexOf('v6 New Cart (Variation 1)') !== -1) {
           buyLink = `${buyLink + (buyLink.split('?')[1] ? '&' : '?')}ORDERSTYLE=nLWs5JSpkHE=&SHORT_FORM=1`;
         }
       }
@@ -2117,9 +2040,9 @@ StoreProducts.filterBuyLink = function (config, buyLink) {
   return buyLink;
 };
 
-StoreProducts.appendVisitorID = function (buyLink) {
-  if (typeof Visitor !== 'undefined') {
-    var visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
+window.StoreProducts.appendVisitorID = function (buyLink) {
+  if (typeof window.Visitor !== 'undefined') {
+    var visitor = window.Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
       trackingServer: 'stats.bitdefender.com', // Same as s.trackingServer
       trackingServerSecure: 'sstats.bitdefender.com', // Same as s.trackingServerSecure
     });
@@ -2132,34 +2055,7 @@ StoreProducts.appendVisitorID = function (buyLink) {
   return buyLink;
 };
 
-StoreProducts.getFirstBrowserLanguage = function () {
-  const nav = window.navigator;
-  const browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'];
-  let i;
-  let language;
-
-  // support for HTML 5.1 "navigator.languages"
-  if (Array.isArray(nav.languages)) {
-    for (i = 0; i < nav.languages.length; i++) {
-      language = nav.languages[i];
-      if (language && language.length) {
-        return language;
-      }
-    }
-  }
-
-  // support for other well known properties in browsers
-  for (i = 0; i < browserLanguagePropertyKeys.length; i++) {
-    language = nav[browserLanguagePropertyKeys[i]];
-    if (language && language.length) {
-      return language;
-    }
-  }
-
-  return 'en';
-};
-
-Base64 = {
+const Base64 = {
 
   // private property
   _keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
@@ -2261,6 +2157,7 @@ Base64 = {
     let c = 0;
     const c1 = 0;
     let c2 = 0;
+    let c3;
 
     while (i < utftext.length) {
       c = utftext.charCodeAt(i);
@@ -2284,7 +2181,7 @@ Base64 = {
   },
 };
 
-StoreProducts.filterProductIDExceptions = function (product_id) {
+window.StoreProducts.filterProductIDExceptions = function (product_id) {
   // var langExceptions = ['de', 'nl'];
   // if (typeof DEFAULT_LANGUAGE !== "undefined" && -1 !== langExceptions.indexOf(DEFAULT_LANGUAGE) &&
   //     ("5002" === product_id || "is" === product_id)) {
