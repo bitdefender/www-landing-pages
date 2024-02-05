@@ -37,11 +37,13 @@ export default function decorate(block) {
             liClass += 'd-none';
           }
 
+          // &lt reffers to '<' character
           if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
             liClass += ' has_arrow';
             firstTdContent = firstTdContent.replace('&lt;-', '');
           }
 
+          // &gt reffers to '>' character
           if (firstTdContent.indexOf('-&gt;') !== -1 || firstTdContent.indexOf('&gt;') !== -1) {
             liClass += ' has_arrow_right';
             firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
