@@ -638,3 +638,16 @@ export function getDefaultBaseUrl() {
   const defaultHomeUrl = `https://www.bitdefender.${dynamicLanguage}/`;
   return DOMAIN_NAME_MAP.get(dynamicLanguage) || defaultHomeUrl;
 }
+
+/**
+ * Get cookie
+ * @param {String} name - cookie name
+ */
+export function getCookie(name) {
+  const cookie = {};
+  document.cookie.split(';').forEach((el) => {
+    const [key, value] = el.split('=');
+    cookie[key.trim()] = value;
+  });
+  return cookie[name];
+}
