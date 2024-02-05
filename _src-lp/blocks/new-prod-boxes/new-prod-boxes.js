@@ -27,7 +27,7 @@ export default function decorate(block) {
 
           // Extract the content of the first <td> to be placed outside the <li>
           let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
-          console.log(`td content ${firstTdContent}`);
+
           // Extract the content of the second <td> (if present) inside a <span>
           const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span>${tdList[1].innerHTML}</span>` : '';
 
