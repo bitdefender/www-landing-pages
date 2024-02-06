@@ -57,7 +57,7 @@ export default function decorate(block) {
         const isActiveCard = key === Number(activeCard);
         const isLastCard = key === list.length - 1;
 
-        if (isActiveCard || isLastCard) {
+        if (isActiveCard || (!activeCard && isLastCard)) {
           item.style.borderTopColor = activeCardColor || defaultBorderTopColorForActiveCard;
           item.classList.add('active');
         }
