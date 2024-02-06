@@ -12,7 +12,7 @@ import {
   loadBlocks,
   loadCSS,
   getMetadata,
-} from './lib-franklin.js';
+} from './aem.js';
 
 import {
   sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,

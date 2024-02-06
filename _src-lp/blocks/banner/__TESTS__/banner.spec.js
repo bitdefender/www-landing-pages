@@ -2,8 +2,8 @@
 import mockData from './mock-data.json';
 
 // mock everything that is not related to the actual main scope
-jest.mock('../../../scripts/lib-franklin.js', () => ({
-  ...jest.requireActual('../../../scripts/lib-franklin.js'),
+jest.mock('../../../scripts/aem.js', () => ({
+  ...jest.requireActual('../../../scripts/aem.js'),
   loadHeader: jest.fn(),
   loadFooter: jest.fn(),
 }));

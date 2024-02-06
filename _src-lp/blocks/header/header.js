@@ -1,4 +1,4 @@
-import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
+import { getMetadata, decorateIcons2 } from '../../scripts/aem.js';
 import {
   adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl,
 } from '../../scripts/utils.js';

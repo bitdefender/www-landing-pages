@@ -2,13 +2,13 @@
 import mockData from './mock-data.json';
 
 // mock everything that is not related to the actual main scope
-jest.mock('../../_src-lp/scripts/lib-franklin.js', () => ({
-  ...jest.requireActual('../../_src-lp/scripts/lib-franklin.js'),
+jest.mock('../../_src-lp/scripts/aem.js', () => ({
+  ...jest.requireActual('../../_src-lp/scripts/aem.js'),
   loadHeader: jest.fn(),
   loadFooter: jest.fn(),
 }));
 
-describe('lib-franklin.js', () => {
+describe('aem.js', () => {
   describe('internalDecorateIcons function', () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
