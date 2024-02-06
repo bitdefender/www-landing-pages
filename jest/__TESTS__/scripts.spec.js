@@ -2,8 +2,8 @@ import { data, assertedProductData, zuoraNL, zuoraNlPriceVariationData } from '.
 import ZuoraNLClass from "../../_src-lp/scripts/zuora.js";
 
 // mock everything that is not related to the actual main scope
-jest.mock('../../_src-lp/scripts/lib-franklin.js', () => ({
-  ...jest.requireActual('../../_src-lp/scripts/lib-franklin.js'),
+jest.mock('../../_src-lp/scripts/aem.js', () => ({
+  ...jest.requireActual('../../_src-lp/scripts/aem.js'),
   loadHeader: jest.fn(),
   loadFooter: jest.fn(),
   // loadBlock:  jest.fn().mockResolvedValue(undefined),
