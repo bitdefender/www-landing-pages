@@ -168,6 +168,15 @@
   background-size: 15px 12px;
   float: left;
 }
+.new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:first-of-type.has_arrow_right .arrow-right {
+  background: url("../../icons/arrow-right-solid.svg") no-repeat center transparent;
+  width: 20px;
+  height: 20px;
+  background-size: 15px 12px;
+  position: relative;
+  top: 4px;
+  display: inline-flex;
+}
 .new-prod-boxes-container .block .pod_box .inner_pod_box .benefitsLists ul li:not(:first-of-type) {
   font-size: 14px;
   line-height: 17px;
