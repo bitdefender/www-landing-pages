@@ -1,70 +1,3 @@
-export const IANA_BY_REGION_MAP = new Map([
-  [3, { locale: 'en-GB', label: 'united kingdom' }],
-  [4, { locale: 'au-AU', label: 'australia' }],
-  [5, { locale: 'de-DE', label: 'germany' }],
-  [6, { locale: 'ro-RO', label: 'romania' }],
-  [7, { locale: 'es-ES', label: 'spain' }],
-  [8, { locale: 'en-US', label: 'com' }],
-  [9, { locale: 'it-IT', label: 'italy' }],
-  [10, { locale: 'en-CA', label: 'canada' }],
-  [12, { locale: 'pt-PT', label: 'portugal' }],
-  [13, { locale: 'br-BR', label: 'brazil' }],
-  [15, { locale: 'en-GB', label: 'united kingdom' }],
-  [16, { locale: 'en-US', label: 'rest of the world EU countries' }],
-  [17, { locale: 'de-CH', label: 'germany-switzerland' }],
-  [19, { locale: 'en-ZA', label: 'en south africa' }],
-  [22, { locale: 'nl-NL', label: 'netherlands' }],
-  [24, { locale: 'en-VN', label: 'en vietnam' }],
-  [20, { locale: 'en-es-MX', label: 'en es mexico' }],
-  [21, { locale: 'en-es-CO', label: 'en es columbia' }],
-  [25, { locale: 'en-SG', label: 'en singapore' }],
-  [26, { locale: 'en-SE', label: 'en sweden' }],
-  [27, { locale: 'en-DK', label: 'en denmark' }],
-  [28, { locale: 'en-HU', label: 'en hungary' }],
-  [29, { locale: 'en-BG', label: 'en bulgaria' }],
-  [30, { locale: 'en-HR', label: 'en croatia' }],
-  [31, { locale: 'en-NO', label: 'en norway' }],
-  [32, { locale: 'en-MD', label: 'en moldova' }],
-  [33, { locale: 'en-RS', label: 'en serbia' }],
-  [34, { locale: 'en-RU', label: 'en russia' }],
-  [35, { locale: 'en-EG', label: 'en egypt' }],
-  [36, { locale: 'en-SA', label: 'en saudi arabia' }],
-  [37, { locale: 'fr-DZ', label: 'en Algeria' }],
-  [38, { locale: 'en-AE', label: 'en united arab emirates' }],
-  [39, { locale: 'en-PS', label: 'en palestinia' }],
-  [40, { locale: 'en-CN', label: 'en china' }],
-  [41, { locale: 'en-HK', label: 'en hong kong' }],
-  [42, { locale: 'en-au-CK', label: 'Cook Islands' }],
-  [43, { locale: 'en-KE', label: 'en kenya' }],
-  [44, { locale: 'en-NG', label: 'en nigeria' }],
-  [45, { locale: 'fr-TN', label: 'en Tunisia' }],
-  [46, { locale: 'en-PL', label: 'en poland' }],
-  [47, { locale: 'en-CZ', label: 'en Czech' }],
-  [48, { locale: 'es-VE', label: 'en Venezuela' }],
-  [49, { locale: 'en-TR', label: 'en turkey' }],
-  [50, { locale: 'en-ID', label: 'en Indonesia' }],
-  [51, { locale: 'en-PH', label: 'en Philippines' }],
-  [52, { locale: 'en-TW', label: 'en taiwan' }],
-  [53, { locale: 'en-UA', label: 'en Ukraine' }],
-  [54, { locale: 'es-CL', label: 'en Chile' }],
-  [55, { locale: 'en-MY', label: 'en Malaysia' }],
-  [56, { locale: 'es-AR', label: 'en Argentina' }],
-  [57, { locale: 'es-PE', label: 'en Peru' }],
-  [59, { locale: 'hr-HR', label: 'Croatia' }],
-  [60, { locale: 'ma-MA', label: 'Morocco' }],
-  [61, { locale: 'pk-PK', label: 'Pakistan' }],
-  [62, { locale: 'bo-BO', label: 'Bolivia' }],
-  [63, { locale: 'do-DO', label: 'Dominican Republic' }],
-  [64, { locale: 'kw-KW', label: 'Kuwait' }],
-  [65, { locale: 'jo-JO', label: 'Jordan' }],
-  [66, { locale: 'th-TH', label: 'Thailand' }],
-  [67, { locale: 'en-BD', label: 'en Bangladesh' }],
-  [68, { locale: 'en-LK', label: 'en Sri Lanka' }],
-  [69, { locale: 'en-PY', label: 'en Paraguay' }],
-  [70, { locale: 'en-UY', label: 'en Uruguay' }],
-  [72, { locale: 'en-JP', label: 'en Japan' }],
-]);
-
 /**
  * Returns the instance name based on the hostname
  * @returns {String}
@@ -260,8 +193,120 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
 }
 
 export function formatPrice(price, currency, region) {
-  const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
-  return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
+  const truncatePrice = (pr) => {
+    let ret = pr;
+
+    try {
+      if (ret >= 0) { ret = Math.floor(ret); } else { ret = Math.ceil(ret); }
+
+      if (price !== ret) { ret = pr; }
+    } catch (ex) {
+      if (window.DEBUG) {
+        console.log(ex);
+      }
+    }
+
+    return ret;
+  };
+  const getFirstBrowserLanguage = () => {
+    const nav = window.navigator;
+    const browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'];
+    let i;
+    let language;
+
+    // support for HTML 5.1 "navigator.languages"
+    if (Array.isArray(nav.languages)) {
+      for (i = 0; i < nav.languages.length; i += 1) {
+        language = nav.languages[i];
+        if (language && language.length) {
+          return language;
+        }
+      }
+    }
+
+    // support for other well known properties in browsers
+    for (i = 0; i < browserLanguagePropertyKeys.length; i += 1) {
+      language = nav[browserLanguagePropertyKeys[i]];
+      if (language && language.length) {
+        return language;
+      }
+    }
+
+    return 'en';
+  };
+
+  let newPrice = truncatePrice(price);
+
+  try {
+    window.getBrowserLocale = getFirstBrowserLanguage();
+
+    const formatter = new Intl.NumberFormat(window.getBrowserLocale, {
+      style: 'decimal',
+      minimumFractionDigits: 0,
+    });
+
+    newPrice = formatter.format(newPrice);
+  } catch (err) {
+    if (window.DEBUG) {
+      console.log(err);
+    }
+  }
+
+  try {
+    // replace , only if it's not the decimal seperator
+    if (price.toString().indexOf(',') !== -1) {
+      const priceParts = newPrice.split(',');
+      if (priceParts[1].length > 2) {
+        newPrice = newPrice.replace(',', '');
+      }
+    }
+  } catch (err) {
+    if (window.DEBUG) {
+      console.log(err);
+    }
+  }
+
+  if (region === 3) { return currency + price; }
+
+  if (region === 4) { return currency + price; }
+
+  if (region === 5) { return `${price} ${currency}`; }
+
+  if (region === 7) { return `${price} ${currency}`; }
+
+  if (region === 25) { return currency + price; }
+
+  if (region === 8 || region === 2 || region === 11) { return currency + price; }
+
+  if (region === 13) { return currency + price; }
+
+  if (region === 16 && window.DEFAULT_LANGUAGE === 'nl') {
+    try {
+      newPrice = newPrice.replace('.', ',');
+    } catch (err) {
+      if (window.DEBUG) {
+        console.log(err);
+      }
+    }
+
+    return `${currency} ${price}`;
+  }
+
+  if (region === 17 || region === 18) {
+    let fprice = `${price} ${currency}`;
+
+    try {
+      fprice = `${parseFloat(price).toFixed(2)} ${currency}`;
+    } catch (err) {
+      if (window.DEBUG) {
+        console.log(err);
+      }
+    }
+
+    return fprice;
+  }
+
+  return `${price} ${currency}`;
 }
 
 // get max discount
@@ -288,7 +333,7 @@ function maxDiscount() {
 
 // display prices
 export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
-  const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
+  const { currency_label: currencyLabel } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
@@ -321,12 +366,12 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
-    const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
-    const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
-    const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
-    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
+    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
+    const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyLabel, regionId);
+    const offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
+    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyLabel, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
-    const savings = formatPrice(savingsPrice.toFixed(0), currencyIso, regionId);
+    const savings = formatPrice(savingsPrice.toFixed(0), currencyLabel, regionId);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
 
     const oldPriceClass = `.oldprice-${onSelectorClass}`;
@@ -434,7 +479,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       showSaveBox.style.visibility = 'visible';
     }
   } else {
-    const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
+    const fullPrice = formatPrice(selectedVarPrice, currencyLabel, regionId);
     let vpnHasDiscount = false;
     let offerPrice = 0;
     let percentageSticker = 0;
@@ -445,7 +490,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
-        offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
+        offerPrice = formatPrice(selectedVarDiscount, currencyLabel, regionId);
         percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
       }
     }
@@ -592,17 +637,4 @@ export function getDefaultBaseUrl() {
   const dynamicLanguage = getInstance() === 'dev' ? 'com' : getDefaultLanguage();
   const defaultHomeUrl = `https://www.bitdefender.${dynamicLanguage}/`;
   return DOMAIN_NAME_MAP.get(dynamicLanguage) || defaultHomeUrl;
-}
-
-/**
- * Get cookie
- * @param {String} name - cookie name
- */
-export function getCookie(name) {
-  const cookie = {};
-  document.cookie.split(';').forEach((el) => {
-    const [key, value] = el.split('=');
-    cookie[key.trim()] = value;
-  });
-  return cookie[name];
 }
