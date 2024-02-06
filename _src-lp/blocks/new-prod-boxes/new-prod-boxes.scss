@@ -8,11 +8,11 @@
         display: flex;
         flex-direction: column;
 
-        .pod_box {
+        .prod_box {
             flex: 1;
             margin: 1em 0;
 
-            .inner_pod_box {
+            .inner_prod_box {
                 position: relative;
                 width: 100%;
                 height: 100%;
@@ -192,6 +192,18 @@
                                 background-size: 15px 12px;
                                 float: left;
                             }
+
+                            &.has_arrow_right {
+                                .arrow-right {
+                                    background: url('../../icons/arrow-right-solid.svg') no-repeat center transparent;
+                                    width: 20px;
+                                    height: 20px;
+                                    background-size: 15px 12px;
+                                    position: relative;
+                                    top: 4px;
+                                    display: inline-flex;
+                                }
+                            }
                         }
 
                         li:not(:first-of-type) {
@@ -255,7 +267,7 @@
             &.hasGreenTag {
                 margin-top: 3em;
 
-                .inner_pod_box {
+                .inner_prod_box {
                     box-shadow: 0 3px 7px 0 #C1C1C1;
                 }
             }
@@ -269,12 +281,12 @@
             flex-direction: row;
             padding: 0;
 
-            .pod_box {
+            .prod_box {
                 &.hasGreenTag {
                     margin-top: 1em;
                 }
 
-                .inner_pod_box {
+                .inner_prod_box {
                     width: 92%;
                 }
             }

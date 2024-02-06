@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions
-import mockData from './mock-data.json';
+import { data } from './mock-data.js';
 
 // mock everything that is not related to the actual main scope
 jest.mock('../../_src-lp/scripts/aem.js', () => ({
@@ -34,7 +34,7 @@ describe('aem.js', () => {
       });
 
       // init / bootstrap page()
-      document.body.innerHTML = mockData.data;
+      document.body.innerHTML = data;
       await import('../../_src-lp/scripts/scripts.js');
 
       expect(fetch).toHaveBeenCalledWith("/pages/icons/keeps-you-informed.svg");
@@ -52,7 +52,7 @@ describe('aem.js', () => {
       });
 
       // init / bootstrap page()
-      document.body.innerHTML = mockData.data;
+      document.body.innerHTML = data;
       await import('../../_src-lp/scripts/scripts.js');
 
       expect(fetch).toHaveBeenCalledWith("/icons/keeps-you-informed.svg");
