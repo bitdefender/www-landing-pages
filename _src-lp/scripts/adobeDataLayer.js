@@ -1,4 +1,6 @@
-import { getDefaultLanguage, getInstance, GLOBAL_EVENTS } from './utils.js';
+import {
+  getDefaultLanguage, getInstance, GLOBAL_EVENTS, getCookie,
+} from './utils.js';
 
 /**
  * Formats a number to have 2 digits
@@ -156,7 +158,7 @@ export async function sendAnalyticsUserInfo() {
   const user = {};
   user.loggedIN = 'false';
   user.emarsysID = getParamValue('ems-uid') || getParamValue('sc_uid') || undefined;
-  user.ID = localStorage.getItem('rhvID') || getParamValue('sc_customer') || undefined;
+  user.ID = localStorage.getItem('rhvID') || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
   user.productFinding = 'campaign page';
 
   if (typeof user.ID !== 'undefined') {
