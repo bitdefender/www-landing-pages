@@ -307,7 +307,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   const storeObjVPN = StoreProducts.product.vpn;
   if (triggerVPN) {
     parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
-    buyLink += '&bundle_id=com.bitdefender.vpn&bundle_payment_period=1d1y';
+    buyLink += '&bundle_id=com.bitdefender.vpn&bundle_payment_period=10d1y';
     selectedVarPrice += storeObjVPN.selected_variation.price || 0;
     selectedVarPrice = selectedVarPrice.toFixed(2);
     if (showVpnBox) {
