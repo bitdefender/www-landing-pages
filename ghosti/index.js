@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const SnapshotBlockTest = require('./json-tests/snapshot-block');
 require('dotenv').config();
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
@@ -5,30 +7,7 @@ const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 const snapshotsSuiteId = '64c8d884960593b38bb68331';
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.page`;
 const pathToBlocks = 'sidekick/blocks';
-
-// todo those should come from somewhere else
-const blockSnapshotsToTest = [
-  'b-banner',
-  'b-single-quote',
-  'c-reviews',
-  'c-icon-box-grid',
-  'c-device-protection-box',
-  'awards',
-  'c-tough-on-threats',
-  'b-antiransomware',
-  'b-boxes',
-  'c-teaser-card',
-  'c-carousel-section',
-  'c-progress-section',
-  'columns',
-  'c-productswithvpn2',
-  'c-productswithvpn',
-  'b-productswithselectors',
-  'c-top-comparative-with-text',
-  'b-dropdownbox',
-  'b-productswithinputdevices',
-  'b-big-carousel-quotes',
-];
+const localBlocksPath = '_src-lp/blocks';
 
 (async () => {
   function logError(message) {
@@ -71,6 +50,8 @@ const blockSnapshotsToTest = [
   }
 
   try {
+    const blockSnapshotsToTest = fs.readdirSync(localBlocksPath);
+
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
 
