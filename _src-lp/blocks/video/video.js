@@ -99,7 +99,7 @@ export default async function decorate(block) {
     block.classList.add('lazy-loading');
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
-        this.disconnect();
+        observer.disconnect();
         loadVideoEmbed(block, link, false);
         block.classList.remove('lazy-loading');
       }
