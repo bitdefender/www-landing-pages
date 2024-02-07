@@ -12,7 +12,8 @@
   - products : ex: tsmd/5/1, is/3/1, av/3/1 (alias_name/nr_devices/nr_years)
   - top_text : ex: COMPARE SOLUTIONS
                    Compare Bitdefender Products
-
+  - active_card: 1 / 2 / 3 / 4 ... etc ( the position of the active card )
+  - active_card_color: 'red' / '#434332' / rgb(212,131,44) any color format; the border top color of the active card
   Samples:
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer-opt/ - http://localhost:3000/consumer/en/new/cl-offer-opt
 */
@@ -21,11 +22,14 @@ import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
+  const defaultBorderTopColorForActiveCard = '#e60093';
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
-  const { products, topText } = metaData;
+  const {
+    products, topText, activeCardColor, activeCard,
+  } = metaData;
   const productsAsList = products && products.split(',');
 
   /// ///////////////////////////////////////////////////////////////////////
@@ -48,8 +52,16 @@ export default function decorate(block) {
     parentSelector.classList.add(`has${productsAsList.length}boxes`);
 
     // set prices and buy buttons
-    block.querySelectorAll(':scope > div').forEach((item, key) => {
+    block.querySelectorAll(':scope > div').forEach((item, key, list) => {
       if (key !== 0) {
+        const isActiveCard = key === Number(activeCard);
+        const isLastCard = key === list.length - 1;
+
+        if (isActiveCard || (!activeCard && isLastCard)) {
+          item.style.borderTopColor = activeCardColor || defaultBorderTopColorForActiveCard;
+          item.classList.add('active');
+        }
+
         const [prodName, prodUsers, prodYears] = productsAsList[key - 1].split('/');
         const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
