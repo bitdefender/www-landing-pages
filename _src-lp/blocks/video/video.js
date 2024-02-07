@@ -87,23 +87,18 @@ export default async function decorate(block) {
   positionVideoContainer(block, desktopAlign);
 
   if (placeholder) {
-    console.log('decorate 1');
     const wrapper = document.createElement('div');
     wrapper.className = 'video-placeholder';
     wrapper.innerHTML = '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>';
     wrapper.prepend(placeholder);
     wrapper.addEventListener('click', () => {
-      console.log('clickeeeed');
       loadVideoEmbed(block, link, true);
     });
     block.append(wrapper);
   } else {
-    console.log('decorate 2');
     block.classList.add('lazy-loading');
-    const observer = new IntersectionObserver(function(entries) {
-      console.log('decorate 3');
+    const observer = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
-        console.log('decorate 4');
         this.disconnect();
         loadVideoEmbed(block, link, false);
         block.classList.remove('lazy-loading');
