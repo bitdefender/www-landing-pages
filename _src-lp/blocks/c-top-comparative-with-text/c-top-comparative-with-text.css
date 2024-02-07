@@ -25,9 +25,8 @@
   margin-top: 20px;
 }
 
-.c-top-comparative-with-text > div:nth-child(3) {
+.c-top-comparative-with-text > .active {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
-  border-top-color: #e60093;
 }
 
 .c-top-comparative-with-text.no-highlight > div:nth-child(3), .no-highlight .c-top-comparative-with-text > div:nth-child(3) {
