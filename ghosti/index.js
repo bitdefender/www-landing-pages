@@ -27,7 +27,6 @@ const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
 
     mappedTests.forEach((testResult, index) => {
-      console.log(`test result ${index}`, testResult);
       const {
         name,
         test: { _id },
@@ -60,8 +59,6 @@ const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
     const snapshotsPromises = blockSnapshotsToTest
       .map((testName) => {
         const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
-
-        console.log('testAlreadyExists', testAlreadyExists);
 
         if (testAlreadyExists) {
           return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testAlreadyExists.name}`, {
