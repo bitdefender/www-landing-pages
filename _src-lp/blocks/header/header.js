@@ -60,7 +60,6 @@ export default async function decorate(block) {
       });
     } else if (html.indexOf('blue-logo') !== -1) {
       headerWrapper.id = 'headerBlue';
-      console.log('html ', html);
 
       block.innerHTML = `<a title="Bitdefender" href="${homeUrl}">${block.querySelector('img')}</a>`;
       block.innerHTML = html;
