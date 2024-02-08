@@ -9,6 +9,20 @@ const pathToBlocks = 'sidekick/blocks';
 const localBlocksPath = '_src-lp/blocks';
 const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
 
+// todo add sidekick config for those
+const EXCLUDED_SNAPSHOT_BLOCKS = [
+  'aem-banner',
+  'aem-two-cards',
+  'b-industry-recognition',
+  'cards',
+  'columns-two',
+  'fragment',
+  'header',
+  'lp-custom',
+  'support',
+  'tos',
+];
+
 (async () => {
   function logError(message) {
     console.log('\x1b[31m%s\x1b[0m', message);
@@ -56,7 +70,7 @@ const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
 
-    const snapshotsPromises = blockSnapshotsToTest
+    const snapshotsPromises = blockSnapshotsToTest.filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName))
       .map((testName) => {
         const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
 
