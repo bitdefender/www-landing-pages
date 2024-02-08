@@ -62,7 +62,7 @@ const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
 
         if (testAlreadyExists) {
           return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testAlreadyExists.name}`, {
-            timeout: FETCH_TIMEOUT
+            signal: AbortSignal.timeout(FETCH_TIMEOUT)
           }).then((res) => res.json());
         }
 
