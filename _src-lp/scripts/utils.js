@@ -261,7 +261,7 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
 
 export function formatPrice(price, currency, region) {
   const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
-  return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price).replace(' ', '');
+  return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
 }
 
 // get max discount
