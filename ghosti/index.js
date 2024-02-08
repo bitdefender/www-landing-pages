@@ -66,6 +66,8 @@ const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
           }).then((res) => res.json());
         }
 
+        console.log('New test was imported', testName);
+
         return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
           name: testName,
           startUrl: `${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testName}`,
