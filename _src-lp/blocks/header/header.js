@@ -60,7 +60,10 @@ export default async function decorate(block) {
       });
     } else if (html.indexOf('blue-logo') !== -1) {
       headerWrapper.id = 'headerBlue';
-      block.innerHTML = `<a title="Bitdefender" href="${homeUrl}">${html}</a>`;
+      console.log('html ', html);
+
+      block.innerHTML = `<a title="Bitdefender" href="${homeUrl}">${block.querySelector('img')}</a>`;
+      block.innerHTML = html;
       block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('custom_nav') !== -1 || html.indexOf('custom_nav_white') !== -1) {
       headerWrapper.classList.add('customNav');
