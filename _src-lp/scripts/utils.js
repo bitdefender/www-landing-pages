@@ -9,6 +9,7 @@ export const IANA_BY_REGION_MAP = new Map([
   [10, { locale: 'en-CA', label: 'canada' }],
   [12, { locale: 'pt-PT', label: 'portugal' }],
   [13, { locale: 'br-BR', label: 'brazil' }],
+  [14, { locale: 'fr-FR', label: 'france' }],
   [15, { locale: 'en-GB', label: 'united kingdom' }],
   [16, { locale: 'en-US', label: 'rest of the world EU countries' }],
   [17, { locale: 'de-CH', label: 'germany-switzerland' }],
