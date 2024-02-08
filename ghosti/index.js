@@ -57,7 +57,7 @@ const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
 
-    const snapshotsPromises = blockSnapshotsToTest.filter((item, idx) => idx < 2)
+    const snapshotsPromises = blockSnapshotsToTest
       .map((testName) => {
         const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
 
