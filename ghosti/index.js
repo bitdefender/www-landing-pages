@@ -35,6 +35,14 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
     return screenshotComparePassing === true;
   }
 
+  function createBatches(arr, batchSize) {
+    let batches = [];
+    for (let i = 0; i < arr.length; i += batchSize) {
+      batches.push(arr.slice(i, i + batchSize));
+    }
+    return batches;
+  }
+
   function showSnapshotTestsFullLogs(testResults) {
     const mappedTests = testResults.map((test) => test.data).flat();
     const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
@@ -65,23 +73,24 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   }
 
   try {
-    const blockSnapshotsToTest = fs.readdirSync(localBlocksPath);
+    const blockSnapshotsToTest = fs.readdirSync(localBlocksPath).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
 
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
 
-    const snapshotsPromises = blockSnapshotsToTest.filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName))
-      .map((testName) => {
-        const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
+    const batches = createBatches(blockSnapshotsToTest, 3);
 
+    let allTestResults = [];
+
+    for (const batch of batches) {
+      const snapshotsPromises = batch.map((testName) => {
+        const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
         if (testAlreadyExists) {
           return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testAlreadyExists.name}`, {
             signal: AbortSignal.timeout(FETCH_TIMEOUT)
           }).then((res) => res.json());
         }
-
         console.log('New test was imported', testName);
-
         return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
           name: testName,
           startUrl: `${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testName}`,
@@ -89,13 +98,13 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
           .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
       });
 
-    const [
-      snapshotsResult,
-    ] = await Promise.all([
-      Promise.all(snapshotsPromises),
-    ]);
+      // Await the completion of all promises in the current batch before proceeding to the next
+      const batchResults = await Promise.all(snapshotsPromises);
+      allTestResults.push(...batchResults);
+    }
 
-    showSnapshotTestsFullLogs(snapshotsResult);
+    // Once all batches are processed, show the full logs of the snapshot tests
+    showSnapshotTestsFullLogs(allTestResults);
   } catch (err) {
     console.error(err);
     process.exit(1);
