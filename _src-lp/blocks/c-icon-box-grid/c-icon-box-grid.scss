@@ -68,7 +68,9 @@
       box-shadow: 0 4px 7px #ccc;
       border-radius: 10px;
       padding: 10px;
-      margin: 1%;
+      margin: 10px;
+      display: flex;
+      align-items: center;
 
       .icon-box-grid-column {
         flex-direction: row !important;
@@ -76,11 +78,15 @@
       }
 
       .title {
-        font-size: 42px;
+        font-size: 40px;
+        line-height: 34px;
+        width: 100px;
+        margin-right: 10px;
       }
 
       .subtitle {
         font-size: 18px;
+        line-height: 20px;
         margin-left: 5px;
         margin-bottom: 0;
       }
