@@ -28,7 +28,7 @@ class SnapshotBlockTest {
       "maxWaitDelay": null,
       "notifications": null,
       "publicStatusEnabled": false,
-      "region": "eu-central-1",
+      "region": "",
       "screenshotCompareEnabled": null,
       "screenshotCompareThreshold": 0.1,
       "steps": [],
