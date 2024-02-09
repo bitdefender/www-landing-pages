@@ -60,7 +60,17 @@ export default async function decorate(block) {
       });
     } else if (html.indexOf('blue-logo') !== -1) {
       headerWrapper.id = 'headerBlue';
-      block.innerHTML = `<a title="Bitdefender" href="${homeUrl}">${html}</a>`;
+
+      block.innerHTML = html;
+      const logoEl = block.querySelector('p');
+      const imgEl = block.querySelector('p:first-child img');
+
+      const anchorEl = `<a title="Bitdefender" href="${homeUrl}">${imgEl.cloneNode(true).outerHTML}</a>`;
+      // clear first paragraf
+      logoEl.innerHTML = '';
+      // add the new content logo with anchor
+      logoEl.innerHTML = anchorEl;
+
       block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('custom_nav') !== -1 || html.indexOf('custom_nav_white') !== -1) {
       headerWrapper.classList.add('customNav');
