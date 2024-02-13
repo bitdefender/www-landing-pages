@@ -91,7 +91,7 @@ export default function decorate(block) {
     incrementalCounterValue = parseInt(incrementalCounter, 10);
   }
 
-  const skipUnwantedSelectorsArray = skipUnwantedSelectors.split(',') || [];
+  const skipUnwantedSelectorsArray = skipUnwantedSelectors?.split(',') || [];
   // transform to numbered array
   skipUnwantedSelectorsArray.forEach((item, idx) => {
     skipUnwantedSelectorsArray[idx] = parseInt(item, 10);
