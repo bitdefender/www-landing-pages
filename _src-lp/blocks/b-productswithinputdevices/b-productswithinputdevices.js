@@ -32,6 +32,28 @@ function updateTableElement(tableElement, currentdevices, multiplier) {
   }
 }
 
+/**
+ * this function is used to update the current devices value based on the skipUnwantedSelectorsArray
+ * @param {number[]} skipUnwantedSelectorsArray
+ * @param {number} currentdevices
+ * @param {number} incrementalCounterValue
+ * @param {HTMLElement} devicesInput
+ * @param {string} action
+ */
+function updateCurrentDevices(skipUnwantedSelectorsArray, currentdevices, incrementalCounterValue, devicesInput, action) {
+  let updatedDevices = currentdevices;
+  while (skipUnwantedSelectorsArray.includes(updatedDevices) && skipUnwantedSelectorsArray.length > 0) {
+    if (action === '+') {
+      updatedDevices += incrementalCounterValue;
+      devicesInput.value = (updatedDevices).toString();
+    } else if (action === '-') {
+      updatedDevices -= incrementalCounterValue;
+      devicesInput.value = (updatedDevices).toString();
+    }
+  }
+  return updatedDevices;
+}
+
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
@@ -43,6 +65,7 @@ export default function decorate(block) {
   const metaData = parentSelector.dataset;
   const {
     products, yearsText, bulinaText, devicesLimits, incrementalCounter, titleTag,
+    skipUnwantedSelectors,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -67,6 +90,12 @@ export default function decorate(block) {
   if (incrementalCounter) {
     incrementalCounterValue = parseInt(incrementalCounter, 10);
   }
+
+  const skipUnwantedSelectorsArray = skipUnwantedSelectors?.split(',') || [];
+  // transform to numbered array
+  skipUnwantedSelectorsArray.forEach((item, idx) => {
+    skipUnwantedSelectorsArray[idx] = parseInt(item, 10);
+  });
 
   const blockH3 = block.querySelector('h3');
   if (blockH3 && titleTag) {
@@ -120,10 +149,14 @@ export default function decorate(block) {
         if (action === '-' && currentdevices > devicesMin) {
           currentdevices -= incrementalCounterValue;
           devicesInput.value = (currentdevices).toString();
+
+          currentdevices = updateCurrentDevices(skipUnwantedSelectorsArray, currentdevices, incrementalCounterValue, devicesInput, action);
         }
         if (action === '+' && currentdevices < devicesMax) {
           currentdevices += incrementalCounterValue;
           devicesInput.value = (currentdevices).toString();
+
+          currentdevices = updateCurrentDevices(skipUnwantedSelectorsArray, currentdevices, incrementalCounterValue, devicesInput, action);
         }
 
         // trigger selectior
