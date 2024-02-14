@@ -7,7 +7,9 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
+    product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor,
+    underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, 
+    marginBottom, imageCover, corners, textNextToPill
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -71,8 +73,33 @@ export default function decorate(block) {
       greenPillBox.className = `green_pill_box await-loader prodload prodload-${onSelectorClass}`;
       greenPillBox.innerHTML += `<span>${text.innerHTML}</span>`;
 
-      table.innerHTML = '';
-      table.appendChild(greenPillBox);
+      // replace the table with greenPillBox in the exact same position
+      const parentElement = table.parentElement;
+      parentElement.replaceChild(greenPillBox, table);
+    }
+
+    // RED_PILL_BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'red_pill') {
+      // eslint-disable-next-line no-unused-vars
+      const [alias, text] = [...contentEl.querySelectorAll('table tr')];
+      const redPillBox = document.createElement('div');
+
+      if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
+        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+      }
+
+      redPillBox.id = 'redPillBox';
+      redPillBox.className = `red_pill_box await-loader prodload prodload-${onSelectorClass}`;
+      redPillBox.innerHTML += `<span>${text.innerHTML}</span>`;
+
+      // replace the table with redPillBox in the exact same position
+      const parentElement = table.parentElement;
+      parentElement.replaceChild(redPillBox, table);
+
+      if (textNextToPill) {
+        redPillBox.nextElementSibling.style.display = 'inline-block';
+        redPillBox.nextElementSibling.style.margin = '0';
+      }
     }
 
     // BUYBTN_AND_GREEN_CIRCLE_BOX
@@ -149,6 +176,10 @@ export default function decorate(block) {
 
         table.innerHTML = '';
         table.appendChild(lidlBox);
+      }
+
+      if (aliasTr && aliasTr.innerText.trim() === 'right_content_input') {
+        let awesomeBox = document.querySelector('#b-productswithinputdevices');
       }
     });
   }

@@ -149,6 +149,17 @@
   padding: 2px 11px;
 }
 
+.section.banner-container #redPillBox {
+  background-color: #E72325;
+  display: inline-block;
+  color: #fff;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
+  font-size: 18px;
+  padding: 2px 11px;
+}
+
 .section.banner-container #buyBtnGreenCircleBox {
   align-items: center;
 }
