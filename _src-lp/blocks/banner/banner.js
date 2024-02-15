@@ -179,7 +179,10 @@ export default function decorate(block) {
       }
 
       if (aliasTr && aliasTr.innerText.trim() === 'right_content_input') {
-        let awesomeBox = document.querySelector('#b-productswithinputdevices');
+        let awesomeBox = document.querySelector('.b-productswithinputdevices').parentElement.parentElement;
+        awesomeBox.style.display = 'block';
+        contentRightEl.innerHTML = '';
+        contentRightEl.appendChild(awesomeBox);
       }
     });
   }
