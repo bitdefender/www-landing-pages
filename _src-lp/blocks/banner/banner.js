@@ -156,6 +156,14 @@ export default function decorate(block) {
   /// //////////////////////////////////////////////////////////////////////
   // create form section
   if (formConfig) {
+    if (logo) {
+      const logoBox = document.createElement('img');
+      logoBox.src = logo;
+      logoBox.alt = 'Bitdefender';
+      logoBox.className = 'form-logo';
+      contentEl.children[0].prepend(logoBox);
+    }
+
     // adding reCaptcha script
     const recaptchaScript = document.createElement('script');
     recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
@@ -297,7 +305,8 @@ export default function decorate(block) {
   // form submit
   if (formConfig) {
     const [hash, beginDate, endDate, prod, noDays, noUsers, keys, allowedEmail, allowedCountries] = formConfig.split(',');
-    block.querySelector('form').addEventListener('submit', async (event) => {
+    const formBox = block.querySelector('form');
+    formBox.addEventListener('submit', async (event) => {
       event.preventDefault();
       const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
 
