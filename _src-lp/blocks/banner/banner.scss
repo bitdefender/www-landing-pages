@@ -154,6 +154,10 @@
   align-items: center;
 }
 
+.banner-container.form .banner p a {
+  text-decoration: underline;
+}
+
 .section.banner-container #buyBtnGreenCircleBox a {
   margin-right: 10px;
 }
@@ -235,10 +239,6 @@
 .banner-container.form .banner p {
   font-size: 11px;
   margin: 0;
-}
-
-.banner-container.form .banner p a {
-  text-decoration: underline;
 }
 
 .banner-container .banner-wrapper #captchaBox {
