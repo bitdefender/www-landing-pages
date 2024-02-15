@@ -177,67 +177,67 @@
   height: auto;
 }
 
-.banner-container.form h1 {
+.banner-container.form .banner h1 {
   font-size: 23px;
   font-weight: bold;
 }
 
-.banner-container.form h2 {
+.banner-container.form .banner h2 {
   font-size: 20px;
   font-weight: normal;
 }
 
-.banner-container.form h3 {
+.banner-container.form .banner h3 {
   font-size: 18px;
   font-weight: bold;
 }
 
-.banner-container.form h4 {
+.banner-container.form .banner h4 {
   font-size: 18px;
   font-weight: bold;
 }
 
-.banner-container.form .form-logo {
+.banner-container.form .banner .form-logo {
   width: 100px;
 }
 
-.banner-container.form #formBox {
+.banner-container.form .banner #formBox {
   width: 215px;
   margin-bottom: 1em;
 }
 
-.banner-container.form #formBox label {
+.banner-container.form .banner #formBox label {
   display: none;
   font-size: 11px;
 }
 
-.banner-container.form #formBox input {
+.banner-container.form .banner #formBox input {
   font-size: 14px;
   border-radius: 8px;
   padding: 13px 15px;
   line-height: 14px;
 }
 
-.banner-container.form #formBox button {
+.banner-container.form .banner #formBox button {
   width: 100%;
   border-radius: 8px;
 }
 
-.banner-container.form #formBox p.form_err {
+.banner-container.form .banner #formBox p.form_err {
   font-size: 12px;
   color: red;
 }
 
-.banner-container.form table {
+.banner-container.form .banner table {
   display: none;
 }
 
-.banner-container.form p {
+.banner-container.form .banner p {
   font-size: 11px;
   margin: 0;
 }
 
-.banner-container.form p a {
+.banner-container.form .banner p a {
   text-decoration: underline;
 }
 
