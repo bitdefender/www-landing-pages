@@ -341,4 +341,12 @@
     width: auto;
     margin-bottom: 2em;
   }
+  .b-productswithinputdevices-container.second-template .b-productswithinputdevices {
+    max-width: 330px;
+    margin: 0;
+    padding: 0;
+  }
+  .b-productswithinputdevices-container.second-template .b-productswithinputdevices > div:nth-child(2) > div {
+    margin: 0;
+  }
 }
