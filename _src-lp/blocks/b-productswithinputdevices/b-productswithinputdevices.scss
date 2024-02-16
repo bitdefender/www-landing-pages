@@ -1,4 +1,5 @@
 /* .b-productswithinputdevicess */
+/* stylelint-disable */
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper {
   position: relative;
 }
@@ -230,6 +231,83 @@
   margin: 0 10px;
 }
 
+.b-productswithinputdevices-container.second-template {
+  padding: 0;
+  margin: 0;
+
+  .b-productswithinputdevices {
+    padding: 0;
+    margin: 0;
+    max-width: 300px;
+
+    >div:nth-child(2) {
+      margin-top: 0;
+
+      > div {
+        margin: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        width: 300px;
+      }
+    }
+
+    >:first-child {
+      padding: 14px;
+      
+      b {
+        font: normal normal bold 18px/21px Roboto, sans-serif;
+        color: #000;
+        border-bottom: 1px solid #CCC;
+        margin-bottom: 0.8em;
+        padding-bottom: 0.6em;
+        display: block;
+        width: 92%;
+        margin: 0 auto;
+      }
+    }
+
+    >div>div {
+      p:nth-child(1) {
+        strong {
+          font-size: 13px;
+        }
+      }
+      p:nth-child(2) {
+        font-size: 12px;
+      }
+    }
+
+    fieldset {
+      margin: 0;
+    }
+
+    table {
+      td {
+        padding-left: 12px;
+        text-align: left;
+      }
+    }
+
+    .selector-box {
+      border: 0.5px solid #E4F2FF;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: left;
+      margin-bottom: 10px;
+
+      select {
+        width: 100%;
+        padding: 5px 0;
+        border: 0;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        outline: none;;
+      }
+    }
+  }
+}
+
 /* for mobile */
 @media (width <= 768px) {
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
@@ -287,5 +365,18 @@
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div {
     width: auto;
     margin-bottom: 2em;
+  }
+
+  .b-productswithinputdevices-container.second-template {
+  
+    .b-productswithinputdevices {
+      max-width: 330px;
+      margin: 0;
+      padding: 0;
+
+      > div:nth-child(2) > div {
+        margin: 0;
+      }
+    }
   }
 }

@@ -65,7 +65,7 @@ export default function decorate(block) {
   const metaData = parentSelector.dataset;
   const {
     products, yearsText, bulinaText, devicesLimits, incrementalCounter, titleTag,
-    skipUnwantedSelectors,
+    skipUnwantedSelectors, secondTemplate,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -186,8 +186,34 @@ export default function decorate(block) {
       if (bulinaText) {
         pricesDiv.innerHTML += `<div class="prod-percent green_bck_circle small has${bulinaText.split(',').length}txt"><b class="percent percent-${onSelectorClass}">10%</b><p>${bulinaText.split(',')[1]}</p></div>`;
       }
-      pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
-      pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
+
+      if (secondTemplate) {
+        const selectorBox = document.createElement('div');
+        selectorBox.classList.add('selector-box');
+
+        const selectElement = document.createElement('select');
+        selectElement.innerHTML = `
+          <option value="1">${subscribeTexts} <i style="font-weight: bold; font-style: normal">1 ${yearText}</i></option>
+          <option value="2">${subscribeTexts} <i style="font-weight: bold; font-style: normal">2 ${yearsText}</i></option>
+          <option value="3">${subscribeTexts} <i style="font-weight: bold; font-style: normal">3 ${yearsText}</i></option>
+        `;
+        selectElement.id = 'selectYears';
+        selectorBox.appendChild(selectElement);
+        pricesDiv.appendChild(selectorBox);
+
+        // Add an event listener for the 'change' event
+        selectElement.addEventListener('change', (event) => {
+          const triggerValue = event.target.value;
+          if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
+            const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
+            fakeSelector.value = triggerValue;
+            fakeSelector.dispatchEvent(new Event('change'));
+          }
+        });
+      } else {
+        pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
+        pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
+      }
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
       pricesDiv.innerHTML += `<p class="prod-save d-flex justify-content-center align-items-center">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
@@ -196,6 +222,34 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
 
       parent2ndDiv.appendChild(pricesDiv);
+
+      /// ///////////////////////////////////////////////////////////////////////
+      if (secondTemplate) {
+        const rowDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(1) > div');
+        rowDiv.classList.add('row');
+        const paragraphs = rowDiv.querySelectorAll('p');
+        const table = rowDiv.querySelector('table');
+        const columnDiv = document.createElement('div');
+        columnDiv.classList.add('col-6');
+        columnDiv.appendChild(paragraphs[0]);
+        columnDiv.appendChild(paragraphs[1]);
+        rowDiv.insertBefore(columnDiv, rowDiv.firstChild);
+        const defaultContentWrapper = parentSelector.querySelector('.default-content-wrapper');
+        parentSelector.removeChild(defaultContentWrapper);
+
+        const breakDiv = document.createElement('b');
+        table.before(breakDiv);
+
+        const selectElement = block.querySelector('#selectYears');
+        selectElement.addEventListener('change', (event) => {
+          const triggerValue = event.target.value;
+          if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
+            const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
+            fakeSelector.value = triggerValue;
+            fakeSelector.dispatchEvent(new Event('change'));
+          }
+        });
+      }
     });
   }
 }
