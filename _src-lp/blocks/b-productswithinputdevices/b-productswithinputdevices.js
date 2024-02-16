@@ -203,7 +203,6 @@ export default function decorate(block) {
 
         // Add an event listener for the 'change' event
         selectElement.addEventListener('change', (event) => {
-          console.log('i get here');
           const triggerValue = event.target.value;
           if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
             const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
