@@ -8,8 +8,8 @@ export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
     product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor,
-    underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, 
-    marginBottom, imageCover, corners, textNextToPill
+    underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
+    marginBottom, imageCover, corners, textNextToPill,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -179,10 +179,15 @@ export default function decorate(block) {
       }
 
       if (aliasTr && aliasTr.innerText.trim() === 'right_content_input') {
-        let awesomeBox = document.querySelector('.b-productswithinputdevices').parentElement.parentElement;
+        const awesomeBox = document.querySelector('.b-productswithinputdevices').parentElement.parentElement;
         awesomeBox.style.display = 'block';
         contentRightEl.innerHTML = '';
         contentRightEl.appendChild(awesomeBox);
+
+        const h1 = block.querySelector('h1');
+        h1.style.textAlign = 'left';
+
+        parentBlock.classList.add('hide-tablet');
       }
     });
   }
@@ -237,9 +242,9 @@ export default function decorate(block) {
     if (contentSize === 'fourth') {
       block.innerHTML = `
     <div class="container-fluid">
-      <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
-        <div class="col-12 col-lg-5">${contentEl.innerHTML}</div>
-        ${contentRightEl ? `<div class="col-12 col-lg-4">${contentRightEl.innerHTML}</div>` : ''}
+      <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-lg-between justify-content-xxl-start' : ''}">
+        <div class="col-12 col-md-6 col-lg-5 col-xxl-4">${contentEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-md-6 col-lg-4 custom-col-xl-4">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
     `;

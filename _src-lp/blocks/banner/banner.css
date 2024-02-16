@@ -397,3 +397,20 @@
     padding-bottom: 0 !important;
   }
 }
+@media screen and (width <= 991px) {
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
+}
+@media screen and (width >= 1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+@media screen and (width >= 1800px) {
+  .section.banner-container .custom-justify-content-xxxl-center {
+    justify-content: center !important;
+  }
+}
