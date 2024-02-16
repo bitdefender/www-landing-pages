@@ -172,6 +172,78 @@
   margin-top: 10px;
 }
 
+.banner-container.form {
+  height: auto;
+}
+
+.banner-container.form .banner-wrapper h1 {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.banner-container.form .banner-wrapper h2 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.banner-container.form .banner-wrapper h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.banner-container.form .banner-wrapper h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.banner-container.form .banner-wrapper .form-logo {
+  width: 100px;
+}
+
+.banner-container.form .banner-wrapper #formBox {
+  width: 215px;
+  margin-bottom: 1em;
+}
+
+.banner-container.form .banner-wrapper #formBox label {
+  display: none;
+  font-size: 11px;
+}
+
+.banner-container.form .banner-wrapper #formBox input {
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 13px 15px;
+  line-height: 14px;
+}
+
+.banner-container.form .banner-wrapper #formBox button {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.banner-container.form .banner-wrapper #formBox p.form_err {
+  font-size: 12px;
+  color: red;
+}
+
+.banner-container.form .banner-wrapper table {
+  display: none;
+}
+
+.banner-container.form .banner-wrapper p {
+  font-size: 11px;
+  margin: 0;
+}
+
+.banner-container.form .banner-wrapper p a {
+  text-decoration: underline;
+}
+
+.banner-container .banner-wrapper #captchaBox {
+  margin: 1em 0;
+}
+
 @media (width >= 768px) {
   .section.lp-brand .banner h1 {
     font-weight: lighter;
