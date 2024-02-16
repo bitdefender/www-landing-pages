@@ -166,11 +166,6 @@ export default function decorate(block) {
 
     // adding reCaptcha script
     addScript('https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback');
-    /*const recaptchaScript = document.createElement('script');
-    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
-    recaptchaScript.defer = true;
-    document.body.appendChild(recaptchaScript);*/
-    /* global grecaptcha */
 
     // Create the form element
     const formBox = document.createElement('form');
