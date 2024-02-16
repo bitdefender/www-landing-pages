@@ -1,5 +1,5 @@
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, addScript } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
@@ -165,10 +165,11 @@ export default function decorate(block) {
     }
 
     // adding reCaptcha script
-    const recaptchaScript = document.createElement('script');
+    addScript('https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback');
+    /*const recaptchaScript = document.createElement('script');
     recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
     recaptchaScript.defer = true;
-    document.body.appendChild(recaptchaScript);
+    document.body.appendChild(recaptchaScript);*/
     /* global grecaptcha */
 
     // Create the form element
