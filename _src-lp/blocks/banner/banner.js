@@ -234,14 +234,25 @@ export default function decorate(block) {
       parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
     }
 
-    block.innerHTML = `
+    if (contentSize === 'fourth') {
+      block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
-        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
-        ${contentRightEl ? `<div class="col-12 col-md-${contentSize === 'half' ? '6' : '5'}">${contentRightEl.innerHTML}</div>` : ''}
+        <div class="col-12 col-lg-5">${contentEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-lg-4">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
     `;
+    } else {
+      block.innerHTML = `
+    <div class="container-fluid">
+      <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
+        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentRightEl.innerHTML}</div>` : ''}
+      </div>
+      </div>
+    `;
+    }
   } else {
     block.innerHTML = `
     <div class="container-fluid">
