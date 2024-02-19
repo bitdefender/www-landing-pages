@@ -13,6 +13,8 @@
   position: relative;
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
+  background-color: white;
+  margin: 0 1%;
 }
 .b-productswithselectors > div .redTag {
   width: 80px;
@@ -37,7 +39,6 @@
 
 /* 1st box */
 .b-productswithselectors > div:nth-child(1) {
-  padding-left: 0;
   font-size: 14px;
 }
 
@@ -204,7 +205,7 @@
     margin-bottom: 4em !important;
   }
   .b-productswithselectors > div:not(:nth-child(1)) {
-    width: 49%;
+    width: 48%;
     float: left;
   }
   .b-productswithselectors > div:not(:first-child) h4 {
