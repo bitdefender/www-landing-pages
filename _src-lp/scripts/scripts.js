@@ -159,7 +159,7 @@ async function loadEager(doc) {
   || Object.keys(getAllMetadata('campaign')).length
   || Object.keys(getAllMetadata('audience')).length) {
   // eslint-disable-next-line import/no-relative-packages
-    const { loadEager: runEager } = await import('../../plugins/experimentation/src/index.js');
+    const { loadEager: runEager } = await import('../plugins/experimentation/src/index.js');
     await runEager(document, { audiences: AUDIENCES }, pluginContext);
   }
 
@@ -249,7 +249,7 @@ export async function loadLazy(doc) {
   || Object.keys(getAllMetadata('campaign')).length
   || Object.keys(getAllMetadata('audience')).length)) {
   // eslint-disable-next-line import/no-relative-packages
-    const { loadLazy: runLazy } = await import('../../plugins/experimentation/src/index.js');
+    const { loadLazy: runLazy } = await import('../plugins/experimentation/src/index.js');
     await runLazy(document, { audiences: AUDIENCES }, pluginContext);
   }
 
