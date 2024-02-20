@@ -262,6 +262,9 @@
   .b-productswithselectors.has3prods .prod-taxes {
     font-size: 10px;
   }
+  .hide-selectors .b-productswithselectors > div:nth-child(1) {
+    display: none;
+  }
   .b-dropdownbox-container .block > div:not(:first-child) {
     display: block !important;
   }
@@ -271,8 +274,5 @@
   .b-productswithselectors > div:not(:first-child) ul:first-of-type {
     min-height: 17em;
     margin: 6px 0;
-  }
-  .hide-selectors .b-productswithselectors > div:nth-child(1) {
-    display: none;
   }
 }
