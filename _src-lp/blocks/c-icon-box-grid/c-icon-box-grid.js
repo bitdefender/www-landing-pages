@@ -12,7 +12,7 @@
 */
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
 import { getDatasetFromSection } from '../../scripts/utils.js';
-import { decorateIcons } from '../../scripts/lib-franklin.js';
+import { decorateIcons } from '../../scripts/aem.js';
 
 function hasOldSvgImplementation(svgNameEl) {
   return svgNameEl.childElementCount === 0;
