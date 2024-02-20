@@ -12,7 +12,6 @@
   padding: 2%;
   position: relative;
   padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
   background-color: white;
   margin: 0 1%;
 }
@@ -40,6 +39,11 @@
 /* 1st box */
 .b-productswithselectors > div:nth-child(1) {
   font-size: 14px;
+}
+
+.hide-selectors .b-productswithselectors > div:nth-child(1) {
+  visibility: hidden;
+  display: block;
 }
 
 .b-productswithselectors > div:nth-child(1) h3 {
@@ -267,5 +271,8 @@
   .b-productswithselectors > div:not(:first-child) ul:first-of-type {
     min-height: 17em;
     margin: 6px 0;
+  }
+  .hide-selectors .b-productswithselectors > div:nth-child(1) {
+    display: none;
   }
 }

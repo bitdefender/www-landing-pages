@@ -43,6 +43,11 @@
   font-size: 14px;
 }
 
+.hide-selectors .b-productswithselectors > div:nth-child(1) {
+  visibility: hidden;
+  display: block;
+}
+
 .b-productswithselectors > div:nth-child(1) h3 {
   font-size: 28px;
   font-weight: 600;
@@ -298,5 +303,9 @@
   .b-productswithselectors > div:not(:first-child) ul:first-of-type {
     min-height: 17em;
     margin: 6px 0;
+  }
+
+  .hide-selectors .b-productswithselectors > div:nth-child(1) {
+    display: none;
   }
 }
