@@ -1,6 +1,7 @@
 helix-importer-ui
 **/*.css
 _src-lp/scripts/vendor/**/*.js
+_src-lp/plugins/experimentation
 sass-compile.js
 **/*.spec.js
 ghosti
