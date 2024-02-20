@@ -41,6 +41,10 @@
   font-size: 14px;
 }
 
+.b-productswithselectors > div:not(:first-child) {
+  font-size: 16px;
+}
+
 .hide-selectors .b-productswithselectors > div:nth-child(1) {
   visibility: hidden;
   display: block;
@@ -57,10 +61,6 @@
   margin-top: 0;
   border: 1px solid #2cb43d;
   border-bottom: 0;
-}
-
-.b-productswithselectors > div:not(:first-child) {
-  font-size: 16px;
 }
 
 .b-productswithselectors > div:not(:first-child) p {
