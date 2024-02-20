@@ -7,7 +7,9 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners,
+    product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor,
+    underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
+    marginBottom, imageCover, corners, textNextToPill,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -71,8 +73,33 @@ export default function decorate(block) {
       greenPillBox.className = `green_pill_box await-loader prodload prodload-${onSelectorClass}`;
       greenPillBox.innerHTML += `<span>${text.innerHTML}</span>`;
 
-      table.innerHTML = '';
-      table.appendChild(greenPillBox);
+      // replace the table with greenPillBox in the exact same position
+      const parentElement = table.parentElement;
+      parentElement.replaceChild(greenPillBox, table);
+    }
+
+    // RED_PILL_BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'red_pill') {
+      // eslint-disable-next-line no-unused-vars
+      const [alias, text] = [...contentEl.querySelectorAll('table tr')];
+      const redPillBox = document.createElement('div');
+
+      if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
+        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+      }
+
+      redPillBox.id = 'redPillBox';
+      redPillBox.className = `red_pill_box await-loader prodload prodload-${onSelectorClass}`;
+      redPillBox.innerHTML += `<span>${text.innerHTML}</span>`;
+
+      // replace the table with redPillBox in the exact same position
+      const parentElement = table.parentElement;
+      parentElement.replaceChild(redPillBox, table);
+
+      if (textNextToPill) {
+        redPillBox.nextElementSibling.style.display = 'inline-block';
+        redPillBox.nextElementSibling.style.margin = '0';
+      }
     }
 
     // BUYBTN_AND_GREEN_CIRCLE_BOX
@@ -150,6 +177,18 @@ export default function decorate(block) {
         table.innerHTML = '';
         table.appendChild(lidlBox);
       }
+
+      if (aliasTr && aliasTr.innerText.trim() === 'right_content_input') {
+        const awesomeBox = document.querySelector('.b-productswithinputdevices').parentElement.parentElement;
+        awesomeBox.style.display = 'block';
+        contentRightEl.innerHTML = '';
+        contentRightEl.appendChild(awesomeBox);
+
+        const h1 = block.querySelector('h1');
+        h1.style.textAlign = 'left';
+
+        parentBlock.classList.add('hide-tablet');
+      }
     });
   }
 
@@ -200,14 +239,25 @@ export default function decorate(block) {
       parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
     }
 
-    block.innerHTML = `
+    if (contentSize === 'fourth') {
+      block.innerHTML = `
     <div class="container-fluid">
-      <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
-        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
-        ${contentRightEl ? `<div class="col-12 col-md-${contentSize === 'half' ? '6' : '5'}">${contentRightEl.innerHTML}</div>` : ''}
+      <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-lg-between justify-content-xxl-start' : ''}">
+        <div class="col-12 col-md-6 col-lg-5 col-xxl-4">${contentEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-md-6 col-lg-4 custom-col-xl-4">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
     `;
+    } else {
+      block.innerHTML = `
+    <div class="container-fluid">
+      <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
+        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentRightEl.innerHTML}</div>` : ''}
+      </div>
+      </div>
+    `;
+    }
   } else {
     block.innerHTML = `
     <div class="container-fluid">
