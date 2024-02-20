@@ -57,15 +57,13 @@ export default function decorate(block) {
     });
 
     block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox"><label for="select${labelName[1].trim()}">${labelName[1].trim()}</label><select id="select${labelName[1].trim()}" data-trigger="years">${optionsYears}</select></div>`;
-
     /// ///////////////////////////////////////////////////////////////////////
     // add eventListener
-    if (document.querySelectorAll('.selectorBox')) {
-      document.querySelectorAll('.selectorBox').forEach((item) => {
+    if (block.querySelectorAll('.selectorBox')) {
+      block.querySelectorAll('.selectorBox').forEach((item) => {
         item.addEventListener('change', (e) => {
           const triggerType = item.children[1].getAttribute('data-trigger');
           const triggerValue = e.target.value;
-
           if (triggerType === 'users') {
             const fileServers1stProd = Math.ceil((Number(triggerValue)) * 0.3);
             const fileServers2ndProd = Math.ceil((Number(triggerValue)) * 0.3);
