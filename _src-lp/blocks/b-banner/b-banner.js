@@ -334,7 +334,6 @@ export default function decorate(block) {
     updateProductsList(productBox);
 
     block.children[2].id = 'productBoxDiv';
-    block.children[2].classNmae = 'prod_box';
 
     if (block.querySelector('table:nth-of-type(2)')) {
       block.querySelector('table:nth-of-type(2)').innerHTML = `<div class="prices_box prodload prodload-${onSelectorClass}">
@@ -344,7 +343,6 @@ export default function decorate(block) {
     }
 
     const buyTable = block.children[2].querySelector('table:last-of-type');
-    console.log(buyTable)
     if (buyTable) {
       buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
         <a class="red-buy-button buylink-${onSelectorClass} prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
