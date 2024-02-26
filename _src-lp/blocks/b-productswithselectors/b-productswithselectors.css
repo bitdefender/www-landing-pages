@@ -12,7 +12,8 @@
   padding: 2%;
   position: relative;
   padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
+  background-color: white;
+  margin: 0 1%;
 }
 .b-productswithselectors > div .redTag {
   width: 80px;
@@ -37,8 +38,16 @@
 
 /* 1st box */
 .b-productswithselectors > div:nth-child(1) {
-  padding-left: 0;
   font-size: 14px;
+}
+
+.b-productswithselectors > div:not(:first-child) {
+  font-size: 16px;
+}
+
+.hide-selectors .b-productswithselectors > div:nth-child(1) {
+  visibility: hidden;
+  display: block;
 }
 
 .b-productswithselectors > div:nth-child(1) h3 {
@@ -52,10 +61,6 @@
   margin-top: 0;
   border: 1px solid #2cb43d;
   border-bottom: 0;
-}
-
-.b-productswithselectors > div:not(:first-child) {
-  font-size: 16px;
 }
 
 .b-productswithselectors > div:not(:first-child) p {
@@ -204,7 +209,7 @@
     margin-bottom: 4em !important;
   }
   .b-productswithselectors > div:not(:nth-child(1)) {
-    width: 49%;
+    width: 48%;
     float: left;
   }
   .b-productswithselectors > div:not(:first-child) h4 {
@@ -256,6 +261,9 @@
   }
   .b-productswithselectors.has3prods .prod-taxes {
     font-size: 10px;
+  }
+  .hide-selectors .b-productswithselectors > div:nth-child(1) {
+    display: none;
   }
   .b-dropdownbox-container .block > div:not(:first-child) {
     display: block !important;

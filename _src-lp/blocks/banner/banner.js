@@ -281,7 +281,7 @@ export default function decorate(block) {
     block.querySelector('.row').classList.add(`align-items-${textAlignVertical}`);
   }
 
-  if (imageAlign && block.querySelector('.img-right')) {
+  if (imageAlign && block.querySelector('.img-right') && block.querySelector('.img-right').style.textAlign) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
   }
 
