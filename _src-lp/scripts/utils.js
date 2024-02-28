@@ -290,7 +290,8 @@ function maxDiscount() {
 export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
-  const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj;
+  const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
+  const { product_id: productId } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
