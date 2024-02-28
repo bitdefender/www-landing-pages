@@ -123,41 +123,52 @@
   border-top: 1px solid #D1D1D1;
   border-bottom: 1px solid #D1D1D1;
   padding: 1em 0;
+  min-height: 115px;
+}
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul li, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box li {
+  list-style-type: none;
+  font-size: 14px;
+  margin: 5px 0;
+}
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
   display: flex;
-  flex-direction: column;
   justify-content: center;
 }
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed li {
-  list-style-type: none;
-  margin: 5px 0;
-  font-size: 16px;
-}
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div {
-  background-color: #EAF5EC;
-  border-radius: 4px;
   display: flex;
   align-items: center;
-  font-size: 14px;
-  padding: 1em 10px;
+  justify-content: center;
+  align-self: center;
+  background-color: #EAF5EC;
+  border-radius: 4px;
+  padding: 1em 5px;
 }
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div input {
   width: 14px;
   margin: 0;
   margin-right: 10px;
 }
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div label {
+  cursor: pointer;
+}
 .new-prod-boxes-container .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
   width: 100%;
   text-transform: none;
   font-size: 14px;
   line-height: 14px;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   padding: 10px 1% !important;
 }
-.new-prod-boxes-container .block .prod_box .inner_prod_box .undeBuyLink {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
   font-size: 12px;
   font-family: Arial, sans-serif;
   line-height: 13px;
   margin: 7px 0;
+  color: #7E7E7E;
+  text-align: center;
+}
+.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink a {
+  color: #0066FF;
 }
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists {
   font-family: Arial, sans-serif;
@@ -267,8 +278,5 @@
   }
   .new-prod-boxes-container .block .prod_box .inner_prod_box {
     width: 92%;
-  }
-  .new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
-    min-height: 125px;
   }
 }

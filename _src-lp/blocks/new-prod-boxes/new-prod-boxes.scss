@@ -135,6 +135,44 @@
                     font-family: Arial, sans-serif;
                     line-height: 13px;
                     margin: 7px 0;
+
+                    ul, .vpn_box {
+                        border-top: 1px solid #D1D1D1;
+                        border-bottom: 1px solid #D1D1D1;
+                        padding: 1em 0;
+                        min-height: 115px;
+
+                        li {
+                            list-style-type: none;
+                            font-size: 14px;
+                            margin: 5px 0;
+                        }
+                    }
+
+                    .vpn_box {
+                        display: flex;
+                        justify-content: center;
+
+                        > div {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            align-self: center;
+                            background-color: #EAF5EC;
+                            border-radius: 4px;
+                            padding: 1em 5px;
+
+                            input {
+                                width: 14px;
+                                margin: 0;
+                                margin-right: 10px;
+                            }
+
+                            label {
+                                cursor: pointer;
+                            }
+                        }
+                    }
                 }
 
                 .buy-btn {
@@ -143,16 +181,22 @@
                         text-transform: none;
                         font-size: 14px;
                         line-height: 14px;
-                        font-weight: 500!important;
+                        font-weight: 600!important;
                         padding: 10px 1%!important;
                     }
                 }
 
-                .undeBuyLink {
+                .underBuyLink {
                     font-size: 12px;
                     font-family: Arial, sans-serif;
                     line-height: 13px;
                     margin: 7px 0;
+                    color: #7E7E7E;
+                    text-align: center;
+
+                    a {
+                        color: #0066FF;
+                    }
                 }
 
                 .benefitsLists {

@@ -21,12 +21,12 @@ export default function decorate(block) {
       [...block.children][key].innerHTML = '';
 
       // if we have vpn
-      if (billed.innerText.includes('VPN Premium for')) {
+      if (billed.innerText.includes('[vpn_box]')) {
         // add VPN
         updateProductsList('vpn/10/1');
 
         const billedUL = billed.querySelector('ul');
-        const [text1, text2] = billedUL.querySelectorAll('li');
+        const [alias, text1, text2] = billedUL.querySelectorAll('li');
 
         const modifiedText1 = text1.innerHTML.replace('0', '<span class="newprice-vpn-101"></span>');
         const modifiedText2 = text2.innerHTML.replace('0', '<span class="oldprice-vpn-101"></span>').replace('0%', '<span class="percent-vpn-101"></span>');
