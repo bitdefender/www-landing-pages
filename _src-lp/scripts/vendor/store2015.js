@@ -887,6 +887,7 @@ window.StoreProducts.__onChangeUsers = function (ev) {
   const c_config = ev.data;
   const selectElementUsers = document.querySelector(`.${c_config.users_class}`);
   const selected_users = selectElementUsers.options[selectElementUsers.selectedIndex].value;
+  console.log(selected_users)
 
   let years = [];
 
