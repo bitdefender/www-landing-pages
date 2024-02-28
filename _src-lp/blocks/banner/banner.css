@@ -53,17 +53,25 @@
   display: flex;
 }
 
-.section.banner-container .banner .blue-box tr:first-of-type {
-  display: none;
-}
-
 .section.banner-container .banner .blue-box tr {
   display: flex;
   align-items: center;
 }
 
+.section.banner-container .banner .blue-box tr:first-of-type {
+  display: none;
+}
+
 .section.banner-container .banner .blue-box tr td:first-of-type {
   margin-right: 10px;
+}
+
+.section.lp-brand .banner p {
+  width: 235px;
+  font-size: 12px;
+  line-height: 14px;
+  font-family: Arial, sans-serif;
+  margin: 0 auto 15px;
 }
 
 .section.banner-container .banner .blue-box tr td p {
@@ -80,6 +88,11 @@
 .section.banner-container .banner .blue-box tr td p picture {
   width: 80px;
   margin: 5px 0;
+}
+
+.section.lp-brand .banner img {
+  width: 97%;
+  border-radius: 10px;
 }
 
 .section.banner-container .banner .blue-box tr td p picture img {
@@ -109,11 +122,6 @@
   padding: 10px 20px !important;
 }
 
-.section.lp-brand .banner img {
-  width: 97%;
-  border-radius: 10px;
-}
-
 .section.banner-container .banner #lidlBox a.red-buy-button img {
   width: 40px;
   margin-right: 15px;
@@ -133,14 +141,6 @@
   font-weight: lighter;
   font-size: var(--heading-font-size-s);
   line-height: var(--heading-font-size-s);
-}
-
-.section.lp-brand .banner p {
-  width: 235px;
-  font-size: 12px;
-  line-height: 14px;
-  font-family: Arial, sans-serif;
-  margin: 0 auto 15px;
 }
 
 /* animated text */
