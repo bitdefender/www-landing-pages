@@ -23,7 +23,7 @@ export default function decorate(block) {
     let prodUsers;
     let prodYears;
     let onSelectorClass;
-    const aliasTr = table.querySelector('tr'); // 1st tr shoudl have an identifier alias
+    const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
 
     if (product && product.length) {
       updateProductsList(product);
