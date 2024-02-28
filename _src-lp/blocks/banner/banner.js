@@ -23,12 +23,17 @@ export default function decorate(block) {
     let prodUsers;
     let prodYears;
     let onSelectorClass;
-    const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
+    const aliasTr = table.querySelector('tr'); // 1st tr shoudl have an identifier alias
 
     if (product && product.length) {
       updateProductsList(product);
       [prodName, prodUsers, prodYears] = product.split('/');
       onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    }
+
+    // BLUE-BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'blue-box') {
+      table.classList.add('blue-box');
     }
 
     // PRICE_BOX

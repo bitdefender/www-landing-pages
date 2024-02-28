@@ -11,7 +11,7 @@
 
 .section.banner-container .banner h1 {
   font-size: 28px;
-  text-align: center;
+  text-align: left;
   margin-top: 0;
 }
 
@@ -43,6 +43,47 @@
   margin-left: 0;
   margin-right: 10px;
   font-size: 35px;
+}
+
+.section.banner-container .banner .blue-box {
+  width: 290px;
+  background-color: #E4F2FF;
+  border-radius: 10px;
+  padding: 0 10px;
+  display: flex;
+}
+
+.section.banner-container .banner .blue-box tr:first-of-type {
+  display: none;
+}
+
+.section.banner-container .banner .blue-box tr {
+  display: flex;
+  align-items: center;
+}
+
+.section.banner-container .banner .blue-box tr td:first-of-type {
+  margin-right: 10px;
+}
+
+.section.banner-container .banner .blue-box tr td p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  line-height: 17px;
+}
+
+.section.banner-container .banner .blue-box tr td p strong {
+  margin-left: 5px;
+}
+
+.section.banner-container .banner .blue-box tr td p picture {
+  width: 80px;
+  margin: 5px 0;
+}
+
+.section.banner-container .banner .blue-box tr td p picture img {
+  min-width: unset;
 }
 
 .section.banner-container .banner #lidlBox {
