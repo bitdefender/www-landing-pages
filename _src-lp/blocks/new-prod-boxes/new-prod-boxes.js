@@ -12,11 +12,45 @@ export default function decorate(block) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     [...block.children].forEach((prod, key) => {
-      const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, undeBuyLink, benefitsLists] = [...prod.querySelectorAll('tr')];
+      const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
+
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const buyLinkText = buyLink.innerText.trim();
 
       [...block.children][key].innerHTML = '';
+
+      // if we have vpn
+      if (billed.innerText.includes('VPN Premium for')) {
+        // add VPN
+        updateProductsList('vpn/10/1');
+
+        const billedUL = billed.querySelector('ul');
+        const [text1, text2] = billedUL.querySelectorAll('li');
+
+        const modifiedText1 = text1.innerHTML.replace('0', '<span class="newprice-vpn-101"></span>');
+        const modifiedText2 = text2.innerHTML.replace('0', '<span class="oldprice-vpn-101"></span>').replace('0%', '<span class="percent-vpn-101"></span>');
+
+        let labelId = `checkboxVPN-${onSelectorClass}`;
+        if (document.getElementById(labelId)) {
+          labelId = `${labelId}-1`;
+        }
+
+        const vpnContent = `
+          <input id="${labelId}" class="${labelId} checkboxVPN" type="checkbox" value="">
+          <label for="${labelId}">
+            <span>${modifiedText1} ${modifiedText2}</span>
+          </label>
+        `;
+
+        const vpnBox = document.createElement('div');
+        vpnBox.classList = `vpn_box prodload prodload-${onSelectorClass}`;
+        vpnBox.innerHTML = `<div>${vpnContent}</div>`;
+
+        billedUL.before(vpnBox);
+        billedUL.remove();
+
+      }
 
       const featuresSet = benefitsLists.querySelectorAll('table');
       const featureList = Array.from(featuresSet).map((table) => {
@@ -84,11 +118,12 @@ export default function decorate(block) {
 
             ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>` : ''}
 
-            ${buyLink.innerText.trim() && `<div class="buy-btn">
-              <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender ${buyLink.innerText.trim()}">${buyLink.innerText.trim()}</a>
+            ${buyLinkText && `<div class="buy-btn">
+              <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+              </a>
             </div>`}
 
-            ${undeBuyLink.innerText.trim() ? `<div class="undeBuyLink">${undeBuyLink.innerText.trim()}</div>` : ''}
+            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML.trim()}</div>` : ''}
             <hr />
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
