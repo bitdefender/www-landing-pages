@@ -148,7 +148,7 @@
   border-top: 1px solid #D1D1D1;
   border-bottom: 1px solid #D1D1D1;
   padding: 1em 0;
-  min-height: 115px;
+  min-height: auto;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul li, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box li {
@@ -322,5 +322,8 @@
   }
   .new-prod-boxes-container .block .prod_box .inner_prod_box {
     width: 92%;
+  }
+  .new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
+    min-height: 115px;
   }
 }
