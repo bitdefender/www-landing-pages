@@ -12,7 +12,7 @@
 
 .section.banner-container .banner h1 {
   font-size: 28px;
-  text-align: center;
+  text-align: left;
   margin-top: 0;
 }
 
@@ -452,7 +452,7 @@
   .section.banner-container.hide-tablet {
     background-image: unset!important;
     background-color: #000;
-  } 
+  }
 }
 
 @media screen and (width >= 1400px) {

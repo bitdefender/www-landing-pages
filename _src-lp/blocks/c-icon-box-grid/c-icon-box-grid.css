@@ -39,18 +39,23 @@
 }
 
 .c-icon-box-grid-container .quotes .icon-box-grid-column {
-  padding: 2em 2em 1em 70px;
+  padding: 1em 2em 1em 70px;
   width: 100%;
   border-radius: 10px;
-  margin-bottom: 2em;
+  margin-bottom: 0;
   background: url("../../images/dark-blue-quote.svg") no-repeat top 2em left 20px #FFF;
   background-size: 50px;
-  margin-top: 3em;
+  margin-top: 0;
+  height: 100%;
 }
 .c-icon-box-grid-container .quotes hr {
   width: 24px;
   border: 1px solid #00439C;
   margin-bottom: 0;
+  display: none;
+}
+.c-icon-box-grid-container .quotes .quotebox {
+  margin: 1em 0;
 }
 .c-icon-box-grid-container .new-blue {
   background: #d9eeff;
@@ -164,6 +169,18 @@
   }
   .c-icon-box-grid-container .subtitle {
     font-size: 14px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .c-icon-box-grid-container .new-blue .subtitle p:last-of-type::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background-color: #00439C;
+    display: block;
+    margin-bottom: 5px;
   }
   .c-icon-box-grid-container.color-black .title, .c-icon-box-grid-container.color-black .subtitle {
     color: black;
