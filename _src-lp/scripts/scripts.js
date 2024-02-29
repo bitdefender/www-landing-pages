@@ -762,6 +762,24 @@ function initSelectors(pid) {
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }
         },
+        onChangeUsers() {
+          sendAnalyticsProducts(this);
+          try {
+            const fp = this;
+            showPrices(fp, false, null, onSelectorClass);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(false, onSelectorClass);
+          } catch (ex) { console.log(ex); }
+        },
+        onChangeYears() {
+          sendAnalyticsProducts(this);
+          try {
+            const fp = this;
+            showPrices(fp, false, null, onSelectorClass);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(false, onSelectorClass);
+          } catch (ex) { console.log(ex); }
+        },
       };
 
       StoreProducts.initSelector(initSelectorConfig);
