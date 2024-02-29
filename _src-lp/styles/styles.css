@@ -55,7 +55,7 @@ body.appear {
   display: unset;
 }
 
-*[data-align=center] {
+*[data-align=center], .centered {
   text-align: center;
 }
 
@@ -247,6 +247,24 @@ main input {
 
 main input:hover {
   border: 1px solid var(--text-color);
+}
+
+main .blue-box-rounded > div {
+  background-color: #E4F2FF;
+  border-radius: 20px;
+  padding: 2em 0;
+}
+
+main .blue-box-rounded p {
+  font-size: 18px;
+}
+
+main .blue-box-rounded p:last-of-type img {
+  margin: 5px 10px;
+}
+
+main .blue-box-rounded div:nth-of-type(2) img {
+  margin: 0 1em;
 }
 
 main blockquote {
@@ -1489,6 +1507,9 @@ main .section.highlight {
   }
   main .default-content-wrapper h2 {
     font-size: 23px;
+  }
+  h3 {
+    font-size: var(--heading-font-size-m);
   }
   main .default-content-wrapper h3 {
     font-size: 21px;
