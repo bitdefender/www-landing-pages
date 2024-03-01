@@ -33,7 +33,7 @@ export default function decorate(block) {
       const data = await response.json();
       // if eligible - redirect
       if (data.eligible && data.url) {
-        window.location.href = data.url;
+        window.location.href = `${data.url}&SRC=PRO_RATA_UPGRADE2`;
       } else {
         // if not eligible - display message
         block.innerHTML = `
