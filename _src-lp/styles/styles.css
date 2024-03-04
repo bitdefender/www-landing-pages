@@ -259,8 +259,14 @@ main .blue-box-rounded p {
   font-size: 18px;
 }
 
+main .blue-box-rounded p:last-of-type {
+  margin-top: 1em;
+}
+
 main .blue-box-rounded p:last-of-type img {
   margin: 5px 10px;
+  max-height: 100px;
+  display: inline-block;
 }
 
 main .blue-box-rounded div:nth-of-type(2) img {
