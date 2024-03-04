@@ -261,6 +261,8 @@ main .blue-box-rounded p {
 
 main .blue-box-rounded p:last-of-type img {
   margin: 5px 10px;
+  max-height: 100px;
+  display: inline-block;
 }
 
 main .blue-box-rounded div:nth-of-type(2) img {
