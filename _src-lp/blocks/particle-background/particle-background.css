@@ -52,6 +52,7 @@
 @media screen and (width >= 768px) {
     .particle-background h2 {
         font-size: 40px;
+        line-height: 40px;
     }
 
     .particle-background #ts-particles {
