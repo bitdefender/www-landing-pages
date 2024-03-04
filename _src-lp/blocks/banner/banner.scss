@@ -312,6 +312,11 @@
     text-align: left;
   }
 
+  .section.banner-container .banner.smaller-title h1 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+
   .section.banner-container .banner h2 {
     font-size: var(--heading-font-size-l);
     line-height: var(--heading-font-size-l);
