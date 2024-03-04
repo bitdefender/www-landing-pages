@@ -312,6 +312,12 @@
     text-align: left;
   }
 
+  .section.lp-brand .banner h1 {
+    font-weight: lighter;
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+  }
+
   .section.banner-container .banner.smaller-title h1 {
     font-size: var(--heading-font-size-l);
     line-height: var(--heading-font-size-l);
@@ -333,12 +339,6 @@
 
   .section.lp-brand .banner {
     padding-bottom: 9rem;
-  }
-
-  .section.lp-brand .banner h1 {
-    font-weight: lighter;
-    font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
   }
 }
 
