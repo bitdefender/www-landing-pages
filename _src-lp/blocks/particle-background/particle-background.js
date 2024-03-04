@@ -1,29 +1,16 @@
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
-
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-
-  function isView(viewport) {
+function isView(viewport) {
     const element = document.querySelectorAll(`[data-${viewport}-detector]`)[0];
     return !!(element && getComputedStyle(element).display !== 'none');
-  }
+}
 
-  let tsParticles;
-  let loadAll;
+let tsParticles;
+let loadAll;
 
-  async function init(block) {
+async function init(block) {
     if (isView('mobile')) {
-      return;
+        return;
     }
 
     // eslint-disable-next-line import/no-unresolved
@@ -41,57 +28,57 @@ function debounce(func, wait) {
     particleBackground.prepend(particleDiv);
 
     async function loadParticles(options) {
-      await loadAll(tsParticles);
+        await loadAll(tsParticles);
 
-      await tsParticles.load({ id: particleIdSelector, options });
+        await tsParticles.load({ id: particleIdSelector, options });
     }
 
     const configs = {
-      particles: {
+        particles: {
         number: {
-          value: 30,
+            value: 30,
         },
         color: {
-          value: '#ffffff',
+            value: '#ffffff',
         },
         links: {
-          enable: true,
-          distance: 200,
+            enable: true,
+            distance: 200,
         },
         shape: {
-          type: 'circle',
+            type: 'circle',
         },
         opacity: {
-          value: 0.6,
+            value: 0.6,
         },
         size: {
-          value: {
+            value: {
             min: 2,
             max: 4,
-          },
+            },
         },
         move: {
-          enable: true,
-          speed: 2,
+            enable: true,
+            speed: 2,
         },
-      },
-      background: {
+        },
+        background: {
         color: '#016DFF',
-      },
-      poisson: {
+        },
+        poisson: {
         enable: true,
-      },
-      fullScreen: { enable: false },
+        },
+        fullScreen: { enable: false },
     };
 
     await loadParticles(configs);
-  }
+}
 
-  export default async function decorate(block) {
+export default async function decorate(block) {
     await init(block);
 
     window.dispatchEvent(new CustomEvent('shadowDomLoaded'), {
-      bubbles: true,
-      composed: true, // This allows the event to cross the shadow DOM boundary
+        bubbles: true,
+        composed: true, // This allows the event to cross the shadow DOM boundary
     });
-  }
+}
