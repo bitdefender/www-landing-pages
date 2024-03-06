@@ -6,6 +6,16 @@
   padding: 0;
 }
 
+.section.lp-brand .banner {
+  padding: 0 15px;
+  background: unset;
+  padding-bottom: 3rem;
+}
+
+.section.banner-container.borders-rounded .banner {
+  border-radius: 10px;
+}
+
 .section.banner-container .banner img {
   width: 100%;
 }
@@ -126,12 +136,6 @@
 .section.banner-container .banner #lidlBox a.red-buy-button img {
   width: 40px;
   margin-right: 15px;
-}
-
-.section.lp-brand .banner {
-  padding: 0 15px;
-  background: unset;
-  padding-bottom: 3rem;
 }
 
 .section.lp-brand .banner .col-5 {

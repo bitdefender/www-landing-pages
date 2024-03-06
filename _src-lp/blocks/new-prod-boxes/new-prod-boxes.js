@@ -101,7 +101,7 @@ export default function decorate(block) {
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
             ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
-            ${subtitle.innerText.trim() ? `<p class="subtitle${subtitle.innerText.trim().split(/\s+/).length > 5 ? ' fixed_height' : ''}">${subtitle.innerText.trim()}</p>` : ''}
+            ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerText.trim()}</p>` : ''}
             <hr />
 
             ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
@@ -134,5 +134,21 @@ export default function decorate(block) {
     <div class="container-fluid">
       add some products
     </div>`;
+  }
+
+  // get all subtitles
+  const subtitles = block.querySelectorAll('.subtitle');
+
+  // detect if at least 1 has more words
+  const hasMoreWords = Array.from(subtitles).some((subtitle) => {
+    const wordCount = subtitle.textContent.trim().split(/\s+/).length;
+    return wordCount > 13;
+  });
+
+  // set specific class for all
+  if (hasMoreWords) {
+    subtitles.forEach((subtitle) => {
+      subtitle.classList.add('fixed_height');
+    });
   }
 }
