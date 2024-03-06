@@ -262,7 +262,8 @@
     margin: 0 15px;
   }
   .c-icon-box-grid-container.grey-box .col-lg .title {
-    font-size: 36px;
+    font-size: 26px;
+    line-height: 29px;
   }
   .c-icon-box-grid-container.grey-box .col-lg .subtitle {
     font-size: var(--body-font-size-s);
