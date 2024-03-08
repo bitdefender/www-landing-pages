@@ -64,7 +64,7 @@ export default function decorate(block) {
 
   const metaData = parentSelector.dataset;
   const {
-    products, yearsText, bulinaText, devicesLimits, yearsSelector,  incrementalCounter, titleTag,
+    products, yearsText, bulinaText, devicesLimits, yearsSelector, incrementalCounter, titleTag,
     skipUnwantedSelectors, secondTemplate,
   } = metaData;
   const productsAsList = products && products.split(',');
@@ -216,9 +216,7 @@ export default function decorate(block) {
           });
         }
 
-
         pricesDiv.appendChild(selectorBox);
-
       } else {
         pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
         pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
