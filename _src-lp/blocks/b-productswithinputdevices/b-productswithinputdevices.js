@@ -64,7 +64,7 @@ export default function decorate(block) {
 
   const metaData = parentSelector.dataset;
   const {
-    products, yearsText, bulinaText, devicesLimits, incrementalCounter, titleTag,
+    products, yearsText, bulinaText, devicesLimits, yearsSelector,  incrementalCounter, titleTag,
     skipUnwantedSelectors, secondTemplate,
   } = metaData;
   const productsAsList = products && products.split(',');
@@ -159,7 +159,7 @@ export default function decorate(block) {
           currentdevices = updateCurrentDevices(skipUnwantedSelectorsArray, currentdevices, incrementalCounterValue, devicesInput, action);
         }
 
-        // trigger selectior
+        // trigger selector
         const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
         if (devicesSelector) {
           devicesSelector.forEach((selector) => {
@@ -191,25 +191,34 @@ export default function decorate(block) {
         const selectorBox = document.createElement('div');
         selectorBox.classList.add('selector-box');
 
-        const selectElement = document.createElement('select');
-        selectElement.innerHTML = `
-          <option value="1">${subscribeTexts} <i style="font-weight: bold; font-style: normal">1 ${yearText}</i></option>
-          <option value="2">${subscribeTexts} <i style="font-weight: bold; font-style: normal">2 ${yearsText}</i></option>
-          <option value="3">${subscribeTexts} <i style="font-weight: bold; font-style: normal">3 ${yearsText}</i></option>
-        `;
-        selectElement.id = 'selectYears';
-        selectorBox.appendChild(selectElement);
+        if (yearsSelector && yearsSelector === 'fix') {
+          const selectElement = document.createElement('p');
+          selectElement.innerHTML = `${subscribeTexts} <i style="font-weight: bold; font-style: normal">${prodYears} ${prodYears > 1 ? yearsText : yearText}</i>`;
+          selectorBox.appendChild(selectElement);
+        } else {
+          const selectElement = document.createElement('select');
+          selectElement.innerHTML = `
+            <option value="1">${subscribeTexts} <i style="font-weight: bold; font-style: normal">1 ${yearText}</i></option>
+            <option value="2">${subscribeTexts} <i style="font-weight: bold; font-style: normal">2 ${yearsText}</i></option>
+            <option value="3">${subscribeTexts} <i style="font-weight: bold; font-style: normal">3 ${yearsText}</i></option>
+          `;
+          selectElement.id = 'selectYears';
+          selectorBox.appendChild(selectElement);
+
+          // Add an event listener for the 'change' event
+          selectElement.addEventListener('change', (event) => {
+            const triggerValue = event.target.value;
+            if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
+              const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
+              fakeSelector.value = triggerValue;
+              fakeSelector.dispatchEvent(new Event('change'));
+            }
+          });
+        }
+
+
         pricesDiv.appendChild(selectorBox);
 
-        // Add an event listener for the 'change' event
-        selectElement.addEventListener('change', (event) => {
-          const triggerValue = event.target.value;
-          if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
-            const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
-            fakeSelector.value = triggerValue;
-            fakeSelector.dispatchEvent(new Event('change'));
-          }
-        });
       } else {
         pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
         pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
