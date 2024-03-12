@@ -62,10 +62,10 @@ export default class ProductPrice {
 
   async getProductVariations() {
 
-    let endpoint = new URL(`/api/v1/products/${this.bundleId}/locale/${this.locale}`, this.config.endpoint);
+    const endpoint = new URL(`/api/v1/products/${this.bundleId}/locale/${this.locale}`, this.config.endpoint);
 
     if (this.campaign) {
-      endpoint = new URL(`/campaign/${this.campaign}`, endpoint);
+      endpoint.pathname += `/campaign/${this.campaign}`;
     }
 
     try {
