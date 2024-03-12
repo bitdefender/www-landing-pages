@@ -1,3 +1,6 @@
+
+const LOCALE_PARAMETER = 'locale';
+
 export default class ProductPrice {
 
   static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm'];
@@ -56,8 +59,14 @@ export default class ProductPrice {
     this.devicesNo = prod[1];
     this.yearsNo = prod[2];
     this.bundleId = this.productId[this.alias];
-
     this.campaign = campaign;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let forceLocale = urlParams.get(LOCALE_PARAMETER);
+    
+    if (forceLocale)
+      this.locale = forceLocale;
+
   }
 
   async getProductVariations() {
