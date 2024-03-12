@@ -41,7 +41,7 @@ export default class ProductPrice {
     endpoint: 'https://pricing.service-delivery.nmbapp.net',
   }
 
-  locale = 'ro-ro';
+  locale = 'en-us';
   campaign;
   prodString;
   alias;
@@ -108,9 +108,9 @@ export default class ProductPrice {
     payload.product.options.forEach((option) => {
 
       const pricing = {};
-      pricing.total = option.discountedPrice;
+      pricing.total = option.price;
       pricing.discount = option.discountAmount;
-      pricing.price = option.price;
+      pricing.price = option.discountedPrice;
 
       window.StoreProducts.product[this.alias] = {
         selected_users: this.devicesNo,
