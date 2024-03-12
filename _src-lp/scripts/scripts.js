@@ -847,7 +847,6 @@ async function initZuoraProductPriceLogic(campaign) {
 async function initVlaicuProductPriceLogic(campaign) {
   import('./vendor/product.js').then(async (module) => {
     const ProductPrice = module.default;
-    // window.config = ZuoraNLClass.config();
     showLoaderSpinner();
 
     if (productsList.length) {
@@ -861,7 +860,7 @@ async function initVlaicuProductPriceLogic(campaign) {
             const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
             const productPrice = new ProductPrice(item, campaign);
-            const vlaicuResult = await productPrice.init();
+            const vlaicuResult = await productPrice.getPrices();
             showPrices(vlaicuResult);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);

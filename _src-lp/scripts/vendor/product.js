@@ -172,7 +172,7 @@ export default class ProductPrice {
     ).replace(/\d/g, '').trim()
   }
 
-  async init() {
+  async getPrices() {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
     return await this.getProductVariationsPrice(this.id, this.campaign);
