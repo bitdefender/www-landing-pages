@@ -5,7 +5,7 @@
  */
 
 import {
-  decorateMain
+  decorateMain,
 } from '../../scripts/scripts.js';
 
 import {
@@ -18,12 +18,11 @@ import {
    * @returns {HTMLElement} The root element of the fragment
    */
 async function loadFragment(path) {
-
   const resp = await fetch(`${path}.plain.html`);
   if (resp.ok) {
     const url = new URL(path);
     const baseUrl = `${url.protocol}//${url.hostname}`;
-    const codeBaseUrl = `${baseUrl}/_src`;
+    const codeBaseUrl = `${baseUrl}/_src`; // specific to www-websites
 
     const main = document.createElement('main');
     main.innerHTML = await resp.text();
@@ -31,7 +30,7 @@ async function loadFragment(path) {
 
     const blocks = main.querySelectorAll('div.block');
     for (let i = 0; i < blocks.length; i += 1) {
-      let block = blocks[i];
+      const block = blocks[i];
       const status = block.dataset.blockStatus;
       if (status !== 'loading' && status !== 'loaded') {
         block.dataset.blockStatus = 'loading';
@@ -54,6 +53,7 @@ async function loadFragment(path) {
               resolve();
             })();
           });
+          // eslint-disable-next-line no-await-in-loop
           await Promise.all([cssLoaded, decorationComplete]);
         } catch (error) {
           // eslint-disable-next-line no-console
@@ -61,23 +61,22 @@ async function loadFragment(path) {
         }
         block.dataset.blockStatus = 'loaded';
       }
+    }
 
-      const sections = [...main.querySelectorAll(':scope > div.section')];
-      for (let i = 0; i < sections.length; i += 1) {
-        const section = sections[i];
-        const status = section.dataset.sectionStatus;
-        if (status !== 'loaded') {
-          const loadingBlock = section.querySelector('.block[data-block-status="initialized"], .block[data-block-status="loading"]');
-          if (loadingBlock) {
-            section.dataset.sectionStatus = 'loading';
-            break;
-          } else {
-            section.dataset.sectionStatus = 'loaded';
-            section.style.display = null;
-          }
+    const sections = [...main.querySelectorAll(':scope > div.section')];
+    for (let j = 0; j < sections.length; j += 1) {
+      const section = sections[j];
+      const status = section.dataset.sectionStatus;
+      if (status !== 'loaded') {
+        const loadingBlock = section.querySelector('.block[data-block-status="initialized"], .block[data-block-status="loading"]');
+        if (loadingBlock) {
+          section.dataset.sectionStatus = 'loading';
+          break;
+        } else {
+          section.dataset.sectionStatus = 'loaded';
+          section.style.display = null;
         }
       }
-
     }
 
     return main;
