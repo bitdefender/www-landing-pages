@@ -56,11 +56,17 @@
   line-height: 1.1;
 }
 
-.b-productswithselectors > div.selected {
+.b-productswithselectors > div {
   margin: 1%;
   margin-top: 0;
+  border: 1px solid #c5c5c5;
+  border-bottom: 0;
+}
+.b-productswithselectors > div.selected {
+
   border: 1px solid #2cb43d;
   border-bottom: 0;
+
 }
 
 .b-productswithselectors > div:not(:first-child) p {
