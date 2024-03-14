@@ -934,7 +934,6 @@ async function initializeProductsPriceLogic() {
       initVlaicuProductPriceLogic(campaign);
       addEventListenersOnVpnCheckboxes(pid);
     }
-
   } else {
     initZuoraProductPriceLogic(campaign);
     addEventListenersOnVpnCheckboxes(pid);
