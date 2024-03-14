@@ -3,7 +3,14 @@ import {
 } from '../../scripts/adobeDataLayer.js';
 
 export default function decorate(block) {
-  sendAnalyticsPageLoadedEvent(true);
+  if (window.ADOBE_MC_EVENT_LOADED) {
+    sendAnalyticsPageLoadedEvent(true);
+  } else {
+    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+      sendAnalyticsPageLoadedEvent(true);
+    });
+  }
+  
   const { optionCode } = block.closest('.section').dataset;
   const [eligibil, neeligibil] = [...block.children];
 
