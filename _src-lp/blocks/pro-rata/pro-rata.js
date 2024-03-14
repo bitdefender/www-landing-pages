@@ -14,7 +14,7 @@ export default function decorate(block) {
       sendAnalyticsPageLoadedEvent(true);
     });
   }
-  
+
   const { optionCode } = block.closest('.section').dataset;
   const [eligibil, neeligibil] = [...block.children];
 
@@ -49,7 +49,9 @@ export default function decorate(block) {
       const data = await response.json();
       // if eligible - redirect
       if (data.eligible && data.url) {
-        window.location.href = data.url;
+        setTimeout(() => {
+          window.location.href = data.url;
+        }, 2000);
       } else {
         // if not eligible - display message
         block.innerHTML = `
