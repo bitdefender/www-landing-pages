@@ -1,4 +1,9 @@
+import {
+  sendAnalyticsPageLoadedEvent,
+} from '../../scripts/adobeDataLayer.js';
+
 export default function decorate(block) {
+  sendAnalyticsPageLoadedEvent(true);
   const { optionCode } = block.closest('.section').dataset;
   const [eligibil, neeligibil] = [...block.children];
 

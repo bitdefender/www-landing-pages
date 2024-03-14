@@ -252,7 +252,7 @@ export async function sendAnalyticsProducts(product, region) {
   }
 }
 
-export async function sendAnalyticsPageLoadedEvent() {
+export async function sendAnalyticsPageLoadedEvent(force = false) {
   if (!Array.isArray(window.adobeDataLayer)) {
     return;
   }
@@ -262,7 +262,7 @@ export async function sendAnalyticsPageLoadedEvent() {
     return;
   }
 
-  if (typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) {
+  if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || force) {
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
