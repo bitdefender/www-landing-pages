@@ -1,4 +1,20 @@
+import {
+  sendAnalyticsPageLoadedEvent,
+} from '../../scripts/adobeDataLayer.js';
+
+import {
+  GLOBAL_EVENTS,
+} from '../../scripts/utils.js';
+
 export default function decorate(block) {
+  if (window.ADOBE_MC_EVENT_LOADED) {
+    sendAnalyticsPageLoadedEvent(true);
+  } else {
+    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+      sendAnalyticsPageLoadedEvent(true);
+    });
+  }
+
   const { optionCode } = block.closest('.section').dataset;
   const [eligibil, neeligibil] = [...block.children];
 
@@ -33,7 +49,9 @@ export default function decorate(block) {
       const data = await response.json();
       // if eligible - redirect
       if (data.eligible && data.url) {
-        window.location.href = data.url;
+        setTimeout(() => {
+          window.location.href = data.url;
+        }, 2000);
       } else {
         // if not eligible - display message
         block.innerHTML = `
