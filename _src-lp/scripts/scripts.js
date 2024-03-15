@@ -800,7 +800,7 @@ function addEventListenersOnVpnCheckboxes(pid) {
       item.addEventListener('click', (e) => {
         const checkboxId = e.target.getAttribute('id');
 
-        if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
+        if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
           const prodxId = e.target.getAttribute('id').split('-')[1];
           const storeObjprod = window.StoreProducts.product[prodxId] || {};
           showPrices(storeObjprod, e.target.checked, checkboxId);
@@ -931,6 +931,7 @@ async function initializeProductsPriceLogic() {
         addEventListenersOnVpnCheckboxes(pid);
       }, {}, 'module');
     } else {
+      window.isVlaicu = true;
       initVlaicuProductPriceLogic(campaign);
       addEventListenersOnVpnCheckboxes(pid);
     }

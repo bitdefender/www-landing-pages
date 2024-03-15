@@ -29,10 +29,6 @@ export default class ProductPrice {
     dipm: 'com.bitdefender.dataprivacy',
   }
 
-  config = {
-    endpoint: '',
-  }
-
   #locale = 'en-us';
   #campaign;
   #prodString;
@@ -96,14 +92,15 @@ export default class ProductPrice {
       return null;
     }
 
-    window.StoreProducts.product[this.#alias] = {
-      product_alias: this.#alias,
-      product_id: this.#productId[this.#alias],
-      product_name: payload.product.productName,
-      variations: {},
-    };
-
     payload.product.options.forEach((option) => {
+
+      if (this.#devicesNo != option.slots) {
+        return;
+      }
+
+      if (this.#yearsNo != option.months/12) {
+        return;
+      }
 
       const pricing = {};
       pricing.total = option.price;
@@ -111,6 +108,12 @@ export default class ProductPrice {
       pricing.price = option.discountedPrice;
 
       window.StoreProducts.product[this.#alias] = {
+        product_alias: this.#alias,
+        product_id: this.#productId[this.#alias],
+        product_name: payload.product.productName,
+        campaign: this.#campaign,
+        locale: this.#locale,
+        variations: {},
         selected_users: this.#devicesNo,
         selected_years: this.#yearsNo,
         selected_variation: {
@@ -167,4 +170,53 @@ export default class ProductPrice {
     return await this.#getProductVariationsPrice(this.id, this.#campaign);
   }
 
+}
+
+export class Bundle {
+  
+  #product;
+  #bundleProduct;
+  #locale = 'en-us';
+  #campaign;
+
+  constructor(product, bundleProduct) {
+    this.#product = product;
+    this.#bundleProduct = bundleProduct;
+    this.#locale = product.locale;
+    this.#campaign = product.campaign;
+  }
+
+  async getBuyLink() {
+    const endpoint = new URL(`/api/v1/buy-links/locale/${this.#locale}`, API_BASE);
+    endpoint.searchParams.append('campaign', this.#campaign);
+
+    const productMonths = this.#product.selected_years * 12;
+    const bundleProductMonths = this.#bundleProduct.selected_years * 12;
+
+    let bundles = `${this.#product.product_id}|${this.#product.selected_users}|${productMonths},`;
+    bundles += `${this.#bundleProduct.product_id}|${this.#bundleProduct.selected_users}|${bundleProductMonths},`;
+    endpoint.searchParams.append('bundles', bundles);
+
+    try {
+      const response = await fetch(
+        endpoint.href,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (!response.ok) {
+        return null;
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  
 }
