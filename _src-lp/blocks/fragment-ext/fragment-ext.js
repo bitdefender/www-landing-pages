@@ -24,18 +24,17 @@ async function loadFragment(path) {
     const baseUrl = `${url.protocol}//${url.hostname}`;
     const codeBaseUrl = `${baseUrl}/_src`; // specific to www-websites
 
-    resp.text()
-      .querySelectorAll('source')
-      // eslint-disable-next-line no-return-assign
-      .forEach((source) => source.srcset = new URL(source.getAttribute('srcset'), origin).href);
-
-    resp.text()
-      .querySelectorAll('img')
-      // eslint-disable-next-line no-return-assign
-      .forEach((image) => image.src = new URL(image.getAttribute('src'), origin).href);
-
     const main = document.createElement('main');
     main.innerHTML = await resp.text();
+    main
+      .querySelectorAll('source')
+      // eslint-disable-next-line no-return-assign
+      .forEach((source) => source.srcset = new URL(source.getAttribute('srcset'), path).href);
+
+    main
+      .querySelectorAll('img')
+      // eslint-disable-next-line no-return-assign
+      .forEach((image) => image.src = new URL(image.getAttribute('src'), path).href);
     decorateMain(main);
 
     const blocks = main.querySelectorAll('div.block');
