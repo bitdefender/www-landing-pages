@@ -73,6 +73,8 @@
   display: none;
 }
 
+
+
 .c-icon-box-grid-container .quotes .quotebox {
   margin: 1em 0;
 }
@@ -91,6 +93,8 @@
   display: flex;
   align-items: center;
 }
+
+
 
 .c-icon-box-grid-container.box-shadow .col-lg .icon-box-grid-column {
   flex-direction: row !important;
@@ -177,6 +181,14 @@
   border: 1px solid #F2F2F2;
   margin: 15px 10px;
   padding: 3%;
+}
+
+.c-icon-box-grid-container.new-2024-look .quotebox {
+  background-color: #f6f6f6;
+  padding: 24px;
+  border-radius: 20px;
+  text-align: left;
+  font: normal normal normal 16px / 24px var(--body-font-family);
 }
 
 @media screen and (width >= 992px) {

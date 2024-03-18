@@ -179,6 +179,14 @@
   padding: 3%;
 }
 
+.c-icon-box-grid-container.new-2024-look .quotebox {
+  background-color: #f6f6f6;
+  padding: 24px;
+  border-radius: 20px;
+  text-align: left;
+  font: normal normal normal 16px/24px var(--body-font-family);
+}
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-s);

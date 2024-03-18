@@ -114,12 +114,9 @@ flex-direction: column;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box .prod-percent {
-    font-size: 13px;
     line-height: 15px;
-    color: white;
-    background-color: #68BA68;
-    border-radius: 11px;
-    padding: 4px 10px;
+    color: #1C7928;
+    font-weight: bold;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box {
@@ -257,7 +254,7 @@ flex-direction: column;
     line-height: 17px;
     margin-bottom: 8px;
     list-style-type: none;
-    background: url("../../images/icons/ok.png") top 2px left no-repeat transparent;
+    background: url("https://bitdefender.com/icons/circle-check-sharp-solid.svg") top 2px left no-repeat transparent;
     padding-left: 22px;
     background-size: 13px;
     position: relative;

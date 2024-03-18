@@ -20,6 +20,30 @@
   width: 100%;
 }
 
+.section.banner-container .banner .img-right picture {
+  position: relative;
+  left: 15px;
+}
+
+.section.banner-container .banner .img-right {
+  position: relative;
+}
+
+.section.banner-container .banner .img-right div::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to left, rgba(247, 247, 247, 0), #F7F7F7);
+}
+
+.section.banner-container.new-2024 .banner {
+  overflow: hidden;
+  background-color: #F6F6F6;
+}
+
 .section.banner-container .banner h1 {
   font-size: 28px;
   text-align: left;
