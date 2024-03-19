@@ -40,6 +40,10 @@
   background-color: #F6F6F6;
 }
 
+.section.banner-container.new-2024 .banner h1 {
+  font-weight: normal;
+}
+
 .section.banner-container .banner h1 {
   font-size: 28px;
   text-align: left;
