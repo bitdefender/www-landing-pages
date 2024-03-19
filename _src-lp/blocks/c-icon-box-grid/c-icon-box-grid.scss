@@ -179,7 +179,7 @@
 .c-icon-box-grid-container.bordered .col-lg {
   border-radius: 10px;
   border: 1px solid #F2F2F2;
-  margin: 15px 10px;
+  margin: 15px 0;
   padding: 3%;
 }
 
@@ -204,6 +204,10 @@
     width: 275px;
     max-width: none;
     flex: none;
+  }
+
+  .c-icon-box-grid-container.bordered .col-lg {
+    margin: 15px 10px;
   }
 
   .c-icon-box-grid-container.new {
