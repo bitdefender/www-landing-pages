@@ -32,11 +32,8 @@
 .section.banner-container .banner .img-right div::after {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(to left, rgba(247, 247, 247, 0), #F7F7F7);
+  inset: 0;
+  background: linear-gradient(to left, rgb(247 247 247 / 0%), #F7F7F7);
 }
 
 .section.banner-container.new-2024 .banner {
