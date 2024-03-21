@@ -50,8 +50,17 @@
   border-right: 1px solid #fff;
 }
 
+.b-table-container.table-centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 @media screen and (width >= 900px) {
   .b-table table {
     width: 68%;
+  }
+  .b-table-container.table-centered .b-table table {
+    width: 100%;
   }
 }
