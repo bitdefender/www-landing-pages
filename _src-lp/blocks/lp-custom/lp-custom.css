@@ -66,7 +66,7 @@
 
 .lp-custom-container .lp-custom-wrapper ul li {
   text-align: left;
-  background: url("../../images/icons/check_full.svg") 0 3px no-repeat transparent;
+  background: url("/_src-lp/images/icons/check_full.svg") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
@@ -171,7 +171,7 @@
   }
   #headerFerrari.headerSpurs .lp-header::before {
     content: "";
-    background: url("../../images/icons/burger_menu.JPG") no-repeat 0 0 transparent;
+    background: url("/_src-lp/images/icons/burger_menu.JPG") no-repeat 0 0 transparent;
     width: 29px;
     height: 29px;
     display: block;
