@@ -35,6 +35,12 @@
   background: linear-gradient(to left, rgba(247, 247, 247, 0), #F7F7F7);
 }
 
+.section.banner-container .banner h1 {
+  font-size: 28px;
+  text-align: left;
+  margin-top: 0;
+}
+
 .section.banner-container.new-2024 .banner {
   overflow: hidden;
   background-color: #F6F6F6;
@@ -42,12 +48,6 @@
 
 .section.banner-container.new-2024 .banner h1 {
   font-weight: normal;
-}
-
-.section.banner-container .banner h1 {
-  font-size: 28px;
-  text-align: left;
-  margin-top: 0;
 }
 
 .section.banner-container .banner .button-container {
@@ -166,7 +166,7 @@
   width: 322px;
 }
 
-.section.lp-brand .banner h1 {
+.section.banner-container.lp-brand .banner h1 {
   font-weight: lighter;
   font-size: var(--heading-font-size-s);
   line-height: var(--heading-font-size-s);
