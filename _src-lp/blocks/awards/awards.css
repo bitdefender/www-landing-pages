@@ -24,38 +24,51 @@
 .awards .col-12 {
   margin: 0.5em 0;
 }
-/* one award start */
 
 .one-award.awards-container .row > div:nth-child(1) {
   display: flex;
   align-items: center;
   justify-content: center;
-  }
+}
 .one-award.awards-container .row > div:nth-child(2) {
-width:100%;
-text-align:left;
+  width: 100%;
+  text-align: left;
 }
-.one-award.awards-container img {
-  height:80px;
-  width:auto;
+.one-award.awards-container .row > div:nth-child(2) .text-center {
+  text-align: left !important;
 }
-.one-award.awards-container .text-center{
-  text-align:left!important;
-}
-.one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(1){
-  font-size:20px;
+.one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(1) {
+  font-size: 20px;
   line-height: 28px;
   font-weight: bold;
-  margin-bottom: 12px!important;
-  margin-top:20px;
+  margin-bottom: 12px !important;
+  margin-top: 20px;
 }
-.one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(2){
+.one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(2) {
   font-size: 16px;
   font-weight: normal;
   line-height: 24px;
 }
-/* one award end */
+.one-award.awards-container img {
+  height: 80px;
+  width: auto;
+}
 
+@media screen and (width >= 992px) {
+  .awards img {
+    height: 90px;
+  }
+  .one-award.awards-container .row > div:nth-child(2) {
+    width: 60%;
+    text-align: left;
+  }
+  .one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(1) {
+    font-size: 30px;
+    line-height: 38px;
+    font-weight: bold;
+    margin-bottom: 30px !important;
+  }
+}
 @media screen and (width >= 768px) {
   .awards {
     border-radius: 20px;
@@ -66,27 +79,11 @@ text-align:left;
     width: auto;
     height: 100px;
   }
-  .one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(1){
-    font-size:24px;
+  .one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(1) {
+    font-size: 24px;
     line-height: 30px;
     font-weight: bold;
-    margin-bottom: 15px!important;
-    margin-top:0px;
-  }
-}
-
-@media screen and (width >= 992px) {
-  .awards img {
-    height: 90px;
-  }
-  .one-award.awards-container .row > div:nth-child(2) {
-    width:60%;
-    text-align:left;
-    }
-  .one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(1){
-    font-size:30px;
-    line-height: 38px;
-    font-weight: bold;
-    margin-bottom: 30px!important;
+    margin-bottom: 15px !important;
+    margin-top: 0px;
   }
 }
