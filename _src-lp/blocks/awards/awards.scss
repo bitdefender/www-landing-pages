@@ -25,6 +25,7 @@
 .awards .col-12 {
   margin: 0.5em 0;
 }
+
 // one award start 
 .one-award.awards-container {
   .row > div:nth-child(1) {
@@ -61,11 +62,13 @@
     width: auto;
   }
 }
+
 // one award end
 @media screen and (width >= 992px) {
   .awards img {
     height: 90px;
   }
+
   .one-award.awards-container {
     .row > div:nth-child(2) {
       width: 60%;
@@ -93,6 +96,7 @@
     width: auto;
     height: 100px;
   }
+  
   .one-award.awards-container {
     .row > div:nth-child(2) {
       .text-center > div:nth-child(1) {
