@@ -56,17 +56,11 @@
   line-height: 1.1;
 }
 
-.b-productswithselectors > div {
+.b-productswithselectors > div.selected {
   margin: 1%;
   margin-top: 0;
-  border: 1px solid #c5c5c5;
-  border-bottom: 0;
-}
-.b-productswithselectors > div.selected {
-
   border: 1px solid #2cb43d;
   border-bottom: 0;
-
 }
 
 .b-productswithselectors > div:not(:first-child) p {
@@ -114,7 +108,7 @@
 
 .b-productswithselectors > div:not(:first-child) ul li::before {
   content: "";
-  background-image: url("../../images/icons/check_empty.png");
+  background-image: url("/_src-lp/images/icons/check_empty.png");
   width: 15px;
   height: 15px;
   background-size: 100%;
@@ -126,11 +120,10 @@
 
 .b-productswithselectors > div:not(:first-child) ul:nth-of-type(2) {
   margin-top: 0;
-  min-height: 85px;
 }
 
 .b-productswithselectors > div:not(:first-child) ul:nth-of-type(2) li::before {
-  background-image: url("../../images/icons/check_full.png");
+  background-image: url("/_src-lp/images/icons/check_full.png");
 }
 
 .b-productswithselectors > div:not(:first-child) p:last-of-type {
