@@ -183,8 +183,8 @@
 
 .c-icon-box-grid-container.phishing {
   h2 {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     color: #006DFF;
     font-size: 5rem;
     text-align: center;
@@ -196,10 +196,10 @@
     gap: 20px;
   }
 
-  .quotebox {
+  .c-icon-box-grid-container .quotebox {
     padding: 35px;
-    background-color: #fff;
-    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .1);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 10%);
   }
 
   div.subtitle {
@@ -209,6 +209,7 @@
     justify-content: center;
   }
 }
+
 /* Phishing end */
 
 @media screen and (width >= 992px) {
