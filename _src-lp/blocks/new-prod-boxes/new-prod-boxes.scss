@@ -319,6 +319,14 @@ content: "";
     box-shadow: 0 3px 7px 0 #C1C1C1;
 }
 
+.new-prod-boxes-container.match-benefits-height .block .prod_box .inner_prod_box .benefitsLists ul:first-of-type {
+    min-height: 11em;
+}
+
+.new-prod-boxes-container.match-benefits-height .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
+    min-height: 7em;
+}
+
 @media (width >= 768px) {
     .new-prod-boxes-container .block {
         flex-direction: row;
