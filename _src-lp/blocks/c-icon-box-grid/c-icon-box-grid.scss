@@ -198,8 +198,8 @@
 
   .c-icon-box-grid-container .quotebox {
     padding: 35px;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 10%);
+    background-color: color(rgb(255, 255, 255) alpha(1));
+    box-shadow: shadow(0 0 2rem 0 rgba(0, 0, 0, 0.1));
   }
 
   div.subtitle {
