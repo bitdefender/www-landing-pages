@@ -219,6 +219,14 @@ flex-direction: column;
     color: black;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li em {
+    background-color: #026DFF;
+    color: white;
+    padding: 4px 7px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
     font-size: var(--body-font-size-xs);
     line-height: var(--heading-font-size-s);
