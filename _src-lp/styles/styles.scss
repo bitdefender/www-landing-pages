@@ -77,7 +77,24 @@ body [data-tablet-detector] {
 body [data-desktop-detector] {
   display: none;
 }
-
+//phishing begin - stiluri specifice de tema
+.phishing {
+  .heading-content {
+    margin-top: 40px;
+    
+    u{color:#006DFF;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom:10px;
+      
+    }
+    h2,h3{
+      margin-top:10px;
+    }
+  
+  }
+}
+//phishing end
 @media (width >= 768px) {
   body [data-mobile-detector] {
     display: none;
