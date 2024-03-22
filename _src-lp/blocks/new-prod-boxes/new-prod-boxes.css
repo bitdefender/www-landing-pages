@@ -225,6 +225,7 @@
   padding: 4px 7px;
   border-radius: 20px;
   font-size: 11px;
+  font-style: normal;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
