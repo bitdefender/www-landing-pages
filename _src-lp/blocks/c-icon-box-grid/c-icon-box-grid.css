@@ -191,7 +191,7 @@
 .c-icon-box-grid-container .row {
   gap: 20px;
 }
-.c-icon-box-grid-container .c-icon-box-grid-container .quotebox {
+.c-icon-box-grid-container .quotebox {
   padding: 35px;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.1);
