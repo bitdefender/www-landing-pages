@@ -964,7 +964,7 @@ main .section.highlight {
 
 .below-form-banner > div:nth-child(2) ul li {
   font-size: 14px;
-  background: url("../../images/icons/simple_green_check.png") 0 3px no-repeat transparent;
+  background: url("/_src-lp/images/icons/simple_green_check.png") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;

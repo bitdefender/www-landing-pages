@@ -241,7 +241,7 @@
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type.has_arrow::before {
   content: "";
   margin: 0 5px 20px 0;
-  background: url("../../icons/arrow-left-blue.png") no-repeat center transparent;
+  background: url("/_src-lp/icons/arrow-left-blue.png") no-repeat center transparent;
   width: 20px;
   height: 20px;
   background-size: 15px 12px;
@@ -249,7 +249,7 @@
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type.has_arrow_right .arrow-right {
-  background: url("../../icons/arrow-right-solid.svg") no-repeat center transparent;
+  background: url("/_src-lp/icons/arrow-right-solid.svg") no-repeat center transparent;
   width: 20px;
   height: 20px;
   background-size: 15px 12px;
@@ -303,7 +303,7 @@
   color: white;
   border-radius: 20px;
   padding: 2px 21px 2px 7px;
-  background: url("../../images/icons/individual.svg") center right 6px no-repeat #026DFF;
+  background: url("/_src-lp/images/icons/individual.svg") center right 6px no-repeat #026DFF;
   background-size: auto 12px;
 }
 
