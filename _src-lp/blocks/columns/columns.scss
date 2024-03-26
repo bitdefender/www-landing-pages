@@ -68,6 +68,24 @@
   margin-left: -12px;
 }
 
+.columns-container.new-v2{
+ u {
+  text-decoration: none; 
+  font: normal normal normal 18px/21px Arial;
+}
+  h2{
+    font: normal normal bold 32px/37px Arial;
+    color: #006DFF;
+    letter-spacing: 0px;
+  }
+  p{
+    font: normal normal normal 16px/24px Arial;
+    letter-spacing: 0px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+  };
+}
+
 @media (width >= 768px) {
   .columns > div {
     align-items: center;
