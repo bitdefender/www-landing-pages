@@ -71,6 +71,19 @@ body [data-desktop-detector] {
   display: none;
 }
 
+.phishing .heading-content {
+  margin-top: 40px;
+}
+.phishing .heading-content u {
+  color: #006DFF;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.phishing .heading-content h2, .phishing .heading-content h3 {
+  margin-top: 10px;
+}
+
 @media (width >= 768px) {
   body [data-mobile-detector] {
     display: none;

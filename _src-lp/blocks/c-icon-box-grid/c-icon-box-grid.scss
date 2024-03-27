@@ -191,6 +191,37 @@
   font: normal normal normal 16px / 24px var(--body-font-family);
 }
 
+/* Phishing start */
+
+.c-icon-box-grid-container.phishing {
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #006DFF;
+    font-size: 5rem;
+    text-align: center;
+  }
+
+  .row {
+    gap: 20px;
+  }
+
+ .quotebox {
+    padding: 35px;
+    background-color: rgba(255 255 255 / 100%); 
+    box-shadow: 0 0 2rem 0 rgba(0 0 0 / 10%);
+  }
+
+  div.subtitle {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Phishing end */
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-s);
