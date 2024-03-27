@@ -1,5 +1,6 @@
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
+// eslint-disable-next-line no-unused-vars
 function isView(viewport) {
   const element = document.querySelectorAll(`[data-${viewport}-detector]`)[0];
   return !!(element && getComputedStyle(element).display !== 'none');
@@ -9,10 +10,6 @@ let tsParticles;
 let loadAll;
 
 async function init(block) {
-  if (isView('mobile')) {
-    return;
-  }
-
   // eslint-disable-next-line import/no-unresolved
   tsParticles = (await import('https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.1.0/+esm')).tsParticles;
   // eslint-disable-next-line import/no-unresolved

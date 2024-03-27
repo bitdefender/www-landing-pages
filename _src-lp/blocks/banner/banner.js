@@ -222,7 +222,7 @@ export default function decorate(block) {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex">
+        <div class="row d-none d-lg-flex position-relative">
           <div class="col-5 ps-4">${contentEl.innerHTML}</div>
         </div>
         <div class="row d-lg-none justify-content-center">
@@ -266,7 +266,7 @@ export default function decorate(block) {
   } else {
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex">
+        <div class="row d-none d-lg-flex position-relative">
           <div class="col-5 ps-4">${contentEl.innerHTML}</div>
           <div class="col-7 img-right bck-img">
             ${pictureEl.innerHTML}

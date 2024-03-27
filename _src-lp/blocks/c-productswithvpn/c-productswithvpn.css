@@ -210,7 +210,7 @@
   padding-left: 0;
 }
 .c-productswithvpn > div ul li {
-  background: url("../../images/icons/simple_green_check.png") 0 3px no-repeat transparent;
+  background: url("/_src-lp/images/icons/simple_green_check.png") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
@@ -220,7 +220,7 @@
   margin-top: 10px;
 }
 .c-productswithvpn > div ul.checkmark_solid_circle li {
-  background: url("../../icons/checkmark_solid-circle.svg") 0 3px no-repeat transparent;
+  background: url("/_src-lp/icons/checkmark_solid-circle.svg") 0 3px no-repeat transparent;
   background-size: 16px;
 }
 

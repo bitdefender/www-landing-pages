@@ -77,7 +77,24 @@ body [data-tablet-detector] {
 body [data-desktop-detector] {
   display: none;
 }
-
+//phishing begin - stiluri specifice de tema
+.phishing {
+  .heading-content {
+    margin-top: 40px;
+    
+    u{color:#006DFF;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom:10px;
+      
+    }
+    h2,h3{
+      margin-top:10px;
+    }
+  
+  }
+}
+//phishing end
 @media (width >= 768px) {
   body [data-mobile-detector] {
     display: none;
@@ -976,7 +993,7 @@ main .section.highlight {
 
 .below-form-banner > div:nth-child(2) ul li {
   font-size: 14px;
-  background: url("../../images/icons/simple_green_check.png") 0 3px no-repeat transparent;
+  background: url("/_src-lp/images/icons/simple_green_check.png") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
