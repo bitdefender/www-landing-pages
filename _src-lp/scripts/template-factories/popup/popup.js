@@ -42,22 +42,23 @@ async function openDialog() {
       return;
     }
 
-    const data = {
-      email,
-      flow: 'EMM_DIP_POPUP_OFFER',
-    };
-
-    const promise = await fetch('https://www.bitdefender.com/site/Store/offerSubscribe', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const result = await promise.json();
-
-    if (result.ok) {
+    // const data = {
+    //   email,
+    //   flow: 'EMM_DIP_POPUP_OFFER',
+    // };
+    //
+    // const promise = await fetch('https://www.bitdefender.com/site/Store/offerSubscribe', {
+    //   method: 'POST',
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+    //
+    // const result = await promise.json();
+    //
+    // if (result.ok) {
+    if (true) {
       emailHasBeenSubmitted = true;
       // fetch the other fragment and update modal-lp content
       const path = popupSuccessUrl.startsWith('http')
