@@ -26,6 +26,15 @@ async function loadFragment(path) {
 
     const main = document.createElement('main');
     main.innerHTML = await resp.text();
+    main
+      .querySelectorAll('source')
+      // eslint-disable-next-line no-return-assign
+      .forEach((source) => source.srcset = new URL(source.getAttribute('srcset'), path).href);
+
+    main
+      .querySelectorAll('img')
+      // eslint-disable-next-line no-return-assign
+      .forEach((image) => image.src = new URL(image.getAttribute('src'), path).href);
     decorateMain(main);
 
     const blocks = main.querySelectorAll('div.block');

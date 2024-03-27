@@ -92,7 +92,7 @@
 
 .b-dropdownbox-container .block.inactive > div:nth-child(1) > div::before,
 .b-dropdownbox-container .block.closed > div:nth-child(1) > div::before {
-  background: url("../../images/icons/arrow_down.png") bottom left no-repeat transparent;
+  background: url("/_src-lp/images/icons/arrow_down.png") bottom left no-repeat transparent;
   transform: rotate(0deg);
   background-size: 100%;
 }
@@ -104,7 +104,7 @@
   content: "";
   width: 17px;
   height: 19px;
-  background: url("../../images/icons/arrow_down.png") top left no-repeat transparent;
+  background: url("/_src-lp/images/icons/arrow_down.png") top left no-repeat transparent;
   float: left;
   margin-right: 9px;
   background-size: 100%;
