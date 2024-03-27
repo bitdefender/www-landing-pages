@@ -82,10 +82,10 @@
   background-color: transparent;
 }
 .rev-carousel-cards .carousel-control-next .carousel-control-next-icon, .rev-carousel-cards .carousel-control-prev .carousel-control-next-icon {
-  background: url("../../images/icons/right-arrow.svg") no-repeat;
+  background: url("/_src-lp/images/icons/right-arrow.svg") no-repeat;
 }
 .rev-carousel-cards .carousel-control-next .carousel-control-prev-icon, .rev-carousel-cards .carousel-control-prev .carousel-control-prev-icon {
-  background: url("../../images/icons/right-arrow.svg") no-repeat;
+  background: url("/_src-lp/images/icons/right-arrow.svg") no-repeat;
   transform: rotate(180deg);
 }
 .rev-carousel-cards .button-container a {
@@ -98,7 +98,7 @@
 }
 .rev-carousel-cards ul li:not(:has(del)) {
   text-align: left;
-  background: url("../../images/icons/check_full.png") 0 3px no-repeat transparent;
+  background: url("/_src-lp/images/icons/check_full.png") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
@@ -108,7 +108,7 @@
 }
 .rev-carousel-cards ul li:has(del) {
   text-align: left;
-  background: url("../../images/icons/x_circle.svg") 0 3px no-repeat transparent;
+  background: url("/_src-lp/images/icons/x_circle.svg") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;

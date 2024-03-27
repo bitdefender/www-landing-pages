@@ -47,7 +47,7 @@ $rev-save-box: #68BA68;
         p:nth-of-type(4) {
             display: inline-block;
             background-color: #E6F2FE;
-            padding: 5px 15px; 
+            padding: 5px 15px;
             border-radius: 16px;
             align-self: center;
         }
@@ -81,7 +81,7 @@ $rev-save-box: #68BA68;
 
             li {
                 text-align: left;
-                background: url("../../images/icons/check_full.png") 0 3px no-repeat transparent;
+                background: url("/_src-lp/images/icons/check_full.png") 0 3px no-repeat transparent;
                 list-style-type: none;
                 padding-left: 23px;
                 background-size: 16px;
@@ -161,14 +161,14 @@ $rev-save-box: #68BA68;
         table {
             tbody {
                 display: flex;
-                
+
                 tr {
                     &:nth-child(2) {
                         padding: 0 10px;
                         border-right: 0.5px solid grey;
-                        border-left: 0.5px solid grey; 
-                    } 
-                    
+                        border-left: 0.5px solid grey;
+                    }
+
                     &:nth-child(3) {
                         padding-left: 10px;
                     }
