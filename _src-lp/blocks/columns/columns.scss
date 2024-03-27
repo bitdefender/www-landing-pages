@@ -71,16 +71,18 @@
 .columns-container.new-v2{
  u {
   text-decoration: none; 
-  font: normal normal normal 18px/21px Arial;
+  font: normal normal normal 18px/21px Arial, sans-serif;
 }
+
   h2{
-    font: normal normal bold 32px/37px Arial;
+    font: normal normal bold 32px/37px Arial, sans-serif;
     color: #006DFF;
-    letter-spacing: 0px;
+    letter-spacing: 0;
   }
+
   p{
-    font: normal normal normal 16px/24px Arial;
-    letter-spacing: 0px;
+    font: normal normal normal 16px/24px Arial, sans-serif;
+    letter-spacing: 0;
     margin-bottom: 16px;
     margin-top: 16px;
   };
