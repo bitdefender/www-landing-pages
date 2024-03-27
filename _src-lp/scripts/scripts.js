@@ -810,7 +810,7 @@ function addEventListenersOnVpnCheckboxes(pid) {
       item.addEventListener('click', (e) => {
         const checkboxId = e.target.getAttribute('id');
 
-        if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
+        if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
           const prodxId = e.target.getAttribute('id').split('-')[1];
           const storeObjprod = window.StoreProducts.product[prodxId] || {};
           showPrices(storeObjprod, e.target.checked, checkboxId);
@@ -845,6 +845,38 @@ async function initZuoraProductPriceLogic(campaign) {
             sendAnalyticsProducts(zuoraResult, 'nl');
 
             return zuoraResult;
+          }),
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
+}
+
+async function initVlaicuProductPriceLogic(campaign) {
+  import('./vendor/product.js').then(async (module) => {
+    const ProductPrice = module.default;
+    showLoaderSpinner();
+
+    if (productsList.length) {
+      try {
+        await Promise.all(
+          productsList.map(async (item) => {
+            const prodSplit = item.split('/');
+            const prodAlias = prodSplit[0].trim();
+            const prodUsers = prodSplit[1].trim();
+            const prodYears = prodSplit[2].trim();
+            const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+
+            const productPrice = new ProductPrice(item, campaign);
+            const vlaicuResult = await productPrice.getPrices();
+            showPrices(vlaicuResult);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(false, onSelectorClass);
+            sendAnalyticsProducts(vlaicuResult);
+
+            return vlaicuResult;
           }),
         );
       } catch (error) {
@@ -903,10 +935,16 @@ async function initializeProductsPriceLogic() {
   }
 
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
-    addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
-      initSelectors(pid);
+    if (!window.location.pathname.includes('vlaicu')) {
+      addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
+        initSelectors(pid);
+        addEventListenersOnVpnCheckboxes(pid);
+      }, {}, 'module');
+    } else {
+      window.isVlaicu = true;
+      initVlaicuProductPriceLogic(campaign);
       addEventListenersOnVpnCheckboxes(pid);
-    }, {}, 'module');
+    }
   } else {
     initZuoraProductPriceLogic(campaign);
     addEventListenersOnVpnCheckboxes(pid);

@@ -1,3 +1,5 @@
+import { Bundle } from './vendor/product.js';
+
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
   [4, { locale: 'au-AU', label: 'australia' }],
@@ -249,7 +251,7 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
       checkbox.setAttribute('disabled', 'true');
     });
   } else {
-    const prodLoadBox = document.querySelectorAll(`.prodload-${pid}`);
+    const prodLoadBox = document.querySelectorAll(pid ? `.prodload-${pid}` : '.prodload');
     prodLoadBox.forEach((item) => {
       item.classList.remove('await-loader');
     });
@@ -287,7 +289,7 @@ function maxDiscount() {
 }
 
 // display prices
-export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '') {
+export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
@@ -311,6 +313,17 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     buyLink += '&bundle_id=com.bitdefender.vpn&bundle_payment_period=10d1y';
     selectedVarPrice += storeObjVPN.selected_variation.price || 0;
     selectedVarPrice = selectedVarPrice.toFixed(2);
+
+    if (window.isVlaicu) {
+      showLoaderSpinner(true);
+      const bundles = new Bundle(storeObj, storeObjVPN);
+      const bundleBuyLinkBody = await bundles.getBuyLink();
+      if (bundleBuyLinkBody) {
+        buyLink = bundleBuyLinkBody.buyLink;
+      }
+      showLoaderSpinner(false);
+    }
+
     if (showVpnBox) {
       showVpnBox.style.display = 'block';
     }
@@ -523,7 +536,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     }
   }
 
-  if (isZuoraForNetherlandsLangMode() && document.querySelector(`.buylink-${onSelectorClass}`)) {
+  if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && document.querySelector(`.buylink-${onSelectorClass}`)) {
     const allBuyLinkBox = document.querySelectorAll(`.buylink-${onSelectorClass}`);
     if (triggerVPN) {
       parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
