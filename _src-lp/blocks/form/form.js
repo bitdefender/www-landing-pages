@@ -48,23 +48,23 @@ async function submitForm(form) {
 }
 
 /*
-  * Creates a modal-lp with title and message
-  * @param {string} title - title of the modal-lp
-  * @param {string} message - message of the modal-lp
+  * Creates a modal with title and message
+  * @param {string} title - title of the modal
+  * @param {string} message - message of the modal
   * @returns {void}
   */
 const createModal = () => {
   const modal = document.createElement('dialog');
-  modal.classList.add('success-form-modal-lp');
+  modal.classList.add('success-form-modal');
 
   const modalTitle = document.createElement('h2');
-  modalTitle.classList.add('modal-lp-title');
+  modalTitle.classList.add('modal-title');
 
   const modalMessage = document.createElement('p');
-  modalMessage.classList.add('modal-lp-message');
+  modalMessage.classList.add('modal-message');
 
   const modalClose = document.createElement('button');
-  modalClose.classList.add('modal-lp-close');
+  modalClose.classList.add('modal-close');
   modalClose.textContent = 'Close';
 
   modal.appendChild(modalTitle);
@@ -76,17 +76,17 @@ const createModal = () => {
 };
 
 /**
- * Displays a modal-lp with title and message
- * @param {string} title - title of the modal-lp
- * @param {string} message - message of the modal-lp
+ * Displays a modal with title and message
+ * @param {string} title - title of the modal
+ * @param {string} message - message of the modal
  * @returns {void}
  * */
 async function displayModal(title, message) {
   createModal();
-  const modal = document.querySelector('.success-form-modal-lp');
-  const modalTitle = modal.querySelector('.modal-lp-title');
-  const modalMessage = modal.querySelector('.modal-lp-message');
-  const modalClose = modal.querySelector('.modal-lp-close');
+  const modal = document.querySelector('.success-form-modal');
+  const modalTitle = modal.querySelector('.modal-title');
+  const modalMessage = modal.querySelector('.modal-message');
+  const modalClose = modal.querySelector('.modal-close');
 
   modalTitle.textContent = title;
   modalMessage.textContent = message;
@@ -99,7 +99,7 @@ async function displayModal(title, message) {
       resolve();
     });
 
-    // close modal-lp on click outside of modal-lp
+    // close modal on click outside of modal
     modal.addEventListener('click', (event) => {
       if (event.target === modal) {
         modal.close();
