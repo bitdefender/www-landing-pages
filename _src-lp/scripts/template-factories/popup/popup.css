@@ -1,0 +1,56 @@
+.popup dialog .modal-content .default-content-wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.popup dialog .modal-content .default-content-wrapper > *:not(:last-child) {
+    grid-column: 1;
+}
+
+.popup dialog .modal-content .default-content-wrapper > *:last-child {
+    grid-column: 2;
+    height: 200%;
+    margin-top: -50%;
+}
+
+.popup dialog .icon-close {
+    margin-left: -20px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper {
+    position: relative;
+    margin-top: 15px;
+}
+
+.popup dialog .modal-content .default-content-wrapper input {
+    border-radius: 10px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper.valid input {
+    border: solid #22ac3b 1.5px;
+    padding-left: 35px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper.valid::before {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    background: url('/_src-lp/icons/checkmark_solid-circle.svg') no-repeat;
+    position: absolute;
+    top: 12px;
+    left: 5px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper.invalid input {
+    border: solid #e72325 1.5px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper .error-message {
+    margin-top: -14px;
+    display: block;
+    font-size: 14px;
+    color: #e72325;
+}
+
+
