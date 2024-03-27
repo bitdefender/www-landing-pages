@@ -39,7 +39,7 @@ export async function createModal(contentNodes) {
   decorateIcons(closeButton);
 
   dialog.addEventListener('close', () => {
-    document.body.classList.remove('modal-lp-open');
+    document.body.classList.remove('modal-open');
     block.remove();
   });
 
