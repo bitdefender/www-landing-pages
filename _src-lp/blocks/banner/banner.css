@@ -158,13 +158,13 @@
   padding: 2rem;
 }
 
-.section.banner-container .banner #lidlBox hr {
-  border-top: 1px solid #DDD;
-}
-
 .section.banner-container.new-2024 hr {
   border: 2px solid #C6C6C6;
   width: 80px;
+}
+
+.section.banner-container .banner #lidlBox hr {
+  border-top: 1px solid #DDD;
 }
 
 .section.banner-container .banner #lidlBox a.red-buy-button {
