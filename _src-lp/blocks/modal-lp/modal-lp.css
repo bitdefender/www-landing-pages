@@ -49,7 +49,7 @@ body.modal-open {
     padding: 0;
 }
 
-.modal-lp .close-button > .icon {
+.modal-lp .close-button > span {
     background: url("/_src-lp/icons/close.svg") no-repeat center;
 }
 
