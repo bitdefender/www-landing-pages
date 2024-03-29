@@ -59,9 +59,9 @@ async function openDialog() {
       },
     });
 
-    const result = await promise.json();
+    const emailResp = await promise.json();
 
-    if (result.ok) {
+    if (emailResp.ok) {
       emailHasBeenSubmitted = true;
       // fetch the other fragment and update modal-lp content
       const path = popupSuccessUrl.startsWith('http')
