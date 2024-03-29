@@ -1,7 +1,28 @@
 import {
-  buildBlock, decorateBlock, decorateIcons, loadBlock, loadCSS,
+  buildBlock, decorateBlock, decorateIcons, loadBlock,
 } from '../../scripts/lib-franklin.js';
 import { loadFragment } from '../../scripts/scripts.js';
+
+/**
+ * Loads a CSS file.
+ * @param {string} href URL to the CSS file
+ */
+
+// todo this needs to be changed in franklin lib and update to aem.js
+async function loadCSS(href) {
+  return new Promise((resolve, reject) => {
+    if (!document.querySelector(`head > link[href="${href}"]`)) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.onload = resolve;
+      link.onerror = reject;
+      document.head.append(link);
+    } else {
+      resolve();
+    }
+  });
+}
 
 // This is not a traditional block, so there is no decorate function. Instead, links to
 // a */modals/* path  are automatically transformed into a modal-lp. Other blocks can also use
@@ -19,7 +40,7 @@ export async function createModal(contentNodes) {
   closeButton.classList.add('close-button');
   closeButton.setAttribute('aria-label', 'Close');
   closeButton.type = 'button';
-  closeButton.innerHTML = '<span class="icon icon-close"></span>';
+  closeButton.innerHTML = '<span class="icon"></span>';
   closeButton.addEventListener('click', () => dialog.close());
   dialog.append(closeButton);
 
