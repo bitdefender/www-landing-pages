@@ -4,18 +4,49 @@ import { decorateMain, isView } from '../../scripts.js';
 const isMobileView = isView('mobile');
 
 let attemptsToInformUser = 0;
-let emailHasBeenSubmitted = false;
+const cookieSubscriptionDiscount = 'emailSubscriptionDiscount';
+const cookieExpirationDateInMs = 30 * 24 * 60 * 60 * 1000;
 
 function isDialogVisible() {
   return document.body.classList.contains('modal-open');
 }
 
+function getCookie(cname) {
+  const name = `${cname}=`;
+  const ca = document.cookie.split(';');
+  for (let i = 0; i < ca.length; i += 1) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return '';
+}
+
+function setupCookie() {
+  const cookieValue = true;
+
+  const date = new Date();
+  date.setTime(date.getTime() + cookieExpirationDateInMs); // 30 days in milliseconds
+
+  const expires = `expires=${date.toUTCString()}`;
+
+  document.cookie = `${cookieSubscriptionDiscount}=${cookieValue};${expires};path=/`;
+}
+
 function isInLimitOfAttempts() {
+  if (attemptsToInformUser > 0) {
+    setupCookie();
+    return true;
+  }
   return attemptsToInformUser > 0;
 }
 
 async function openDialog() {
-  if (isDialogVisible() || isInLimitOfAttempts() || emailHasBeenSubmitted) return;
+  if (isDialogVisible() || isInLimitOfAttempts() || getCookie(cookieSubscriptionDiscount)) return;
 
   attemptsToInformUser += 1;
   const popupUrl = getMetadata('popup-url');
@@ -61,8 +92,8 @@ async function openDialog() {
 
     const emailResp = await promise.json();
 
-    if (emailResp.ok) {
-      emailHasBeenSubmitted = true;
+    if (emailResp.success) {
+      setupCookie();
       // fetch the other fragment and update modal-lp content
       const path = popupSuccessUrl.startsWith('http')
         ? new URL(popupSuccessUrl, window.location).pathname
