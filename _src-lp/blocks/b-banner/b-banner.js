@@ -388,5 +388,12 @@ export default function decorate(block) {
     `;
   }
 
+  // add greenTag for specific text: [NEW]
+  const getLists = block.querySelectorAll('ul li');
+  getLists.forEach((item) => {
+    item.innerHTML = item.innerHTML.replace('[', '<span class="greenTag">');
+    item.innerHTML = item.innerHTML.replace(']', '</span>');
+  });
+
   // TODO: Add logic betwen the card and banner component.
 }
