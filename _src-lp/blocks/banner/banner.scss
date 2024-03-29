@@ -52,7 +52,7 @@
   margin-left:10px;
   margin-right:10px;
   margin-top:0;
-  font: normal normal bold 18px/21px Arial;
+  font: normal normal bold 18px/21px Arial, sans-serif;
   gap: 5px;
 }
 
@@ -63,10 +63,11 @@
 
 
 .section.banner-container.new-2024 .banner h3 {
-  font: normal normal bold 24px/28px Arial;
+  font: normal normal bold 24px/28px Arial, sans-serif;
   letter-spacing: 0;
   text-align: left;
 }
+
 .section.banner-container .banner .button-container {
   display: none;
 }
@@ -163,10 +164,12 @@
 .section.banner-container .banner #lidlBox hr {
   border-top: 1px solid #DDD;
 }
+
 .section.banner-container.new-2024 hr{
   border: 2px solid #C6C6C6;
   width: 80px;
 }
+
 .section.banner-container .banner #lidlBox a.red-buy-button {
   width: 100%;
   text-align: left;
@@ -340,7 +343,7 @@
 
   .section.banner-container #pricesBox .terms {
     margin: 5px 0 10px;
-    font: normal normal normal 14px/16px Arial;
+    font: normal normal normal 14px/16px Arial, sans-serif;
   }
 
   .section.banner-container #pricesBox .terms p {
@@ -482,8 +485,8 @@
 
   .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
-    font-size: var(--heading-font-size-s);
-    line-height: var(--heading-font-size-s);
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-m);
     font: normal normal normal 18px/21px Arial;
   }
 
