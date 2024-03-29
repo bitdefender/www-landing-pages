@@ -485,9 +485,7 @@
 
   .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
-    font-size: var(--heading-font-size-m);
-    line-height: var(--heading-font-size-m);
-    font: normal normal normal 18px/21px Arial;
+    font: normal normal normal 18px/21px Arial, sans-serif;
   }
 
   .section.banner-container #pricesBox .d-flex span.prod-newprice {
