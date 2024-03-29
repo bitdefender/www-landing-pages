@@ -1,5 +1,7 @@
 import { getMetadata } from '../../lib-franklin.js';
-import { decorateMain } from '../../scripts.js';
+import { decorateMain, isView } from '../../scripts.js';
+
+const isMobileView = isView('mobile');
 
 let attemptsToInformUser = 0;
 let emailHasBeenSubmitted = false;
@@ -9,7 +11,7 @@ function isDialogVisible() {
 }
 
 function isInLimitOfAttempts() {
-  return attemptsToInformUser > 2;
+  return attemptsToInformUser > 0;
 }
 
 async function openDialog() {
@@ -24,20 +26,22 @@ async function openDialog() {
   const buttonLink = modalInstance.querySelector('a');
   const defaultContentWrapper = modalInstance.querySelector('.default-content-wrapper');
 
+  const inputParent = modalInstance.querySelector('input').parentNode.parentNode;
+  inputParent.classList.add('input-wrapper');
+
   buttonLink.addEventListener('click', async (e) => {
     e.preventDefault();
     const input = modalInstance.querySelector('input');
     const email = input.value;
 
     const emailIsValid = email && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email);
-    const inputParent = modalInstance.querySelector('input').parentNode;
 
     if (inputParent.classList.contains('invalid') && !emailIsValid) {
       return;
     }
 
     if (!emailIsValid) {
-      inputParent.classList.add('input-wrapper', 'invalid');
+      inputParent.classList.add('invalid');
       inputParent.innerHTML += '<span class="error-message">Invalid email address</span>';
       return;
     }
@@ -78,17 +82,22 @@ async function openDialog() {
       decorateMain(fragment);
       const newDefaultContentWrapper = fragment.querySelector('.default-content-wrapper');
 
+      newDefaultContentWrapper.classList.add('success');
       defaultContentWrapper.replaceWith(newDefaultContentWrapper);
 
       const newInput = modalInstance.querySelector('input');
       newInput.disabled = true;
       newInput.value = input.value;
-      newInput.parentNode.classList.add('input-wrapper', 'valid');
+      newInput.parentNode.parentNode.classList.add('input-wrapper', 'valid');
     }
   });
 }
 
 function detectExitIntent() {
+  if (isMobileView) {
+    return;
+  }
+
   document.addEventListener('mouseout', (event) => {
     if (event.clientY < 50) {
       // Assuming the user's intent to exit if the mouse is 50 pixels close to the top
