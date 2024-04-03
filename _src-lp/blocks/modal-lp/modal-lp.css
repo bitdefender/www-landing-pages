@@ -1,0 +1,61 @@
+body.modal-open {
+    overflow: hidden;
+}
+
+.modal-lp dialog {
+    overflow: hidden;
+    --dialog-border-radius: 16px;
+
+    overscroll-behavior: none;
+    border: 1px solid #ccc;
+    border-radius: var(--dialog-border-radius);
+    width: 100vw;
+}
+
+.modal-lp dialog .modal-content {
+    overflow-y: auto;
+    overscroll-behavior: none;
+    max-height: calc(100dvh - 60px);
+}
+
+@media (width >= 600px) {
+    .modal-lp dialog {
+        padding: 30px;
+        width: 80vw;
+        max-width: 700px;
+    }
+
+    .modal-lp dialog .modal-content {
+        max-height: calc(100vh - 90px);
+    }
+}
+
+.modal-lp dialog::backdrop {
+    background-color: rgb(0 0 0 / 50%);
+}
+
+.modal-lp .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-height: 54px;
+    border-radius: 0 var(--dialog-border-radius) 0 0;
+    background-color: unset;
+    text-overflow: clip;
+    margin: 0;
+    border: none;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+}
+
+.modal-lp .close-button > span {
+    background: url("/_src-lp/icons/close.svg") no-repeat center;
+    width: 50px;
+    height: 50px;
+    display: block;
+}
+
+.modal-lp dialog .section {
+    padding: 0;
+}

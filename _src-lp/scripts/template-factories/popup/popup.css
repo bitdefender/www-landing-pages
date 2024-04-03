@@ -1,0 +1,68 @@
+.popup dialog .modal-content .default-content-wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.popup dialog .modal-content .default-content-wrapper > *:not(:last-child) {
+    grid-column: 1;
+}
+
+.popup dialog .modal-content .default-content-wrapper > *:last-child {
+    grid-column: 2;
+    height: 200%;
+    margin-top: -60%;
+}
+
+.popup dialog .icon-close {
+    margin-left: -20px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper {
+    position: relative;
+    margin-top: 20px;
+    height: 70px;
+}
+
+.popup dialog .modal-content .default-content-wrapper input {
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper.valid input {
+    border: solid #22ac3b 1.5px;
+    padding-left: 40px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper.valid::before {
+    content: '';
+    display: block;
+    width: 23px;
+    height: 23px;
+    background: url('/_src-lp/icons/check.svg') no-repeat center;
+    position: absolute;
+    top: 12px;
+    left: 10px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper.invalid input {
+    border: solid #e72325 1.5px;
+}
+
+.popup dialog .modal-content .default-content-wrapper .input-wrapper .error-message {
+    margin-top: -14px;
+    display: block;
+    font-size: 14px;
+    color: #e72325;
+}
+
+.popup dialog a.button {
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.popup dialog .modal-content .default-content-wrapper.success > *:last-child {
+    margin-top: -40%;
+}
+
+

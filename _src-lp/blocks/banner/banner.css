@@ -19,10 +19,50 @@
   width: 100%;
 }
 
+.section.banner-container .banner .img-right picture {
+  position: relative;
+  left: 15px;
+}
+
+.section.banner-container .banner .img-right {
+  position: relative;
+}
+
+.section.banner-container.new-2024 .banner .img-right div::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, rgba(247, 247, 247, 0), #F7F7F7);
+}
+
 .section.banner-container .banner h1 {
   font-size: 28px;
   text-align: left;
   margin-top: 0;
+}
+
+.section.banner-container.new-2024 .banner {
+  overflow: hidden;
+  background-color: #F6F6F6;
+}
+
+.section.banner-container.new-2024 .save-class {
+  color: #1C7928;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 0;
+  font: normal normal bold 18px/21px Arial, sans-serif;
+  gap: 5px;
+}
+
+.section.banner-container.new-2024 .banner h1 {
+  font-weight: normal;
+}
+
+.section.banner-container.new-2024 .banner h3 {
+  font: normal normal bold 24px/28px Arial, sans-serif;
+  letter-spacing: 0;
+  text-align: left;
 }
 
 .section.banner-container .banner .button-container {
@@ -118,6 +158,11 @@
   padding: 2rem;
 }
 
+.section.banner-container.new-2024 hr {
+  border: 2px solid #C6C6C6;
+  width: 80px;
+}
+
 .section.banner-container .banner #lidlBox hr {
   border-top: 1px solid #DDD;
 }
@@ -141,7 +186,7 @@
   width: 322px;
 }
 
-.section.lp-brand .banner h1 {
+.section.banner-container.lp-brand .banner h1 {
   font-weight: lighter;
   font-size: var(--heading-font-size-s);
   line-height: var(--heading-font-size-s);
@@ -254,8 +299,8 @@
   }
   .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
-    font-size: var(--heading-font-size-m);
-    line-height: var(--heading-font-size-m);
+    font-size: var(--heading-font-size-xs);
+    line-height: var(--heading-font-size-xs);
     font-weight: normal;
   }
   .section.banner-container #pricesBox .d-flex span.prod-newprice {
@@ -283,6 +328,7 @@
   }
   .section.banner-container #pricesBox .terms {
     margin: 5px 0 10px;
+    font: normal normal normal 14px/16px Arial, sans-serif;
   }
   .section.banner-container #pricesBox .terms p {
     font-size: 12px;
@@ -397,9 +443,7 @@
   }
   .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
-    font-size: var(--heading-font-size-s);
-    line-height: var(--heading-font-size-s);
-    font-weight: normal;
+    font: normal normal normal 18px/21px Arial, sans-serif;
   }
   .section.banner-container #pricesBox .d-flex span.prod-newprice {
     font-size: var(--heading-font-size-l);
