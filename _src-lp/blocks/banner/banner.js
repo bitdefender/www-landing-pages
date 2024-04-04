@@ -271,26 +271,18 @@ export default function decorate(block) {
   } else {
     block.innerHTML = `
     <div class="container-fluid">
-      <div class="row d-flex position-relative">
+      <div class="row d-block d-lg-flex position-relative">
+        <div class="col-12 d-block d-lg-none p-0 text-center bck-img">
+            ${pictureEl.innerHTML}
+        </div>
+
         <div class="col-5 ps-4">${contentEl.innerHTML}</div>
+
         <div class="col-7 img-right bck-img">
-          ${pictureEl.innerHTML}
+            ${pictureEl.innerHTML}
         </div>
       </div>
     </div>`;
-
-    // mobile
-    if (window.window.innerWidth < 768) {
-      block.innerHTML = `
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-          <div class="col-12 p-0 text-center bck-img">
-            ${pictureEl.innerHTML}
-          </div>
-          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
-        </div>
-      </div> `;
-    }
   }
 
   if (textAlignVertical) {
