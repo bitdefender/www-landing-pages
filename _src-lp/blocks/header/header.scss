@@ -1,6 +1,4 @@
 header {
-  height: var(--nav-height);
-
   &.dark {
     background-color: black;
   }
@@ -53,8 +51,6 @@ header {
 header#headerBlue {
   background-color: #fff;
   border-bottom: 1px solid #EDEDED;
-  margin-bottom: 1em;
-  height: auto;
 
   .block div {
     display: flex;
