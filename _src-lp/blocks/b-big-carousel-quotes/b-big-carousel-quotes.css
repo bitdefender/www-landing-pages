@@ -216,3 +216,6 @@
     margin-bottom: 70px;
   }
 }
+.b-big-carousel-quotes-container.hidden-quotes .carousel-inner .carousel-item q::before, .b-big-carousel-quotes-container.hidden-quotes .carousel-inner .carousel-item q::after {
+  display: none;
+}
