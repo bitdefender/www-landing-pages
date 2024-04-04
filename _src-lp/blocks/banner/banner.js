@@ -227,13 +227,8 @@ export default function decorate(block) {
   if (imageCover && imageCover.indexOf('small') !== -1) {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
-    if (imageCover === 'small-left') {
-      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top left / auto 100% ${backgroundColor || '#000'}`;
-    } else if (imageCover === 'small-center') {
-      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / auto 100% ${backgroundColor || '#000'}`;
-    } else if (imageCover === 'small-right') {
-      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
-    }
+    const [size, value] = imageCover.split('-');
+    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${value} / auto 100% ${backgroundColor || '#000'}`;
 
     block.innerHTML = `
     <div class="container-fluid">
@@ -251,13 +246,8 @@ export default function decorate(block) {
   } else if (imageCover) {
     parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
 
-    if (imageCover === 'full-left') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top left / auto 100% ${backgroundColor || '#000'}`;
-    } else if (imageCover === 'full-center') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / auto 100% ${backgroundColor || '#000'}`;
-    } else if (imageCover === 'full-right') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
-    }
+    const [size, value] = imageCover.split('-');
+    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${value} / auto 100% ${backgroundColor || '#000'}`;
 
     if (contentSize === 'fourth') {
       block.innerHTML = `
