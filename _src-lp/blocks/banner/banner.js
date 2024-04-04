@@ -272,13 +272,13 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-block d-lg-flex position-relative">
-        <div class="col-12 d-block d-lg-none p-0 text-center bck-img">
+        <div class="col-12 d-block d-sm-none d-md-none d-lg-none p-0 text-center bck-img">
             ${pictureEl.innerHTML}
         </div>
 
-        <div class="col-xs-12 col-sm-5 ps-4">${contentEl.innerHTML}</div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 ps-4">${contentEl.innerHTML}</div>
 
-        <div class="col-7 d-none d-lg-block img-right bck-img">
+        <div class="col-7 d-none d-sm-block d-md-block d-lg-block img-right bck-img">
             ${pictureEl.innerHTML}
         </div>
       </div>
