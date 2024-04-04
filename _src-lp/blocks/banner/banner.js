@@ -276,7 +276,7 @@ export default function decorate(block) {
             ${pictureEl.innerHTML}
         </div>
 
-        <div class="col-xs-12 col-5 ps-4">${contentEl.innerHTML}</div>
+        <div class="col-xs-12 col-sm-5 ps-4">${contentEl.innerHTML}</div>
 
         <div class="col-7 d-none d-lg-block img-right bck-img">
             ${pictureEl.innerHTML}
