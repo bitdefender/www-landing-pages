@@ -41,6 +41,10 @@
   --nav-height: 64px;
 }
 
+header {
+  height: var(--nav-height);
+}
+
 body {
   font-size: var(--body-font-size-xs);
   margin: 0;
