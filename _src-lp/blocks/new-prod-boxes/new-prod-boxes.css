@@ -114,12 +114,9 @@
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box .prod-percent {
-  font-size: 13px;
   line-height: 15px;
-  color: white;
-  background-color: #68BA68;
-  border-radius: 11px;
-  padding: 4px 10px;
+  color: #1C7928;
+  font-weight: bold;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box {
@@ -222,6 +219,15 @@
   color: black;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li em {
+  background-color: #026DFF;
+  color: white;
+  padding: 4px 7px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-style: normal;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
   font-size: var(--body-font-size-xs);
   line-height: var(--heading-font-size-s);
@@ -257,7 +263,7 @@
   line-height: 17px;
   margin-bottom: 8px;
   list-style-type: none;
-  background: url("/_src-lp/images/icons/ok.png") top 2px left no-repeat transparent;
+  background: url("https://bitdefender.com/icons/circle-check-sharp-solid.svg") top 2px left no-repeat transparent;
   padding-left: 22px;
   background-size: 13px;
   position: relative;
@@ -311,6 +317,14 @@
 
 .new-prod-boxes-container .block .prod_box.hasGreenTag .inner_prod_box {
   box-shadow: 0 3px 7px 0 #C1C1C1;
+}
+
+.new-prod-boxes-container.match-benefits-height .block .prod_box .inner_prod_box .benefitsLists ul:first-of-type {
+  min-height: 11em;
+}
+
+.new-prod-boxes-container.match-benefits-height .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
+  min-height: 7em;
 }
 
 @media (width >= 768px) {
