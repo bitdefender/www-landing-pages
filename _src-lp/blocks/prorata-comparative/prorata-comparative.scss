@@ -69,7 +69,7 @@
 }
 
 .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a  {
-  width: 290px;
+  width: 90%;
   padding: 19px 0;
   margin-top: 1em;
   display: inline-block;
@@ -105,7 +105,7 @@
   font-weight: bold;
   font-style: normal;
   padding: 8px;
-  width: 320px;
+  width: 90%;
   display: inline-block;
   border-radius: 10px 10px 0 0;
   position: absolute;
@@ -125,8 +125,8 @@
 }
 
 .prorata-comparative-container .block > div > div:nth-of-type(1) p {
-  font-size: 32px;
-  line-height: 39px;
+  font-size: 25px;
+  line-height: 37px;
 }
 
 .prorata-comparative-container .block > div:nth-of-type(1) > div {
@@ -141,8 +141,8 @@
 
 .prorata-comparative-container .block h1 {
   font-weight: bold;
-  font-size: 50px;
-  line-height: 56px;
+  font-size: 42px;
+  line-height: 44px;
   color: #006EFF;
   margin-top: 0;
 }
@@ -282,5 +282,17 @@
 
   .prorata-comparative-container .block > div:nth-of-type(1) table, .prorata-comparative-container .block > div:nth-of-type(1) > div em, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a {
     width: 90%;
+  }
+}
+
+@media screen and (width < 1050px) {
+  .prorata-comparative-container .block h1 {
+    font-size: 32px;
+    line-height: 35px;
+  }
+
+  .prorata-comparative-container .block > div > div:nth-of-type(1) p {
+    font-size: 25px;
+    line-height: 30px;
   }
 }
