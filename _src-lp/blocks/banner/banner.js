@@ -57,8 +57,8 @@ export default function decorate(block) {
           </div>
           </p>
           <span class="prod-newprice newprice-${onSelectorClass}"></span>
-          
-       
+
+
         <p class="variation">${prices.innerHTML}</p>
       </div>`;
       pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
@@ -224,8 +224,17 @@ export default function decorate(block) {
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  if (imageCover && imageCover === 'small') {
+  if (imageCover && imageCover.indexOf('small') !== -1) {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+
+    if (imageCover === 'small-left') {
+      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top left / auto 100% ${backgroundColor || '#000'}`;
+    } else if (imageCover === 'small-center') {
+      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / auto 100% ${backgroundColor || '#000'}`;
+    } else if (imageCover === 'small-right') {
+      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
+    }
+
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-lg-flex position-relative">
@@ -272,20 +281,26 @@ export default function decorate(block) {
   } else {
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex position-relative">
-          <div class="col-5 ps-4">${contentEl.innerHTML}</div>
-          <div class="col-7 img-right bck-img">
-            ${pictureEl.innerHTML}
-          </div>
+      <div class="row d-flex position-relative">
+        <div class="col-5 ps-4">${contentEl.innerHTML}</div>
+        <div class="col-7 img-right bck-img">
+          ${pictureEl.innerHTML}
         </div>
-        <div class="row d-lg-none justify-content-center">
+      </div>
+    </div>`;
+
+    // mobile
+    if (window.window.innerWidth < 768) {
+      block.innerHTML = `
+      <div class="container-fluid">
+        <div class="row justify-content-center">
           <div class="col-12 p-0 text-center bck-img">
             ${pictureEl.innerHTML}
           </div>
           <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
         </div>
-      </div>
-    `;
+      </div> `;
+    }
   }
 
   if (textAlignVertical) {
