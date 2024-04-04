@@ -227,8 +227,8 @@ export default function decorate(block) {
   if (imageCover && imageCover.indexOf('small') !== -1) {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
-    const [size, value] = imageCover.split('-');
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${value} / auto 100% ${backgroundColor || '#000'}`;
+    const imageCoverVar = imageCover.split('-')[1];
+    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
 
     block.innerHTML = `
     <div class="container-fluid">
@@ -246,8 +246,8 @@ export default function decorate(block) {
   } else if (imageCover) {
     parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
 
-    const [size, value] = imageCover.split('-');
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${value} / auto 100% ${backgroundColor || '#000'}`;
+    const imageCoverVar = imageCover.split('-')[1];
+    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
 
     if (contentSize === 'fourth') {
       block.innerHTML = `
