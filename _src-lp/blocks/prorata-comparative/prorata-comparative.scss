@@ -2,6 +2,37 @@
   display: flex;
 }
 
+.prorata-comparative-container .block .prices_box span {
+  display: block;
+}
+
+.prorata-comparative-container .block .prices_box .prod-save-box {
+  border-radius: 25px;
+  padding: 7px 12px;
+  background-color: #23b43d;
+  font-size: 14px;
+  margin-bottom: 0;
+  color: white;
+  display: inline-block;
+  font-weight: 700;
+}
+
+.prorata-comparative-container .block .prices_box span.prod-oldprice {
+  color: #999999;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: line-through;
+  margin: 10px 0 8px 0;
+}
+
+.prorata-comparative-container .block .prices_box span.prod-newprice {
+  color: #111;
+  line-height: 1;
+  font-weight: 700;
+  font-size: 32px;
+
+}
+
 .prorata-comparative-container .block > div:nth-of-type(1) table {
   width: 290px;
   margin: 0 auto;
@@ -13,7 +44,7 @@
 }
 
 .prorata-comparative-container .block > div:nth-of-type(1) > div table:nth-of-type(1) {
-  min-height: 190px;
+  min-height: 150px;
 }
 
 .prorata-comparative-container .block > div:nth-of-type(1) > div table:nth-of-type(1) u {
@@ -39,12 +70,12 @@
 
 .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a  {
   width: 290px;
-  padding: 8px 0;
+  padding: 19px 0;
   margin-top: 1em;
   display: inline-block;
   border-radius: 5px;
   background-color: #D1D1D1;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 19px;
   font-weight: 600;
 }
@@ -94,9 +125,8 @@
 }
 
 .prorata-comparative-container .block > div > div:nth-of-type(1) p {
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 32px;
+  line-height: 39px;
 }
 
 .prorata-comparative-container .block > div:nth-of-type(1) > div {
@@ -107,10 +137,6 @@
 .prorata-comparative-container .block > div:last-of-type > div {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-}
-
-.prorata-comparative-container .block > div > div:nth-of-type(1) p strong {
-  color: #1C7928;
 }
 
 .prorata-comparative-container .block h1 {
