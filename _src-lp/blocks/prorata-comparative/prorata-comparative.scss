@@ -34,7 +34,7 @@
 }
 
 .prorata-comparative-container .block > div:nth-of-type(1) table {
-  width: 290px;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -294,5 +294,9 @@
   .prorata-comparative-container .block > div > div:nth-of-type(1) p {
     font-size: 25px;
     line-height: 30px;
+  }
+
+  .prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) table {
+    width: 90%;
   }
 }
