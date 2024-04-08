@@ -336,7 +336,7 @@ export default function decorate(block) {
     block.children[2].id = 'productBoxDiv';
 
     if (block.querySelector('table:nth-of-type(2)')) {
-      block.querySelector('table:nth-of-type(2)').innerHTML = `<div class="prices_box prodload prodload-${onSelectorClass}">
+      block.querySelector('table:nth-of-type(2)').innerHTML = `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
         <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
         <span class="prod-newprice newprice-${onSelectorClass}"></span>
       </div>`;
@@ -345,7 +345,7 @@ export default function decorate(block) {
     const buyTable = block.querySelector('table:last-of-type');
     if (buyTable) {
       buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
-        <a class="red-buy-button buylink-${onSelectorClass} prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
+        <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
           <strong>${buyTable.innerText}</strong>
         </a>
       </div>`;

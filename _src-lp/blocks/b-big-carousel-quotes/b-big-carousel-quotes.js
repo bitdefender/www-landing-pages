@@ -19,8 +19,7 @@ export default function decorate(block) {
        <div id="${carouselId}" class="carousel slide carousel-fade" data-bs-wrap="false">
           <div class="carousel-indicators">
             ${carouselSlides.map((slide, idx) => {
-    const readMoreEl = getReadMoreEl(slide);
-    const slideImgEl = slide.children[0].children[readMoreEl ? 4 : 3];
+    const slideImgEl = slide.children[0].querySelector('picture');
     return `
               <div
                 role="button"
@@ -39,14 +38,14 @@ export default function decorate(block) {
             ${carouselSlides.map((slide, idx) => {
     const [quoteEl, authorEl, positionEl] = slide.children[0].children;
     const readMoreEl = getReadMoreEl(slide);
-    const pictureEl = slide.children[0].children[readMoreEl ? 5 : 4];
+    const pictureEl = slide.children[0].querySelector('p:last-of-type picture');
     return `
                 <div class="carousel-item ${idx === 0 ? 'active' : ''}">
                   <div class="inner">
                     <q>${quoteEl.innerText}</q>
-                    <div class="separator"></div>
-                    <div class="author">${authorEl.innerText}</div>
-                    <div class="position">${positionEl.innerText}</div>
+                    ${authorEl ? `<div class="separator"></div>
+                                    <div class="author">${authorEl.innerText}</div>` : ''}
+                    ${positionEl ? `<div class="position">${positionEl.innerText}</div>` : ''}
                     ${readMoreEl ? `<a class="read-more" href="${readMoreEl.children[0].href}" title="${readMoreEl.children[0].innerText}">${readMoreEl.children[0].innerText}</a>` : ''}
                   </div>
                   ${isDesktopView ? pictureEl.innerHTML : ''}

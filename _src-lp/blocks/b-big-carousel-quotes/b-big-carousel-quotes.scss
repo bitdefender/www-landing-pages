@@ -228,4 +228,17 @@
   @media (width >= 768px) {
     margin-bottom: 70px;
   }
+
+  &.hidden-quotes {
+    .carousel-inner {
+      .carousel-item {
+        q {
+          &::before,
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

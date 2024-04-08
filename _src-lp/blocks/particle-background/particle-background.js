@@ -8,27 +8,26 @@ function isView(viewport) {
 
 let tsParticles;
 let loadAll;
+const particleIdSelector = 'ts-particles';
 
-async function init(block) {
+async function loadParticles(options) {
   // eslint-disable-next-line import/no-unresolved
   tsParticles = (await import('https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.1.0/+esm')).tsParticles;
   // eslint-disable-next-line import/no-unresolved
   loadAll = (await import('https://cdn.jsdelivr.net/npm/@tsparticles/all@3.1.0/+esm')).loadAll;
 
-  const particleIdSelector = 'ts-particles';
+  await loadAll(tsParticles);
 
+  await tsParticles.load({ id: particleIdSelector, options });
+}
+
+async function init(block) {
   const particleDiv = document.createElement('div');
   particleDiv.setAttribute('id', particleIdSelector);
 
   block.parentElement.classList.add('we-container');
   const particleBackground = block.parentElement.querySelector('.particle-background');
   particleBackground.prepend(particleDiv);
-
-  async function loadParticles(options) {
-    await loadAll(tsParticles);
-
-    await tsParticles.load({ id: particleIdSelector, options });
-  }
 
   const configs = {
     particles: {
@@ -60,7 +59,27 @@ async function init(block) {
     fullScreen: { enable: false },
   };
 
-  await loadParticles(configs);
+  // Options for the Intersection Observer
+  const options = {
+    root: null, // null means observing intersections relative to the viewport
+    rootMargin: '1500px', // Adjust this value to fire the event sooner or later
+    threshold: 0, // Threshold set to 0 means the event will be fired as soon as one pixel is visible
+  };
+
+  // Create a new Intersection Observer instance
+  const observer = new IntersectionObserver((entries, o) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        loadParticles(configs);
+
+        // Stop observing
+        o.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  // Start observing the target element
+  observer.observe(block);
 }
 
 export default async function decorate(block) {
