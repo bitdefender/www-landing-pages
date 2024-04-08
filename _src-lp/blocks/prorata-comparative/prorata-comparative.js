@@ -30,7 +30,7 @@ export default function decorate(block) {
     // replace anchor
     const anchorElement = block.querySelector(`div div:nth-of-type(${activeProd + 1}) table a`);
     const newAnchorElement = document.createElement('a');
-    newAnchorElement.classList.add(`buylink-${onSelectorClass}`, 'await-loader', `prodload`, `prodload-${onSelectorClass}`);
+    newAnchorElement.classList.add(`buylink-${onSelectorClass}`, 'await-loader', 'prodload', `prodload-${onSelectorClass}`);
     newAnchorElement.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
     newAnchorElement.textContent = anchorElement.textContent;
     anchorElement.replaceWith(newAnchorElement);
