@@ -60,7 +60,8 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   // const parent2ndDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(2)');
   const parent1ndDiv = block.children[0];
-  const parent2ndDiv = block.children[1];
+  const parentTagDiv = block.children[1];
+  const parent2ndDiv = block.children[2];
 
   const metaData = parentSelector.dataset;
   const {
@@ -69,7 +70,9 @@ export default function decorate(block) {
   } = metaData;
   const productsAsList = products && products.split(',');
 
-  const subscribeTexts = parent2ndDiv.querySelector('p').innerText;
+  const blueTagMonthlyText = parentTagDiv.querySelector('p').innerHTML;
+  console.log(blueTagMonthlyText)
+  const subscribeTexts = parent2ndDiv.innerText;
   const yearText = parent2ndDiv.querySelector('p:nth-child(2)').innerText;
   const oldpriceText = parent2ndDiv.querySelector('p:nth-child(3)').innerText;
   const savingText = parent2ndDiv.querySelector('p:nth-child(4)').innerText;
@@ -218,7 +221,8 @@ export default function decorate(block) {
 
         pricesDiv.appendChild(selectorBox);
       } else {
-        pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
+        if (blueTagMonthlyText) pricesDiv.innerHTML += `<p class="blue-tag-monthly-text">${blueTagMonthlyText}</p>`;
+        pricesDiv.innerHTML += `<p class="subscribeTexts">${subscribeTexts}</p>`;
         pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
       }
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
