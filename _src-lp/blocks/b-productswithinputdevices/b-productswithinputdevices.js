@@ -71,7 +71,6 @@ export default function decorate(block) {
   const productsAsList = products && products.split(',');
 
   const blueTagMonthlyText = parentTagDiv.querySelector('p').innerHTML;
-  console.log(blueTagMonthlyText)
   const subscribeTexts = parent2ndDiv.innerText;
   const yearText = parent2ndDiv.querySelector('p:nth-child(2)').innerText;
   const oldpriceText = parent2ndDiv.querySelector('p:nth-child(3)').innerText;

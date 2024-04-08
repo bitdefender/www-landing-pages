@@ -34,7 +34,6 @@ export default function decorate(block) {
     newAnchorElement.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
     newAnchorElement.textContent = anchorElement.textContent;
     anchorElement.replaceWith(newAnchorElement);
-
   } else {
     block.innerHTML = 'Product metadata is mandatory';
   }
