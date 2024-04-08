@@ -18,11 +18,11 @@
 }
 
 .prorata-comparative-container .block .prices_box span.prod-oldprice {
-  color: #999999;
+  color: #999;
   font-size: 18px;
   font-weight: 400;
   text-decoration: line-through;
-  margin: 10px 0 8px 0;
+  margin: 10px 0 8px;
 }
 
 .prorata-comparative-container .block .prices_box span.prod-newprice {
@@ -57,6 +57,11 @@
   display: block;
 }
 
+.prorata-comparative-container .block > div > div:nth-of-type(1) p {
+  font-size: 25px;
+  line-height: 37px;
+}
+
 .prorata-comparative-container .block > div:nth-of-type(1) > div table:nth-of-type(1) p:last-of-type {
   font-weight: normal;
   font-size: 12px;
@@ -65,6 +70,10 @@
 
 .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td {
   text-align: center;
+}
+
+.prorata-comparative-container .block h1 strong {
+  color: #1C7928;
 }
 
 .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a {
@@ -122,11 +131,6 @@
   background-color: #F6F6F6;
 }
 
-.prorata-comparative-container .block > div > div:nth-of-type(1) p {
-  font-size: 25px;
-  line-height: 37px;
-}
-
 .prorata-comparative-container .block > div:nth-of-type(1) > div {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -150,10 +154,6 @@
   font-size: 22px;
   line-height: 26px;
   margin: 0;
-}
-
-.prorata-comparative-container .block h1 strong {
-  color: #1C7928;
 }
 
 .prorata-comparative-container .block h6 {
@@ -214,12 +214,18 @@
   .prorata-comparative-container .block > div > div {
     margin: 0 5px;
   }
+  .prorata-comparative-container .block > div:last-of-type > div {
+    border-radius: unset;
+  }
   .prorata-comparative-container .block > div > div:nth-of-type(1) {
     flex: 0 0 100%;
     border-bottom: 0 none;
     padding: 0;
     margin: 10px;
     margin-bottom: 2em;
+  }
+  .prorata-comparative-container .block > div > div:nth-of-type(1) {
+    flex-grow: 1;
   }
   .prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) {
     border-bottom: 0 none;
@@ -230,15 +236,12 @@
     border-bottom: 0 none;
     padding: 10px 0;
   }
-  .prorata-comparative-container .block > div:last-of-type > div {
-    border-radius: unset;
-  }
   .prorata-comparative-container .block > div > div:nth-of-type(1) p {
     font-size: 14px;
     line-height: 20px;
   }
-  .prorata-comparative-container .block > div > div:nth-of-type(1) {
-    flex-grow: 1;
+  .prorata-comparative-container .block > div:nth-of-type(1) table {
+    width: 90%;
   }
   .prorata-comparative-container .block > div:nth-of-type(1) > div table:nth-of-type(1) {
     min-height: 165px;
@@ -261,7 +264,7 @@
     line-height: 12px;
     top: -26px;
   }
-  .prorata-comparative-container .block > div:nth-of-type(1) table, .prorata-comparative-container .block > div:nth-of-type(1) > div em, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a {
+  .prorata-comparative-container .block > div:nth-of-type(1) > div em, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a {
     width: 90%;
   }
 }
