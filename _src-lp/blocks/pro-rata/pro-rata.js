@@ -38,7 +38,15 @@ const checkEligibility = async (block, optionCode, neeligibilText) => {
       }, 2000);
     } else {
       // if not eligible - display message
-
+      block.innerHTML = `
+        <div class="container">
+          <div class="row">
+            <div class="text-center">
+              ${neeligibilText.innerHTML}
+            </div>
+          </div>
+        </div>
+      `;
     }
   } catch (error) {
     console.error('Error during fetch:', error);
