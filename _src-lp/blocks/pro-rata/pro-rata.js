@@ -51,7 +51,7 @@ const checkEligibility = async (block, optionCode) => {
   } catch (error) {
     console.error('Error during fetch:', error);
   }
-}
+};
 
 export default function decorate(block) {
   if (window.ADOBE_MC_EVENT_LOADED) {
@@ -101,6 +101,6 @@ export default function decorate(block) {
       </div>
     `;
 
-    checkEligibility(block, optionCode);
+    checkEligibility(block, optionCode, neeligibil);
   }
 }
