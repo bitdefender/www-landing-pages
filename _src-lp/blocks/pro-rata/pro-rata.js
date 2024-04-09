@@ -13,7 +13,7 @@ const getParameterValue = (parameterName) => {
 };
 
 // check eligibility
-const checkEligibility = async (block, optionCode) => {
+const checkEligibility = async (block, optionCode, neeligibilText) => {
   try {
     const serviceId = getParameterValue('service_id');
     const url = `https://www.bitdefender.com/site/Main/proRata?service_id=${serviceId}&option_code=${optionCode}`;
@@ -38,15 +38,7 @@ const checkEligibility = async (block, optionCode) => {
       }, 2000);
     } else {
       // if not eligible - display message
-      block.innerHTML = `
-        <div class="container">
-          <div class="row">
-            <div class="text-center">
-              ${neeligibil.innerHTML}
-            </div>
-          </div>
-        </div>
-      `;
+
     }
   } catch (error) {
     console.error('Error during fetch:', error);
