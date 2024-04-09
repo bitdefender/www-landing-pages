@@ -408,7 +408,6 @@
 @media screen and (width <= 768px) {
   .section.banner-container .banner {
     padding: 1em 0!important;
-    margin-bottom: 2em!important;
   }
 
   .section.lp-brand .banner {
@@ -431,6 +430,7 @@
   }
 
   .section.banner-container .banner h2 {
+    margin-bottom: 0;
     font-size: var(--body-font-size-m);
   }
 
@@ -528,9 +528,9 @@
     display: none !important;
   }
 
-  .section.banner-container.hide-mobile, .section.banner-container.hide-mobile .block {
+  .section.banner-container.hide-mobile {
     background-image: unset!important;
-    background-color: black;
+    background-color: #000;
   }
 
   .section.banner-container.hide-mobile .bck-img {
