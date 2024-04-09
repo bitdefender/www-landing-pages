@@ -479,7 +479,7 @@
   }
   .section.banner-container.hide-mobile, .section.banner-container.hide-mobile .block {
     background-image: unset !important;
-    background-color: #000;
+    background-color: black;
   }
   .section.banner-container.hide-mobile .bck-img {
     display: none;
