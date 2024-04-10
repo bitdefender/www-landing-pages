@@ -239,13 +239,14 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static async loadProduct(id, cuponCode = '') {
+  static async loadProduct(id, campaignParam = '') {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
 
     try {
-      if (!cuponCode) cuponCode = await this.fetchCampaignName();
-      return this.getProductVariationsPrice(id, cuponCode);
+      let coupon = campaignParam;
+      if (!coupon) coupon = await this.fetchCampaignName();
+      return this.getProductVariationsPrice(id, coupon);
     } catch (error) {
       console.error('loadProduct error:', error);
     }
