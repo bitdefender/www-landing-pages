@@ -232,10 +232,10 @@ export default function decorate(block) {
 
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex position-relative">
+        <div class="row d-none d-md-flex d-lg-flex position-relative">
           <div class="col-5 ps-4">${contentEl.innerHTML}</div>
         </div>
-        <div class="row d-lg-none justify-content-center">
+        <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
           <div class="col-12 p-0 text-center bck-img">
             ${pictureEl.innerHTML}
