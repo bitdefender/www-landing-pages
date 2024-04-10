@@ -1,0 +1,303 @@
+.prorata-comparative-container .block > div {
+  display: flex;
+}
+
+.prorata-comparative-container .block .prices_box span {
+  display: block;
+}
+
+.prorata-comparative-container .block .prices_box .prod-save-box {
+  border-radius: 25px;
+  padding: 7px 12px;
+  background-color: #23b43d;
+  font-size: 14px;
+  margin-bottom: 0;
+  color: white;
+  display: inline-block;
+  font-weight: 700;
+}
+
+.prorata-comparative-container .block .prices_box span.prod-oldprice {
+  color: #999;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: line-through;
+  margin: 10px 0 8px;
+}
+
+.prorata-comparative-container .block .prices_box span.prod-newprice {
+  color: #111;
+  line-height: 1;
+  font-weight: 700;
+  font-size: 32px;
+
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) table {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.prorata-comparative-container .block table p {
+  padding: 0;
+  margin: 0;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div table:nth-of-type(1) {
+  min-height: 150px;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div table:nth-of-type(1) u {
+  font-weight: normal;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 7px 0 14px;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #D1D1D1;
+  display: block;
+}
+
+.prorata-comparative-container .block > div > div:nth-of-type(1) p {
+  font-size: 25px;
+  line-height: 37px;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div table:nth-of-type(1) p:last-of-type {
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td {
+  text-align: center;
+}
+
+.prorata-comparative-container .block h1 strong {
+  color: #1C7928;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a  {
+  width: 90%;
+  padding: 19px 0;
+  margin-top: 1em;
+  display: inline-block;
+  border-radius: 5px;
+  background-color: #D1D1D1;
+  font-size: 17px;
+  line-height: 19px;
+  font-weight: 600;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a {
+  background-color: #E72325;
+  color: white;
+  text-transform: uppercase;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a:hover {
+  background-color: #B10304;
+  text-decoration: none;
+
+}
+
+.prorata-comparative-container .block > div > div {
+  flex: 1;
+  margin: 0 10px;
+  position: relative;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div em {
+  background-color: #D1D1D1;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: bold;
+  font-style: normal;
+  padding: 8px;
+  width: 90%;
+  display: inline-block;
+  border-radius: 10px 10px 0 0;
+  position: absolute;
+  left: 0;
+  top: -34px;
+  right: 0;
+  margin: auto;
+}
+
+.prorata-comparative-container.active-1 .block > div:nth-of-type(2) > div:nth-of-type(3) em, .prorata-comparative-container.active-2 .block > div:nth-of-type(1) > div:nth-of-type(3) em, .prorata-comparative-container.active-3 .block > div:nth-of-type(1) > div:nth-of-type(4) em {
+  background-color: #1C7928;
+  color: #fff;
+}
+
+.prorata-comparative-container .block > div > div:not(:nth-of-type(1)) {
+  background-color: #F6F6F6;
+}
+
+.prorata-comparative-container .block > div:nth-of-type(1) > div {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.prorata-comparative-container .block > div:last-of-type > div {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.prorata-comparative-container .block h1 {
+  font-weight: bold;
+  font-size: 42px;
+  line-height: 44px;
+  color: #006EFF;
+  margin-top: 0;
+}
+
+.prorata-comparative-container .block h2 {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 26px;
+  margin: 0;
+}
+
+.prorata-comparative-container .block h6 {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 45px;
+  color: #1C7928;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) {
+  border-bottom: 1px solid #F6F6F6;
+  padding: 1em 0;
+}
+
+.prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) table {
+  width: 315px;
+  float: right;
+}
+
+.prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) table td:first-of-type {
+  width: 35px;
+  vertical-align: top;
+}
+
+.prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) table img {
+  width: 22px;
+  margin-right: 1em;
+}
+
+.prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:not(:nth-of-type(1)) {
+  border-bottom: 1px solid #FFF;
+  padding: 1em 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (width < 768px) {
+  .prorata-comparative-container .block h1 {
+    font-size: 23px;
+    line-height: 26px;
+  }
+
+  .prorata-comparative-container .block h2 {
+    font-size: 15px;
+    line-height: 19px;
+  }
+
+  .prorata-comparative-container .block h6 {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 5px;
+  }
+
+  .prorata-comparative-container .block > div {
+    flex-wrap: wrap;
+  }
+
+  .prorata-comparative-container .block > div > div {
+    margin: 0 5px;
+  }
+
+  .prorata-comparative-container .block > div:last-of-type > div {
+    border-radius: unset;
+  }
+
+  .prorata-comparative-container .block > div > div:nth-of-type(1) {
+    flex: 0 0 100%;
+    border-bottom: 0 none;
+    padding: 0;
+    margin: 10px;
+    margin-bottom: 2em;
+    flex-grow: 1;
+  }
+
+  .prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) {
+    border-bottom: 0 none;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  .prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:not(:nth-of-type(1)) {
+    border-bottom: 0 none;
+    padding: 10px 0;
+  }
+
+  .prorata-comparative-container .block > div > div:nth-of-type(1) p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .prorata-comparative-container .block > div:nth-of-type(1) table {
+    width: 90%;
+  }
+
+  .prorata-comparative-container .block > div:nth-of-type(1) > div table:nth-of-type(1) {
+    min-height: 165px;
+  }
+
+  .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a {
+    margin-bottom: 1em;
+  }
+
+  .prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) table {
+    width: 100%;
+    float: none;
+  }
+
+  .prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) table td {
+    font-size: 14px;
+  }
+
+  .prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) table td strong {
+    font-size: 15px;
+  }
+
+  .prorata-comparative-container .block > div:nth-of-type(1) > div em {
+    font-size: 12px;
+    line-height: 12px;
+    top: -26px;
+  }
+
+  .prorata-comparative-container .block > div:nth-of-type(1) > div em, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td strong, .prorata-comparative-container .block > div:nth-of-type(1) > div table:last-of-type td a {
+    width: 90%;
+  }
+}
+
+@media screen and (width < 1050px) {
+  .prorata-comparative-container .block h1 {
+    font-size: 32px;
+    line-height: 35px;
+  }
+
+  .prorata-comparative-container .block > div > div:nth-of-type(1) p {
+    font-size: 25px;
+    line-height: 30px;
+  }
+
+  .prorata-comparative-container .block > div:not(:nth-of-type(1)) > div:nth-of-type(1) table {
+    width: 90%;
+  }
+}
