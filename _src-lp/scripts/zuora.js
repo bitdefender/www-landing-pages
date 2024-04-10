@@ -239,18 +239,17 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static async loadProduct(id) {
-    let cuponCode = '';
+  static async loadProduct(id, cuponCode = '') {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
 
     try {
-      cuponCode = await this.fetchCampaignName();
+      if (!cuponCode) cuponCode = await this.fetchCampaignName();
       return this.getProductVariationsPrice(id, cuponCode);
     } catch (error) {
       console.error('loadProduct error:', error);
     }
 
-    return this.getProductVariationsPrice(id, cuponCode);
+    return this.getProductVariationsPrice(id);
   }
 }
