@@ -14,112 +14,111 @@ export default function decorate(block) {
   title.classList.add('title-class');
   subtitle.classList.add('subtitle-class');
   
-    //  handler function
-    async function submitHandler(event) {
-      event.preventDefault();
-      try {
-        
-        const emailInput = form.querySelector('input[type="email"]');
-        const emailValue = emailInput.value;
-  
-        // Log the email value
-        // console.log('Email entered:', emailValue);
-  
-        document.querySelector('.frame-1').classList.remove('show');
-        document.querySelector('.frame-1').classList.add('hide');
-        document.querySelector('.frame-2').classList.remove('hide');
-        document.querySelector('.frame-2 h4:nth-child(1)').classList.add('show');
-  
-        await sleep(1000);
-  
-        document
-          .querySelector('.frame-2 h4:nth-child(1)')
-          .classList.remove('show');
-        document.querySelector('.frame-2 h4:nth-child(2)').classList.add('show');
-        // Make the first request to fetchData
-        const firstRequest = await fetchData(
-          'https://nimbus.bitdefender.net/lid/privacy_check',
-          {
-            id: 1,
-            jsonrpc: '2.0',
-            method: 'on_demand_scan',
-            params: {
-              app_id: 'com.bitdefender.vpn',
-              type: 'emails',
-              value: emailValue,
-            },
-          },
-        );
-        await sleep(1000);
-  
-        console.log(firstRequest);
-        document
-          .querySelector('.frame-2 h4:nth-child(2)')
-          .classList.remove('show');
-        document.querySelector('.frame-2 h4:nth-child(3)').classList.add('show');
-  
-        await sleep(1000);
-  
-        //  Make the second request using the scan_id from the first request
-        const secondRequest = await fetchData(
-          'https://nimbus.bitdefender.net/lid/privacy_check',
-          {
-            id: 2,
-            jsonrpc: '2.0',
-            method: 'get_on_demand_issues',
-            params: {
-              scan_id: firstRequest.scan_id,
-            },
-          },
-        );
-  
-        // const secondRequest = { total_count: 6 };
-  
-        document
-          .querySelector('.frame-2 h4:nth-child(3)')
-          .classList.remove('show');
-        document.querySelector('.frame-2').classList.add('hide');
-        document.querySelector('.frame-3').classList.remove('hide');
-        document.querySelector('.frame-3').classList.add('show');
-        if (secondRequest.total_count === 0) {
-          document
-            .querySelector('.frame-3 div:nth-child(1)')
-            .classList.add('show');
-  
-          document.querySelector('.frame-3 h3:nth-child(1)').textContent = document.querySelector('.frame-3 h3:nth-child(1)').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
-        } else {
-          document
-            .querySelector('.frame-3 div:nth-child(2)')
-            .classList.add('show');
-          document.querySelector(
-            '.frame-3 > div:nth-of-type(2) > h3'
-          ).textContent = document
-            .querySelector('.frame-3 > div:nth-of-type(2) > h3')
-            .textContent.replace('{numberOfLeaks}', secondRequest.total_count);
-        }
-  
-        //  LOG
-        console.log(secondRequest.total_count);
-      } catch (error) {
-        console.error('An error occurred:', error.message);
-        document.querySelector('.frame-1').classList.remove('show');
-        document.querySelector('.frame-1').classList.add('hide');
-        document.querySelector('.frame-2').classList.add('hide');
-        document.querySelector('.frame-2').classList.remove('show');
-        document.querySelector('.frame-3').classList.add('show');
-        const divsToHide = document.querySelectorAll(
-          '.frame-3 > div:not(:last-child)'
-        );
-  
-        divsToHide.forEach((div) => {
-          div.classList.add('hide');
-          div.classList.remove('show');
-        });
-        const lastDiv = document.querySelector('.frame-3 > div:last-child');
-        lastDiv.classList.remove('hide');
-      }
-    }
+  //  handler function
+  async function submitHandler(event) {
+    event.preventDefault();
+    try {
+      
+      const emailInput = form.querySelector('input[type="email"]');
+      const emailValue = emailInput.value;
 
+      // Log the email value
+      // console.log('Email entered:', emailValue);
+
+      document.querySelector('.frame-1').classList.remove('show');
+      document.querySelector('.frame-1').classList.add('hide');
+      document.querySelector('.frame-2').classList.remove('hide');
+      document.querySelector('.frame-2 h4:nth-child(1)').classList.add('show');
+
+      await sleep(1000);
+
+      document
+        .querySelector('.frame-2 h4:nth-child(1)')
+        .classList.remove('show');
+      document.querySelector('.frame-2 h4:nth-child(2)').classList.add('show');
+      // Make the first request to fetchData
+      const firstRequest = await fetchData(
+        'https://nimbus.bitdefender.net/lid/privacy_check',
+        {
+          id: 1,
+          jsonrpc: '2.0',
+          method: 'on_demand_scan',
+          params: {
+            app_id: 'com.bitdefender.vpn',
+            type: 'emails',
+            value: emailValue,
+          },
+        },
+      );
+      await sleep(1000);
+
+      console.log(firstRequest);
+      document
+        .querySelector('.frame-2 h4:nth-child(2)')
+        .classList.remove('show');
+      document.querySelector('.frame-2 h4:nth-child(3)').classList.add('show');
+
+      await sleep(1000);
+
+      //  Make the second request using the scan_id from the first request
+      const secondRequest = await fetchData(
+        'https://nimbus.bitdefender.net/lid/privacy_check',
+        {
+          id: 2,
+          jsonrpc: '2.0',
+          method: 'get_on_demand_issues',
+          params: {
+            scan_id: firstRequest.scan_id,
+          },
+        },
+      );
+
+      // const secondRequest = { total_count: 6 };
+
+      document
+        .querySelector('.frame-2 h4:nth-child(3)')
+        .classList.remove('show');
+      document.querySelector('.frame-2').classList.add('hide');
+      document.querySelector('.frame-3').classList.remove('hide');
+      document.querySelector('.frame-3').classList.add('show');
+      if (secondRequest.total_count === 0) {
+        document
+          .querySelector('.frame-3 div:nth-child(1)')
+          .classList.add('show');
+
+        document.querySelector('.frame-3 h3:nth-child(1)').textContent = document.querySelector('.frame-3 h3:nth-child(1)').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
+      } else {
+        document
+          .querySelector('.frame-3 div:nth-child(2)')
+          .classList.add('show');
+        document.querySelector(
+          '.frame-3 > div:nth-of-type(2) > h3'
+        ).textContent = document
+          .querySelector('.frame-3 > div:nth-of-type(2) > h3')
+          .textContent.replace('{numberOfLeaks}', secondRequest.total_count);
+      }
+
+      //  LOG
+      console.log(secondRequest.total_count);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      document.querySelector('.frame-1').classList.remove('show');
+      document.querySelector('.frame-1').classList.add('hide');
+      document.querySelector('.frame-2').classList.add('hide');
+      document.querySelector('.frame-2').classList.remove('show');
+      document.querySelector('.frame-3').classList.add('show');
+      const divsToHide = document.querySelectorAll(
+        '.frame-3 > div:not(:last-child)'
+      );
+
+      divsToHide.forEach((div) => {
+        div.classList.add('hide');
+        div.classList.remove('show');
+      });
+      const lastDiv = document.querySelector('.frame-3 > div:last-child');
+      lastDiv.classList.remove('hide');
+    }
+  }
   //  create form
   const form = document.createElement('form');
   form.classList.add('form');
