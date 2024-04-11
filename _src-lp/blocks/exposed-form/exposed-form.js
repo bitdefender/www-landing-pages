@@ -10,27 +10,25 @@ async function fetchData(url, body) {
 
 export default function decorate(block) {
   const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
-  const [title, subtitle, check1, check2, estimated, ...reviews] =
-    block.children;
+  const [title, subtitle, check1, check2, estimated] = block.children;
   title.classList.add('title-class');
   subtitle.classList.add('subtitle-class');
 
-  //create form
+  //  create form
   const form = document.createElement('form');
   form.classList.add('form');
   form.setAttribute('method', 'post');
   form.setAttribute('id', 'form-exposed');
   form.addEventListener('submit', submitHandler);
 
-  //add email
+  //  add email
   const emailInput = document.createElement('input');
   emailInput.setAttribute('type', 'email');
   emailInput.setAttribute('placeholder', 'EMAIL ADDRESS');
   emailInput.setAttribute('required', '');
   emailInput.setAttribute('name', 'email');
 
-  //add checkbox
+  //  add checkbox
   const checkboxInput1 = document.createElement('input');
   checkboxInput1.setAttribute('type', 'checkbox');
   checkboxInput1.setAttribute('id', 'checkbox1');
@@ -40,7 +38,7 @@ export default function decorate(block) {
   checkboxInput2.setAttribute('type', 'checkbox');
   checkboxInput2.setAttribute('id', 'checkbox2');
 
-  //add label
+  //  add label
   const checkboxLabel1 = document.createElement('label');
   checkboxLabel1.setAttribute('for', 'checkbox1');
   checkboxLabel1.textContent = check1.textContent;
@@ -51,7 +49,7 @@ export default function decorate(block) {
   checkboxLabel2.textContent = check2.textContent;
   block.removeChild(check2);
 
-  //add label+checkbox to div
+  //  add label+checkbox to div
   const checkboxDiv1 = document.createElement('div');
   checkboxDiv1.classList.add('checkbox');
   checkboxDiv1.appendChild(checkboxInput1);
@@ -62,14 +60,14 @@ export default function decorate(block) {
   checkboxDiv2.appendChild(checkboxInput2);
   checkboxDiv2.appendChild(checkboxLabel2);
 
-  //add submit button
+  //  add submit button
   const submitButton = document.createElement('button');
   submitButton.setAttribute('type', 'submit');
   submitButton.textContent = 'START MY FREE SCAN';
   submitButton.setAttribute('value', 'Submit');
   // submitButton.addEventListener('click', submitHandler);
 
-  //append to form
+  //  append to form
   form.appendChild(emailInput);
   form.appendChild(checkboxDiv1);
   form.appendChild(checkboxDiv2);
@@ -97,11 +95,10 @@ export default function decorate(block) {
   // create third frame container
   const thirdDiv = document.createElement('div');
   thirdDiv.classList.add('frame-3', 'hide');
-  thirdDiv.innerHTML =
-    '<div class="hide"><h3>Result: 0 leaks so far!</h3><p>Good news: We did not detect any of your personal data on the Dark Web. However, this does not mean a database breach won’t leak your data in the future.</p></div><div class="hide"><h3>Uh oh...{numberOfLeaks} leaks detected</h3><p>Leaks in your digital footprint put you at <strong>HIGH RISK</strong> for identity theft: <strong>Hackers can exploit to take your accounts and commit fraud</strong></p></div><div class="product-wrapper"><div class="product"><div class="highlight" style="display=none"><span></span></div><p><strong>Get Bitdefender Digital Identity Protection</strong></p><p>12 months of 24/7 protection from data exposures for half price! (Price for one individual plan for the first year)</p><hr><p class="button-container"><a href="https://www.bitdefender.com.au/site/Store/buy/dip/1/1/?CART=1&amp;CARD=2&amp;SHORT_FORM=1&amp;adobe_mc=MCMID%3D55008387836489704111747435518190578875%7CMCORGID%3D0E920C0F53DA9E9B0A490D45%2540AdobeOrg%7CTS%3D1696231074" title="PROTECT MY PERSONAL DATA NOW" class="button"><span class="button-text">PROTECT MY PERSONAL DATA NOW</span></a></p><p>30-Day Money-Back Guarantee</p><p>GST included<br>See <a href="/solutions/digital-identity-protection#terms-of-use" title="Terms of Use">Terms of Use</a> below.</p></div></div><div class="error hide"><h3>Error</h3><p>Please try again after sometime.</p></div>';
+  thirdDiv.innerHTML = '<div class="hide"><h3>Result: 0 leaks so far!</h3><p>Good news: We did not detect any of your personal data on the Dark Web. However, this does not mean a database breach won’t leak your data in the future.</p></div><div class="hide"><h3>Uh oh...{numberOfLeaks} leaks detected</h3><p>Leaks in your digital footprint put you at <strong>HIGH RISK</strong> for identity theft: <strong>Hackers can exploit to take your accounts and commit fraud</strong></p></div><div class="product-wrapper"><div class="product"><div class="highlight" style="display=none"><span></span></div><p><strong>Get Bitdefender Digital Identity Protection</strong></p><p>12 months of 24/7 protection from data exposures for half price! (Price for one individual plan for the first year)</p><hr><p class="button-container"><a href="https://www.bitdefender.com.au/site/Store/buy/dip/1/1/?CART=1&amp;CARD=2&amp;SHORT_FORM=1&amp;adobe_mc=MCMID%3D55008387836489704111747435518190578875%7CMCORGID%3D0E920C0F53DA9E9B0A490D45%2540AdobeOrg%7CTS%3D1696231074" title="PROTECT MY PERSONAL DATA NOW" class="button"><span class="button-text">PROTECT MY PERSONAL DATA NOW</span></a></p><p>30-Day Money-Back Guarantee</p><p>GST included<br>See <a href="/solutions/digital-identity-protection#terms-of-use" title="Terms of Use">Terms of Use</a> below.</p></div></div><div class="error hide"><h3>Error</h3><p>Please try again after sometime.</p></div>';
   block.appendChild(thirdDiv);
 
-  //handler function
+  //  handler function
   async function submitHandler(event) {
     event.preventDefault();
     try {
@@ -147,7 +144,7 @@ export default function decorate(block) {
 
       await sleep(1000);
 
-      //Make the second request using the scan_id from the first request
+      //  Make the second request using the scan_id from the first request
       const secondRequest = await fetchData(
         'https://nimbus.bitdefender.net/lid/privacy_check',
         {
@@ -159,6 +156,7 @@ export default function decorate(block) {
           },
         }
       );
+
       // const secondRequest = { total_count: 6 };
 
       document
