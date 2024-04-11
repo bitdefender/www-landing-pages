@@ -63,7 +63,7 @@ export default function decorate(block) {
 
   const metaData = parentSelector.dataset;
   const {
-    products, yearsText, bulinaText, devicesLimits, yearsSelector, monthlyText,  incrementalCounter, titleTag,
+    products, yearsText, bulinaText, devicesLimits, yearsSelector, monthlyText, incrementalCounter, titleTag,
     skipUnwantedSelectors, secondTemplate,
   } = metaData;
   const productsAsList = products && products.split(',');
@@ -186,9 +186,9 @@ export default function decorate(block) {
       }
 
       if (monthlyText) {
-        let [text1, text2] = monthlyText.split(',');
-        text1 = text1.replace('0', `<span class="newprice-${onSelectorClass}-monthly"></span>`);
-        pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${text1}</strong> ${text2}</div>`;
+        let monthly_text = monthlyText.split(',')[0];
+        monthly_text = monthly_text.replace('0', `<span class="newprice-${onSelectorClass}-monthly"></span>`);
+        pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${text1}</strong> ${monthly_text}</div>`;
       }
 
       if (secondTemplate) {
@@ -222,7 +222,7 @@ export default function decorate(block) {
 
         pricesDiv.appendChild(selectorBox);
       } else {
-        pricesDiv.innerHTML += `<p class="border-bottom subscribe4">${subscribeTexts} <b class="${monthlyText ? 'd-inline': ''}">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b></p>`;
+        pricesDiv.innerHTML += `<p class="border-bottom subscribe4">${subscribeTexts} <b class="${monthlyText ? 'd-inline' : ''}">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b></p>`;
       }
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
