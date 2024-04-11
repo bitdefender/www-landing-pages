@@ -26,6 +26,7 @@ export default function decorate(block) {
 
       await (async (ms) => {
         await new Promise((resolve) => setTimeout(resolve, ms));
+        return 'done'; 
       })(1000);
 
       document
@@ -48,6 +49,7 @@ export default function decorate(block) {
       );
       await (async (ms) => {
         await new Promise((resolve) => setTimeout(resolve, ms));
+        return 'done'; 
       })(1000);
 
       console.log(firstRequest);
@@ -58,6 +60,7 @@ export default function decorate(block) {
 
       await (async (ms) => {
         await new Promise((resolve) => setTimeout(resolve, ms));
+        return 'done'; 
       })(1000);
 
       //  Make the second request using the scan_id from the first request
