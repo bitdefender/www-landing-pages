@@ -39,7 +39,9 @@ window.StoreProducts.initSelector = function (config) {
   let price_class = null;
 
   let full_price_class = null;
+  let full_price_monthly_class = null;
   let discounted_price_class = null;
+  let discounted_price_monthly_class = null;
   let save_class = null;
   let percent_class = null;
 
@@ -94,7 +96,11 @@ window.StoreProducts.initSelector = function (config) {
 
   if ('full_price_class' in config) { full_price_class = config.full_price_class; }
 
+  if ('full_price_monthly_class' in config) { full_price_monthly_class = config.full_price_monthly_class; }
+
   if ('discounted_price_class' in config) { discounted_price_class = config.discounted_price_class; }
+
+  if ('discounted_price_monthly_class' in config) { discounted_price_monthly_class = config.discounted_price_monthly_class; }
 
   if ('save_class' in config) { save_class = config.save_class; }
 
@@ -206,7 +212,9 @@ window.StoreProducts.initSelector = function (config) {
       c_config.price_class = price_class;
 
       c_config.full_price_class = full_price_class;
+      c_config.full_price_monthly_class = full_price_monthly_class;
       c_config.discounted_price_class = discounted_price_class;
+      c_config.discounted_price_monthly_class = discounted_price_monthly_class;
       c_config.save_class = save_class;
       c_config.percent_class = percent_class;
 
@@ -366,7 +374,9 @@ window.StoreProducts.initSelector = function (config) {
     c_config.price_class = price_class;
 
     c_config.full_price_class = full_price_class;
+    c_config.full_price_monthly_class = full_price_monthly_class;
     c_config.discounted_price_class = discounted_price_class;
+    c_config.discounted_price_monthly_class = discounted_price_monthly_class;
     c_config.save_class = save_class;
     c_config.percent_class = percent_class;
 
@@ -409,7 +419,9 @@ window.StoreProducts.initSelector = function (config) {
     c_config.price_class = price_class;
 
     c_config.full_price_class = full_price_class;
+    c_config.full_price_monthly_class = full_price_monthly_class;
     c_config.discounted_price_class = discounted_price_class;
+    c_config.discounted_price_monthly_class = discounted_price_monthly_class;
     c_config.save_class = save_class;
     c_config.percent_class = percent_class;
 
@@ -621,7 +633,9 @@ window.StoreProducts.initSelector = function (config) {
   price = formatPrice(variation.price, variation.currency_iso, variation.region_id);
 
   let discounted_price = '';
+  let discounted_price_monthly = '';
   let full_price = price;
+  let full_price_monthly = formatPrice((variation.price / 12).toFixed(2), variation.currency_iso, variation.region_id);
 
   // if (window.location.hostname == 'www.bitdefender.se') {
   //     base_uri = "https://www.bitdefender.se/site";
@@ -635,11 +649,11 @@ window.StoreProducts.initSelector = function (config) {
   let save_price;
   let percent_value;
 
-
   try {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
         discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_iso, variation.region_id);
+        discounted_price_monthly = formatPrice((variation.discount.discounted_price / 12).toFixed(2), variation.currency_iso, variation.region_id);
         save_price = formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_iso, variation.region_id);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
@@ -657,6 +671,7 @@ window.StoreProducts.initSelector = function (config) {
     } else
       if (discount != null) {
         discounted_price = window.StoreProducts.getDiscountedPrice(variation.price, discount);
+        discounted_price_monthly = formatPrice((discounted_price / 12).toFixed(2), variation.currency_iso, variation.region_id);
         discounted_price = formatPrice(discounted_price, variation.currency_iso, variation.region_id);
         save_price = formatPrice(Math.ceil(variation.price - variation.discount), variation.currency_iso, variation.region_id);
         percent_value = (((variation.price - variation.discount) / variation.price) * 100).toFixed(0);
@@ -740,7 +755,9 @@ window.StoreProducts.initSelector = function (config) {
   }
 
   full_price = full_price;
+  full_price_monthly = full_price_monthly;
   discounted_price = discounted_price;
+  discounted_price_monthly = discounted_price_monthly;
   //save_price = save_price;
   //percent_value = percent_value;
 
@@ -751,10 +768,24 @@ window.StoreProducts.initSelector = function (config) {
     });
   }
 
+  if (discounted_price_monthly_class != null) {
+    const elements = document.getElementsByClassName(discounted_price_monthly_class);
+    Array.from(elements).forEach((element) => {
+      element.innerHTML = discounted_price_monthly;
+    });
+  }
+
   if (full_price_class != null) {
     const elements = document.getElementsByClassName(full_price_class);
     Array.from(elements).forEach((element) => {
       element.innerHTML = full_price;
+    });
+  }
+
+  if (full_price_monthly_class != null) {
+    const elements = document.getElementsByClassName(full_price_monthly_class);
+    Array.from(elements).forEach((element) => {
+      element.innerHTML = full_price_monthly;
     });
   }
 
@@ -948,10 +979,13 @@ window.StoreProducts.__onChangeUsers = function (ev) {
 
   let price = `${variation.price} ${variation.currency_label}`;
   price = formatPrice(variation.price, variation.currency_iso, variation.region_id);
+  let price_monthly = formatPrice((variation.price / 12).toFixed(2), variation.currency_iso, variation.region_id);
   let discounted_price = '';
+  let discounted_price_monthly = '';
   let save_price = '';
   let percent_value = '';
   let full_price = price;
+  let full_price_monthly = price_monthly;
 
   // if (window.location.hostname == 'www.bitdefender.se') {
   //     base_uri = "https://www.bitdefender.se/site";
@@ -963,6 +997,7 @@ window.StoreProducts.__onChangeUsers = function (ev) {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
         discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_iso, variation.region_id);
+        discounted_price_monthly = formatPrice((variation.discount.discounted_price / 12).toFixed(2), variation.currency_iso, variation.region_id);
         save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_iso, variation.region_id);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
@@ -981,6 +1016,7 @@ window.StoreProducts.__onChangeUsers = function (ev) {
       if (discount in c_config) {
         if (c_config.discount != null) {
           discounted_price = window.StoreProducts.getDiscountedPrice(variation.price, discount);
+          discounted_price_monthly = formatPrice((discounted_price / 12).toFixed(2), variation.currency_iso, variation.region_id);
           discounted_price = formatPrice(discounted_price, variation.currency_iso, variation.region_id);
           save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_iso, variation.region_id);
           percent_value = `${variation.discount.discount_value}%`;
@@ -1024,7 +1060,9 @@ window.StoreProducts.__onChangeUsers = function (ev) {
   });
 
   full_price = full_price;
+  full_price_monthly = full_price_monthly;
   discounted_price = discounted_price;
+  discounted_price_monthly = discounted_price_monthly;
   save_price = save_price;
   percent_value = percent_value;
 
@@ -1035,10 +1073,24 @@ window.StoreProducts.__onChangeUsers = function (ev) {
     });
   }
 
+  if (c_config.discounted_price_monthly_class != null) {
+    const elements = document.getElementsByClassName(c_config.discounted_price_monthly_class);
+    Array.from(elements).forEach((element) => {
+      element.innerHTML = discounted_price_monthly;
+    });
+  }
+
   if (c_config.full_price_class != null) {
     const elements = document.getElementsByClassName(c_config.full_price_class);
     Array.from(elements).forEach((element) => {
       element.innerHTML = full_price;
+    });
+  }
+
+  if (c_config.full_price_monthly_class != null) {
+    const elements = document.getElementsByClassName(c_config.full_price_monthly_class);
+    Array.from(elements).forEach((element) => {
+      element.innerHTML = full_price_monthly;
     });
   }
 
@@ -1150,10 +1202,13 @@ window.StoreProducts.__onChangeYears = function (ev) {
 
   let price = `${variation.price} ${variation.currency_label}`;
   price = formatPrice(variation.price, variation.currency_iso, variation.region_id);
+  let price_monthly = formatPrice((variation.price / 12).toFixed(2), variation.currency_iso, variation.region_id);
   let discounted_price = '';
+  let discounted_price_monthly = '';
   let save_price = '';
   let percent_value = '';
   let full_price = price;
+  let full_price_monthly = price_monthly;
 
   // if (window.location.hostname == 'www.bitdefender.se') {
   //     base_uri = "https://www.bitdefender.se/site";
@@ -1165,6 +1220,7 @@ window.StoreProducts.__onChangeYears = function (ev) {
     if ('discount' in variation) {
       if ('discounted_price' in variation.discount) {
         discounted_price = formatPrice(variation.discount.discounted_price, variation.currency_iso, variation.region_id);
+        discounted_price_monthly = formatPrice((variation.discount.discounted_price / 12).toFixed(2), variation.currency_iso, variation.region_id);
         save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_iso, variation.region_id);
         percent_value = `${variation.discount.discount_value}%`;
         price = `<span class="store_price_full">${price}</span><span class="store_price_cut">${discounted_price}</span>`;
@@ -1183,6 +1239,7 @@ window.StoreProducts.__onChangeYears = function (ev) {
       if (discount in c_config) {
         if (c_config.discount != null) {
           discounted_price = window.StoreProducts.getDiscountedPrice(variation.price, discount);
+          discounted_price_monthly = formatPrice((discounted_price / 12).toFixed(2), variation.currency_iso, variation.region_id);
           discounted_price = formatPrice(discounted_price, variation.currency_iso, variation.region_id);
           save_price = formatPrice(Math.ceil(variation.price - variation.discount.discounted_price), variation.currency_iso, variation.region_id);
           percent_value = `${variation.discount.discount_value}%`;
@@ -1226,7 +1283,9 @@ window.StoreProducts.__onChangeYears = function (ev) {
   });
 
   full_price = full_price;
+  full_price_monthly = full_price_monthly;
   discounted_price = discounted_price;
+  discounted_price_monthly = discounted_price_monthly;
   save_price = save_price;
   percent_value = percent_value;
 
@@ -1237,10 +1296,24 @@ window.StoreProducts.__onChangeYears = function (ev) {
     });
   }
 
+  if (c_config.discounted_price_monthly_class != null) {
+    const elements = document.getElementsByClassName(c_config.discounted_price_monthly_class);
+    Array.from(elements).forEach((element) => {
+      element.innerHTML = discounted_price_monthly;
+    });
+  }
+
   if (c_config.full_price_class != null) {
     const elements = document.getElementsByClassName(c_config.full_price_class);
     Array.from(elements).forEach((element) => {
       element.innerHTML = full_price;
+    });
+  }
+
+  if (c_config.full_price_monthly_class != null) {
+    const elements = document.getElementsByClassName(c_config.full_price_monthly_class);
+    Array.from(elements).forEach((element) => {
+      element.innerHTML = full_price_monthly;
     });
   }
 
