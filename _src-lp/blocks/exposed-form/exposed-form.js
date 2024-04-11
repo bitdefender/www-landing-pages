@@ -50,7 +50,7 @@ export default function decorate(block) {
         setTimeout(() => {
           resolve('done');
         }, 1000);
-      });console.log(firstRequest);
+      });
       document
         .querySelector('.frame-2 h4:nth-child(2)')
         .classList.remove('show');
