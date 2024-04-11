@@ -80,6 +80,11 @@
   margin: 0 0 0 7px;
 }
 
+.c-productswithvpn .vpn_box label > span {
+  display: block;
+  margin: 5px 0;
+}
+
 .c-productswithvpn > div .prices_box .oldprice_percent p.save-green-pill span {
   margin-right: 3px;
 }
@@ -294,11 +299,6 @@
 .c-productswithvpn .vpn_box label {
   width: 100%;
   cursor: pointer;
-}
-
-.c-productswithvpn .vpn_box label > span {
-  display: block;
-  margin: 5px 0;
 }
 
 .c-productswithvpn > div div.buybtn_box {
