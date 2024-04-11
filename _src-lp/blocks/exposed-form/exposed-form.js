@@ -106,7 +106,7 @@ export default function decorate(block) {
     event.preventDefault();
     try {
       const form = event.target.closest('form');
-      const emailInput = form.querySelector('input[type='email']');
+      const emailInput = form.querySelector('input[type="email"]');
       const emailValue = emailInput.value;
 
       // Log the email value
