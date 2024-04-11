@@ -132,7 +132,7 @@ export default function decorate(block) {
             type: 'emails',
             value: emailValue,
           },
-        }
+        },
       );
       await sleep(1000);
 
@@ -154,7 +154,7 @@ export default function decorate(block) {
           params: {
             scan_id: firstRequest.scan_id,
           },
-        }
+        },
       );
 
       // const secondRequest = { total_count: 6 };
@@ -170,10 +170,7 @@ export default function decorate(block) {
           .querySelector('.frame-3 div:nth-child(1)')
           .classList.add('show');
 
-        document.querySelector('.frame-3 h3:nth-child(1)').textContent =
-          document
-            .querySelector('.frame-3 h3:nth-child(1)')
-            .textContent.replace('{numberOfLeaks}', secondRequest.total_count);
+        document.querySelector('.frame-3 h3:nth-child(1)').textContent = document.querySelector('.frame-3 h3:nth-child(1)').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
       } else {
         document
           .querySelector('.frame-3 div:nth-child(2)')
