@@ -1,5 +1,5 @@
 async function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function fetchData(url, body) {
@@ -9,17 +9,16 @@ async function fetchData(url, body) {
 }
 
 export default function decorate(block) {
-  
   const [title, subtitle, check1, check2, estimated] = block.children;
   title.classList.add('title-class');
   subtitle.classList.add('subtitle-class');
-  
+
   //  handler function
   async function submitHandler(event) {
     event.preventDefault();
     try {
       
-      const emailInput = form.querySelector('input[type="email"]');
+      const emailInput = block.querySelector('input[type="email"]');
       const emailValue = emailInput.value;
 
       // Log the email value
@@ -91,11 +90,7 @@ export default function decorate(block) {
         document
           .querySelector('.frame-3 div:nth-child(2)')
           .classList.add('show');
-        document.querySelector(
-          '.frame-3 > div:nth-of-type(2) > h3'
-        ).textContent = document
-          .querySelector('.frame-3 > div:nth-of-type(2) > h3')
-          .textContent.replace('{numberOfLeaks}', secondRequest.total_count);
+        document.querySelector('.frame-3 > div:nth-of-type(2) > h3').textContent = document.querySelector('.frame-3 div:nth-of-type(2) > h3').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
       }
 
       //  LOG
@@ -202,6 +197,5 @@ export default function decorate(block) {
   thirdDiv.classList.add('frame-3', 'hide');
   thirdDiv.innerHTML = '<div class="hide"><h3>Result: 0 leaks so far!</h3><p>Good news: We did not detect any of your personal data on the Dark Web. However, this does not mean a database breach won’t leak your data in the future.</p></div><div class="hide"><h3>Uh oh...{numberOfLeaks} leaks detected</h3><p>Leaks in your digital footprint put you at <strong>HIGH RISK</strong> for identity theft: <strong>Hackers can exploit to take your accounts and commit fraud</strong></p></div><div class="product-wrapper"><div class="product"><div class="highlight" style="display=none"><span></span></div><p><strong>Get Bitdefender Digital Identity Protection</strong></p><p>12 months of 24/7 protection from data exposures for half price! (Price for one individual plan for the first year)</p><hr><p class="button-container"><a href="https://www.bitdefender.com.au/site/Store/buy/dip/1/1/?CART=1&amp;CARD=2&amp;SHORT_FORM=1&amp;adobe_mc=MCMID%3D55008387836489704111747435518190578875%7CMCORGID%3D0E920C0F53DA9E9B0A490D45%2540AdobeOrg%7CTS%3D1696231074" title="PROTECT MY PERSONAL DATA NOW" class="button"><span class="button-text">PROTECT MY PERSONAL DATA NOW</span></a></p><p>30-Day Money-Back Guarantee</p><p>GST included<br>See <a href="/solutions/digital-identity-protection#terms-of-use" title="Terms of Use">Terms of Use</a> below.</p></div></div><div class="error hide"><h3>Error</h3><p>Please try again after sometime.</p></div>';
   block.appendChild(thirdDiv);
-
 
 }
