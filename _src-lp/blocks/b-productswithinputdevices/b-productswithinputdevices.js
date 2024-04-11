@@ -186,9 +186,9 @@ export default function decorate(block) {
       }
 
       if (monthlyText) {
-        let monthly_text = monthlyText.split(',')[0];
-        monthly_text = monthly_text.replace('0', `<span class="newprice-${onSelectorClass}-monthly"></span>`);
-        pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${text1}</strong> ${monthly_text}</div>`;
+        let monthlytext = monthlyText.split(',')[0];
+        monthlytext = monthly_text.replace('0', `<span class="newprice-${onSelectorClass}-monthly"></span>`);
+        pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${monthlytext}</strong> ${monthlytext}</div>`;
       }
 
       if (secondTemplate) {
