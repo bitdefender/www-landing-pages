@@ -123,11 +123,11 @@ export default function decorate(block) {
         tablePriceTexts[0].className = 'prod-oldprice oldprice-custom';
         tablePriceTexts[1].className = 'prod-newprice newprice-custom';
       } else {
-        let percent_selector = '';
+        let percentSelector = '';
         if (percentText) {
-          percent_selector = `<p class="save-green-pill">${percentText.replace('0%', `<span class="prod-percent percent-${onSelectorClass}"></span>`)}</p>`;
+          percentSelector = `<p class="save-green-pill">${percentText.replace('0%', `<span class="prod-percent percent-${onSelectorClass}"></span>`)}</p>`;
         }
-        pricesDiv.innerHTML += `<div class="oldprice_percent"><span class="prod-oldprice oldprice-${onSelectorClass}"></span> ${percent_selector}</div>`;
+        pricesDiv.innerHTML += `<div class="oldprice_percent"><span class="prod-oldprice oldprice-${onSelectorClass}"></span> ${percentSelector}</div>`;
         pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       }
 
