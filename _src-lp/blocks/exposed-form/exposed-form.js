@@ -23,12 +23,11 @@ export default function decorate(block) {
       document.querySelector('.frame-1').classList.add('hide');
       document.querySelector('.frame-2').classList.remove('hide');
       document.querySelector('.frame-2 h4:nth-child(1)').classList.add('show');
-
-      await (async (ms) => {
-        await new Promise((resolve) => setTimeout(resolve, ms));
-        return 'done'; 
-      })(1000);
-
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve('done');
+        }, 1000);
+      });
       document
         .querySelector('.frame-2 h4:nth-child(1)')
         .classList.remove('show');
@@ -47,22 +46,20 @@ export default function decorate(block) {
           },
         },
       );
-      await (async (ms) => {
-        await new Promise((resolve) => setTimeout(resolve, ms));
-        return 'done'; 
-      })(1000);
-
-      console.log(firstRequest);
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve('done');
+        }, 1000);
+      });console.log(firstRequest);
       document
         .querySelector('.frame-2 h4:nth-child(2)')
         .classList.remove('show');
       document.querySelector('.frame-2 h4:nth-child(3)').classList.add('show');
-
-      await (async (ms) => {
-        await new Promise((resolve) => setTimeout(resolve, ms));
-        return 'done'; 
-      })(1000);
-
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve('done');
+        }, 1000);
+      });
       //  Make the second request using the scan_id from the first request
       const secondRequest = await fetchData(
         'https://nimbus.bitdefender.net/lid/privacy_check',
