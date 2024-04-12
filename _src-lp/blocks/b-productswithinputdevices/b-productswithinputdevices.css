@@ -37,6 +37,7 @@
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .blue-monthly-tag {
+  width: calc(100% + 30px) !important;
   background-color: #006DFF;
   color: white !important;
   text-align: center;
@@ -354,10 +355,9 @@
     margin: 1em 0;
   }
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-percent.green_bck_circle {
-    position: unset;
-    width: fit-content;
-    margin: 0 auto 10px;
-    padding: 5px 10px;
+    top: -32px;
+    border-radius: 50px;
+    flex-direction: column;
   }
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-percent.green_bck_circle b {
     margin-right: 5px;
