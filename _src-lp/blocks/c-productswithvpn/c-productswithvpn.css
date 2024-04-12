@@ -66,8 +66,31 @@
   line-height: 14px;
 }
 
-.c-productswithvpn > div .prices_box .prod-oldprice {
+.c-productswithvpn > div .prices_box .oldprice_percent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 10px;
+}
+
+.c-productswithvpn > div .prices_box .oldprice_percent p.save-green-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 0 7px;
+}
+
+.c-productswithvpn .vpn_box label > span {
+  display: block;
+  margin: 5px 0;
+}
+
+.c-productswithvpn > div .prices_box .oldprice_percent p.save-green-pill span {
+  margin-right: 3px;
+}
+
+.c-productswithvpn > div .prices_box .prod-oldprice {
+  margin-top: 0;
   font-size: 24px;
   line-height: 24px;
   color: #666;
@@ -276,11 +299,6 @@
 .c-productswithvpn .vpn_box label {
   width: 100%;
   cursor: pointer;
-}
-
-.c-productswithvpn .vpn_box label > span {
-  display: block;
-  margin: 5px 0;
 }
 
 .c-productswithvpn > div div.buybtn_box {
