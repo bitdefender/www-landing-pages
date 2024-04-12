@@ -19,19 +19,19 @@ export default function decorate(block) {
       // Log the email value
       // console.log('Email entered:', emailValue);
 
-      document.querySelector('.frame-1').classList.remove('show');
-      document.querySelector('.frame-1').classList.add('hide');
-      document.querySelector('.frame-2').classList.remove('hide');
-      document.querySelector('.frame-2 h4:nth-child(1)').classList.add('show');
+      block.querySelector('.frame-1').classList.remove('show');
+      block.querySelector('.frame-1').classList.add('hide');
+      block.querySelector('.frame-2').classList.remove('hide');
+      block.querySelector('.frame-2 h4:nth-child(1)').classList.add('show');
       await new Promise((resolve) => {
         setTimeout(() => {
           resolve('done');
         }, 1000);
       });
-      document
+      block
         .querySelector('.frame-2 h4:nth-child(1)')
         .classList.remove('show');
-      document.querySelector('.frame-2 h4:nth-child(2)').classList.add('show');
+      block.querySelector('.frame-2 h4:nth-child(2)').classList.add('show');
       // Make the first request to fetchData
       const firstRequest = await fetchData(
         'https://nimbus.bitdefender.net/lid/privacy_check',
@@ -51,10 +51,10 @@ export default function decorate(block) {
           resolve('done');
         }, 1000);
       });
-      document
+      block
         .querySelector('.frame-2 h4:nth-child(2)')
         .classList.remove('show');
-      document.querySelector('.frame-2 h4:nth-child(3)').classList.add('show');
+      block.querySelector('.frame-2 h4:nth-child(3)').classList.add('show');
       await new Promise((resolve) => {
         setTimeout(() => {
           resolve('done');
@@ -75,44 +75,45 @@ export default function decorate(block) {
 
       // const secondRequest = { total_count: 6 };
 
-      document
+      block
         .querySelector('.frame-2 h4:nth-child(3)')
         .classList.remove('show');
-      document.querySelector('.frame-2').classList.add('hide');
-      document.querySelector('.frame-3').classList.remove('hide');
-      document.querySelector('.frame-3').classList.add('show');
+      block.querySelector('.frame-2').classList.add('hide');
+      block.querySelector('.frame-3').classList.remove('hide');
+      block.querySelector('.frame-3').classList.add('show');
       if (secondRequest.total_count === 0) {
-        document
+        block
           .querySelector('.frame-3 div:nth-child(1)')
           .classList.add('show');
 
-        document.querySelector('.frame-3 h3:nth-child(1)').textContent = document.querySelector('.frame-3 h3:nth-child(1)').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
+        block.querySelector('.frame-3 h3:nth-child(1)').textContent = block.querySelector('.frame-3 h3:nth-child(1)').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
       } else {
-        document
+        block
           .querySelector('.frame-3 div:nth-child(2)')
           .classList.add('show');
-        document.querySelector('.frame-3 > div:nth-of-type(2) > h3').textContent = document.querySelector('.frame-3 div:nth-of-type(2) > h3').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
+        block.querySelector('.frame-3 > div:nth-of-type(2) > h3').textContent = block.querySelector('.frame-3 div:nth-of-type(2) > h3').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
       }
 
       //  LOG
       console.log(secondRequest.total_count);
     } catch (error) {
       console.error('An error occurred:', error.message);
-      document.querySelector('.frame-1').classList.remove('show');
-      document.querySelector('.frame-1').classList.add('hide');
-      document.querySelector('.frame-2').classList.add('hide');
-      document.querySelector('.frame-2').classList.remove('show');
-      document.querySelector('.frame-3').classList.add('show');
-      const divsToHide = document.querySelectorAll('.frame-3 > div:not(:last-child)');
+      block.querySelector('.frame-1').classList.remove('show');
+      block.querySelector('.frame-1').classList.add('hide');
+      block.querySelector('.frame-2').classList.add('hide');
+      block.querySelector('.frame-2').classList.remove('show');
+      block.querySelector('.frame-3').classList.add('show');
+      const divsToHide = block.querySelectorAll('.frame-3 > div:not(:last-child)');
 
       divsToHide.forEach((div) => {
         div.classList.add('hide');
         div.classList.remove('show');
       });
-      const lastDiv = document.querySelector('.frame-3 > div:last-child');
+      const lastDiv = block.querySelector('.frame-3 > div:last-child');
       lastDiv.classList.remove('hide');
     }
   }
+  
   //  create form
   const form = document.createElement('form');
   form.classList.add('form');
