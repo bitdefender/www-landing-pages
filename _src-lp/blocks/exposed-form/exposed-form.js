@@ -113,7 +113,6 @@ export default function decorate(block) {
       lastDiv.classList.remove('hide');
     }
   }
-  
   //  create form
   const form = document.createElement('form');
   form.classList.add('form');
