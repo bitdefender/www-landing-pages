@@ -4,59 +4,38 @@
   align-items: center;
   min-height: 450px;
 }
-
 .exposed-form-container button {
   width: 100%;
 }
-
 .exposed-form-container .exposed-form-wrapper {
   max-width: 800px;
   width: 95%;
 }
-
 .exposed-form-container form {
   padding: 20px;
 }
-
-.exposed-form-container .product-wrapper hr {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: solid 1px;
-}
-
 .exposed-form-container .checkbox {
   display: flex;
   align-items: flex-start;
   gap: 10px;
 }
-
 .exposed-form-container .checkbox input {
   width: 20px;
   margin-top: 7px;
 }
-
 .exposed-form-container .estimated-time {
   text-align: center;
 }
-
-.exposed-form-container .frame-2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.exposed-form-container .icon-wave {
-  width: 56px;
-}
-
+.exposed-form-container .frame-2,
 .exposed-form-container .frame-3 {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
+.exposed-form-container .icon-wave {
+  width: 56px;
+}
 .exposed-form-container .product-wrapper {
   display: flex;
   flex-direction: column;
@@ -65,7 +44,11 @@
   padding-left: 20px;
   padding-right: 20px;
 }
-
+.exposed-form-container .product-wrapper hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: solid 1px;
+}
 .exposed-form-container .product-wrapper .product {
   position: relative;
   padding: 25px;
@@ -80,13 +63,11 @@
   max-width: 100%;
   text-align: center;
 }
-
 .exposed-form-container .product-wrapper .product p {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
-.exposed-form-container .product-wrapper .highlight {
+.exposed-form-container .product-wrapper .product .highlight {
   width: 100%;
   position: absolute;
   top: 0;
@@ -100,20 +81,16 @@
   color: #fff;
   letter-spacing: 0.96px;
 }
-
-.exposed-form-container .product-wrapper a.button {
+.exposed-form-container .product-wrapper .product a.button {
   width: 100%;
 }
-
 .exposed-form-container .error {
   text-align: left;
   color: red;
 }
-
 .exposed-form-container .hide {
   display: none;
 }
-
 .exposed-form-container .show {
   display: block;
 }
