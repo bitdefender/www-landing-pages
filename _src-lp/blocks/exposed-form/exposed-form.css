@@ -54,8 +54,8 @@
   padding: 25px;
   margin-top: 15px;
   border-radius: 10px;
-  border-color: rgb(229, 231, 235);
-  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
+  border-color: #e5e7eb;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1019607843);
   overflow: hidden;
   background-color: white;
   display: flex;
