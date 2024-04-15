@@ -141,7 +141,7 @@
     content: "";
     position: absolute;
     top: -60px;
-    right: -56px;
+    right: 0;
     width: 196px;
     height: 90pt;
     background: url('../../images/patter_grid_blue.png') no-repeat;
@@ -234,7 +234,7 @@
     content: "";
     position: absolute;
     top: 16px;
-    right: -45px;
+    right: 0;
     width: 196px;
     height: 90pt;
     background: url('../../images/patter_grid_blue.png') no-repeat;
@@ -295,7 +295,7 @@
 
     .description {
       position: absolute;
-      top: 4em;
+      top: 7em;
       right: 0;
       padding-left: 5%;
       display: none;
@@ -321,6 +321,12 @@
       }
     }
 
+  }
+}
+
+@media (width <= 991px) {
+  .b-dropdownbox-container .default-content-wrapper h5 {
+    font-size: 33px;
   }
 }
 
