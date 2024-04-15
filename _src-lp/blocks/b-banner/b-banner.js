@@ -342,7 +342,7 @@ export default function decorate(block) {
       </div>`;
     }
 
-    const buyTable = block.children[2].querySelector('table:last-of-type');
+    const buyTable = block.querySelector('table:last-of-type');
     if (buyTable) {
       buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
         <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
