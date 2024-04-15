@@ -178,11 +178,13 @@
   line-height: 1.5;
   color: #2cb43d;
   margin: 0.4em auto 1em !important;
-  width: 155px;
+  min-width: 155px;
+  display: inline-block;
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-save span {
   margin-left: 3px;
+  display: inline;
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices fieldset {
@@ -253,7 +255,7 @@
 
     >:first-child {
       padding: 14px;
-      
+
       b {
         font: normal normal bold 18px/21px Roboto, sans-serif;
         color: #000;
@@ -368,7 +370,7 @@
   }
 
   .b-productswithinputdevices-container.second-template {
-  
+
     .b-productswithinputdevices {
       max-width: 330px;
       margin: 0;
