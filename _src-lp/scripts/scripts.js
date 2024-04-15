@@ -12,6 +12,7 @@ import {
   loadBlocks,
   loadCSS,
   getMetadata,
+  decorateTags,
 } from './lib-franklin.js';
 
 import {
@@ -110,6 +111,7 @@ export function decorateMain(main) {
   decorateButtons(main);
   // decorateIcons2(main);
   decorateIcons(main);
+  decorateTags(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
@@ -122,6 +124,14 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+
+  const templateMetadata = getMetadata('template');
+  const hasTemplate = getMetadata('template') !== '';
+  if (hasTemplate) {
+    loadCSS(`${window.hlx.codeBasePath}/scripts/template-factories/${templateMetadata}/${templateMetadata}.css`);
+    addScript(`${window.hlx.codeBasePath}/scripts/template-factories/${templateMetadata}/${templateMetadata}.js`, {}, 'defer', undefined, undefined, 'module');
+  }
+
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
@@ -758,6 +768,24 @@ function initSelectors(pid) {
           try {
             const fp = this;
             showPrices(fp);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(false, onSelectorClass);
+          } catch (ex) { console.log(ex); }
+        },
+        onChangeUsers() {
+          sendAnalyticsProducts(this);
+          try {
+            const fp = this;
+            showPrices(fp, false, null, onSelectorClass);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(false, onSelectorClass);
+          } catch (ex) { console.log(ex); }
+        },
+        onChangeYears() {
+          sendAnalyticsProducts(this);
+          try {
+            const fp = this;
+            showPrices(fp, false, null, onSelectorClass);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }

@@ -79,7 +79,7 @@
           height: 15px;
           left: 0;
           top: 0;
-          background: url('../../icons/blue-quotes.svg') no-repeat;
+          background: url('/_src-lp/icons/blue-quotes.svg') no-repeat;
           background-size: 100%;
           content: "";
           display: block;
@@ -91,7 +91,7 @@
           height: 15px;
           right: 0;
           bottom: 0;
-          background: url('../../icons/blue-quotes.svg') no-repeat;
+          background: url('/_src-lp/icons/blue-quotes.svg') no-repeat;
           background-size: 100%;
           content: "";
           display: block;
@@ -227,5 +227,18 @@
 
   @media (width >= 768px) {
     margin-bottom: 70px;
+  }
+
+  &.hidden-quotes {
+    .carousel-inner {
+      .carousel-item {
+        q {
+          &::before,
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }

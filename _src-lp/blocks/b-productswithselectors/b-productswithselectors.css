@@ -108,7 +108,7 @@
 
 .b-productswithselectors > div:not(:first-child) ul li::before {
   content: "";
-  background-image: url("../../images/icons/check_empty.png");
+  background-image: url("/_src-lp/images/icons/check_empty.png");
   width: 15px;
   height: 15px;
   background-size: 100%;
@@ -123,7 +123,7 @@
 }
 
 .b-productswithselectors > div:not(:first-child) ul:nth-of-type(2) li::before {
-  background-image: url("../../images/icons/check_full.png");
+  background-image: url("/_src-lp/images/icons/check_full.png");
 }
 
 .b-productswithselectors > div:not(:first-child) p:last-of-type {

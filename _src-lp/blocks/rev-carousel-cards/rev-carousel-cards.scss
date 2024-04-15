@@ -103,11 +103,11 @@ $rev-save-box: #68BA68;
         background-color: transparent;
 
         .carousel-control-next-icon {
-            background: url("../../images/icons/right-arrow.svg") no-repeat;  
+            background: url("/_src-lp/images/icons/right-arrow.svg") no-repeat;
         }
 
         .carousel-control-prev-icon {
-            background: url("../../images/icons/right-arrow.svg") no-repeat;
+            background: url("/_src-lp/images/icons/right-arrow.svg") no-repeat;
             transform: rotate(180deg);
         }
     }
@@ -125,7 +125,7 @@ $rev-save-box: #68BA68;
 
         li:not(:has(del)) {
             text-align: left;
-            background: url("../../images/icons/check_full.png") 0 3px no-repeat transparent;
+            background: url("/_src-lp/images/icons/check_full.png") 0 3px no-repeat transparent;
             list-style-type: none;
             padding-left: 23px;
             background-size: 16px;
@@ -136,7 +136,7 @@ $rev-save-box: #68BA68;
 
         li:has(del) {
             text-align: left;
-            background: url("../../images/icons/x_circle.svg") 0 3px no-repeat transparent;
+            background: url("/_src-lp/images/icons/x_circle.svg") 0 3px no-repeat transparent;
             list-style-type: none;
             padding-left: 23px;
             background-size: 16px;

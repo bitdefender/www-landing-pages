@@ -996,7 +996,7 @@ window.StoreProducts.__onChangeUsers = function (ev) {
       if (c_config.extra_params != null) {
         let params = '';
         for (let op in c_config.extra_params) {
-          if (op == 'force_country') { continue; }
+          if (op == 'force_country' || !c_config.extra_params[op]) { continue; }
 
           c_config.extra_params[op] = c_config.extra_params[op].trim();
           if (c_config.extra_params[op].length < 1) { continue; }
@@ -1118,7 +1118,7 @@ window.StoreProducts.__onChangeUsers = function (ev) {
   }
 
   try {
-    delete window.digitalData.product;
+    delete window.digitalData?.product;
     window.StoreProducts.setDigitalData(c_config.product_id, variation);
   } catch (ex) {
     DEBUG && console.log(ex);

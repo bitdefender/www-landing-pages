@@ -15,7 +15,7 @@
     "purge-css": "purgecss --config purgecss.config.js --output _src-lp/styles/vendor/",
     "compile-sass": "node sass-compile.mjs",
     "compile-sass:watch": "node sass-compile.mjs --watch",
-    "up": "npm run compile-sass:watch & hlx up"
+    "up": "npm run compile-sass:watch & aem up"
   },
   "repository": {
     "type": "git",

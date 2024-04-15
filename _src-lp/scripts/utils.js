@@ -214,12 +214,11 @@ export function updateProductsList(product) {
 // DEX-14692 - set data on buy links
 export function setDataOnBuyLinks(dataInfo) {
   try {
-    const { buyLink, productId, variation } = dataInfo;
+    const { buyLinkSelector, productId, variation } = dataInfo;
+    const btnElelemts = document.getElementsByClassName(buyLinkSelector);
 
-    if (buyLink !== null && buyLink !== '') {
-      const elements = document.getElementsByClassName(buyLink);
-
-      Array.from(elements).forEach((element) => {
+    if (btnElelemts !== null && btnElelemts !== '') {
+      Array.from(btnElelemts).forEach((element) => {
         if (productId) element.dataset.product = productId;
 
         element.dataset.buyPrice = variation.discounted_price || variation.price || 0;
@@ -288,10 +287,11 @@ function maxDiscount() {
 }
 
 // display prices
-export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
+export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
-  const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj.config;
+  const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
+  const { product_id: productId } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
@@ -540,7 +540,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   }
 
   const dataInfo = {
-    buyLink: `buylink-${onSelectorClass}`,
+    buyLinkSelector: `${defaultSelector ? `buylink-${defaultSelector}` : `buylink-${onSelectorClass}`}`,
     productId,
     variation: {
       price: selectedVarPrice,

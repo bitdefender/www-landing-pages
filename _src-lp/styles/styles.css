@@ -41,6 +41,10 @@
   --nav-height: 64px;
 }
 
+header {
+  height: var(--nav-height);
+}
+
 body {
   font-size: var(--body-font-size-xs);
   margin: 0;
@@ -55,7 +59,7 @@ body.appear {
   display: unset;
 }
 
-*[data-align=center] {
+*[data-align=center], .centered {
   text-align: center;
 }
 
@@ -69,6 +73,19 @@ body [data-tablet-detector] {
 
 body [data-desktop-detector] {
   display: none;
+}
+
+.phishing .heading-content {
+  margin-top: 40px;
+}
+.phishing .heading-content u {
+  color: #006DFF;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.phishing .heading-content h2, .phishing .heading-content h3 {
+  margin-top: 10px;
 }
 
 @media (width >= 768px) {
@@ -247,6 +264,30 @@ main input {
 
 main input:hover {
   border: 1px solid var(--text-color);
+}
+
+main .blue-box-rounded > div {
+  background-color: #E4F2FF;
+  border-radius: 20px;
+  padding: 2em 0;
+}
+
+main .blue-box-rounded p {
+  font-size: 18px;
+}
+
+main .blue-box-rounded p:last-of-type {
+  margin-top: 1em;
+}
+
+main .blue-box-rounded p:last-of-type img {
+  margin: 5px 10px;
+  max-height: 100px;
+  display: inline-block;
+}
+
+main .blue-box-rounded div:nth-of-type(2) img {
+  margin: 0 1em;
 }
 
 main blockquote {
@@ -940,7 +981,7 @@ main .section.highlight {
 
 .below-form-banner > div:nth-child(2) ul li {
   font-size: 14px;
-  background: url("../../images/icons/simple_green_check.png") 0 3px no-repeat transparent;
+  background: url("/_src-lp/images/icons/simple_green_check.png") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
@@ -1489,6 +1530,9 @@ main .section.highlight {
   }
   main .default-content-wrapper h2 {
     font-size: 23px;
+  }
+  h3 {
+    font-size: var(--heading-font-size-m);
   }
   main .default-content-wrapper h3 {
     font-size: 21px;

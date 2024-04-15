@@ -68,13 +68,13 @@ export default function decorate(block) {
 
   block.innerHTML = `
     <div class="container">
-      <div class="row">
+      ${title.innerText.trim() && `<div class="row">
         <div class="col-12"><h3 class="heading">${title.innerText}</h3></div>
-      </div>
-      <div class="row">
+      </div>`}
+      ${subtitle.innerText.trim() && `<div class="row">
         <div class="col-12"><h2 class="subheading">${subtitle.innerText}</h2></div>
-      </div>
-      
+      </div>`}
+
       <div class="row">
         ${formattedDataColumns.map((col, parentIdx) => `
           <div class="col-12 col-md-6 mt-4">
@@ -86,13 +86,13 @@ export default function decorate(block) {
   ).render()
 }
               </div>
-              <div class="ms-3 w-100">
+              <div class="w-100">
                 <h2 class="title">${col.title}</h2>
                 <p class="subtitle">${col.subtitle}</p>
-                
+
                 ${col.progresses.map((p, idx) => `
                   <div class="d-flex align-items-center">
-                    <div 
+                    <div
                       class="progress"
                       role="progressbar"
                       aria-label="Basic example"
@@ -100,13 +100,12 @@ export default function decorate(block) {
                       aria-valuemax="${col.progressMax}"
                       aria-valuenow="${p.progress}">
                         <div class="progress-bar ${idx === 0 ? 'progress-bar--first' : ''}" style="width: ${calcProgressBarWidth(p.progress, col.progressMax)}">
-                          ${p.text}
+                          ${p.text} <span>${p.progress}</span>
                         </div>
                     </div>
-                    <div class="ms-3 progress-number">${p.progress}</div>
                   </div>
                 `).join('')}
-                
+
                 <p class="footer mt-4">${col.footer}</p>
               </div>
             </div>
