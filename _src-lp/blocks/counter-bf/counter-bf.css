@@ -1,0 +1,508 @@
+@charset "UTF-8";
+.section.banner-container {
+  background-color: black;
+  color: white;
+  padding: 0;
+}
+
+.section.lp-brand .banner {
+  padding: 0 15px;
+  background: unset;
+  padding-bottom: 3rem;
+}
+
+.section.banner-container.borders-rounded .banner {
+  border-radius: 10px;
+}
+
+.section.banner-container .banner img {
+  width: 100%;
+}
+
+.section.banner-container .banner .img-right picture {
+  position: relative;
+  left: 15px;
+}
+
+.section.banner-container .banner .img-right {
+  position: relative;
+}
+
+.section.banner-container.new-2024 .banner .img-right div::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, rgba(247, 247, 247, 0), #F7F7F7);
+}
+
+.section.banner-container .banner h1 {
+  font-size: 28px;
+  text-align: left;
+  margin-top: 0;
+}
+
+.section.banner-container.new-2024 .banner {
+  overflow: hidden;
+  background-color: #F6F6F6;
+}
+
+.section.banner-container.new-2024 .save-class {
+  color: #1C7928;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 0;
+  font: normal normal bold 18px/21px Arial, sans-serif;
+  gap: 5px;
+}
+
+.section.banner-container.new-2024 .banner h1 {
+  font-weight: normal;
+}
+
+.section.banner-container.new-2024 .banner h3 {
+  font: normal normal bold 24px/28px Arial, sans-serif;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.section.banner-container .banner .button-container {
+  display: none;
+}
+
+.section.banner-container .banner ul {
+  padding-left: 0;
+}
+
+.section.banner-container .banner ul li {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: var(--body-font-size-xs);
+  line-height: 20px;
+  color: #000;
+  text-align: left;
+  margin-top: 6px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.section.banner-container .banner ul li::before {
+  content: "•";
+  color: #4CA154;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 10px;
+  font-size: 35px;
+}
+
+.section.banner-container .banner .blue-box {
+  width: 290px;
+  background-color: #E4F2FF;
+  border-radius: 10px;
+  padding: 0 10px;
+  display: flex;
+}
+
+.section.banner-container .banner .blue-box tr {
+  display: flex;
+  align-items: center;
+}
+
+.section.banner-container .banner .blue-box tr:first-of-type {
+  display: none;
+}
+
+.section.banner-container .banner .blue-box tr td:first-of-type {
+  margin-right: 10px;
+}
+
+.section.lp-brand .banner p {
+  width: 235px;
+  font-size: 12px;
+  line-height: 14px;
+  font-family: Arial, sans-serif;
+  margin: 0 auto 15px;
+}
+
+.section.banner-container .banner .blue-box tr td p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  line-height: 17px;
+}
+
+.section.banner-container .banner .blue-box tr td p strong {
+  margin-left: 5px;
+}
+
+.section.banner-container .banner .blue-box tr td p picture {
+  width: 80px;
+  margin: 5px 0;
+}
+
+.section.lp-brand .banner img {
+  width: 97%;
+  border-radius: 10px;
+}
+
+.section.banner-container .banner .blue-box tr td p picture img {
+  min-width: unset;
+}
+
+.section.banner-container .banner #lidlBox {
+  width: 380px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.161);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.section.banner-container.new-2024 hr {
+  border: 2px solid #C6C6C6;
+  width: 80px;
+}
+
+.section.banner-container .banner #lidlBox hr {
+  border-top: 1px solid #DDD;
+}
+
+.section.banner-container .banner #lidlBox a.red-buy-button {
+  width: 100%;
+  text-align: left;
+  font-weight: normal;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-font-size-m);
+  margin: 1.5rem 0;
+  padding: 10px 20px !important;
+}
+
+.section.banner-container .banner #lidlBox a.red-buy-button img {
+  width: 40px;
+  margin-right: 15px;
+}
+
+.section.lp-brand .banner .col-5 {
+  width: 322px;
+}
+
+.section.banner-container.lp-brand .banner h1 {
+  font-weight: lighter;
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-s);
+}
+
+/* animated text */
+.section.banner-container .animated_text {
+  height: 40px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.section.banner-container .animated_text span {
+  width: 100%;
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  top: 50px;
+  padding-bottom: 15px;
+  padding-left: 0;
+  margin-left: 0;
+  color: #006DFF;
+  font-weight: lighter;
+  font-size: var(--heading-font-size-l);
+  line-height: var(--heading-font-size-xl);
+  font-family: "IBM Plex Sans", sans-serif;
+  text-align: center;
+}
+
+.section.banner-container .animated_text span.d-show {
+  transform: translateY(-100%);
+  transition: 0.5s transform ease-in-out;
+}
+
+.section.banner-container .animated_text span.d-up {
+  transform: translateY(-200%);
+  transition: 0.5s transform ease-in-out;
+}
+
+.section.banner-container #greenPillBox {
+  background-color: #2FB43E;
+  display: inline-block;
+  color: #fff;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
+  font-size: 18px;
+  padding: 2px 11px;
+}
+
+.section.banner-container #redPillBox {
+  background-color: #E72325;
+  display: inline-block;
+  color: #fff;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
+  font-size: 18px;
+  padding: 2px 11px;
+}
+
+.section.banner-container #buyBtnGreenCircleBox {
+  align-items: center;
+}
+
+.section.banner-container #buyBtnGreenCircleBox a {
+  margin-right: 10px;
+}
+
+.section.banner-container #buyBtnGreenCircleBox span.green_circle_box {
+  position: relative;
+  background: #2cb43d;
+  border-radius: 50%;
+  width: 83px;
+  height: 83px;
+  font-size: 28px;
+  line-height: 81px;
+  text-align: center;
+  padding: 0;
+  color: #fff;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+@media (width >= 768px) {
+  .section.lp-brand .banner h1 {
+    font-weight: lighter;
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+    margin-top: 1em;
+  }
+  .section.lp-brand .banner p {
+    width: 100%;
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-font-size-s);
+  }
+  .section.banner-container .banner h1 {
+    font-size: 30px;
+  }
+  .section.banner-container #pricesBox {
+    text-align: left;
+  }
+  .section.banner-container #pricesBox .d-flex {
+    align-items: center;
+  }
+  .section.banner-container #pricesBox .d-flex p {
+    margin: 0 10px 0 0;
+  }
+  .section.banner-container #pricesBox .d-flex span.prod-oldprice {
+    text-decoration: line-through;
+    font-size: var(--heading-font-size-xs);
+    line-height: var(--heading-font-size-xs);
+    font-weight: normal;
+  }
+  .section.banner-container #pricesBox .d-flex span.prod-newprice {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+    font-weight: bold;
+  }
+  .section.banner-container #pricesBox .d-flex .variation {
+    font-size: var(--body-font-size-xs);
+    line-height: 19px;
+    font-weight: bold;
+  }
+  .section.banner-container #pricesBox .buy_box {
+    margin: 20px 0;
+    min-height: auto;
+  }
+  .section.banner-container .animated_text span {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+    text-align: left;
+    margin-left: 25px;
+  }
+  .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
+    display: inline;
+  }
+  .section.banner-container #pricesBox .terms {
+    margin: 5px 0 10px;
+    font: normal normal normal 14px/16px Arial, sans-serif;
+  }
+  .section.banner-container #pricesBox .terms p {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 5px;
+  }
+  .section.banner-container #pricesBox .terms p a {
+    color: #006EFF;
+  }
+}
+@media screen and (width >= 991px) {
+  .section.banner-container .banner h1 {
+    font-size: var(--heading-font-size-xl);
+    line-height: 45px;
+    text-align: left;
+  }
+  .section.lp-brand .banner h1 {
+    font-weight: lighter;
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+  }
+  .section.banner-container .banner.smaller-title h1 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+  .section.banner-container .banner h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+    text-align: left;
+  }
+  .section.banner-container .banner .button-container {
+    display: block;
+  }
+  .section.banner-container .banner img {
+    width: initial;
+  }
+  .section.lp-brand .banner {
+    padding-bottom: 9rem;
+  }
+}
+@media screen and (width <= 991px) {
+  .section.lp-brand .banner {
+    padding-bottom: 1rem !important;
+    background: none !important;
+  }
+  .banner-container.bckimg-full-right {
+    background-position: right -19rem top !important;
+  }
+}
+@media screen and (width <= 768px) {
+  .section.banner-container .banner {
+    padding: 1em 0 !important;
+    margin-bottom: 2em !important;
+  }
+  .section.lp-brand .banner {
+    padding-bottom: 5.5rem;
+    border-radius: 10px;
+  }
+  .section.normal-padding-mobile .banner {
+    padding-bottom: 1rem;
+  }
+  .section.banner-container .banner h1 {
+    margin-top: 0;
+    font-size: 30px;
+    text-align: left;
+  }
+  .section.lp-brand .banner h1 {
+    text-align: center;
+  }
+  .section.banner-container .banner h2 {
+    font-size: var(--body-font-size-m);
+  }
+  .section.banner-container .banner p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .section.banner-container .banner ul li {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .section.banner-container .banner #lidlBox {
+    width: 100%;
+    padding: 1rem 20px;
+  }
+  .section.banner-container .banner #lidlBox strong {
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: bold;
+    letter-spacing: -0.2px;
+    display: block;
+  }
+  .section.banner-container .banner #lidlBox hr {
+    margin: 1em 0;
+  }
+  .section.banner-container .banner #lidlBox a.red-buy-button {
+    font-size: 11px;
+    line-height: 25px;
+    font-weight: bold;
+    letter-spacing: -0.17px;
+    padding: 10px 15px !important;
+    margin: 1rem 0;
+  }
+  .section.banner-container .banner #lidlBox a.red-buy-button img {
+    max-height: 25px;
+    width: auto;
+  }
+  .section.banner-container #pricesBox .d-flex {
+    justify-content: center;
+  }
+  .section.banner-container #pricesBox .d-flex p {
+    margin: 0 10px 0 0;
+  }
+  .section.banner-container #pricesBox .d-flex span.prod-oldprice {
+    text-decoration: line-through;
+    font: normal normal normal 18px/21px Arial, sans-serif;
+  }
+  .section.banner-container #pricesBox .d-flex span.prod-newprice {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+    font-weight: bold;
+  }
+  .section.banner-container #pricesBox .d-flex .variation {
+    font-size: var(--body-font-size-s);
+    line-height: 19px;
+    font-weight: bold;
+  }
+  .section.banner-container #pricesBox .buy_box {
+    margin: 20px 0;
+    min-height: auto;
+  }
+  .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
+    display: inline;
+    font-size: var(--body-font-size-s);
+  }
+  .section.banner-container #pricesBox .terms {
+    margin: 5px 0 10px;
+  }
+  .section.banner-container #pricesBox .terms p {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 5px;
+  }
+  .section.banner-container #pricesBox .terms p a {
+    color: #006EFF;
+  }
+  .section.banner-container.block-hide-mobile {
+    display: none !important;
+  }
+  .section.banner-container.hide-mobile, .section.banner-container.hide-mobile .block {
+    background-image: unset !important;
+    background-color: black;
+  }
+  .section.banner-container.hide-mobile .bck-img {
+    display: none;
+  }
+  .section.banner-container .animated_box {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+@media screen and (width <= 991px) {
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
+}
+@media screen and (width >= 1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+@media screen and (width >= 1800px) {
+  .section.banner-container .custom-justify-content-xxxl-center {
+    justify-content: center !important;
+  }
+}
