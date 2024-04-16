@@ -25,10 +25,40 @@
   margin: 0.5em 0;
 }
 
-.no-award .row div:nth-child(1) {
+.no-award.awards-container .row div:nth-child(1) {
   width: 100%;
 }
-.no-award .row > div:nth-child(1) .text-center > div:nth-child(1) {
+
+.one-award.awards-container .row > div:nth-child(1) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.one-award.awards-container .row > div:nth-child(2) {
+  width: 100%;
+  text-align: left;
+}
+.one-award.awards-container .row > div:nth-child(2) .text-center {
+  text-align: left !important;
+}
+.one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(1) {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: bold;
+  margin-bottom: 12px !important;
+  margin-top: 20px;
+}
+.one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(2) {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+}
+.one-award.awards-container img {
+  height: 80px;
+  width: auto;
+}
+
+.no-award.awards-container .row > div:nth-child(1) .text-center > div:nth-child(1) {
   text-align: left;
   font-size: 22px;
   line-height: 30px;
@@ -36,36 +66,12 @@
   margin-bottom: 15px !important;
   margin-top: 0;
 }
-.no-award .title {
+
+.no-award.awards-container .title {
   text-align: left;
   font-size: 16px;
   font-weight: normal;
   line-height: 24px;
-}
-
-.one-award.awards-container .row > div:nth-child(1) {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.one-award.awards-container .row > div:nth-child(2) {
-  width: 100% !important;
-  text-align: left !important;
-}
-
-.one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(1) {
-  font-size: 20px !important;
-  line-height: 28px !important;
-  font-weight: bold !important;
-  margin-bottom: 12px !important;
-  margin-top: 20px !important;
-}
-
-.one-award.awards-container .row > div:nth-child(2) .text-center > div:nth-child(2) {
-  font-size: 16px !important;
-  font-weight: normal !important;
-  line-height: 24px !important;
 }
 
 @media screen and (width >= 992px) {
