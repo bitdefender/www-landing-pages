@@ -473,7 +473,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
       } else {
         oldPriceBox.style.visibility = 'hidden';
         if (oldPriceBox.closest('.prod-oldprice')) {
-          oldPriceBox.closest('.prod-oldprice').style.setProperty('display', 'none', 'important');
+          oldPriceBox.closest('.prod-oldprice').style.visibility = 'hidden';
           if (oldPriceBox.parentNode.nodeName === 'P') {
             oldPriceBox.parentNode.style.display = 'none';
           }
@@ -483,7 +483,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
-      const siblingElements = saveBox.parentNode.parentNode.querySelectorAll('div');
+      const siblingElements = saveBox.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
       });
