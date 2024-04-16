@@ -749,7 +749,9 @@ function initSelectors(pid) {
       const initSelectorConfig = {
         product_id: prodAlias,
         full_price_class: `oldprice-${onSelectorClass}`,
+        full_price_monthly_class: `oldprice-${onSelectorClass}-monthly`,
         discounted_price_class: `newprice-${onSelectorClass}`,
+        discounted_price_monthly_class: `newprice-${onSelectorClass}-monthly`,
         price_class: `price-${onSelectorClass}`,
         buy_class: `buylink-${onSelectorClass}`,
         save_class: `save-${onSelectorClass}`,

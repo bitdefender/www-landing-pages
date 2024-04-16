@@ -1,0 +1,114 @@
+.exposed-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 450px;
+
+  button {
+    width: 100%;
+  }
+
+  .exposed-form-wrapper {
+    max-width: 800px;
+    width: 95%;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+
+  .checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    input {
+      width: 20px;
+      margin-top: 7px;
+    }
+  }
+
+  .estimated-time {
+    text-align: center;
+  }
+
+  .frame-2,
+  .frame-3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon-wave {
+    width: 56px;
+  }
+
+  .product-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    hr {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: solid 1px;
+    }
+
+    .product {
+      position: relative;
+      padding: 25px;
+      margin-top: 15px;
+      border-radius: 10px;
+      border-color: #e5e7eb;;
+      box-shadow: 0 3px 8px 0 #0000001a;
+      overflow: hidden;
+      background-color: white;
+      display: flex;
+      flex-flow: column;
+      max-width: 100%;
+      text-align: center;
+
+      p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .highlight {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #218728;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding: 4px 0 8px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.96px;
+      }
+
+      a.button {
+        width: 100%;
+      }
+    }
+  }
+
+  .error {
+    text-align: left;
+    color: red;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+}
