@@ -101,10 +101,10 @@ export default function decorate(block) {
       block.children[2].style.color = textColor;
     }
 
-    if (paddingTop) blockStyle.paddingTop = `${paddingTop}rem`;
-    if (paddingBottom) blockStyle.paddingBottom = `${paddingBottom}rem`;
-    if (marginTop) blockStyle.marginTop = `${marginTop}rem`;
-    if (marginBottom) blockStyle.marginBottom = `${marginBottom}rem`;
+    if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
+    if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
+    if (marginTop) block.style.marginTop = `${marginTop}rem`;
+    if (marginBottom) block.style.marginBottom = `${marginBottom}rem`;
   } else {
     block.innerHTML = 'Provide a valid counter Section Metadata';
   }
