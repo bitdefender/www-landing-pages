@@ -4,7 +4,6 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
 
-
   // config new elements
   const {
     textColor, backgroundColor, paddingTop, paddingBottom, marginTop,
@@ -73,8 +72,8 @@ export default function decorate(block) {
         // eslint-disable-next-line no-undef
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
         if (!firstCounter.countdownEnded) {
-          block.querySelectorAll('.pictureBF').forEach(elem => elem.style.display = 'block');
-          block.querySelectorAll('.pictureCM').forEach(elem => elem.style.display = 'none');
+          block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'block'; });
+          block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'none'; });
         }
 
         firstCounter.start()
@@ -82,9 +81,10 @@ export default function decorate(block) {
             // The initial counter has ended; start a new one + 48 hours from now
             // switch images:
             block.querySelector('#flipdown').innerHTML = '';
-            block.querySelectorAll('.pictureBF').forEach(elem => elem.style.display = 'none');
-            block.querySelectorAll('.pictureCM').forEach(elem => elem.style.display = 'block');
+            block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
+            block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
 
+            // eslint-disable-next-line no-undef
             const secondCounter = new FlipDown(newTime, flipClockConfig);
             secondCounter.start();
           });
