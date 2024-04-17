@@ -1,0 +1,698 @@
+.b-banner-container {
+  color: white;
+  height: auto;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-position: top right;
+  overflow: hidden;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.b-banner-container.full {
+  padding: 2em 0;
+}
+
+.b-banner-container .banner-image {
+  display: none;
+}
+
+.b-banner-container .banner-image--in-container img {
+  display: none;
+}
+
+.b-banner-container.full .banner-image img {
+  height: 100%!important;
+  width: auto!important;
+  max-width: unset;
+}
+
+.b-banner-container.blue-border {
+  border-bottom: 32px solid #E4F2FF;
+}
+
+.b-banner-container.negative {
+  margin-bottom: 0;
+  display: none;
+}
+
+.b-banner-container .hasDiscount {
+  display: none;
+}
+
+.b-banner-container .b-banner-wrapper {
+  position: relative;
+  padding-left: 0;
+  margin: 15px;
+}
+
+.b-banner-container .b-banner-wrapper .b-banner {
+  z-index: 1;
+}
+
+.b-banner-container .b-banner-wrapper.flex-prod .b-banner {
+  flex-direction: column;
+}
+
+.b-banner-container .b-banner-wrapper .oldprice {
+  font-size: 24px;
+  text-decoration: line-through;
+  margin-right: 10px;
+  line-height: 19px;
+}
+
+.b-banner-container .b-banner-wrapper .newprice {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 0;
+}
+
+.b-banner-container .b-banner-wrapper table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+.b-banner-container .b-banner-wrapper table p {
+  font-size: 21px;
+  font-weight: 400;
+  margin: 1em 0 0;
+  margin-right: 10px;
+  max-width: 595px;
+}
+
+.b-banner-container .b-banner-wrapper table p .prod-percent.green_bck {
+  margin-top: 0;
+}
+
+.b-banner-container .b-banner-wrapper table tbody tr td p {
+  font-size: 16px;
+  margin: 0;
+  padding-left: 10px;
+}
+
+.b-banner-container.form .b-banner-wrapper p {
+  font-size: 11px;
+  margin: 0;
+}
+
+.b-banner-container.form .b-banner-wrapper p a {
+  text-decoration: underline;
+}
+
+.b-banner-container .b-banner-wrapper table tbody tr td p:nth-child(2) {
+  font-size: 12px;
+}
+
+.b-banner-container .b-banner-wrapper .b-banner.paragraph-blue p {
+  color: #006dff;
+}
+
+.b-banner-container .b-banner-wrapper table.price-table {
+  border-spacing: 0 0;
+}
+
+.b-banner-container .b-banner-wrapper table.price-table tr:nth-child(3) td p {
+  padding: 0;
+  font-size: 11px;
+}
+
+.b-banner-container .b-banner-wrapper table.price-table tr:nth-child(3) td p a {
+  text-decoration: none;
+  color: #06f;
+  outline: none;
+}
+
+.b-banner-container .b-banner-wrapper .text-black {
+  color: black !important;
+}
+
+.b-banner-container .b-banner-wrapper h1 {
+  font-size: 24px;
+  max-width: unset;
+  margin-top: 0;
+}
+
+.b-banner-container .b-banner-wrapper h2 {
+  font-size: 21px;
+  max-width: unset;
+  margin-top: 10px;
+}
+
+.b-banner-container .b-banner-wrapper h3 {
+  font-size: 19px;
+  max-width: unset;
+  margin-top: 10px;
+}
+
+.b-banner-container .b-banner-wrapper .prod-percent.green_bck_pill {
+  background-color: #2FB43E;
+  display: inline-block;
+  color: #fff;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
+  font-size: 16px;
+  padding: 2px 11px;
+}
+
+.b-banner-container .b-banner-wrapper .smaller-text h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 1em 0;
+}
+
+.b-banner-container.custom-counter h1 {
+  max-width: 100%!important;
+  width: 100%!important;
+}
+
+.b-banner-container .b-banner-wrapper .w-full h1, .b-banner-container .b-banner-wrapper .w-full h2 {
+  max-width: 100%;
+}
+
+.b-banner-container .b-banner-wrapper ul {
+  padding: 0;
+}
+
+.b-banner-container .b-banner-wrapper ul li {
+  text-align: left;
+  background: url("/_src-lp/images/icons/check_full.svg") 0 3px no-repeat transparent;
+  list-style-type: none;
+  padding-left: 23px;
+  background-size: 16px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.b-banner-container .banner-image.flipClock-image {
+  position: relative;
+
+  img {
+    position: relative;
+    z-index: 0;
+  }
+}
+
+.b-banner-container .b-banner-wrapper .b-banner.bigger-award-and-text table tbody tr td img {
+  max-height: 90px;
+}
+
+.b-banner-container .b-banner-wrapper .b-banner.bigger-award-and-text table tbody tr td p {
+  font-size: 24px;
+  color: #523516;
+}
+
+.b-banner-container .b-banner-wrapper .b-banner.bigger-award-and-text table tbody tr td p:nth-child(2) {
+  font-size: 16px;
+  color: initial;
+}
+
+.b-banner-container .b-banner-wrapper #captchaBox {
+  margin: 1em 0;
+}
+
+.b-banner-container .b-banner-wrapper #bannerAward {
+  width: 250px;
+  position: static;
+  top: 30%;
+  right: 15%;
+}
+
+.b-banner-container .b-banner-wrapper #bannerAward p {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv p {
+  max-width: unset;
+  margin: 5px 0 0;
+  line-height: 17px;
+  font-size: 15px;
+}
+
+.b-banner-container .b-banner-wrapper #bannerAward p:first-of-type {
+  margin: 0;
+}
+
+.b-banner-container .b-banner-wrapper #bannerAward p em {
+  font-weight: bold;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv img {
+  height: 20px;
+  margin: 0 5px;
+}
+
+.b-banner-container .b-banner-wrapper #bannerAward p img {
+  width: 160px;
+  display: block;
+  float: none;
+}
+
+.b-banner-container.form {
+  height: auto;
+}
+
+.b-banner-container.form .b-banner-wrapper h1 {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.b-banner-container.form .b-banner-wrapper h2 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.b-banner-container.form .b-banner-wrapper h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.b-banner-container.form .b-banner-wrapper h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.b-banner-container.form .b-banner-wrapper .form-logo {
+  width: 100px;
+}
+
+.b-banner-container.form .b-banner-wrapper #formBox {
+  width: 215px;
+  margin-bottom: 1em;
+}
+
+.b-banner-container.form .b-banner-wrapper #formBox label {
+  display: none;
+  font-size: 11px;
+}
+
+.b-banner-container.form .b-banner-wrapper #formBox input {
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 13px 15px;
+  line-height: 14px;
+}
+
+.b-banner-container.form .b-banner-wrapper #formBox button {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.b-banner-container.form .b-banner-wrapper #formBox p.form_err {
+  font-size: 12px;
+  color: red;
+}
+
+.b-banner-container.form .b-banner-wrapper table {
+  display: none;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv {
+  width: 90%;
+  position: relative;
+  padding: 0 10px 10px;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px 0 #000;
+  color: black;
+  margin: 0 auto;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv table {
+  width: 100%;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv table:nth-of-type(1) {
+  background-color: #22ac3b;
+  text-align: center;
+  color: #fff;
+  padding: 10px 0;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 0;
+  width: 108%;
+  margin-left: -10px;
+
+  td {
+    text-align: center;
+  }
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv .prices_box {
+  text-align: center;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv .prices_box span.prod-oldprice {
+  margin-top: 10px;
+  font-size: 24px;
+  line-height: 24px;
+  color: #666;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv .prices_box span.prod-newprice {
+  font-size: 36px;
+  margin-bottom: 3px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv h2 {
+  max-width: 100%;
+  font-size: 36px;
+  margin: 10px 0 0;
+  line-height: 20px;
+
+  &::after {
+    content: "";
+    border-bottom: 2px solid #9A9A9A;
+    width: 117px;
+    display: block;
+    margin: 15px auto;
+  }
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv p em {
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 0;
+  line-height: 12px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 10px;
+  font-style: normal;
+  width: 100%;
+  display: block;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv p:last-of-type em {
+  border-bottom: 0 none;
+  border-top: 1px dashed #ccc;
+  padding-top: 10px;
+}
+
+.b-banner-container.text-top .b-banner-wrapper {
+  align-items: flex-start;
+}
+
+.b-banner-container.text-top-centered .b-banner-wrapper {
+  align-items: flex-start;
+  text-align: center;
+}
+
+.b-banner-container.text-top-centered .b-banner-wrapper  .b-banner {
+  width: 100%;
+}
+
+.b-banner-container.text-top-centered .b-banner-wrapper  .b-banner  h1 {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media screen and (width >= 768px) {
+  .b-banner-container {
+    padding: 2em 0;
+    min-height: 450px;
+  }
+
+  .b-banner-container.small {
+    padding: 1em 0;
+    min-height: 350px;
+  }
+
+  .b-banner-container.custom-counter {
+    min-height: 350px!important;
+  }
+
+  .b-banner-container.custom-counter .item-align-center {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .b-banner-container.custom-counter img {
+    height: 350px;
+  }
+
+  .b-banner-container .banner-image {
+    display: block;
+    height: 100%;
+  }
+
+  .b-banner-container .banner-image img {
+    height: 100% !important;
+    width: auto !important;
+    max-width: unset;
+    float: right;
+    display: block;
+  }
+
+  .b-banner-container .banner-image.flipClock-image {
+    right: 10%;
+    top: 0;
+  }
+
+  .b-banner-container.smaller {
+    padding: 1em 0;
+    min-height: 250px;
+  }
+
+  .b-banner-container.bigger-banner {
+    min-height: 625px;
+  }
+
+  .b-banner-container.even-bigger-banner {
+    min-height: 725px;
+  }
+
+  .b-banner-container.negative {
+    display: block;
+    margin-bottom: -400px;
+  }
+
+  .b-banner-container.negative-mid {
+    margin-bottom: -20em;
+  }
+
+  .b-banner-container .b-banner-wrapper {
+    height: 100%;
+    align-items: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 15px auto;
+    position: absolute;
+    display: block;
+  }
+
+  .b-banner-container.content-top .b-banner-wrapper{
+    align-items: flex-start;
+  }
+
+  .b-banner-container .b-banner-wrapper.flex-prod {
+    display: block;
+  }
+
+  .b-banner-container .b-banner-wrapper.flex-prod .b-banner {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .b-banner-container .b-banner-wrapper h1, .b-banner-container .b-banner-wrapper h2 {
+    max-width: 60%;
+    margin-top: 10px;
+  }
+
+  .b-banner-container .b-banner-wrapper #bannerAward {
+    width: 200px;
+    position: absolute;
+  }
+
+  .b-banner-container.form .b-banner-wrapper h1 {
+    font-size: 36px;
+  }
+
+  .b-banner-container.form .b-banner-wrapper h2 {
+    font-size: 36px;
+  }
+
+  .b-banner-container .b-banner-wrapper #productBoxDiv h2 {
+    max-width: 100%;
+  }
+
+  .b-banner-container.form .b-banner-wrapper h3, .b-banner-container.form .b-banner-wrapper h4 {
+    font-size: 20px;
+  }
+
+  .b-banner-container.form .b-banner-wrapper form-logo {
+    width: 125px;
+  }
+
+  .b-banner-container .hasDiscount {
+    display: block;
+  }
+
+  .b-banner-container .hasDiscount img {
+    width: auto;
+    float: right;
+  }
+
+  .b-banner-container .hasDiscount div {
+    background: url("../../images/bubble_discount.png") no-repeat 0 0 transparent;
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    width: 110px;
+    height: 120px;
+    background-size: 100%;
+    padding: 0 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .b-banner-container .hasDiscount div span {
+    color: red;
+    display: block;
+    font-weight: bold;
+    line-height: 26px;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .b-banner-container .hasDiscount div span:last-of-type {
+    font-size: 22px;
+  }
+
+  .b-banner-container .b-banner-wrapper #productBoxDiv {
+    width: 360px;
+  }
+}
+
+@media screen and (width >= 989px) {
+  .b-banner-container {
+    padding: 0;
+  }
+
+  .b-banner-container .banner-image img {
+    display: block;
+    height: 100%;
+    float: right;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+  }
+
+  .b-banner-container .b-banner-wrapper {
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 15px auto;
+    position: absolute;
+  }
+
+  .b-banner-container .b-banner-wrapper .banner-image--in-container img {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+  }
+
+  .b-banner-container .b-banner-wrapper h1 {
+    font-size: 35px;
+    line-height: 43px;
+    max-width: 610px;
+    font-weight: normal;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .b-banner-container .b-banner-wrapper h2 {
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 35px;
+    max-width: 595px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .b-banner-container .b-banner-wrapper p {
+    max-width: 610px;
+    margin: 10px 0;
+    line-height: 20px;
+  }
+
+  .b-banner-container .b-banner-wrapper .smaller-text h2 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 1em 0;
+  }
+
+  .b-banner-container .b-banner-wrapper .prod-percent.green_bck_pill {
+    font-size: 18px;
+  }
+
+  .b-banner-container.center-background-image .banner-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: -50%;
+  }
+
+  .b-banner-container .hasDiscount div {
+    right: 5%;
+    top: 10%;
+  }
+}
+
+@media screen and (width >= 1199px) {
+  .b-banner-container.bigger-banner {
+    min-height: 625px;
+  }
+
+  .b-banner-container.center-background-image .banner-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: -20%;
+  }
+
+  .b-banner-container .hasDiscount div {
+    right: 15%;
+    top: 15%;
+  }
+
+  .b-banner-wrapper {
+    left: 0;
+    right: 0;
+  }
+}
+
+@media screen and (width >= 1920px) {
+  .b-banner-container.center-background-image .banner-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: 10%;
+  }
+
+  .b-banner-container.full .banner-image img {
+    width: 100% !important;
+  }
+}

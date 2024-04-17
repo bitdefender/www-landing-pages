@@ -1,0 +1,316 @@
+/* .c-top-comparative-with-text2 */
+.c-top-comparative-with-text-container {
+  padding-top: 5em !important;
+}
+
+.c-top-comparative-with-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.c-top-comparative-with-text > div {
+  width: 21%;
+  position: relative;
+  padding: 1%;
+  border-radius: 5px 5px 0 0;
+  background-color: #fff;
+  border-top: 5px solid transparent;
+}
+
+.c-top-comparative-with-text > div:nth-child(1) {
+  color: #666;
+  width: 34%;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.c-top-comparative-with-text > .active {
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 35%);
+}
+
+.c-top-comparative-with-text.no-highlight > div:nth-child(3), .no-highlight .c-top-comparative-with-text > div:nth-child(3) {
+  box-shadow: initial;
+  border-top-color: transparent;
+}
+
+.c-top-comparative-with-text > div picture img {
+  height: 20px;
+  margin: 0 5px;
+}
+
+.c-top-comparative-with-text > div img:first-of-type {
+  width: 270px;
+  height: auto;
+  margin-top: -10em;
+}
+
+.c-top-comparative-with-text > div h2 {
+  font-size: 20px;
+  margin: 0;
+  margin-top: 10px;
+  line-height: 24px;
+}
+
+.c-top-comparative-with-text > div div.green_tag {
+  background-color: #22ac3b;
+  text-align: center;
+  position: absolute;
+  border-radius: 0;
+  color: #fff;
+  padding: 0 0 9px;
+  left: 0;
+  top: 0;
+  right: 0;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.c-top-comparative-with-text > div .prod-percent {
+  margin-top: -6em;
+  margin-left: 4em;
+  float: left;
+  clear: both;
+}
+
+.c-top-comparative-with-text > div .prod-percent span {
+  display: block;
+  line-height: 26px;
+}
+
+.c-top-comparative-with-text > div p {
+  margin: 5px 0;
+  line-height: 22px;
+}
+
+.c-top-comparative-with-text > div p:nth-of-type(1), .c-top-comparative-with-text > div p:nth-of-type(2) {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+}
+
+.c-top-comparative-with-text > div p:nth-of-type(3) {
+  font-size: 14px;
+  border-top: 1px dashed #ccc;
+  padding: 10px 0 0;
+  margin: 10px 0 0;
+}
+
+.c-top-comparative-with-text > div div.prices_box {
+  text-align: left;
+}
+
+.c-top-comparative-with-text > div div.prices_box span.prod-oldprice {
+  font-size: 18px;
+  line-height: 1.3;
+  display: block;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.c-top-comparative-with-text > div div.prices_box span.prod-newprice {
+  font-weight: bold;
+  line-height: 1.1;
+  font-size: 24px;
+}
+
+.c-top-comparative-with-text > div p:nth-of-type(4) {
+  margin-top: 10px;
+}
+
+.c-top-comparative-with-text > div p:nth-of-type(4), .c-top-comparative-with-text > div p:nth-of-type(5), .c-top-comparative-with-text > div p:nth-of-type(5) a {
+  color: #999;
+  font-size: 12px;
+  margin: 0;
+  line-height: 16px;
+}
+
+.c-top-comparative-with-text > div p:nth-of-type(5) {
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 10px;
+}
+
+.c-top-comparative-with-text > div table, .c-top-comparative-with-text > div table tbody, .c-top-comparative-with-text > div table tbody tr, .c-top-comparative-with-text > div table tbody tr td {
+  width: 100%;
+  display: block;
+}
+
+/* table 1 - prices */
+.c-top-comparative-with-text > div table:nth-of-type(1) p {
+  color: #666;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.c-top-comparative-with-text > div table:nth-of-type(1) p span {
+  margin-left: 6px;
+}
+
+.c-top-comparative-with-text > div table:nth-of-type(1) p:nth-of-type(3)::after {
+  display: none;
+}
+
+.c-top-comparative-with-text > div table:nth-of-type(1) p i {
+  float: right;
+}
+
+.c-top-comparative-with-text > div table:nth-of-type(1) p span, .c-top-comparative-with-text > div table:nth-of-type(1) p i {
+  color: #666;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.c-top-comparative-with-text > div table:nth-of-type(1) p:last-of-type {
+  font-size: 24px;
+  color: #000;
+}
+
+.c-top-comparative-with-text > div table:nth-of-type(1) p:nth-of-type(3) span {
+  color: #fff;
+  background: #20b53e;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 2px 10px;
+  display: inline-block;
+  text-align: center;
+}
+
+.c-top-comparative-with-text > div table:nth-of-type(1) p:last-of-type span {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: black;
+}
+
+.c-top-comparative-with-text > div table:nth-of-type(1) p:nth-of-type(4) {
+  min-height: auto;
+  border: 0 none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* table 2 - buy btn */
+.c-top-comparative-with-text > div table:last-of-type {
+  font-size: 14px;
+  text-align: left;
+  border-radius: 5px;
+  margin: 1em 0 0;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.c-top-comparative-with-text > div table:last-of-type a {
+  width: 100%;
+  text-align: center;
+}
+
+/* if has 4 elements */
+.c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text-wrapper {
+  max-width: 87%;
+}
+
+.c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div {
+  width: 24%;
+  padding: 1%;
+  border: 0 none;
+  overflow: hidden;
+}
+
+.c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div p:nth-of-type(1) {
+  margin-top: 40px;
+}
+
+.c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div div.green_tag {
+  padding: 9px 0;
+}
+
+.c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div h2 {
+  font-size: 30px;
+  line-height: 27px;
+}
+
+.c-top-comparative-with-text-container.has2boxes .c-top-comparative-with-text > div {
+  width: 33.3%;
+}
+
+/* for mobile */
+@media (width >= 1450px) {
+  .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text-wrapper {
+    max-width: 1450px;
+  }
+}
+
+@media (width <= 989px) {
+  .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text {
+    display: block;
+  }
+
+  .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text-wrapper {
+    max-width: 100% !important;
+  }
+
+  .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div {
+    width: 100% !important;
+    padding: 3% !important;
+    margin-bottom: 1em !important;
+    padding-bottom: 10px !important;
+  }
+}
+
+@media (width <= 768px) {
+  .c-top-comparative-with-text {
+    display: block;
+  }
+
+  .c-top-comparative-with-text > div {
+    width: 100% !important;
+    padding: 3% !important;
+    margin-bottom: 1em !important;
+    padding-bottom: 10px !important;
+  }
+
+  .c-top-comparative-with-text > div p:nth-of-type(7) {
+    margin: 0;
+    padding-bottom: 10px;
+  }
+
+  .c-top-comparative-with-text > div:nth-child(1) {
+    padding: 0 !important;
+  }
+
+  .c-top-comparative-with-text > div:not(:nth-child(1)) {
+    width: 33% !important;
+    float: left;
+    padding: 1% !important;
+  }
+
+  .c-top-comparative-with-text > div h2 {
+    font-size: 24px;
+    line-height: 23px;
+  }
+
+  .c-top-comparative-with-text > div p:nth-of-type(2) {
+    font-size: 13px;
+  }
+
+  .c-top-comparative-with-text > div div.buybtn_box {
+    height: auto;
+  }
+
+  .c-top-comparative-with-text > div:not(:first-child) p:nth-of-type(1) {
+    margin-top: 7px;
+    font-size: 14px;
+  }
+
+  .c-top-comparative-with-text-container {
+    padding-top: 1em !important;
+  }
+}

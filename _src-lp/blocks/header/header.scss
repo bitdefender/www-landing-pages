@@ -1,0 +1,108 @@
+header {
+  &.dark {
+    background-color: black;
+  }
+
+  &.rev-header {
+    background-color: #fff;
+  }
+
+  &.customNav .block div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      padding: 0;
+      margin: 0;
+
+      img {
+        max-height: 40px;
+        width: auto;
+      }
+    }
+
+    a {
+      img {
+        max-height: 25px;
+        width: auto;
+      }
+    }
+  }
+
+  span {
+    &.icon {
+      height: unset;
+      width: unset;
+      display: block;
+    }
+
+    &.reverse-filter {
+      filter: invert(0);
+    }
+  }
+
+}
+
+.header {
+  padding: 1em 15px;
+}
+
+header#headerBlue {
+  background-color: #fff;
+  border-bottom: 1px solid #EDEDED;
+
+  .block div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    text-align: center;
+    color: #006eff;
+  }
+
+  img {
+    height: 26px;
+    display: inline-block;
+    width: auto;
+  }
+
+  .section-metadata {
+    display: none;
+  }
+
+  .header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+@media screen and (width >= 768px) {
+  header#headerBlue a {
+    text-align: left;
+  }
+}
+
+@media screen and (width >= 991px) {
+  header {
+    &.rev-header {
+      background-color: #000;
+    }
+
+    span.reverse-filter {
+      filter: invert(1);
+    }
+  }
+
+  .header {
+    max-width: 1200px;
+    margin: auto;
+  }
+}

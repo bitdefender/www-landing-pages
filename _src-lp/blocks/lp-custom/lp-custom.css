@@ -1,0 +1,394 @@
+.lp-custom-container {
+  width: 100%;
+  color: white;
+  height: auto;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-position: top right;
+  overflow: hidden;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.lp-custom-container .custom-image {
+  display: none;
+}
+
+.lp-custom-container .lp-custom-wrapper {
+  position: relative;
+  padding-left: 0;
+  margin: 15px;
+}
+
+.lp-custom-container .lp-custom-wrapper .lp-custom {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+}
+
+.lp-custom-container .lp-custom-wrapper .lp-custom > div {
+  width: 100%;
+}
+
+.spurs.corner-rounded .default-content-wrapper img {
+  border-radius: 10px;
+  height: auto;
+}
+
+.lp-custom-container .lp-custom-wrapper .lp-custom > div img {
+  width: 90%;
+}
+
+.lp-custom-container .lp-custom-wrapper h1 {
+  font-size: 24px;
+  max-width: unset;
+  margin-top: 0;
+}
+
+.lp-custom-container .lp-custom-wrapper h2 {
+  font-size: 21px;
+  max-width: unset;
+  margin-top: 10px;
+}
+
+.lp-custom-container .lp-custom-wrapper h3 {
+  font-size: 19px;
+  max-width: unset;
+  margin-top: 10px;
+}
+
+.lp-custom-container .lp-custom-wrapper ul {
+  padding: 0;
+}
+
+.lp-custom-container .lp-custom-wrapper ul li {
+  text-align: left;
+  background: url("/_src-lp/images/icons/check_full.svg") 0 3px no-repeat transparent;
+  list-style-type: none;
+  padding-left: 23px;
+  background-size: 16px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.ibm-plex * {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.spurs.single-blue-quote .default-content-wrapper strong {
+  margin-top: 2em;
+}
+
+.spurs.blue-quote .default-content-wrapper p:nth-of-type(1) strong {
+  margin-top: 3em;
+}
+
+.spurs.lp-custom-container {
+  min-height: auto;
+  height: auto;
+}
+
+.spurs.lp-custom-container .lp-custom-wrapper {
+  position: inherit;
+}
+
+.spurs.flex .default-content-wrapper p {
+  width: 100%;
+}
+
+.spurs.blue-quote .default-content-wrapper p {
+  width: 100%;
+}
+
+.spurs.blue-title-left .default-content-wrapper p:nth-of-type(1), .spurs.blue-title-left .default-content-wrapper p:nth-of-type(2) {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.spurs-img-right.blue-quote .default-content-wrapper p:nth-of-type(2) {
+  min-height: 300px;
+  background: url("../../images/spurs.jpg") top right no-repeat #006dff;
+  background-size: cover;
+  font-size: 30px;
+  line-height: 34px;
+  font-weight: 300;
+  padding: 1em 0 1em 1em;
+}
+
+.btn-white .button-container a, .btn-white.button-container a:hover {
+  background-color: white !important;
+  color: #006DFF;
+  transition: all 0.5s ease-out;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+  text-transform: none;
+  padding: 15px 2em;
+}
+
+.spurs.flex .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.spurs.flex .default-content-wrapper h2 {
+  width: 50%;
+}
+
+.spurs.flex .default-content-wrapper br {
+  content: "";
+  margin: 1em;
+  display: block;
+}
+
+.spurs.lp-custom-container .lp-custom-wrapper .lp-custom {
+  margin-top: 0;
+}
+
+#headerFerrari ul:nth-of-type(3) :nth-of-type(3) a {
+  font-weight: normal;
+}
+
+@media screen and (width <= 989px) {
+  #headerFerrari.headerSpurs {
+    background-color: white;
+    border-bottom: 0 none;
+  }
+  #headerFerrari.headerSpurs::before {
+    content: "";
+    background: url("../../images/black_company_logo.svg") no-repeat 0 0 transparent;
+    width: 100px;
+    height: 20px;
+    display: block;
+    background-size: 100%;
+    margin: 10px;
+  }
+  #headerFerrari.headerSpurs .lp-header {
+    padding: 0 !important;
+  }
+  #headerFerrari.headerSpurs .lp-header::before {
+    content: "";
+    background: url("/_src-lp/images/icons/burger_menu.JPG") no-repeat 0 0 transparent;
+    width: 29px;
+    height: 29px;
+    display: block;
+    background-size: 100%;
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    cursor: pointer;
+  }
+  #headerFerrari.headerSpurs .lp-header > div {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    width: 100%;
+    visibility: hidden;
+  }
+  #headerFerrari.headerSpurs .lp-header.active > div {
+    visibility: visible;
+  }
+  #headerFerrari.headerSpurs .lp-header > div ul li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-left: 15px;
+  }
+  .btn-white .button-container a, .btn-white.button-container a:hover {
+    font-size: 14px;
+    line-height: 17px;
+    padding: 10px 1em;
+  }
+  #headerFerrari.headerSpurs .lp-header > div ul li, #headerFerrari.headerSpurs .lp-header > div ul li a {
+    width: 100%;
+    display: block;
+    padding-bottom: 0;
+    color: black;
+    font-size: 15px;
+    font-family: "IBM Plex Sans", sans-serif;
+    text-transform: uppercase;
+  }
+  #headerFerrari.headerSpurs .lp-header > div ul li a::before {
+    display: none;
+  }
+  #headerFerrari.headerSpurs ul:last-of-type li:first-of-type {
+    display: none;
+  }
+  .spurs.blue-quote .default-content-wrapper {
+    flex-direction: row;
+  }
+  .spurs.blue-title-left .default-content-wrapper h2:nth-child(1) {
+    font-weight: 300;
+    line-height: 27px;
+    font-size: 23px;
+  }
+  .spurs-img-right.blue-quote .default-content-wrapper p:nth-of-type(2) {
+    font-size: 30px;
+    line-height: 34px;
+  }
+  .spurs.blue-quote .default-content-wrapper p:nth-of-type(1) {
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 24px;
+  }
+}
+@media screen and (width <= 768px) {
+  .spurs.blue-quote .default-content-wrapper {
+    flex-direction: column;
+  }
+}
+@media screen and (width >= 768px) {
+  .lp-custom-container {
+    padding: 2em 0;
+    min-height: 600px;
+  }
+  .lp-custom-container .lp-custom-wrapper .lp-custom {
+    margin-top: 5em;
+    flex-direction: row;
+  }
+  .lp-custom-container .lp-custom-wrapper .lp-custom > div {
+    width: 50%;
+  }
+  .lp-custom-container .custom-image {
+    display: block;
+    height: 100%;
+  }
+  .lp-custom-container .lp-custom-wrapper {
+    position: absolute;
+    height: 100%;
+    align-items: center;
+    margin: 15px auto;
+    display: flex;
+  }
+  .lp-custom-container.content-top .lp-custom-wrapper {
+    align-items: flex-start;
+  }
+  .lp-custom-container .lp-custom-wrapper h1, .lp-custom-container .lp-custom-wrapper h2 {
+    max-width: 60%;
+    margin-top: 10px;
+  }
+  .spurs.blue-quote .default-content-wrapper p {
+    width: 49%;
+    flex-direction: row;
+  }
+}
+@media screen and (width >= 989px) {
+  main .section.lp-custom-container {
+    padding: 7em 15px 2em;
+  }
+  .lp-custom-container .custom-image img {
+    display: block;
+    height: 100%;
+    float: right;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+  }
+  .lp-custom-container .lp-custom-wrapper {
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+  .lp-custom-container .lp-custom-wrapper .custom-image--in-container img {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+  }
+  .lp-custom-container .lp-custom-wrapper h1 {
+    font-size: 48px;
+    line-height: 60px;
+    font-weight: 300;
+    max-width: 610px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .lp-custom-container .lp-custom-wrapper h2 {
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 35px;
+    max-width: 595px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .lp-custom-container .lp-custom-wrapper p {
+    max-width: 610px;
+    margin: 10px 0;
+    font-weight: normal;
+    font-size: 27px;
+    line-height: 34px;
+  }
+  .lp-custom-container .lp-custom-wrapper p:first-of-type {
+    margin: 1em 0;
+  }
+  .lp-custom-container.center-background-image .custom-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: -50%;
+  }
+  .spurs.flex .default-content-wrapper {
+    flex-direction: row;
+  }
+  .spurs.flex .default-content-wrapper h2, .spurs.flex .default-content-wrapper p {
+    width: 50%;
+  }
+  .spurs.blue-quote .default-content-wrapper p:nth-of-type(1) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 37px;
+  }
+  .spurs-img-right.blue-quote .default-content-wrapper p:nth-of-type(2) {
+    font-size: 40px;
+    line-height: 44px;
+  }
+  .spurs.blue-title-left .default-content-wrapper p:nth-of-type(2) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 39px;
+  }
+  .spurs.blue-title-left .default-content-wrapper h2:nth-child(1) {
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 52px;
+  }
+  .spurs.blue-title-left .default-content-wrapper p:nth-of-type(1) {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 39px;
+  }
+  main .spurs.blue-quote .default-content-wrapper {
+    flex-direction: row;
+  }
+}
+@media screen and (width >= 1199px) {
+  .lp-custom-container.center-background-image .custom-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: -20%;
+  }
+  .lp-custom-wrapper {
+    left: 0;
+    right: 0;
+  }
+}
+@media screen and (width >= 1920px) {
+  .lp-custom-container.center-background-image .custom-image img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    margin-right: -15px;
+    position: absolute;
+    right: 10%;
+  }
+}

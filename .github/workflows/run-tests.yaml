@@ -1,9 +1,9 @@
-name: Linting
+name: Workflow
 
 on: [pull_request]
 
 jobs:
-  build:
+  setup-nodejs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,15 +12,36 @@ jobs:
         with:
           node-version: '20.4'
       - run: npm install
+
+  lint:
+    needs: setup-nodejs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
       - run: npm run lint
+
+  unit-tests:
+    needs: setup-nodejs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
       - run: npm run test:unit
+
+  snapshots-tests:
+    needs: setup-nodejs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
 
       # Dynamically extract the branch name from GITHUB_REF
       - name: Get Branch Name
         id: extract_branch_name
         run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
 
-      - run: npm run test:e2e
+      - run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}

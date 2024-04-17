@@ -1,0 +1,83 @@
+/* global overrides */
+.c-teaser-card-container.section {
+  padding: 0;
+  position: relative;
+}
+
+.c-teaser-card-container.new {
+  margin: 0 0 1em;
+}
+
+.c-teaser-card .main-wrapper {
+  position: relative;
+}
+
+.c-teaser-card .inner-wrapper {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.c-teaser-card h3, .c-teaser-card h3 p {
+  font-size: 50px;
+  font-weight: 500;
+  color: #fff;
+  margin-top: 30px;
+  line-height: 1.1;
+}
+
+.c-teaser-card h3 p {
+  margin: 5px;
+}
+
+.c-teaser-card .subtitle {
+  padding: 0 25px;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 30px;
+}
+
+.c-teaser-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (width >= 768px) {
+  .c-teaser-card .inner-wrapper {
+    padding: 50px 0 90px;
+  }
+  .c-teaser-card-container.new {
+    margin: 4rem 0 1.5rem;
+  }
+}
+@media (width >= 992px) {
+  .c-teaser-card h3 {
+    font-size: 40px;
+  }
+  .c-teaser-card-container.new {
+    margin: 4rem 0 3rem;
+  }
+}
+@media (width <= 768px) {
+  .c-teaser-card h3, .c-teaser-card h3 p {
+    font-size: 26px;
+    margin: 0 !important;
+    line-height: 29px;
+  }
+  .c-teaser-card .subtitle {
+    padding: 0;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 4px;
+  }
+}

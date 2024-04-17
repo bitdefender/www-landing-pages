@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['404.html', 'blocks/**/*.js', 'scripts/*.js'], // Files to analyze for used CSS classes
+  content: ['404.html', '_src-lp/blocks/**/*.js', '_src-lp/scripts/*.js'], // Files to analyze for used CSS classes
   css: ['node_modules/bootstrap/dist/css/bootstrap.min.css'], // CSS files to include
   defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
   safelist: [
@@ -19,7 +19,7 @@ module.exports = {
     'carousel-control-prev-icon',
     'pointer-event',
     'justify-content-end',
-    'p-5', 'my-5',
+    'p-5', 'my-5', 'my-0', 'my-1', 'my-2',
     'table-bordered',
   ],
   blocklist: ['strong'],
