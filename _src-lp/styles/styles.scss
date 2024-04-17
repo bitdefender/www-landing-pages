@@ -85,17 +85,17 @@ body [data-desktop-detector] {
 .phishing {
   .heading-content {
     margin-top: 40px;
-    
+
     u{color:#006DFF;
       text-decoration: none;
       font-weight: 600;
       margin-bottom:10px;
-      
+
     }
     h2,h3{
       margin-top:10px;
     }
-  
+
   }
 }
 //phishing end
@@ -1299,14 +1299,6 @@ main .section.highlight {
 
 #flipdown.flipdown.flipdown__theme-dark .rotor-group-heading::before {
   color: #FFF !important;
-}
-
-#flipdown.flipdown.flipdown__theme-light .rotor-group-heading::before {
-  color: #000 !important;
-}
-
-.counter picture {
-  display: none;
 }
 
 @media (width <= 1387px) {
