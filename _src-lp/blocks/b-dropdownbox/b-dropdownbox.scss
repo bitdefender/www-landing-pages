@@ -167,7 +167,7 @@
 }
 
 .b-dropdownbox-container .new.closed.inactive > div:not(:first-child), .b-dropdownbox-container.new.closed .block > div:not(:first-child) {
-  display: block;
+  display: block!important;
 }
 
 .b-dropdownbox-container .new > div:nth-child(1) > div, .b-dropdownbox-container.new .block > div:nth-child(1) > div {
@@ -359,6 +359,7 @@
   .b-dropdownbox-container .block > div:nth-child(1) > div {
     padding: 10px 3% !important;
     display: flex;
+    justify-content: space-between;
     font-size: 15px;
     line-height: 17px;
   }
@@ -378,6 +379,10 @@
 
   .b-dropdownbox-container.dropdownSlider::after {
     display: none;
+  }
+
+  .b-dropdownbox-container .block > div:not(:first-child){
+    display: none!important;
   }
 
   .b-dropdownbox-container .block > div:not(:first-child) > div {
