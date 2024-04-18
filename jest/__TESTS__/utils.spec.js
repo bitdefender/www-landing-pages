@@ -38,7 +38,7 @@ describe('utils.js', () => {
       const type = 'async';
       addScript(scriptUrl, {}, type);
       scriptTag = document.querySelector(`script[src="${scriptUrl}"]`);
-      expect(scriptTag.getAttribute(type)).toBeUndefined();
+      expect(scriptTag.getAttribute(type)).toBeTruthy();
     });
 
     it('should set the correct data attributes when data is provided', () => {
