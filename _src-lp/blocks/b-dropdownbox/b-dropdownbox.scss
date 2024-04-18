@@ -361,11 +361,15 @@
     display: flex;
     font-size: 15px;
     line-height: 17px;
+    justify-content: space-between;
   }
 
   .b-dropdownbox-container .new > div:nth-child(1) > div::after, .b-dropdownbox-container.new .block > div:nth-child(1) > div::after {
     position: static;
     margin-left: 15px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
   }
 
   .b-dropdownbox-container > div:nth-child(2) .new::after {
