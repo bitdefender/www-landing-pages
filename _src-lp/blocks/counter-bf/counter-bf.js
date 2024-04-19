@@ -18,7 +18,10 @@ export default function decorate(block) {
   if (counterSwitchOn) {
     // adding neccessary scripts: js, css
     loadCSS('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css');
-    addScript('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js', {}, 'defer');
+    // addScript('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js', {}, 'defer');
+    addScript('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js', {}, 'defer', () => {
+      document.dispatchEvent(new Event(GLOBAL_EVENTS.COUNTER_LOADED));
+    });
 
     // config
     const flipClockConfig = {
@@ -65,7 +68,6 @@ export default function decorate(block) {
       block.querySelector('#flipdown').style.display = 'block';
       document.addEventListener(GLOBAL_EVENTS.COUNTER_LOADED, () => {
         setTimeout(() => {
-          if (block.querySelector('#flipdown').children.length > 3) return;
           // eslint-disable-next-line no-undef
           const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
           if (!firstCounter.countdownEnded) {
