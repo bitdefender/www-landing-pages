@@ -151,6 +151,8 @@ export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallba
   }
 
   document.body.appendChild(s);
+
+ document.dispatchEvent(new Event(GLOBAL_EVENTS.COUNTER_LOADED));
 }
 
 export function getDefaultLanguage() {
@@ -168,6 +170,7 @@ export function getDefaultSection() {
 export const GLOBAL_EVENTS = {
   ADOBE_MC_LOADED: 'adobe_mc::loaded',
   PAGE_LOADED: 'page::loaded',
+  COUNTER_LOADED: 'counter::loaded',
 };
 
 export function appendAdobeMcLinks(selector) {
