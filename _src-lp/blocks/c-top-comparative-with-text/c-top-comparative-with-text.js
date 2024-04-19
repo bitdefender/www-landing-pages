@@ -24,13 +24,29 @@ import { updateProductsList } from '../../scripts/utils.js';
 export default function decorate(block) {
   const defaultBorderTopColorForActiveCard = '#e60093';
   /// ///////////////////////////////////////////////////////////////////////
+  // Get the query string (everything after the "?")
+  const queryString = window.location.search;
+  // Create a URLSearchParams object from the query string
+  const params = new URLSearchParams(queryString);
+  // Get pid from link
+  const pidValue = params.get('pid');
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, topText, activeCardColor, activeCard,
+    products, topText, activeCardColor, activeCard, oneUserYear,
   } = metaData;
   const productsAsList = products && products.split(',');
+  if (pidValue === 'avspecial') {
+    const find = 'av/3/1';
+    const replace = 'av/1/1';
+    // Find the index of the element to replace
+    const index = productsAsList.findIndex((item) => item === find);
+    // If the element is found, replace it
+    if (index !== -1) {
+      productsAsList[index] = replace;
+    }
+  }
 
   /// ///////////////////////////////////////////////////////////////////////
   // adding top text
@@ -77,5 +93,9 @@ export default function decorate(block) {
         tableBuybtn.innerHTML = `<div class="buy_box buy_box${key}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
       }
     });
+  }
+  if (pidValue === 'avspecial') {
+    const numberDevices = block.querySelector('.c-top-comparative-with-text > div:nth-child(2) > div > p:nth-child(3)');
+    numberDevices.innerHTML = oneUserYear;
   }
 }

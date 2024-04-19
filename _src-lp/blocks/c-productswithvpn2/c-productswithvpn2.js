@@ -20,11 +20,27 @@ import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
+  // Get the query string (everything after the "?")
+  const queryString = window.location.search;
+  // Create a URLSearchParams object from the query string
+  const params = new URLSearchParams(queryString);
+  // Get pid from link
+  const pidValue = params.get('pid');
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
-  const { products, bulinaText } = metaData;
+  const { products, bulinaText, oneUserYear } = metaData;
   const productsAsList = products && products.split(',');
+  if (pidValue === 'avspecial') {
+    const find = 'av/3/1';
+    const replace = 'av/1/1';
+    // Find the index of the element to replace
+    const index = productsAsList.findIndex((item) => item === find);
+    // If the element is found, replace it
+    if (index !== -1) {
+      productsAsList[index] = replace;
+    }
+  }
 
   if (productsAsList.length) {
     // check and add products into the final array
@@ -111,5 +127,9 @@ export default function decorate(block) {
       priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
     });
+  }
+  if (pidValue === 'avspecial') {
+    const numberDevices = block.querySelector('.av-11_box > div > p:nth-child(4)');
+    numberDevices.innerHTML = oneUserYear;
   }
 }
