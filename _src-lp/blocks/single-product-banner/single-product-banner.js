@@ -12,7 +12,7 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    productYearly, productMonthly, textColor, backgroundColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
+    products, textColor, backgroundColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
     marginBottom, imageCover, payYearly, payMonthly, save,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
@@ -36,39 +36,46 @@ export default function decorate(block) {
   const imageCoverVar = imageCover.split('-')[1];
   parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
 
-  
-
   let prodYearlyName;
   let prodYearlyUsers;
   let prodYearlyYears;
   let onSelectorClass;
 
-  if (productYearly && productYearly.length) {
-    updateProductsList(productYearly);
-    [prodYearlyName, prodYearlyUsers, prodYearlyYears] = productYearly.split('/');
-    onSelectorClass = `${productAliases(prodYearlyName)}-${prodYearlyUsers}${prodYearlyYears}`;
-  }
+  const productsAsList = products && products.split(',');
 
-  console.log(productYearly);
-  const firstTable = contentRightEl.querySelector("table");
-  console.log(firstTable);
-  const pricesBox = document.createElement('div');
+  if (productsAsList.length) {
+    productsAsList.forEach((prod) => updateProductsList(prod));
 
-  pricesBox.id = 'pricesBox';
-  pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-  pricesBox.innerHTML += `<div class="d-flex">
-    <div>
-      <div class="d-flex">
-        <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
-        <span class="prod-save d-flex justify-content-center align-items-center save-class">Save <span class="save-${onSelectorClass} "> </span></span>
+    productsAsList.forEach((product, idx) => {
+      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+    updateProductsList(products);
+  
+    console.log(products);
+    const firstTable = contentRightEl.querySelector("table");
+    console.log(firstTable);
+    const pricesBox = document.createElement('div');
+
+    pricesBox.id = 'pricesBox';
+    pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+    pricesBox.innerHTML += `<div class="d-flex">
+      <div>
+        <div class="d-flex">
+          <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
+          <span class="prod-save d-flex justify-content-center align-items-center save-class">Save <span class="save-${onSelectorClass} "> </span></span>
+        </div>
       </div>
-    </div>
-    <span class="prod-newprice newprice-${onSelectorClass}"></span>
+      <span class="prod-newprice newprice-${onSelectorClass}"></span>
 
-  </div>`;
+    </div>`;
 
-  firstTable.innerHTML = '';
-  firstTable.appendChild(pricesBox);
+    firstTable.innerHTML = '';
+    firstTable.appendChild(pricesBox);
+
+  });
+
+  }
 
   block.innerHTML = `
     <div class="leftSide">${contentEl.innerHTML}</div>
