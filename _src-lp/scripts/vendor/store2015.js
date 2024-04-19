@@ -618,7 +618,11 @@ window.StoreProducts.initSelector = function (config) {
     }
   }
 
+  // TODO: Understand what/why is this
   if (variation == null) { return false; }
+
+  window.StoreProducts.product[product_id]["selected_users"] = selected_users;
+  window.StoreProducts.product[product_id]["selected_years"] = selected_years;
 
   let price = `${variation.price} ${variation.currency_label}`;
   price = formatPrice(variation.price, variation.currency_iso, variation.region_id);
