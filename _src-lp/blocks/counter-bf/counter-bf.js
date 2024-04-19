@@ -18,7 +18,6 @@ export default function decorate(block) {
   if (counterSwitchOn) {
     // adding neccessary scripts: js, css
     loadCSS('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css');
-    // addScript('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js', {}, 'defer');
     addScript('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js', {}, 'defer', () => {
       document.dispatchEvent(new Event(GLOBAL_EVENTS.COUNTER_LOADED));
     });
