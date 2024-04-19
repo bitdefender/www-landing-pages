@@ -158,7 +158,7 @@ export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallba
 
   document.body.appendChild(s);
 
- document.dispatchEvent(new Event(GLOBAL_EVENTS.COUNTER_LOADED));
+  document.dispatchEvent(new Event(GLOBAL_EVENTS.COUNTER_LOADED));
 }
 
 export function getDefaultLanguage() {
