@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
-import { loadCSS } from "../../scripts/lib-franklin.js";
-import { addScript, GLOBAL_EVENTS } from "../../scripts/utils.js";
+import { loadCSS } from '../../scripts/lib-franklin.js';
+import { addScript, GLOBAL_EVENTS } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -18,7 +18,7 @@ export default function decorate(block) {
   if (counterSwitchOn) {
     // adding neccessary scripts: js, css
     loadCSS('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css');
-    addScript(`https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js`, {}, 'defer');
+    addScript('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js', {}, 'defer');
 
     // config
     const flipClockConfig = {
@@ -88,7 +88,6 @@ export default function decorate(block) {
         }, 1000);
       });
     }
-
 
     // update background color if set, if not set default: #000
     if (backgroundColor) {
