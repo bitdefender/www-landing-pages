@@ -336,6 +336,7 @@
   .b-dropdownbox-container .new > div:nth-child(1) > div::after, .b-dropdownbox-container.new .block > div:nth-child(1) > div::after {
     position: static;
     margin-left: 15px;
+    flex: 0 0 auto;
   }
   .b-dropdownbox-container > div:nth-child(2) .new::after {
     top: -90px;
