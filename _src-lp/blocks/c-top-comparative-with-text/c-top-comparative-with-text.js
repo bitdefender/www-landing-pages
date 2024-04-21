@@ -19,7 +19,7 @@
 */
 
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const defaultBorderTopColorForActiveCard = '#e60093';
@@ -28,7 +28,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, topText, activeCardColor, activeCard,
+    products, topText, activeCardColor, activeCard, userText,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -47,6 +47,8 @@ export default function decorate(block) {
     // check and add products into the final array
     productsAsList.forEach((prod) => updateProductsList(prod));
 
+    console.log(productsAsList);
+
     /// ///////////////////////////////////////////////////////////////////////
     // set top class with numbers of products
     parentSelector.classList.add(`has${productsAsList.length}boxes`);
@@ -62,7 +64,9 @@ export default function decorate(block) {
           item.classList.add('active');
         }
 
-        const [prodName, prodUsers, prodYears] = productsAsList[key - 1].split('/');
+        // eslint-disable-next-line prefer-const
+        let [prodName, prodUsers, prodYears] = productsAsList[key - 1].split('/');
+        prodName = prodName.trim();
         const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
         const pricesSection = item.querySelector('table:first-of-type');
@@ -75,6 +79,26 @@ export default function decorate(block) {
         // add buybtn div & anchor
         const tableBuybtn = item.querySelector('table:last-of-type td');
         tableBuybtn.innerHTML = `<div class="buy_box buy_box${key}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
+
+        const priceBoxSelector = block.querySelector(`.c-top-comparative-with-text > div:nth-child(${key + 1})`);
+        console.log(priceBoxSelector);
+        priceBoxSelector.classList.add(`${onSelectorClass}_box_comp`);
+        const prodDescription = block.querySelector(`.${onSelectorClass}_box_comp > div > p:nth-child(3)`);
+        prodDescription.classList.add(`${prodName}_description_comp`);
+
+        document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
+          const users = StoreProducts.product[prodName].selected_users;
+          // const years = StoreProducts.product[prodName].selected_years;
+          const textUser = userText.split(',');
+          let devicesText = '';
+          if (users !== '1') {
+            devicesText = `${textUser[1]}`;
+          } else {
+            devicesText = `${textUser[0]}`;
+          }
+          const devicesDesc = block.querySelector(`.${prodName}_description_comp`);
+          devicesDesc.innerHTML = `${users} ${devicesText}`;
+        });
       }
     });
   }
