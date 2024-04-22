@@ -161,11 +161,6 @@
   margin: 1em 0;
 }
 
-.b-banner-container.custom-counter h1 {
-  max-width: 100%!important;
-  width: 100%!important;
-}
-
 .b-banner-container .b-banner-wrapper .w-full h1, .b-banner-container .b-banner-wrapper .w-full h2 {
   max-width: 100%;
 }
@@ -421,19 +416,6 @@
   .b-banner-container.small {
     padding: 1em 0;
     min-height: 350px;
-  }
-
-  .b-banner-container.custom-counter {
-    min-height: 350px!important;
-  }
-
-  .b-banner-container.custom-counter .item-align-center {
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .b-banner-container.custom-counter img {
-    height: 350px;
   }
 
   .b-banner-container .banner-image {

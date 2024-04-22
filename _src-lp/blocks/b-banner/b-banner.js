@@ -29,86 +29,14 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, blueBorder, logo, config, productBox, counterSwitchOn, counterHeadings, counterTheme, biggerBanner,
+    headerTextColor, blueBorder, logo, config, productBox, biggerBanner,
   } = metaData;
 
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
-  if (!parentSelector.classList.contains('counter')) {
-    bannerImage.classList.add('banner-image');
-  }
+  bannerImage.classList.add('banner-image');
 
-  if (counterSwitchOn) {
-    bannerImage.id = 'blackFriday';
-    bannerImage.classList.add('flipClock-image');
-    bannerImage.style.display = 'none';
-
-    // adding neccessary scripts:
-    // js
-    const flipClockJs = document.createElement('script');
-    flipClockJs.src = 'https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js';
-    document.head.appendChild(flipClockJs);
-
-    // css
-    const flipClockCss = document.createElement('link');
-    flipClockCss.rel = 'stylesheet';
-    flipClockCss.type = 'text/css';
-    flipClockCss.href = 'https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css';
-    document.head.appendChild(flipClockCss);
-
-    block.innerHTML = block.innerHTML.replace('[counter]', `
-      <div id="flipdown" class="flipdown"></div>
-    `);
-
-    if (block.children.length === 3) {
-      const bannerImage2 = block.children[2].querySelector('picture');
-      bannerImage2.classList.add('banner-image', 'flipClock-image');
-      bannerImage2.style.display = 'none';
-      bannerImage2.id = 'cyberMonday';
-      parentSelector.append(bannerImage2);
-    }
-
-    // functionality:
-    const flipdownBox = document.getElementById('flipdown');
-    if (flipdownBox) {
-      const blackFridayElement = document.getElementById('blackFriday');
-      const cyberMondayElement = document.getElementById('cyberMonday');
-
-      const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
-
-      // config
-      const flipConfig = {
-        theme: counterTheme || 'dark',
-        headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
-      };
-
-      setTimeout(() => {
-        // eslint-disable-next-line no-undef
-        const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipConfig);
-        if (!firstCounter.countdownEnded) {
-          blackFridayElement.style.display = 'block';
-          cyberMondayElement.style.display = 'none';
-        }
-
-        firstCounter.start()
-          .ifEnded(() => {
-            // switch images:
-            blackFridayElement.style.display = 'none';
-            cyberMondayElement.style.display = 'block';
-
-            // The initial counter has ended; start a new one 48 hours from now
-            flipdownBox.innerHTML = '';
-            const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
-
-            // eslint-disable-next-line no-undef
-            const secondCounter = new FlipDown(newTime, flipConfig);
-            secondCounter.start().ifEnded(() => {});
-          });
-      }, 1000);
-    }
-  } else {
-    parentSelector.append(bannerImage);
-  }
+  parentSelector.append(bannerImage);
 
   // update background color if set, if not set default: #000
   if (backgroundColor) {
@@ -243,7 +171,7 @@ export default function decorate(block) {
   }
 
   // has award in banner
-  if (block.children.length === 3 && !productBox && !counterSwitchOn) {
+  if (block.children.length === 3 && !productBox) {
     block.children[2].id = 'bannerAward';
     const targetElement = block.children[2].children[0];
     const paragraphs = targetElement.querySelectorAll('p:last-of-type');
@@ -357,35 +285,6 @@ export default function decorate(block) {
   const contentHeight = block.offsetHeight;
   if (contentHeight > bannerHeight) {
     block.closest('.b-banner-container').style.height = `${contentHeight + 20}px`;
-  }
-
-  if (parentSelector.classList.contains('counter')) {
-    parentSelector.classList.add('custom-counter');
-    const [richTextEl] = [...block.children];
-    block.style.width = '100%';
-
-    if (backgroundColor) {
-      block.style.backgroundColor = backgroundColor;
-    } else {
-      block.style.backgroundColor = '#000';
-    }
-
-    block.innerHTML = `
-    <div class="container-fluid">
-        <div class="d-none d-lg-flex item-align-center">
-          <div class="ps-4">${richTextEl.innerHTML}</div>
-          <div class="text-center">
-            ${bannerImage.innerHTML}
-          </div>
-        </div>
-        <div class="d-lg-none justify-content-center">
-          <div class="col-12 p-0 text-center">
-            ${bannerImage.innerHTML}
-          </div>
-          <div class="col-12 col-sm-7 text-center">${richTextEl.innerHTML}</div>
-        </div>
-      </div>
-    `;
   }
 
   // add greenTag for specific text: [NEW]
