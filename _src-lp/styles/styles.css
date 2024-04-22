@@ -1283,14 +1283,6 @@ main .section.highlight {
   color: #FFF !important;
 }
 
-#flipdown.flipdown.flipdown__theme-light .rotor-group-heading::before {
-  color: #000 !important;
-}
-
-.counter picture {
-  display: none;
-}
-
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;

@@ -41,6 +41,7 @@ export default function decorate(block) {
     paddingBottom,
     products,
     bulinaText,
+    percentText,
     borderColor,
     listStyle,
     noBorder,
@@ -122,7 +123,11 @@ export default function decorate(block) {
         tablePriceTexts[0].className = 'prod-oldprice oldprice-custom';
         tablePriceTexts[1].className = 'prod-newprice newprice-custom';
       } else {
-        pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+        let percentSelector = '';
+        if (percentText) {
+          percentSelector = `<p class="save-green-pill">${percentText.replace('0%', `<span class="prod-percent percent-${onSelectorClass}"></span>`)}</p>`;
+        }
+        pricesDiv.innerHTML += `<div class="oldprice_percent"><span class="prod-oldprice oldprice-${onSelectorClass}"></span> ${percentSelector}</div>`;
         pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       }
 
