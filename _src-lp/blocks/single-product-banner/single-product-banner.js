@@ -95,7 +95,6 @@ export default function decorate(block) {
     prodBoxMonthly.style.display = 'block';
     buyBtnYearly.style.display = 'none';
     buyBtnMonthly.style.display = 'block';
-    console.log('monthly show');
   }
 
   selectorYearly.addEventListener('change', showYearlyElements);
