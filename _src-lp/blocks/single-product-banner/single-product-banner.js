@@ -36,7 +36,6 @@ export default function decorate(block) {
       // eslint-disable-next-line prefer-const
       let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       prodName = prodName.trim();
-      console.log(product);
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const firstTable = contentRightEl.querySelector('table:first-of-type');
       const pricesBox = document.createElement('div');
@@ -90,7 +89,6 @@ export default function decorate(block) {
     prodBoxMonthly.style.display = 'none';
     buyBtnYearly.style.display = 'block';
     buyBtnMonthly.style.display = 'none';
-    console.log('yearly show');
   }
   function showMonthlyElements() {
     prodBoxYearly.style.display = 'none';
