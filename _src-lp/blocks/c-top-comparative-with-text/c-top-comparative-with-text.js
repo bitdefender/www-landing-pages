@@ -70,7 +70,7 @@ export default function decorate(block) {
         pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
         pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
         pricesDiv += '<div>';
-        if (bulinaText) {
+        if (bulinaText && isActiveCard || (!activeCard && isLastCard)) {
           const bulinaSplitted = bulinaText.split(',');
           pricesDiv += `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass}">
             <span class="bulina_text1"><b class="percent-${onSelectorClass}">${bulinaSplitted[0]}</b></span>
