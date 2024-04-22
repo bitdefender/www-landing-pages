@@ -503,15 +503,6 @@ window.StoreProducts.initSelector = function (config) {
             }
             if (r[2] in window.StoreProducts.product[product_id].variations[selected_users]) {
               selected_years = r[2];
-              const yearElement = document.getElementById(`year${selected_years}`);
-              const yearBtmElement = document.getElementById(`year${selected_years}_btm`);
-              const topTimeSelectorElement = document.getElementById(`topTimeSelector-${selected_years}`);
-
-              const clickEvent = new Event('click');
-
-              yearElement.dispatchEvent(clickEvent);
-              yearBtmElement.dispatchEvent(clickEvent);
-              topTimeSelectorElement.dispatchEvent(clickEvent);
             }
           }
         }
@@ -627,7 +618,11 @@ window.StoreProducts.initSelector = function (config) {
     }
   }
 
+  // TODO: Understand what/why is this
   if (variation == null) { return false; }
+
+  window.StoreProducts.product[product_id]["selected_users"] = selected_users;
+  window.StoreProducts.product[product_id]["selected_years"] = selected_years;
 
   let price = `${variation.price} ${variation.currency_label}`;
   price = formatPrice(variation.price, variation.currency_iso, variation.region_id);
