@@ -8,20 +8,12 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
 
-  // console.log(parentBlockStyle);
-
   // config new elements
   const {
-    products, textColor, backgroundColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, payYearly, payMonthly, save,
+    products, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, bannerHide,
+    marginBottom, payYearly, payMonthly, billedYearly, billedMonthly, per, buyButtonText,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
-
-  // console.log(payYearly);
-
-  if (imageCover) {
-    parentBlock.classList.add(`bckimg-${imageCover}`);
-  }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -31,15 +23,9 @@ export default function decorate(block) {
   if (marginTop) blockStyle.marginTop = `${marginTop}rem`;
   if (marginBottom) blockStyle.marginBottom = `${marginBottom}rem`;
 
-  parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+  if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  const imageCoverVar = imageCover.split('-')[1];
-  parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
-
-  let prodYearlyName;
-  let prodYearlyUsers;
-  let prodYearlyYears;
-  let onSelectorClass;
+  parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
   const productsAsList = products && products.split(',');
 
@@ -47,38 +33,80 @@ export default function decorate(block) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     productsAsList.forEach((product, idx) => {
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      // eslint-disable-next-line prefer-const
+      let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      prodName = prodName.trim();
+      console.log(product);
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const firstTable = contentRightEl.querySelector('table:first-of-type');
+      const pricesBox = document.createElement('div');
 
-    updateProductsList(products);
-  
-    console.log(products);
-    const firstTable = contentRightEl.querySelector("table");
-    console.log(firstTable);
-    const pricesBox = document.createElement('div');
+      let billed = billedYearly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
+      let priceFull = `<span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> /${per}</span>`;
+      let prodType = 'yearly';
+      if (prodName.endsWith('m')) {
+        billed = billedMonthly.replace('XX', `<span class='d-inline-flex price-${onSelectorClass}'></span>`);
+        priceFull = `<span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month"> /${per}</span>`;
+        prodType = 'monthly';
+      }
 
-    pricesBox.id = 'pricesBox';
-    pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-    pricesBox.innerHTML += `<div class="d-flex">
-      <div>
-        <div class="d-flex">
-          <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
-          <span class="prod-save d-flex justify-content-center align-items-center save-class">Save <span class="save-${onSelectorClass} "> </span></span>
-        </div>
-      </div>
-      <span class="prod-newprice newprice-${onSelectorClass}"></span>
+      pricesBox.className = `${prodName}_box prices_box ${prodType} await-loader prodload prodload-${onSelectorClass}`;
+      pricesBox.innerHTML = `<div>
+        <div class="d-flex justify-content-center priced">${priceFull}</div>
+        <div class="d-flex justify-content-center billed">${billed}</div>
+      </div>`;
 
-    </div>`;
+      firstTable.appendChild(pricesBox);
 
-    firstTable.innerHTML = '';
-    firstTable.appendChild(pricesBox);
+      const tableBuybtn = contentRightEl.querySelector('table:last-of-type');
+      const buyButton = document.createElement('div');
+      buyButton.className = `buy_box buy_box_${prodName} ${prodType}`;
+      buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${buyButtonText}</a>`;
+      tableBuybtn.appendChild(buyButton);
+    });
 
-  });
-
+    const firstTable = contentRightEl.querySelector('table:first-of-type');
+    const selectorBox = document.createElement('div');
+    selectorBox.innerHTML = `<div class="productSelector justify-content-center">
+        <div class="d-flex justify-content-center"><input type="radio" id="pay_yearly" class="selectorYearly" name="selectorBox" value="yearly" checked="check"><label for="pay_yearly">${payYearly}</label></div>
+        <div class="d-flex justify-content-center"><input type="radio" id="pay_monthly" class="selectorMonthly" name="selectorBox" value="monthly"><label for="pay_monthly">${payMonthly}</label></div>
+      </div>`;
+    firstTable.appendChild(selectorBox);
   }
 
   block.innerHTML = `
     <div class="leftSide">${contentEl.innerHTML}</div>
     <div class="rightSide">${contentRightEl.innerHTML}</div>
   `;
+
+  const selectorYearly = block.querySelector('input[value="yearly"');
+  const selectorMonthly = block.querySelector('input[value="monthly"]');
+  const prodBoxYearly = block.querySelector('.prices_box.yearly');
+  const prodBoxMonthly = block.querySelector('.prices_box.monthly');
+  const buyBtnYearly = block.querySelector('.buy_box.yearly');
+  const buyBtnMonthly = block.querySelector('.buy_box.monthly');
+  function showYearlyElements() {
+    prodBoxYearly.style.display = 'block';
+    prodBoxMonthly.style.display = 'none';
+    buyBtnYearly.style.display = 'block';
+    buyBtnMonthly.style.display = 'none';
+    console.log('yearly show');
+  }
+  function showMonthlyElements() {
+    prodBoxYearly.style.display = 'none';
+    prodBoxMonthly.style.display = 'block';
+    buyBtnYearly.style.display = 'none';
+    buyBtnMonthly.style.display = 'block';
+    console.log('monthly show');
+  }
+
+  selectorYearly.addEventListener('change', showYearlyElements);
+  selectorMonthly.addEventListener('change', showMonthlyElements);
+
+  // Initial check: Show elements based on the checked radio button
+  if (selectorYearly.checked) {
+    showYearlyElements();
+  } else {
+    showMonthlyElements();
+  }
 }

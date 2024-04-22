@@ -45,6 +45,56 @@
   margin: 0;
 }
 
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .prod-newprice {
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .per-month {
+  font-size: 28px;
+  line-height: 32px;
+  margin-left: 5px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .billed {
+  font-size: 14px;
+  color: #999;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .billed span {
+  margin: 0 3px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector {
+  margin-top: 15px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector input {
+  width: 22px;
+  border-radius: 50%;
+  height: 22px;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  transition: background-color 0.2s;
+  margin-bottom: 0.5rem;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide ul {
+  text-align: left;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide ul li {
+  font-size: 14px;
+  line-height: 1.5;
+  list-style-type: none;
+  padding-left: 25px;
+  margin: 9px 0 -2px;
+  background: url("/_src-lp/icons/checkmark_solid-circle.svg") no-repeat;
+  background-size: 15px;
+  background-position: left top 4px;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(3) {
   border-top: 1px solid #ddd;
   padding-top: 15px;
@@ -80,7 +130,11 @@
   background-color: #b33027;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(8) {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .monthly {
+  display: none;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(11) {
   font-size: 12px;
   color: #666;
 }
@@ -92,4 +146,19 @@
   position: relative;
   top: -1px;
   fill: #61af53;
+}
+
+@media (width <= 768px) {
+  .section.single-product-banner-container {
+    background-color: #130076;
+    padding: 0 15px;
+  }
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 30px;
+  }
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide {
+    text-align: center;
+  }
 }
