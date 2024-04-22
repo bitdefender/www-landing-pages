@@ -66,27 +66,24 @@ export default function decorate(block) {
     if (newTime > currentTime) {
       block.querySelector('#flipdown').style.display = 'block';
       document.addEventListener(GLOBAL_EVENTS.COUNTER_LOADED, () => {
-        setTimeout(() => {
+        // eslint-disable-next-line no-undef
+        const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
+        if (!firstCounter.countdownEnded) {
+          block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'block'; });
+          block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'none'; });
+        }
+
+        firstCounter.start().ifEnded(() => {
+          // The initial counter(Black Friday) has ended; start a new one + 48 hours from now - CyberMOnday
+          // switch images:
+          block.querySelector('#flipdown').innerHTML = '';
+          block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
+          block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
+
           // eslint-disable-next-line no-undef
-          const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
-          if (!firstCounter.countdownEnded) {
-            block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'block'; });
-            block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'none'; });
-          }
-
-          firstCounter.start()
-            .ifEnded(() => {
-              // The initial counter(Black Friday) has ended; start a new one + 48 hours from now - CyberMOnday
-              // switch images:
-              block.querySelector('#flipdown').innerHTML = '';
-              block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
-              block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
-
-              // eslint-disable-next-line no-undef
-              const secondCounter = new FlipDown(newTime, flipClockConfig);
-              secondCounter.start();
-            });
-        }, 1000);
+          const secondCounter = new FlipDown(newTime, flipClockConfig);
+          secondCounter.start();
+        });
       });
     }
 
