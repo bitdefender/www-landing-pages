@@ -34,7 +34,7 @@
 }
 
 .c-dropdownbox-container .block > div:not(:nth-child(1)) > div {
-  background-color: #fefcfc;
+  background-color: #f2f2f2;
 }
 
 .c-dropdownbox-container .block.closed > div:not(:nth-child(1)), .c-dropdownbox-container.closed .block > div:not(:nth-child(1)), .c-dropdownbox-container .block.inactive > div:not(:nth-child(1)) {
