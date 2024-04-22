@@ -15,6 +15,7 @@
   display: inline-block;
   border-bottom: 1px solid #dfdfdf;
   border-left: 1px solid #dfdfdf;
+  flex: 1;
 }
 
 /* inner dropdowns */
@@ -44,6 +45,10 @@
 .c-dropdownbox-container .block > div:not(:nth-child(1)) > div:first-of-type {
   width: 35%;
   border-left: 0;
+}
+
+.c-dropdownbox-container .block > div > div:not(:first-of-type) {
+  text-align: center;
 }
 
 .c-dropdownbox-container .block > div:first-of-type > div:nth-child(3),
