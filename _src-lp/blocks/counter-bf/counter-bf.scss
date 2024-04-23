@@ -1,0 +1,86 @@
+.counter-bf-container {
+  color: white;
+  height: auto;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-position: top right;
+  overflow: hidden;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.counter-bf-container .flipdown {
+  width: 100%;
+  height: auto;
+}
+
+.counter-bf-container .counter-bf-wrapper h1 {
+  font-size: 35px;
+  line-height: 40px;
+}
+
+.counter-bf-container .counter-bf-wrapper h2 {
+  font-size: 30px;
+  line-height: 35px;
+}
+
+.counter-bf-container .counter-bf-wrapper h3 {
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.counter-bf-container .counter-bf-wrapper p {
+  font-size: 20px;
+  line-height: 30px;
+  margin: 1em 0;
+}
+
+.counter-bf-container .counter-bf-wrapper ul {
+  padding: 0;
+}
+
+.counter-bf-container .counter-bf-wrapper ul li {
+  text-align: left;
+  background: url("../../images/icons/check_full.svg") 0 3px no-repeat transparent;
+  list-style-type: none;
+  padding-left: 23px;
+  background-size: 16px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.counter-bf-container .counter-bf-wrapper .row .counter-text > div {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@media screen and (width >= 768px) {
+  .counter-bf-container .counter-bf-wrapper h1 {
+    font-size: 41px;
+    line-height: 47px;
+  }
+
+  .counter-bf-container .counter-bf-wrapper h2 {
+    font-size: 35px;
+    line-height: 37px;
+  }
+
+  .counter-bf-container .counter-bf-wrapper h3 {
+    font-size: 30px;
+    line-height: 35px;
+  }
+
+  .counter-bf-container .counter-bf-wrapper p {
+    font-size: 22px;
+    line-height: 33px;
+  }
+}
+
+@media screen and (width < 767px) {
+  .counter-bf-container .flipdown .rotor {
+    width: 35px;
+    font-size: 3rem;
+  }
+}
