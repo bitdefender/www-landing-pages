@@ -102,6 +102,13 @@
   text-align: left;
 }
 
+.c-top-comparative-with-text > div div.prices_box .prod-percent.green_bck_circle {
+  position: absolute;
+  margin: 0;
+  top: -2em;
+  right: 0;
+}
+
 .c-top-comparative-with-text > div div.prices_box span.prod-oldprice {
   font-size: 18px;
   line-height: 1.3;

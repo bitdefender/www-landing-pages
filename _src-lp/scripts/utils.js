@@ -118,6 +118,12 @@ export const getIpCountry = async () => {
 };
 */
 
+export const GLOBAL_EVENTS = {
+  ADOBE_MC_LOADED: 'adobe_mc::loaded',
+  PAGE_LOADED: 'page::loaded',
+  COUNTER_LOADED: 'counter::loaded',
+};
+
 // add new script file
 export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallback = undefined, onErrorCallback = undefined, type = undefined) {
   const s = document.createElement('script');
@@ -164,32 +170,6 @@ export function getDefaultSection() {
   const currentPathUrl = window.location.pathname;
   return currentPathUrl.indexOf('/business/') !== -1 ? 'business' : 'consumer';
 }
-
-/**
- * Returns the setter and getter for CountryCode
- * @returns {Object}
-*/
-export const stateCountryCode = (() => {
-  let countryCode = null;
-
-  function setCountryCode(id) {
-    countryCode = id;
-  }
-
-  function getCountryCode() {
-    return countryCode;
-  }
-
-  return {
-    setCountryCode,
-    getCountryCode
-  };
-})();
-
-export const GLOBAL_EVENTS = {
-  ADOBE_MC_LOADED: 'adobe_mc::loaded',
-  PAGE_LOADED: 'page::loaded',
-};
 
 export function appendAdobeMcLinks(selector) {
   try {
