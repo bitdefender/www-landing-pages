@@ -254,3 +254,4 @@ export default class ZuoraNLClass {
     return this.getProductVariationsPrice(id);
   }
 }
+
