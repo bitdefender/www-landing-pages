@@ -271,7 +271,7 @@ export function updateVATinfo(countryCode, selector) {
         'Taxes not included',
         'Sales tax included',
         'Plus applicable sales tax',
-        'Tax included'
+        'Tax included',
       ];
 
       vat2replace.forEach((text) => {
