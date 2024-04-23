@@ -270,6 +270,4 @@ export default function decorate(block) {
       primaryBox.classList.add('no-border');
     }
   }
-
-  block.innerHTML = block.innerHTML.replace(/Plus applicable sales tax\./g, 'Tax included.');
 }
