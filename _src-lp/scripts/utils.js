@@ -268,10 +268,10 @@ export function updateVATinfo(countryCode, selector) {
     const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box');
     if (prodloadElement) {
       const vat2replace = [
-        "Taxes not included",
-        "Sales tax included",
-        "Plus applicable sales tax",
-        "Tax included"
+        'Taxes not included',
+        'Sales tax included',
+        'Plus applicable sales tax',
+        'Tax included'
       ];
 
       vat2replace.forEach((text) => {
@@ -289,7 +289,6 @@ export function updateVATinfo(countryCode, selector) {
       });
     }
   });
-
 }
 
 export function formatPrice(price, currency, region) {
