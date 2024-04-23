@@ -28,7 +28,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, topText, activeCardColor, activeCard,
+    products, topText, bulinaText, activeCardColor, activeCard,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -70,6 +70,13 @@ export default function decorate(block) {
         pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
         pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
         pricesDiv += '<div>';
+        if (bulinaText && (isActiveCard || isLastCard)) {
+          const bulinaSplitted = bulinaText.split(',');
+          pricesDiv += `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass}">
+            <span class="bulina_text1"><b class="percent-${onSelectorClass}">${bulinaSplitted[0]}</b></span>
+            <span class="bulina_text2">${bulinaSplitted[1]}</span>
+          </div>`;
+        }
         pricesSection.innerHTML = pricesDiv;
 
         // add buybtn div & anchor
