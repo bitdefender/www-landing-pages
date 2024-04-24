@@ -812,19 +812,24 @@ function addIdsToEachSection() {
 
 function addEventListenersOnVpnCheckboxes(pid) {
   if (document.querySelector('.checkboxVPN')) {
-    document.querySelectorAll('.checkboxVPN').forEach((item) => {
+    document.querySelectorAll('.prod_box').forEach((item) => {
       item.addEventListener('click', (e) => {
-        const checkboxId = e.target.getAttribute('id');
+        const { target } = e;
+        if (target.tagName === 'INPUT' && target.classList.contains('checkboxVPN')) {
+          const checkboxId = target.getAttribute('id');
 
-        if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
-          const prodxId = e.target.getAttribute('id').split('-')[1];
-          const storeObjprod = window.StoreProducts.product[prodxId] || {};
-          showPrices(storeObjprod, e.target.checked, checkboxId);
-        } else {
-          changeCheckboxVPN(checkboxId, pid);
+          if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
+            const prodxId = target.getAttribute('id').split('-')[1];
+            const storeObjprod = window.StoreProducts.product[prodxId] || {};
+            showPrices(storeObjprod, target.checked, checkboxId);
+          } else {
+            changeCheckboxVPN(checkboxId, pid);
+          }
         }
       });
     });
+  } else {
+    console.log('No elements with class checkboxVPN found');
   }
 }
 
