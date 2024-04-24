@@ -260,6 +260,37 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
   }
 }
 
+// DEX-17703 - replacing VAT INFO text for en regions
+export function updateVATinfo(countryCode, selector) {
+  const prodloadElements = document.querySelectorAll(selector);
+
+  prodloadElements.forEach((element) => {
+    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box');
+    if (prodloadElement) {
+      const vat2replace = [
+        'Taxes not included',
+        'Sales tax included',
+        'Plus applicable sales tax',
+        'Tax included',
+      ];
+
+      vat2replace.forEach((text) => {
+        let taxText = 'Sales tax included';
+        if (countryCode === '8') taxText = 'Plus applicable sales tax';
+
+        if (prodloadElement.innerHTML.includes(text)) {
+          const currentText = prodloadElement.innerHTML;
+          const newText = currentText.replace(text, taxText);
+          // before replacing check if the text is already correct
+          if (currentText !== newText) {
+            prodloadElement.innerHTML = newText;
+          }
+        }
+      });
+    }
+  });
+}
+
 export function formatPrice(price, currency, region) {
   const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
   return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
