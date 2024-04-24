@@ -265,6 +265,7 @@ function changeCheckboxVPN(checkboxId, pid) {
   const discPriceClass = `.newprice-${onSelectorClass}`;
   const priceClass = `.oldprice-${onSelectorClass}`;
   const saveClass = `.save-${onSelectorClass}`;
+  const percentClass = `.percent-${onSelectorClass}`;
   let fullPrice = '';
   const selectedUsers = document.querySelector(`.users_${onSelectorClass}_fake`).value;
   const selectedYears = document.querySelector(`.years_${onSelectorClass}_fake`).value;
@@ -291,6 +292,7 @@ function changeCheckboxVPN(checkboxId, pid) {
   let save = '';
   let justVpn = '';
   let newPrice = '';
+  let percentageVal = '';
   let ref = '';
 
   let promoPid = pid;
@@ -676,6 +678,7 @@ function changeCheckboxVPN(checkboxId, pid) {
     buyLink = buyLinkDefault;
   }
 
+  percentageVal = (((fullPrice - newPrice) / fullPrice) * 100).toFixed(0);
   fullPrice = formatPrice(fullPrice, selectedVariation.currency_iso, selectedVariation.region_id);
   save = formatPrice(save, selectedVariation.currency_iso, selectedVariation.region_id);
   newPrice = formatPrice(newPrice, selectedVariation.currency_iso, selectedVariation.region_id);
@@ -705,6 +708,13 @@ function changeCheckboxVPN(checkboxId, pid) {
     parentDiv.querySelector(saveClass).innerHTML = save;
     if (comparativeDiv && comparativeDiv.querySelector(saveClass)) {
       comparativeDiv.querySelector(saveClass).innerHTML = save;
+    }
+  }
+
+  if (parentDiv.querySelector(percentClass)) {
+    parentDiv.querySelector(percentClass).innerHTML = `${percentageVal}%`;
+    if (comparativeDiv && comparativeDiv.querySelector(percentClass)) {
+      comparativeDiv.querySelector(percentClass).innerHTML = `${percentageVal}%`;
     }
   }
 
