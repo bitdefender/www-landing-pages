@@ -838,8 +838,6 @@ function addEventListenersOnVpnCheckboxes(pid) {
         }
       });
     });
-  } else {
-    console.log('No elements with class checkboxVPN found');
   }
 }
 
