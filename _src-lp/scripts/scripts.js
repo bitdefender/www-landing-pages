@@ -30,6 +30,7 @@ import {
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
   formatPrice,
+  updateVATinfo,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -770,6 +771,9 @@ function initSelectors(pid) {
           try {
             const fp = this;
             showPrices(fp);
+            // DEX-17703 - replacing VAT INFO text for en regions
+            if (getDefaultLanguage() === 'en' && fp.selected_variation.region_id) updateVATinfo(fp.selected_variation.region_id, `.buylink-${onSelectorClass}`);
+
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }
