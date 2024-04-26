@@ -193,6 +193,7 @@ export default class ZuoraNLClass {
 
       const pricing = {};
       period.pricing.forEach((item) => {
+        if (item.devices_no === 50) item.devices_no = 1;
         if (item.devices_no === Number(devicesNo)) {
           pricing.total = item.price;
           pricing.discount = item.discount;
