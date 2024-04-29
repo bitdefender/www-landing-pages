@@ -269,6 +269,10 @@
 }
 
 @media (width <= 768px) {
+  .c-top-comparative-with-text {
+    flex-wrap: wrap;
+  }
+
   .c-top-comparative-with-text > div {
     padding: 3% !important;
     margin-bottom: 1em !important;
@@ -287,6 +291,7 @@
 
   .c-top-comparative-with-text > div:not(:nth-child(1)) {
     padding: 1% !important;
+    flex: 1;
   }
 
   .c-top-comparative-with-text > div h2 {
