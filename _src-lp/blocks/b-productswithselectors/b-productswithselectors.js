@@ -24,7 +24,7 @@ export default function decorate(block) {
     let devicesMin = 3;
     let devicesSelected = 10;
     let devicesMax = 100;
-    if (devicesLimits) {
+    if (selectorsName) {
       // create the 2 selectors
       const labelName = selectorsName.split(',');
       const devicesLimitsSplit = devicesLimits.split('-');
