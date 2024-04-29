@@ -20,13 +20,13 @@ export default function decorate(block) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     /// ///////////////////////////////////////////////////////////////////////
-    // create the 2 selectors
-    const labelName = selectorsName.split(',');
     // devices
     let devicesMin = 3;
     let devicesSelected = 10;
     let devicesMax = 100;
     if (devicesLimits) {
+      // create the 2 selectors
+      const labelName = selectorsName.split(',');
       const devicesLimitsSplit = devicesLimits.split('-');
       devicesMin = devicesLimitsSplit[0];
       devicesSelected = devicesLimitsSplit[1];

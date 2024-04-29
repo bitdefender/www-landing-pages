@@ -351,6 +351,10 @@
     }
   }
 
+  .b-dropdownbox-container .block > div:not(:first-child) {
+    display: block;
+  }
+
   .b-dropdownbox-container .block > div:nth-child(1) > div::before, .b-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div::before {
     width: 15px !important;
     height: 16px !important;
