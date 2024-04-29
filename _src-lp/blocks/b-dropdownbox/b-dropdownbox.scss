@@ -36,6 +36,11 @@
   display: inline-block;
 }
 
+.b-dropdownbox-container .block > div:not(:first-child) > div strong em {
+  color: red;
+  font-style: normal;
+}
+
 .b-dropdownbox-container .block.hide-title > div:nth-child(1) > div, .b-dropdownbox-container.hide-title .block > div:nth-child(1) > div {
   display: none;
 }
