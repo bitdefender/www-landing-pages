@@ -36,7 +36,7 @@
   display: inline-block;
 }
 
-.b-dropdownbox-container .block > div:not(:first-child) > div strong em {
+.b-dropdownbox-container .block > div > div strong em {
   color: red;
   font-style: normal;
 }
