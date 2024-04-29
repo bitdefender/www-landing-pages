@@ -27,10 +27,12 @@ export default function decorate(block) {
     if (selectorsName) {
       // create the 2 selectors
       const labelName = selectorsName.split(',');
-      const devicesLimitsSplit = devicesLimits.split('-');
-      devicesMin = devicesLimitsSplit[0];
-      devicesSelected = devicesLimitsSplit[1];
-      devicesMax = devicesLimitsSplit[2];
+      if (devicesLimits) {
+        const devicesLimitsSplit = devicesLimits.split('-');
+        devicesMin = devicesLimitsSplit[0];
+        devicesSelected = devicesLimitsSplit[1];
+        devicesMax = devicesLimitsSplit[2];
+      }
 
       // TODO: In the future, we should test with jest that the devicesMin, devicesSelected and devicesMax
       // are correctly set in the DOM
