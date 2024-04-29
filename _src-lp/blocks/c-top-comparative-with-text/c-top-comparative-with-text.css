@@ -6,7 +6,6 @@
 
 .c-top-comparative-with-text {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   font-size: 18px;
 }
@@ -266,6 +265,9 @@
   }
 }
 @media (width <= 768px) {
+  .c-top-comparative-with-text {
+    flex-wrap: wrap;
+  }
   .c-top-comparative-with-text > div {
     padding: 3% !important;
     margin-bottom: 1em !important;
@@ -277,7 +279,6 @@
   }
   .c-top-comparative-with-text > div:nth-child(1) {
     padding: 0 !important;
-    flex-grow: 0;
   }
   .c-top-comparative-with-text > div:not(:nth-child(1)) {
     padding: 1% !important;
