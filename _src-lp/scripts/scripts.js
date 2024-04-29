@@ -30,6 +30,7 @@ import {
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
   formatPrice,
+  updateVATinfo,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -264,6 +265,7 @@ function changeCheckboxVPN(checkboxId, pid) {
   const discPriceClass = `.newprice-${onSelectorClass}`;
   const priceClass = `.oldprice-${onSelectorClass}`;
   const saveClass = `.save-${onSelectorClass}`;
+  const percentClass = `.percent-${onSelectorClass}`;
   let fullPrice = '';
   const selectedUsers = document.querySelector(`.users_${onSelectorClass}_fake`).value;
   const selectedYears = document.querySelector(`.years_${onSelectorClass}_fake`).value;
@@ -290,6 +292,7 @@ function changeCheckboxVPN(checkboxId, pid) {
   let save = '';
   let justVpn = '';
   let newPrice = '';
+  let percentageVal = '';
   let ref = '';
 
   let promoPid = pid;
@@ -675,6 +678,7 @@ function changeCheckboxVPN(checkboxId, pid) {
     buyLink = buyLinkDefault;
   }
 
+  percentageVal = (((fullPrice - newPrice) / fullPrice) * 100).toFixed(0);
   fullPrice = formatPrice(fullPrice, selectedVariation.currency_iso, selectedVariation.region_id);
   save = formatPrice(save, selectedVariation.currency_iso, selectedVariation.region_id);
   newPrice = formatPrice(newPrice, selectedVariation.currency_iso, selectedVariation.region_id);
@@ -704,6 +708,13 @@ function changeCheckboxVPN(checkboxId, pid) {
     parentDiv.querySelector(saveClass).innerHTML = save;
     if (comparativeDiv && comparativeDiv.querySelector(saveClass)) {
       comparativeDiv.querySelector(saveClass).innerHTML = save;
+    }
+  }
+
+  if (parentDiv.querySelector(percentClass)) {
+    parentDiv.querySelector(percentClass).innerHTML = `${percentageVal}%`;
+    if (comparativeDiv && comparativeDiv.querySelector(percentClass)) {
+      comparativeDiv.querySelector(percentClass).innerHTML = `${percentageVal}%`;
     }
   }
 
@@ -749,7 +760,9 @@ function initSelectors(pid) {
       const initSelectorConfig = {
         product_id: prodAlias,
         full_price_class: `oldprice-${onSelectorClass}`,
+        full_price_monthly_class: `oldprice-${onSelectorClass}-monthly`,
         discounted_price_class: `newprice-${onSelectorClass}`,
+        discounted_price_monthly_class: `newprice-${onSelectorClass}-monthly`,
         price_class: `price-${onSelectorClass}`,
         buy_class: `buylink-${onSelectorClass}`,
         save_class: `save-${onSelectorClass}`,
@@ -768,6 +781,9 @@ function initSelectors(pid) {
           try {
             const fp = this;
             showPrices(fp);
+            // DEX-17703 - replacing VAT INFO text for en regions
+            if (getDefaultLanguage() === 'en' && fp.selected_variation.region_id) updateVATinfo(fp.selected_variation.region_id, `.buylink-${onSelectorClass}`);
+
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }
@@ -806,16 +822,19 @@ function addIdsToEachSection() {
 
 function addEventListenersOnVpnCheckboxes(pid) {
   if (document.querySelector('.checkboxVPN')) {
-    document.querySelectorAll('.checkboxVPN').forEach((item) => {
+    document.querySelectorAll('.prod_box').forEach((item) => {
       item.addEventListener('click', (e) => {
-        const checkboxId = e.target.getAttribute('id');
+        const { target } = e;
+        if (target.tagName === 'INPUT' && target.classList.contains('checkboxVPN')) {
+          const checkboxId = target.getAttribute('id');
 
-        if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
-          const prodxId = e.target.getAttribute('id').split('-')[1];
-          const storeObjprod = window.StoreProducts.product[prodxId] || {};
-          showPrices(storeObjprod, e.target.checked, checkboxId);
-        } else {
-          changeCheckboxVPN(checkboxId, pid);
+          if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
+            const prodxId = target.getAttribute('id').split('-')[1];
+            const storeObjprod = window.StoreProducts.product[prodxId] || {};
+            showPrices(storeObjprod, target.checked, checkboxId);
+          } else {
+            changeCheckboxVPN(checkboxId, pid);
+          }
         }
       });
     });

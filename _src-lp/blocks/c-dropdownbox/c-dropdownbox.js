@@ -39,4 +39,9 @@ export default function decorate(block) {
   if (!block.querySelector('.c-dropdownbox-container .block > div > div:nth-child(3)')) {
     block.classList.add('has2divs');
   }
+
+  // if there are no other elements we hide the arrow
+  if (block.children.length === 1) {
+    block.classList.add('hide-arrow');
+  }
 }

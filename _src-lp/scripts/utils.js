@@ -118,6 +118,12 @@ export const getIpCountry = async () => {
 };
 */
 
+export const GLOBAL_EVENTS = {
+  ADOBE_MC_LOADED: 'adobe_mc::loaded',
+  PAGE_LOADED: 'page::loaded',
+  COUNTER_LOADED: 'counter::loaded',
+};
+
 // add new script file
 export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallback = undefined, onErrorCallback = undefined, type = undefined) {
   const s = document.createElement('script');
@@ -164,11 +170,6 @@ export function getDefaultSection() {
   const currentPathUrl = window.location.pathname;
   return currentPathUrl.indexOf('/business/') !== -1 ? 'business' : 'consumer';
 }
-
-export const GLOBAL_EVENTS = {
-  ADOBE_MC_LOADED: 'adobe_mc::loaded',
-  PAGE_LOADED: 'page::loaded',
-};
 
 export function appendAdobeMcLinks(selector) {
   try {
@@ -257,6 +258,37 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
       checkbox.removeAttribute('disabled');
     });
   }
+}
+
+// DEX-17703 - replacing VAT INFO text for en regions
+export function updateVATinfo(countryCode, selector) {
+  const prodloadElements = document.querySelectorAll(selector);
+
+  prodloadElements.forEach((element) => {
+    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box');
+    if (prodloadElement) {
+      const vat2replace = [
+        'Taxes not included',
+        'Sales tax included',
+        'Plus applicable sales tax',
+        'Tax included',
+      ];
+
+      vat2replace.forEach((text) => {
+        let taxText = 'Sales tax included';
+        if (countryCode === '8') taxText = 'Plus applicable sales tax';
+
+        if (prodloadElement.innerHTML.includes(text)) {
+          const currentText = prodloadElement.innerHTML;
+          const newText = currentText.replace(text, taxText);
+          // before replacing check if the text is already correct
+          if (currentText !== newText) {
+            prodloadElement.innerHTML = newText;
+          }
+        }
+      });
+    }
+  });
 }
 
 export function formatPrice(price, currency, region) {
@@ -473,7 +505,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
       } else {
         oldPriceBox.style.visibility = 'hidden';
         if (oldPriceBox.closest('.prod-oldprice')) {
-          oldPriceBox.closest('.prod-oldprice').style.setProperty('display', 'none', 'important');
+          oldPriceBox.closest('.prod-oldprice').style.visibility = 'hidden';
           if (oldPriceBox.parentNode.nodeName === 'P') {
             oldPriceBox.parentNode.style.display = 'none';
           }
@@ -483,7 +515,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
-      const siblingElements = saveBox.parentNode.parentNode.querySelectorAll('div');
+      const siblingElements = saveBox.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
       });

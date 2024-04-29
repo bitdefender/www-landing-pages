@@ -25,6 +25,10 @@
   margin: 0.5em 0;
 }
 
+.no-award.awards-container .row div:nth-child(1) {
+  width: 100%;
+}
+
 .one-award.awards-container .row > div:nth-child(1) {
   display: flex;
   align-items: center;
@@ -54,6 +58,22 @@
   width: auto;
 }
 
+.no-award.awards-container .row > div:nth-child(1) .text-center > div:nth-child(1) {
+  text-align: left;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: bold;
+  margin-bottom: 15px !important;
+  margin-top: 0;
+}
+
+.no-award.awards-container .title {
+  text-align: left;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+}
+
 @media screen and (width >= 992px) {
   .awards img {
     height: 90px;
@@ -67,6 +87,10 @@
     line-height: 38px;
     font-weight: bold;
     margin-bottom: 30px !important;
+  }
+  .no-award .row {
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }
 @media screen and (width >= 768px) {
