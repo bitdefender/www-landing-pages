@@ -4,7 +4,7 @@ import { updateProductsList } from '../../scripts/utils.js';
 let counter = 0;
 
 export default function decorate(block) {
-  counter++;
+  counter += 1;
   // get data attributes set in metaData
   const parentBlock = block.closest('.section');
   const parentBlockStyle = block.closest('.section').style;
