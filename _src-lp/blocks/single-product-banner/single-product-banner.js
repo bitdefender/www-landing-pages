@@ -1,7 +1,10 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
+let counter = 0;
+
 export default function decorate(block) {
+  counter++;
   // get data attributes set in metaData
   const parentBlock = block.closest('.section');
   const parentBlockStyle = block.closest('.section').style;
@@ -11,7 +14,7 @@ export default function decorate(block) {
   // config new elements
   const {
     products, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, payYearly, payMonthly, billedYearly, billedMonthly, per, buyButtonText, position,
+    marginBottom, payYearly, payMonthly, billedYearly, billedMonthly, per, buyButtonText,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -67,8 +70,8 @@ export default function decorate(block) {
     const firstTable = contentRightEl.querySelector('table:first-of-type');
     const selectorBox = document.createElement('div');
     selectorBox.innerHTML = `<div class="productSelector justify-content-center">
-        <div class="d-flex justify-content-center"><input type="radio" id="pay_yearly_${position}" class="selectorYearly" name="selectorBox${position}" value="yearly" checked="check"><label for="pay_yearly_${position}">${payYearly}</label></div>
-        <div class="d-flex justify-content-center"><input type="radio" id="pay_monthly_${position}" class="selectorMonthly" name="selectorBox${position}" value="monthly"><label for="pay_monthly_${position}">${payMonthly}</label></div>
+        <div class="d-flex justify-content-center"><input type="radio" id="pay_yearly_${counter}" class="selectorYearly" name="selectorBox${counter}" value="yearly" checked="check"><label for="pay_yearly_${counter}">${payYearly}</label></div>
+        <div class="d-flex justify-content-center"><input type="radio" id="pay_monthly_${counter}" class="selectorMonthly" name="selectorBox${counter}" value="monthly"><label for="pay_monthly_${counter}">${payMonthly}</label></div>
       </div>`;
     firstTable.appendChild(selectorBox);
   }
