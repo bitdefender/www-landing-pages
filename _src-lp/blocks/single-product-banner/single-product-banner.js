@@ -2,9 +2,15 @@ import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 let counter = 0;
-function toggleElements(showYearly) {
+function toggleElements(block, showYearly) {
   const yearlyDisplay = showYearly ? 'block' : 'none';
   const monthlyDisplay = showYearly ? 'none' : 'block';
+
+  const prodBoxYearly = block.querySelector('.prices_box.yearly');
+  const prodBoxMonthly = block.querySelector('.prices_box.monthly');
+  const buyBtnYearly = block.querySelector('.buy_box.yearly');
+  const buyBtnMonthly = block.querySelector('.buy_box.monthly');
+
   prodBoxYearly.style.display = yearlyDisplay;
   prodBoxMonthly.style.display = monthlyDisplay;
   buyBtnYearly.style.display = yearlyDisplay;
@@ -91,35 +97,8 @@ export default function decorate(block) {
     <div class="rightSide">${contentRightEl.innerHTML}</div>
   `;
 
-  const selectorYearly = block.querySelector('input[value="yearly"');
+  const selectorYearly = block.querySelector('input[type="radio"]');
   const selectorMonthly = block.querySelector('input[value="monthly"]');
-  const prodBoxYearly = block.querySelector('.prices_box.yearly');
-  const prodBoxMonthly = block.querySelector('.prices_box.monthly');
-  const buyBtnYearly = block.querySelector('.buy_box.yearly');
-  const buyBtnMonthly = block.querySelector('.buy_box.monthly');
 
-  function showYearlyElements() {
-    prodBoxYearly.style.display = 'block';
-    prodBoxMonthly.style.display = 'none';
-    buyBtnYearly.style.display = 'block';
-    buyBtnMonthly.style.display = 'none';
-  }
-
-  function showMonthlyElements() {
-    prodBoxYearly.style.display = 'none';
-    prodBoxMonthly.style.display = 'block';
-    buyBtnYearly.style.display = 'none';
-    buyBtnMonthly.style.display = 'block';
-  }
-
-  selectorYearly.addEventListener('change', toggleElements);
-  selectorMonthly.addEventListener('change', showMonthlyElements);
-
-  // Initial check: Show elements based on the checked radio button
-  if (selectorYearly.checked) {
-    toggleElements(selectorYearly.checked)
-    showYearlyElements();
-  } else {
-    showMonthlyElements();
-  }
+  selectorYearly.addEventListener('change', toggleElements(block, selectorYearly.checked));
 }
