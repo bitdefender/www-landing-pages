@@ -20,92 +20,95 @@ export default function decorate(block) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     /// ///////////////////////////////////////////////////////////////////////
-    // create the 2 selectors
-    const labelName = selectorsName.split(',');
     // devices
     let devicesMin = 3;
     let devicesSelected = 10;
     let devicesMax = 100;
-    if (devicesLimits) {
-      const devicesLimitsSplit = devicesLimits.split('-');
-      devicesMin = devicesLimitsSplit[0];
-      devicesSelected = devicesLimitsSplit[1];
-      devicesMax = devicesLimitsSplit[2];
-    }
-    // TODO: In the future, we should test with jest that the devicesMin, devicesSelected and devicesMax
-    // are correctly set in the DOM
-    const optionsDevices = Array.from({ length: devicesMax }).fill().map((_, d) => {
-      const key = d + 1;
-      if (key < devicesMin) return ''; // starts from 3
-      let selected = '';
-      if (key === devicesSelected) { // default value selected = 10
-        selected = ' selected';
+    if (selectorsName) {
+      // create the 2 selectors
+      const labelName = selectorsName.split(',');
+      if (devicesLimits) {
+        const devicesLimitsSplit = devicesLimits.split('-');
+        devicesMin = devicesLimitsSplit[0];
+        devicesSelected = devicesLimitsSplit[1];
+        devicesMax = devicesLimitsSplit[2];
       }
-      return `<option value="${key}" ${selected}>${key}</option>`;
-    });
-    block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox"><label for="select${labelName[0]}">${labelName[0]}</label><select id="select${labelName[0]}" data-trigger="users">${optionsDevices}</select></div>`;
 
-    // years
-    const optionsYears = Array(3).fill().map((_, y) => {
-      const key = y + 1;
-      if (key < 1) return ''; // starts from 1
-      let selected = '';
-      if (key === 1) { // default value selected = 1
-        selected = ' selected';
-      }
-      return `<option value="${key}" ${selected}>${key}</option>`;
-    });
+      // TODO: In the future, we should test with jest that the devicesMin, devicesSelected and devicesMax
+      // are correctly set in the DOM
+      const optionsDevices = Array.from({ length: devicesMax }).fill().map((_, d) => {
+        const key = d + 1;
+        if (key < devicesMin) return ''; // starts from 3
+        let selected = '';
+        if (key === devicesSelected) { // default value selected = 10
+          selected = ' selected';
+        }
+        return `<option value="${key}" ${selected}>${key}</option>`;
+      });
+      block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox"><label for="select${labelName[0]}">${labelName[0]}</label><select id="select${labelName[0]}" data-trigger="users">${optionsDevices}</select></div>`;
 
-    block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox"><label for="select${labelName[1].trim()}">${labelName[1].trim()}</label><select id="select${labelName[1].trim()}" data-trigger="years">${optionsYears}</select></div>`;
+      // years
+      const optionsYears = Array(3).fill().map((_, y) => {
+        const key = y + 1;
+        if (key < 1) return ''; // starts from 1
+        let selected = '';
+        if (key === 1) { // default value selected = 1
+          selected = ' selected';
+        }
+        return `<option value="${key}" ${selected}>${key}</option>`;
+      });
 
-    /// ///////////////////////////////////////////////////////////////////////
-    // add eventListener
-    if (document.querySelectorAll('.selectorBox')) {
-      document.querySelectorAll('.selectorBox').forEach((item) => {
-        item.addEventListener('change', (e) => {
-          const triggerType = item.children[1].getAttribute('data-trigger');
-          const triggerValue = e.target.value;
+      block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox"><label for="select${labelName[1].trim()}">${labelName[1].trim()}</label><select id="select${labelName[1].trim()}" data-trigger="years">${optionsYears}</select></div>`;
 
-          if (triggerType === 'users') {
-            const fileServers1stProd = Math.ceil((Number(triggerValue)) * 0.3);
-            const fileServers2ndProd = Math.ceil((Number(triggerValue)) * 0.3);
-            const mailboxes = Math.ceil((Number(triggerValue) / 100) * 150);
+      /// ///////////////////////////////////////////////////////////////////////
+      // add eventListener
+      if (document.querySelectorAll('.selectorBox')) {
+        document.querySelectorAll('.selectorBox').forEach((item) => {
+          item.addEventListener('change', (e) => {
+            const triggerType = item.children[1].getAttribute('data-trigger');
+            const triggerValue = e.target.value;
 
-            const selectors = [
-              { index: 2, type: 1, value: triggerValue },
-              { index: 3, type: 1, value: triggerValue },
-              { index: 4, type: 1, value: triggerValue },
-              { index: 2, type: 2, value: fileServers1stProd },
-              { index: 3, type: 2, value: fileServers2ndProd },
-              { index: 4, type: 2, value: fileServers2ndProd },
-              { index: 4, type: 3, value: mailboxes },
-            ];
+            if (triggerType === 'users') {
+              const fileServers1stProd = Math.ceil((Number(triggerValue)) * 0.3);
+              const fileServers2ndProd = Math.ceil((Number(triggerValue)) * 0.3);
+              const mailboxes = Math.ceil((Number(triggerValue) / 100) * 150);
 
-            selectors.forEach((selector) => {
-              const { index, type, value } = selector;
-              const query = `.b-productswithselectors > div:nth-child(${index}) ul:last-of-type li:nth-child(${type}) strong`;
-              const element = block.querySelector(query);
-              if (element) {
-                element.innerHTML = value;
+              const selectors = [
+                { index: 2, type: 1, value: triggerValue },
+                { index: 3, type: 1, value: triggerValue },
+                { index: 4, type: 1, value: triggerValue },
+                { index: 2, type: 2, value: fileServers1stProd },
+                { index: 3, type: 2, value: fileServers2ndProd },
+                { index: 4, type: 2, value: fileServers2ndProd },
+                { index: 4, type: 3, value: mailboxes },
+              ];
+
+              selectors.forEach((selector) => {
+                const { index, type, value } = selector;
+                const query = `.b-productswithselectors > div:nth-child(${index}) ul:last-of-type li:nth-child(${type}) strong`;
+                const element = block.querySelector(query);
+                if (element) {
+                  element.innerHTML = value;
+                }
+              });
+            }
+
+            productsAsList.forEach((prod) => {
+              const prodSplit = prod.split('/');
+              const prodName = productAliases(prodSplit[0]);
+              const prodUsers = prodSplit[1];
+              const prodYears = prodSplit[2];
+              const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
+
+              if (document.querySelector(`.${triggerType}_${onSelectorClass}_fake`)) {
+                const fakeSelector = document.querySelector(`.${triggerType}_${onSelectorClass}_fake`);
+                fakeSelector.value = triggerValue;
+                fakeSelector.dispatchEvent(new Event('change'));
               }
             });
-          }
-
-          productsAsList.forEach((prod) => {
-            const prodSplit = prod.split('/');
-            const prodName = productAliases(prodSplit[0]);
-            const prodUsers = prodSplit[1];
-            const prodYears = prodSplit[2];
-            const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
-
-            if (document.querySelector(`.${triggerType}_${onSelectorClass}_fake`)) {
-              const fakeSelector = document.querySelector(`.${triggerType}_${onSelectorClass}_fake`);
-              fakeSelector.value = triggerValue;
-              fakeSelector.dispatchEvent(new Event('change'));
-            }
           });
         });
-      });
+      }
     }
 
     /// ///////////////////////////////////////////////////////////////////////
