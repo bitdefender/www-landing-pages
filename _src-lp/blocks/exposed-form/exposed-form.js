@@ -6,9 +6,9 @@ async function fetchData(url, body) {
 
 export default function decorate(block) {
   const [title, subtitle, check1, check2, estimated, formButton, leaksTitle, leaksSubtitle, noLeaksTitle, noLeaksSubtitle, productTitle, productDescription, productButton, moneyBack, salesTax, tos] = block.children;
-  const elementsToHide = [...block.children].slice(5); 
+  const elementsToHide = [...block.children].slice(5);
 
-  elementsToHide.forEach(element => {
+  elementsToHide.forEach((element) => {
     element.classList.add('hide');
   });
   title.classList.add('title-class');
@@ -67,19 +67,19 @@ export default function decorate(block) {
         }, 1000);
       });
       //  Make the second request using the scan_id from the first request
-      // const secondRequest = await fetchData(
-      //   'https://nimbus.bitdefender.net/lid/privacy_check',
-      //   {
-      //     id: 2,
-      //     jsonrpc: '2.0',
-      //     method: 'get_on_demand_issues',
-      //     params: {
-      //       scan_id: firstRequest.scan_id,
-      //     },
-      //   },
-      // );
+      const secondRequest = await fetchData(
+        'https://nimbus.bitdefender.net/lid/privacy_check',
+        {
+          id: 2,
+          jsonrpc: '2.0',
+          method: 'get_on_demand_issues',
+          params: {
+            scan_id: firstRequest.scan_id,
+          },
+        },
+      );
 
-      const secondRequest = { total_count: 6 };
+      // const secondRequest = { total_count: 6 };
 
       block
         .querySelector('.frame-2 h4:nth-child(3)')
