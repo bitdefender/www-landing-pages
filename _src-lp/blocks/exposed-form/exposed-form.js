@@ -6,7 +6,6 @@ async function fetchData(url, body) {
 
 export default function decorate(block) {
   const [title, subtitle, check1, check2, estimated, formButton, leaksTitle, leaksSubtitle, noLeaksTitle, noLeaksSubtitle, productTitle, productDescription, productButton, moneyBack, salesTax, tos] = block.children;
-  console.log(block.children);
   const elementsToHide = [...block.children].slice(5);
 
   elementsToHide.forEach((element) => {
