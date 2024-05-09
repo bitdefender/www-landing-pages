@@ -181,7 +181,7 @@
     width: 100%;
   }
 
-  .c-dropdownbox-container .block > div:first-of-type, .c-dropdownbox-container .block > div:first-of-type > div:first-of-type, .c-dropdownbox-container .block.inactive > div:not(:nth-child(1)) {
+  .c-dropdownbox-container .block > div:first-of-type, .c-dropdownbox-container .block > div:first-of-type > div:first-of-type, .c-dropdownbox-container .block > div:not(:nth-child(1)) {
     display: block;
     width: 100%;
   }
