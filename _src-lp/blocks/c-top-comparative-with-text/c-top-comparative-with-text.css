@@ -1,6 +1,7 @@
 /* .c-top-comparative-with-text2 */
 .c-top-comparative-with-text-container {
-  padding-top: 5em !important;
+  padding-top: 5em;
+  clear: both;
 }
 
 .c-top-comparative-with-text {
@@ -10,17 +11,16 @@
 }
 
 .c-top-comparative-with-text > div {
-  width: 21%;
   position: relative;
   padding: 1%;
   border-radius: 5px 5px 0 0;
   background-color: #fff;
   border-top: 5px solid transparent;
+  flex: 1;
 }
 
 .c-top-comparative-with-text > div:nth-child(1) {
   color: #666;
-  width: 34%;
   font-size: 18px;
   margin-top: 20px;
 }
@@ -244,10 +244,6 @@
   line-height: 27px;
 }
 
-.c-top-comparative-with-text-container.has2boxes .c-top-comparative-with-text > div {
-  width: 33.3%;
-}
-
 /* for mobile */
 @media (width >= 1450px) {
   .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text-wrapper {
@@ -270,13 +266,13 @@
 }
 @media (width <= 768px) {
   .c-top-comparative-with-text {
-    display: block;
+    flex-wrap: wrap;
   }
   .c-top-comparative-with-text > div {
-    width: 100% !important;
     padding: 3% !important;
     margin-bottom: 1em !important;
     padding-bottom: 10px !important;
+    flex: unset;
   }
   .c-top-comparative-with-text > div p:nth-of-type(7) {
     margin: 0;
@@ -286,9 +282,8 @@
     padding: 0 !important;
   }
   .c-top-comparative-with-text > div:not(:nth-child(1)) {
-    width: 33% !important;
-    float: left;
     padding: 1% !important;
+    flex: 1;
   }
   .c-top-comparative-with-text > div h2 {
     font-size: 24px;

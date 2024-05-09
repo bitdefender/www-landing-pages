@@ -39,6 +39,9 @@
   }
 }
 @media (width <= 768px) {
+  .c-tough-on-threats-container {
+    clear: both;
+  }
   .c-tough-on-threats-container h5 {
     font-size: 25px;
     margin-bottom: 10px;
