@@ -6,6 +6,7 @@ async function fetchData(url, body) {
 
 export default function decorate(block) {
   const [title, subtitle, check1, check2, estimated, formButton, leaksTitle, leaksSubtitle, noLeaksTitle, noLeaksSubtitle, productTitle, productDescription, productButton, moneyBack, salesTax, tos] = block.children;
+  console.log(block.children);
   const elementsToHide = [...block.children].slice(5);
 
   elementsToHide.forEach((element) => {
@@ -14,16 +15,12 @@ export default function decorate(block) {
   title.classList.add('title-class');
   subtitle.classList.add('subtitle-class');
 
-  console.log(leaksSubtitle.querySelector('div').innerHTML);
   //  handler function
   async function submitHandler(event) {
     event.preventDefault();
     try {
       const emailInput = block.querySelector('input[type="email"]');
       const emailValue = emailInput.value;
-
-      // Log the email value
-      // console.log('Email entered:', emailValue);
 
       block.querySelector('.frame-1').classList.remove('show');
       block.querySelector('.frame-1').classList.add('hide');
@@ -79,7 +76,7 @@ export default function decorate(block) {
         },
       );
 
-      // const secondRequest = { total_count: 6 };
+      // const secondRequest = { total_count: 0 };
 
       block
         .querySelector('.frame-2 h4:nth-child(3)')
@@ -99,11 +96,7 @@ export default function decorate(block) {
           .classList.add('show');
         block.querySelector('.frame-3 > div:nth-of-type(2) > h3').textContent = block.querySelector('.frame-3 div:nth-of-type(2) > h3').textContent.replace('{numberOfLeaks}', secondRequest.total_count);
       }
-
-      //  LOG
-      console.log(secondRequest.total_count);
     } catch (error) {
-      console.error('An error occurred:', error.message);
       block.querySelector('.frame-1').classList.remove('show');
       block.querySelector('.frame-1').classList.add('hide');
       block.querySelector('.frame-2').classList.add('hide');
@@ -201,6 +194,30 @@ export default function decorate(block) {
   const thirdDiv = document.createElement('div');
   thirdDiv.classList.add('frame-3', 'hide');
 
-  thirdDiv.innerHTML = `<div class="hide"><h3>${noLeaksTitle.querySelector('div').innerHTML}</h3>${noLeaksSubtitle.querySelector('div').innerHTML}</div><div class="hide"><h3>${leaksTitle.querySelector('div').innerHTML}</h3>${leaksSubtitle.querySelector('div').innerHTML}</div><div class="product-wrapper"><div class="product"><div class="highlight" style="display=none"><span></span></div><p>${productTitle.querySelector('div').innerHTML}</p><p>${productDescription.querySelector('div').innerHTML}</p><hr>${productButton.querySelector('div').innerHTML}<p>${moneyBack.querySelector('div').innerHTML}</p><p>${salesTax.querySelector('div').innerHTML}</p><p>${tos.querySelector('div').innerHTML}</p></div></div><div class="error hide"><h3>Error</h3><p>Please try again after sometime.</p></div>`;
+  thirdDiv.innerHTML = `
+  <div class="hide">
+    <h3>${noLeaksTitle.innerText}</h3>
+    ${noLeaksSubtitle.innerText}
+  </div>
+  <div class="hide">
+      <h3>${leaksTitle.innerText}</h3>
+      ${leaksSubtitle.innerHTML}
+  </div>
+  <div class="product-wrapper">
+      <div class="product">
+          <div class="highlight" style="display=none"><span></span></div>
+          <p>${productTitle.innerHTML}</p>
+          <p>${productDescription.innerText}</p>
+          <hr>
+          ${productButton.innerHTML}
+          <p>${moneyBack.innerText}</p>
+          <p>${salesTax.innerText}</p>
+          <p>${tos.innerText}</p>
+      </div>
+  </div>
+  <div class="error hide">
+      <h3>Error</h3>
+      <p>Please try again after sometime.</p>
+  </div>`;
   block.appendChild(thirdDiv);
 }
