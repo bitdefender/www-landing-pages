@@ -12,8 +12,8 @@
 }
 
 /* blue tbs */
-.b-dropdownbox-container .block > div:nth-child(1) {
-  padding: 0;
+.b-dropdownbox-container .block > div > div {
+  border-bottom: 1px solid #D6D6D6;
 }
 
 .b-dropdownbox-container .block > div:not(:first-child) {
@@ -22,17 +22,14 @@
   display: flex;
 }
 
-.b-dropdownbox-container .block > div > div {
-  border-bottom: 1px solid #D6D6D6;
+.b-dropdownbox-container .block > div:nth-child(1) {
+  color: #fff;
+  background-color: #006eff;
+  padding: 0;
 }
 
 .b-dropdownbox-container .block > div:first-of-type > div, .b-dropdownbox-container .block > div:last-of-type > div {
   border-bottom: 0 none;
-}
-
-.b-dropdownbox-container .block > div:nth-child(1) {
-  color: #fff;
-  background-color: #006eff;
 }
 
 .b-dropdownbox-container .block > div:nth-child(1) > div {
@@ -108,14 +105,12 @@
 
 .b-dropdownbox-container .block.inactive > div:nth-child(1) > div::before,
 .b-dropdownbox-container .block.closed > div:nth-child(1) > div::before {
-  content: "";
   width: 10px;
   height: 10px;
   float: left;
   content: "";
   margin-right: 10px;
   margin-top: 10px;
-  transform: translateY(-50%);
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(-135deg);
@@ -123,14 +118,12 @@
 
 .b-dropdownbox-container.arrow-dark  .block.inactive > div:nth-child(1) > div::before,
 .b-dropdownbox-container.arrow-dark  .block.closed > div:nth-child(1) > div::before {
-  content: "";
   width: 10px;
   height: 10px;
   float: left;
   content: "";
   margin-right: 10px;
   margin-top: 10px;
-  transform: translateY(-50%);
   border: solid black;
   border-width: 0 2px 2px 0;
   transform: rotate(-135deg);
@@ -140,14 +133,12 @@
 /* stylelint-disable no-descending-specificity */
 .b-dropdownbox-container .block > div:nth-child(1) > div::before,
 .b-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div::before {
-  content: "";
   width: 10px;
   height: 10px;
   float: left;
   content: "";
   margin-right: 10px;
   margin-top: 4px;
-  transform: translateY(-50%);
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
@@ -155,14 +146,12 @@
 
 .b-dropdownbox-container.arrow-dark .block > div:nth-child(1) > div::before,
 .b-dropdownbox-container.arrow-dark .block.closed.inactive > div:nth-child(1) > div::before {
-  content: "";
   width: 10px;
   height: 10px;
   float: left;
   content: "";
   margin-right: 10px;
   margin-top: 4px;
-  transform: translateY(-50%);
   border: solid black;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);

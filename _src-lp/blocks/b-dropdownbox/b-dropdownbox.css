@@ -22,17 +22,17 @@
   display: flex;
 }
 
-.b-dropdownbox-container .block > div > div {
-  border-bottom: 1px solid #D6D6D6;
-}
-
-.b-dropdownbox-container .block > div:first-of-type > div, .b-dropdownbox-container .block > div:last-of-type > div {
+.b-dropdownbox-container .block > div:last-of-type > div, .b-dropdownbox-container .block > div:last-of-type > div {
   border-bottom: 0 none;
 }
 
 .b-dropdownbox-container .block > div:nth-child(1) {
   color: #fff;
   background-color: #006eff;
+}
+
+.b-dropdownbox-container .block > div > div {
+  border-bottom: 1px solid #D6D6D6;
 }
 
 .b-dropdownbox-container .block > div:nth-child(1) > div {
