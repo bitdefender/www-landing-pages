@@ -401,8 +401,7 @@
   }
 
   .b-dropdownbox-container .block > div:nth-child(1) > div::before, .b-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div::before {
-    width: 15px !important;
-    height: 16px !important;
+    margin-top: 1px!important;
   }
 
   .b-dropdownbox-container .block > div:nth-child(1) > div {
