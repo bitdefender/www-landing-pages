@@ -70,7 +70,7 @@
 
 .columns-container.new-v2{
  u {
-  text-decoration: none; 
+  text-decoration: none;
   font: normal normal normal 18px/21px Arial, sans-serif;
 }
 
@@ -110,6 +110,10 @@
 
     &:first-of-type {
       padding-left: 0;
+    }
+
+    &:last-of-type[data-align="right"] {
+      text-align: right;
     }
 
     &:last-of-type {

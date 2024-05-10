@@ -104,6 +104,9 @@
   .columns > div > div:first-of-type {
     padding-left: 0;
   }
+  .columns > div > div:last-of-type[data-align=right] {
+    text-align: right;
+  }
   .columns > div > div:last-of-type {
     padding-right: 0;
   }
