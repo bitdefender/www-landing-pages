@@ -47,8 +47,6 @@ export default function decorate(block) {
     // check and add products into the final array
     productsAsList.forEach((prod) => updateProductsList(prod));
 
-    console.log(productsAsList);
-
     /// ///////////////////////////////////////////////////////////////////////
     // set top class with numbers of products
     parentSelector.classList.add(`has${productsAsList.length}boxes`);
@@ -88,24 +86,25 @@ export default function decorate(block) {
         tableBuybtn.innerHTML = `<div class="buy_box buy_box${key}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
 
         const priceBoxSelector = block.querySelector(`.c-top-comparative-with-text > div:nth-child(${key + 1})`);
-        console.log(priceBoxSelector);
         priceBoxSelector.classList.add(`${onSelectorClass}_box_comp`);
         const prodDescription = block.querySelector(`.${onSelectorClass}_box_comp > div > p:nth-child(3)`);
-        prodDescription.classList.add(`${prodName}_description_comp`);
+        prodDescription?.classList.add(`${prodName}_description_comp`);
 
-        document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
-          const users = StoreProducts.product[prodName].selected_users;
-          // const years = StoreProducts.product[prodName].selected_years;
-          const textUser = userText.split(',');
-          let devicesText = '';
-          if (users !== '1') {
-            devicesText = `${textUser[1]}`;
-          } else {
-            devicesText = `${textUser[0]}`;
-          }
-          const devicesDesc = block.querySelector(`.${prodName}_description_comp`);
-          devicesDesc.innerHTML = `${users} ${devicesText}`;
-        });
+        if (userText) {
+          document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
+            const users = StoreProducts.product[prodName].selected_users;
+            // const years = StoreProducts.product[prodName].selected_years;
+            const textUser = userText.split(',');
+            let devicesText = '';
+            if (users !== '1') {
+              devicesText = `${textUser[1]}`;
+            } else {
+              devicesText = `${textUser[0]}`;
+            }
+            const devicesDesc = block.querySelector(`.${prodName}_description_comp`);
+            devicesDesc.innerHTML = `${users} ${devicesText}`;
+          });
+        }
       }
     });
   }
