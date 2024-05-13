@@ -169,39 +169,39 @@
   .c-dropdownbox-container .block .bottom-text {
     font-size: 14px;
   }
-  .c-dropdownbox-container .block > div:not(:first-child) > div:nth-child(1) {
-    width: 100%;
+  .c-dropdownbox-container .block > div:first-of-type, .c-dropdownbox-container .block > div:not(:nth-child(1)) {
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
-  .c-dropdownbox-container .block > div:first-of-type, .c-dropdownbox-container .block > div:first-of-type > div:first-of-type, .c-dropdownbox-container .block.inactive > div:not(:nth-child(1)) {
-    display: block;
-    width: 100%;
+  .c-dropdownbox-container .block > div:first-of-type > div:first-of-type {
+    flex: 0 0 100%;
+    margin-top: 1em;
+  }
+  .c-dropdownbox-container .block > div:not(:nth-child(1)) > div:first-of-type {
+    text-align: center;
+    flex: 0 0 100%;
+  }
+  .c-dropdownbox-container .block > div:not(:nth-child(1)) > div:first-of-type strong {
+    font-size: 14px;
+  }
+  .c-dropdownbox-container .block > div:not(:nth-child(1)) > div:first-of-type p {
+    font-size: 13px;
+    width: 95%;
+    min-width: 300px;
+    margin: 0 auto;
   }
   .c-dropdownbox-container .block > div:nth-child(1) > div {
     font-size: 15px;
     line-height: 17px;
   }
-  .c-dropdownbox-container .block > div:nth-child(1) > div:not(:nth-child(1)) {
-    width: 33%;
-    float: left;
-    display: block;
-    text-align: left;
+  .c-dropdownbox-container .block > div:nth-child(1) > div:not(:nth-child(1)), .c-dropdownbox-container .block > div:not(:first-child) > div:not(:first-child) {
     padding: 10px 0;
     border: 0 none;
+    flex: 0 0 33%;
   }
   .c-dropdownbox-container .block > div > div {
     padding: 5px 0;
     border-top: 1px solid #dfdfdf;
     border-bottom: 0 none;
-  }
-  .c-dropdownbox-container .block > div:first-of-type > div:not(:first-child) {
-    text-align: center;
-  }
-  .c-dropdownbox-container .block > div:not(:first-child) > div:not(:first-child) {
-    width: 33%;
-    float: left;
-    border: 0 none;
-  }
-  .c-dropdownbox-container .block.has2divs > div:not(:first-child) > div:not(:first-child) {
-    width: 100%;
   }
 }
