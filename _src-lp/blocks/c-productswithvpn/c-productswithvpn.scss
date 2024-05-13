@@ -130,6 +130,23 @@
   }
 }
 
+.c-productswithvpn > div p:nth-of-type(1) {
+  margin-top: 15px;
+}
+
+.c-productswithvpn > div p:nth-of-type(2) {
+  font-size: 16px;
+  line-height: 16px;
+  color: #666;
+  font-weight: 500;
+}
+
+.c-productswithvpn > div p:nth-of-type(3) {
+  font-size: 15px;
+  color: #111;
+  min-height: 44px;
+}
+
 .c-productswithvpn > div p:nth-of-type(4) {
   color: #999;
   font-size: 12px;
@@ -164,25 +181,8 @@
   font-weight: 600;
 }
 
-.c-productswithvpn > div p:nth-of-type(3) {
-  font-size: 15px;
-  color: #111;
-  min-height: 44px;
-}
-
-.c-productswithvpn > div p:nth-of-type(2) {
-  font-size: 16px;
-  line-height: 16px;
-  color: #666;
-  font-weight: 500;
-}
-
 .c-productswithvpn > div table:nth-of-type(2) p {
   margin-top: 0 !important;
-}
-
-.c-productswithvpn > div p:nth-of-type(1) {
-  margin-top: 15px;
 }
 
 .c-productswithvpn > div p:nth-of-type(7) a {
