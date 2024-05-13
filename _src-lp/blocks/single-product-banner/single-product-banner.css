@@ -45,6 +45,22 @@
   margin: 0;
 }
 
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box {
+  display: none;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box.show {
+  display: block;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .buy_box {
+  display: none;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .buy_box.show {
+  display: block;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .prod-newprice {
   font-size: 32px;
   line-height: 32px;
@@ -128,10 +144,6 @@
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide table:nth-child(6) a:hover {
   text-decoration: none;
   background-color: #b33027;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .monthly {
-  display: none;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(11) {
