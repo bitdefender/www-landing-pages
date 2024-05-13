@@ -490,6 +490,10 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = offerPrice;
         });
+      } else {
+        document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
+          item.innerHTML = fullPrice;
+        });
       }
     }
 
