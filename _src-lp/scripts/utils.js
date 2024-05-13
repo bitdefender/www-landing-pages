@@ -216,7 +216,7 @@ export function updateProductsList(product) {
 export function setDataOnBuyLinks(dataInfo) {
   try {
     const { buyLinkSelector, productId, variation } = dataInfo;
-    const btnElelemts = document.getElementsByClassName(buyLinkSelector);
+    const btnElelemts = document.querySelectorAll(`.${buyLinkSelector}`);
 
     if (btnElelemts !== null && btnElelemts !== '') {
       Array.from(btnElelemts).forEach((element) => {
