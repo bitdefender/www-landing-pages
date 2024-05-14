@@ -719,7 +719,7 @@ function changeCheckboxVPN(checkboxId, pid) {
   }
 
   const dataInfo = {
-    buyLink: `buylink-${onSelectorClass}`,
+    buyLinkSelector: `buylink-${onSelectorClass}`,
     variation: {
       discounted_price: newPrice.replace(selectedVariation.currency_label, '').trim(),
       price: fullPrice.replace(selectedVariation.currency_label, '').trim(),

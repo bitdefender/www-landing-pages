@@ -1,7 +1,21 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
+let counter = 0;
+function toggleElements(block) {
+  const prodBoxYearly = block.querySelector('.prices_box.yearly');
+  const prodBoxMonthly = block.querySelector('.prices_box.monthly');
+  const buyBtnYearly = block.querySelector('.buy_box.yearly');
+  const buyBtnMonthly = block.querySelector('.buy_box.monthly');
+
+  prodBoxYearly?.classList.toggle('show');
+  buyBtnYearly?.classList.toggle('show');
+  prodBoxMonthly?.classList.toggle('show');
+  buyBtnMonthly?.classList.toggle('show');
+}
+
 export default function decorate(block) {
+  counter += 1;
   // get data attributes set in metaData
   const parentBlock = block.closest('.section');
   const parentBlockStyle = block.closest('.section').style;
@@ -43,13 +57,18 @@ export default function decorate(block) {
       let billed = billedYearly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
       let priceFull = `<span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> /${per}</span>`;
       let prodType = 'yearly';
+      let show = '';
+
       if (prodName.endsWith('m')) {
-        billed = billedMonthly.replace('XX', `<span class='d-inline-flex price-${onSelectorClass}'></span>`);
+        billed = billedMonthly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
         priceFull = `<span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month"> /${per}</span>`;
         prodType = 'monthly';
       }
 
-      pricesBox.className = `${prodName}_box prices_box ${prodType} await-loader prodload prodload-${onSelectorClass}`;
+      if (prodType === 'yearly') {
+        show = 'show';
+      }
+      pricesBox.className = `${prodName}_box prices_box ${prodType} ${show} await-loader prodload prodload-${onSelectorClass}`;
       pricesBox.innerHTML = `<div>
         <div class="d-flex justify-content-center priced">${priceFull}</div>
         <div class="d-flex justify-content-center billed">${billed}</div>
@@ -59,7 +78,7 @@ export default function decorate(block) {
 
       const tableBuybtn = contentRightEl.querySelector('table:last-of-type');
       const buyButton = document.createElement('div');
-      buyButton.className = `buy_box buy_box_${prodName} ${prodType}`;
+      buyButton.className = `buy_box buy_box_${prodName} ${show} ${prodType}`;
       buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${buyButtonText}</a>`;
       tableBuybtn.appendChild(buyButton);
     });
@@ -67,8 +86,8 @@ export default function decorate(block) {
     const firstTable = contentRightEl.querySelector('table:first-of-type');
     const selectorBox = document.createElement('div');
     selectorBox.innerHTML = `<div class="productSelector justify-content-center">
-        <div class="d-flex justify-content-center"><input type="radio" id="pay_yearly" class="selectorYearly" name="selectorBox" value="yearly" checked="check"><label for="pay_yearly">${payYearly}</label></div>
-        <div class="d-flex justify-content-center"><input type="radio" id="pay_monthly" class="selectorMonthly" name="selectorBox" value="monthly"><label for="pay_monthly">${payMonthly}</label></div>
+        <div class="d-flex justify-content-center"><input type="radio" id="pay_yearly_${counter}" class="selectorYearly" name="selectorBox${counter}" value="yearly" checked="check"><label for="pay_yearly_${counter}">${payYearly}</label></div>
+        <div class="d-flex justify-content-center"><input type="radio" id="pay_monthly_${counter}" class="selectorMonthly" name="selectorBox${counter}" value="monthly"><label for="pay_monthly_${counter}">${payMonthly}</label></div>
       </div>`;
     firstTable.appendChild(selectorBox);
   }
@@ -78,32 +97,18 @@ export default function decorate(block) {
     <div class="rightSide">${contentRightEl.innerHTML}</div>
   `;
 
-  const selectorYearly = block.querySelector('input[value="yearly"');
-  const selectorMonthly = block.querySelector('input[value="monthly"]');
-  const prodBoxYearly = block.querySelector('.prices_box.yearly');
-  const prodBoxMonthly = block.querySelector('.prices_box.monthly');
-  const buyBtnYearly = block.querySelector('.buy_box.yearly');
-  const buyBtnMonthly = block.querySelector('.buy_box.monthly');
-  function showYearlyElements() {
-    prodBoxYearly.style.display = 'block';
-    prodBoxMonthly.style.display = 'none';
-    buyBtnYearly.style.display = 'block';
-    buyBtnMonthly.style.display = 'none';
-  }
-  function showMonthlyElements() {
-    prodBoxYearly.style.display = 'none';
-    prodBoxMonthly.style.display = 'block';
-    buyBtnYearly.style.display = 'none';
-    buyBtnMonthly.style.display = 'block';
-  }
+  const radioGroups = block.querySelectorAll('input[type="radio"]');
 
-  selectorYearly.addEventListener('change', showYearlyElements);
-  selectorMonthly.addEventListener('change', showMonthlyElements);
+  radioGroups.forEach((group) => {
+    const yearlyRadio = block.querySelector('.selectorYearly');
+    const monthlyRadio = block.querySelector('.selectorMonthly');
 
-  // Initial check: Show elements based on the checked radio button
-  if (selectorYearly.checked) {
-    showYearlyElements();
-  } else {
-    showMonthlyElements();
-  }
+    group.addEventListener('change', (event) => {
+      if (event.target === yearlyRadio) {
+        toggleElements(block);
+      } else if (event.target === monthlyRadio) {
+        toggleElements(block);
+      }
+    });
+  });
 }

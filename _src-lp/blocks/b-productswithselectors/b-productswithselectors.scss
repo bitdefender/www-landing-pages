@@ -295,7 +295,7 @@
     }
 
     .prod-newprice {
-      font-size: 20px;
+      font-size: 13px;
       line-height: 15px;
     }
 
@@ -316,4 +316,9 @@
     min-height: 17em;
     margin: 6px 0;
   }
+
+  .b-productswithselectors .prod-oldprice{
+    font-size: 12px;
+    letter-spacing: -0.5px;
+}
 }
