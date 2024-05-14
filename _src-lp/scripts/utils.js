@@ -218,7 +218,7 @@ export function setDataOnBuyLinks(dataInfo) {
     const { buyLinkSelector, productId, variation } = dataInfo;
     const btnElelemts = document.querySelectorAll(`.${buyLinkSelector}`);
 
-    if (btnElelemts !== null && btnElelemts !== '') {
+    if (btnElelemts != undefined && btnElelemts.length > 0) {
       Array.from(btnElelemts).forEach((element) => {
         if (productId) element.dataset.product = productId;
 
