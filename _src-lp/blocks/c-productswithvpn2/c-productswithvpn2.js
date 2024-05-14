@@ -16,14 +16,16 @@
 */
 
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
-  const { products, bulinaText } = metaData;
+  const {
+    products, bulinaText, upTo, userText, yearText,
+  } = metaData;
   const productsAsList = products && products.split(',');
 
   if (productsAsList.length) {
@@ -40,7 +42,9 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((product, idx) => {
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      // eslint-disable-next-line prefer-const
+      let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      prodName = prodName.trim();
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
       // adding prices
@@ -110,6 +114,32 @@ export default function decorate(block) {
       const priceBoxSelector = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1})`);
       priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
+
+      const prodDescription = block.querySelector(`.${prodName}-${prodUsers}${prodYears}_box > div > p:nth-child(4)`);
+      prodDescription.classList.add(`${prodName}_description`);
+
+      document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
+        const users = StoreProducts.product[prodName].selected_users;
+        const years = StoreProducts.product[prodName].selected_years;
+        const textUser = userText.split(',');
+        const textYear = yearText.split(',');
+        let upText = '';
+        let devicesText = '';
+        let yearsText = '';
+        if (users !== '1') {
+          upText = `${upTo}`;
+          devicesText = `${textUser[1]}`;
+        } else {
+          devicesText = `${textUser[0]}`;
+        }
+        if (years !== '1') {
+          yearsText = `${textYear[1]}`;
+        } else {
+          yearsText = `${textYear[0]}`;
+        }
+        const devicesDesc = block.querySelector(`.${prodName}_description`);
+        devicesDesc.innerHTML = `${upText} ${users} ${devicesText} / ${years} ${yearsText}`;
+      });
     });
   }
 }

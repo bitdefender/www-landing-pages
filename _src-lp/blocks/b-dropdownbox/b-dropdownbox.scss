@@ -12,8 +12,8 @@
 }
 
 /* blue tbs */
-.b-dropdownbox-container .block > div:nth-child(1) {
-  padding: 0;
+.b-dropdownbox-container .block > div > div {
+  border-bottom: 1px solid #D6D6D6;
 }
 
 .b-dropdownbox-container .block > div:not(:first-child) {
@@ -22,18 +22,31 @@
   display: flex;
 }
 
-.b-dropdownbox-container .block > div:nth-child(1) > div {
+.b-dropdownbox-container .block > div:nth-child(1) {
   color: #fff;
-  font-weight: 500;
   background-color: #006eff;
+  padding: 0;
+}
+
+.b-dropdownbox-container .block > div:first-of-type > div, .b-dropdownbox-container .block > div:last-of-type > div {
+  border-bottom: 0 none;
+}
+
+.b-dropdownbox-container .block > div:nth-child(1) > div {
+  font-weight: bold;
   cursor: pointer;
   padding: 15px 30px;
 }
 
 .b-dropdownbox-container .block > div:not(:first-child) > div {
-  width: 33%;
+  flex: 1;
   padding: 15px 2%;
   display: inline-block;
+}
+
+.b-dropdownbox-container .block > div > div strong em {
+  color: red;
+  font-style: normal;
 }
 
 .b-dropdownbox-container .block.hide-title > div:nth-child(1) > div, .b-dropdownbox-container.hide-title .block > div:nth-child(1) > div {
@@ -92,25 +105,57 @@
 
 .b-dropdownbox-container .block.inactive > div:nth-child(1) > div::before,
 .b-dropdownbox-container .block.closed > div:nth-child(1) > div::before {
-  background: url("../../images/icons/arrow_down.png") bottom left no-repeat transparent;
-  transform: rotate(0deg);
-  background-size: 100%;
+  width: 10px;
+  height: 10px;
+  float: left;
+  content: "";
+  margin-right: 10px;
+  margin-top: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(-135deg);
+}
+
+.b-dropdownbox-container.arrow-dark  .block.inactive > div:nth-child(1) > div::before,
+.b-dropdownbox-container.arrow-dark  .block.closed > div:nth-child(1) > div::before {
+  width: 10px;
+  height: 10px;
+  float: left;
+  content: "";
+  margin-right: 10px;
+  margin-top: 10px;
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  transform: rotate(-135deg);
 }
 
 /* handling - arrow down/up */
 /* stylelint-disable no-descending-specificity */
 .b-dropdownbox-container .block > div:nth-child(1) > div::before,
 .b-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div::before {
-  content: "";
-  width: 17px;
-  height: 19px;
-  background: url("../../images/icons/arrow_down.png") top left no-repeat transparent;
+  width: 10px;
+  height: 10px;
   float: left;
-  margin-right: 9px;
-  background-size: 100%;
-  transform: rotate(180deg);
+  content: "";
+  margin-right: 10px;
+  margin-top: 4px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
+.b-dropdownbox-container.arrow-dark .block > div:nth-child(1) > div::before,
+.b-dropdownbox-container.arrow-dark .block.closed.inactive > div:nth-child(1) > div::before {
+  width: 10px;
+  height: 10px;
+  float: left;
+  content: "";
+  margin-right: 10px;
+  margin-top: 4px;
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
 
 // aem version
 .b-dropdownbox-container .default-content-wrapper h5 {
@@ -141,7 +186,7 @@
     content: "";
     position: absolute;
     top: -60px;
-    right: -56px;
+    right: 0;
     width: 196px;
     height: 90pt;
     background: url('../../images/patter_grid_blue.png') no-repeat;
@@ -234,7 +279,7 @@
     content: "";
     position: absolute;
     top: 16px;
-    right: -45px;
+    right: 0;
     width: 196px;
     height: 90pt;
     background: url('../../images/patter_grid_blue.png') no-repeat;
@@ -295,7 +340,7 @@
 
     .description {
       position: absolute;
-      top: 4em;
+      top: 7em;
       right: 0;
       padding-left: 5%;
       display: none;
@@ -324,6 +369,12 @@
   }
 }
 
+@media (width <= 991px) {
+  .b-dropdownbox-container .default-content-wrapper h5 {
+    font-size: 33px;
+  }
+}
+
 /* for mobile */
 @media (width <= 768px) {
   .b-dropdownbox-container {
@@ -345,9 +396,12 @@
     }
   }
 
+  .b-dropdownbox-container .block > div:not(:first-child) {
+    display: block;
+  }
+
   .b-dropdownbox-container .block > div:nth-child(1) > div::before, .b-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div::before {
-    width: 15px !important;
-    height: 16px !important;
+    margin-top: 1px!important;
   }
 
   .b-dropdownbox-container .block > div:nth-child(1) > div {
@@ -360,6 +414,7 @@
   .b-dropdownbox-container .new > div:nth-child(1) > div::after, .b-dropdownbox-container.new .block > div:nth-child(1) > div::after {
     position: static;
     margin-left: 15px;
+    flex: 0 0 auto;
   }
 
   .b-dropdownbox-container > div:nth-child(2) .new::after {

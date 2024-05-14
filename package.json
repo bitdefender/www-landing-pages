@@ -15,7 +15,8 @@
     "purge-css": "purgecss --config purgecss.config.js --output _src-lp/styles/vendor/",
     "compile-sass": "node sass-compile.mjs",
     "compile-sass:watch": "node sass-compile.mjs --watch",
-    "up": "npm run compile-sass:watch & hlx up"
+    "up": "npm run compile-sass:watch & aem up",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.27.5",
     "ghost-inspector": "^7.0.1",
+    "husky": "^9.0.11",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.6.1",
     "jsdom": "^23.0.1",

@@ -161,11 +161,6 @@
   margin: 1em 0;
 }
 
-.b-banner-container.custom-counter h1 {
-  max-width: 100%!important;
-  width: 100%!important;
-}
-
 .b-banner-container .b-banner-wrapper .w-full h1, .b-banner-container .b-banner-wrapper .w-full h2 {
   max-width: 100%;
 }
@@ -176,7 +171,7 @@
 
 .b-banner-container .b-banner-wrapper ul li {
   text-align: left;
-  background: url("../../images/icons/check_full.svg") 0 3px no-repeat transparent;
+  background: url("/_src-lp/images/icons/check_full.svg") 0 3px no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
@@ -423,22 +418,17 @@
     min-height: 350px;
   }
 
-  .b-banner-container.custom-counter {
-    min-height: 350px!important;
-  }
-
-  .b-banner-container.custom-counter .item-align-center {
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .b-banner-container.custom-counter img {
-    height: 350px;
-  }
-
   .b-banner-container .banner-image {
     display: block;
     height: 100%;
+  }
+
+  .b-banner-container .banner-image img {
+    height: 100% !important;
+    width: auto !important;
+    max-width: unset;
+    float: right;
+    display: block;
   }
 
   .b-banner-container .banner-image.flipClock-image {
@@ -471,8 +461,12 @@
   .b-banner-container .b-banner-wrapper {
     height: 100%;
     align-items: center;
-    margin: 15px;
-    display: flex;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 15px auto;
+    position: absolute;
+    display: block;
   }
 
   .b-banner-container.content-top .b-banner-wrapper{

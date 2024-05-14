@@ -23,12 +23,17 @@ export default function decorate(block) {
     let prodUsers;
     let prodYears;
     let onSelectorClass;
-    const aliasTr = table.querySelector('tr'); // 1st tr shoudlk have an identifier alias
+    const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
 
     if (product && product.length) {
       updateProductsList(product);
       [prodName, prodUsers, prodYears] = product.split('/');
       onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    }
+
+    // BLUE-BOX
+    if (aliasTr && aliasTr.innerText.trim() === 'blue-box') {
+      table.classList.add('blue-box');
     }
 
     // PRICE_BOX
@@ -45,9 +50,15 @@ export default function decorate(block) {
       pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
       pricesBox.innerHTML += `<div class="d-flex">
         <p>
-          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+        <div>
+          <div class="d-flex">
+            <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
+            <span class="prod-save d-flex justify-content-center align-items-center save-class">Save <span class="save-${onSelectorClass} "> </span></span>
+          </div>
+          </p>
           <span class="prod-newprice newprice-${onSelectorClass}"></span>
-        </p>
+
+
         <p class="variation">${prices.innerHTML}</p>
       </div>`;
       pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
@@ -213,14 +224,18 @@ export default function decorate(block) {
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  if (imageCover && imageCover === 'small') {
+  if (imageCover && imageCover.indexOf('small') !== -1) {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+
+    const imageCoverVar = imageCover.split('-')[1];
+    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex">
+        <div class="row d-none d-md-flex d-lg-flex position-relative">
           <div class="col-5 ps-4">${contentEl.innerHTML}</div>
         </div>
-        <div class="row d-lg-none justify-content-center">
+        <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
           <div class="col-12 p-0 text-center bck-img">
             ${pictureEl.innerHTML}
@@ -231,13 +246,8 @@ export default function decorate(block) {
   } else if (imageCover) {
     parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
 
-    if (imageCover === 'full-left') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top left / auto 100% ${backgroundColor || '#000'}`;
-    } else if (imageCover === 'full-center') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / auto 100% ${backgroundColor || '#000'}`;
-    } else if (imageCover === 'full-right') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
-    }
+    const imageCoverVar = imageCover.split('-')[1];
+    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
 
     if (contentSize === 'fourth') {
       block.innerHTML = `
@@ -261,27 +271,25 @@ export default function decorate(block) {
   } else {
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex">
-          <div class="col-5 ps-4">${contentEl.innerHTML}</div>
-          <div class="col-7 img-right bck-img">
+      <div class="row d-block d-lg-flex position-relative">
+        <div class="col-12 d-block d-sm-none d-md-none d-lg-none p-0 text-center bck-img">
             ${pictureEl.innerHTML}
-          </div>
         </div>
-        <div class="row d-lg-none justify-content-center">
-          <div class="col-12 p-0 text-center bck-img">
+
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 ps-4">${contentEl.innerHTML}</div>
+
+        <div class="col-7 d-none d-sm-block d-md-block d-lg-block img-right bck-img">
             ${pictureEl.innerHTML}
-          </div>
-          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
         </div>
       </div>
-    `;
+    </div>`;
   }
 
   if (textAlignVertical) {
     block.querySelector('.row').classList.add(`align-items-${textAlignVertical}`);
   }
 
-  if (imageAlign && block.querySelector('.img-right').style.textAlign) {
+  if (imageAlign && block.querySelector('.img-right') && block.querySelector('.img-right').style.textAlign) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
   }
 

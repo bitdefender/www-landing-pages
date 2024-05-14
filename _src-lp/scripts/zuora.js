@@ -193,6 +193,7 @@ export default class ZuoraNLClass {
 
       const pricing = {};
       period.pricing.forEach((item) => {
+        if (item.devices_no === 50) item.devices_no = 1;
         if (item.devices_no === Number(devicesNo)) {
           pricing.total = item.price;
           pricing.discount = item.discount;
@@ -239,18 +240,18 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static async loadProduct(id) {
-    let cuponCode = '';
+  static async loadProduct(id, campaignParam = '') {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
 
     try {
-      cuponCode = await this.fetchCampaignName();
-      return this.getProductVariationsPrice(id, cuponCode);
+      let coupon = campaignParam;
+      if (!coupon) coupon = await this.fetchCampaignName();
+      return this.getProductVariationsPrice(id, coupon);
     } catch (error) {
       console.error('loadProduct error:', error);
     }
 
-    return this.getProductVariationsPrice(id, cuponCode);
+    return this.getProductVariationsPrice(id);
   }
 }

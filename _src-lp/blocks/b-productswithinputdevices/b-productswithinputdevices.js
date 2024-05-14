@@ -58,17 +58,15 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
-  // const parent2ndDiv = block.querySelector('.b-productswithinputdevices > div:nth-child(2)');
   const parent1ndDiv = block.children[0];
   const parent2ndDiv = block.children[1];
 
   const metaData = parentSelector.dataset;
   const {
-    products, yearsText, bulinaText, devicesLimits, incrementalCounter, titleTag,
+    products, yearsText, bulinaText, devicesLimits, yearsSelector, monthlyText, incrementalCounter, titleTag,
     skipUnwantedSelectors, secondTemplate,
   } = metaData;
   const productsAsList = products && products.split(',');
-
   const subscribeTexts = parent2ndDiv.querySelector('p').innerText;
   const yearText = parent2ndDiv.querySelector('p:nth-child(2)').innerText;
   const oldpriceText = parent2ndDiv.querySelector('p:nth-child(3)').innerText;
@@ -159,7 +157,7 @@ export default function decorate(block) {
           currentdevices = updateCurrentDevices(skipUnwantedSelectorsArray, currentdevices, incrementalCounterValue, devicesInput, action);
         }
 
-        // trigger selectior
+        // trigger selector
         const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
         if (devicesSelector) {
           devicesSelector.forEach((selector) => {
@@ -187,36 +185,48 @@ export default function decorate(block) {
         pricesDiv.innerHTML += `<div class="prod-percent green_bck_circle small has${bulinaText.split(',').length}txt"><b class="percent percent-${onSelectorClass}">10%</b><p>${bulinaText.split(',')[1]}</p></div>`;
       }
 
+      if (monthlyText) {
+        const [monthlyText1, monthlyText2] = monthlyText.split(',');
+        const monthlytext2updated = monthlyText1.replace('0', `<span class="newprice-${onSelectorClass}-monthly"></span>`);
+        pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${monthlytext2updated}</strong> ${monthlyText2}</div>`;
+      }
+
       if (secondTemplate) {
         const selectorBox = document.createElement('div');
         selectorBox.classList.add('selector-box');
 
-        const selectElement = document.createElement('select');
-        selectElement.innerHTML = `
-          <option value="1">${subscribeTexts} <i style="font-weight: bold; font-style: normal">1 ${yearText}</i></option>
-          <option value="2">${subscribeTexts} <i style="font-weight: bold; font-style: normal">2 ${yearsText}</i></option>
-          <option value="3">${subscribeTexts} <i style="font-weight: bold; font-style: normal">3 ${yearsText}</i></option>
-        `;
-        selectElement.id = 'selectYears';
-        selectorBox.appendChild(selectElement);
-        pricesDiv.appendChild(selectorBox);
+        if (yearsSelector && yearsSelector === 'fix') {
+          const selectElement = document.createElement('p');
+          selectElement.innerHTML = `${subscribeTexts} <i style="font-weight: bold; font-style: normal">${prodYears} ${prodYears > 1 ? yearsText : yearText}</i>`;
+          selectorBox.appendChild(selectElement);
+        } else {
+          const selectElement = document.createElement('select');
+          selectElement.innerHTML = `
+            <option value="1">${subscribeTexts} <i style="font-weight: bold; font-style: normal">1 ${yearText}</i></option>
+            <option value="2">${subscribeTexts} <i style="font-weight: bold; font-style: normal">2 ${yearsText}</i></option>
+            <option value="3">${subscribeTexts} <i style="font-weight: bold; font-style: normal">3 ${yearsText}</i></option>
+          `;
+          selectElement.id = 'selectYears';
+          selectorBox.appendChild(selectElement);
 
-        // Add an event listener for the 'change' event
-        selectElement.addEventListener('change', (event) => {
-          const triggerValue = event.target.value;
-          if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
-            const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
-            fakeSelector.value = triggerValue;
-            fakeSelector.dispatchEvent(new Event('change'));
-          }
-        });
+          // Add an event listener for the 'change' event
+          selectElement.addEventListener('change', (event) => {
+            const triggerValue = event.target.value;
+            if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
+              const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
+              fakeSelector.value = triggerValue;
+              fakeSelector.dispatchEvent(new Event('change'));
+            }
+          });
+        }
+
+        pricesDiv.appendChild(selectorBox);
       } else {
-        pricesDiv.innerHTML += `<p class="">${subscribeTexts}</p>`;
-        pricesDiv.innerHTML += `<b class="">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b>`;
+        pricesDiv.innerHTML += `<p class="border-bottom subscribe4">${subscribeTexts} <b class="${monthlyText ? 'd-inline' : ''}">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b></p>`;
       }
       pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
       pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
-      pricesDiv.innerHTML += `<p class="prod-save d-flex justify-content-center align-items-center">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
+      pricesDiv.innerHTML += `<p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
       pricesDiv.innerHTML += `<p class="percent percent-${onSelectorClass}" style="display: none;"></p>`;
       pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${buylinkText}</a></div>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;

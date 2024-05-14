@@ -118,6 +118,12 @@ export const getIpCountry = async () => {
 };
 */
 
+export const GLOBAL_EVENTS = {
+  ADOBE_MC_LOADED: 'adobe_mc::loaded',
+  PAGE_LOADED: 'page::loaded',
+  COUNTER_LOADED: 'counter::loaded',
+};
+
 // add new script file
 export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallback = undefined, onErrorCallback = undefined, type = undefined) {
   const s = document.createElement('script');
@@ -165,11 +171,6 @@ export function getDefaultSection() {
   return currentPathUrl.indexOf('/business/') !== -1 ? 'business' : 'consumer';
 }
 
-export const GLOBAL_EVENTS = {
-  ADOBE_MC_LOADED: 'adobe_mc::loaded',
-  PAGE_LOADED: 'page::loaded',
-};
-
 export function appendAdobeMcLinks(selector) {
   try {
     const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
@@ -214,12 +215,11 @@ export function updateProductsList(product) {
 // DEX-14692 - set data on buy links
 export function setDataOnBuyLinks(dataInfo) {
   try {
-    const { buyLink, productId, variation } = dataInfo;
+    const { buyLinkSelector, productId, variation } = dataInfo;
+    const btnElelemts = document.querySelectorAll(`.${buyLinkSelector}`);
 
-    if (buyLink !== null && buyLink !== '') {
-      const elements = document.getElementsByClassName(buyLink);
-
-      Array.from(elements).forEach((element) => {
+    if (btnElelemts !== undefined && btnElelemts.length > 0) {
+      Array.from(btnElelemts).forEach((element) => {
         if (productId) element.dataset.product = productId;
 
         element.dataset.buyPrice = variation.discounted_price || variation.price || 0;
@@ -260,6 +260,37 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
   }
 }
 
+// DEX-17703 - replacing VAT INFO text for en regions
+export function updateVATinfo(countryCode, selector) {
+  const prodloadElements = document.querySelectorAll(selector);
+
+  prodloadElements.forEach((element) => {
+    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box');
+    if (prodloadElement) {
+      const vat2replace = [
+        'Taxes not included',
+        'Sales tax included',
+        'Plus applicable sales tax',
+        'Tax included',
+      ];
+
+      vat2replace.forEach((text) => {
+        let taxText = 'Sales tax included';
+        if (countryCode === '8') taxText = 'Plus applicable sales tax';
+
+        if (prodloadElement.innerHTML.includes(text)) {
+          const currentText = prodloadElement.innerHTML;
+          const newText = currentText.replace(text, taxText);
+          // before replacing check if the text is already correct
+          if (currentText !== newText) {
+            prodloadElement.innerHTML = newText;
+          }
+        }
+      });
+    }
+  });
+}
+
 export function formatPrice(price, currency, region) {
   const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
   return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
@@ -288,10 +319,11 @@ function maxDiscount() {
 }
 
 // display prices
-export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
+export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
-  const { product_id: productId, selected_users: prodUsers, selected_years: prodYears } = storeObj.config;
+  const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
+  const { product_id: productId } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
@@ -458,6 +490,10 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = offerPrice;
         });
+      } else {
+        document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
+          item.innerHTML = fullPrice;
+        });
       }
     }
 
@@ -473,7 +509,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
       } else {
         oldPriceBox.style.visibility = 'hidden';
         if (oldPriceBox.closest('.prod-oldprice')) {
-          oldPriceBox.closest('.prod-oldprice').style.setProperty('display', 'none', 'important');
+          oldPriceBox.closest('.prod-oldprice').style.visibility = 'hidden';
           if (oldPriceBox.parentNode.nodeName === 'P') {
             oldPriceBox.parentNode.style.display = 'none';
           }
@@ -483,7 +519,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
-      const siblingElements = saveBox.parentNode.parentNode.querySelectorAll('div');
+      const siblingElements = saveBox.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
       });
@@ -540,7 +576,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '') {
   }
 
   const dataInfo = {
-    buyLink: `buylink-${onSelectorClass}`,
+    buyLinkSelector: `${defaultSelector ? `buylink-${defaultSelector}` : `buylink-${onSelectorClass}`}`,
     productId,
     variation: {
       price: selectedVarPrice,

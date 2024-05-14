@@ -74,7 +74,7 @@
   height: 15px;
   left: 0;
   top: 0;
-  background: url("../../icons/blue-quotes.svg") no-repeat;
+  background: url("/_src-lp/icons/blue-quotes.svg") no-repeat;
   background-size: 100%;
   content: "";
   display: block;
@@ -85,7 +85,7 @@
   height: 15px;
   right: 0;
   bottom: 0;
-  background: url("../../icons/blue-quotes.svg") no-repeat;
+  background: url("/_src-lp/icons/blue-quotes.svg") no-repeat;
   background-size: 100%;
   content: "";
   display: block;
@@ -215,4 +215,7 @@
   .b-big-carousel-quotes-container {
     margin-bottom: 70px;
   }
+}
+.b-big-carousel-quotes-container.hidden-quotes .carousel-inner .carousel-item q::before, .b-big-carousel-quotes-container.hidden-quotes .carousel-inner .carousel-item q::after {
+  display: none;
 }

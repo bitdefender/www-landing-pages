@@ -6,14 +6,66 @@
   padding: 0;
 }
 
+.section.lp-brand .banner {
+  padding: 0 15px;
+  background: unset;
+  padding-bottom: 3rem;
+}
+
+.section.banner-container.borders-rounded .banner {
+  border-radius: 10px;
+}
+
 .section.banner-container .banner img {
   width: 100%;
 }
 
+.section.banner-container .banner .img-right picture {
+  position: relative;
+  left: 15px;
+}
+
+.section.banner-container .banner .img-right {
+  position: relative;
+}
+
+.section.banner-container.new-2024 .banner .img-right div::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, rgb(247 247 247 / 0%), #F7F7F7);
+}
+
 .section.banner-container .banner h1 {
   font-size: 28px;
-  text-align: center;
+  text-align: left;
   margin-top: 0;
+}
+
+.section.banner-container.new-2024 .banner {
+  overflow: hidden;
+  background-color: #F6F6F6;
+}
+
+.section.banner-container.new-2024 .save-class {
+  color: #1C7928;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:0;
+  font: normal normal bold 18px/21px Arial, sans-serif;
+  gap: 5px;
+}
+
+.section.banner-container.new-2024 .banner h1 {
+  font-weight: normal;
+}
+
+
+
+.section.banner-container.new-2024 .banner h3 {
+  font: normal normal bold 24px/28px Arial, sans-serif;
+  letter-spacing: 0;
+  text-align: left;
 }
 
 .section.banner-container .banner .button-container {
@@ -46,6 +98,60 @@
   font-size: 35px;
 }
 
+.section.banner-container .banner .blue-box {
+  width: 290px;
+  background-color: #E4F2FF;
+  border-radius: 10px;
+  padding: 0 10px;
+  display: flex;
+}
+
+.section.banner-container .banner .blue-box tr {
+  display: flex;
+  align-items: center;
+}
+
+.section.banner-container .banner .blue-box tr:first-of-type {
+  display: none;
+}
+
+.section.banner-container .banner .blue-box tr td:first-of-type {
+  margin-right: 10px;
+}
+
+.section.lp-brand .banner p {
+  width: 235px;
+  font-size: 12px;
+  line-height: 14px;
+  font-family: Arial, sans-serif;
+  margin: 0 auto 15px;
+}
+
+.section.banner-container .banner .blue-box tr td p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  line-height: 17px;
+}
+
+.section.banner-container .banner .blue-box tr td p strong {
+  margin-left: 5px;
+}
+
+.section.banner-container .banner .blue-box tr td p picture {
+  width: 80px;
+  margin: 5px 0;
+}
+
+.section.lp-brand .banner img {
+  width: 97%;
+  border-radius: 10px;
+}
+
+.section.banner-container .banner .blue-box tr td p picture img {
+  min-width: unset;
+}
+
 .section.banner-container .banner #lidlBox {
   width: 380px;
   margin: 0 auto;
@@ -53,6 +159,11 @@
   box-shadow: 0 3px 6px rgb(0 0 0 / 16.1%);
   border-radius: 8px;
   padding: 2rem;
+}
+
+.section.banner-container.new-2024 hr{
+  border: 2px solid #C6C6C6;
+  width: 80px;
 }
 
 .section.banner-container .banner #lidlBox hr {
@@ -69,38 +180,19 @@
   padding: 10px 20px!important;
 }
 
-.section.lp-brand .banner img {
-    width: 97%;
-    border-radius: 10px;
-  }
-
 .section.banner-container .banner #lidlBox a.red-buy-button img {
   width: 40px;
   margin-right: 15px;
-}
-
-.section.lp-brand .banner {
-  padding: 0 15px;
-  background: unset;
-  padding-bottom: 3rem;
 }
 
 .section.lp-brand .banner .col-5 {
   width: 322px;
 }
 
-.section.lp-brand .banner h1 {
+.section.banner-container.lp-brand .banner h1 {
   font-weight: lighter;
   font-size: var(--heading-font-size-s);
   line-height: var(--heading-font-size-s);
-}
-
-.section.lp-brand .banner p {
-  width: 235px;
-  font-size: 12px;
-  line-height: 14px;
-  font-family: Arial, sans-serif;
-  margin: 0 auto 15px;
 }
 
 /* animated text */
@@ -216,8 +308,8 @@
 
   .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
-    font-size: var(--heading-font-size-m);
-    line-height: var(--heading-font-size-m);
+    font-size: var(--heading-font-size-xs);
+    line-height: var(--heading-font-size-xs);
     font-weight: normal;
   }
 
@@ -251,6 +343,7 @@
 
   .section.banner-container #pricesBox .terms {
     margin: 5px 0 10px;
+    font: normal normal normal 14px/16px Arial, sans-serif;
   }
 
   .section.banner-container #pricesBox .terms p {
@@ -271,6 +364,17 @@
     text-align: left;
   }
 
+  .section.lp-brand .banner h1 {
+    font-weight: lighter;
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+  }
+
+  .section.banner-container .banner.smaller-title h1 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+
   .section.banner-container .banner h2 {
     font-size: var(--heading-font-size-l);
     line-height: var(--heading-font-size-l);
@@ -288,12 +392,6 @@
   .section.lp-brand .banner {
     padding-bottom: 9rem;
   }
-
-  .section.lp-brand .banner h1 {
-    font-weight: lighter;
-    font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
-  }
 }
 
 @media screen and (width <= 991px) {
@@ -309,8 +407,8 @@
 
 @media screen and (width <= 768px) {
   .section.banner-container .banner {
-    padding: 1em 0;
-    margin-bottom: 1rem!important;
+    padding: 1em 0!important;
+    margin-bottom: 2em!important;
   }
 
   .section.lp-brand .banner {
@@ -333,7 +431,6 @@
   }
 
   .section.banner-container .banner h2 {
-    margin-bottom: 0;
     font-size: var(--body-font-size-m);
   }
 
@@ -388,9 +485,7 @@
 
   .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
-    font-size: var(--heading-font-size-s);
-    line-height: var(--heading-font-size-s);
-    font-weight: normal;
+    font: normal normal normal 18px/21px Arial, sans-serif;
   }
 
   .section.banner-container #pricesBox .d-flex span.prod-newprice {
@@ -433,9 +528,9 @@
     display: none !important;
   }
 
-  .section.banner-container.hide-mobile {
+  .section.banner-container.hide-mobile, .section.banner-container.hide-mobile .block {
     background-image: unset!important;
-    background-color: #000;
+    background-color: black;
   }
 
   .section.banner-container.hide-mobile .bck-img {
@@ -452,7 +547,7 @@
   .section.banner-container.hide-tablet {
     background-image: unset!important;
     background-color: #000;
-  } 
+  }
 }
 
 @media screen and (width >= 1400px) {
