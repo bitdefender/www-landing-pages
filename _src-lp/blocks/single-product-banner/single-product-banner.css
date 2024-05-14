@@ -8,10 +8,6 @@
   border-radius: 10px;
 }
 
-.section.single-product-banner-container .single-product-banner img {
-  width: 100%;
-}
-
 .section.single-product-banner-container .single-product-banner .img-right picture {
   position: relative;
   left: 15px;
