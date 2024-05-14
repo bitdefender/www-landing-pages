@@ -150,7 +150,7 @@ export default function decorate(block) {
       // add buybtn div & anchor
       const tableVpn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(2)`);
       const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
-      const tableBuybtnHref = tableBuybtn.querySelector('a');
+      const tableBuybtnHref = tableBuybtn?.querySelector('a');
       const aBuybtn = document.createElement('a');
 
       // if already has a link attached
@@ -160,7 +160,7 @@ export default function decorate(block) {
         aBuybtn.href = tableBuybtnHref.href;
       } else {
         aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
-        aBuybtn.innerHTML = tableBuybtn.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
       }
 
       aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
@@ -169,7 +169,7 @@ export default function decorate(block) {
       const divBuybtn = document.createElement('div');
       divBuybtn.classList.add('buybtn_box', 'buy_box', `buy_box${idx + 1}`);
 
-      tableVpn.after(divBuybtn);
+      tableVpn?.after(divBuybtn);
       divBuybtn.appendChild(aBuybtn);
 
       // removing last table
@@ -177,7 +177,7 @@ export default function decorate(block) {
 
       /// ///////////////////////////////////////////////////////////////////////
       let hasVPN = false;
-      if (tableVpn.innerText.indexOf('X') !== -1 && tableVpn.innerText.indexOf('Y') !== -1 && tableVpn.innerText.indexOf('Z') !== -1 && productsAsList.length !== 1) {
+      if (tableVpn?.innerText.indexOf('X') !== -1 && tableVpn?.innerText.indexOf('Y') !== -1 && tableVpn?.innerText.indexOf('Z') !== -1 && productsAsList.length !== 1) {
         hasVPN = true;
       }
 
@@ -197,7 +197,7 @@ export default function decorate(block) {
         }
         let vpnContent = `<input id="${labelId}" class="${labelId} checkboxVPN" type="checkbox" value="">`;
         vpnContent += `<label for="${labelId}">`;
-        tableVpn.querySelectorAll('td').forEach((td) => {
+        tableVpn?.querySelectorAll('td').forEach((td) => {
           vpnContent += `<span>${td.innerHTML.replace(/[XYZ]/g, (m) => replaceData[m])}</span>`;
         });
         vpnContent += '</label>';
@@ -206,8 +206,8 @@ export default function decorate(block) {
         vpnBox.classList = `vpn_box await-loader prodload prodload-${onSelectorClass} ${tableBuybtnHref ? 'hide_vpn' : ''}`;
         vpnBox.innerHTML = `<div>${vpnContent}</div>`;
 
-        tableVpn.before(vpnBox);
-        tableVpn.remove();
+        tableVpn?.before(vpnBox);
+        tableVpn?.remove();
       } else { // no VPN
         // if we don't have vpn we need to set a min-height for the text that comes in place of it
         parentSelector.classList.contains('table_fixed_h');

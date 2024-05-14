@@ -216,9 +216,9 @@ export function updateProductsList(product) {
 export function setDataOnBuyLinks(dataInfo) {
   try {
     const { buyLinkSelector, productId, variation } = dataInfo;
-    const btnElelemts = document.getElementsByClassName(buyLinkSelector);
+    const btnElelemts = document.querySelectorAll(`.${buyLinkSelector}`);
 
-    if (btnElelemts !== null && btnElelemts !== '') {
+    if (btnElelemts !== undefined && btnElelemts.length > 0) {
       Array.from(btnElelemts).forEach((element) => {
         if (productId) element.dataset.product = productId;
 
@@ -489,6 +489,10 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
       if (vpnHasDiscount) {
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = offerPrice;
+        });
+      } else {
+        document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
+          item.innerHTML = fullPrice;
         });
       }
     }
