@@ -568,12 +568,8 @@ function changeCheckboxVPN(checkboxId, pid) {
     let updatedCoupon = '';
     let currentCoupon = '';
 
-    if (coupon[selectedVariation.region_id][currency] !== 'undefined' ) {
-      currentCoupon = coupon[selectedVariation.region_id][currency];
-    }
-    if (coupon[selectedVariation.region_id].ALL !== 'undefined') {
-      currentCoupon = coupon[selectedVariation.region_id][currency];
-    }
+    if (coupon[selectedVariation.region_id][currency] !== 'undefined') currentCoupon = coupon[selectedVariation.region_id][currency];
+    if (coupon[selectedVariation.region_id].ALL !== 'undefined') currentCoupon = coupon[selectedVariation.region_id][currency];
 
     if (paramCoupon) {
       updatedCoupon = `${paramCoupon},${currentCoupon}`;
@@ -797,8 +793,10 @@ function initSelectors(pid) {
           sendAnalyticsProducts(this);
           try {
             const fp = this;
-            showPrices(fp);
+            const paramCoupon = getParam('coupon');
+
             // DEX-17703 - replacing VAT INFO text for en regions
+            showPrices(fp, false, null, onSelectorClass, paramCoupon);
             if (getDefaultLanguage() === 'en' && fp.selected_variation.region_id) updateVATinfo(fp.selected_variation.region_id, `.buylink-${onSelectorClass}`);
 
             adobeMcAppendVisitorId('main');

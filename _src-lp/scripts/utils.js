@@ -1,5 +1,3 @@
-import { getParam } from "./scripts.js";
-
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
   [4, { locale: 'au-AU', label: 'australia' }],
@@ -321,7 +319,7 @@ function maxDiscount() {
 }
 
 // display prices
-export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '') {
+export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
@@ -332,7 +330,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
   let parentDiv = '';
 
   // DEX-17862 - add new coupon based on param
-  const paramCoupon = getParam('coupon');
   let buyLink = paramCoupon ? `${storeObj.buy_link}?COUPON=${paramCoupon}` : storeObj.buy_link;
   let selectedVarPrice = storeObj.selected_variation.price;
   let selectedVarDiscount = storeObj.selected_variation.discount?.discounted_price;
