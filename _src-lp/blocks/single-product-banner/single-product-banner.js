@@ -81,27 +81,17 @@ export default function decorate(block) {
       buyButton.className = `buy_box buy_box_${prodName} ${show} ${prodType}`;
       buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${buyButtonText}</a>`;
       tableBuybtn.appendChild(buyButton);
-
-      const selectorBox = document.createElement('div');
-      const [payYearlyText, payYearlySave] = payYearly.split(',');
-      const saveGreenPill = document.createElement('div');
-      if (payYearlySave) {
-        saveGreenPill.innerHTML = `${payYearlySave.replace(/0,/g, `<b class="save-${onSelectorClass}"></b>`)}`;
-      }
-
-      selectorBox.innerHTML = `<div class="productSelector justify-content-center">
-        <div class="d-flex justify-content-center">
-          <input type="radio" id="pay_yearly_${counter}" class="selectorYearly" name="selectorBox${counter}" value="yearly" checked="check">
-          <label for="pay_yearly_${counter}">${payYearlyText} ${saveGreenPill.innerHTML}</label>
-        </div>
-        <div class="d-flex justify-content-center">
-          <input type="radio" id="pay_monthly_${counter}" class="selectorMonthly" name="selectorBox${counter}" value="monthly">
-          <label for="pay_monthly_${counter}">${payMonthly}</label>
-        </div>
-      </div>`;
-      firstTable.appendChild(selectorBox);
-
     });
+
+    const firstTable = contentRightEl.querySelector('table:first-of-type');
+    const selectorBox = document.createElement('div');
+
+    selectorBox.innerHTML = `<div class="productSelector justify-content-center">
+      <div class="d-flex justify-content-center"><input type="radio" id="pay_yearly_${counter}" class="selectorYearly" name="selectorBox${counter}" value="yearly" checked="check"><label for="pay_yearly_${counter}">${payYearly}</label></div>
+
+      <div class="d-flex justify-content-center"><input type="radio" id="pay_monthly_${counter}" class="selectorMonthly" name="selectorBox${counter}" value="monthly"><label for="pay_monthly_${counter}">${payMonthly}</label></div>
+    </div>`;
+    firstTable.appendChild(selectorBox);
   }
 
   block.innerHTML = `
