@@ -34,7 +34,9 @@ export default function decorate(block) {
 
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
-  bannerImage.classList.add('banner-image');
+  if (bannerImage) {
+    bannerImage.classList.add('banner-image');
+  }
 
   parentSelector.append(bannerImage);
 
@@ -277,6 +279,17 @@ export default function decorate(block) {
           <strong>${buyTable.innerText}</strong>
         </a>
       </div>`;
+    }
+
+    if (block.classList.contains('product-picture')) {
+      const lastChild = block.children[block.children.length - 1];
+      lastChild.style.position = 'relative';
+      block.prepend(block.children[block.children.length - 1]);
+
+      const greenBubble = document.createElement('div');
+      greenBubble.classList.add('green-bubble');
+      greenBubble.innerHTML = `<span class="discount-percentage await-loader prodload prodload-${onSelectorClass} percent-${onSelectorClass}">10%</span> \n${discountText}`;
+      lastChild.appendChild(greenBubble);
     }
   }
 
