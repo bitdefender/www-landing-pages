@@ -16,7 +16,7 @@
 }
 
 .section.banner-container .banner img {
-  width: 100%;
+  width: auto;
 }
 
 .section.banner-container .banner p a {
