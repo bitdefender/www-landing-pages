@@ -68,7 +68,10 @@ export default function decorate(block) {
       firstTable.appendChild(pricesBox);
 
       // checkboxes options:
-      let [defaultText, saveText] = selectorBoxTexts[idx].split(',');
+      let defaultText;
+      const [initialDefaultText, saveText] = selectorBoxTexts[idx].split(',');
+
+      defaultText = initialDefaultText;
       if (saveText) {
         defaultText = `${defaultText} <span class="greenTag">${saveText.replace('0', `<b class="save-${onSelectorClass}"></b>`)}</span>`;
       }
