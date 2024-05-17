@@ -52,6 +52,7 @@
 
 .b-banner-container .b-banner-wrapper.flex-prod .b-banner {
   flex-direction: column;
+  padding: 0 1em;
 }
 
 .b-banner-container .b-banner-wrapper .oldprice {
@@ -355,16 +356,16 @@
 
 .b-banner-container .b-banner-wrapper #productBoxDiv h2 {
   max-width: 100%;
-  font-size: 36px;
-  margin: 10px 0 0;
-  line-height: 20px;
+  font-size: 24px;
+  margin: 0;
+  line-height: 28px;
 }
 .b-banner-container .b-banner-wrapper #productBoxDiv h2::after {
   content: "";
   border-bottom: 2px solid #9A9A9A;
   width: 117px;
   display: block;
-  margin: 15px auto;
+  margin: 8px auto 15px;
 }
 
 .b-banner-container .b-banner-wrapper #productBoxDiv p em {
@@ -502,6 +503,8 @@
   }
   .b-banner-container .b-banner-wrapper #productBoxDiv h2 {
     max-width: 100%;
+    font-size: 36px;
+    line-height: 35px;
   }
   .b-banner-container.form .b-banner-wrapper h3, .b-banner-container.form .b-banner-wrapper h4 {
     font-size: 20px;

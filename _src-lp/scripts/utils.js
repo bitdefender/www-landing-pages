@@ -319,7 +319,7 @@ function maxDiscount() {
 }
 
 // display prices
-export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '') {
+export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
@@ -328,7 +328,9 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
   let parentDiv = '';
-  let buyLink = storeObj.buy_link;
+
+  // DEX-17862 - add new coupon based on param
+  let buyLink = paramCoupon ? `${storeObj.buy_link}?COUPON=${paramCoupon}` : storeObj.buy_link;
   let selectedVarPrice = storeObj.selected_variation.price;
   let selectedVarDiscount = storeObj.selected_variation.discount?.discounted_price;
 
@@ -559,7 +561,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     }
   }
 
-  if (isZuoraForNetherlandsLangMode() && document.querySelector(`.buylink-${onSelectorClass}`)) {
+  if (document.querySelector(`.buylink-${onSelectorClass}`)) {
     const allBuyLinkBox = document.querySelectorAll(`.buylink-${onSelectorClass}`);
     if (triggerVPN) {
       parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
