@@ -102,7 +102,7 @@ export default function decorate(block) {
 
   const radioGroups = block.querySelectorAll('input[type="radio"]');
   radioGroups.forEach((group) => {
-    group.addEventListener('change', event => {
+    group.addEventListener('change', (event) => {
       if (['.selector-yearly', '.selector-monthly'].some((selector) => event.target.matches(selector))) {
         ['yearly', 'monthly'].forEach((period) => {
           block.querySelector(`.prices_box.${period}`)?.classList.toggle('show');
