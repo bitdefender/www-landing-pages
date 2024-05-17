@@ -565,24 +565,22 @@ function changeCheckboxVPN(checkboxId, pid) {
     };
 
     // DEX-17862 - add new coupon based on param
-    let updatedCoupon = '';
-    let currentCoupon = '';
-
-    if (coupon[selectedVariation.region_id][currency] !== 'undefined') currentCoupon = coupon[selectedVariation.region_id][currency];
-    if (coupon[selectedVariation.region_id].ALL !== 'undefined') currentCoupon = coupon[selectedVariation.region_id][currency];
+    let couponValue = '';
+    if (coupon[selectedVariation.region_id][currency] !== 'undefined') couponValue = coupon[selectedVariation.region_id][currency];
+    if (coupon[selectedVariation.region_id].ALL !== 'undefined') couponValue = coupon[selectedVariation.region_id].ALL;
 
     if (paramCoupon) {
-      updatedCoupon = `${paramCoupon},${currentCoupon}`;
+      couponValue = `${paramCoupon},${couponValue}`;
     }
 
     if (DEFAULT_LANGUAGE === 'de') {
       if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id][currency] !== 'undefined') {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/OfferID.${updatedCoupon}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+        buyLink += `/${vpnId}/${10}/${1}/OfferID.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
         // buyLink += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
       } else if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id].ALL !== 'undefined') {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/OfferID.${updatedCoupon}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+        buyLink += `/${vpnId}/${10}/${1}/OfferID.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
         // buyLink += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
       } else {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
@@ -590,11 +588,11 @@ function changeCheckboxVPN(checkboxId, pid) {
       }
     } else if (coupon[selectedVariation.region_id][currency] !== 'undefined') {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/COUPON.${updatedCoupon}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+      buyLink += `/${vpnId}/${10}/${1}/COUPON.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
       // buylink_vpn += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
     } else if (coupon[selectedVariation.region_id].ALL !== 'undefined') {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/COUPON.${updatedCoupon}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+      buyLink += `/${vpnId}/${10}/${1}/COUPON.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
       // buylink_vpn += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
     } else {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
