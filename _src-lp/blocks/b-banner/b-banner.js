@@ -290,6 +290,9 @@ export default function decorate(block) {
       greenBubble.classList.add('green-bubble');
       greenBubble.innerHTML = `<span class="discount-percentage await-loader prodload prodload-${onSelectorClass} percent-${onSelectorClass}">10%</span> \n${discountText}`;
       lastChild.appendChild(greenBubble);
+
+      const bannerWrapper = block.parentElement;
+      bannerWrapper.style.position = 'relative';
     }
   }
 
