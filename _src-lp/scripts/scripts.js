@@ -573,6 +573,10 @@ function changeCheckboxVPN(checkboxId, pid) {
       couponValue = `${paramCoupon},${couponValue}`;
     }
 
+    if (!paramCoupon) {
+      updatedCoupon = `${currentCoupon}`;
+    }
+
     if (DEFAULT_LANGUAGE === 'de') {
       if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id][currency] !== 'undefined') {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
