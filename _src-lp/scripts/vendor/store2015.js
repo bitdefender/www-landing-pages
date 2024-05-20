@@ -880,13 +880,13 @@ window.StoreProducts.initSelector = function (config) {
 
         window.StoreProducts.events[users_class + years_class].promotionsCleanUp = {};
 
-        if ('cleanUp' in PromotionFunctions) {
+        if (PromotionFunctions && 'cleanUp' in PromotionFunctions) {
           window.StoreProducts.events[users_class + years_class].promotionsCleanUp[variation.promotion] = PromotionFunctions.cleanUp;
+
+          ocg = PromotionFunctions.onLoad;
+
+          ocg.call(thisObj);
         }
-
-        ocg = PromotionFunctions.onLoad;
-
-        ocg.call(thisObj);
       }
     }
 

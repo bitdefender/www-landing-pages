@@ -295,13 +295,15 @@ function changeCheckboxVPN(checkboxId, pid) {
   let percentageVal = '';
   let ref = '';
 
+  const paramCoupon = getParam('coupon');
+
   let promoPid = pid;
   if (promoPid) {
     promoPid = promoPid.split('_PGEN')[0];
   }
 
   let pidUrlBundle = `/pid.${promoPid}`;
-  if (pid === 'ignore') {
+  if (pid === 'ignore' || paramCoupon) {
     pidUrlBundle = '';
   }
 
@@ -562,14 +564,23 @@ function changeCheckboxVPN(checkboxId, pid) {
       66: { THB: ['VPN_XNA'] },
     };
 
+    // DEX-17862 - add new coupon based on param
+    let couponValue = '';
+    if (coupon[selectedVariation.region_id][currency] !== 'undefined') couponValue = coupon[selectedVariation.region_id][currency];
+    if (coupon[selectedVariation.region_id].ALL !== 'undefined') couponValue = coupon[selectedVariation.region_id].ALL;
+
+    if (paramCoupon) {
+      couponValue = `${paramCoupon},${couponValue}`;
+    }
+
     if (DEFAULT_LANGUAGE === 'de') {
       if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id][currency] !== 'undefined') {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/OfferID.${coupon[selectedVariation.region_id][currency]}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+        buyLink += `/${vpnId}/${10}/${1}/OfferID.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
         // buyLink += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
       } else if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id].ALL !== 'undefined') {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/OfferID.${coupon[selectedVariation.region_id].ALL}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+        buyLink += `/${vpnId}/${10}/${1}/OfferID.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
         // buyLink += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
       } else {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
@@ -577,11 +588,11 @@ function changeCheckboxVPN(checkboxId, pid) {
       }
     } else if (coupon[selectedVariation.region_id][currency] !== 'undefined') {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/COUPON.${coupon[selectedVariation.region_id][currency]}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+      buyLink += `/${vpnId}/${10}/${1}/COUPON.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
       // buylink_vpn += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
     } else if (coupon[selectedVariation.region_id].ALL !== 'undefined') {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/COUPON.${coupon[selectedVariation.region_id].ALL}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+      buyLink += `/${vpnId}/${10}/${1}/COUPON.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
       // buylink_vpn += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
     } else {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
@@ -589,7 +600,7 @@ function changeCheckboxVPN(checkboxId, pid) {
     }
 
     /* this is a hack */
-    if (pidUrlBundle === '') {
+    if (pidUrlBundle === '' && !paramCoupon) {
       const regex = /COUPON\.[^/]+\//gi;
       buyLink = buyLink.replace(regex, '');
     }
@@ -780,8 +791,10 @@ function initSelectors(pid) {
           sendAnalyticsProducts(this);
           try {
             const fp = this;
-            showPrices(fp);
+            const paramCoupon = getParam('coupon');
+
             // DEX-17703 - replacing VAT INFO text for en regions
+            showPrices(fp, false, null, onSelectorClass, paramCoupon);
             if (getDefaultLanguage() === 'en' && fp.selected_variation.region_id) updateVATinfo(fp.selected_variation.region_id, `.buylink-${onSelectorClass}`);
 
             adobeMcAppendVisitorId('main');
