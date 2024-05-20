@@ -13,10 +13,13 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    products, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, bannerHide,
+    products, product, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, bannerHide,
     marginBottom, payYearly, payMonthly, billedYearly, billedMonthly, per, buyButtonText,
   } = metaData;
-  const [contentEl, pictureEl, contentRightEl] = [...block.children];
+  const [contentEl, pictureEl, contentRightEl, boxEl] = [...block.children];
+
+  const tablePrices = contentRightEl.querySelector('table');
+  const tableBuybtn = contentRightEl.querySelector('table:last-of-type');
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -30,9 +33,8 @@ export default function decorate(block) {
 
   parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
-  const productsAsList = products && products.split(',');
-  if (productsAsList.length) {
-    const firstTable = contentRightEl.querySelector('table');
+  if (products) {
+    const productsAsList = products && products.split(',');
     const selectorBox = document.createElement('div');
     selectorBox.className = 'productSelector justify-content-center';
     const selectorBoxOptions = ['yearly', 'monthly'];
@@ -65,7 +67,7 @@ export default function decorate(block) {
         <div class="d-flex justify-content-center priced">${priceFull}</div>
         <div class="d-flex justify-content-center billed">${billed}</div>
       </div>`;
-      firstTable.appendChild(pricesBox);
+      tablePrices.appendChild(pricesBox);
 
       // checkboxes options:
       let defaultText;
@@ -82,33 +84,79 @@ export default function decorate(block) {
             <label for="pay_${selectorBoxOptions[idx]}_${counter}">${defaultText}</label>
         </div>
       `;
-      firstTable.appendChild(selectorBox);
+      tablePrices.appendChild(selectorBox);
 
       // buylink
-      const tableBuybtn = contentRightEl.querySelector('table:last-of-type');
       const buyButton = document.createElement('div');
       buyButton.className = `buy_box buy_box_${prodName} ${show} ${prodType}`;
       buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${buyButtonText}</a>`;
       tableBuybtn.appendChild(buyButton);
     });
+  } else {
+      if (product) {
+        block.classList.add('single-prod');
+        updateProductsList(product);
+
+        let [prodName, prodUsers, prodYears] = product.split('/');
+        prodName = prodName.trim();
+        const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+        const pricesBox = document.createElement('div');
+
+        // prices
+        pricesBox.className = `pricesBox await-loader prodload prodload-${onSelectorClass}`;
+        pricesBox.innerHTML = `<div class='prod-oldprice oldprice-${onSelectorClass}'></div>`;
+        pricesBox.innerHTML += `<div class='prod-newprice newprice-${onSelectorClass}'></div>`;
+        tablePrices.appendChild(pricesBox);
+
+        // buylink
+        const buyButton = document.createElement('div');
+        buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.textContent}</a>`;
+        tableBuybtn.appendChild(buyButton);
+        tableBuybtn.style.display = 'none';
+
+        // discount bulina:
+        let percentCircle = boxEl.querySelector('strong');
+        percentCircle.className = `prod-percent green_bck_circle bigger await-loader prodload prodload-${onSelectorClass}`;
+        percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', `<span class='prod-percent percent-${onSelectorClass}'></span>`);
+
+        // percentCircle.innerHTML = `<span class="prod-percent percent-${onSelectorClass}"></span>`;
+    }
   }
 
-  block.innerHTML = `
+  if (boxEl) {
+    block.innerHTML = `
+    <div class="customWrapper d-block d-md-flex d-md-flex d-xl-flex hasBox">
+      <div class="boxSide col-xs-12 col-sm-12 col-md-4 col-xl-4">
+        ${boxEl.innerHTML}
+      </div>
+      <div class="leftSide col-xs-12 col-sm-12 col-md-4 col-xl-4">
+        ${contentEl.innerHTML}
+      </div>
+      <div class="rightSide col-xs-12 col-sm-12 col-md-4 col-xl-4">
+        ${contentRightEl.innerHTML}
+      </div>
+    </div>
+  `;
+  } else {
+    block.innerHTML = `
     <div class="customWrapper d-block d-md-flex d-md-flex d-xl-flex">
       <div class="leftSide col-xs-12 col-sm-12 col-md-5 col-xl-5">${contentEl.innerHTML}</div>
       <div class="rightSide col-xs-12 col-sm-12 col-md-5 col-xl-4">${contentRightEl.innerHTML}</div>
     </div>
   `;
+  }
 
   const radioGroups = block.querySelectorAll('input[type="radio"]');
-  radioGroups.forEach((group) => {
-    group.addEventListener('change', (event) => {
-      if (['.selector-yearly', '.selector-monthly'].some((selector) => event.target.matches(selector))) {
-        ['yearly', 'monthly'].forEach((period) => {
-          block.querySelector(`.prices_box.${period}`)?.classList.toggle('show');
-          block.querySelector(`.buy_box.${period}`)?.classList.toggle('show');
-        });
-      }
+  if (radioGroups) {
+    radioGroups.forEach((group) => {
+      group.addEventListener('change', (event) => {
+        if (['.selector-yearly', '.selector-monthly'].some((selector) => event.target.matches(selector))) {
+          ['yearly', 'monthly'].forEach((period) => {
+            block.querySelector(`.prices_box.${period}`)?.classList.toggle('show');
+            block.querySelector(`.buy_box.${period}`)?.classList.toggle('show');
+          });
+        }
+      });
     });
-  });
+  }
 }
