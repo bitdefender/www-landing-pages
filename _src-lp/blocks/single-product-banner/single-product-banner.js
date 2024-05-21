@@ -14,12 +14,13 @@ export default function decorate(block) {
   // config new elements
   const {
     products, product, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, payYearly, payMonthly, billedYearly, billedMonthly, per, buyButtonText,
+    marginBottom, preselected, billedYearly, billedMonthly, per,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, boxEl] = [...block.children];
 
   const tablePrices = contentRightEl.querySelector('table');
   const tableBuybtn = contentRightEl.querySelector('table:last-of-type');
+  const buyButtonText = tableBuybtn.textContent;
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -38,31 +39,38 @@ export default function decorate(block) {
     const selectorBox = document.createElement('div');
     selectorBox.className = 'productSelector justify-content-center';
     const selectorBoxOptions = ['yearly', 'monthly'];
-    const selectorBoxTexts = [payYearly, payMonthly];
+    const selectorBoxTexts = Array.from(tablePrices.querySelectorAll('td')).map((td) => td.innerHTML);
 
     productsAsList.forEach((prod) => updateProductsList(prod));
 
-    productsAsList.forEach((product, idx) => {
+    productsAsList.forEach((item, idx) => {
       // eslint-disable-next-line prefer-const
       let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       prodName = prodName.trim();
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesBox = document.createElement('div');
+      let show;
+      let checkedOption = 0;
+      if (preselected && preselected === 'monthly' && idx === 1) {
+        show = 'show';
+        checkedOption = 1;
+      } else if (preselected && preselected === 'monthly' && idx === 0) {
+        show = '';
+      } else if (idx === 0) {
+        // default selected - yearly
+        show = 'show';
+      }
 
       // prices
       let billed = billedYearly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
       let priceFull = `<span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> /${per}</span>`;
-      let prodType = 'yearly';
-      let show = '';
 
       if (prodName.endsWith('m')) {
         billed = billedMonthly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
         priceFull = `<span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month"> /${per}</span>`;
-        prodType = 'monthly';
       }
 
-      if (prodType === 'yearly') show = 'show';
-      pricesBox.className = `${prodName}_box prices_box ${prodType} ${show} await-loader prodload prodload-${onSelectorClass}`;
+      pricesBox.className = `${prodName}_box prices_box ${idx === 0 ? 'yearly' : 'monthly'} ${show} await-loader prodload prodload-${onSelectorClass}`;
       pricesBox.innerHTML = `<div>
         <div class="d-flex justify-content-center priced">${priceFull}</div>
         <div class="d-flex justify-content-center billed">${billed}</div>
@@ -70,57 +78,51 @@ export default function decorate(block) {
       tablePrices.appendChild(pricesBox);
 
       // checkboxes options:
-      let defaultText;
-      const [initialDefaultText, saveText] = selectorBoxTexts[idx].split(',');
-
-      defaultText = initialDefaultText;
+      let saveText = selectorBoxTexts[idx];
       if (saveText) {
-        defaultText = `${defaultText} <span class="greenTag">${saveText.replace('0', `<b class="save-${onSelectorClass}"></b>`)}</span>`;
+        saveText = saveText.replace(/<strong>/g, '<span class="greenTag">').replace(/<\/strong>/g, '</span>').replace(/0/g, `<b class='save-${onSelectorClass}'></b>`);
       }
 
       selectorBox.innerHTML += `
         <div class="d-flex">
-          <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === 0 ? 'checked="check"' : ''}>
-            <label for="pay_${selectorBoxOptions[idx]}_${counter}">${defaultText}</label>
+          <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === checkedOption ? 'checked="check"' : ''}>
+            <label for="pay_${selectorBoxOptions[idx]}_${counter}">${saveText}</label>
         </div>
       `;
       tablePrices.appendChild(selectorBox);
 
       // buylink
       const buyButton = document.createElement('div');
-      buyButton.className = `buy_box buy_box_${prodName} ${show} ${prodType}`;
+      buyButton.className = `buy_box buy_box_${prodName} ${idx === 0 ? 'yearly' : 'monthly'} ${show}`;
       buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${buyButtonText}</a>`;
       tableBuybtn.appendChild(buyButton);
     });
   } else {
-      if (product) {
-        block.classList.add('single-prod');
-        updateProductsList(product);
+    if (!product) return;
 
-        let [prodName, prodUsers, prodYears] = product.split('/');
-        prodName = prodName.trim();
-        const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-        const pricesBox = document.createElement('div');
+    block.classList.add('single-prod');
+    updateProductsList(product);
 
-        // prices
-        pricesBox.className = `pricesBox await-loader prodload prodload-${onSelectorClass}`;
-        pricesBox.innerHTML = `<div class='prod-oldprice oldprice-${onSelectorClass}'></div>`;
-        pricesBox.innerHTML += `<div class='prod-newprice newprice-${onSelectorClass}'></div>`;
-        tablePrices.appendChild(pricesBox);
+    const [prodName, prodUsers, prodYears] = product.split('/');
+    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    const pricesBox = document.createElement('div');
 
-        // buylink
-        const buyButton = document.createElement('div');
-        buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.textContent}</a>`;
-        tableBuybtn.appendChild(buyButton);
-        tableBuybtn.style.display = 'none';
+    // prices
+    pricesBox.className = `pricesBox await-loader prodload prodload-${onSelectorClass}`;
+    pricesBox.innerHTML = `<div class='prod-oldprice oldprice-${onSelectorClass}'></div>`;
+    pricesBox.innerHTML += `<div class='prod-newprice newprice-${onSelectorClass}'></div>`;
+    tablePrices.appendChild(pricesBox);
 
-        // discount bulina:
-        let percentCircle = boxEl.querySelector('strong');
-        percentCircle.className = `prod-percent green_bck_circle bigger await-loader prodload prodload-${onSelectorClass}`;
-        percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', `<span class='prod-percent percent-${onSelectorClass}'></span>`);
+    // buylink
+    const buyButton = document.createElement('div');
+    buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.textContent}</a>`;
+    tableBuybtn.appendChild(buyButton);
+    tableBuybtn.style.display = 'none';
 
-        // percentCircle.innerHTML = `<span class="prod-percent percent-${onSelectorClass}"></span>`;
-    }
+    // discount bulina:
+    const percentCircle = boxEl.querySelector('strong');
+    percentCircle.className = `prod-percent green_bck_circle bigger await-loader prodload prodload-${onSelectorClass}`;
+    percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', `<span class='prod-percent percent-${onSelectorClass}'></span>`);
   }
 
   if (boxEl) {

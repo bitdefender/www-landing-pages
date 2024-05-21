@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+.section.single-product-banner-container table {
+  display: none;
+}
+
 .section.single-product-banner-container.borders-rounded .single-product-banner {
   border-radius: 10px;
 }
@@ -48,6 +52,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transform: unset;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .billed span {
+  margin: 0 3px;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .boxSide strong.prod-percent span {
@@ -63,12 +72,23 @@
   margin: 0 2em 0 1em;
 }
 
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide {
+  width: 400px;
+  background-color: white;
+  border-radius: 10px;
+  color: #000;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
   width: 320px;
   position: relative;
-  webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.62);
-  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.62);
-  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.62);
+  box-shadow: 0 0 5px 1px rgb(0 0 0 / 62%);
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide img {
+  height: 27px;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide u:first-of-type {
@@ -111,6 +131,19 @@
   line-height: 17px;
 }
 
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul li em {
+  background-color: #2fb43e;
+  font-size: 11px;
+  display: inline;
+  padding: 2px 6px;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+  line-height: 15px;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide p em {
   color: #999;
   font-size: 12px;
@@ -137,19 +170,15 @@
   color: #666;
 }
 
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .prod-newprice {
+  font-size: 32px;
+  line-height: 32px;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide .pricesBox .prod-newprice {
   font-size: 36px;
   font-weight: bold;
   line-height: 1.2;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide {
-  width: 400px;
-  background-color: white;
-  border-radius: 10px;
-  color: #000;
-  padding: 10px 20px;
-  font-size: 14px;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h6 {
@@ -182,11 +211,6 @@
   display: block;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .prod-newprice {
-  font-size: 32px;
-  line-height: 32px;
-}
-
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .per-month {
   font-size: 28px;
   line-height: 32px;
@@ -196,10 +220,6 @@
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .billed {
   font-size: 14px;
   color: #999;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .billed span {
-  margin: 0 3px;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector {
@@ -241,19 +261,6 @@
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul {
   padding-left: 0;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul li em {
-  background-color: #2fb43e;
-  font-size: 11px;
-  display: inline;
-  padding: 2px 6px;
-  color: #fff;
-  border-radius: 10px;
-  font-weight: bold;
-  line-height: 15px;
-  text-transform: uppercase;
-  font-style: normal;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(3) {
