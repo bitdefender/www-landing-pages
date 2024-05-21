@@ -64,7 +64,7 @@ export default function decorate(block) {
   const metaData = parentSelector.dataset;
   const {
     products, yearsText, bulinaText, devicesLimits, yearsSelector, monthlyText, incrementalCounter, titleTag,
-    skipUnwantedSelectors, secondTemplate,
+    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice,
   } = metaData;
   const productsAsList = products && products.split(',');
   const subscribeTexts = parent2ndDiv.querySelector('p').innerText;
@@ -188,7 +188,16 @@ export default function decorate(block) {
       if (monthlyText) {
         const [monthlyText1, monthlyText2] = monthlyText.split(',');
         const monthlytext2updated = monthlyText1.replace('0', `<span class="newprice-${onSelectorClass}-monthly"></span>`);
-        pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${monthlytext2updated}</strong> ${monthlyText2}</div>`;
+        if (reverseMonthlyTextWithPrice) {
+          pricesDiv.innerHTML += `<div class="blue-monthly-tag">
+                                    <span style="color: white;" class="prod-newprice newprice-${onSelectorClass}"></span>
+                                    <p style="color: white;" class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} 
+                                      <span class="oldprice-${onSelectorClass}"></span>
+                                    </p>
+                                  </div>`;
+        } else {
+          pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${monthlytext2updated}</strong> ${monthlyText2}</div>`;
+        }
       }
 
       if (secondTemplate) {
@@ -224,8 +233,14 @@ export default function decorate(block) {
       } else {
         pricesDiv.innerHTML += `<p class="border-bottom subscribe4">${subscribeTexts} <b class="${monthlyText ? 'd-inline' : ''}">${prodYears} ${prodYears > 1 ? yearsText : yearText}</b></p>`;
       }
-      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
-      pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
+      if (monthlyText && reverseMonthlyTextWithPrice) {
+        const [monthlyText1, monthlyText2] = monthlyText.split(',');
+        const monthlytext2updated = monthlyText1.replace('0', `<strong class="newprice-${onSelectorClass}-monthly"></strong>`);
+        pricesDiv.innerHTML += `<strong>${monthlytext2updated}</strong> ${monthlyText2}`;
+      } else {
+        pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+        pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
+      }
       pricesDiv.innerHTML += `<p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
       pricesDiv.innerHTML += `<p class="percent percent-${onSelectorClass}" style="display: none;"></p>`;
       pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${buylinkText}</a></div>`;
