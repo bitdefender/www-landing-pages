@@ -223,11 +223,7 @@ export default function decorate(block) {
   function scrollToExposedForm() {
     const exposedForm = document.getElementById('exposed-form');
     if (exposedForm) {
-      console.log('Scrolling to exposed-form');
       exposedForm.scrollIntoView({ behavior: 'smooth' });
-      console.log('Scrolled to exposed-form:', exposedForm);
-    } else {
-      console.error('Element with ID "exposed-form" not found.');
     }
   }
 
