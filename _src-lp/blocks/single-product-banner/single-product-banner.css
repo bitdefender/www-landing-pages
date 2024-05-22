@@ -89,7 +89,7 @@
   height: 27px;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide u:first-of-type {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide u:first-of-type {
   background-color: #22ac3b;
   text-align: center;
   color: #fff;
@@ -108,14 +108,14 @@
   width: calc(100% + 40px);
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide h3 {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3 {
   max-width: 100%;
   font-size: 36px;
   line-height: 35px;
   margin: -13px 0 10px;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide h3::after {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3::after {
   content: "";
   border-bottom: 2px solid #9A9A9A;
   width: 117px;
@@ -123,7 +123,7 @@
   margin: 8px auto 15px;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide p {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p {
   text-align: inherit !important;
   margin: 10px 0;
   line-height: 17px;
@@ -142,7 +142,7 @@
   font-style: normal;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide p em {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p em {
   color: #999;
   font-size: 12px;
   text-align: center;
@@ -153,7 +153,7 @@
   width: 100%;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide hr {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide hr {
   border-bottom: 1px dashed #242424;
   margin: 0;
 }
