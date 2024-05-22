@@ -80,7 +80,7 @@ export default function decorate(block) {
       // checkboxes options:
       let saveText = selectorBoxTexts[idx];
       if (saveText) {
-        if (saveText.indexOf("<strong>")) selectorBox.classList.add('bigger');
+        if (saveText.indexOf('<strong>')) selectorBox.classList.add('bigger');
         saveText = saveText.replace(/<strong>/g, '<span class="greenTag">').replace(/<\/strong>/g, '</span>').replace(/0/g, `<b class='save-${onSelectorClass}'></b>`);
       }
 
