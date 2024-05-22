@@ -7,7 +7,7 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor,
+    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
     marginBottom, imageCover, corners, textNextToPill,
   } = metaData;
@@ -57,10 +57,9 @@ export default function decorate(block) {
           </div>
           </p>
           <span class="prod-newprice newprice-${onSelectorClass}"></span>
-
-
-        <p class="variation">${prices.innerHTML}</p>
+          <p class="variation">${prices.innerHTML}</p>
       </div>`;
+
       pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
       pricesBox.innerHTML += `<div class="buy_box">
         <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn.innerHTML}</a>
@@ -72,8 +71,7 @@ export default function decorate(block) {
 
     // GREEN_PILL_BOX
     if (aliasTr && aliasTr.innerText.trim() === 'green_pill') {
-      // eslint-disable-next-line no-unused-vars
-      const [alias, text] = [...contentEl.querySelectorAll('table tr')];
+      const [, text] = [...contentEl.querySelectorAll('table tr')];
       const greenPillBox = document.createElement('div');
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
@@ -91,8 +89,7 @@ export default function decorate(block) {
 
     // RED_PILL_BOX
     if (aliasTr && aliasTr.innerText.trim() === 'red_pill') {
-      // eslint-disable-next-line no-unused-vars
-      const [alias, text] = [...contentEl.querySelectorAll('table tr')];
+      const [, text] = [...contentEl.querySelectorAll('table tr')];
       const redPillBox = document.createElement('div');
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
@@ -204,6 +201,7 @@ export default function decorate(block) {
   }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
+  if (innerBackgroundColor) parentBlock.querySelector('div.banner-wrapper').style.backgroundColor = innerBackgroundColor;
   if (textColor) blockStyle.color = textColor;
   if (underlinedInclinedTextColor) {
     block.querySelectorAll('em u').forEach((element) => {
@@ -233,7 +231,7 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
-          <div class="col-5 ps-4">${contentEl.innerHTML}</div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-5 ps-4">${contentEl.innerHTML}</div>
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
