@@ -219,4 +219,31 @@ export default function decorate(block) {
       <p>Please try again after sometime.</p>
   </div>`;
   block.appendChild(thirdDiv);
+  // Scroll to section
+  function scrollToExposedForm() {
+    const exposedForm = document.getElementById('exposed-form');
+    if (exposedForm) {
+      console.log('Scrolling to exposed-form');
+      exposedForm.scrollIntoView({ behavior: 'smooth' });
+      console.log('Scrolled to exposed-form:', exposedForm);
+    } else {
+      console.error('Element with ID "exposed-form" not found.');
+    }
+  }
+
+  function observeDOM() {
+    const observer = new MutationObserver((mutationsList, obs) => {
+      mutationsList.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          const exposedForm = document.getElementById('exposed-form');
+          if (exposedForm) {
+            obs.disconnect();
+            scrollToExposedForm();
+          }
+        }
+      });
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  }
+  observeDOM();
 }
