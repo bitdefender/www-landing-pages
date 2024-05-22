@@ -190,10 +190,11 @@ export default function decorate(block) {
         const monthlytext2updated = monthlyText1.replace('0', `<span class="newprice-${onSelectorClass}-monthly"></span>`);
         if (reverseMonthlyTextWithPrice) {
           pricesDiv.innerHTML += `<div class="blue-monthly-tag">
-                                    <span style="color: white;" class="prod-newprice newprice-${onSelectorClass}"></span>
+                                    <span style="color: white; font-size: 24px" class="prod-newprice newprice-${onSelectorClass}"></span>
                                     <p style="color: white;" class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} 
                                       <span class="oldprice-${onSelectorClass}"></span>
                                     </p>
+                                    <p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>
                                   </div>`;
         } else {
           pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${monthlytext2updated}</strong> ${monthlyText2}</div>`;
@@ -236,12 +237,12 @@ export default function decorate(block) {
       if (monthlyText && reverseMonthlyTextWithPrice) {
         const [monthlyText1, monthlyText2] = monthlyText.split(',');
         const monthlytext2updated = monthlyText1.replace('0', `<strong class="newprice-${onSelectorClass}-monthly"></strong>`);
-        pricesDiv.innerHTML += `<strong>${monthlytext2updated}</strong> ${monthlyText2}`;
+        pricesDiv.innerHTML += `<div style="font-size: 20px;"><strong>${monthlytext2updated}</strong> ${monthlyText2}</div>`;
       } else {
         pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
         pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
+        pricesDiv.innerHTML += `<p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
       }
-      pricesDiv.innerHTML += `<p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
       pricesDiv.innerHTML += `<p class="percent percent-${onSelectorClass}" style="display: none;"></p>`;
       pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${buylinkText}</a></div>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
