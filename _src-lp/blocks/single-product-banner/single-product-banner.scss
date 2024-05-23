@@ -79,12 +79,12 @@
   color: #000;
   padding: 10px 20px;
   font-size: 14px;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide {
-  width: 320px;
   position: relative;
   box-shadow: 0 0 5px 1px rgb(0 0 0 / 62%);
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
+  width: 320px;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide img {
