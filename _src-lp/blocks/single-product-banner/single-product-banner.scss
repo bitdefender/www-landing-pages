@@ -79,19 +79,19 @@
   color: #000;
   padding: 10px 20px;
   font-size: 14px;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
-  width: 320px;
   position: relative;
   box-shadow: 0 0 5px 1px rgb(0 0 0 / 62%);
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide img {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
+  width: 320px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide img {
   height: 27px;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide u:first-of-type {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide u:first-of-type {
   background-color: #22ac3b;
   text-align: center;
   color: #fff;
@@ -110,14 +110,14 @@
   width: calc(100% + 40px);
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide h3 {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3 {
   max-width: 100%;
   font-size: 36px;
   line-height: 35px;
   margin: -13px 0 10px;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide h3::after {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3::after {
   content: "";
   border-bottom: 2px solid #9A9A9A;
   width: 117px;
@@ -125,10 +125,21 @@
   margin: 8px auto 15px;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide p {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p {
   text-align: inherit!important;
   margin: 10px 0;
   line-height: 17px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p em {
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 0;
+  line-height: 12px;
+  padding-bottom: 10px;
+  font-style: normal;
+  width: 100%;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul li em {
@@ -144,18 +155,7 @@
   font-style: normal;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide p em {
-  color: #999;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 0;
-  line-height: 12px;
-  padding-bottom: 10px;
-  font-style: normal;
-  width: 100%;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide hr {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide hr {
   border-bottom: 1px dashed #242424;
   margin: 0;
 }
@@ -197,6 +197,7 @@
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box {
   display: none;
+  margin-top: 1em;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box.show {
@@ -225,6 +226,10 @@
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector {
   width: 200px;
   margin: 1em auto 0;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.bigger {
+  width: 270px;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector div * {
@@ -328,12 +333,6 @@
     line-height: 28px;
   }
 
-  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 30px;
-  }
-
   .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide {
     text-align: center;
   }
@@ -347,6 +346,16 @@
   }
 
   .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
+    width: 100%;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide ul {
+    width: 100%;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.bigger {
     width: 100%;
   }
 
