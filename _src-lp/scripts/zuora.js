@@ -179,7 +179,7 @@ export default class ZuoraNLClass {
         zuoraCart.searchParams.set('channel', windowURL.searchParams.get('channel'));
       }
       zuoraCart.searchParams.set('product_id', this.productId[id]);
-      zuoraCart.searchParams.set('payment_period', this.monthlyProducts[id] ? `${devicesNo}d1m` : `${devicesNo}d${yearsNo}y`);
+      zuoraCart.searchParams.set('payment_period', this.monthlyProducts.includes(id) ? `${devicesNo}d1m` : `${devicesNo}d${yearsNo}y`);
       zuoraCart.searchParams.set('country', 'NL');
       zuoraCart.searchParams.set('language', 'nl_NL');
       zuoraCart.searchParams.set('client', '8f768650-6915-11ed-83e3-e514e761ac46');

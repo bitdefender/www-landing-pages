@@ -37,7 +37,7 @@ export default function decorate(block) {
   if (products) {
     const productsAsList = products && products.split(',');
     const selectorBox = document.createElement('div');
-    selectorBox.className = 'productSelector justify-content-center';
+    selectorBox.className = 'productSelector justify-content-start';
     const selectorBoxOptions = ['yearly', 'monthly'];
     const selectorBoxTexts = Array.from(tablePrices.querySelectorAll('td')).map((td) => td.innerHTML);
 
@@ -80,6 +80,7 @@ export default function decorate(block) {
       // checkboxes options:
       let saveText = selectorBoxTexts[idx];
       if (saveText) {
+        if (saveText.indexOf('<strong>')) selectorBox.classList.add('bigger');
         saveText = saveText.replace(/<strong>/g, '<span class="greenTag">').replace(/<\/strong>/g, '</span>').replace(/0/g, `<b class='save-${onSelectorClass}'></b>`);
       }
 
@@ -115,7 +116,7 @@ export default function decorate(block) {
 
     // buylink
     const buyButton = document.createElement('div');
-    buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.textContent}</a>`;
+    buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass} buylink-${prodName}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.textContent}</a>`;
     tableBuybtn.appendChild(buyButton);
     tableBuybtn.style.display = 'none';
 
