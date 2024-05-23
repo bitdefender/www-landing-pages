@@ -32,7 +32,7 @@ export default function decorate(block) {
 
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+  if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
   if (products) {
     const productsAsList = products && products.split(',');
