@@ -566,8 +566,8 @@ function changeCheckboxVPN(checkboxId, pid) {
 
     // DEX-17862 - add new coupon based on param
     let couponValue = '';
-    if (coupon[selectedVariation.region_id][currency] !== 'undefined') couponValue = coupon[selectedVariation.region_id][currency];
-    if (coupon[selectedVariation.region_id].ALL !== 'undefined') couponValue = coupon[selectedVariation.region_id].ALL;
+    if (coupon[selectedVariation.region_id][currency] !== undefined) couponValue = coupon[selectedVariation.region_id][currency];
+    if (coupon[selectedVariation.region_id].ALL !== undefined) couponValue = coupon[selectedVariation.region_id].ALL;
 
     if (paramCoupon) {
       couponValue = `${paramCoupon},${couponValue}`;
