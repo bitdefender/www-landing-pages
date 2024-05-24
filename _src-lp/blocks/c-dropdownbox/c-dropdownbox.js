@@ -10,7 +10,7 @@
 
 export default function decorate(block) {
   const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
+  const { bottomText, active } = parentSelector.dataset;
 
   // search for [] to replace with span greeenTag class
   const getFirstDivs = block.querySelectorAll('.c-dropdownbox-container .block > div > div:nth-child(1)');
@@ -28,9 +28,9 @@ export default function decorate(block) {
   });
 
   // add bottom text if is set
-  if (typeof metaData.bottomText !== 'undefined') {
+  if (bottomText) {
     const bottomLine = document.createElement('p');
-    bottomLine.innerHTML = metaData.bottomText;
+    bottomLine.innerHTML = bottomText;
     bottomLine.classList = 'bottom-text';
     block.append(bottomLine);
   }
@@ -38,5 +38,16 @@ export default function decorate(block) {
   // if 3rd div does not exists => has 2 elements
   if (!block.querySelector('.c-dropdownbox-container .block > div > div:nth-child(3)')) {
     block.classList.add('has2divs');
+  }
+
+  // if there are no other elements we hide the arrow
+  if (block.children.length === 1) {
+    block.classList.add('hide-arrow');
+  }
+
+  if (active) {
+    parentSelector.classList.add(`active-${active}`);
+  } else {
+    parentSelector.classList.add('active-1');
   }
 }

@@ -16,7 +16,11 @@
 }
 
 .section.banner-container .banner img {
-  width: 100%;
+  width: auto;
+}
+
+.section.banner-container .banner p a {
+  color: inherit;
 }
 
 .section.banner-container .banner .img-right picture {
@@ -479,7 +483,6 @@
   }
   .section.banner-container.hide-mobile, .section.banner-container.hide-mobile .block {
     background-image: unset !important;
-    background-color: black;
   }
   .section.banner-container.hide-mobile .bck-img {
     display: none;

@@ -1,0 +1,369 @@
+@charset "UTF-8";
+
+.section.single-product-banner-container {
+  background-color: white;
+  color: white;
+  padding: 0;
+}
+
+.section.single-product-banner-container table {
+  display: none;
+}
+
+.section.single-product-banner-container.borders-rounded .single-product-banner {
+  border-radius: 10px;
+}
+
+.section.single-product-banner-container .single-product-banner .img-right picture {
+  position: relative;
+  left: 15px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .customWrapper {
+  justify-content: space-between;
+  padding: 0 1em;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox {
+  align-items: center;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .boxSide {
+  position: relative;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .boxSide strong {
+  width: 100px;
+  height: 100px;
+  background: green;
+  color: white;
+  padding: 20px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  top: auto;
+  bottom: 5%;
+  left: 18%;
+  white-space: pre-line;
+  text-align: center;
+  line-height: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: unset;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .billed span {
+  margin: 0 3px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .boxSide strong.prod-percent span {
+  font-size: 32px;
+  line-height: auto;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox h1 {
+  font-size: 22px;
+  margin-top: 0;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox h2 {
+  font-size: 19px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .leftSide {
+  margin: 0 2em 0 1em;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide {
+  width: 400px;
+  background-color: white;
+  border-radius: 10px;
+  color: #000;
+  padding: 10px 20px;
+  font-size: 14px;
+  position: relative;
+  box-shadow: 0 0 5px 1px rgb(0 0 0 / 62%);
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
+  width: 320px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide img {
+  height: 27px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide u:first-of-type {
+  background-color: #22ac3b;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: -24px;
+  margin-left: -20px;
+  width: calc(100% + 40px);
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3 {
+  max-width: 100%;
+  font-size: 36px;
+  line-height: 35px;
+  margin: -13px 0 10px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3::after {
+  content: "";
+  border-bottom: 2px solid #9A9A9A;
+  width: 117px;
+  display: block;
+  margin: 15px auto;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p {
+  text-align: inherit!important;
+  margin: 10px 0;
+  line-height: 17px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p em {
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 0;
+  line-height: 12px;
+  padding-bottom: 10px;
+  font-style: normal;
+  width: 100%;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul li em {
+  background-color: #2fb43e;
+  font-size: 11px;
+  display: inline;
+  padding: 2px 6px;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+  line-height: 15px;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide hr {
+  border-bottom: 1px dashed #242424;
+  margin: 0;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide .pricesBox {
+  margin: 1em 0;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide .pricesBox .prod-oldprice {
+  font-size: 24px;
+  line-height: 24px;
+  color: #666;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .prod-newprice {
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide .pricesBox .prod-newprice {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h6 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(3),
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(4),
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(5) {
+  text-align: left;
+  padding: 5px 0;
+  margin: 0;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box {
+  display: none;
+  margin-top: 1em;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box.show {
+  display: block;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .buy_box {
+  display: none;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .buy_box.show {
+  display: block;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .per-month {
+  font-size: 28px;
+  line-height: 32px;
+  margin-left: 5px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .billed {
+  font-size: 14px;
+  color: #999;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector {
+  width: 245px;
+  margin: 1em auto 0;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector div * {
+  cursor: pointer;
+  text-align: left;
+  display: inline-block;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector input {
+  width: 22px;
+  border-radius: 50%;
+  height: 22px;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  transition: background-color .2s;
+  margin-bottom: 0.5rem;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide ul {
+  text-align: left;
+  width: 300px;
+  margin: 0 auto 1em;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner ul li {
+  font-size: 14px;
+  line-height: 1.5;
+  list-style-type: none;
+  padding-left: 25px;
+  margin: 9px 0 -2px;
+  background: url('/_src-lp/icons/checkmark_solid-circle.svg') no-repeat;
+  background-size: 15px;
+  background-position: left top 4px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul {
+  padding-left: 0;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(3) {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(5) {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide table:nth-child(6) {
+  width: 100%;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide table:nth-child(6) a {
+  text-transform: uppercase;
+  font-size: 16px;
+  display: inline-block;
+  width: auto;
+  font-weight: bold;
+  background-color: #e72325;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  border-style: none;
+  cursor: pointer;
+  padding: 10px 13px;
+  margin-top: 1rem;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide table:nth-child(6) a:hover {
+  text-decoration: none;
+  background-color: #b33027;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(11) {
+  font-size: 12px;
+  color: #666;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner p .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  position: relative;
+  top: -1px;
+  fill: #61af53;
+}
+
+@media (width <= 768px) {
+  .section.single-product-banner-container {
+    background-color: #130076;
+    padding: 0 15px;
+  }
+
+  .section.single-product-banner-container h1 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .section.single-product-banner-container h2 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide {
+    text-align: center;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide {
+    width: 100%;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .leftSide {
+    margin: 2em 1em;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
+    width: 100%;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector {
+    width: 100%;
+    margin: 1em auto 0;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide ul {
+    width: 100%;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner ul li {
+    text-align: left;
+  }
+}

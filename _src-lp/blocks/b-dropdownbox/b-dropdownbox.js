@@ -9,8 +9,7 @@
 
 export default function decorate(block) {
   const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
-  const type = metaData.type;
+  const { type, topBackgroundColor, topTextColor } = parentSelector.dataset;
 
   // search for [] to replace with span greeenTag class
   const getFirstDivs = block.querySelectorAll('.b-dropdownbox-container .block > div > div:nth-child(1)');
@@ -31,6 +30,14 @@ export default function decorate(block) {
   if (block.children.length >= 2) {
     const childrenNr = block.children[1].children.length;
     block.classList.add(`has${childrenNr}divs`);
+
+    if (topBackgroundColor) {
+      block.querySelector('div:nth-child(1) > div > div').style.backgroundColor = topBackgroundColor;
+    }
+
+    if (topTextColor) {
+      block.querySelector('div:nth-child(1) > div').style.color = topTextColor;
+    }
   }
 
   // if it's slider
