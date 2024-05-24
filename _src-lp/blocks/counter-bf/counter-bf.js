@@ -39,7 +39,7 @@ export default function decorate(block) {
 
     block.innerHTML = `
       <div class="container-fluid">
-        <div class="row d-block d-lg-flex position-relative">
+        <div class="row d-xs-block d-sm-flex d-md-flex d-lg-flex position-relative">
           <div class="col-12 d-block d-sm-none d-md-none d-lg-none p-0 text-center bck-img">
             ${pictureBF.innerHTML}
             ${pictureCM.innerHTML}
