@@ -87,7 +87,8 @@
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
-  width: 320px;
+  width: auto;
+  flex: 1;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide img {
@@ -318,6 +319,19 @@
   fill: #61af53;
 }
 
+@media (width <= 992px) {
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3 {
+    font-size: 26px;
+    line-height: 30px;
+  }
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3::after {
+    content: "";
+    margin: 10px auto;
+  }
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide .pricesBox .prod-newprice {
+    font-size: 33px;
+  }
+}
 @media (width <= 768px) {
   .section.single-product-banner-container {
     background-color: #130076;
