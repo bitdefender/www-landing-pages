@@ -22,6 +22,7 @@
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .customWrapper {
   justify-content: space-between;
   padding: 0 1em;
+  align-items: center;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox {
@@ -57,10 +58,6 @@
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .billed span {
   margin: 0 3px;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox > div {
-
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .boxSide strong.prod-percent span {
