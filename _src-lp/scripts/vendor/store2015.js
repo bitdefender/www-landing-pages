@@ -311,11 +311,7 @@ window.StoreProducts.initSelector = function (config) {
       }
 
       if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw')) {
-        if (so.product_id === 'psp' || so.product_id === 'pspm' || so.product_id === 'dip' || so.product_id === 'dipm') {
-          so.config.force_region = '16';
-        } else {
-          so.config.force_region = DEFAULT_LANGUAGE === 'zh-hk' ? '41' : '52';
-        }
+        so.config.force_region = DEFAULT_LANGUAGE === 'zh-hk' ? '41' : '52';
       }
 
       try {
