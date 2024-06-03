@@ -649,7 +649,7 @@ export function getCookie(name) {
 
 /**
  * Fetches geoip data from the /geoip endpoint and dispatches a custom event with the received information.
- * 
+ *
  * This function makes an asynchronous call to the /geoip endpoint. If the call is successful, it parses
  * the JSON response and dispatches a custom event named 'geoipinfo' with the received data. In case of an error
  * during the fetch process, it logs the error to the console.
