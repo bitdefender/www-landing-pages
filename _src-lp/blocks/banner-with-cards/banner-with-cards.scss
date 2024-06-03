@@ -119,7 +119,7 @@
   list-style-type: none;
   padding-left: 25px;
   margin: 9px 0 -2px;
-  background: url('/_src-lp/icons/checkmark_solid-circle.svg') no-repeat;
+  background-image: url('/_src-lp/icons/checkmark_solid-circle.svg') no-repeat;
   background-size: 15px;
   background-position: left top 4px;
 }
@@ -128,7 +128,7 @@
   font-size: 16px;
   line-height: 18px;
   font-weight: normal;
-  background: url('/_src-lp/icons/checkmark_empty-circle.svg') no-repeat;
+  background-image: url('/_src-lp/icons/checkmark_empty-circle.svg') no-repeat;
 }
 
 .section.banner-with-cards-container .banner-with-cards .hasBox h1 em {
