@@ -515,18 +515,11 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
         document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = fullPrice;
         });
-        if (oldPriceBox.parentNode.nodeName === 'P') {
-          oldPriceBox.parentNode.style.display = 'none';
-        }
-      } else {
-        oldPriceBox.style.visibility = 'hidden';
-        if (oldPriceBox.closest('.prod-oldprice')) {
-          oldPriceBox.closest('.prod-oldprice').style.visibility = 'hidden';
-          if (oldPriceBox.parentNode.nodeName === 'P') {
-            oldPriceBox.parentNode.style.display = 'none';
-          }
-        }
       }
+
+      document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
+        item.parentNode.style.display = 'none';
+      });
     }
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);

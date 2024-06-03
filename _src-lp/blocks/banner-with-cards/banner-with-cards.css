@@ -144,6 +144,7 @@
   background-color: #026DFF;
   border-radius: 20px;
   padding: 3px 8px;
+  font-style: normal;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent {
@@ -182,7 +183,8 @@
   margin-top: 1em;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .d-flex {
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .display-flex {
+  display: flex;
   align-items: center;
   margin-bottom: 7px;
 }
@@ -273,11 +275,11 @@
   .section.banner-with-cards-container {
     padding: 0 15px;
   }
-  .section.banner-with-cards-container h1 {
+  .section.banner-with-cards-container .banner-with-cards h1 {
     font-size: 28px;
     line-height: 34px;
   }
-  .section.banner-with-cards-container h2 {
+  .section.banner-with-cards-container .banner-with-cards h2 {
     font-size: 24px;
     line-height: 28px;
   }
@@ -290,6 +292,26 @@
     margin: 0 auto;
   }
   .section.banner-with-cards-container .banner-with-cards .prodBox {
-    width: 100;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .section.banner-with-cards-container .banner-with-cards .prodBox h3 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .section.banner-with-cards-container .banner-with-cards .prodBox .red-buy-button {
+    font-size: 17px;
+  }
+  .section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .prod-newprice {
+    font-size: 35px;
+    line-height: 23px;
+  }
+  .section.banner-with-cards-container .banner-with-cards .prodBox ul {
+    padding: 10px 0;
+  }
+  .section.banner-with-cards-container .banner-with-cards .prodBox ul li {
+    font-size: 14px;
+    line-height: 21px;
   }
 }
