@@ -663,7 +663,8 @@ export async function fetchGeoIP() {
     }
 
     const data = await response.json();
-    
+    window.geoip = data;
+
     const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: data });
     window.dispatchEvent(event);
   } catch (error) {
