@@ -131,6 +131,10 @@
   background: url('/_src-lp/icons/checkmark_empty-circle.svg') no-repeat;
 }
 
+.section.banner-with-cards-container .banner-with-cards .hasBox h1 em {
+  display: none;
+}
+
 .section.banner-with-cards-container .banner-with-cards .prodBox ul li em {
   font-size: 14px;
   line-height: 16px;
@@ -221,10 +225,6 @@
 .section.banner-with-cards-container .banner-with-cards .hasBox h1 {
   font-size: 22px;
   margin-top: 0;
-}
-
-.section.banner-with-cards-container .banner-with-cards .hasBox h1 em {
-  display: none;
 }
 
 .section.banner-with-cards-container .banner-with-cards .hasBox h2 {
