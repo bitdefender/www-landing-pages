@@ -105,6 +105,7 @@
 
 .section.banner-with-cards-container .banner-with-cards .prodBox ul {
   margin-left: 0;
+  margin-top: 10px;
   padding: 1em 0;
   border-top: 1px solid #D1D1D1;
   border-bottom: 1px solid #D1D1D1;
@@ -125,7 +126,7 @@
   font-size: 16px;
   line-height: 18px;
   font-weight: normal;
-  background: url("/_src-lp/icons/checkmark_solid-circle.svg") no-repeat;
+  background: url("/_src-lp/icons/checkmark_empty-circle.svg") no-repeat;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox ul li em {

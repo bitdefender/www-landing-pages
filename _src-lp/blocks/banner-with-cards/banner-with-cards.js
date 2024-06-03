@@ -91,7 +91,7 @@ export default function decorate(block) {
   // get Metadatas:
   const {
     products, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, imageCover,
+    marginBottom, imageCover, imageHeight,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
   const prodBoxesParent = document.createElement('div');
@@ -118,7 +118,7 @@ export default function decorate(block) {
     parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
     if (imageCover === 'full-right') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight ? imageHeight : '100%'} ${backgroundColor || '#000'}`;
     }
   }
 
