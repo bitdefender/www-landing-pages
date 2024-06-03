@@ -308,13 +308,23 @@ function maxDiscount() {
     });
   }
 
-  const maxDiscountValue = Math.max(...discountAmounts).toString();
+  const maxDiscountValue = Math.max(...discountAmounts);
   const maxDiscountBox = document.querySelector('.max-discount');
-  if (maxDiscountBox) {
+  if (maxDiscountBox && maxDiscountValue) {
+    const discountText = `${maxDiscountValue}%`;
     document.querySelectorAll('.max-discount').forEach((item) => {
-      item.textContent = `${maxDiscountValue}%`;
+      item.textContent = discountText;
+      const closestEm = item.closest('em');
+      if (closestEm) closestEm.style.display = 'inline-block';
     });
-    maxDiscountBox.closest('div').style.visibility = 'visible';
+
+    const closestDiv = maxDiscountBox.closest('div');
+    if (closestDiv) closestDiv.style.visibility = 'visible';
+  } else {
+    document.querySelectorAll('.max-discount').forEach((item) => {
+      const closestEm = item.closest('em');
+      if (closestEm) closestEm.style.display = 'none';
+    });
   }
 }
 

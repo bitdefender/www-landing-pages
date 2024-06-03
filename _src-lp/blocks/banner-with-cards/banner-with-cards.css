@@ -220,6 +220,10 @@
   margin-top: 0;
 }
 
+.section.banner-with-cards-container .banner-with-cards .hasBox h1 em {
+  display: none;
+}
+
 .section.banner-with-cards-container .banner-with-cards .hasBox h2 {
   font-size: 19px;
 }
