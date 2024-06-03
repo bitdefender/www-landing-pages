@@ -1,0 +1,232 @@
+.business-trial-form-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+.business-trial-form.block {
+  max-width: 520px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, .1);
+  height: fit-content;
+}
+.business-trial-form.block > div:nth-child(1) {
+  background-color: #e4f2ff;
+  padding: 38px 55px 23px;
+  margin: 0;
+}
+.business-trial-form.block > div:nth-child(1) h4 {
+  color: #000;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.business-trial-form.block > div:nth-child(2) {
+  color: #616161;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.5;
+  padding: 20px 55px 5px;
+  position: relative;
+  width: 100%;
+}
+.business-trial-form.block > div:nth-child(3) {
+  color: #616161;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.3;
+  padding: 20px 55px 26px;
+  position: relative;
+  width: 100%;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap {
+  float: left;
+  margin-bottom: 16px;
+  position: relative;
+  width: 100%;
+}
+.business-trial-form.block > div:nth-child(3) div form .select-box {
+  margin-top: 5px;
+  position: relative;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap input,
+.business-trial-form.block > div:nth-child(3) div form .row-wrap select,
+.business-trial-form.block > div:nth-child(3) div form .row-wrap textarea {
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  color: #616161;
+  display: block;
+  font-family: roboto, sans-serif;
+  font-size: 16px;
+  height: 48px;
+  margin: 0;
+  outline: none;
+  padding: 5px 15px 11px;
+  resize: none;
+  transition: all .1s ease;
+  width: 100%;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap label {
+  background-color: #fff;
+  // color: #616161;
+  font-family: roboto, sans-serif;
+  // font-size: 16px;
+  // font-weight: 400;
+  left: 11px;
+  letter-spacing: normal;
+  line-height: 1.5;
+  padding: 0 5px;
+  pointer-events: none;
+  position: absolute;
+  text-align: left;
+  // top: 10px;
+  transition: all .2s ease;
+  color: #616161 !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  top: -8px;
+}
+.business-trial-form.block > div:nth-child(3) div form .select-box label {
+  color: #616161;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 2.4;
+  text-transform: uppercase;
+  top: -12px;
+  z-index: 1;
+}
+.business-trial-form.block > div:nth-child(3) div form .used label {
+  color: #616161 !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  top: -8px;
+}
+.business-trial-form.block > div:nth-child(3) div form .tw-inline-block {
+  display: inline-block;
+}
+.business-trial-form.block > div:nth-child(3) div form .checkbox {
+  font-size: 0;
+  margin-bottom: 20px;
+  margin-top: 14px;
+}
+.business-trial-form.block > div:nth-child(3) div form .checkbox input {
+  cursor: pointer;
+  display: inline-block;
+  height: auto;
+  left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+  position: absolute;
+  top: 1px;
+  vertical-align: top;
+  width: auto;
+}
+.business-trial-form.block > div:nth-child(3) div form .checkbox label {
+  // color: #3c3c3c;
+  cursor: pointer;
+  display: inline-block;
+  // font-size: 12px;
+  // font-weight: 400;
+  left: 0;
+  letter-spacing: .003em;
+  line-height: 1.5;
+  padding: 0 0 0 24px;
+  pointer-events: auto;
+  position: relative;
+  // top: -5px !important;
+  width: 100%;
+  color: #616161 !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  top: -8px;
+  text-transform: none !important;
+}
+.business-trial-form.block > div:nth-child(3) div form .checkbox label:before {
+  background-color: #fff;
+  border: 1px solid #7e7e7e;
+  border-radius: 2px;
+  content: "";
+  cursor: pointer;
+  left: -1px;
+  margin-right: 5px;
+  padding: 7.5px;
+  position: absolute;
+  top: 2px;
+}
+.business-trial-form.block > div:nth-child(3) div form .checkbox p {
+  color: #3c3c3c;
+  font-size: 12px !important;
+  font-weight: 400;
+  letter-spacing: .005em;
+  line-height: 1.5;
+  margin-top: 0 !important;
+  text-align: left;
+}
+.business-trial-form.block > div:nth-child(3) div form .checkbox input:checked+label:before {
+  background-color: #006eff;
+  border: 2px solid #006eff;
+}
+.business-trial-form.block > div:nth-child(3) div form .checkbox input:checked+label:after {
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  content: "";
+  display: block;
+  height: 9px;
+  left: 5px;
+  position: absolute;
+  top: 4px;
+  transform: rotate(45deg);
+  width: 5px;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .tw-opacity-0 {
+  opacity: 0;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .tw-pl-\[6px\] {
+  padding-left: 6px;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .tw-w-\[54px\] {
+  width: 54px;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .tw-ml-\[9px\] {
+  margin-left: 9px;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .tw-top-\[15px\] {
+  top: 15px;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .tw-absolute {
+  position: absolute;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap.tw-hidden {
+  display: none;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .\!tw-pl-\[80px\] {
+  padding-left: 80px !important;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .tw-pointer-events-none {
+  pointer-events: none;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .prefix-value {
+  font-size: 16px;
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .prefix-value:after {
+  color: #616161;
+  content: ">";
+  left: 55px;
+  position: absolute;
+  top: 1px;
+  transform: scale(1.5, .7) rotate(90deg);
+}
+.business-trial-form.block > div:nth-child(3) div form .row-wrap.errorMessages {
+  font-size: 12px;
+  color: #e72325;
+}
