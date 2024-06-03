@@ -1,0 +1,303 @@
+@charset "UTF-8";
+
+.section.banner-with-cards-container {
+  background-color: white;
+  color: white;
+  padding: 0;
+}
+
+.section.banner-with-cards-container.borders-rounded .banner-with-cards {
+  border-radius: 10px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .img-right picture {
+  position: relative;
+  left: 15px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .customWrapper {
+  justify-content: space-between;
+  padding: 0 1em;
+  align-items: flex-start;
+}
+
+.section.banner-with-cards-container .banner-with-cards .hasProds > div {
+  flex: 1;
+  margin: 0 1em;
+}
+
+.section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type {
+  flex: 0 0 400px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox p {
+  margin: 5px 0;
+  font-size: 12px!important;
+  line-height: 14px!important;
+  font-weight: normal;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox p:last-of-type {
+  text-align: center;
+}
+
+.section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type p {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: normal;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox {
+  max-width: 336px;
+  flex: 1!important;
+  background: #FFF;
+  color: black;
+  border-radius: 20px;
+  padding: 1.5em;
+  align-self: flex-start;
+  box-shadow: 0 0 5px 0 #5d5c5c;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox h3 {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: normal;
+  color: white;
+  background-color: #026DFF;
+  border-radius: 20px;
+  margin-top: 10px;
+  padding: 3px 8px;
+  display: inline-block;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type td {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: normal;
+  color: white;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type img {
+  height: 19px;
+  margin-right: 2px;
+}
+
+.section.banner-with-cards-container .banner-with-cards h1 {
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: bold;
+  font-family: "IBM Plex Sans", sans-serif;
+  padding-top: 0;
+  margin-top: 5px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox p a {
+  color: #006EFF;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox ul {
+  margin-left: 0;
+  margin-top: 10px;
+  padding: 1em 0;
+  border-top: 1px solid #D1D1D1;
+  border-bottom: 1px solid #D1D1D1;
+}
+
+.section.banner-with-cards-container .banner-with-cards ul li {
+  font-size: 14px;
+  line-height: 1.5;
+  list-style-type: none;
+  padding-left: 25px;
+  margin: 9px 0 -2px;
+  background: url('/_src-lp/icons/checkmark_solid-circle.svg') no-repeat;
+  background-size: 15px;
+  background-position: left top 4px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox ul li {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: normal;
+  background: url('/_src-lp/icons/checkmark_empty-circle.svg') no-repeat;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox ul li em {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: normal;
+  color: white;
+  background-color: #026DFF;
+  border-radius: 20px;
+  padding: 3px 8px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent {
+  align-items: center;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .show {
+  display: block;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .hide {
+  display: none;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-flex {
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-flex input {
+  margin: 0;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-flex label {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box {
+  margin-top: 1em;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .d-flex {
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .prod-oldprice {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: normal;
+  margin-right: 15px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .prod-save {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: normal;
+  color: #1C7928;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .prod-save .prod-saveprice {
+  margin-left: 5px;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box span {
+  margin: 0;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .prod-newprice {
+  font-size: 40px;
+  line-height: 30px;
+  font-weight: bold;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .red-buy-button  {
+  margin-top: 10px;
+}
+
+
+.section.banner-with-cards-container .banner-with-cards .hasBox h1 {
+  font-size: 22px;
+  margin-top: 0;
+}
+
+.section.banner-with-cards-container .banner-with-cards .hasBox h2 {
+  font-size: 19px;
+}
+
+.section.banner-with-cards-container .banner-with-cards p .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  position: relative;
+  top: -1px;
+  fill: #61af53;
+}
+
+@media (width <= 992px) {
+  .section.banner-with-cards-container .banner-with-cards {
+    padding-top: 1em!important;
+    padding-bottom: 1em!important;
+    margin-bottom: 1em!important;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type {
+    flex: 1;
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards .hasProds {
+    flex-direction: column;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards .prodBox {
+    max-width: unset;
+    width: 400px;
+    margin: 1em auto!important;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards .prodBox:first-of-type {
+    margin-top: 0!important;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards .prodBox:last-of-type {
+    margin-bottom: 0!important;
+  }
+}
+
+@media (width <= 768px) {
+  .section.banner-with-cards-container.mobile {
+    background: none!important;
+  }
+
+  .section.banner-with-cards-container {
+    padding: 0 15px;
+  }
+
+  .section.banner-with-cards-container h1 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .section.banner-with-cards-container h2 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards ul li {
+    text-align: left;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type {
+    flex: 1;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards .prodBox {
+    width: 100;
+  }
+}
