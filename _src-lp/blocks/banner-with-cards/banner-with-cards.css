@@ -131,6 +131,7 @@
 
 .section.banner-with-cards-container .banner-with-cards .hasBox h1 em {
   display: none;
+  font-style: normal;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox ul li em {
