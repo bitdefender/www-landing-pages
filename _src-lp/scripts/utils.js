@@ -311,7 +311,7 @@ function maxDiscount() {
   const maxDiscountValue = Math.max(...discountAmounts);
   const maxDiscountBox = document.querySelector('.max-discount');
   if (maxDiscountBox && maxDiscountValue) {
-    const discountText = `${maxDiscountValue}%`;
+    const discountText = `${maxDiscountValue.toString()}%`;
     document.querySelectorAll('.max-discount').forEach((item) => {
       item.textContent = discountText;
       const closestEm = item.closest('em');
