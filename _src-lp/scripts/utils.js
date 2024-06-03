@@ -122,6 +122,7 @@ export const GLOBAL_EVENTS = {
   ADOBE_MC_LOADED: 'adobe_mc::loaded',
   PAGE_LOADED: 'page::loaded',
   COUNTER_LOADED: 'counter::loaded',
+  GEOIPINFO_LOADED: 'geoipinfo::loaded',
 };
 
 // add new script file
@@ -644,4 +645,28 @@ export function getCookie(name) {
     cookie[key.trim()] = value;
   });
   return cookie[name];
+}
+
+/**
+ * Fetches geoip data from the /geoip endpoint and dispatches a custom event with the received information.
+ * 
+ * This function makes an asynchronous call to the /geoip endpoint. If the call is successful, it parses
+ * the JSON response and dispatches a custom event named 'geoipinfo' with the received data. In case of an error
+ * during the fetch process, it logs the error to the console.
+ */
+export async function fetchGeoIP() {
+  try {
+    const response = await fetch('/geoip');
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    
+    const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: data });
+    window.dispatchEvent(event);
+  } catch (error) {
+    console.error('Failed to fetch geoip data:', error);
+  }
 }
