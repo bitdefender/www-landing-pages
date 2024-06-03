@@ -81,7 +81,6 @@
   background-color: #fff;
   font-family: roboto, sans-serif;
   left: 11px;
-  letter-spacing: normal;
   line-height: 1.5;
   padding: 0 5px;
   pointer-events: none;
@@ -144,7 +143,6 @@
   cursor: pointer;
   display: inline-block;
   left: 0;
-  letter-spacing: 0.003em;
   line-height: 1.5;
   padding: 0 0 0 24px;
   pointer-events: auto;
@@ -154,12 +152,11 @@
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.8px;
-  text-transform: uppercase;
   top: -8px;
   text-transform: none !important;
 }
 
-.business-trial-form.block > div:nth-child(3) div form .checkbox label:before {
+.business-trial-form.block > div:nth-child(3) div form .checkbox label::before {
   background-color: #fff;
   border: 1px solid #7e7e7e;
   border-radius: 2px;
@@ -182,12 +179,12 @@
   text-align: left;
 }
 
-.business-trial-form.block > div:nth-child(3) div form .checkbox input:checked + label:before {
+.business-trial-form.block > div:nth-child(3) div form .checkbox input:checked + label::before {
   background-color: #006eff;
   border: 2px solid #006eff;
 }
 
-.business-trial-form.block > div:nth-child(3) div form .checkbox input:checked + label:after {
+.business-trial-form.block > div:nth-child(3) div form .checkbox input:checked + label::after {
   border: solid #fff;
   border-width: 0 2px 2px 0;
   content: "";
@@ -240,7 +237,7 @@
   font-size: 16px;
 }
 
-.business-trial-form.block > div:nth-child(3) div form .row-wrap .prefix-value:after {
+.business-trial-form.block > div:nth-child(3) div form .row-wrap .prefix-value::after {
   color: #616161;
   content: ">";
   left: 55px;
