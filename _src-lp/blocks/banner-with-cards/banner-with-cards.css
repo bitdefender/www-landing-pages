@@ -199,7 +199,7 @@
 .section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .prod-save {
   font-size: 16px;
   line-height: 18px;
-  font-weight: normal;
+  font-weight: bold;
   color: #1C7928;
   display: flex;
   align-items: center;
