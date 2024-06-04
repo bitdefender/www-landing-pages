@@ -1313,6 +1313,10 @@ main .section.highlight {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
   }
+
+  .red-buy-button {
+    font-size: 15px;
+  }
 }
 
 @media (width <= 1174px) {
@@ -1576,7 +1580,7 @@ main .section.highlight {
 
   .red-buy-button {
     padding: 8px 3%;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .selectorBox {
