@@ -167,7 +167,11 @@ export default function decorate(block) {
 
       const prodBox = document.createElement('div');
       prodBox.className = `prodBox box-${idx + 1}`;
-      if (cardsColor && cardsColor === 'grey') prodBox.style.backgroundColor = '#F6F6F6';
+      if (cardsColor && cardsColor === 'grey') {
+        prodBox.style.backgroundColor = '#F6F6F6';
+        prodBox.style.boxShadow = 'unset';
+        prodBox.style.border = '1px solid #D1D1D1';
+      }
       prodBox.innerHTML = contentRightItem.innerHTML;
       prodBoxesParent.appendChild(prodBox);
     });
