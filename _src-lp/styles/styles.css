@@ -1296,6 +1296,10 @@ main .section.highlight {
   }
 }
 @media (width <= 1174px) {
+  .section.width-small > div {
+    max-width: 767px;
+    margin: auto;
+  }
   .prod-percent.green_bck_circle.bigger {
     right: 2%;
   }
@@ -1309,6 +1313,9 @@ main .section.highlight {
   }
 }
 @media (width <= 989px) {
+  .section.width-small > div {
+    max-width: 630px;
+  }
   .prod-percent.green_bck_circle.bigger {
     width: 95px;
     height: 95px;
