@@ -122,6 +122,7 @@ export const GLOBAL_EVENTS = {
   ADOBE_MC_LOADED: 'adobe_mc::loaded',
   PAGE_LOADED: 'page::loaded',
   COUNTER_LOADED: 'counter::loaded',
+  GEOIPINFO_LOADED: 'geoipinfo::loaded',
 };
 
 // add new script file
@@ -182,6 +183,10 @@ export function appendAdobeMcLinks(selector) {
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*=".bitdefender."]';
     wrapperSelector.querySelectorAll(hrefSelector).forEach((link) => {
+      const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
+      if (isAdobeMcAlreadyAdded) {
+        return;
+      }
       const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
@@ -308,13 +313,23 @@ function maxDiscount() {
     });
   }
 
-  const maxDiscountValue = Math.max(...discountAmounts).toString();
+  const maxDiscountValue = Math.max(...discountAmounts);
   const maxDiscountBox = document.querySelector('.max-discount');
-  if (maxDiscountBox) {
+  if (maxDiscountBox && maxDiscountValue) {
+    const discountText = `${maxDiscountValue.toString()}%`;
     document.querySelectorAll('.max-discount').forEach((item) => {
-      item.textContent = `${maxDiscountValue}%`;
+      item.textContent = discountText;
+      const closestEm = item.closest('em');
+      if (closestEm) closestEm.style.display = 'inline-block';
     });
-    maxDiscountBox.closest('div').style.visibility = 'visible';
+
+    const closestDiv = maxDiscountBox.closest('div');
+    if (closestDiv) closestDiv.style.visibility = 'visible';
+  } else {
+    document.querySelectorAll('.max-discount').forEach((item) => {
+      const closestEm = item.closest('em');
+      if (closestEm) closestEm.style.display = 'none';
+    });
   }
 }
 
@@ -505,18 +520,11 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
         document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = fullPrice;
         });
-        if (oldPriceBox.parentNode.nodeName === 'P') {
-          oldPriceBox.parentNode.style.display = 'none';
-        }
-      } else {
-        oldPriceBox.style.visibility = 'hidden';
-        if (oldPriceBox.closest('.prod-oldprice')) {
-          oldPriceBox.closest('.prod-oldprice').style.visibility = 'hidden';
-          if (oldPriceBox.parentNode.nodeName === 'P') {
-            oldPriceBox.parentNode.style.display = 'none';
-          }
-        }
       }
+
+      document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
+        item.parentNode.style.display = 'none';
+      });
     }
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
@@ -644,4 +652,29 @@ export function getCookie(name) {
     cookie[key.trim()] = value;
   });
   return cookie[name];
+}
+
+/**
+ * Fetches geoip data from the /geoip endpoint and dispatches a custom event with the received information.
+ *
+ * This function makes an asynchronous call to the /geoip endpoint. If the call is successful, it parses
+ * the JSON response and dispatches a custom event named 'geoipinfo' with the received data. In case of an error
+ * during the fetch process, it logs the error to the console.
+ */
+export async function fetchGeoIP() {
+  try {
+    const response = await fetch('/geoip');
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    window.geoip = data;
+
+    const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: data });
+    window.dispatchEvent(event);
+  } catch (error) {
+    console.error('Failed to fetch geoip data:', error);
+  }
 }

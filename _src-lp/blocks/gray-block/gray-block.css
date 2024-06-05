@@ -1,0 +1,70 @@
+.gray-block-container .gray-block.block {
+  padding: 44px 50px;
+  border-radius: 20px;
+}
+
+.gray-block-container .gray-block.block > div:nth-child(1) {
+  text-align: center;
+}
+
+.gray-block-container .gray-block.block h4 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 37px;
+}
+
+.gray-block-container .gray-block.block > div:nth-child(2) {
+  text-align: center;
+  font-size: 18px;
+  line-height: 20px;
+  padding-bottom: 30px;
+}
+
+/* stylelint-disable declaration-block-no-redundant-longhand-properties */
+.gray-block-container .gray-block.block > div:nth-child(3) ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(264px, 1fr));
+  grid-row-gap: 24px;
+  grid-column-gap: 70px;
+}
+
+/* stylelint-enable declaration-block-no-redundant-longhand-properties */
+.gray-block-container .gray-block.block > div:nth-child(3) ul li {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 14px 0 14px 26px;
+  border-bottom: 1px solid #7E7E7E;
+  background-image: url("../../icons/down-arrow-filled.png");
+  background-repeat: no-repeat;
+  background-position: 0 1.4em;
+}
+
+.gray-block-container .gray-block.block > div:nth-child(3) ul li strong {
+  display: inline-block;
+  padding-bottom: 10px;
+  min-height: 48px;
+}
+
+/* stylelint-disable media-feature-range-notation */
+@media screen and (min-width: 1062px) {
+  .gray-block-container .gray-block.block > div:nth-child(3) ul li:nth-last-child(-n+3) {
+    border-bottom: 0;
+  }
+}
+@media screen and (min-width: 728px) and (max-width: 1061px) {
+  .gray-block-container .gray-block.block > div:nth-child(3) ul li:nth-last-child(-n+2) {
+    border-bottom: 0;
+  }
+}
+@media screen and (max-width: 727px) {
+  .gray-block-container .gray-block.block > div:nth-child(3) ul li:nth-last-child(-n+1) {
+    border-bottom: 0;
+  }
+}
+/* stylelint-enable media-feature-range-notation */
