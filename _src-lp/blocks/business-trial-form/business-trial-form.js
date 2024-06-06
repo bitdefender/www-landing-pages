@@ -755,7 +755,7 @@ export default function decorate(block) {
     console.log(formData);
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://stage.bitdefender.com/content/bitdefender/us/en/business/products/free-trials/gravityzone-small-business-security-free-trial/jcr:content/root/container/free_trail_form_tbd.trial.json', true);
+    xhr.open('POST', 'https://www.bitdefender.com/content/bitdefender/us/en/business/products/free-trials/gravityzone-small-business-security-free-trial/jcr:content/root/container/free_trail_form_tbd.trial.json', true);
 
     // Set headers if necessary
     // xhr.setRequestHeader('Content-Type', 'application/json');
