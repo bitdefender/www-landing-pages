@@ -159,20 +159,23 @@
   display: none;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-flex {
+.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-radio {
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
   margin-right: 11px;
+  line-height: 5px;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-flex input {
+.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-radio input {
   margin: 0;
   margin-right: 5px;
   cursor: pointer;
+  width: auto;
+  float: left;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-flex label {
+.section.banner-with-cards-container .banner-with-cards .prodBox .radioBoxParent .d-radio label {
   font-size: 14px;
   line-height: 16px;
   font-weight: normal;
