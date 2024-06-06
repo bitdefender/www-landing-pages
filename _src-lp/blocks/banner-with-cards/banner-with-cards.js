@@ -5,17 +5,17 @@ function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, r
   const radioBoxParent = document.createElement('div');
   radioBoxParent.className = 'radioBoxParent d-flex';
 
-  const createRadioBox = (id, className, name, value, text, checked = false) => {
+  const createRadioBox = (id, className, name, value, text, type, checked = false) => {
     const radioBox = document.createElement('div');
     radioBox.innerHTML = `<div class="d-flex">
-      <input type="radio" id="${id}" class="${className}" name="${name}" value="${value}" ${checked ? 'checked="checked"' : ''}>
+      <input type="radio" id="${id}" data-select="${type}" class="${className}" name="${name}" value="${value}" ${checked ? 'checked="checked"' : ''}>
       <label for="${id}">${text}</label>
     </div>`;
     return radioBox;
   };
 
-  radioBoxParent.appendChild(createRadioBox(`pay_${onSelectorClassM}_${idx}`, `selector-${onSelectorClassM}`, `selectorBox_${idx}`, onSelectorClassM, radio1.textContent, true));
-  radioBoxParent.appendChild(createRadioBox(`pay_${onSelectorClass}_${idx}`, `selector-${onSelectorClass}`, `selectorBox_${idx}`, onSelectorClass, radio2.textContent));
+  radioBoxParent.appendChild(createRadioBox(`pay_${onSelectorClassM}_${idx}`, `selector-${onSelectorClassM}`, `selectorBox_${idx}`, onSelectorClassM, radio1.textContent, 'monthly', true));
+  radioBoxParent.appendChild(createRadioBox(`pay_${onSelectorClass}_${idx}`, `selector-${onSelectorClass}`, `selectorBox_${idx}`, onSelectorClass, radio2.textContent, 'yearly'));
 
   tableRadios.innerHTML = '';
   tableRadios.appendChild(radioBoxParent);
@@ -30,12 +30,12 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
     const pricesBox = document.createElement('div');
     pricesBox.className = `${className} ${prodName}_box prices_box await-loader prodload prodload-${selectorClass}`;
     pricesBox.innerHTML = `<div>
-      <div class="d-flex">
+      <div class="display-flex">
         <span class="prod-oldprice oldprice-${selectorClass}"></span>
         <span class="prod-save"> ${tablePricesText} <span class="save-${selectorClass}"></span></span>
         <span class="d-none percent percent-${selectorClass}">0%</span>
       </div>
-      <div class="d-flex">
+      <div class="display-flex">
         <span class="prod-newprice newprice-${selectorClass}"></span>
       </div>
     </div>`;
@@ -63,10 +63,21 @@ function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClas
   tableBuyBtn.innerHTML = `${buyButtonYearly} ${buyButtonMonthly}`;
 }
 
-function activateRadios(block) {
-  block.querySelectorAll('input[type="radio"]').forEach((group) => {
-    group.addEventListener('change', (event) => {
-      const prodBox = event.target.closest('.prodBox');
+function activateRadios(block, type) {
+  const allRadios = block.querySelectorAll('input[type="radio"]');
+  allRadios.forEach((radio) => {
+    radio.addEventListener('change', (event) => {
+      const { target } = event;
+      const select = target.dataset.select;
+      let prodBox = target.closest('.prodBox');
+
+      if (typeof type !== 'undefined' && type === 'combined') {
+        prodBox = event.target.closest('.hasProds');
+        allRadios.forEach((r) => {
+          r.checked = (r.dataset.select === select);
+        });
+      }
+
       if (prodBox) {
         ['yearly', 'monthly'].forEach((period) => {
           prodBox.querySelectorAll(`.${period}`).forEach((item) => {
@@ -90,7 +101,7 @@ export default function decorate(block) {
 
   // get Metadatas:
   const {
-    products, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
+    products, type, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
     marginBottom, imageCover, imageHeight,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
@@ -156,7 +167,11 @@ export default function decorate(block) {
 
       const prodBox = document.createElement('div');
       prodBox.className = `prodBox box-${idx + 1}`;
-      if (cardsColor && cardsColor === 'grey') prodBox.style.backgroundColor = '#F6F6F6';
+      if (cardsColor && cardsColor === 'grey') {
+        prodBox.style.backgroundColor = '#F6F6F6';
+        prodBox.style.boxShadow = 'unset';
+        prodBox.style.border = '1px solid #D1D1D1';
+      }
       prodBox.innerHTML = contentRightItem.innerHTML;
       prodBoxesParent.appendChild(prodBox);
     });
@@ -171,5 +186,5 @@ export default function decorate(block) {
   `;
 
   // activate radios
-  activateRadios(block);
+  activateRadios(block, type);
 }
