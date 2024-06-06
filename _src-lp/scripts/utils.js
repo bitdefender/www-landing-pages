@@ -183,6 +183,10 @@ export function appendAdobeMcLinks(selector) {
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*=".bitdefender."]';
     wrapperSelector.querySelectorAll(hrefSelector).forEach((link) => {
+      const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
+      if (isAdobeMcAlreadyAdded) {
+        return;
+      }
       const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
