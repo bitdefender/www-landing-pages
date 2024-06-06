@@ -158,7 +158,7 @@ export async function sendAnalyticsUserInfo() {
   const user = {};
   user.loggedIN = 'false';
   user.emarsysID = getParamValue('ems-uid') || getParamValue('sc_uid') || undefined;
-  user.ID = (localStorage && localStorage.getItem('rhvID')) || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+  user.ID = (typeof localStorage !== undefined && localStorage.getItem('rhvID')) || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
   user.productFinding = 'campaign page';
 
   if (typeof user.ID !== 'undefined') {
