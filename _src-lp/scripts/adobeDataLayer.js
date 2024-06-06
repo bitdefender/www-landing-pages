@@ -158,7 +158,19 @@ export async function sendAnalyticsUserInfo() {
   const user = {};
   user.loggedIN = 'false';
   user.emarsysID = getParamValue('ems-uid') || getParamValue('sc_uid') || undefined;
-  user.ID = (typeof localStorage !== undefined && localStorage.getItem('rhvID')) || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+  let userID;
+
+  try {
+      userID = (typeof localStorage !== 'undefined' && localStorage.getItem('rhvID')) || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+  } catch (e) {
+      if (e instanceof DOMException) {
+          console.error("Access to localStorage is denied:", e);
+          userID = getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+      } else {
+          throw e;
+      }
+  }
+
   user.productFinding = 'campaign page';
 
   if (typeof user.ID !== 'undefined') {
