@@ -7,7 +7,7 @@ function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, r
 
   const createRadioBox = (id, className, name, value, text, type, checked = false) => {
     const radioBox = document.createElement('div');
-    radioBox.innerHTML = `<div class="d-flex">
+    radioBox.innerHTML = `<div class="d-radio">
       <input type="radio" id="${id}" data-select="${type}" class="${className}" name="${name}" value="${value}" ${checked ? 'checked="checked"' : ''}>
       <label for="${id}">${text}</label>
     </div>`;
