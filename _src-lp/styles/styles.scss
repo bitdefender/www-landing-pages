@@ -1615,7 +1615,7 @@ main .section.highlight {
   }
 
   .prod-percent.green_bck_circle.bigger {
-    display: none;
+    display: none!important;
   }
 
   .section[data-backgroundcolor='grey'] {

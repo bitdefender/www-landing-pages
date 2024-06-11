@@ -1535,7 +1535,7 @@ main .section.highlight {
     padding: 2px 11px;
   }
   .prod-percent.green_bck_circle.bigger {
-    display: none;
+    display: none !important;
   }
   .section[data-backgroundcolor=grey] {
     padding: 1em 0;
