@@ -117,20 +117,17 @@ export default function decorate(block) {
 
     parentSelector.querySelector('table').before(formBox);
 
-    formBox.addEventListener('submit', async (event) => {
+    block.querySelector('#formBox')?.addEventListener('submit', async (event) => {
       event.preventDefault();
       const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
-
       const email = document.getElementById('formEmail').value;
       const formErr = formBox.querySelector('.form_err');
       const formBtn = formBox.querySelector('button');
       const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
-
       if (email.includes(allowedEmail.split(':')[1].trim())) {
         formBtn.disabled = true;
         formBox.classList.add('await-loader');
         formErr.style.display = 'none';
-
         const formData = new FormData(document.getElementById('formBox'));
         formData.append('nfo[hash_page]', hash.split(':')[1].trim());
         formData.append('nfo[generator_ref]', hash.split(':')[1].trim());
@@ -144,7 +141,6 @@ export default function decorate(block) {
         formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
         formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
         formData.append('nfo[captcha_token]', captchaToken);
-
         fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
           method: 'POST',
           body: formData,
@@ -156,7 +152,6 @@ export default function decorate(block) {
             } else if (jsonObj.success) {
               window.location.replace(jsonObj.redirect);
             }
-
             formBtn.disabled = false;
             formBox.classList.remove('await-loader');
           })
