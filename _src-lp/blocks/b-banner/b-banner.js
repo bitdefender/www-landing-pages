@@ -229,21 +229,16 @@ export default function decorate(block) {
     /* global grecaptcha */
 
     // Create the form element
-    const formBox = document.createElement('form');
+    const formBox = document.createElement('div');
     const [inputText, buttonText] = parentSelector.querySelectorAll('table td');
-    formBox.id = 'formBox';
-    formBox.action = '?';
-    formBox.method = 'POST';
-
-    if (inputText) {
-      formBox.innerHTML = '<label for="formEmail">Email:</label>';
-      formBox.innerHTML += '<p class="form_err"></p>';
-      formBox.innerHTML += `<input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>`;
-    }
-
-    if (buttonText) {
-      formBox.innerHTML += `<button class='green-buy-button'>${buttonText.innerText}</button>`;
-      formBox.innerHTML += '<div id="captchaBox"></div>';
+    if (inputText && buttonText) {
+      formBox.innerHTML = `<form id="formBox" onsubmit="event.preventDefault();">
+        <label for="formEmail">Email:</label>
+        <p class="form_err"></p>
+        <input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>
+        <button class='green-buy-button'>${buttonText.innerText}</button>
+        <div id="captchaBox"></div>
+      </form>`;
       window.onRecaptchaLoadCallback = () => {
         window.clientId = grecaptcha.render('captchaBox', {
           sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
