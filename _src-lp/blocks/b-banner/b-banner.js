@@ -20,6 +20,9 @@
 
 import { productAliases } from '../../scripts/scripts.js';
 import { GLOBAL_EVENTS, updateProductsList } from '../../scripts/utils.js';
+import {
+  sendAnalyticsPageLoadedEvent,
+} from '../../scripts/adobeDataLayer.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -250,7 +253,8 @@ export default function decorate(block) {
 
     parentSelector.querySelector('table').before(formBox);
 
-    window.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
+    window.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+      sendAnalyticsPageLoadedEvent(true);
       document.querySelector('#formBox .green-buy-button').addEventListener('click', async (event) => {
         event.preventDefault();
         const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
