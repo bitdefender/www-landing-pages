@@ -271,7 +271,7 @@ export function updateVATinfo(countryCode, selector) {
 
   prodloadElements.forEach((element) => {
     const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box') || element.closest('.hasProds');
-    console.log(prodloadElement)
+
     if (prodloadElement) {
       const vat2replace = [
         'Taxes not included',
