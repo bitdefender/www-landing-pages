@@ -270,7 +270,8 @@ export function updateVATinfo(countryCode, selector) {
   const prodloadElements = document.querySelectorAll(selector);
 
   prodloadElements.forEach((element) => {
-    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box');
+    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box') || element.closest('.hasProds');
+    console.log(prodloadElement)
     if (prodloadElement) {
       const vat2replace = [
         'Taxes not included',
