@@ -251,7 +251,7 @@ export default function decorate(block) {
     parentSelector.querySelector('table').before(formBox);
 
     window.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
-      document.querySelector('#formBox .green-buy-button')?.addEventListener('click', async (event) => {
+      document.querySelector('#formBox .green-buy-button').addEventListener('click', async (event) => {
         event.preventDefault();
         const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
         const email = document.getElementById('formEmail').value;
