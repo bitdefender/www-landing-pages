@@ -114,7 +114,8 @@
   content: '';
   width: 18px;
   height: 18px;
-  background: url('../../icons/checkmark_solid-circle_2.svg') no-repeat 0 0 transparent;
+  background: url('../../icons/checkmark_solid-circle_2.svg') no-repeat left center transparent;
+  float: left;
 }
 
 .section.banner-container .banner .blue-box {
