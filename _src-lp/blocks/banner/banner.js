@@ -42,7 +42,6 @@ export default function decorate(block) {
       const [alias, save, prices, terms, buybtn] = [...contentEl.querySelectorAll('table tr')];
       const pricesBox = document.createElement('div');
 
-
       if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
         buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
       }
@@ -259,7 +258,6 @@ export default function decorate(block) {
       parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
     }
 
-    console.log('contentSize ', contentSize)
     if (contentSize === 'fourth') {
       block.innerHTML = `
     <div class="container-fluid">

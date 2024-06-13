@@ -59,6 +59,12 @@
   gap: 5px;
 }
 
+.section.banner-container.lp-brand .banner h1 {
+  font-weight: lighter;
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-s);
+}
+
 .section.banner-container.new-2024 .banner h1 {
   font-weight: normal;
 }
@@ -144,6 +150,11 @@
   margin: 0 auto 15px;
 }
 
+.section.banner-container.new-2024.v2 p {
+  font-size: 13px;
+  line-height: 15px;
+}
+
 .section.banner-container .banner .blue-box tr td p {
   display: flex;
   align-items: center;
@@ -212,12 +223,6 @@
   width: 322px;
 }
 
-.section.banner-container.lp-brand .banner h1 {
-  font-weight: lighter;
-  font-size: var(--heading-font-size-s);
-  line-height: var(--heading-font-size-s);
-}
-
 /* animated text */
 .section.banner-container .animated_text {
   height: 40px;
@@ -280,6 +285,10 @@
   align-items: center;
 }
 
+.section.banner-container.new-2024.v2 p a {
+  text-decoration: underline;
+}
+
 .section.banner-container #buyBtnGreenCircleBox a {
   margin-right: 10px;
 }
@@ -316,15 +325,6 @@
 
 .section.banner-container #pricesBox .d-flex .variation {
   margin-left: 10px;
-}
-
-.section.banner-container.new-2024.v2 p {
-  font-size: 13px;
-  line-height: 15px;
-}
-
-.section.banner-container.new-2024.v2 p a {
-  text-decoration: underline;
 }
 
 @media (width >= 768px) {
@@ -440,11 +440,6 @@
     padding: 1em 0 !important;
     margin-bottom: 2em !important;
   }
-  .section.banner-container.new-2024.v2 .banner {
-    border-radius: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: 1em !important;
-  }
   .section.lp-brand .banner {
     padding-bottom: 5.5rem;
     border-radius: 10px;
@@ -452,19 +447,24 @@
   .section.normal-padding-mobile .banner {
     padding-bottom: 1rem;
   }
+  .section.banner-container.new-2024.v2 .banner {
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 1em !important;
+  }
   .section.banner-container .banner h1 {
     margin-top: 0;
     font-size: 30px;
     text-align: left;
+  }
+  .section.lp-brand .banner h1 {
+    text-align: center;
   }
   .section.banner-container.new-2024.v2 .banner h1 {
     font-size: 22px;
     line-height: 30px;
     font-family: "IBM Plex Sans", sans-serif;
     font-weight: normal;
-  }
-  .section.lp-brand .banner h1 {
-    text-align: center;
   }
   .section.banner-container .banner h2 {
     font-size: var(--body-font-size-m);
@@ -546,6 +546,13 @@
   .section.banner-container.new-2024.v2 #pricesBox .buy_box {
     text-align: center;
   }
+  .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
+    display: inline;
+    font-size: var(--body-font-size-s);
+  }
+  .section.banner-container #pricesBox .terms p a {
+    color: #006EFF;
+  }
   .section.banner-container.new-2024.v2 #pricesBox .buy_box a {
     display: inline-block;
     width: 90%;
@@ -556,10 +563,6 @@
   .section.banner-container.new-2024.v2 #pricesBox .buy_box a:nth-of-type(2) {
     margin: 0 auto;
   }
-  .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
-    display: inline;
-    font-size: var(--body-font-size-s);
-  }
   .section.banner-container #pricesBox .terms {
     margin: 5px 0 10px;
   }
@@ -567,9 +570,6 @@
     font-size: 12px;
     line-height: 15px;
     margin: 0 5px;
-  }
-  .section.banner-container #pricesBox .terms p a {
-    color: #006EFF;
   }
   .section.banner-container.block-hide-mobile {
     display: none !important;
