@@ -19,7 +19,10 @@
  */
 
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { GLOBAL_EVENTS, updateProductsList } from '../../scripts/utils.js';
+import {
+  sendAnalyticsPageLoadedEvent,
+} from '../../scripts/adobeDataLayer.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -250,53 +253,60 @@ export default function decorate(block) {
 
     parentSelector.querySelector('table').before(formBox);
 
-    block.querySelector('#formBox .green-buy-button')?.addEventListener('click', async (event) => {
-      event.preventDefault();
-      const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
-      const email = document.getElementById('formEmail').value;
-      const formErr = formBox.querySelector('.form_err');
-      const formBtn = formBox.querySelector('button');
-      const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
-      if (email.includes(allowedEmail.split(':')[1].trim())) {
-        formBtn.disabled = true;
-        formBox.classList.add('await-loader');
-        formErr.style.display = 'none';
-        const formData = new FormData(document.getElementById('formBox'));
-        formData.append('nfo[hash_page]', hash.split(':')[1].trim());
-        formData.append('nfo[generator_ref]', hash.split(':')[1].trim());
-        formData.append('nfo[promotion_url]', window.location.href);
-        formData.append('nfo[prod]', prod.split(':')[1].trim());
-        formData.append('nfo[max_keys]', keys.split(':')[1].trim());
-        formData.append('nfo[begin_date]', beginDate.split(':')[1].trim());
-        formData.append('nfo[end_date]', endDate.split(':')[1].trim());
-        formData.append('nfo[no_days]', noDays.split(':')[1].trim());
-        formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
-        formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
-        formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
-        formData.append('nfo[captcha_token]', captchaToken);
-        fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
-          method: 'POST',
-          body: formData,
-        }).then((response) => response.json())
-          .then((jsonObj) => {
-            if (jsonObj.error) {
-              formErr.style.display = 'block';
-              formErr.innerText = formErrData[jsonObj.error] || 'Please try again later';
-            } else if (jsonObj.success) {
-              window.location.replace(jsonObj.redirect);
-            }
-            formBtn.disabled = false;
-            formBox.classList.remove('await-loader');
-          })
-          .catch((error) => {
-            console.error(error);
-            formBtn.disabled = false;
-            formBox.classList.remove('await-loader');
-          });
-      } else {
-        formErr.style.display = 'block';
-        formErr.innerText = 'Invalid email address';
-      }
+    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+      sendAnalyticsPageLoadedEvent(true);
+      const old_element = document.querySelector('#formBox .green-buy-button')
+      const new_element = old_element.cloneNode(true);
+      old_element.parentNode.replaceChild(new_element, old_element);
+
+      document.querySelector('#formBox .green-buy-button').addEventListener('click', async (event) => {
+        event.preventDefault();
+        const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
+        const email = document.getElementById('formEmail').value;
+        const formErr = formBox.querySelector('.form_err');
+        const formBtn = formBox.querySelector('button');
+        const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
+        if (email.includes(allowedEmail.split(':')[1].trim())) {
+          formBtn.disabled = true;
+          formBox.classList.add('await-loader');
+          formErr.style.display = 'none';
+          const formData = new FormData(document.getElementById('formBox'));
+          formData.append('nfo[hash_page]', hash.split(':')[1].trim());
+          formData.append('nfo[generator_ref]', hash.split(':')[1].trim());
+          formData.append('nfo[promotion_url]', window.location.href);
+          formData.append('nfo[prod]', prod.split(':')[1].trim());
+          formData.append('nfo[max_keys]', keys.split(':')[1].trim());
+          formData.append('nfo[begin_date]', beginDate.split(':')[1].trim());
+          formData.append('nfo[end_date]', endDate.split(':')[1].trim());
+          formData.append('nfo[no_days]', noDays.split(':')[1].trim());
+          formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
+          formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
+          formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
+          formData.append('nfo[captcha_token]', captchaToken);
+          fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+            method: 'POST',
+            body: formData,
+          }).then((response) => response.json())
+            .then((jsonObj) => {
+              if (jsonObj.error) {
+                formErr.style.display = 'block';
+                formErr.innerText = formErrData[jsonObj.error] || 'Please try again later';
+              } else if (jsonObj.success) {
+                window.location.replace(jsonObj.redirect);
+              }
+              formBtn.disabled = false;
+              formBox.classList.remove('await-loader');
+            })
+            .catch((error) => {
+              console.error(error);
+              formBtn.disabled = false;
+              formBox.classList.remove('await-loader');
+            });
+        } else {
+          formErr.style.display = 'block';
+          formErr.innerText = 'Invalid email address';
+        }
+      });
     });
   }
 
