@@ -99,6 +99,10 @@
   margin-top: 5px;
 }
 
+.section.banner-with-cards-container .banner-with-cards h1 em {
+  font-style: normal;
+}
+
 .section.banner-with-cards-container .banner-with-cards .prodBox p a {
   color: #006EFF;
 }

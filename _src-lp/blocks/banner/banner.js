@@ -32,18 +32,18 @@ export default function decorate(block) {
     }
 
     // BLUE-BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'blue-box') {
+    if (aliasTr && aliasTr.textContent.trim() === 'blue-box') {
       table.classList.add('blue-box');
     }
 
     // PRICE_BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'price_box') {
+    if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
-      const [alias, prices, terms, buybtn] = [...contentEl.querySelectorAll('table tr')];
+      const [alias, save, prices, terms, buybtn] = [...contentEl.querySelectorAll('table tr')];
       const pricesBox = document.createElement('div');
 
-      if (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1) {
-        buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+      if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
+        buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
       }
 
       pricesBox.id = 'pricesBox';
@@ -53,16 +53,18 @@ export default function decorate(block) {
         <div>
           <div class="d-flex">
             <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
-            <span class="prod-save d-flex justify-content-center align-items-center save-class">Save <span class="save-${onSelectorClass} "> </span></span>
+            <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
           </div>
           </p>
-          <span class="prod-newprice newprice-${onSelectorClass}"></span>
-          <p class="variation">${prices.innerHTML}</p>
+          <div class="d-flex">
+            <span class="prod-newprice newprice-${onSelectorClass}"></span>
+            <p class="variation">${prices.innerHTML}</p>
+          </div>
       </div>`;
 
       pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
       pricesBox.innerHTML += `<div class="buy_box">
-        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn.innerHTML}</a>
+        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
       </div>`;
 
       table.innerHTML = '';
@@ -70,7 +72,7 @@ export default function decorate(block) {
     }
 
     // GREEN_PILL_BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'green_pill') {
+    if (aliasTr && aliasTr.textContent.trim() === 'green_pill') {
       const [, text] = [...contentEl.querySelectorAll('table tr')];
       const greenPillBox = document.createElement('div');
 
@@ -88,7 +90,7 @@ export default function decorate(block) {
     }
 
     // RED_PILL_BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'red_pill') {
+    if (aliasTr && aliasTr.textContent.trim() === 'red_pill') {
       const [, text] = [...contentEl.querySelectorAll('table tr')];
       const redPillBox = document.createElement('div');
 
@@ -111,7 +113,7 @@ export default function decorate(block) {
     }
 
     // BUYBTN_AND_GREEN_CIRCLE_BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'buybtn_and_green_circle') {
+    if (aliasTr && aliasTr.textContent.trim() === 'buybtn_and_green_circle') {
       // eslint-disable-next-line no-unused-vars
       const [alias, buybtnText] = [...contentEl.querySelectorAll('table tr')];
       const [buybtn, text] = [...buybtnText.querySelectorAll('tr td')];
@@ -201,7 +203,7 @@ export default function decorate(block) {
   }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
-  if (innerBackgroundColor) parentBlock.querySelector('div.banner-wrapper').style.backgroundColor = innerBackgroundColor;
+  if (innerBackgroundColor) blockStyle.backgroundColor = innerBackgroundColor;
   if (textColor) blockStyle.color = textColor;
   if (underlinedInclinedTextColor) {
     block.querySelectorAll('em u').forEach((element) => {
@@ -226,12 +228,19 @@ export default function decorate(block) {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+    if (imageCoverVar) {
+      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
+    }
+
+    let defaultSize = 'col-sm-6 col-md-6 col-lg-5';
+    if (contentSize === 'large') {
+      defaultSize = 'col-sm-7 col-md-7 col-lg-7';
+    }
 
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
-          <div class="col-12 col-sm-6 col-md-6 col-lg-5 ps-4">${contentEl.innerHTML}</div>
+          <div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
@@ -245,7 +254,9 @@ export default function decorate(block) {
     parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+    if (imageCoverVar) {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+    }
 
     if (contentSize === 'fourth') {
       block.innerHTML = `

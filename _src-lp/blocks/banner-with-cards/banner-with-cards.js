@@ -66,25 +66,28 @@ function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClas
 function activateRadios(block, type) {
   const allRadios = block.querySelectorAll('input[type="radio"]');
   allRadios.forEach((radio) => {
-    radio.addEventListener('change', (event) => {
+    const radioID = radio.id;
+    block.addEventListener('click', (event) => {
       const { target } = event;
-      const select = target.dataset.select;
-      let prodBox = target.closest('.prodBox');
+      if (target.tagName === 'INPUT' && target.id === radioID) {
+        const select = target.dataset.select;
+        let prodBox = target.closest('.prodBox');
 
-      if (typeof type !== 'undefined' && type === 'combined') {
-        prodBox = event.target.closest('.hasProds');
-        allRadios.forEach((r) => {
-          r.checked = (r.dataset.select === select);
-        });
-      }
-
-      if (prodBox) {
-        ['yearly', 'monthly'].forEach((period) => {
-          prodBox.querySelectorAll(`.${period}`).forEach((item) => {
-            item.classList.toggle('show');
-            item.classList.toggle('hide');
+        if (typeof type !== 'undefined' && type === 'combined') {
+          prodBox = event.target.closest('.hasProds');
+          allRadios.forEach((r) => {
+            r.checked = (r.dataset.select === select);
           });
-        });
+        }
+
+        if (prodBox) {
+          ['yearly', 'monthly'].forEach((period) => {
+            prodBox.querySelectorAll(`.${period}`).forEach((item) => {
+              item.classList.toggle('show');
+              item.classList.toggle('hide');
+            });
+          });
+        }
       }
     });
   });
