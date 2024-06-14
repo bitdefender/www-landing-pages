@@ -235,21 +235,12 @@ export default function decorate(block) {
 
     parentSelector.querySelector('table').before(formBox);
 
-    setTimeout(() => {
-      block.addEventListener('click', async (event) => {
-        console.log('timeout: block clicked');
-        const { target } = event;
-        if (target.tagName === 'BUTTON' && target.closest('form')) {
-          console.log('timeout: block BUTTON clicked');
-        }
-      });
-    }, 2000);
-
     block.addEventListener('click', async (event) => {
-      console.log('block clicked');
+      console.log('block clicked v2');
       const { target } = event;
+      console.log('target ', target, target.closest('form'))
       if (target.tagName === 'BUTTON' && target.closest('form')) {
-        console.log('block BUTTON clicked');
+        console.log('block BUTTON clicked v2');
         event.preventDefault();
         const email = document.getElementById('formEmail').value;
         const formErr = formBox.querySelector('.form_err');
