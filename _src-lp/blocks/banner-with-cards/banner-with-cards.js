@@ -64,10 +64,12 @@ function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClas
 }
 
 function activateRadios(block, type) {
+  console.log('activateRadios');
   const allRadios = block.querySelectorAll('input[type="radio"]');
   allRadios.forEach((radio) => {
     const radioID = radio.id;
     block.addEventListener('click', (event) => {
+      console.log('activateRadios clicked');
       const { target } = event;
       if (target.tagName === 'INPUT' && target.id === radioID) {
         const select = target.dataset.select;
