@@ -251,7 +251,7 @@ export default function decorate(block) {
     parentSelector.querySelector('table').before(formBox);
 
     block.addEventListener('click', async (event) => {
-      const {target} = event;
+      const { target } = event;
       if (target.tagName === 'BUTTON' && target.closest('form')) {
         event.preventDefault();
         const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
@@ -301,13 +301,6 @@ export default function decorate(block) {
         }
       }
     });
-
-    /* document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
-      sendAnalyticsPageLoadedEvent(true);
-      const oldElement = document.querySelector('#formBox .green-buy-button');
-      const newElement = oldElement.cloneNode(true);
-      oldElement.parentNode.replaceChild(newElement, oldElement);
-    });*/
   }
 
   // TODO: Add logic betwen the card and banner component.
