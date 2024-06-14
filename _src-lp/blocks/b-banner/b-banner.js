@@ -255,9 +255,9 @@ export default function decorate(block) {
 
     document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
       sendAnalyticsPageLoadedEvent(true);
-      const old_element = document.querySelector('#formBox .green-buy-button')
-      const new_element = old_element.cloneNode(true);
-      old_element.parentNode.replaceChild(new_element, old_element);
+      const oldElement = document.querySelector('#formBox .green-buy-button');
+      const newElement = oldElement.cloneNode(true);
+      oldElement.parentNode.replaceChild(newElement, oldElement);
 
       document.querySelector('#formBox .green-buy-button').addEventListener('click', async (event) => {
         event.preventDefault();
