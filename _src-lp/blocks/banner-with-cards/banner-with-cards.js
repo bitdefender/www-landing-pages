@@ -191,7 +191,7 @@ export default function decorate(block) {
   `;
 
   // activate radios
-  setTimeout(function() {
+  setTimeout(() => {
     activateRadios(block, type);
   }, 2000);
 }
