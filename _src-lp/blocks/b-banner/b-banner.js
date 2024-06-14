@@ -307,13 +307,6 @@ export default function decorate(block) {
         }
       }
     });
-
-    /* document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
-      sendAnalyticsPageLoadedEvent(true);
-      const oldElement = document.querySelector('#formBox .green-buy-button');
-      const newElement = oldElement.cloneNode(true);
-      oldElement.parentNode.replaceChild(newElement, oldElement);
-    });*/
   }
 
   // TODO: Add logic betwen the card and banner component.
