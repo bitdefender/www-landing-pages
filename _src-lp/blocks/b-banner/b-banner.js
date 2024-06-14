@@ -253,13 +253,9 @@ export default function decorate(block) {
 
     parentSelector.querySelector('table').before(formBox);
 
-    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
-      sendAnalyticsPageLoadedEvent(true);
-      const oldElement = document.querySelector('#formBox .green-buy-button');
-      const newElement = oldElement.cloneNode(true);
-      oldElement.parentNode.replaceChild(newElement, oldElement);
-
-      document.querySelector('#formBox .green-buy-button').addEventListener('click', async (event) => {
+    block.addEventListener('click', async (event) => {
+      const {target} = event;
+      if (target.tagName === 'BUTTON' && target.closest('form')) {
         event.preventDefault();
         const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
         const email = document.getElementById('formEmail').value;
@@ -306,8 +302,15 @@ export default function decorate(block) {
           formErr.style.display = 'block';
           formErr.innerText = 'Invalid email address';
         }
-      });
+      }
     });
+
+    /* document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+      sendAnalyticsPageLoadedEvent(true);
+      const oldElement = document.querySelector('#formBox .green-buy-button');
+      const newElement = oldElement.cloneNode(true);
+      oldElement.parentNode.replaceChild(newElement, oldElement);
+    });*/
   }
 
   // TODO: Add logic betwen the card and banner component.
