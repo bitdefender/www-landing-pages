@@ -1,4 +1,4 @@
-import { getMetadata } from "./lib-franklin.js";
+import { getMetadata } from './lib-franklin.js';
 
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
