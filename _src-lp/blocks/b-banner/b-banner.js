@@ -232,15 +232,11 @@ export default function decorate(block) {
     const formBox = document.createElement('div');
     const [inputText, buttonText] = parentSelector.querySelectorAll('table td');
     if (inputText && buttonText) {
-      window.formButtonClick = () => {
-        console.log('formButtonClick clicked');
-      };
-
       formBox.innerHTML = `<form id="formBox" onsubmit="event.preventDefault();">
         <label for="formEmail">Email:</label>
         <p class="form_err"></p>
         <input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>
-        <button class='green-buy-button' onclick='formButtonClick()'>${buttonText.innerText}</button>
+        <button class='green-buy-button'>${buttonText.innerText}</button>
         <div id="captchaBox"></div>
       </form>`;
       window.onRecaptchaLoadCallback = () => {
@@ -255,10 +251,8 @@ export default function decorate(block) {
     parentSelector.querySelector('table').before(formBox);
 
     block.addEventListener('click', async (event) => {
-      console.log('block clicked');
       const { target } = event;
       if (target.tagName === 'BUTTON' && target.closest('form')) {
-        console.log('button block clicked');
         event.preventDefault();
         const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
         const email = document.getElementById('formEmail').value;
