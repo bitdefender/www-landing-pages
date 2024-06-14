@@ -221,13 +221,6 @@ export default function decorate(block) {
     const [hash, beginDate, endDate, prod, noDays, noUsers, keys, allowedEmail, allowedCountries] = config.split(',');
     block.classList.add('form-banner');
 
-    // adding reCaptcha script
-    const recaptchaScript = document.createElement('script');
-    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
-    recaptchaScript.defer = true;
-    document.body.appendChild(recaptchaScript);
-    /* global grecaptcha */
-
     // Create the form element
     const formBox = document.createElement('div');
     const [inputText, buttonText] = parentSelector.querySelectorAll('table td');
@@ -237,24 +230,27 @@ export default function decorate(block) {
         <p class="form_err"></p>
         <input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>
         <button class='green-buy-button'>${buttonText.innerText}</button>
-        <div id="captchaBox"></div>
       </form>`;
-      window.onRecaptchaLoadCallback = () => {
-        window.clientId = grecaptcha.render('captchaBox', {
-          sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
-          badge: 'inline',
-          size: 'invisible',
-        });
-      };
     }
 
     parentSelector.querySelector('table').before(formBox);
 
+    setTimeout(() => {
+      block.addEventListener('click', async (event) => {
+        console.log('timeout: block clicked');
+        const { target } = event;
+        if (target.tagName === 'BUTTON' && target.closest('form')) {
+          console.log('timeout: block BUTTON clicked');
+        }
+      });
+    }, 2000);
+
     block.addEventListener('click', async (event) => {
+      console.log('block clicked');
       const { target } = event;
       if (target.tagName === 'BUTTON' && target.closest('form')) {
+        console.log('block BUTTON clicked');
         event.preventDefault();
-        const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
         const email = document.getElementById('formEmail').value;
         const formErr = formBox.querySelector('.form_err');
         const formBtn = formBox.querySelector('button');
@@ -275,7 +271,6 @@ export default function decorate(block) {
           formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
           formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
           formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
-          formData.append('nfo[captcha_token]', captchaToken);
           fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
             method: 'POST',
             body: formData,
