@@ -255,8 +255,10 @@ export default function decorate(block) {
     parentSelector.querySelector('table').before(formBox);
 
     block.addEventListener('click', async (event) => {
+      console.log('block clicked');
       const { target } = event;
       if (target.tagName === 'BUTTON' && target.closest('form')) {
+        console.log('button block clicked');
         event.preventDefault();
         const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
         const email = document.getElementById('formEmail').value;
