@@ -19,10 +19,7 @@
  */
 
 import { productAliases } from '../../scripts/scripts.js';
-import { GLOBAL_EVENTS, updateProductsList } from '../../scripts/utils.js';
-import {
-  sendAnalyticsPageLoadedEvent,
-} from '../../scripts/adobeDataLayer.js';
+import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
