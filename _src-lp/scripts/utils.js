@@ -1,3 +1,5 @@
+import { getMetadata } from './lib-franklin.js';
+
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
   [4, { locale: 'au-AU', label: 'australia' }],
@@ -267,8 +269,10 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
 
 // DEX-17703 - replacing VAT INFO text for en regions
 export function updateVATinfo(countryCode, selector) {
-  const prodloadElements = document.querySelectorAll(selector);
+  const skipVATinfo = getMetadata('skip-vatinfo-logic');
+  if (skipVATinfo && skipVATinfo === 'true') return;
 
+  const prodloadElements = document.querySelectorAll(selector);
   prodloadElements.forEach((element) => {
     const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box') || element.closest('.hasProds');
 

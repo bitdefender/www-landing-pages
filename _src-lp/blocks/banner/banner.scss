@@ -60,11 +60,19 @@
   gap: 5px;
 }
 
+.section.banner-container.lp-brand .banner h1 {
+  font-weight: lighter;
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-s);
+}
+
 .section.banner-container.new-2024 .banner h1 {
   font-weight: normal;
 }
 
-
+.section.banner-container.new-2024.v2 .banner h1 {
+  font: normal normal normal 32px/42px "IBM Plex Sans", sans-serif;
+}
 
 .section.banner-container.new-2024 .banner h3 {
   font: normal normal bold 24px/28px Arial, sans-serif;
@@ -92,6 +100,10 @@
   align-items: flex-start;
 }
 
+.section.banner-container.new-2024.v2 .banner ul li {
+  display: inline-block;
+}
+
 .section.banner-container .banner ul li::before {
   content: "•";
   color: #4CA154;
@@ -100,6 +112,14 @@
   margin-left: 0;
   margin-right: 10px;
   font-size: 35px;
+}
+
+.section.banner-container.new-2024.v2 .banner ul li::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background: url('../../icons/checkmark_solid-circle_2.svg') no-repeat left center transparent;
+  float: left;
 }
 
 .section.banner-container .banner .blue-box {
@@ -129,6 +149,11 @@
   line-height: 14px;
   font-family: Arial, sans-serif;
   margin: 0 auto 15px;
+}
+
+.section.banner-container.new-2024.v2 p {
+  font-size: 13px;
+  line-height: 15px;
 }
 
 .section.banner-container .banner .blue-box tr td p {
@@ -165,9 +190,15 @@
   padding: 2rem;
 }
 
-.section.banner-container.new-2024 hr{
+.section.banner-container.new-2024 hr {
   border: 2px solid #C6C6C6;
   width: 80px;
+}
+
+.section.banner-container.new-2024.v2 hr {
+  border: 1px solid #E7E7E7;
+  width: 100%;
+  margin: 1em 0;
 }
 
 .section.banner-container .banner #lidlBox hr {
@@ -191,12 +222,6 @@
 
 .section.lp-brand .banner .col-5 {
   width: 322px;
-}
-
-.section.banner-container.lp-brand .banner h1 {
-  font-weight: lighter;
-  font-size: var(--heading-font-size-s);
-  line-height: var(--heading-font-size-s);
 }
 
 /* animated text */
@@ -261,6 +286,10 @@
   align-items: center;
 }
 
+.section.banner-container.new-2024.v2 p a {
+  text-decoration: underline;
+}
+
 .section.banner-container #buyBtnGreenCircleBox a {
   margin-right: 10px;
 }
@@ -278,6 +307,25 @@
   color: #fff;
   display: inline-block;
   margin-top: 10px;
+}
+
+.section.banner-container #pricesBox .buy_box a {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: bold;
+  padding: 13px 2em !important;
+  margin-right: 10px;
+}
+
+.section.banner-container #pricesBox .buy_box a:nth-of-type(2) {
+  color: #006DFF;
+  border: 2px solid #006DFF;
+  border-radius: 10px;
+  padding: 13px 1em !important;
+}
+
+.section.banner-container #pricesBox .d-flex .variation {
+  margin-left: 10px;
 }
 
 @media (width >= 768px) {
@@ -300,6 +348,10 @@
 
   .section.banner-container #pricesBox {
     text-align: left;
+  }
+
+  .section.banner-container.new-2024.v2 #pricesBox {
+    margin-top: 1em;
   }
 
  .section.banner-container #pricesBox .d-flex {
@@ -330,7 +382,7 @@
   }
 
   .section.banner-container #pricesBox .buy_box {
-    margin: 20px 0;
+    margin: 2em 0 1em;
     min-height: auto;
   }
 
@@ -424,6 +476,12 @@
     padding-bottom: 1rem;
   }
 
+  .section.banner-container.new-2024.v2 .banner {
+    border-radius: 0!important;
+    margin-top: 0!important;
+    margin-bottom: 1em !important;
+  }
+
   .section.banner-container .banner h1 {
     margin-top: 0;
     font-size: 30px;
@@ -432,6 +490,13 @@
 
   .section.lp-brand .banner h1 {
     text-align: center;
+  }
+
+  .section.banner-container.new-2024.v2 .banner h1 {
+    font-size: 22px;
+    line-height: 30px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: normal;
   }
 
   .section.banner-container .banner h2 {
@@ -443,9 +508,21 @@
     line-height: 18px;
   }
 
+  .section.banner-container.new-2024.v2 .banner ul {
+    text-align: left;
+  }
+
   .section.banner-container .banner ul li {
     font-size: 11px;
     line-height: 16px;
+  }
+
+  .section.banner-container.new-2024.v2 .banner ul li {
+    font-size: 14px;
+  }
+
+  .section.banner-container.new-2024.v2 .banner .prices_box {
+    text-align: left;
   }
 
   .section.banner-container .banner #lidlBox {
@@ -483,6 +560,10 @@
     justify-content: center;
   }
 
+  .section.banner-container.new-2024.v2 #pricesBox .d-flex {
+    justify-content: left;
+  }
+
   .section.banner-container #pricesBox .d-flex p {
     margin: 0 10px 0 0;
   }
@@ -504,14 +585,39 @@
     font-weight: bold;
   }
 
+  .section.banner-container.new-2024.v2 #pricesBox .d-flex .variation {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
   .section.banner-container #pricesBox .buy_box {
     margin: 20px 0;
     min-height: auto;
   }
 
+  .section.banner-container.new-2024.v2 #pricesBox .buy_box {
+    text-align: center
+  }
+
   .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
     display: inline;
     font-size: var(--body-font-size-s);
+  }
+
+  .section.banner-container #pricesBox .terms p a {
+    color: #006EFF;
+  }
+
+  .section.banner-container.new-2024.v2 #pricesBox .buy_box a {
+    display: inline-block;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto 10px;
+    font-size: 16px;
+  }
+
+  .section.banner-container.new-2024.v2 #pricesBox .buy_box a:nth-of-type(2) {
+    margin: 0 auto;
   }
 
   .section.banner-container #pricesBox .terms {
@@ -522,10 +628,6 @@
     font-size: 12px;
     line-height: 15px;
     margin: 0 5px;
-  }
-
-  .section.banner-container #pricesBox .terms p a {
-    color: #006EFF;
   }
 
   .section.banner-container.block-hide-mobile {
