@@ -18,8 +18,9 @@
  * - pill: https://www.bitdefender.com/media/html/business/RansomwareTrial/new.html
  */
 
+import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -29,86 +30,16 @@ export default function decorate(block) {
   // config new elements
   const {
     product, discountStyle, discountText, textColor, backgroundColor, bottom, imageVariation, bannerDiscount,
-    headerTextColor, blueBorder, logo, config, productBox, counterSwitchOn, counterHeadings, counterTheme, biggerBanner,
+    headerTextColor, blueBorder, logo, config, productBox, biggerBanner,
   } = metaData;
 
   // move picture below
   const bannerImage = block.children[1].querySelector('picture');
-  if (!parentSelector.classList.contains('counter')) {
+  if (bannerImage) {
     bannerImage.classList.add('banner-image');
   }
 
-  if (counterSwitchOn) {
-    bannerImage.id = 'blackFriday';
-    bannerImage.classList.add('flipClock-image');
-    bannerImage.style.display = 'none';
-
-    // adding neccessary scripts:
-    // js
-    const flipClockJs = document.createElement('script');
-    flipClockJs.src = 'https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js';
-    document.head.appendChild(flipClockJs);
-
-    // css
-    const flipClockCss = document.createElement('link');
-    flipClockCss.rel = 'stylesheet';
-    flipClockCss.type = 'text/css';
-    flipClockCss.href = 'https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css';
-    document.head.appendChild(flipClockCss);
-
-    block.innerHTML = block.innerHTML.replace('[counter]', `
-      <div id="flipdown" class="flipdown"></div>
-    `);
-
-    if (block.children.length === 3) {
-      const bannerImage2 = block.children[2].querySelector('picture');
-      bannerImage2.classList.add('banner-image', 'flipClock-image');
-      bannerImage2.style.display = 'none';
-      bannerImage2.id = 'cyberMonday';
-      parentSelector.append(bannerImage2);
-    }
-
-    // functionality:
-    const flipdownBox = document.getElementById('flipdown');
-    if (flipdownBox) {
-      const blackFridayElement = document.getElementById('blackFriday');
-      const cyberMondayElement = document.getElementById('cyberMonday');
-
-      const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
-
-      // config
-      const flipConfig = {
-        theme: counterTheme || 'dark',
-        headings: counterHeadings ? counterHeadings.split(',') : ['Days', 'Hours', 'Minutes', 'Seconds'],
-      };
-
-      setTimeout(() => {
-        // eslint-disable-next-line no-undef
-        const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipConfig);
-        if (!firstCounter.countdownEnded) {
-          blackFridayElement.style.display = 'block';
-          cyberMondayElement.style.display = 'none';
-        }
-
-        firstCounter.start()
-          .ifEnded(() => {
-            // switch images:
-            blackFridayElement.style.display = 'none';
-            cyberMondayElement.style.display = 'block';
-
-            // The initial counter has ended; start a new one 48 hours from now
-            flipdownBox.innerHTML = '';
-            const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
-
-            // eslint-disable-next-line no-undef
-            const secondCounter = new FlipDown(newTime, flipConfig);
-            secondCounter.start().ifEnded(() => {});
-          });
-      }, 1000);
-    }
-  } else {
-    parentSelector.append(bannerImage);
-  }
+  parentSelector.append(bannerImage);
 
   // update background color if set, if not set default: #000
   if (backgroundColor) {
@@ -147,103 +78,8 @@ export default function decorate(block) {
     block.children[0].children[0].prepend(logoBox);
   }
 
-  /// //////////////////////////////////////////////////////////////////////
-  // create form section
-  if (config) {
-    const [hash, beginDate, endDate, prod, noDays, noUsers, keys, allowedEmail, allowedCountries] = config.split(',');
-    block.classList.add('form-banner');
-
-    // adding reCaptcha script
-    const recaptchaScript = document.createElement('script');
-    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
-    recaptchaScript.defer = true;
-    document.body.appendChild(recaptchaScript);
-    /* global grecaptcha */
-
-    // Create the form element
-    const formBox = document.createElement('form');
-    const [inputText, buttonText] = parentSelector.querySelectorAll('table td');
-    formBox.id = 'formBox';
-    formBox.action = '?';
-    formBox.method = 'POST';
-
-    if (inputText) {
-      formBox.innerHTML = '<label for="formEmail">Email:</label>';
-      formBox.innerHTML += '<p class="form_err"></p>';
-      formBox.innerHTML += `<input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>`;
-    }
-
-    if (buttonText) {
-      formBox.innerHTML += `<button class='green-buy-button'>${buttonText.innerText}</button>`;
-      formBox.innerHTML += '<div id="captchaBox"></div>';
-      window.onRecaptchaLoadCallback = () => {
-        window.clientId = grecaptcha.render('captchaBox', {
-          sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
-          badge: 'inline',
-          size: 'invisible',
-        });
-      };
-    }
-
-    parentSelector.querySelector('table').before(formBox);
-
-    formBox.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
-
-      const email = document.getElementById('formEmail').value;
-      const formErr = formBox.querySelector('.form_err');
-      const formBtn = formBox.querySelector('button');
-      const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
-
-      if (email.includes(allowedEmail.split(':')[1].trim())) {
-        formBtn.disabled = true;
-        formBox.classList.add('await-loader');
-        formErr.style.display = 'none';
-
-        const formData = new FormData(document.getElementById('formBox'));
-        formData.append('nfo[hash_page]', hash.split(':')[1].trim());
-        formData.append('nfo[generator_ref]', hash.split(':')[1].trim());
-        formData.append('nfo[promotion_url]', window.location.href);
-        formData.append('nfo[prod]', prod.split(':')[1].trim());
-        formData.append('nfo[max_keys]', keys.split(':')[1].trim());
-        formData.append('nfo[begin_date]', beginDate.split(':')[1].trim());
-        formData.append('nfo[end_date]', endDate.split(':')[1].trim());
-        formData.append('nfo[no_days]', noDays.split(':')[1].trim());
-        formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
-        formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
-        formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
-        formData.append('nfo[captcha_token]', captchaToken);
-
-        fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
-          method: 'POST',
-          body: formData,
-        }).then((response) => response.json())
-          .then((jsonObj) => {
-            if (jsonObj.error) {
-              formErr.style.display = 'block';
-              formErr.innerText = formErrData[jsonObj.error] || 'Please try again later';
-            } else if (jsonObj.success) {
-              window.location.replace(jsonObj.redirect);
-            }
-
-            formBtn.disabled = false;
-            formBox.classList.remove('await-loader');
-          })
-          .catch((error) => {
-            console.error(error);
-            formBtn.disabled = false;
-            formBox.classList.remove('await-loader');
-          });
-      } else {
-        formErr.style.display = 'block';
-        formErr.innerText = 'Invalid email address';
-      }
-    });
-  }
-
   // has award in banner
-  if (block.children.length === 3 && !productBox && !counterSwitchOn) {
+  if (block.children.length === 3 && !productBox) {
     block.children[2].id = 'bannerAward';
     const targetElement = block.children[2].children[0];
     const paragraphs = targetElement.querySelectorAll('p:last-of-type');
@@ -350,6 +186,20 @@ export default function decorate(block) {
         </a>
       </div>`;
     }
+
+    if (block.classList.contains('product-picture')) {
+      const lastChild = block.children[block.children.length - 1];
+      lastChild.style.position = 'relative';
+      block.prepend(block.children[block.children.length - 1]);
+
+      const greenBubble = document.createElement('div');
+      greenBubble.classList.add('green-bubble');
+      greenBubble.innerHTML = `<span class="discount-percentage await-loader prodload prodload-${onSelectorClass} percent-${onSelectorClass}">10%</span> \n${discountText}`;
+      lastChild.appendChild(greenBubble);
+
+      const bannerWrapper = block.parentElement;
+      bannerWrapper.style.position = 'relative';
+    }
   }
 
   // adding height if content is bigger than default banner:
@@ -359,41 +209,108 @@ export default function decorate(block) {
     block.closest('.b-banner-container').style.height = `${contentHeight + 20}px`;
   }
 
-  if (parentSelector.classList.contains('counter')) {
-    parentSelector.classList.add('custom-counter');
-    const [richTextEl] = [...block.children];
-    block.style.width = '100%';
-
-    if (backgroundColor) {
-      block.style.backgroundColor = backgroundColor;
-    } else {
-      block.style.backgroundColor = '#000';
-    }
-
-    block.innerHTML = `
-    <div class="container-fluid">
-        <div class="d-none d-lg-flex item-align-center">
-          <div class="ps-4">${richTextEl.innerHTML}</div>
-          <div class="text-center">
-            ${bannerImage.innerHTML}
-          </div>
-        </div>
-        <div class="d-lg-none justify-content-center">
-          <div class="col-12 p-0 text-center">
-            ${bannerImage.innerHTML}
-          </div>
-          <div class="col-12 col-sm-7 text-center">${richTextEl.innerHTML}</div>
-        </div>
-      </div>
-    `;
-  }
-
   // add greenTag for specific text: [NEW]
   const getLists = block.querySelectorAll('ul li');
   getLists.forEach((item) => {
     item.innerHTML = item.innerHTML.replace('[', '<span class="greenTag">');
     item.innerHTML = item.innerHTML.replace(']', '</span>');
   });
+
+  /// //////////////////////////////////////////////////////////////////////
+  // create form section
+  if (config) {
+    const [hash, beginDate, endDate, prod, noDays, noUsers, keys, allowedEmail, allowedCountries] = config.split(',');
+    block.classList.add('form-banner');
+
+    // adding reCaptcha script
+    const recaptchaScript = document.createElement('script');
+    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
+    recaptchaScript.defer = true;
+    document.body.appendChild(recaptchaScript);
+    /* global grecaptcha */
+
+    // Create the form element
+    const formBox = document.createElement('div');
+    const [inputText, buttonText] = parentSelector.querySelectorAll('table td');
+    if (inputText && buttonText) {
+      formBox.innerHTML = `<form id="formBox" onsubmit="event.preventDefault();">
+        <label for="formEmail">Email:</label>
+        <p class="form_err"></p>
+        <input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>
+        <button class='green-buy-button'>${buttonText.innerText}</button>
+        <div id="captchaBox"></div>
+      </form>`;
+      window.onRecaptchaLoadCallback = () => {
+        window.clientId = grecaptcha.render('captchaBox', {
+          sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
+          badge: 'inline',
+          size: 'invisible',
+        });
+      };
+    }
+
+    parentSelector.querySelector('table').before(formBox);
+
+    block.addEventListener('click', async (event) => {
+      const { target } = event;
+      if (target.tagName === 'BUTTON' && target.closest('form')) {
+        event.preventDefault();
+        const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
+        const email = document.getElementById('formEmail').value;
+        const formErr = formBox.querySelector('.form_err');
+        const formBtn = formBox.querySelector('button');
+        const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
+        if (email.includes(allowedEmail.split(':')[1].trim())) {
+          formBtn.disabled = true;
+          formBox.classList.add('await-loader');
+          formErr.style.display = 'none';
+          const formData = new FormData(document.getElementById('formBox'));
+          formData.append('nfo[hash_page]', hash.split(':')[1].trim());
+          formData.append('nfo[generator_ref]', hash.split(':')[1].trim());
+          formData.append('nfo[promotion_url]', window.location.href);
+          formData.append('nfo[prod]', prod.split(':')[1].trim());
+          formData.append('nfo[max_keys]', keys.split(':')[1].trim());
+          formData.append('nfo[begin_date]', beginDate.split(':')[1].trim());
+          formData.append('nfo[end_date]', endDate.split(':')[1].trim());
+          formData.append('nfo[no_days]', noDays.split(':')[1].trim());
+          formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
+          formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
+          formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
+          formData.append('nfo[captcha_token]', captchaToken);
+          fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+            method: 'POST',
+            body: formData,
+          }).then((response) => response.json())
+            .then((jsonObj) => {
+              if (jsonObj.error) {
+                formErr.style.display = 'block';
+                formErr.innerText = formErrData[jsonObj.error] || 'Please try again later';
+              } else if (jsonObj.success) {
+                window.location.replace(jsonObj.redirect);
+              }
+              formBtn.disabled = false;
+              formBox.classList.remove('await-loader');
+            })
+            .catch((error) => {
+              console.error(error);
+              formBtn.disabled = false;
+              formBox.classList.remove('await-loader');
+            });
+        } else {
+          formErr.style.display = 'block';
+          formErr.innerText = 'Invalid email address';
+        }
+      }
+    });
+
+    if (window.ADOBE_MC_EVENT_LOADED) {
+      sendAnalyticsPageLoadedEvent(true);
+    } else {
+      document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+        sendAnalyticsPageLoadedEvent(true);
+      });
+    }
+  }
 
   // TODO: Add logic betwen the card and banner component.
 }
