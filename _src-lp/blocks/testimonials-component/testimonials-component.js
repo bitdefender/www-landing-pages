@@ -1,5 +1,4 @@
 export default function decorate(block) {
-
   const [title, subtitle, source, ...reviews] = block.children;
 
   title.classList.add('title-class');
@@ -21,7 +20,7 @@ export default function decorate(block) {
     svg.setAttribute('width', '25px'); // Set width to 32 pixels
     svg.setAttribute('height', '32px'); // Set height to 32 pixels
     svg.style.fill = '#006EFF'; // Set the SVG color to blue
-    svg.style.marginTop='30px'
+    svg.style.marginTop = '30px';
     svg.innerHTML = '<!--!Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2024 Fonticons, Inc.--><path d="M0 216C0 149.7 53.7 96 120 96h8 32v64H128h-8c-30.9 0-56 25.1-56 56v8H192V416H0V320 224v-8zm256 0c0-66.3 53.7-120 120-120h8 32v64H384h-8c-30.9 0-56 25.1-56 56v8H448V416H256V320 224v-8z"/>';
 
     // Create a container for the SVG and review content
@@ -95,5 +94,4 @@ export default function decorate(block) {
 
     currentIndex = nextIndex;
   }
- 
 }

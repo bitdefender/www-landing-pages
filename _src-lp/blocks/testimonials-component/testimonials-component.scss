@@ -26,7 +26,7 @@
       text-align: center;
       font: normal normal bold 32px/37px Arial, sans-serif;
   
-      @media (min-width: 768px) {
+      @media screen and (width >= 768px) {
         width: 715px;
       }
     }
@@ -44,7 +44,7 @@
       flex: 1;
       gap: 25px;
       background: #edf9ff;
-      padding: 26px 0px 26px 23px;
+      padding: 26px 0 26px 23px;
       border-radius: 16px;
   
       .grey-bck & {
@@ -80,7 +80,7 @@
     .hide {
       display: none;
   
-      @media (min-width: 990px) {
+      @media screen and (width >= 991px) {
         display: flex;
       }
     }
@@ -88,7 +88,7 @@
     .show {
       display: flex;
   
-      @media (min-width: 990px) {
+      @media screen and (width >= 991px) {
         display: flex;
       }
     }
@@ -102,7 +102,7 @@
       margin-top: 20px;
       align-items: center;
   
-      @media (min-width: 990px) {
+      @media screen and (width >= 991px) {
         justify-content: center;
       }
     }
@@ -111,7 +111,7 @@
       display: flex;
       gap: 3%;
   
-      @media (min-width: 990px) {
+      @media screen and (width >= 9910px) {
         display: none;
       }
     }
@@ -123,24 +123,24 @@
       display: flex;
       justify-content: center;
       align-items: center;
-  
+        
+    .prev-button {
+      margin-right: 10px;
+      }
+      
       &:hover {
         border: 1px solid #006eff;
       }
     }
   
-    .prev-button {
-      margin-right: 10px;
-    }
-  
-    @media (min-width: 768px) {
+    @media screen and (width >= 768px) {
       .reviews-container {
         display: flex;
         flex-direction: column;
       }
     }
   
-    @media (min-width: 990px) {
+    @media screen and (width >= 991px) {
       .reviews-container {
         display: flex;
         flex-direction: row;
@@ -162,7 +162,7 @@
       }
     }
   
-    @media (min-width: 1200px) {
+    @media screen and (width >= 1199px) {
       .testimonials-component {
         max-width: 1294px;
       }
