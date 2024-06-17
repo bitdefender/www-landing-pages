@@ -17,7 +17,9 @@
 }
 
 .section.banner-container .banner h1 {
-  font-size: 30px;
+  font-size: 28px;
+  text-align: left;
+  margin-top: 0;
 }
 
 .section.banner-container .banner img {
@@ -42,12 +44,6 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(to left, rgb(247 247 247 / 0%), #F7F7F7);
-}
-
-.section.banner-container .banner h1 {
-  font-size: 28px;
-  text-align: left;
-  margin-top: 0;
 }
 
 .section.banner-container.new-2024 .banner {
@@ -105,8 +101,8 @@
 .section.banner-container.list-greenpill-tag .banner ul li em u {
   background-color: #2CB43D;
   border-radius: 16px;
-  padding: 2px 7px 2px 7px;
-  margin: 1px 0 0 0;
+  padding: 2px 7px;
+  margin: 1px 0 0;
   color: white !important;
   font-weight: 600;
   font-size: 14px;
