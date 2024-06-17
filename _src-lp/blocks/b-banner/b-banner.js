@@ -18,6 +18,7 @@
  * - pill: https://www.bitdefender.com/media/html/business/RansomwareTrial/new.html
  */
 
+import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -298,6 +299,8 @@ export default function decorate(block) {
         formErr.innerText = 'Invalid email address';
       }
     });
+    
+    sendAnalyticsPageLoadedEvent(true);
   }
 
   // TODO: Add logic betwen the card and banner component.
