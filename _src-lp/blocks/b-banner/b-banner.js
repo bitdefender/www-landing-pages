@@ -18,8 +18,9 @@
  * - pill: https://www.bitdefender.com/media/html/business/RansomwareTrial/new.html
  */
 
+import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -301,6 +302,14 @@ export default function decorate(block) {
         }
       }
     });
+
+    if (window.ADOBE_MC_EVENT_LOADED) {
+      sendAnalyticsPageLoadedEvent(true);
+    } else {
+      document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+        sendAnalyticsPageLoadedEvent(true);
+      });
+    }
   }
 
   // TODO: Add logic betwen the card and banner component.
