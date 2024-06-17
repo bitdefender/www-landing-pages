@@ -49,7 +49,7 @@ export default function decorate(block) {
           ZZ: `oldprice-${onSelectorClass}`,
         };
 
-        Object.keys(replacements).forEach(key => {
+        Object.keys(replacements).forEach((key) => {
           const value = replacements[key];
           if (titlePrices.textContent.indexOf(key) !== -1) {
             const regex = new RegExp(key, 'g');
