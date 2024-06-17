@@ -39,24 +39,25 @@ export default function decorate(block) {
     // TITLE_WITH_PRICES
     if (aliasTr && aliasTr.textContent.trim() === 'title_with_prices') {
       // eslint-disable-next-line no-unused-vars
-      const [alias, title_prices] = [...table.querySelectorAll('tr')];
+      const [alias, titlePrices] = [...table.querySelectorAll('tr')];
 
       const titleBox = document.createElement('div');
-      if (title_prices) {
+      if (titlePrices) {
         const replacements = {
-          'XX': `newprice-${onSelectorClass}`,
-          'YY': `save-${onSelectorClass}`,
-          'ZZ': `oldprice-${onSelectorClass}`
+          XX: `newprice-${onSelectorClass}`,
+          YY: `save-${onSelectorClass}`,
+          ZZ: `oldprice-${onSelectorClass}`,
         };
 
-        for (const [key, value] of Object.entries(replacements)) {
-          if (title_prices.textContent.indexOf(key) !== -1) {
-            const regex = new RegExp(`${key}`, 'g');
-            title_prices.innerHTML = title_prices.innerHTML.replace(regex, `<span class="${value}"></span>`);
+        Object.keys(replacements).forEach(key => {
+          const value = replacements[key];
+          if (titlePrices.textContent.indexOf(key) !== -1) {
+            const regex = new RegExp(key, 'g');
+            titlePrices.innerHTML = titlePrices.innerHTML.replace(regex, `<span class="${value}"></span>`);
           }
-        }
+        });
 
-        titleBox.innerHTML = title_prices.innerHTML;
+        titleBox.innerHTML = titlePrices.innerHTML;
       }
 
       table.innerHTML = '';
@@ -166,7 +167,6 @@ export default function decorate(block) {
           </a>`;
         }
       }
-
 
       if (text && text.innerHTML !== '') {
         greenCircleBox.innerHTML += `<span class="green_circle_box">${text.innerHTML}</span>`;
