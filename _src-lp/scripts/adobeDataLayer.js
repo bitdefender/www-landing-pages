@@ -237,24 +237,22 @@ export async function sendAnalyticsProducts(product, region) {
   }
 
   productsInAdobe.push({
-    info: {
-      ID: product.selected_variation.platform_product_id,
-      name: productName,
-      devices: product.selected_users,
-      subscription: product.selected_years * 12,
-      version: '',
-      basePrice: product.selected_variation.price,
-      discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
-      discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
-      currency: product.selected_variation.currency_iso,
-      priceWithTax: discountVal,
-    },
+    ID: product.selected_variation.platform_product_id,
+    name: productName,
+    devices: product.selected_users,
+    subscription: product.selected_years * 12,
+    version: '',
+    basePrice: product.selected_variation.price,
+    discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
+    discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
+    currency: product.selected_variation.currency_iso,
+    priceWithTax: discountVal,
   });
 
   if (productsInAdobe.length === initCount) {
     window.adobeDataLayer.push({
       event: 'campaign product',
-      product: productsInAdobe,
+      product: { info: productsInAdobe },
     });
 
     window.adobeDataLayer.push({
