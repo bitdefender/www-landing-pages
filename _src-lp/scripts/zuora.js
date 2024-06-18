@@ -179,7 +179,7 @@ export default class ZuoraNLClass {
         zuoraCart.searchParams.set('channel', windowURL.searchParams.get('channel'));
       }
       zuoraCart.searchParams.set('product_id', this.productId[id]);
-      zuoraCart.searchParams.set('payment_period', this.monthlyProducts[id] ? `${devicesNo}d1m` : `${devicesNo}d${yearsNo}y`);
+      zuoraCart.searchParams.set('payment_period', this.monthlyProducts.includes(id) ? `${devicesNo}d1m` : `${devicesNo}d${yearsNo}y`);
       zuoraCart.searchParams.set('country', 'NL');
       zuoraCart.searchParams.set('language', 'nl_NL');
       zuoraCart.searchParams.set('client', '8f768650-6915-11ed-83e3-e514e761ac46');
@@ -193,6 +193,7 @@ export default class ZuoraNLClass {
 
       const pricing = {};
       period.pricing.forEach((item) => {
+        if (item.devices_no === 50) item.devices_no = 1;
         if (item.devices_no === Number(devicesNo)) {
           pricing.total = item.price;
           pricing.discount = item.discount;
@@ -239,18 +240,18 @@ export default class ZuoraNLClass {
     return window.StoreProducts.product[id];
   }
 
-  static async loadProduct(id) {
-    let cuponCode = '';
+  static async loadProduct(id, campaignParam = '') {
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
 
     try {
-      cuponCode = await this.fetchCampaignName();
-      return this.getProductVariationsPrice(id, cuponCode);
+      let coupon = campaignParam;
+      if (!coupon) coupon = await this.fetchCampaignName();
+      return this.getProductVariationsPrice(id, coupon);
     } catch (error) {
       console.error('loadProduct error:', error);
     }
 
-    return this.getProductVariationsPrice(id, cuponCode);
+    return this.getProductVariationsPrice(id);
   }
 }

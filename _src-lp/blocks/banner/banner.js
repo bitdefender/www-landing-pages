@@ -7,7 +7,7 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, animatedText, contentSize, backgroundColor, backgroundHide, bannerHide, textColor,
+    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
     marginBottom, imageCover, corners, textNextToPill,
   } = metaData;
@@ -32,32 +32,67 @@ export default function decorate(block) {
     }
 
     // BLUE-BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'blue-box') {
+    if (aliasTr && aliasTr.textContent.trim() === 'blue-box') {
       table.classList.add('blue-box');
     }
 
-    // PRICE_BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'price_box') {
+    // TITLE_WITH_PRICES
+    if (aliasTr && aliasTr.textContent.trim() === 'title_with_prices') {
       // eslint-disable-next-line no-unused-vars
-      const [alias, prices, terms, buybtn] = [...contentEl.querySelectorAll('table tr')];
+      const [alias, titlePrices] = [...table.querySelectorAll('tr')];
+
+      const titleBox = document.createElement('div');
+      if (titlePrices) {
+        const replacements = {
+          XX: `newprice-${onSelectorClass}`,
+          YY: `save-${onSelectorClass}`,
+          ZZ: `oldprice-${onSelectorClass}`,
+        };
+
+        Object.keys(replacements).forEach((key) => {
+          const value = replacements[key];
+          if (titlePrices.textContent.indexOf(key) !== -1) {
+            const regex = new RegExp(key, 'g');
+            titlePrices.innerHTML = titlePrices.innerHTML.replace(regex, `<span class="${value}"></span>`);
+          }
+        });
+
+        titleBox.innerHTML = titlePrices.innerHTML;
+      }
+
+      table.innerHTML = '';
+      table.appendChild(titleBox);
+    }
+
+    // PRICE_BOX
+    if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
+      // eslint-disable-next-line no-unused-vars
+      const [alias, save, prices, terms, buybtn] = [...table.querySelectorAll('tr')];
       const pricesBox = document.createElement('div');
 
-      if (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1) {
-        buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+      if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
+        buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
       }
 
       pricesBox.id = 'pricesBox';
       pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
       pricesBox.innerHTML += `<div class="d-flex">
         <p>
-          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-          <span class="prod-newprice newprice-${onSelectorClass}"></span>
-        </p>
-        <p class="variation">${prices.innerHTML}</p>
+        <div>
+          <div class="d-flex">
+            <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
+            <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
+          </div>
+          </p>
+          <div class="d-flex">
+            <span class="prod-newprice newprice-${onSelectorClass}"></span>
+            <p class="variation">${prices.innerHTML}</p>
+          </div>
       </div>`;
+
       pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
       pricesBox.innerHTML += `<div class="buy_box">
-        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn.innerHTML}</a>
+        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
       </div>`;
 
       table.innerHTML = '';
@@ -65,9 +100,8 @@ export default function decorate(block) {
     }
 
     // GREEN_PILL_BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'green_pill') {
-      // eslint-disable-next-line no-unused-vars
-      const [alias, text] = [...contentEl.querySelectorAll('table tr')];
+    if (aliasTr && aliasTr.textContent.trim() === 'green_pill') {
+      const [, text] = [...table.querySelectorAll('tr')];
       const greenPillBox = document.createElement('div');
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
@@ -84,9 +118,8 @@ export default function decorate(block) {
     }
 
     // RED_PILL_BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'red_pill') {
-      // eslint-disable-next-line no-unused-vars
-      const [alias, text] = [...contentEl.querySelectorAll('table tr')];
+    if (aliasTr && aliasTr.textContent.trim() === 'red_pill') {
+      const [, text] = [...table.querySelectorAll('tr')];
       const redPillBox = document.createElement('div');
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
@@ -108,9 +141,9 @@ export default function decorate(block) {
     }
 
     // BUYBTN_AND_GREEN_CIRCLE_BOX
-    if (aliasTr && aliasTr.innerText.trim() === 'buybtn_and_green_circle') {
+    if (aliasTr && aliasTr.textContent.trim() === 'buybtn_and_green_circle') {
       // eslint-disable-next-line no-unused-vars
-      const [alias, buybtnText] = [...contentEl.querySelectorAll('table tr')];
+      const [alias, buybtnText] = [...table.querySelectorAll('tr')];
       const [buybtn, text] = [...buybtnText.querySelectorAll('tr td')];
       const greenCircleBox = document.createElement('div');
 
@@ -124,13 +157,15 @@ export default function decorate(block) {
 
       greenCircleBox.id = 'buyBtnGreenCircleBox';
       greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
-      if (buybtn.innerHTML.includes('<a')) {
-        buybtn.querySelector('a').className = 'button primary';
-        greenCircleBox.innerHTML += buybtn.innerHTML;
-      } else {
-        greenCircleBox.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
-          <strong>${buybtn.innerHTML}</strong>
-        </a>`;
+      if (buybtn) {
+        if (buybtn.innerHTML.includes('<a')) {
+          buybtn.querySelector('a').className = 'button primary';
+          greenCircleBox.innerHTML += buybtn.innerHTML;
+        } else {
+          greenCircleBox.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
+            <strong>${buybtn.innerHTML}</strong>
+          </a>`;
+        }
       }
 
       if (text && text.innerHTML !== '') {
@@ -198,6 +233,7 @@ export default function decorate(block) {
   }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
+  if (innerBackgroundColor) blockStyle.backgroundColor = innerBackgroundColor;
   if (textColor) blockStyle.color = textColor;
   if (underlinedInclinedTextColor) {
     block.querySelectorAll('em u').forEach((element) => {
@@ -218,14 +254,27 @@ export default function decorate(block) {
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  if (imageCover && imageCover === 'small') {
+  if (imageCover && imageCover.indexOf('small') !== -1) {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+
+    const imageCoverVar = imageCover.split('-')[1];
+    if (imageCoverVar) {
+      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
+    }
+
+    let defaultSize = 'col-sm-6 col-md-6 col-lg-5';
+    if (contentSize === 'larger') {
+      defaultSize = 'col-sm-7 col-md-7 col-lg-7';
+    } else if (contentSize === 'half') {
+      defaultSize = 'col-sm-6 col-md-6 col-lg-6';
+    }
+
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex position-relative">
-          <div class="col-5 ps-4">${contentEl.innerHTML}</div>
+        <div class="row d-none d-md-flex d-lg-flex position-relative">
+          <div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
         </div>
-        <div class="row d-lg-none justify-content-center">
+        <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
           <div class="col-12 p-0 text-center bck-img">
             ${pictureEl.innerHTML}
@@ -236,12 +285,9 @@ export default function decorate(block) {
   } else if (imageCover) {
     parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
 
-    if (imageCover === 'full-left') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top left / auto 100% ${backgroundColor || '#000'}`;
-    } else if (imageCover === 'full-center') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / auto 100% ${backgroundColor || '#000'}`;
-    } else if (imageCover === 'full-right') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
+    const imageCoverVar = imageCover.split('-')[1];
+    if (imageCoverVar) {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
     }
 
     if (contentSize === 'fourth') {
@@ -264,22 +310,27 @@ export default function decorate(block) {
     `;
     }
   } else {
+    let defaultSize = 'col-sm-5 col-md-5 col-lg-5';
+    if (contentSize === 'larger') {
+      defaultSize = 'col-sm-7 col-md-7 col-lg-7';
+    } else if (contentSize === 'half') {
+      defaultSize = 'col-sm-6 col-md-6 col-lg-6';
+    }
+
     block.innerHTML = `
     <div class="container-fluid">
-        <div class="row d-none d-lg-flex position-relative">
-          <div class="col-5 ps-4">${contentEl.innerHTML}</div>
-          <div class="col-7 img-right bck-img">
+      <div class="row d-block d-sm-flex d-md-flex d-lg-flex position-relative">
+        <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img">
             ${pictureEl.innerHTML}
-          </div>
         </div>
-        <div class="row d-lg-none justify-content-center">
-          <div class="col-12 p-0 text-center bck-img">
+
+        <div class="col-xs-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
+
+        <div class="${defaultSize ? 'col-5' : 'col-7'} d-none d-sm-none d-md-block d-lg-block img-right bck-img">
             ${pictureEl.innerHTML}
-          </div>
-          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
         </div>
       </div>
-    `;
+    </div>`;
   }
 
   if (textAlignVertical) {

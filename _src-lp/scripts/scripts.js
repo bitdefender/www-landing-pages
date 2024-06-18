@@ -30,6 +30,7 @@ import {
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
   formatPrice,
+  updateVATinfo,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -264,6 +265,7 @@ function changeCheckboxVPN(checkboxId, pid) {
   const discPriceClass = `.newprice-${onSelectorClass}`;
   const priceClass = `.oldprice-${onSelectorClass}`;
   const saveClass = `.save-${onSelectorClass}`;
+  const percentClass = `.percent-${onSelectorClass}`;
   let fullPrice = '';
   const selectedUsers = document.querySelector(`.users_${onSelectorClass}_fake`).value;
   const selectedYears = document.querySelector(`.years_${onSelectorClass}_fake`).value;
@@ -290,7 +292,10 @@ function changeCheckboxVPN(checkboxId, pid) {
   let save = '';
   let justVpn = '';
   let newPrice = '';
+  let percentageVal = '';
   let ref = '';
+
+  const paramCoupon = getParam('coupon');
 
   let promoPid = pid;
   if (promoPid) {
@@ -298,7 +303,7 @@ function changeCheckboxVPN(checkboxId, pid) {
   }
 
   let pidUrlBundle = `/pid.${promoPid}`;
-  if (pid === 'ignore') {
+  if (pid === 'ignore' || paramCoupon) {
     pidUrlBundle = '';
   }
 
@@ -559,14 +564,23 @@ function changeCheckboxVPN(checkboxId, pid) {
       66: { THB: ['VPN_XNA'] },
     };
 
+    // DEX-17862 - add new coupon based on param
+    let couponValue = '';
+    if (coupon[selectedVariation.region_id][currency] !== undefined) couponValue = coupon[selectedVariation.region_id][currency];
+    if (coupon[selectedVariation.region_id].ALL !== undefined) couponValue = coupon[selectedVariation.region_id].ALL;
+
+    if (paramCoupon) {
+      couponValue = `${paramCoupon},${couponValue}`;
+    }
+
     if (DEFAULT_LANGUAGE === 'de') {
       if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id][currency] !== 'undefined') {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/OfferID.${coupon[selectedVariation.region_id][currency]}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+        buyLink += `/${vpnId}/${10}/${1}/OfferID.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
         // buyLink += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
       } else if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id].ALL !== 'undefined') {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/OfferID.${coupon[selectedVariation.region_id].ALL}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+        buyLink += `/${vpnId}/${10}/${1}/OfferID.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
         // buyLink += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
       } else {
         buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
@@ -574,11 +588,11 @@ function changeCheckboxVPN(checkboxId, pid) {
       }
     } else if (coupon[selectedVariation.region_id][currency] !== 'undefined') {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/COUPON.${coupon[selectedVariation.region_id][currency]}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+      buyLink += `/${vpnId}/${10}/${1}/COUPON.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
       // buylink_vpn += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
     } else if (coupon[selectedVariation.region_id].ALL !== 'undefined') {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/COUPON.${coupon[selectedVariation.region_id].ALL}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
+      buyLink += `/${vpnId}/${10}/${1}/COUPON.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
       // buylink_vpn += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
     } else {
       buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
@@ -586,7 +600,7 @@ function changeCheckboxVPN(checkboxId, pid) {
     }
 
     /* this is a hack */
-    if (pidUrlBundle === '') {
+    if (pidUrlBundle === '' && !paramCoupon) {
       const regex = /COUPON\.[^/]+\//gi;
       buyLink = buyLink.replace(regex, '');
     }
@@ -675,6 +689,7 @@ function changeCheckboxVPN(checkboxId, pid) {
     buyLink = buyLinkDefault;
   }
 
+  percentageVal = (((fullPrice - newPrice) / fullPrice) * 100).toFixed(0);
   fullPrice = formatPrice(fullPrice, selectedVariation.currency_iso, selectedVariation.region_id);
   save = formatPrice(save, selectedVariation.currency_iso, selectedVariation.region_id);
   newPrice = formatPrice(newPrice, selectedVariation.currency_iso, selectedVariation.region_id);
@@ -707,8 +722,15 @@ function changeCheckboxVPN(checkboxId, pid) {
     }
   }
 
+  if (parentDiv.querySelector(percentClass)) {
+    parentDiv.querySelector(percentClass).innerHTML = `${percentageVal}%`;
+    if (comparativeDiv && comparativeDiv.querySelector(percentClass)) {
+      comparativeDiv.querySelector(percentClass).innerHTML = `${percentageVal}%`;
+    }
+  }
+
   const dataInfo = {
-    buyLink: `buylink-${onSelectorClass}`,
+    buyLinkSelector: `buylink-${onSelectorClass}`,
     variation: {
       discounted_price: newPrice.replace(selectedVariation.currency_label, '').trim(),
       price: fullPrice.replace(selectedVariation.currency_label, '').trim(),
@@ -749,7 +771,9 @@ function initSelectors(pid) {
       const initSelectorConfig = {
         product_id: prodAlias,
         full_price_class: `oldprice-${onSelectorClass}`,
+        full_price_monthly_class: `oldprice-${onSelectorClass}-monthly`,
         discounted_price_class: `newprice-${onSelectorClass}`,
+        discounted_price_monthly_class: `newprice-${onSelectorClass}-monthly`,
         price_class: `price-${onSelectorClass}`,
         buy_class: `buylink-${onSelectorClass}`,
         save_class: `save-${onSelectorClass}`,
@@ -767,7 +791,12 @@ function initSelectors(pid) {
           sendAnalyticsProducts(this);
           try {
             const fp = this;
-            showPrices(fp);
+            const paramCoupon = getParam('coupon');
+
+            // DEX-17703 - replacing VAT INFO text for en regions
+            showPrices(fp, false, null, onSelectorClass, paramCoupon);
+            if (getDefaultLanguage() === 'en' && fp.selected_variation.region_id) updateVATinfo(fp.selected_variation.region_id, `.buylink-${onSelectorClass}`);
+
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }
@@ -806,9 +835,11 @@ function addIdsToEachSection() {
 
 function addEventListenersOnVpnCheckboxes(pid) {
   if (document.querySelector('.checkboxVPN')) {
-    document.querySelectorAll('.checkboxVPN').forEach((item) => {
+    document.querySelectorAll('.prod_box').forEach((item) => {
       item.addEventListener('click', (e) => {
-        const checkboxId = e.target.getAttribute('id');
+        const { target } = e;
+        if (target.tagName === 'INPUT' && target.classList.contains('checkboxVPN')) {
+          const checkboxId = target.getAttribute('id');
 
         if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
           const prodxId = e.target.getAttribute('id').split('-')[1];

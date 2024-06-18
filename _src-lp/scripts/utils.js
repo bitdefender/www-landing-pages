@@ -1,3 +1,5 @@
+import { getMetadata } from './lib-franklin.js';
+
 import { Bundle } from './vendor/product.js';
 
 export const IANA_BY_REGION_MAP = new Map([
@@ -120,6 +122,13 @@ export const getIpCountry = async () => {
 };
 */
 
+export const GLOBAL_EVENTS = {
+  ADOBE_MC_LOADED: 'adobe_mc::loaded',
+  PAGE_LOADED: 'page::loaded',
+  COUNTER_LOADED: 'counter::loaded',
+  GEOIPINFO_LOADED: 'geoipinfo::loaded',
+};
+
 // add new script file
 export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallback = undefined, onErrorCallback = undefined, type = undefined) {
   const s = document.createElement('script');
@@ -167,11 +176,6 @@ export function getDefaultSection() {
   return currentPathUrl.indexOf('/business/') !== -1 ? 'business' : 'consumer';
 }
 
-export const GLOBAL_EVENTS = {
-  ADOBE_MC_LOADED: 'adobe_mc::loaded',
-  PAGE_LOADED: 'page::loaded',
-};
-
 export function appendAdobeMcLinks(selector) {
   try {
     const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
@@ -183,6 +187,10 @@ export function appendAdobeMcLinks(selector) {
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*=".bitdefender."]';
     wrapperSelector.querySelectorAll(hrefSelector).forEach((link) => {
+      const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
+      if (isAdobeMcAlreadyAdded) {
+        return;
+      }
       const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
@@ -217,9 +225,9 @@ export function updateProductsList(product) {
 export function setDataOnBuyLinks(dataInfo) {
   try {
     const { buyLinkSelector, productId, variation } = dataInfo;
-    const btnElelemts = document.getElementsByClassName(buyLinkSelector);
+    const btnElelemts = document.querySelectorAll(`.${buyLinkSelector}`);
 
-    if (btnElelemts !== null && btnElelemts !== '') {
+    if (btnElelemts !== undefined && btnElelemts.length > 0) {
       Array.from(btnElelemts).forEach((element) => {
         if (productId) element.dataset.product = productId;
 
@@ -261,6 +269,40 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
   }
 }
 
+// DEX-17703 - replacing VAT INFO text for en regions
+export function updateVATinfo(countryCode, selector) {
+  const skipVATinfo = getMetadata('skip-vatinfo-logic');
+  if (skipVATinfo && skipVATinfo === 'true') return;
+
+  const prodloadElements = document.querySelectorAll(selector);
+  prodloadElements.forEach((element) => {
+    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box') || element.closest('.hasProds');
+
+    if (prodloadElement) {
+      const vat2replace = [
+        'Taxes not included',
+        'Sales tax included',
+        'Plus applicable sales tax',
+        'Tax included',
+      ];
+
+      vat2replace.forEach((text) => {
+        let taxText = 'Sales tax included';
+        if (countryCode === '8') taxText = 'Plus applicable sales tax';
+
+        if (prodloadElement.innerHTML.includes(text)) {
+          const currentText = prodloadElement.innerHTML;
+          const newText = currentText.replace(text, taxText);
+          // before replacing check if the text is already correct
+          if (currentText !== newText) {
+            prodloadElement.innerHTML = newText;
+          }
+        }
+      });
+    }
+  });
+}
+
 export function formatPrice(price, currency, region) {
   const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
   return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
@@ -278,18 +320,28 @@ function maxDiscount() {
     });
   }
 
-  const maxDiscountValue = Math.max(...discountAmounts).toString();
+  const maxDiscountValue = Math.max(...discountAmounts);
   const maxDiscountBox = document.querySelector('.max-discount');
-  if (maxDiscountBox) {
+  if (maxDiscountBox && maxDiscountValue) {
+    const discountText = `${maxDiscountValue.toString()}%`;
     document.querySelectorAll('.max-discount').forEach((item) => {
-      item.textContent = `${maxDiscountValue}%`;
+      item.textContent = discountText;
+      const closestEm = item.closest('em');
+      if (closestEm) closestEm.style.display = 'inline-block';
     });
-    maxDiscountBox.closest('div').style.visibility = 'visible';
+
+    const closestDiv = maxDiscountBox.closest('div');
+    if (closestDiv) closestDiv.style.visibility = 'visible';
+  } else {
+    document.querySelectorAll('.max-discount').forEach((item) => {
+      const closestEm = item.closest('em');
+      if (closestEm) closestEm.style.display = 'none';
+    });
   }
 }
 
 // display prices
-export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '') {
+export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
@@ -298,7 +350,9 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
   let parentDiv = '';
-  let buyLink = storeObj.buy_link;
+
+  // DEX-17862 - add new coupon based on param
+  let buyLink = paramCoupon ? `${storeObj.buy_link}?COUPON=${paramCoupon}` : storeObj.buy_link;
   let selectedVarPrice = storeObj.selected_variation.price;
   let selectedVarDiscount = storeObj.selected_variation.discount?.discounted_price;
 
@@ -471,6 +525,10 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = offerPrice;
         });
+      } else {
+        document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
+          item.innerHTML = fullPrice;
+        });
       }
     }
 
@@ -480,23 +538,16 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = fullPrice;
         });
-        if (oldPriceBox.parentNode.nodeName === 'P') {
-          oldPriceBox.parentNode.style.display = 'none';
-        }
-      } else {
-        oldPriceBox.style.visibility = 'hidden';
-        if (oldPriceBox.closest('.prod-oldprice')) {
-          oldPriceBox.closest('.prod-oldprice').style.setProperty('display', 'none', 'important');
-          if (oldPriceBox.parentNode.nodeName === 'P') {
-            oldPriceBox.parentNode.style.display = 'none';
-          }
-        }
       }
+
+      document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
+        item.parentNode.style.display = 'none';
+      });
     }
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
-      const siblingElements = saveBox.parentNode.parentNode.querySelectorAll('div');
+      const siblingElements = saveBox.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
       });
@@ -536,7 +587,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     }
   }
 
-  if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && document.querySelector(`.buylink-${onSelectorClass}`)) {
+  if (document.querySelector(`.buylink-${onSelectorClass}`)) {
     const allBuyLinkBox = document.querySelectorAll(`.buylink-${onSelectorClass}`);
     if (triggerVPN) {
       parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
@@ -619,4 +670,29 @@ export function getCookie(name) {
     cookie[key.trim()] = value;
   });
   return cookie[name];
+}
+
+/**
+ * Fetches geoip data from the /geoip endpoint and dispatches a custom event with the received information.
+ *
+ * This function makes an asynchronous call to the /geoip endpoint. If the call is successful, it parses
+ * the JSON response and dispatches a custom event named 'geoipinfo' with the received data. In case of an error
+ * during the fetch process, it logs the error to the console.
+ */
+export async function fetchGeoIP() {
+  try {
+    const response = await fetch('/geoip');
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    window.geoip = data;
+
+    const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: data });
+    window.dispatchEvent(event);
+  } catch (error) {
+    console.error('Failed to fetch geoip data:', error);
+  }
 }

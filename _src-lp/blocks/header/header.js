@@ -60,6 +60,9 @@ export default async function decorate(block) {
       });
     } else if (html.indexOf('blue-logo') !== -1) {
       headerWrapper.id = 'headerBlue';
+      if (html.indexOf('affiliate') !== -1) {
+        headerWrapper.classList.add('affiliate');
+      }
 
       block.innerHTML = html;
       const logoEl = block.querySelector('p');
