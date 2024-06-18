@@ -226,6 +226,11 @@
 
 /* Phishing end */
 
+.c-icon-box-grid-container.center .icon-box-grid-column {
+  align-items: center;
+  text-align: center;
+}
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-s);
