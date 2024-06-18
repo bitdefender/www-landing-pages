@@ -1,5 +1,4 @@
 import { getMetadata } from './lib-franklin.js';
-
 import { Bundle } from './vendor/product.js';
 
 export const IANA_BY_REGION_MAP = new Map([
@@ -341,7 +340,7 @@ function maxDiscount() {
 }
 
 // display prices
-export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
+export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;

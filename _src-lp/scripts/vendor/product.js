@@ -1,6 +1,11 @@
 
 const LOCALE_PARAMETER = 'locale';
-const API_BASE = 'https://pricing.service-delivery.nmbapp.net';
+const API_BASE = 'https://www.bitdefender.com';
+const API_ROOT = '/p-api/v1';
+const GEOIP_ENDPOINT = 'https://www.bitdefender.com/geoip';
+const COUNTRY = 'bd:country';
+const TGT_GEO_OBJ = 'tgt:-424784351:h';
+const TGT_GEO_OBJ_KEY = 'x-geo-country-code';
 
 export default class ProductPrice {
 
@@ -48,15 +53,54 @@ export default class ProductPrice {
 
     const urlParams = new URLSearchParams(window.location.search);
     let forceLocale = urlParams.get(LOCALE_PARAMETER);
-    
+
     if (forceLocale)
       this.#locale = forceLocale;
 
   }
 
+  async #getLocale() {
+    try {
+      // Extract language from URL
+      const url = window.location.href;
+      const language = url.split('/')[5];
+
+      // Check for the target variable in localStorage
+      const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
+      let country;
+
+      if (cachedGeoData) {
+        const geoData = JSON.parse(cachedGeoData);
+        country = geoData[TGT_GEO_OBJ_KEY];
+      } else {
+        // Check if country is already cached in localStorage
+        const cachedCountry = localStorage.getItem(COUNTRY);
+
+        if (cachedCountry) {
+          country = cachedCountry;
+        } else {
+          // Fetch country information from the endpoint
+          const response = await fetch(GEOIP_ENDPOINT);
+          const data = await response.json();
+          country = data.country;
+
+          // Cache the country in localStorage
+          localStorage.setItem(COUNTRY, country);
+        }
+      }
+
+      // Construct the locale string
+      const locale = `${language}-${country}`;
+      return locale;
+    } catch (error) {
+      console.error('Error fetching locale:', error);
+      return null;
+    }
+  }
+
   async #getProductVariations() {
 
-    const endpoint = new URL(`/api/v1/products/${this.#bundleId}/locale/${this.#locale}`, API_BASE);
+    const endpoint = new URL(`${API_ROOT}/products/${this.#bundleId}/locale/${this.#locale}`, API_BASE);
 
     if (this.#campaign) {
       endpoint.pathname += `/campaign/${this.#campaign}`;
@@ -98,7 +142,7 @@ export default class ProductPrice {
         return;
       }
 
-      if (this.#yearsNo != option.months/12) {
+      if (this.#yearsNo != option.months / 12) {
         return;
       }
 
@@ -173,7 +217,7 @@ export default class ProductPrice {
 }
 
 export class Bundle {
-  
+
   #product;
   #bundleProduct;
   #locale = 'en-us';
@@ -218,5 +262,5 @@ export class Bundle {
       return null;
     }
   }
-  
+
 }

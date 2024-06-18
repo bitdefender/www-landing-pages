@@ -841,12 +841,13 @@ function addEventListenersOnVpnCheckboxes(pid) {
         if (target.tagName === 'INPUT' && target.classList.contains('checkboxVPN')) {
           const checkboxId = target.getAttribute('id');
 
-        if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
-          const prodxId = e.target.getAttribute('id').split('-')[1];
-          const storeObjprod = window.StoreProducts.product[prodxId] || {};
-          showPrices(storeObjprod, e.target.checked, checkboxId);
-        } else {
-          changeCheckboxVPN(checkboxId, pid);
+          if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
+            const prodxId = e.target.getAttribute('id').split('-')[1];
+            const storeObjprod = window.StoreProducts.product[prodxId] || {};
+            showPrices(storeObjprod, e.target.checked, checkboxId);
+          } else {
+            changeCheckboxVPN(checkboxId, pid);
+          }
         }
       });
     });
@@ -920,6 +921,7 @@ async function initVlaicuProductPriceLogic(campaign) {
 async function initializeProductsPriceLogic() {
   let pid = getParam('pid');
   let campaign = getParam('campaign');
+  const vlaicuCampaign = getParam('vcampaign');
 
   try {
     /* global adobe */
@@ -966,14 +968,14 @@ async function initializeProductsPriceLogic() {
   }
 
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
-    if (!window.location.pathname.includes('vlaicu')) {
+    if (!vlaicuCampaign) {
       addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
         initSelectors(pid);
         addEventListenersOnVpnCheckboxes(pid);
       }, {}, 'module');
     } else {
       window.isVlaicu = true;
-      initVlaicuProductPriceLogic(campaign);
+      initVlaicuProductPriceLogic(vlaicuCampaign);
       addEventListenersOnVpnCheckboxes(pid);
     }
   } else {
