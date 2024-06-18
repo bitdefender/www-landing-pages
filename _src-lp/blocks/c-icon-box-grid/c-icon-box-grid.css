@@ -66,6 +66,11 @@
   height: 100%;
 }
 
+.c-icon-box-grid-container.center .icon-box-grid-column {
+  align-items: center;
+  text-align: center;
+}
+
 .c-icon-box-grid-container.c-iconbox-new2024 .quotes .icon-box-grid-column {
   background: url("../../images/baby-blue-quote.svg") no-repeat top 2em left 20px #F6F6F6;
 }
@@ -215,11 +220,6 @@
 }
 
 /* Phishing end */
-.c-icon-box-grid-container.center .icon-box-grid-column {
-  align-items: center;
-  text-align: center;
-}
-
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-s);
