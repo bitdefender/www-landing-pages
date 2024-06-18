@@ -252,7 +252,7 @@ export async function sendAnalyticsProducts(product, region) {
   if (productsInAdobe.length === initCount) {
     window.adobeDataLayer.push({
       event: 'campaign product',
-      product: {info: productsInAdobe},
+      product: { info: productsInAdobe },
     });
 
     window.adobeDataLayer.push({
