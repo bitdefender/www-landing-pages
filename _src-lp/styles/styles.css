@@ -738,7 +738,7 @@ main .section.highlight {
 }
 
 .prod-percent.green_bck_circle.medium span:first-of-type {
-  margin-top: 23%;
+  margin-top: 0;
   font-size: var(--heading-font-size-l);
   font-weight: bold;
   line-height: 1;
