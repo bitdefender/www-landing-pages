@@ -1,6 +1,7 @@
 .two-col-cta-affiliate{
     h3,p{
         margin-top: 24px;
+        margin-bottom: 0;
     }
     
     display: flex;
@@ -14,6 +15,9 @@
         display: flex;
         flex-direction: column;
         
+        .button-container{
+            margin-top: 24px;
+        }
     }
 
     .right-column{
@@ -22,7 +26,6 @@
         p:nth-of-type(1){
             color: #006EFF;
             font-size: 24px;
-            margin-bottom: 8px;
         }
 
         p:nth-of-type(2){
