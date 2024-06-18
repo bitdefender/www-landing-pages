@@ -16,6 +16,12 @@
   border-radius: 10px;
 }
 
+.section.banner-container .banner h1 {
+  font-size: 28px;
+  text-align: left;
+  margin-top: 0;
+}
+
 .section.banner-container .banner img {
   width: auto;
 }
@@ -38,12 +44,6 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(to left, rgb(247 247 247 / 0%), #F7F7F7);
-}
-
-.section.banner-container .banner h1 {
-  font-size: 28px;
-  text-align: left;
-  margin-top: 0;
 }
 
 .section.banner-container.new-2024 .banner {
@@ -96,8 +96,16 @@
   color: #000;
   text-align: left;
   margin-top: 6px;
-  display: flex;
-  align-items: flex-start;
+}
+
+.section.banner-container.list-greenpill-tag .banner ul li em u {
+  background-color: #2CB43D;
+  border-radius: 16px;
+  padding: 2px 7px;
+  margin: 1px 0 0;
+  color: white !important;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .section.banner-container.new-2024.v2 .banner ul li {
@@ -112,6 +120,14 @@
   margin-left: 0;
   margin-right: 10px;
   font-size: 35px;
+}
+
+.section.banner-container.list-svg .banner ul li::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background: url('../../icons/checkmark_solid-circle.svg') no-repeat left center transparent;
+  float: left;
 }
 
 .section.banner-container.new-2024.v2 .banner ul li::before {
@@ -300,13 +316,21 @@
   border-radius: 50%;
   width: 83px;
   height: 83px;
-  font-size: 28px;
-  line-height: 81px;
+  font-size: 12px;
+  line-height: 12px;
   text-align: center;
   padding: 0;
   color: #fff;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: 10px;
+}
+
+.section.banner-container #buyBtnGreenCircleBox span.green_circle_box strong {
+  font-size: 28px;
+  line-height: 28px;
 }
 
 .section.banner-container #pricesBox .buy_box a {
@@ -340,10 +364,6 @@
     width: 100%;
     font-size: var(--body-font-size-xs);
     line-height: var(--body-font-size-s);
-  }
-
-  .section.banner-container .banner h1 {
-    font-size: 30px;
   }
 
   .section.banner-container #pricesBox {
@@ -459,6 +479,14 @@
   .banner-container.bckimg-full-right {
     background-position: right -19rem top!important;
   }
+
+  .banner-container h1 {
+    font-size: 30px;
+  }
+
+  .banner-container h2 {
+    font-size: 26px;
+  }
 }
 
 @media screen and (width <= 768px) {
@@ -504,8 +532,8 @@
   }
 
   .section.banner-container .banner p {
-    font-size: 13px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 19px;
   }
 
   .section.banner-container.new-2024.v2 .banner ul {
@@ -513,8 +541,8 @@
   }
 
   .section.banner-container .banner ul li {
-    font-size: 11px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 19px;
   }
 
   .section.banner-container.new-2024.v2 .banner ul li {
