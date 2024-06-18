@@ -319,22 +319,31 @@ main img {
   justify-content: space-between;
 }
 
-.affiliate .block div {
-  justify-content: start !important;
-}
 .affiliate .block div p {
   font-size: 13px;
 }
 .affiliate .block div p:nth-of-type(2) {
   margin-left: 12px !important;
+  display: none;
 }
 .affiliate .block div p:nth-of-type(2) picture {
   margin-left: 12px;
 }
 .affiliate .block div p:nth-of-type(3) {
-  margin-left: auto !important;
+  padding-left: 12px !important;
 }
 
+@media (width >= 768px) {
+  .affiliate .block div {
+    justify-content: start !important;
+  }
+  .affiliate .block div p:nth-of-type(2) {
+    display: block;
+  }
+  .affiliate .block div p:nth-of-type(3) {
+    margin-left: auto !important;
+  }
+}
 .icon {
   display: inline-block;
   height: 36px;
