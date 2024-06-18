@@ -23,7 +23,7 @@
   text-align: center;
   font: normal normal bold 32px/37px Arial, sans-serif;
 }
-@media (min-width: 768px) {
+@media screen and (width >= 768px) {
   .testimonials-component-container .title-class {
     width: 715px;
   }
@@ -40,7 +40,7 @@
   flex: 1;
   gap: 25px;
   background: #edf9ff;
-  padding: 26px 0px 26px 23px;
+  padding: 26px 0 26px 23px;
   border-radius: 16px;
 }
 .grey-bck .testimonials-component-container .review-container {
@@ -69,7 +69,7 @@
 .testimonials-component-container .hide {
   display: none;
 }
-@media (min-width: 990px) {
+@media screen and (width >= 991px) {
   .testimonials-component-container .hide {
     display: flex;
   }
@@ -77,7 +77,7 @@
 .testimonials-component-container .show {
   display: flex;
 }
-@media (min-width: 990px) {
+@media screen and (width >= 991px) {
   .testimonials-component-container .show {
     display: flex;
   }
@@ -91,7 +91,7 @@
   margin-top: 20px;
   align-items: center;
 }
-@media (min-width: 990px) {
+@media screen and (width >= 991px) {
   .testimonials-component-container .navigation-container {
     justify-content: center;
   }
@@ -100,10 +100,13 @@
   display: flex;
   gap: 3%;
 }
-@media (min-width: 990px) {
+@media screen and (width >= 991px) {
   .testimonials-component-container .buttons-container {
     display: none;
   }
+}
+.testimonials-component-container .source-class {
+  font-size: 12px;
 }
 .testimonials-component-container .next-button,
 .testimonials-component-container .prev-button {
@@ -113,20 +116,24 @@
   justify-content: center;
   align-items: center;
 }
+.testimonials-component-container .next-button .prev-button,
+.testimonials-component-container .prev-button .prev-button {
+  margin-right: 10px;
+}
 .testimonials-component-container .next-button:hover,
 .testimonials-component-container .prev-button:hover {
   border: 1px solid #006eff;
 }
-.testimonials-component-container .prev-button {
-  margin-right: 10px;
-}
-@media (min-width: 768px) {
+@media screen and (width >= 768px) {
   .testimonials-component-container .reviews-container {
     display: flex;
     flex-direction: column;
   }
+  .testimonials-component-container .source-class {
+    font-size: 14px;
+  }
 }
-@media (min-width: 990px) {
+@media screen and (width >= 991px) {
   .testimonials-component-container .reviews-container {
     display: flex;
     flex-direction: row;
@@ -144,7 +151,7 @@
     padding-right: 50px;
   }
 }
-@media (min-width: 1200px) {
+@media screen and (width >= 1199px) {
   .testimonials-component-container .testimonials-component {
     max-width: 1294px;
   }
