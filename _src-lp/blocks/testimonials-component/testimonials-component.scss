@@ -26,7 +26,7 @@
       text-align: center;
       font: normal normal bold 32px/37px Arial, sans-serif;
   
-      @media screen and (min-width:  768px) {
+      @media screen and (width >= 768px) {
         width: 715px;
       }
     }
@@ -80,7 +80,7 @@
     .hide {
       display: none;
   
-      @media screen and (min-width:  991px) {
+      @media screen and (width >= 991px) {
         display: flex;
       }
     }
@@ -88,7 +88,7 @@
     .show {
       display: flex;
   
-      @media screen and (min-width:  991px) {
+      @media screen and (width >= 991px) {
         display: flex;
       }
     }
@@ -102,7 +102,7 @@
       margin-top: 20px;
       align-items: center;
   
-      @media screen and (min-width:  991px) {
+      @media screen and (width >= 991px) {
         justify-content: center;
       }
     }
@@ -111,11 +111,11 @@
       display: flex;
       gap: 3%;
   
-      @media screen and (min-width:  991px) {
+      @media screen and (width >= 991px) {
         display: none;
       }
     }
-
+    
     .source-class{
         font-size: 12px;
     }
@@ -137,7 +137,7 @@
       }
     }
   
-    @media screen and (min-width:  768px) {
+    @media screen and (width >= 768px) {
       .reviews-container {
         display: flex;
         flex-direction: column;
@@ -148,7 +148,7 @@
     }
     }
   
-    @media screen and (min-width:  991px) {
+    @media screen and (width >= 991px) {
       .reviews-container {
         display: flex;
         flex-direction: row;
@@ -170,7 +170,7 @@
       }
     }
   
-    @media screen and (min-width:  1199px) {
+    @media screen and (width >= 1199px) {
       .testimonials-component {
         max-width: 1294px;
       }
