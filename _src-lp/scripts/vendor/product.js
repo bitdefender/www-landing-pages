@@ -34,7 +34,7 @@ export default class ProductPrice {
     dipm: 'com.bitdefender.dataprivacy',
   }
 
-  #locale = 'en-us';
+  #locale;
   #campaign;
   #prodString;
   #alias;
@@ -56,49 +56,12 @@ export default class ProductPrice {
 
     if (forceLocale)
       this.#locale = forceLocale;
-
-  }
-
-  async #getLocale() {
-    try {
-      // Extract language from URL
-      const url = window.location.href;
-      const language = url.split('/')[5];
-
-      // Check for the target variable in localStorage
-      const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
-      let country;
-
-      if (cachedGeoData) {
-        const geoData = JSON.parse(cachedGeoData);
-        country = geoData[TGT_GEO_OBJ_KEY];
-      } else {
-        // Check if country is already cached in localStorage
-        const cachedCountry = localStorage.getItem(COUNTRY);
-
-        if (cachedCountry) {
-          country = cachedCountry;
-        } else {
-          // Fetch country information from the endpoint
-          const response = await fetch(GEOIP_ENDPOINT);
-          const data = await response.json();
-          country = data.country;
-
-          // Cache the country in localStorage
-          localStorage.setItem(COUNTRY, country);
-        }
-      }
-
-      // Construct the locale string
-      const locale = `${language}-${country}`;
-      return locale;
-    } catch (error) {
-      console.error('Error fetching locale:', error);
-      return null;
-    }
   }
 
   async #getProductVariations() {
+
+    if (!this.#locale)
+      this.#locale = await Locale.get();
 
     const endpoint = new URL(`${API_ROOT}/products/${this.#bundleId}/locale/${this.#locale}`, API_BASE);
 
@@ -138,6 +101,10 @@ export default class ProductPrice {
 
     payload.product.options.forEach((option) => {
 
+      // TODO: remove this
+      if (this.#alias == 'vpn')
+        option.slots = 10;
+
       if (this.#devicesNo != option.slots) {
         return;
       }
@@ -150,6 +117,8 @@ export default class ProductPrice {
       pricing.total = option.price;
       pricing.discount = option.discountAmount;
       pricing.price = option.discountedPrice;
+      const decorator = new DecorateLink(option.buyLink);
+      let buy_link = decorator.getFullyDecoratedUrl();
 
       window.StoreProducts.product[this.#alias] = {
         product_alias: this.#alias,
@@ -177,7 +146,7 @@ export default class ProductPrice {
           },
           promotion: this.#campaign,
         },
-        buy_link: option.buyLink,
+        buy_link: buy_link,
         config: {
           product_id: this.#alias,
           name: payload.product.name,
@@ -231,11 +200,15 @@ export class Bundle {
   }
 
   async getBuyLink() {
-    const endpoint = new URL(`/api/v1/buy-links/locale/${this.#locale}`, API_BASE);
+    const endpoint = new URL(`${API_ROOT}/buy-links/locale/${this.#locale}`, API_BASE);
     endpoint.searchParams.append('campaign', this.#campaign);
 
     const productMonths = this.#product.selected_years * 12;
     const bundleProductMonths = this.#bundleProduct.selected_years * 12;
+
+    // TODO: remove this
+    if (this.#bundleProduct.product_id == 'com.bitdefender.vpn')
+      this.#bundleProduct.selected_users = 1;
 
     let bundles = `${this.#product.product_id}|${this.#product.selected_users}|${productMonths},`;
     bundles += `${this.#bundleProduct.product_id}|${this.#bundleProduct.selected_users}|${bundleProductMonths},`;
@@ -263,4 +236,100 @@ export class Bundle {
     }
   }
 
+}
+
+export class Locale {
+  constructor(async_param) {
+    if (typeof async_param === 'undefined') {
+      throw new Error('Cannot be called directly');
+    }
+  }
+
+  static async get() {
+    try {
+      // Extract language from URL
+      const url = window.location.href;
+      const language = url.split('/')[5];
+
+      // Check for the target variable in localStorage
+      const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
+      let country;
+
+      if (cachedGeoData) {
+        const geoData = JSON.parse(cachedGeoData);
+        country = geoData[TGT_GEO_OBJ_KEY];
+      } else {
+        // Check if country is already cached in localStorage
+        const cachedCountry = localStorage.getItem(COUNTRY);
+
+        if (cachedCountry) {
+          country = cachedCountry;
+        } else {
+          // Fetch country information from the endpoint
+          const response = await fetch(GEOIP_ENDPOINT);
+          const data = await response.json();
+          country = data.country;
+
+          // Cache the country in localStorage
+          localStorage.setItem(COUNTRY, country);
+        }
+      }
+
+      // Construct the locale string
+      const locale = `${language}-${country}`;
+      return locale;
+    } catch (error) {
+      console.error('Error fetching locale:', error);
+      return null;
+    }
+  }
+}
+
+export class DecorateLink {
+  #link;
+  #urlObj;
+  #params;
+
+  constructor(buyLink) {
+    if (!buyLink || typeof buyLink !== 'string') {
+      throw new Error('A valid buy link must be provided.');
+    }
+    this.#link = buyLink;
+    this.#urlObj = new URL(this.#link);
+    this.#params = new URLSearchParams(this.#urlObj.search);
+  }
+
+  /**
+   * Adds the current page path as SHOPURL parameter if not already present.
+   */
+  #addSHOPURL() {
+    if (!this.#params.has('SHOPURL')) {
+      const currentPagePath = window.location.pathname;
+      this.#params.append('SHOPURL', encodeURIComponent(currentPagePath));
+    }
+  }
+
+  /**
+   * Adds the SRC parameter based on the current page URL or channel if specified.
+   */
+  #addSRC() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const channel = urlParams.get('channel');
+    const currentPageUrl = channel || window.location.href;
+
+    if (!this.#params.has('SRC')) {
+      this.#params.append('SRC', encodeURIComponent(currentPageUrl));
+    }
+  }
+
+  /**
+   * Returns the fully decorated URL with all necessary parameters added.
+   * @returns {string} Fully decorated URL.
+   */
+  getFullyDecoratedUrl() {
+    this.#addSHOPURL();
+    this.#addSRC();
+    this.#urlObj.search = this.#params.toString();
+    return this.#urlObj.toString();
+  }
 }
