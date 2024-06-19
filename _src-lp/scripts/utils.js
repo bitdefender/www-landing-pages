@@ -305,7 +305,7 @@ export function formatPrice(price, currency, region) {
   const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
   console.log(currency);
   console.log(ianaRegionFormat);
-  return new Intl.NumberFormat('en-GB', { style: 'currency', currency }).format(price);
+  return new Intl.NumberFormat('es-MX', { style: 'currency', currency }).format(price);
 }
 
 // get max discount
