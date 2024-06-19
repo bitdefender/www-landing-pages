@@ -18,8 +18,8 @@ export const IANA_BY_REGION_MAP = new Map([
   [19, { locale: 'en-ZA', label: 'en south africa' }],
   [22, { locale: 'nl-NL', label: 'netherlands' }],
   [24, { locale: 'en-VN', label: 'en vietnam' }],
-  [20, { locale: 'es-MX', label: 'en es mexico' }],
-  [21, { locale: 'es-CO', label: 'en es columbia' }],
+  [20, { locale: 'en-MX', label: 'en es mexico' }],
+  [21, { locale: 'en-CO', label: 'en es columbia' }],
   [25, { locale: 'en-SG', label: 'en singapore' }],
   [26, { locale: 'en-SE', label: 'en sweden' }],
   [27, { locale: 'en-DK', label: 'en denmark' }],
@@ -303,10 +303,7 @@ export function updateVATinfo(countryCode, selector) {
 
 export function formatPrice(price, currency, region) {
   const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
-  console.log(currency);
-  // console.log(ianaRegionFormat);
-  console.log(new Intl.NumberFormat('en-MX', { style: 'currency', currency }).format(price));
-  return new Intl.NumberFormat('en-MX', { style: 'currency', currency }).format(price);
+  return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
 }
 
 // get max discount
@@ -380,7 +377,6 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     }
 
     const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
-    console.log(fullPrice);
     const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
     const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
     const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
