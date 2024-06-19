@@ -117,7 +117,7 @@ export default class ProductPrice {
       pricing.total = option.price;
       pricing.discount = option.discountAmount;
       pricing.price = option.discountedPrice;
-      const decorator = new DecorateLink(option.buyLink);
+      const decorator = new DecorateLink(option.buyLink, this.#campaign);
       let buy_link = decorator.getFullyDecoratedUrl();
 
       window.StoreProducts.product[this.#alias] = {
@@ -289,14 +289,16 @@ export class DecorateLink {
   #link;
   #urlObj;
   #params;
+  #campaign;
 
-  constructor(buyLink) {
+  constructor(buyLink, campaign = '') {
     if (!buyLink || typeof buyLink !== 'string') {
       throw new Error('A valid buy link must be provided.');
     }
     this.#link = buyLink;
     this.#urlObj = new URL(this.#link);
     this.#params = new URLSearchParams(this.#urlObj.search);
+    this.#campaign = campaign;
   }
 
   /**
@@ -314,7 +316,9 @@ export class DecorateLink {
    */
   #addSRC() {
     const urlParams = new URLSearchParams(window.location.search);
-    const channel = urlParams.get('channel');
+    let channel = urlParams.get('channel');
+    if (this.#campaign)
+      channel = `${channel}_${this.#campaign}`;
     const currentPageUrl = channel || window.location.href;
 
     if (!this.#params.has('SRC')) {
