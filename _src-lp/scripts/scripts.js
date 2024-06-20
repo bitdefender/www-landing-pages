@@ -962,26 +962,24 @@ async function initializeProductsPriceLogic() {
 
   // skip Zuora if specific pids are applied
   let skipZuora = getMetadata('skip-zuora-for') && getMetadata('skip-zuora-for').indexOf(pid) !== -1;
+  skipZuora = skipZuora || getParam('vfone') || vlaicuCampaign;
 
-  if (getParam('vfone')) {
-    skipZuora = true;
-  }
+  const isNetherlandsLangMode = isZuoraForNetherlandsLangMode();
 
-  if (!isZuoraForNetherlandsLangMode() || skipZuora) {
-    if (!vlaicuCampaign) {
-      addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
-        initSelectors(pid);
-        addEventListenersOnVpnCheckboxes(pid);
-      }, {}, 'module');
-    } else {
+  if (!isNetherlandsLangMode || skipZuora) {
+    if (vlaicuCampaign) {
       window.isVlaicu = true;
       initVlaicuProductPriceLogic(vlaicuCampaign);
-      addEventListenersOnVpnCheckboxes(pid);
+    } else {
+      addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
+        initSelectors(pid);
+      }, {}, 'module');
     }
   } else {
     initZuoraProductPriceLogic(campaign);
-    addEventListenersOnVpnCheckboxes(pid);
   }
+
+  addEventListenersOnVpnCheckboxes(pid);
 }
 
 function eventOnDropdownSlider() {
