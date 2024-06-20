@@ -1,6 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import { loadCSS } from '../../scripts/lib-franklin.js';
-import { addScript, GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { productAliases } from '../../scripts/scripts.js';
+import { addScript, GLOBAL_EVENTS, updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -10,10 +11,10 @@ export default function decorate(block) {
   // config new elements
   const {
     textColor, backgroundColor, paddingTop, paddingBottom, marginTop,
-    marginBottom, counterSwitchOn, counterHeadings, counterTheme,
+    marginBottom, counterSwitchOn, counterHeadings, counterTheme, product,
   } = metaData;
 
-  const [contentEl, pictureBF, pictureCM] = [...block.children];
+  const [contentEl, pictureBF, pictureCM, pictureMobile] = [...block.children];
 
   if (counterSwitchOn) {
     // adding neccessary scripts: js, css
@@ -56,10 +57,10 @@ export default function decorate(block) {
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ps-4 counter-text">${contentEl.innerHTML}</div>
 
-          <div class="col-6 d-none d-sm-block d-md-block d-lg-block img-right bck-img">
+          ${!onePicture ? `<div class="col-6 d-none d-sm-block d-md-block d-lg-block img-right bck-img">
             ${!onePicture ? pictureBF.innerHTML : ''}
             ${!onePicture ? pictureCM.innerHTML : ''}
-          </div>
+          </div>` : ''}
         </div>
       </div>`;
 
@@ -121,5 +122,35 @@ export default function decorate(block) {
     if (marginBottom) block.style.marginBottom = `${marginBottom}rem`;
   } else {
     block.innerHTML = 'Provide a valid counter Section Metadata';
+  }
+
+  if (product) {
+    const productsAsList = product && product.split(',');
+
+    productsAsList.forEach((prod, idx) => {
+      // eslint-disable-next-line prefer-const
+      let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+      prodName = prodName.trim();
+      updateProductsList(prod);
+      const selectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+      const pricesBox = document.createElement('div');
+      pricesBox.className = `${prodName}_box prices_box d-none prodload-${selectorClass}`;
+      pricesBox.innerHTML = `<div>
+        <div class="">
+          <span class="prod-oldprice oldprice-${selectorClass}"></span>
+          <span class="prod-save"><span class="save-${selectorClass}"></span></span>
+          <span class="d-none percent percent-${selectorClass}">0%</span>
+        </div>
+        <div class="">
+          <span class="prod-newprice newprice-${selectorClass}"></span>
+        </div>
+      </div>`;
+      block.appendChild(pricesBox);
+    });
+
+    if (block.querySelector('h1')) {
+      block.querySelector('h1').innerHTML = block.querySelector('h1').innerHTML.replace('0%', '<span class="max-discount"></span>');
+    }
   }
 }
