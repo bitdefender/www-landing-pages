@@ -841,10 +841,10 @@ function addEventListenersOnVpnCheckboxes(pid) {
         if (target.tagName === 'INPUT' && target.classList.contains('checkboxVPN')) {
           const checkboxId = target.getAttribute('id');
 
-          if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
-            const prodxId = target.getAttribute('id').split('-')[1];
+          if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
+            const prodxId = e.target.getAttribute('id').split('-')[1];
             const storeObjprod = window.StoreProducts.product[prodxId] || {};
-            showPrices(storeObjprod, target.checked, checkboxId);
+            showPrices(storeObjprod, e.target.checked, checkboxId);
           } else {
             changeCheckboxVPN(checkboxId, pid);
           }
@@ -886,9 +886,42 @@ async function initZuoraProductPriceLogic(campaign) {
   });
 }
 
+async function initVlaicuProductPriceLogic(campaign) {
+  import('./vendor/product.js').then(async (module) => {
+    const ProductPrice = module.default;
+    showLoaderSpinner();
+
+    if (productsList.length) {
+      try {
+        await Promise.all(
+          productsList.map(async (item) => {
+            const prodSplit = item.split('/');
+            const prodAlias = prodSplit[0].trim();
+            const prodUsers = prodSplit[1].trim();
+            const prodYears = prodSplit[2].trim();
+            const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+
+            const productPrice = new ProductPrice(item, campaign);
+            const vlaicuResult = await productPrice.getPrices();
+            showPrices(vlaicuResult);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(false, onSelectorClass);
+            sendAnalyticsProducts(vlaicuResult);
+
+            return vlaicuResult;
+          }),
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
+}
+
 async function initializeProductsPriceLogic() {
   let pid = getParam('pid');
   let campaign = getParam('campaign');
+  const vlaicuCampaign = getParam('vcampaign');
 
   try {
     /* global adobe */
@@ -935,10 +968,16 @@ async function initializeProductsPriceLogic() {
   }
 
   if (!isZuoraForNetherlandsLangMode() || skipZuora) {
-    addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
-      initSelectors(pid);
+    if (!vlaicuCampaign) {
+      addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
+        initSelectors(pid);
+        addEventListenersOnVpnCheckboxes(pid);
+      }, {}, 'module');
+    } else {
+      window.isVlaicu = true;
+      initVlaicuProductPriceLogic(vlaicuCampaign);
       addEventListenersOnVpnCheckboxes(pid);
-    }, {}, 'module');
+    }
   } else {
     initZuoraProductPriceLogic(campaign);
     addEventListenersOnVpnCheckboxes(pid);
