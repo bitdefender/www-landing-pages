@@ -465,6 +465,9 @@
   }
 }
 @media screen and (width <= 991px) {
+  .section.banner-container.hide-tablet, .section.banner-container.hide-tablet .block {
+    background-image: unset !important;
+  }
   .section.lp-brand .banner {
     padding-bottom: 1rem !important;
     background: none !important;

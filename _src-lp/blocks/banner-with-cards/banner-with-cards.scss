@@ -30,6 +30,14 @@
   flex: 0 0 400px;
 }
 
+.section.banner-with-cards-container.content-half .banner-with-cards .hasProds > div:first-of-type {
+  flex: 0 0 50%;
+}
+
+.section.banner-with-cards-container.content-larger .banner-with-cards .hasProds > div:first-of-type {
+  flex: 0 0 75%;
+}
+
 .section.banner-with-cards-container .banner-with-cards .prodBox p {
   margin: 5px 0;
   font-size: 12px!important;
@@ -257,6 +265,9 @@
 }
 
 @media (width <= 992px) {
+  .section.banner-with-cards-container.hide-tablet {
+    background: none!important;
+  }
   .section.banner-with-cards-container .banner-with-cards {
     padding-top: 1em!important;
     padding-bottom: 1em!important;
@@ -289,7 +300,7 @@
 }
 
 @media (width <= 768px) {
-  .section.banner-with-cards-container.mobile {
+  .section.banner-with-cards-container.hide-mobile {
     background: none!important;
   }
 
