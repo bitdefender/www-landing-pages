@@ -416,7 +416,7 @@
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
     text-align: left;
-    margin-left: 25px;
+    margin-left: 0;
   }
   .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
     display: inline;
