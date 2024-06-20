@@ -963,7 +963,7 @@ async function initializeProductsPriceLogic() {
   // skip Zuora if specific pids are applied
   let skipZuora = getMetadata('skip-zuora-for') && getMetadata('skip-zuora-for').indexOf(pid) !== -1;
   skipZuora = skipZuora || getParam('vfone') || vlaicuCampaign;
-  
+
   const isNetherlandsLangMode = isZuoraForNetherlandsLangMode();
 
   if (!isNetherlandsLangMode || skipZuora) {
