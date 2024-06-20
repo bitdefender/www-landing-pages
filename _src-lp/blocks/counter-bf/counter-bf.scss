@@ -73,7 +73,7 @@
   line-height: 21px;
 }
 
-.counter-bf-container table#flipdownTable .flipdown .rotor-group-heading:before {
+.counter-bf-container table#flipdownTable .flipdown .rotor-group-heading::before {
   display: block;
   height: 23px;
   line-height: 30px;
@@ -193,7 +193,7 @@
     border-radius: 10px;
   }
 
-  .counter-bf-container table#flipdownTable .flipdown .rotor-group-heading:before {
+  .counter-bf-container table#flipdownTable .flipdown .rotor-group-heading::before {
     font-size: 11px;
     margin-left: 9px;
   }
