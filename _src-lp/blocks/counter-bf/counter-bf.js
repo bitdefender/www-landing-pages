@@ -11,7 +11,7 @@ export default function decorate(block) {
   // config new elements
   const {
     textColor, backgroundColor, paddingTop, paddingBottom, marginTop,
-    marginBottom, counterSwitchOn, counterHeadings, counterTheme, backgroundHide, product,
+    marginBottom, counterSwitchOn, counterHeadings, counterTheme, backgroundHide, products,
   } = metaData;
 
   const [contentEl, pictureBF, pictureCM, pictureMobile] = [...block.children];
@@ -46,7 +46,6 @@ export default function decorate(block) {
       parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / auto 100% ${backgroundColor || '#000'}`;
       onePicture = true;
     }
-
 
     block.innerHTML = `
       <div class="container-fluid">
@@ -107,7 +106,6 @@ export default function decorate(block) {
     }
 
     // update background color if set, if not set default: #000
-    console.log('backgroundColor ', backgroundColor)
     if (backgroundColor) {
       parentBlock.style.backgroundColor = backgroundColor;
     }
@@ -125,8 +123,8 @@ export default function decorate(block) {
     block.innerHTML = 'Provide a valid counter Section Metadata';
   }
 
-  if (product) {
-    const productsAsList = product && product.split(',');
+  if (products) {
+    const productsAsList = products && products.split(',');
 
     productsAsList.forEach((prod, idx) => {
       // eslint-disable-next-line prefer-const
