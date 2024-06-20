@@ -5,16 +5,17 @@ import { addScript, GLOBAL_EVENTS, updateProductsList } from '../../scripts/util
 
 export default function decorate(block) {
   // get data attributes set in metaData
-  const parentSelector = block.closest('.section');
-  const metaData = parentSelector.dataset;
+  const parentBlock = block.closest('.section');
+  const metaData = parentBlock.dataset;
 
   // config new elements
   const {
     textColor, backgroundColor, paddingTop, paddingBottom, marginTop,
-    marginBottom, counterSwitchOn, counterHeadings, counterTheme, product,
+    marginBottom, counterSwitchOn, counterHeadings, counterTheme, backgroundHide, product,
   } = metaData;
 
   const [contentEl, pictureBF, pictureCM, pictureMobile] = [...block.children];
+  if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
   if (counterSwitchOn) {
     // adding neccessary scripts: js, css
@@ -42,7 +43,7 @@ export default function decorate(block) {
 
     let onePicture = false;
     if (pictureBF && !pictureCM) {
-      parentSelector.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / auto 100% ${backgroundColor || '#000'}`;
+      parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / auto 100% ${backgroundColor || '#000'}`;
       onePicture = true;
     }
 
@@ -50,14 +51,14 @@ export default function decorate(block) {
     block.innerHTML = `
       <div class="container-fluid">
         <div class="row d-xs-block d-sm-flex d-md-flex d-lg-flex position-relative">
-          <div class="col-12 d-block d-sm-none d-md-none d-lg-none p-0 text-center bck-img">
+          <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img">
             ${!onePicture ? pictureBF.innerHTML : ''}
             ${!onePicture ? pictureCM.innerHTML : ''}
           </div>
 
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ps-4 counter-text">${contentEl.innerHTML}</div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ps-4 counter-text">${contentEl.innerHTML}</div>
 
-          ${!onePicture ? `<div class="col-6 d-none d-sm-block d-md-block d-lg-block img-right bck-img">
+          ${!onePicture ? `<div class="col-6 d-none d-sm-none d-md-block d-lg-block img-right bck-img">
             ${!onePicture ? pictureBF.innerHTML : ''}
             ${!onePicture ? pictureCM.innerHTML : ''}
           </div>` : ''}
@@ -108,7 +109,7 @@ export default function decorate(block) {
     // update background color if set, if not set default: #000
     console.log('backgroundColor ', backgroundColor)
     if (backgroundColor) {
-      parentSelector.style.backgroundColor = backgroundColor;
+      parentBlock.style.backgroundColor = backgroundColor;
     }
 
     if (textColor) {
