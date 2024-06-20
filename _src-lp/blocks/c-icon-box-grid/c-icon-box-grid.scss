@@ -8,6 +8,14 @@
   margin: 10px 0;
 }
 
+.c-icon-box-grid-container.affiliate{
+  margin-top: 20px;
+}
+
+.c-icon-box-grid-container.affiliate .quotebox{
+  margin-bottom: 25px;
+}
+
 .c-icon-box-grid-container.new .row div {
   margin: 0.5em 0;
 }
@@ -286,6 +294,14 @@
   .c-icon-box-grid-container.grey-box .col-lg .title {
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
+  }
+
+  .c-icon-box-grid-container.affiliate .quotebox{
+    margin-bottom: 0;
+    
+    .subtitle{
+      max-width: 250px;
+    }
   }
 
   .c-icon-box-grid-container.grey-box .col-lg p {

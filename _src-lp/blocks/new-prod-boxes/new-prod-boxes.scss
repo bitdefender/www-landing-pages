@@ -2,6 +2,10 @@
 padding-bottom: 0;
 }
 
+.new-prod-boxes-container.subtitle{
+    margin-bottom: -20px;
+}
+
 .new-prod-boxes-container .block {
 margin: 0 auto;
 padding: 0 15px;
@@ -331,6 +335,10 @@ content: "";
     .new-prod-boxes-container .block {
         flex-direction: row;
         padding: 0;
+    }
+
+    .new-prod-boxes-container.subtitle{
+        margin-bottom: -35px;
     }
 
     .new-prod-boxes-container .block .prod_box.hasGreenTag {

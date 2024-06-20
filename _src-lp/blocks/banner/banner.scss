@@ -22,6 +22,11 @@
   margin-top: 0;
 }
 
+.section.banner-container.divider .banner h1 {
+  padding-bottom: 20px;
+    border-bottom: 1px solid #E7E7E7;
+}
+
 .section.banner-container .banner img {
   width: auto;
 }
@@ -88,6 +93,11 @@
   padding-left: 0;
 }
 
+.section.banner-container.divider .banner ul {
+  padding-bottom: 20px;
+    border-bottom: 1px solid #E7E7E7;
+}
+
 .section.banner-container .banner ul li {
   list-style-type: none;
   padding-left: 0;
@@ -110,6 +120,7 @@
 
 .section.banner-container.new-2024.v2 .banner ul li {
   display: inline-block;
+  width: 100%;
 }
 
 .section.banner-container .banner ul li::before {
@@ -350,6 +361,11 @@
 
 .section.banner-container #pricesBox .d-flex .variation {
   margin-left: 10px;
+}
+
+.section.banner-container.divider #pricesBox .terms{
+  padding-bottom: 20px;
+  border-bottom: 1px solid #E7E7E7;align-items: center;
 }
 
 @media (width >= 768px) {
