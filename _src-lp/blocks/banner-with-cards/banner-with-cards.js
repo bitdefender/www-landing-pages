@@ -136,9 +136,7 @@ export default function decorate(block) {
     }
   }
 
-  if (contentSize) {
-    parentBlock.classList.add(`content-${contentSize}`);
-  }
+  if (contentSize) parentBlock.classList.add(`content-${contentSize}`);
 
   // if we have set products
   if (products) {
