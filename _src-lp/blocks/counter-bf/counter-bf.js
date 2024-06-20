@@ -33,38 +33,55 @@ export default function decorate(block) {
     const bannerImageBf = pictureBF.querySelector('picture');
     bannerImageBf.classList.add('pictureBF', 'banner-image', 'flipClock-image');
 
-    const bannerImageCM = pictureCM.querySelector('picture');
-    bannerImageCM.classList.add('pictureCM', 'banner-image', 'flipClock-image');
-    bannerImageCM.style.display = 'none';
+    if (pictureCM) {
+      const bannerImageCM = pictureCM.querySelector('picture');
+      bannerImageCM.classList.add('pictureCM', 'banner-image', 'flipClock-image');
+      bannerImageCM.style.display = 'none';
+    }
+
+    let onePicture = false;
+    if (pictureBF && !pictureCM) {
+      parentSelector.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / auto 100% ${backgroundColor || '#000'}`;
+      onePicture = true;
+    }
+
 
     block.innerHTML = `
       <div class="container-fluid">
         <div class="row d-xs-block d-sm-flex d-md-flex d-lg-flex position-relative">
           <div class="col-12 d-block d-sm-none d-md-none d-lg-none p-0 text-center bck-img">
-            ${pictureBF.innerHTML}
-            ${pictureCM.innerHTML}
+            ${!onePicture ? pictureBF.innerHTML : ''}
+            ${!onePicture ? pictureCM.innerHTML : ''}
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ps-4 counter-text">${contentEl.innerHTML}</div>
 
           <div class="col-6 d-none d-sm-block d-md-block d-lg-block img-right bck-img">
-            ${pictureBF.innerHTML}
-            ${pictureCM.innerHTML}
+            ${!onePicture ? pictureBF.innerHTML : ''}
+            ${!onePicture ? pictureCM.innerHTML : ''}
           </div>
         </div>
       </div>`;
 
     // replacing [count]
-    block.innerHTML = block.innerHTML.replace('<p>[counter]</p>', `
+    block.innerHTML = block.innerHTML.replace('[counter]', `
       <div style="display: none" id="flipdown" class="flipdown"></div>
     `);
+
+    const blockFlopDown = block.querySelector('#flipdown');
+    if (blockFlopDown && blockFlopDown.closest('table')) {
+      blockFlopDown.closest('table').id = 'flipdownTable';
+      if (counterTheme) {
+        blockFlopDown.closest('table').classList.add(counterTheme);
+      }
+    }
 
     const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
     const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
     const currentTime = Math.floor(Date.now() / 1000);
 
     if (newTime > currentTime) {
-      block.querySelector('#flipdown').style.display = 'block';
+      blockFlopDown.style.display = 'block';
       document.addEventListener(GLOBAL_EVENTS.COUNTER_LOADED, () => {
         // eslint-disable-next-line no-undef
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
@@ -76,7 +93,7 @@ export default function decorate(block) {
         firstCounter.start().ifEnded(() => {
           // The initial counter(Black Friday) has ended; start a new one + 48 hours from now - CyberMOnday
           // switch images:
-          block.querySelector('#flipdown').innerHTML = '';
+          blockFlopDown.innerHTML = '';
           block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
           block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
 
@@ -88,6 +105,7 @@ export default function decorate(block) {
     }
 
     // update background color if set, if not set default: #000
+    console.log('backgroundColor ', backgroundColor)
     if (backgroundColor) {
       parentSelector.style.backgroundColor = backgroundColor;
     }
