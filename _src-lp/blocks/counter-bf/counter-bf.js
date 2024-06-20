@@ -14,7 +14,7 @@ export default function decorate(block) {
     marginBottom, counterSwitchOn, counterHeadings, counterTheme, backgroundHide, products,
   } = metaData;
 
-  const [contentEl, pictureBF, pictureCM, pictureMobile] = [...block.children];
+  const [contentEl, pictureBF, pictureCM] = [...block.children];
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
   if (counterSwitchOn) {
