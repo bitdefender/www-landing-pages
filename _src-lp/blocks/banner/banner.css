@@ -26,6 +26,16 @@
   border-bottom: 1px solid #E7E7E7;
 }
 
+.section.banner-container .banner h1 a {
+  color: white;
+  text-decoration: underline;
+  text-decoration-color: #599bfc;
+}
+
+.section.banner-container .banner h1 a:hover {
+  text-decoration-color: #cee2fe;
+}
+
 .section.banner-container .banner img {
   width: auto;
 }
