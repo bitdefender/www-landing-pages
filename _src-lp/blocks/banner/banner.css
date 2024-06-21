@@ -369,6 +369,9 @@
 }
 
 @media (width >= 768px) {
+  .section.banner-container {
+    margin: 0px 15px;
+  }
   .section.lp-brand .banner h1 {
     font-weight: lighter;
     font-size: var(--heading-font-size-l);
@@ -502,7 +505,7 @@
   .section.banner-container .banner h1 {
     margin-top: 0;
     font-size: 30px;
-    text-align: left;
+    text-align: center;
   }
   .section.lp-brand .banner h1 {
     text-align: center;
