@@ -583,6 +583,12 @@ export function decorateButtons(element) {
           a.className = 'button primary'; // default
           up.classList.add('button-container');
         }
+        // Example: <p><a href="example.com">Text</a> (example.com)</p>
+        if (up.childNodes.length === 1 && up.tagName === 'P' && a.href.includes('/fragment-collection/')) {
+          a.className = 'button button--modal';
+          up.classList.add('button-container');
+          return;
+        }
         if (up.childNodes.length === 1 && up.tagName === 'STRONG'
           && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
           a.className = 'button primary';

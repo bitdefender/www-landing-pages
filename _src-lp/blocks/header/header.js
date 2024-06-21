@@ -49,7 +49,7 @@ export default async function decorate(block) {
     checkForRevolut(spanSvg, block);
 
     block.classList.add('lp-header', 'py-3');
-    if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
+    if (window.location.href.indexOf('scuderiaferrari') !== -1) {
       headerWrapper.id = 'headerFerrari';
       headerWrapper.classList.add('headerSpurs', 'dark');
       block.innerHTML = html;
@@ -58,6 +58,8 @@ export default async function decorate(block) {
       lpHeader.addEventListener('click', () => {
         lpHeader.classList.toggle('active', !lpHeader.classList.contains('active'));
       });
+
+      block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('blue-logo') !== -1) {
       headerWrapper.id = 'headerBlue';
       if (html.indexOf('affiliate') !== -1) {
