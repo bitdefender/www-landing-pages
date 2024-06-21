@@ -7,3 +7,272 @@
     src: url('../styles/fonts/IMBplex-normal.woff2') format('woff2');
     unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+
+
+/* modal */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 50%);
+    z-index: 999;
+}
+
+.modal-container .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px 30px 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px 0 rgb(0 0 0 / 10%);
+    border: 1px solid #707070;
+    width: 75%;
+    max-height: 90%;
+    overflow: auto;
+    opacity: 1;
+    animation: fade-in 0.5s ease-in-out forwards;
+}
+
+.modal-container .modal-content .section:first-child {
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 15px;
+}
+
+.modal-container .modal-content .modal-close {
+    height: 30px;
+    width: 30px;
+    border: 0;
+    padding: 1px 1px 0 0;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    right: 27px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    outline: none;
+}
+
+.modal-container .modal-content .modal-close::before {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 4px;
+    width: 26px;
+    height: 2px;
+    background: #000;
+    transform: rotate(45deg);
+    transition: all .3s ease-in-out;
+}
+
+.modal-container .modal-content .modal-close::after {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 4px;
+    width: 26px;
+    height: 2px;
+    background: #000;
+    transform: rotate(133deg);
+    transition: all .3s ease-in-out;
+}
+
+.modal-container .columns-wrapper img {
+    height: 225px;
+}
+
+@media (min-width: 900px) {
+    .modal-container .modal-content {
+        padding: 52px 62px 54px 55px;
+        max-width: 660px;
+    }
+
+    .modal-container .modal-content .columns-wrapper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/* animations */
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* thank-you-for-downloading modal */
+
+.thank-you-for-downloading .modal-content h1 {
+    font-size: var(--heading-font-size-m);
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+
+.thank-you-for-downloading .modal-content h2 {
+    font-size: var(--heading-font-size-m);
+    margin-top: 10px;
+}
+
+.thank-you-for-downloading .modal-content h3 {
+    font-size: var(--heading-font-size-s);
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+    padding: 30px 0 24px;
+}
+
+.thank-you-for-downloading .modal-content img {
+    width: 164px;
+    height: 164px;
+}
+
+.thank-you-for-downloading .modal-content .columns p {
+    text-align: center;
+}
+
+@media (min-width: 900px) {
+    .thank-you-for-downloading .modal-content h1 {
+        text-align: left;
+    }
+
+    .thank-you-for-downloading .modal-content h2 {
+        text-align: left;
+    }
+
+    .thank-you-for-downloading .modal-content h3 {
+        text-align: left;
+    }
+
+    .thank-you-for-downloading .modal-content .columns p {
+        text-align: left;
+        font-size: var(--body-font-size-xs);
+        line-height: 1.3;
+        font-weight: 400;
+    }
+
+    .thank-you-for-downloading .modal-content .columns > div {
+        position: relative;
+        align-items: start;
+    }
+
+    .thank-you-for-downloading .modal-content .columns > div::after {
+        content: '';
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        top: 97px;
+        margin: 0 auto;
+        border-top: 1px dashed #006eff;
+        z-index: -1;
+    }
+}
+
+/* video modal */
+
+.modal-container.video-modal .modal-content {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding-top: 40px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.modal-container.video-modal .modal-content .section:first-child {
+    border-bottom: none;
+}
+
+.modal-container.video-modal .modal-content .modal-close {
+    position: absolute;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    background-color: unset;
+}
+
+.modal-container.video-modal .modal-content .modal-close:hover {
+    opacity: 1;
+}
+
+.modal-container.video-modal .modal-content .modal-close::after, .modal-container.video-modal .modal-content .modal-close::before {
+    position: absolute;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #040dfd;
+}
+
+.modal-container.video-modal .modal-content .modal-close::after {
+    transform: rotate(45deg);
+}
+
+.modal-container.video-modal .modal-content .modal-close::before {
+    transform: rotate(-45deg);
+}
+
+/* identity-exposed modal */
+
+.identity-exposed .modal-container .modal-content {
+    padding: 30px;
+}
+
+.identity-exposed .default-content-wrapper {
+    padding: 0 20px;
+}
+
+.identity-exposed .modal-content img {
+    width: 32px;
+    height: 32px;
+}
+
+.identity-exposed .modal-container .modal-content .section:first-child {
+    padding: 0;
+    border: 0;
+}
+
+.identity-exposed .scan-loading .default-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.identity-exposed .modal-container .modal-content .section:first-child .default-content-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.identity-exposed .products.plans {
+    --max-columns: 1;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.identity-exposed .section[class*="scan-"], .identity-exposed .scan-loading h3, .identity-exposed .hide {
+    display: none;
+}
+
+.identity-exposed .section[class*="scan-"].show, .identity-exposed .scan-loading h3.show {
+    display: block;
+}
+
+@media (min-width: 900px) {
+    .identity-exposed .modal-container .modal-content {
+        padding: 30px;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-container .modal-content .default-content-wrapper {
+        padding: 0;
+    }
+}
+
+@media (min-width: 1600px) {
+    .modal-container .modal-content .default-content-wrapper {
+        padding: 0;
+    }
+}
