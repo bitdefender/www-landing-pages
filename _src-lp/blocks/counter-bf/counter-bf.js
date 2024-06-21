@@ -117,8 +117,8 @@ export default function decorate(block) {
 
     if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
     if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
-    if (marginTop) block.style.marginTop = `${marginTop}rem`;
-    if (marginBottom) block.style.marginBottom = `${marginBottom}rem`;
+    if (marginTop) parentBlock.style.marginTop = `${marginTop}rem`;
+    if (marginBottom) parentBlock.style.marginBottom = `${marginBottom}rem`;
   } else {
     block.innerHTML = 'Provide a valid counter Section Metadata';
   }
