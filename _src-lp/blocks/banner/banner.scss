@@ -513,6 +513,10 @@
 }
 
 @media screen and (width <= 768px) {
+  .section.banner-container {
+    margin: 0px 15px;
+  }
+
   .section.banner-container .banner {
     padding: 1em 0!important;
     margin-bottom: 2em!important;
