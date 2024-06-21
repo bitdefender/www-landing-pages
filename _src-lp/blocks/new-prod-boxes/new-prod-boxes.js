@@ -136,9 +136,9 @@ export default function decorate(block) {
           </div>
         </div>`;
 
-        if (percentOffFlag) {
-          block.querySelector(`.index${key} .prod-percent`).style.setProperty('visibility', 'visible', 'important');
-        }
+      if (percentOffFlag) {
+        block.querySelector(`.index${key} .prod-percent`).style.setProperty('visibility', 'visible', 'important');
+      }
     });
   } else {
     block.innerHTML = `
