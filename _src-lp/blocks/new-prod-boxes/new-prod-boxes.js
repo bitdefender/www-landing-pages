@@ -95,8 +95,15 @@ export default function decorate(block) {
         title.innerHTML = `<a href="#" title="${title.innerText}" class="buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${title.querySelector('tr a').innerHTML}</a>`;
       }
 
+      let percentOffFlag = false;
+      let percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
+      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%')) {
+        percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
+        percentOffFlag = true;
+      }
+
       block.innerHTML += `
-        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'}">
+        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key}">
           <div class="inner_prod_box">
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
@@ -107,7 +114,7 @@ export default function decorate(block) {
             ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
               <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
               <strong class="prod-percent">
-                ${Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`)}
+                ${percentOff}
               </strong>
             </div>`}
 
@@ -128,6 +135,10 @@ export default function decorate(block) {
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
         </div>`;
+
+        if (percentOffFlag) {
+          block.querySelector(`.index${key} .prod-percent`).style.setProperty('visibility', 'visible', 'important');
+        }
     });
   } else {
     block.innerHTML = `
