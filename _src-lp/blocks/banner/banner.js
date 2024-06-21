@@ -343,9 +343,15 @@ export default function decorate(block) {
 
   if (animatedText) {
     block.classList.add('animated_box');
-    block.innerHTML += `<div class="animated_text">
-      ${[...animatedText.split('|')].map((item, key) => `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`).join('')}
-    </div>`;
+    if (block.innerText.includes('[animated_text]')) {
+      block.innerHTML = block.innerHTML.replace('[animated_text]', `<div class="animated_text">
+        ${animatedText.split('|').map((item, key) => `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`).join('')}
+      </div>`);
+    } else {
+      block.innerHTML += `<div class="animated_text">
+        ${animatedText.split('|').map((item, key) => `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`).join('')}
+      </div>`;
+    }
 
     // Get all rotating text elements
     // const rotatingTexts = document.querySelectorAll('.rotating-text');

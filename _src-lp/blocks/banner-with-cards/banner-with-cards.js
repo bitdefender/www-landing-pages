@@ -105,7 +105,7 @@ export default function decorate(block) {
   // get Metadatas:
   const {
     products, type, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, imageCover, imageHeight,
+    marginBottom, imageCover, imageHeight, contentSize,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
   const prodBoxesParent = document.createElement('div');
@@ -116,7 +116,7 @@ export default function decorate(block) {
     block.querySelector('h1').innerHTML = block.querySelector('h1').innerHTML.replace('xx%', '<span class="max-discount"></span>');
   }
 
-  if (backgroundHide) parentBlock.classList.add(backgroundHide);
+  if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -135,6 +135,8 @@ export default function decorate(block) {
       parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
     }
   }
+
+  if (contentSize) parentBlock.classList.add(`content-${contentSize}`);
 
   // if we have set products
   if (products) {
