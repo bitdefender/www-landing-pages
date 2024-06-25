@@ -161,10 +161,6 @@
 }
 
 @media screen and (width < 767px) {
-  .counter-bf-container {
-    color: inherit;
-  }
-
   .counter-bf-container.hide-mobile {
     background-image: none!important;
   }
@@ -185,12 +181,7 @@
     align-items: flex-start;
     border: 0 none;
     background: transparent;
-    color: inherit;
     text-align: left;
-  }
-
-  .counter-bf-container table#flipdownTable.red td strong {
-    color: inherit;
   }
 
   .counter-bf-container table#flipdownTable .flipdown {
