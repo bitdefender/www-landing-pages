@@ -95,7 +95,7 @@
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle.fixed_height {
-  min-height: 80px;
+  min-height: 40px;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box hr {
