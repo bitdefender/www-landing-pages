@@ -44,6 +44,8 @@ export default class ZuoraNLClass {
     mobileios: 'com.bitdefender.iosprotection',
     dip: 'com.bitdefender.dataprivacy',
     dipm: 'com.bitdefender.dataprivacy',
+    vsb: 'com.bitdefender.vsb',
+    vsbm: 'com.bitdefender.vsb',
   };
 
   static names = {
@@ -56,7 +58,6 @@ export default class ZuoraNLClass {
   static zuoraConfig = {
     cartUrl: 'https://checkout.bitdefender.com',
     key: 'bb22f980-fa19-11ed-b443-87a99951e6d5',
-    // key: 'f1da8e40-f3dc-11e9-aeb6-33499e25f9e2',
     endpoint: 'https://checkout-service.bitdefender.com',
   };
 

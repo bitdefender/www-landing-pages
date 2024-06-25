@@ -32,8 +32,8 @@ export default function decorate(block) {
     };
 
     // additional classes for each image
-    const bannerImageBf = pictureBF.querySelector('picture');
-    bannerImageBf.classList.add('pictureBF', 'banner-image', 'flipClock-image');
+    const bannerImageBf = pictureBF && pictureBF.querySelector('picture');
+    if (bannerImageBf) bannerImageBf.classList.add('pictureBF', 'banner-image', 'flipClock-image');
 
     if (pictureCM) {
       const bannerImageCM = pictureCM.querySelector('picture');
@@ -51,15 +51,15 @@ export default function decorate(block) {
       <div class="container-fluid">
         <div class="row d-xs-block d-sm-flex d-md-flex d-lg-flex position-relative">
           <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img">
-            ${!onePicture ? pictureBF.innerHTML : ''}
-            ${!onePicture ? pictureCM.innerHTML : ''}
+            ${!onePicture && pictureBF ? pictureBF.innerHTML : ''}
+            ${!onePicture && pictureCM ? pictureCM.innerHTML : ''}
           </div>
 
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ps-4 counter-text">${contentEl.innerHTML}</div>
 
           ${!onePicture ? `<div class="col-6 d-none d-sm-none d-md-block d-lg-block img-right bck-img">
-            ${!onePicture ? pictureBF.innerHTML : ''}
-            ${!onePicture ? pictureCM.innerHTML : ''}
+            ${!onePicture && pictureBF ? pictureBF.innerHTML : ''}
+            ${!onePicture && pictureCM ? pictureCM.innerHTML : ''}
           </div>` : ''}
         </div>
       </div>`;
