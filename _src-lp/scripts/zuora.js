@@ -44,6 +44,8 @@ export default class ZuoraNLClass {
     mobileios: 'com.bitdefender.iosprotection',
     dip: 'com.bitdefender.dataprivacy',
     dipm: 'com.bitdefender.dataprivacy',
+    vsb: 'com.bitdefender.vsb',
+    vsbm: 'com.bitdefender.vsb',
   };
 
   static names = {
