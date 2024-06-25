@@ -33,16 +33,16 @@
   text-decoration-color:#599bfc;
 }
 
+.section.banner-container .banner p a {
+  color: inherit;
+}
+
 .section.banner-container .banner h1 a:hover {
   text-decoration-color:#cee2fe;
 }
 
 .section.banner-container .banner img {
   width: auto;
-}
-
-.section.banner-container .banner p a {
-  color: inherit;
 }
 
 .section.banner-container .banner .img-right picture {
@@ -521,7 +521,7 @@
 
 @media screen and (width <= 768px) {
   .section.banner-container {
-    margin: 0px 15px;
+    margin: 0 15px;
   }
 
   .section.banner-container .banner {
