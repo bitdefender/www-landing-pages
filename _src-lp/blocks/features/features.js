@@ -45,7 +45,7 @@ export default function decorate(block) {
   block.querySelectorAll('.features ul').forEach(replaceListWithAccordions);
   const acc = block.getElementsByClassName('accordion');
   for (let i = 0; i < acc.length; i += 1) {
-    acc[i].addEventListener('click', () => {
+    acc[i].addEventListener('click', function toggle() {
       this.classList.toggle('active');
       const panel = this.nextElementSibling;
       if (panel.style.display === 'block') {
