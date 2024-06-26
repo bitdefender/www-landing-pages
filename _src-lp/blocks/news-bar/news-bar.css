@@ -1,0 +1,26 @@
+.section.news-bar-container {
+  background-color: #006EFF;
+  padding: 5px;
+}
+.section.news-bar-container .news-bar {
+  text-align: center;
+  justify-content: center;
+  background-color: #006EFF;
+  color: white;
+  display: flex;
+  line-height: 1.2;
+  padding: 8px 0;
+  align-items: center;
+  transition: all 1s ease;
+}
+.section.news-bar-container .news-bar a {
+  color: white;
+  transition: all 1s ease;
+  text-decoration: underline;
+}
+
+@media screen and (width >= 991px) {
+  .news-bar {
+    height: 44px;
+  }
+}
