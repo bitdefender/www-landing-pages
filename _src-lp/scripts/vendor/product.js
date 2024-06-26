@@ -41,6 +41,7 @@ export default class ProductPrice {
   #devicesNo;
   #yearsNo;
   #bundleId;
+  initCount;
 
   constructor(productString, campaign) {
     this.#prodString = productString;
@@ -56,6 +57,19 @@ export default class ProductPrice {
 
     if (forceLocale)
       this.#locale = forceLocale;
+
+    /**
+    * Legacy connection to StoreProducts
+    */
+    if (typeof window.StoreProducts === 'undefined' || window.StoreProducts === null) {
+      window.StoreProducts = [];
+    }
+
+    if (typeof window.StoreProducts.initCount === 'undefined' || window.StoreProducts.initCount === null) {
+      window.StoreProducts.initCount = 0;
+    }
+
+    this.initCount = ++window.StoreProducts.initCount;
   }
 
   async #getProductVariations() {
@@ -326,6 +340,21 @@ export class DecorateLink {
     }
   }
 
+  #cleanSection() {
+    if (this.#params.has('section')) {
+      this.#params.set('section', this.#extractSection(window.adobeDataLayer));
+    }
+  }
+
+  #extractSection(adobeDataLayer) {
+    for (const item of adobeDataLayer) {
+      if (item.page && item.page.info && item.page.info.section) {
+        return item.page.info.section;
+      }
+    }
+    return null;
+  }
+
   /**
    * Returns the fully decorated URL with all necessary parameters added.
    * @returns {string} Fully decorated URL.
@@ -333,6 +362,7 @@ export class DecorateLink {
   getFullyDecoratedUrl() {
     this.#addSHOPURL();
     this.#addSRC();
+    this.#cleanSection();
     this.#urlObj.search = this.#params.toString();
     return this.#urlObj.toString();
   }
