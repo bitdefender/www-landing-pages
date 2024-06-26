@@ -326,7 +326,7 @@ export class DecorateLink {
   #addSHOPURL() {
     if (!this.#params.has('SHOPURL')) {
       const fullURL = window.location.href;
-      this.#params.append('SHOPURL', encodeURIComponent(fullURL));
+      this.#params.append('SHOPURL', encodeURI(fullURL));
     }
   }
 
@@ -340,10 +340,10 @@ export class DecorateLink {
       channel = `${channel}_${this.#campaign}`;
     const fullURL = window.location.href;
     const urlWithoutQuery = fullURL.split('?')[0]; // Removing query parameters
-    const currentPageUrl = channel || urlWithoutQuery;
+    const srcParam = channel || encodeURI(urlWithoutQuery);
 
     if (!this.#params.has('SRC')) {
-      this.#params.append('SRC', encodeURIComponent(currentPageUrl));
+      this.#params.append('SRC', srcParam);
     }
   }
 
