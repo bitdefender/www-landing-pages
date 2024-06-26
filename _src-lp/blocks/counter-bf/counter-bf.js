@@ -78,8 +78,9 @@ export default function decorate(block) {
     }
 
     // here may be added new conditions in the future
+    const flipdownTable = block.querySelector('table#flipdownTable');
     let skip2ndCounter = true;
-    if (block.querySelector('table#flipdownTable')) {
+    if (flipdownTable) {
       skip2ndCounter = true;
     }
 
