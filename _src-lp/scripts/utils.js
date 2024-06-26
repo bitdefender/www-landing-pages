@@ -400,7 +400,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     if (document.querySelector(oldPriceClass)) {
       const allOldPriceBox = document.querySelectorAll(oldPriceClass);
       if (triggerVPN) {
-        parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
+        if (parentDiv) parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
         if (comparativeTextBox) {
           allOldPriceBox.forEach((item) => {
             item.innerHTML = fullPrice;
@@ -417,7 +417,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     if (document.querySelector(onewPriceClass)) {
       const allNewPriceBox = document.querySelectorAll(onewPriceClass);
       if (triggerVPN) {
-        parentDiv.querySelector(onewPriceClass).innerHTML = offerPrice;
+        if (parentDiv) parentDiv.querySelector(onewPriceClass).innerHTML = offerPrice;
         if (comparativeTextBox) {
           allNewPriceBox.forEach((item) => {
             item.innerHTML = offerPrice;
@@ -434,7 +434,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     if (document.querySelector(oldPriceMonthlyClass)) {
       const allOldPriceBox = document.querySelectorAll(oldPriceMonthlyClass);
       if (triggerVPN) {
-        parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
+        if (parentDiv) parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
         if (comparativeTextBox) {
           allOldPriceBox.forEach((item) => {
             item.innerHTML = fullPriceMonthly;
@@ -451,7 +451,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     if (document.querySelector(onewPriceMonthlyClass)) {
       const allNewPriceBox = document.querySelectorAll(onewPriceMonthlyClass);
       if (triggerVPN) {
-        parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
+        if (parentDiv) parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
         if (comparativeTextBox) {
           allNewPriceBox.forEach((item) => {
             item.innerHTML = offerPriceMonthly;
@@ -464,11 +464,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       }
     }
 
-    if (document.querySelector(`.save-${onSelectorClass}`)) {
+    const saveClass = document.querySelector(`.save-${onSelectorClass}`);
+    if (saveClass) {
       if (triggerVPN) {
-        const parentSaveBox = parentDiv.querySelector(`.save-${onSelectorClass}`);
-        parentSaveBox.innerHTML = savings;
-        parentSaveBox.style.visibility = 'visible';
+        const parentSaveBox = parentDiv?.querySelector(`.save-${onSelectorClass}`);
+        if (parentSaveBox) {
+          parentSaveBox.innerHTML = savings;
+          parentSaveBox.style.visibility = 'visible';
+        }
       } else {
         document.querySelectorAll(`.save-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = savings;
@@ -479,9 +482,11 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     if (document.querySelector(`.percent-${onSelectorClass}`)) {
       if (triggerVPN) {
-        const parentPercentBox = parentDiv.querySelector(`.percent-${onSelectorClass}`);
-        parentPercentBox.innerHTML = `${percentageSticker}%`;
-        parentPercentBox.parentNode.style.visibility = 'visible';
+        const parentPercentBox = parentDiv?.querySelector(`.percent-${onSelectorClass}`);
+        if (parentPercentBox) {
+          parentPercentBox.innerHTML = `${percentageSticker}%`;
+          parentPercentBox.parentNode.style.visibility = 'visible';
+        }
       } else {
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = `${percentageSticker}%`;
