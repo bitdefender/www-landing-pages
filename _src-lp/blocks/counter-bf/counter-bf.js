@@ -77,6 +77,12 @@ export default function decorate(block) {
       }
     }
 
+    // here may be added new conditions in the future
+    let skip2ndCounter = true;
+    if (block.querySelector('table#flipdownTable')) {
+      skip2ndCounter = true;
+    }
+
     const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
     const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
     const currentTime = Math.floor(Date.now() / 1000);
@@ -92,15 +98,19 @@ export default function decorate(block) {
         }
 
         firstCounter.start().ifEnded(() => {
-          // The initial counter(Black Friday) has ended; start a new one + 48 hours from now - CyberMOnday
-          // switch images:
-          blockFlopDown.innerHTML = '';
-          block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
-          block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
+          if (!skip2ndCounter) {
+            // The initial counter(Black Friday) has ended; start a new one + 48 hours from now - CyberMOnday
+            // switch images:
+            blockFlopDown.innerHTML = '';
+            block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
+            block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
 
-          // eslint-disable-next-line no-undef
-          const secondCounter = new FlipDown(newTime, flipClockConfig);
-          secondCounter.start();
+            // eslint-disable-next-line no-undef
+            const secondCounter = new FlipDown(newTime, flipClockConfig);
+            secondCounter.start();
+          } else {
+            flipdownTable.style.display = 'none';
+          }
         });
       });
     }
