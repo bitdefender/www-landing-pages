@@ -1,0 +1,112 @@
+.features-container {
+  width: 100%;
+  color: #2E3A46;
+  height: auto;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: top right;
+  overflow: hidden;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.features-container h3 {
+  font-size: 40px;
+  font-weight: normal;
+}
+
+.features-container .features {
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+  border-radius: 5px;
+  padding: 30px 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+}
+
+.features-container .features > div {
+  padding: 10px 15px;
+  border-right: 1px solid #ddd;
+  flex: 1 1 calc(33.333% - 20px);
+}
+
+.features-container .features > div h6 {
+  font-size: 30px;
+  font-weight: normal;
+}
+
+.features-container .features .feature-list .accordion {
+  color: #006eff;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.features-container .features .feature-list .accordion::after {
+  content: '\276F';
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  margin-left: 8px;
+  transition: transform 0.4s;
+  transform: rotate(90deg);
+}
+
+.features-container .features .feature-list .accordion.active::after {
+  transform: rotate(270deg);
+}
+
+.features-container .features .feature-list .accordion span.improved {
+  background: #61af53;
+  color: white;
+  padding: 0 4px;
+  border-radius: 5px;
+  position: absolute;
+  margin-left: 30px;
+  font-size: 14px;
+}
+
+.features-container .features .feature-list .panel {
+  display: none;
+}
+
+.features-container .features .feature-list .panel p {
+  margin-top: 0;
+  font-size: 0.9em;
+}
+
+@media (width >= 992px) {
+  .features-container .features > div {
+    flex: 1 1 calc(33.333% - 20px);
+  }
+
+  .features-container .features > div:nth-child(3n) {
+    border-right: 0;
+  }
+
+  .features-container .features > div:last-of-type {
+    border-right: 0;
+  }
+}
+
+@media (width <= 991px) {
+  .features-container .features > div {
+    flex: 1 1 calc(50%);
+  }
+
+  .features-container .features > div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .features-container .features > div:last-of-type {
+    border-right: 0;
+  }
+}
+
+@media (width <= 766px) {
+  .features-container .features > div {
+    flex: 1 1 calc(100%);
+    border-right: 0;
+  }  
+}
