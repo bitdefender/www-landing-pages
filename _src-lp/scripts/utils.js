@@ -700,3 +700,57 @@ export async function fetchGeoIP() {
     console.error('Failed to fetch geoip data:', error);
   }
 }
+
+export function getOperatingSystem(userAgent) {
+  const systems = [
+    ['Windows NT 10.0', 'Windows 10'],
+    ['Windows NT 6.2', 'Windows 8'],
+    ['Windows NT 6.1', 'Windows 7'],
+    ['Windows NT 6.0', 'Windows Vista'],
+    ['Windows NT 5.1', 'Windows XP'],
+    ['Windows NT 5.0', 'Windows 2000'],
+    ['X11', 'X11'],
+    ['Linux', 'Linux'],
+    ['Android', 'Android'],
+    ['iPhone', 'iOS'],
+    ['iPod', 'iOS'],
+    ['iPad', 'iOS'],
+    ['Mac', 'MacOS'],
+  ];
+
+  return systems.find(([substr]) => userAgent.includes(substr))?.[1] || 'Unknown';
+}
+
+export function openUrlForOs(urlMacos, urlWindows, urlAndroid, urlIos) {
+  // Get user's operating system
+  const { userAgent } = navigator;
+  const userOS = getOperatingSystem(userAgent);
+
+  // Open the appropriate URL based on the OS
+  let openUrl;
+  switch (userOS) {
+    case 'MacOS':
+      openUrl = urlMacos;
+      break;
+    case 'Windows 10':
+    case 'Windows 8':
+    case 'Windows 7':
+    case 'Windows Vista':
+    case 'Windows XP':
+    case 'Windows 2000':
+      openUrl = urlWindows;
+      break;
+    case 'Android':
+      openUrl = urlAndroid;
+      break;
+    case 'iOS':
+      openUrl = urlIos;
+      break;
+    default:
+      openUrl = null; // Fallback or 'Unknown' case
+  }
+
+  if (openUrl) {
+    window.open(openUrl, '_self');
+  }
+}
