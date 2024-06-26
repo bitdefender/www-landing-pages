@@ -1,24 +1,23 @@
 .section.news-bar-container {
     background-color: #006EFF;
     padding: 5px;
+    transition: all 1s ease;
 
     .news-bar {
         text-align: center;
         justify-content: center;
-        background-color: #006EFF;
         color: white;
         display: flex;
         line-height: 1.2;
         padding: 8px 0;
         align-items: center;
+        transition: all 1s ease;
     
         a {
             color: white;
             transition: all 1s ease;
             text-decoration: underline;
         }
-    
-        transition: all 1s ease;
     }
 }
 
