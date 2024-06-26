@@ -962,44 +962,45 @@ async function initVlaicuProductPriceLogic(campaign) {
   });
 }
 
+/**
+ * Price logic should start only after adobe target is loaded.
+ */
 async function initializeProductsPriceLogic() {
   let pid = getParam('pid');
   let campaign = getParam('campaign');
   const vlaicuCampaign = getParam('vcampaign');
 
   try {
+    const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
+    /* eslint no-underscore-dangle: ["error", { "allow": ["_supplementalDataIDCurrent"] }] */
+    const theCurrentSDID = visitor._supplementalDataIDCurrent ? visitor._supplementalDataIDCurrent : '';
+    const mcID = visitor.getMarketingCloudVisitorID();
+
     /* global adobe */
-    if (window.adobe?.target) {
-      const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
-      /* eslint no-underscore-dangle: ["error", { "allow": ["_supplementalDataIDCurrent"] }] */
-      const theCurrentSDID = visitor._supplementalDataIDCurrent ? visitor._supplementalDataIDCurrent : '';
-      const mcID = visitor.getMarketingCloudVisitorID();
-
-      const targetResponse = await adobe.target.getOffers({
-        consumerId: theCurrentSDID,
-        request: {
-          id: {
-            marketingCloudVisitorId: mcID,
-          },
-          execute: {
-            mboxes: [{ index: 0, name: 'initSelector-mbox' }],
-          },
+    const targetResponse = await adobe.target.getOffers({
+      consumerId: theCurrentSDID,
+      request: {
+        id: {
+          marketingCloudVisitorId: mcID,
         },
-      });
+        execute: {
+          mboxes: [{ index: 0, name: 'initSelector-mbox' }],
+        },
+      },
+    });
 
-      const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
-      const content = mboxOptions?.[0]?.content;
+    const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
+    const content = mboxOptions?.[0]?.content;
 
-      if (content) {
-        pid = content.pid ?? pid;
-        campaign = content.campaign ?? campaign;
-        const promotionID = content.pid || content.campaign;
+    if (content) {
+      pid = content.pid ?? pid;
+      campaign = content.campaign ?? campaign;
+      const promotionID = content.pid || content.campaign;
 
-        if (promotionID) {
-          window.adobeDataLayer.push({
-            page: { attributes: { promotionID } },
-          });
-        }
+      if (promotionID) {
+        window.adobeDataLayer.push({
+          page: { attributes: { promotionID } },
+        });
       }
     }
   } catch (ex) { /* empty */ }
@@ -1105,10 +1106,14 @@ async function loadPage() {
 
   addIdsToEachSection();
 
-  if (window.ADOBE_MC_EVENT_LOADED) {
+  if (window.adobe?.target) {
     initializeProductsPriceLogic();
   } else {
-    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+    /**
+     * Old event: GLOBAL_EVENTS.ADOBE_MC_LOADED
+     * We prefer to listen for Adobe Targe Library to load.
+     */
+    document.addEventListener('at-library-loaded', () => {
       initializeProductsPriceLogic();
     });
   }
