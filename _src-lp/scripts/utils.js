@@ -181,8 +181,9 @@ export function getDefaultLanguage() {
       console.log('found language 2 - ', foundLanguage);
       return foundLanguage;
     });
+  } else {
+    return foundLanguage || 'en';
   }
-  return foundLanguage || 'en';
 }
 
 export function getDefaultSection() {
