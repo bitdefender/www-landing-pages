@@ -993,8 +993,8 @@ async function initializeProductsPriceLogic() {
     const content = mboxOptions?.[0]?.content;
 
     if (content) {
-      pid = content.pid ?? pid;
-      campaign = content.campaign ?? campaign;
+      pid = content.pid ?? pid; // used for Store
+      campaign = content.pid ?? campaign; // used for Zuora
       const promotionID = content.pid || content.campaign;
 
       if (promotionID) {
