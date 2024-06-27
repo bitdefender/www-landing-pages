@@ -697,7 +697,7 @@ export function getCookie(name) {
  */
 export async function fetchGeoIP() {
   try {
-    const response = await fetch('/geoip');
+    const response = await fetch('https://www.bitdefender.com/geoip');
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
