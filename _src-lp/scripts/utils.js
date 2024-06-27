@@ -168,9 +168,7 @@ export function getDefaultLanguage() {
   const currentPathUrl = window.location.pathname;
   let foundLanguage = localisationList.find((item) => currentPathUrl.indexOf(`/${item}/`) !== -1);
   if (foundLanguage === 'en') {
-    console.log('found language ', foundLanguage);
     window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-      console.log('test event');
       const countryDetect = event.detail.country;
       if (countryDetect === 'AU') {
         foundLanguage = 'au';
@@ -178,10 +176,11 @@ export function getDefaultLanguage() {
       if (countryDetect === 'GB') {
         foundLanguage = 'uk';
       }
-      console.log('found language 2 - ', foundLanguage);
+      console.log('found language 1 - ', foundLanguage);
       return foundLanguage;
     });
   } else {
+    console.log('found language 2 - ', foundLanguage);
     return foundLanguage || 'en';
   }
 }
