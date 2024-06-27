@@ -173,10 +173,10 @@ export function getDefaultLanguage() {
       console.log('test event');
       const countryDetect = event.detail.country;
       if (countryDetect === 'AU') {
-        foundLanguage === 'au';
+        let foundLanguage = 'au';
       }
       if (countryDetect === 'GB') {
-        foundLanguage === 'uk';
+        let foundLanguage = 'uk';
       }
     });
   }
