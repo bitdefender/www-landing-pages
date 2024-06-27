@@ -178,9 +178,10 @@ export function getDefaultLanguage() {
       if (countryDetect === 'GB') {
         foundLanguage = 'uk';
       }
+      console.log('found language 2 - ', foundLanguage);
+      return foundLanguage;
     });
   }
-  console.log('found language 2 - ', foundLanguage);
   return foundLanguage || 'en';
 }
 
