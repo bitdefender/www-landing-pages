@@ -152,8 +152,8 @@ export async function createModal(path, template) {
   return modalContainer;
 }
 
-export async function detectModalButtons(main) {
-  main.querySelectorAll('a.button.button--modal').forEach((link) => {
+export async function detectModalButtons(element) {
+  element.querySelectorAll('a.button.button--modal').forEach((link) => {
     link.addEventListener('click', async (e) => {
       e.preventDefault();
       document.body.append(await createModal(link.href));
