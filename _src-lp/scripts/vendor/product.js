@@ -243,7 +243,12 @@ export class Bundle {
         return null;
       }
 
-      return await response.json();
+      const returnObj = await response.json();
+      if (returnObj.buyLink) {
+        const decorator = new DecorateLink(returnObj.buyLink);
+        returnObj.buyLink = decorator.getFullyDecoratedUrl();
+      }
+      return returnObj;
     } catch (error) {
       console.error(error);
       return null;
@@ -320,8 +325,8 @@ export class DecorateLink {
    */
   #addSHOPURL() {
     if (!this.#params.has('SHOPURL')) {
-      const currentPagePath = window.location.pathname;
-      this.#params.append('SHOPURL', encodeURIComponent(currentPagePath));
+      const fullURL = window.location.href;
+      this.#params.append('SHOPURL', encodeURI(fullURL));
     }
   }
 
@@ -333,10 +338,12 @@ export class DecorateLink {
     let channel = urlParams.get('channel');
     if (this.#campaign)
       channel = `${channel}_${this.#campaign}`;
-    const currentPageUrl = channel || window.location.href;
+    const fullURL = window.location.href;
+    const urlWithoutQuery = fullURL.split('?')[0]; // Removing query parameters
+    const srcParam = channel || encodeURI(urlWithoutQuery);
 
     if (!this.#params.has('SRC')) {
-      this.#params.append('SRC', encodeURIComponent(currentPageUrl));
+      this.#params.append('SRC', srcParam);
     }
   }
 
@@ -355,6 +362,27 @@ export class DecorateLink {
     return null;
   }
 
+  #appendAdobeMc(link) {
+    try {
+      const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
+        trackingServer: 'sstats.bitdefender.com',
+        trackingServerSecure: 'sstats.bitdefender.com',
+        marketingCloudServer: 'sstats.bitdefender.com',
+        marketingCloudServerSecure: 'sstats.bitdefender.com',
+      });
+
+      const isAdobeMcAlreadyAdded = link.includes('adobe_mc');
+      if (isAdobeMcAlreadyAdded) {
+        return;
+      }
+
+      const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link);
+      return destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   /**
    * Returns the fully decorated URL with all necessary parameters added.
    * @returns {string} Fully decorated URL.
@@ -364,6 +392,6 @@ export class DecorateLink {
     this.#addSRC();
     this.#cleanSection();
     this.#urlObj.search = this.#params.toString();
-    return this.#urlObj.toString();
+    return this.#appendAdobeMc(this.#urlObj.toString());
   }
 }
