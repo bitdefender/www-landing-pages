@@ -173,7 +173,7 @@ export function getDefaultLanguage() {
       console.log('test event');
       const countryDetect = event.detail.country;
       console.log('country detect ', countryDetect);
-      if (countryDetect === 'AU' || countryDetect === 'UK') {
+      if (countryDetect === 'AU' || countryDetect === 'GB') {
         console.log('my geoip ', countryDetect.toLowerCase());
         return countryDetect.toLowerCase();
       }
