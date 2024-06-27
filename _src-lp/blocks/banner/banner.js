@@ -1,4 +1,4 @@
-import { productAliases } from '../../scripts/scripts.js';
+import { detectModalButtons, productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
@@ -367,4 +367,6 @@ export default function decorate(block) {
       next.classList.add('d-show');
     }, 2000);
   }
+
+  detectModalButtons(block);
 }
