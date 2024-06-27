@@ -259,6 +259,7 @@ export default function decorate(block) {
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
+      console.log('sdfaasd')
       blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
     }
 
