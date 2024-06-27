@@ -166,7 +166,19 @@ export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallba
 export function getDefaultLanguage() {
   const localisationList = ['au', 'be', 'br', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pt', 'ro', 'se', 'uk', 'zh-tw'];
   const currentPathUrl = window.location.pathname;
-  const foundLanguage = localisationList.find((item) => currentPathUrl.indexOf(`/${item}/`) !== -1);
+  let foundLanguage = localisationList.find((item) => currentPathUrl.indexOf(`/${item}/`) !== -1);
+  if (foundLanguage === 'en') {
+    console.log('found language ', foundLanguage);
+    window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+      console.log('test event');
+      const countryDetect = event.detail.country;
+      console.log('country detect ', countryDetect);
+      if (countryDetect === 'AU' || countryDetect === 'UK') {
+        console.log('my geoip ', countryDetect);
+        return countryDetect.toLowerCase();
+      }
+    });
+  }
   return foundLanguage || 'en';
 }
 
