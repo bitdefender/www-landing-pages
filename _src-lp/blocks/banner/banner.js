@@ -255,7 +255,7 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
