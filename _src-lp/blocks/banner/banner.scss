@@ -95,10 +95,6 @@
   text-align: left;
 }
 
-.section.banner-container .banner .button-container {
-  display: none;
-}
-
 .section.banner-container .banner ul {
   padding-left: 0;
 }
@@ -481,10 +477,6 @@
     font-size: var(--heading-font-size-l);
     line-height: var(--heading-font-size-l);
     text-align: left;
-  }
-
-  .section.banner-container .banner .button-container {
-    display: block;
   }
 
   .section.banner-container .banner img {
