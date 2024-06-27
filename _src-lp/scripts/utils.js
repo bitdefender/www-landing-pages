@@ -172,13 +172,15 @@ export function getDefaultLanguage() {
     window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
       console.log('test event');
       const countryDetect = event.detail.country;
-      console.log('country detect ', countryDetect);
-      if (countryDetect === 'AU' || countryDetect === 'GB') {
-        console.log('my geoip ', countryDetect.toLowerCase());
-        return countryDetect.toLowerCase();
+      if (countryDetect === 'AU') {
+        foundLanguage === 'au';
+      }
+      if (countryDetect === 'GB') {
+        foundLanguage === 'uk';
       }
     });
   }
+  console.log('found language 2 - ', foundLanguage);
   return foundLanguage || 'en';
 }
 
