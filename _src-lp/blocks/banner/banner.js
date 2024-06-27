@@ -17,7 +17,7 @@ export default function decorate(block) {
     parentBlock.classList.add(`bckimg-${imageCover}`);
   }
 
-  // tables from left content
+  // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     let prodName;
     let prodUsers;
