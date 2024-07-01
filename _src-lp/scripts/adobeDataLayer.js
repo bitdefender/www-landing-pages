@@ -288,7 +288,17 @@ export async function sendTrialDownloadedEvent() {
     button.addEventListener('click', () => {
       // push the event to the data layer only if the event is not already pushed
       if (!window.adobeDataLayer.some((obj) => obj.event === 'trial downloaded')) {
-        window.adobeDataLayer.push({ event: 'trial downloaded' });
+        const trialEvent = {
+          event: 'trial downloaded',
+          product: {
+            trial: [
+              {
+                ID: getMetadata('free-product'),
+              },
+            ],
+          },
+        };
+        window.adobeDataLayer.push(trialEvent);
       }
     });
   });
