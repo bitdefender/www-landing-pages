@@ -1,4 +1,4 @@
-import { productAliases } from '../../scripts/scripts.js';
+import { detectModalButtons, productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
@@ -17,7 +17,7 @@ export default function decorate(block) {
     parentBlock.classList.add(`bckimg-${imageCover}`);
   }
 
-  // tables from left content
+  // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     let prodName;
     let prodUsers;
@@ -255,7 +255,7 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
@@ -367,4 +367,6 @@ export default function decorate(block) {
       next.classList.add('d-show');
     }, 2000);
   }
+
+  detectModalButtons(block);
 }
