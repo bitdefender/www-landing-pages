@@ -17,6 +17,7 @@ import {
 
 import {
   sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,
+  sendTrialDownloadedEvent,
 } from './adobeDataLayer.js';
 import {
   addScript,
@@ -253,7 +254,7 @@ export async function loadLazy(doc) {
   adobeMcAppendVisitorId('main');
 
   loadTrackers();
-
+  sendTrialDownloadedEvent();
   sendAnalyticsPageLoadedEvent();
 
   sampleRUM('lazy');
