@@ -185,6 +185,8 @@ export function getDefaultLanguage() {
   }
 }
 
+console.log('lang - ',getDefaultLanguage());
+
 export function getDefaultSection() {
   const currentPathUrl = window.location.pathname;
   return currentPathUrl.indexOf('/business/') !== -1 ? 'business' : 'consumer';
@@ -701,7 +703,7 @@ export function getCookie(name) {
  */
 export async function fetchGeoIP() {
   try {
-    const response = await fetch('https://www.bitdefender.com/geoip');
+    const response = await fetch('/geoip');
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
