@@ -368,5 +368,7 @@ export default function decorate(block) {
     }, 2000);
   }
 
+  block.querySelector('.container-fluid h1 a').target = '_blank';
+
   detectModalButtons(block);
 }
