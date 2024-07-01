@@ -356,6 +356,7 @@ function maxDiscount() {
 
 // display prices
 export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
+  console.log('test1 - ', DEFAULT_LANGUAGE);
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;

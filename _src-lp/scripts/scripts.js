@@ -836,7 +836,7 @@ function initSelectors(pid) {
           try {
             const fp = this;
             const paramCoupon = getParam('coupon');
-
+            console.log('test ', DEFAULT_LANGUAGE);
             // DEX-17703 - replacing VAT INFO text for en regions
             showPrices(fp, false, null, onSelectorClass, paramCoupon);
             if (getDefaultLanguage() === 'en' && fp.selected_variation.region_id) updateVATinfo(fp.selected_variation.region_id, `.buylink-${onSelectorClass}`);
