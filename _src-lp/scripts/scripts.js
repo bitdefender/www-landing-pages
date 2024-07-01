@@ -254,7 +254,10 @@ export async function loadLazy(doc) {
   adobeMcAppendVisitorId('main');
 
   loadTrackers();
-  sendTrialDownloadedEvent();
+
+  if (getMetadata('free-product')) {
+    sendTrialDownloadedEvent();
+  }
   sendAnalyticsPageLoadedEvent();
 
   sampleRUM('lazy');
