@@ -1,3 +1,4 @@
+import { getMetadata } from './lib-franklin.js';
 import {
   getDefaultLanguage, getInstance, GLOBAL_EVENTS, getCookie,
 } from './utils.js';
@@ -272,8 +273,33 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
     return;
   }
 
-  if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || force) {
+  if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || getMetadata('free-product') || force) {
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
+}
+
+export async function sendTrialDownloadedEvent() {
+  // get every section that has the data-trial-downloaded attribute
+  const sections = document.querySelectorAll('[data-trial-download]');
+  // select the first button from each section
+  sections.forEach((section) => {
+    const button = section.querySelector('.button-container a');
+    button.addEventListener('click', () => {
+      // push the event to the data layer only if the event is not already pushed
+      if (!window.adobeDataLayer.some((obj) => obj.event === 'trial downloaded')) {
+        const trialEvent = {
+          event: 'trial downloaded',
+          product: {
+            trial: [
+              {
+                ID: getMetadata('free-product'),
+              },
+            ],
+          },
+        };
+        window.adobeDataLayer.push(trialEvent);
+      }
+    });
+  });
 }

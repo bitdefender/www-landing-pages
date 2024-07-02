@@ -41,6 +41,7 @@ export default class ProductPrice {
   #devicesNo;
   #yearsNo;
   #bundleId;
+  initCount;
 
   constructor(productString, campaign) {
     this.#prodString = productString;
@@ -56,6 +57,19 @@ export default class ProductPrice {
 
     if (forceLocale)
       this.#locale = forceLocale;
+
+    /**
+    * Legacy connection to StoreProducts
+    */
+    if (typeof window.StoreProducts === 'undefined' || window.StoreProducts === null) {
+      window.StoreProducts = [];
+    }
+
+    if (typeof window.StoreProducts.initCount === 'undefined' || window.StoreProducts.initCount === null) {
+      window.StoreProducts.initCount = 0;
+    }
+
+    this.initCount = ++window.StoreProducts.initCount;
   }
 
   async #getProductVariations() {
@@ -229,7 +243,12 @@ export class Bundle {
         return null;
       }
 
-      return await response.json();
+      const returnObj = await response.json();
+      if (returnObj.buyLink) {
+        const decorator = new DecorateLink(returnObj.buyLink);
+        returnObj.buyLink = decorator.getFullyDecoratedUrl();
+      }
+      return returnObj;
     } catch (error) {
       console.error(error);
       return null;
@@ -306,8 +325,8 @@ export class DecorateLink {
    */
   #addSHOPURL() {
     if (!this.#params.has('SHOPURL')) {
-      const currentPagePath = window.location.pathname;
-      this.#params.append('SHOPURL', encodeURIComponent(currentPagePath));
+      const fullURL = window.location.href;
+      this.#params.append('SHOPURL', encodeURI(fullURL));
     }
   }
 
@@ -319,10 +338,48 @@ export class DecorateLink {
     let channel = urlParams.get('channel');
     if (this.#campaign)
       channel = `${channel}_${this.#campaign}`;
-    const currentPageUrl = channel || window.location.href;
+    const fullURL = window.location.href;
+    const urlWithoutQuery = fullURL.split('?')[0]; // Removing query parameters
+    const srcParam = channel || encodeURI(urlWithoutQuery);
 
     if (!this.#params.has('SRC')) {
-      this.#params.append('SRC', encodeURIComponent(currentPageUrl));
+      this.#params.append('SRC', srcParam);
+    }
+  }
+
+  #cleanSection() {
+    if (this.#params.has('section')) {
+      this.#params.set('section', this.#extractSection(window.adobeDataLayer));
+    }
+  }
+
+  #extractSection(adobeDataLayer) {
+    for (const item of adobeDataLayer) {
+      if (item.page && item.page.info && item.page.info.section) {
+        return item.page.info.section;
+      }
+    }
+    return null;
+  }
+
+  #appendAdobeMc(link) {
+    try {
+      const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
+        trackingServer: 'sstats.bitdefender.com',
+        trackingServerSecure: 'sstats.bitdefender.com',
+        marketingCloudServer: 'sstats.bitdefender.com',
+        marketingCloudServerSecure: 'sstats.bitdefender.com',
+      });
+
+      const isAdobeMcAlreadyAdded = link.includes('adobe_mc');
+      if (isAdobeMcAlreadyAdded) {
+        return;
+      }
+
+      const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link);
+      return destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
+    } catch (e) {
+      console.error(e);
     }
   }
 
@@ -333,7 +390,8 @@ export class DecorateLink {
   getFullyDecoratedUrl() {
     this.#addSHOPURL();
     this.#addSRC();
+    this.#cleanSection();
     this.#urlObj.search = this.#params.toString();
-    return this.#urlObj.toString();
+    return this.#appendAdobeMc(this.#urlObj.toString());
   }
 }

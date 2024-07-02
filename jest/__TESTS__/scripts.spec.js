@@ -7,7 +7,7 @@ jest.mock('../../_src-lp/scripts/lib-franklin.js', () => ({
   loadHeader: jest.fn(),
   loadFooter: jest.fn(),
   // loadBlock:  jest.fn().mockResolvedValue(undefined),
-  loadBlocks:  jest.fn(),
+  loadBlocks: jest.fn(),
 }));
 
 jest.mock('../../_src-lp/scripts/utils.js', () => ({
@@ -22,11 +22,11 @@ jest.mock('../../_src-lp/scripts/utils.js', () => ({
     "vpn/10/1"
   ],
   addScript: jest.fn((src, data, loadStrategy, onLoadCallback, onErrorCallback, type) => {
-      // Call the onLoadCallback and/or onErrorCallback directly
-      if (onLoadCallback) {
-        onLoadCallback();
-      }
-    }),
+    // Call the onLoadCallback and/or onErrorCallback directly
+    if (onLoadCallback) {
+      onLoadCallback();
+    }
+  }),
   showPrices: jest.fn(),
 }));
 
@@ -55,6 +55,16 @@ describe('scripts.js', () => {
         // Simulate immediate resolution for load and error events
         callback();
       }
+    });
+
+    beforeEach(() => {
+      window = Object.create(window);
+      Object.defineProperty(window, 'adobe', {
+        value: {
+          target: {}
+        },
+        writable: true
+      });
     });
 
     it('should load stable for Zuora NL', async () => {
