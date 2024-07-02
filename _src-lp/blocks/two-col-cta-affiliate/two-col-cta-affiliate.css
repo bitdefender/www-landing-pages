@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
 }
-.two-col-cta-affiliate .left-column .button-container {
+.two-col-cta-affiliate .left-column .button {
   margin-top: 24px;
 }
 .two-col-cta-affiliate .right-column {
