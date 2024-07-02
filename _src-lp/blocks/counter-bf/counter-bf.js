@@ -79,7 +79,7 @@ export default function decorate(block) {
 
     // here may be added new conditions in the future
     const flipdownTable = block.querySelector('table#flipdownTable');
-    let skip2ndCounter = true;
+    let skip2ndCounter = false;
     if (flipdownTable) {
       skip2ndCounter = true;
     }
@@ -87,6 +87,10 @@ export default function decorate(block) {
     const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
     const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
     const currentTime = Math.floor(Date.now() / 1000);
+
+    if (skip2ndCounter && counterSwitchOnUpdated > currentTime) {
+      flipdownTable.style.display = 'block';
+    }
 
     if (newTime > currentTime) {
       blockFlopDown.style.display = 'block';
@@ -105,12 +109,14 @@ export default function decorate(block) {
             blockFlopDown.innerHTML = '';
             block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
             block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
-
             // eslint-disable-next-line no-undef
             const secondCounter = new FlipDown(newTime, flipClockConfig);
             secondCounter.start();
           } else {
             flipdownTable.style.display = 'none';
+            if (contentEl.querySelector('div').children.length === 1) {
+              parentBlock.style.display = 'none';
+            }
           }
         });
       });
