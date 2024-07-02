@@ -308,6 +308,8 @@
 }
 .b-productswithinputdevices-container.second-template .b-productswithinputdevices fieldset {
   margin: 0;
+  align-self: center;
+  justify-content: center;
 }
 .b-productswithinputdevices-container.second-template .b-productswithinputdevices table td {
   padding-left: 12px;
