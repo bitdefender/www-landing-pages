@@ -17,6 +17,7 @@ import {
 
 import {
   sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,
+  sendTrialDownloadedEvent,
 } from './adobeDataLayer.js';
 import {
   addScript,
@@ -254,6 +255,9 @@ export async function loadLazy(doc) {
 
   loadTrackers();
 
+  if (getMetadata('free-product')) {
+    sendTrialDownloadedEvent();
+  }
   sendAnalyticsPageLoadedEvent();
 
   sampleRUM('lazy');
