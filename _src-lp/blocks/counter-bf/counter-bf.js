@@ -125,7 +125,6 @@ export default function decorate(block) {
       });
     }
 
-
     // update background color if set, if not set default: #000
     if (backgroundColor) {
       parentBlock.style.backgroundColor = backgroundColor;
