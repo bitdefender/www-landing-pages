@@ -97,6 +97,7 @@ export default function decorate(block) {
       blockFlopDown.style.display = 'block';
       document.addEventListener(GLOBAL_EVENTS.COUNTER_LOADED, () => {
         // Initialize the first counter
+        // eslint-disable-next-line no-undef
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
         firstCounter.start().ifEnded(() => {
           if (!skip2ndCounter) {
@@ -106,6 +107,7 @@ export default function decorate(block) {
             block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
 
             // Initialize the second counter
+            // eslint-disable-next-line no-undef
             const secondCounter = new FlipDown(newTime, flipClockConfig);
             secondCounter.start();
           } else {
