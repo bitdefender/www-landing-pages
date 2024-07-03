@@ -115,11 +115,16 @@ export default function decorate(block) {
           } else {
             flipdownTable.style.display = 'none';
             if (contentEl.querySelector('div').children.length === 1) {
-              parentBlock.style.display = 'none';
+              parentBlock.remove();
             }
           }
         });
       });
+    } else {
+      flipdownTable.style.display = 'none';
+      if (contentEl.querySelector('div').children.length === 1) {
+        parentBlock.remove();
+      }
     }
 
     // update background color if set, if not set default: #000
