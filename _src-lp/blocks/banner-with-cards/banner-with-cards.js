@@ -21,7 +21,7 @@ function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, r
   tableRadios.appendChild(radioBoxParent);
 }
 
-function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM) {
+function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display) {
   // Clear existing content
   tablePrices.innerHTML = '';
 
@@ -43,24 +43,32 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
   };
 
   // Create yearly and monthly price boxes
-  createPriceBox('yearly hide', onSelectorClass);
-  createPriceBox('monthly show', onSelectorClassM);
+  if (display) {
+    createPriceBox(display, display === 'monthly' ? onSelectorClassM : onSelectorClass);
+  } else {
+    createPriceBox('monthly show', onSelectorClassM);
+    createPriceBox('yearly hide', onSelectorClass);
+  }
 }
 
-function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM) {
+function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display) {
   const btnText = tableBuyBtn.textContent;
 
-  const createButton = (classSuffix, visibilityClass) => {
+  const createButton = (className, selectorClass) => {
     const button = document.createElement('div');
-    button.innerHTML = `<a href='#' title='Bitdefender ${prodName}' class='${visibilityClass} red-buy-button await-loader prodload prodload-${classSuffix} buylink-${classSuffix}' referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
+    button.innerHTML = `<a href='#' title='Bitdefender ${prodName}' class='${className} red-buy-button await-loader prodload prodload-${selectorClass} buylink-${selectorClass}' referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
 
     return button.innerHTML;
   };
 
-  const buyButtonYearly = createButton(onSelectorClass, 'yearly hide');
-  const buyButtonMonthly = createButton(onSelectorClassM, 'monthly show');
-
-  tableBuyBtn.innerHTML = `${buyButtonYearly} ${buyButtonMonthly}`;
+  if (display) {
+    const buyButton = createButton(display, display === 'monthly' ? onSelectorClassM : onSelectorClass);
+    tableBuyBtn.innerHTML = buyButton;
+  } else {
+    const buyButtonYearly = createButton('yearly hide', onSelectorClass);
+    const buyButtonMonthly = createButton('monthly show', onSelectorClassM);
+    tableBuyBtn.innerHTML = `${buyButtonYearly} ${buyButtonMonthly}`;
+  }
 }
 
 function activateRadios(block, type) {
@@ -104,7 +112,7 @@ export default function decorate(block) {
 
   // get Metadatas:
   const {
-    products, type, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
+    products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
     marginBottom, imageCover, imageHeight, contentSize,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
@@ -162,13 +170,17 @@ export default function decorate(block) {
       const tableBuyBtn = contentRightItem.querySelector('table:last-of-type');
 
       // radios
-      createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, `${idx}_${counter}`, radio1, radio2);
+      if (!display) {
+        createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, `${idx}_${counter}`, radio1, radio2);
+      } else {
+        tableRadios.remove();
+      }
 
       // prices:
-      updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM);
+      updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display);
 
       // buylink
-      createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM);
+      createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display);
 
       const prodBox = document.createElement('div');
       prodBox.className = `prodBox box-${idx + 1}`;
@@ -191,5 +203,5 @@ export default function decorate(block) {
   `;
 
   // activate radios
-  activateRadios(block, type);
+  if (!display) activateRadios(block, type);
 }
