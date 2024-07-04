@@ -77,48 +77,51 @@ export default function decorate(block) {
       }
     }
 
-    // here may be added new conditions in the future
     const flipdownTable = block.querySelector('table#flipdownTable');
-    let skip2ndCounter = false;
-    if (flipdownTable) {
-      skip2ndCounter = true;
-    }
+    const skip2ndCounter = flipdownTable !== null;
 
     const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
-    const newTime = Number(counterSwitchOnUpdated) + 48 * 60 * 60;
+    const newTime = counterSwitchOnUpdated + 48 * 60 * 60;
     const currentTime = Math.floor(Date.now() / 1000);
 
     if (skip2ndCounter && counterSwitchOnUpdated > currentTime) {
       flipdownTable.style.display = 'block';
+    } else {
+      flipdownTable.style.display = 'none';
+      if (contentEl.querySelector('div').children.length === 1) {
+        parentBlock.remove();
+      }
     }
 
     if (newTime > currentTime) {
       blockFlopDown.style.display = 'block';
       document.addEventListener(GLOBAL_EVENTS.COUNTER_LOADED, () => {
+        // Initialize the first counter
         // eslint-disable-next-line no-undef
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
-        if (!firstCounter.countdownEnded) {
-          block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'block'; });
-          block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'none'; });
-        }
-
         firstCounter.start().ifEnded(() => {
           if (!skip2ndCounter) {
-            // The initial counter(Black Friday) has ended; start a new one + 48 hours from now - CyberMOnday
-            // switch images:
+            // The initial counter (Black Friday) has ended; start a new one + 48 hours from now - CyberMonday
             blockFlopDown.innerHTML = '';
             block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
             block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
+
+            // Initialize the second counter
             // eslint-disable-next-line no-undef
             const secondCounter = new FlipDown(newTime, flipClockConfig);
             secondCounter.start();
           } else {
             flipdownTable.style.display = 'none';
             if (contentEl.querySelector('div').children.length === 1) {
-              parentBlock.style.display = 'none';
+              parentBlock.remove();
             }
           }
         });
+
+        if (!firstCounter.countdownEnded) {
+          block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'block'; });
+          block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'none'; });
+        }
       });
     }
 
