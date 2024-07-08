@@ -65,8 +65,8 @@
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox h3 {
-  font-size: 22px;
-  line-height: 26px;
+  font-size: 18px;
+  line-height: 22px;
   font-weight: bold;
   margin: 0;
 }
@@ -319,8 +319,8 @@
     border-radius: 10px;
   }
   .section.banner-with-cards-container .banner-with-cards .prodBox h3 {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 22px;
+    line-height: 26px;
   }
   .section.banner-with-cards-container .banner-with-cards .prodBox .red-buy-button {
     font-size: 17px;
