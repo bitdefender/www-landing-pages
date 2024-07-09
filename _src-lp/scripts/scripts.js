@@ -174,7 +174,7 @@ export async function detectModalButtons(element) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  document.documentElement.lang = DEFAULT_LANGUAGE;
   decorateTemplateAndTheme();
 
   const templateMetadata = getMetadata('template');

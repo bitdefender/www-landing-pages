@@ -255,15 +255,17 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
+    blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
-      blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
+      blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
     }
 
     let defaultSize = 'col-sm-6 col-md-6 col-lg-5';
-    if (contentSize === 'larger') {
+    if (contentSize === 'full') {
+      defaultSize = 'col-sm-12 col-md-12 col-lg-12';
+    } else if (contentSize === 'larger') {
       defaultSize = 'col-sm-7 col-md-7 col-lg-7';
     } else if (contentSize === 'half') {
       defaultSize = 'col-sm-6 col-md-6 col-lg-6';
@@ -275,7 +277,7 @@ export default function decorate(block) {
           <div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
-          <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
+          <div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>
           <div class="col-12 p-0 text-center bck-img">
             ${pictureEl.innerHTML}
           </div>
@@ -283,11 +285,11 @@ export default function decorate(block) {
       </div>
     `;
   } else if (imageCover) {
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+    parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
     }
 
     if (contentSize === 'fourth') {
