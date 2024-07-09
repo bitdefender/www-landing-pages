@@ -126,6 +126,13 @@ export async function createModal(path, template) {
   const modalContent = document.createElement('div');
   modalContent.classList.add('modal-content');
 
+  // this makes fragments work on the www.bitdefender.com/pages domain
+  const loc = window.location;
+  if (loc.hostname === 'www.bitdefender.com' && !path.startsWith('/pages')) {
+    // eslint-disable-next-line no-param-reassign
+    path = `/pages${path}`;
+  }
+
   // fetch modal content
   const resp = await fetch(`${path}.plain.html`);
 
