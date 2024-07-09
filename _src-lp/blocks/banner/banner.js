@@ -255,7 +255,6 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
-    console.log('contentSize ', contentSize)
     blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
@@ -265,7 +264,6 @@ export default function decorate(block) {
 
     let defaultSize = 'col-sm-6 col-md-6 col-lg-5';
     if (contentSize === 'full') {
-      console.log('sadfasdf', contentSize)
       defaultSize = 'col-sm-12 col-md-12 col-lg-12';
     } else if (contentSize === 'larger') {
       defaultSize = 'col-sm-7 col-md-7 col-lg-7';
