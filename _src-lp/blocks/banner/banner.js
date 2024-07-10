@@ -375,7 +375,7 @@ export default function decorate(block) {
   }
 
   if (block.querySelector('.divider .container-fluid ul li a')) {
-    block.querySelectorAll('.divider .container-fluid ul li a').forEach(link => {
+    block.querySelectorAll('.divider .container-fluid ul li a').forEach((link) => {
       link.target = '_blank';
     });
   }
