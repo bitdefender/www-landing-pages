@@ -1333,7 +1333,7 @@ main .section.highlight {
 .green-arrow-and-title .default-content-wrapper h2 {
   font-size: 24px;
   font-weight: normal;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 .green-arrow-and-title .default-content-wrapper h2 em {
   font-style: normal;
@@ -1725,7 +1725,7 @@ main .section.highlight {
   .green-arrow-and-title .default-content-wrapper h2 {
     font-size: clamp(1.5rem, 5vw, 3rem);
     font-weight: normal;
-    margin-bottom: 0;
+    margin-bottom: 5px !important;
   }
   .green-arrow-and-title .default-content-wrapper h2 em {
     font-style: normal;
