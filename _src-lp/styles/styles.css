@@ -1335,6 +1335,7 @@ main .section.highlight {
   font-weight: normal;
 }
 .green-arrow-and-title .default-content-wrapper h2 em {
+  font-style: normal;
   position: relative;
 }
 .green-arrow-and-title .default-content-wrapper h2 em::before {
@@ -1725,6 +1726,7 @@ main .section.highlight {
     font-weight: normal;
   }
   .green-arrow-and-title .default-content-wrapper h2 em {
+    font-style: normal;
     position: relative;
   }
   .green-arrow-and-title .default-content-wrapper h2 em::before {

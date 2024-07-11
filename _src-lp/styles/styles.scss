@@ -1363,7 +1363,7 @@ main .section.highlight {
       font-weight: normal;
 
       em {
-
+        font-style: normal;
         position: relative;
         &::before {
           content: "";
@@ -1859,7 +1859,7 @@ main .section.highlight {
         font-weight: normal;
   
         em {
-  
+          font-style: normal;
           position: relative;
           &::before {
             content: "";
