@@ -147,50 +147,50 @@ export default async function decorate(block) {
     </div>`;
   }
 
-  // MutationObserver setup
-  const targetNode = block;
-
-  // Function to match the height of .subtitle elements
-  const matchSubtitleHeights = () => {
-    const subtitles1 = targetNode.querySelectorAll('.subtitle');
-    subtitles1.forEach((subtitle) => {
-      subtitle.style.minHeight = '';
-    });
-
-    if (window.innerWidth > 768) {
-      const subtitles = targetNode.querySelectorAll('.subtitle');
-      const subtitlesHeight = Array.from(subtitles).map((subtitle) => subtitle.offsetHeight);
-      const maxHeight = Math.max(...subtitlesHeight);
-
-      subtitles.forEach((subtitle) => {
-        subtitle.style.minHeight = `${maxHeight}px`;
+  // General function to match the height of elements based on a selector
+  const matchHeights = (targetNode, selector) => {
+    const resetHeights = () => {
+      const elements = targetNode.querySelectorAll(selector);
+      elements.forEach((element) => {
+        element.style.minHeight = '';
       });
-    } else {
-      // Reset minHeight if the screen width is 768px or less
-      const subtitles = targetNode.querySelectorAll('.subtitle');
-      subtitles.forEach((subtitle) => {
-        subtitle.style.minHeight = '';
-      });
-    }
-  };
+    };
 
-  const matchSubtitleHeightsCallback = (mutationsList) => {
-    // eslint-disable-next-line array-callback-return
-    Array.from(mutationsList).map((mutation) => {
-      if (mutation.type === 'childList') {
-        matchSubtitleHeights();
+    const adjustHeights = () => {
+      if (window.innerWidth > 768) {
+        resetHeights();
+        const elements = targetNode.querySelectorAll(selector);
+        const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
+        const maxHeight = Math.max(...elementsHeight);
+
+        elements.forEach((element) => {
+          element.style.minHeight = `${maxHeight}px`;
+        });
+      } else {
+        resetHeights();
       }
+    };
+
+    const matchHeightsCallback = (mutationsList) => {
+      Array.from(mutationsList).forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          adjustHeights();
+        }
+      });
+    };
+
+    const observer = new MutationObserver(matchHeightsCallback);
+
+    if (targetNode) {
+      observer.observe(targetNode, { childList: true, subtree: true });
+    }
+
+    window.addEventListener('resize', () => {
+      adjustHeights();
     });
   };
 
-  const observer = new MutationObserver(matchSubtitleHeightsCallback);
-
-  if (targetNode) {
-    observer.observe(targetNode, { childList: true, subtree: true });
-  }
-
-  // Add event listener for window resize
-  window.addEventListener('resize', () => {
-    matchSubtitleHeights();
-  });
+  const targetNode = document.querySelector('.new-prod-boxes');
+  matchHeights(targetNode, '.subtitle');
+  matchHeights(targetNode, 'h2');
 }
