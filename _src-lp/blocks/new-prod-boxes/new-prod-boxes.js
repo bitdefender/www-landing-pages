@@ -1,7 +1,7 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
-export default async function decorate(block) {
+export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
     products, priceType,
