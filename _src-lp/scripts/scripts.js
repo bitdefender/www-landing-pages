@@ -127,10 +127,15 @@ export async function createModal(path, template) {
   modalContent.classList.add('modal-content');
 
   // this makes fragments work on the www.bitdefender.com/pages domain
-  const loc = window.location;
-  if (loc.hostname === 'www.bitdefender.com' && !path.startsWith('/pages')) {
+  if (path.includes('www.bitdefender.com') && !path.includes('www.bitdefender.com/pages')) {
     // eslint-disable-next-line no-param-reassign
-    path = `/pages${path}`;
+    path = path.replace('www.bitdefender.com', 'www.bitdefender.com/pages');
+
+    // sometime the path might have a query string,
+    // we need to remove it in order to get the correct path,
+    // so the modal content can be fetched
+    // eslint-disable-next-line no-param-reassign
+    path = path.split('?')[0];
   }
 
   // fetch modal content

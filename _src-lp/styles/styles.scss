@@ -1346,6 +1346,53 @@ main .section.highlight {
   color: #FFF !important;
 }
 
+.green-arrow-and-title {
+
+  position: relative;
+
+  .default-content-wrapper {
+
+    h1 {
+      color: #0E8532;
+      font-size: 24px;
+      margin-bottom: 0px !important;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: normal;
+      margin-bottom: 0 !important;
+
+      em {
+        font-style: normal;
+        position: relative;
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          background: url("/_src-lp/images/green-arrow.png") no-repeat;
+          background-size: 31px;
+          width: 40px;
+          height: 40px;
+          top: 30px;
+          left: -20px;
+        }
+      }
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    img {
+      width: 84px;
+      height: 69px;
+      margin-right: 23px;
+      position: absolute;
+    }
+  }
+}
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
@@ -1796,5 +1843,43 @@ main .section.highlight {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .green-arrow-and-title {
+  
+    .default-content-wrapper {
+  
+      h1 {
+        color: #0E8532;
+        font-size: clamp(1.5rem, 5vw, 3rem);
+        margin-bottom: 0px !important;
+      }
+  
+      h2 {
+        font-size: clamp(1.5rem, 5vw, 3rem);
+        font-weight: normal;
+        margin-bottom: 5px !important;
+  
+        em {
+          font-style: normal;
+          position: relative;
+          &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            background: url("/_src-lp/images/green-arrow.png") no-repeat;
+            background-size: clamp(1.5rem, 5vw, 5rem);
+            width: 83px;
+            height: 83px;
+            top: 45px;
+            left: -25px;
+          }
+        }
+      }
+
+      p {
+        font-size: 24px;
+      }
+    }
   }
 }
