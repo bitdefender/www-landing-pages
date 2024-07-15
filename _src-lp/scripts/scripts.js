@@ -189,7 +189,7 @@ export async function go2Anchor() {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = DEFAULT_LANGUAGE;
+  document.documentElement.lang = DEFAULT_LANGUAGE === 'se' ? 'sv' : DEFAULT_LANGUAGE;
   decorateTemplateAndTheme();
 
   const templateMetadata = getMetadata('template');
