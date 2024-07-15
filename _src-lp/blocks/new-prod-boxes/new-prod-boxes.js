@@ -157,7 +157,7 @@ export default function decorate(block) {
     };
 
     const adjustHeights = () => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth >= 768) {
         resetHeights();
         const elements = targetNode.querySelectorAll(selector);
         const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
