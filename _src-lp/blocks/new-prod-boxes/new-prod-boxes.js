@@ -1,7 +1,7 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
     products, priceType,
@@ -134,7 +134,7 @@ export default function decorate(block) {
             <hr />
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
-        </div>`;
+      </div>`;
 
       if (percentOffFlag) {
         block.querySelector(`.index${key} .prod-percent`).style.setProperty('visibility', 'visible', 'important');
@@ -147,19 +147,50 @@ export default function decorate(block) {
     </div>`;
   }
 
-  // get all subtitles
-  const subtitles = block.querySelectorAll('.subtitle');
+  // MutationObserver setup
+  const targetNode = block;
 
-  // detect if at least 1 has more words
-  const hasMoreWords = Array.from(subtitles).some((subtitle) => {
-    const wordCount = subtitle.textContent.trim().split(/\s+/).length;
-    return wordCount > 13;
-  });
-
-  // set specific class for all
-  if (hasMoreWords) {
-    subtitles.forEach((subtitle) => {
-      subtitle.classList.add('fixed_height');
+  // Function to match the height of .subtitle elements
+  const matchSubtitleHeights = () => {
+    const subtitles1 = targetNode.querySelectorAll('.subtitle');
+    subtitles1.forEach((subtitle) => {
+      subtitle.style.minHeight = '';
     });
+
+    if (window.innerWidth > 768) {
+      const subtitles = targetNode.querySelectorAll('.subtitle');
+      const subtitlesHeight = Array.from(subtitles).map((subtitle) => subtitle.offsetHeight);
+      const maxHeight = Math.max(...subtitlesHeight);
+
+      subtitles.forEach((subtitle) => {
+        subtitle.style.minHeight = `${maxHeight}px`;
+      });
+    } else {
+      // Reset minHeight if the screen width is 768px or less
+      const subtitles = targetNode.querySelectorAll('.subtitle');
+      subtitles.forEach((subtitle) => {
+        subtitle.style.minHeight = '';
+      });
+    }
+  };
+
+  const matchSubtitleHeightsCallback = (mutationsList) => {
+    // eslint-disable-next-line array-callback-return
+    Array.from(mutationsList).map((mutation) => {
+      if (mutation.type === 'childList') {
+        matchSubtitleHeights();
+      }
+    });
+  };
+
+  const observer = new MutationObserver(matchSubtitleHeightsCallback);
+
+  if (targetNode) {
+    observer.observe(targetNode, { childList: true, subtree: true });
   }
+
+  // Add event listener for window resize
+  window.addEventListener('resize', () => {
+    matchSubtitleHeights();
+  });
 }
