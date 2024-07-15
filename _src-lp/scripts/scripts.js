@@ -174,12 +174,22 @@ export async function detectModalButtons(element) {
   });
 }
 
+export async function go2Anchor() {
+  if (window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    const element = document.getElementById(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = DEFAULT_LANGUAGE;
+  document.documentElement.lang = DEFAULT_LANGUAGE === 'se' ? 'sv' : DEFAULT_LANGUAGE;
   decorateTemplateAndTheme();
 
   const templateMetadata = getMetadata('template');
@@ -266,6 +276,8 @@ export async function loadLazy(doc) {
   adobeMcAppendVisitorId('main');
 
   loadTrackers();
+
+  go2Anchor();
 
   if (getMetadata('free-product')) {
     sendTrialDownloadedEvent();
@@ -1141,6 +1153,8 @@ async function loadPage() {
   appendMetaReferrer();
 
   loadDelayed();
+
+  go2Anchor();
 }
 
 /*
