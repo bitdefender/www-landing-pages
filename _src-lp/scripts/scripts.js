@@ -169,6 +169,16 @@ export async function detectModalButtons(element) {
   });
 }
 
+export async function go2Anchor() {
+  if (window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    const element = document.getElementById('video');
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -261,6 +271,8 @@ export async function loadLazy(doc) {
   adobeMcAppendVisitorId('main');
 
   loadTrackers();
+
+  go2Anchor();
 
   if (getMetadata('free-product')) {
     sendTrialDownloadedEvent();
@@ -1136,6 +1148,8 @@ async function loadPage() {
   appendMetaReferrer();
 
   loadDelayed();
+
+  go2Anchor();
 }
 
 /*
