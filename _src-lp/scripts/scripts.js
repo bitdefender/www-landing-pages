@@ -127,10 +127,15 @@ export async function createModal(path, template) {
   modalContent.classList.add('modal-content');
 
   // this makes fragments work on the www.bitdefender.com/pages domain
-  const loc = window.location;
-  if (loc.hostname === 'www.bitdefender.com' && !path.startsWith('/pages')) {
+  if (path.includes('www.bitdefender.com') && !path.includes('www.bitdefender.com/pages')) {
     // eslint-disable-next-line no-param-reassign
-    path = `/pages${path}`;
+    path = path.replace('www.bitdefender.com', 'www.bitdefender.com/pages');
+
+    // sometime the path might have a query string,
+    // we need to remove it in order to get the correct path,
+    // so the modal content can be fetched
+    // eslint-disable-next-line no-param-reassign
+    path = path.split('?')[0];
   }
 
   // fetch modal content
@@ -169,12 +174,22 @@ export async function detectModalButtons(element) {
   });
 }
 
+export async function go2Anchor() {
+  if (window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    const element = document.getElementById(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = DEFAULT_LANGUAGE;
+  document.documentElement.lang = DEFAULT_LANGUAGE === 'se' ? 'sv' : DEFAULT_LANGUAGE;
   decorateTemplateAndTheme();
 
   const templateMetadata = getMetadata('template');
@@ -261,6 +276,8 @@ export async function loadLazy(doc) {
   adobeMcAppendVisitorId('main');
 
   loadTrackers();
+
+  go2Anchor();
 
   if (getMetadata('free-product')) {
     sendTrialDownloadedEvent();
@@ -1136,6 +1153,8 @@ async function loadPage() {
   appendMetaReferrer();
 
   loadDelayed();
+
+  go2Anchor();
 }
 
 /*
