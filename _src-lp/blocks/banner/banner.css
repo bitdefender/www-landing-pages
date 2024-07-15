@@ -521,7 +521,7 @@
   }
   .section.banner-container .banner h2 {
     font-size: var(--body-font-size-m);
-    font-size: var(--body-font-size-l);
+    line-height: var(--body-font-size-l);
   }
   .section.banner-container .banner p {
     font-size: 14px;
