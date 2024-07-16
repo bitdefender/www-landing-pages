@@ -475,7 +475,7 @@
 
   .section.banner-container .banner h2 {
     font-size: var(--heading-font-size-l);
-    line-height: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-xl);
     text-align: left;
   }
 
@@ -555,6 +555,7 @@
 
   .section.banner-container .banner h2 {
     font-size: var(--body-font-size-m);
+    line-height: var(--body-font-size-l);
   }
 
   .section.banner-container .banner p {
