@@ -118,28 +118,30 @@ export default function decorate(block) {
       const prodDescription = block.querySelector(`.${prodName}-${prodUsers}${prodYears}_box > div > p:nth-child(4)`);
       prodDescription.classList.add(`${prodName}_description`);
 
-      document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
-        const users = StoreProducts.product[prodName].selected_users;
-        const years = StoreProducts.product[prodName].selected_years;
-        const textUser = userText.split(',');
-        const textYear = yearText.split(',');
-        let upText = '';
-        let devicesText = '';
-        let yearsText = '';
-        if (users !== '1') {
-          upText = `${upTo}`;
-          devicesText = `${textUser[1]}`;
-        } else {
-          devicesText = `${textUser[0]}`;
-        }
-        if (years !== '1') {
-          yearsText = `${textYear[1]}`;
-        } else {
-          yearsText = `${textYear[0]}`;
-        }
-        const devicesDesc = block.querySelector(`.${prodName}_description`);
-        devicesDesc.innerHTML = `${upText} ${users} ${devicesText} / ${years} ${yearsText}`;
-      });
+      if (userText && yearText) {
+        document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
+          const users = StoreProducts.product[prodName].selected_users;
+          const years = StoreProducts.product[prodName].selected_years;
+          const textUser = userText.split(',');
+          const textYear = yearText.split(',');
+          let upText = '';
+          let devicesText = '';
+          let yearsText = '';
+          if (users !== '1') {
+            upText = `${upTo}`;
+            devicesText = `${textUser[1]}`;
+          } else {
+            devicesText = `${textUser[0]}`;
+          }
+          if (years !== '1') {
+            yearsText = `${textYear[1]}`;
+          } else {
+            yearsText = `${textYear[0]}`;
+          }
+          const devicesDesc = block.querySelector(`.${prodName}_description`);
+          devicesDesc.innerHTML = `${upText} ${users} ${devicesText} / ${years} ${yearsText}`;
+        });
+      }
     });
   }
 }
