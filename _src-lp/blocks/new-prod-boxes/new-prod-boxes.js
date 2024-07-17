@@ -134,7 +134,7 @@ export default function decorate(block) {
             <hr />
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
-        </div>`;
+      </div>`;
 
       if (percentOffFlag) {
         block.querySelector(`.index${key} .prod-percent`).style.setProperty('visibility', 'visible', 'important');
@@ -147,19 +147,50 @@ export default function decorate(block) {
     </div>`;
   }
 
-  // get all subtitles
-  const subtitles = block.querySelectorAll('.subtitle');
+  // General function to match the height of elements based on a selector
+  const matchHeights = (targetNode, selector) => {
+    const resetHeights = () => {
+      const elements = targetNode.querySelectorAll(selector);
+      elements.forEach((element) => {
+        element.style.minHeight = '';
+      });
+    };
 
-  // detect if at least 1 has more words
-  const hasMoreWords = Array.from(subtitles).some((subtitle) => {
-    const wordCount = subtitle.textContent.trim().split(/\s+/).length;
-    return wordCount > 13;
-  });
+    const adjustHeights = () => {
+      if (window.innerWidth >= 768) {
+        resetHeights();
+        const elements = targetNode.querySelectorAll(selector);
+        const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
+        const maxHeight = Math.max(...elementsHeight);
 
-  // set specific class for all
-  if (hasMoreWords) {
-    subtitles.forEach((subtitle) => {
-      subtitle.classList.add('fixed_height');
+        elements.forEach((element) => {
+          element.style.minHeight = `${maxHeight}px`;
+        });
+      } else {
+        resetHeights();
+      }
+    };
+
+    const matchHeightsCallback = (mutationsList) => {
+      Array.from(mutationsList).forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          adjustHeights();
+        }
+      });
+    };
+
+    const observer = new MutationObserver(matchHeightsCallback);
+
+    if (targetNode) {
+      observer.observe(targetNode, { childList: true, subtree: true });
+    }
+
+    window.addEventListener('resize', () => {
+      adjustHeights();
     });
-  }
+  };
+
+  const targetNode = document.querySelector('.new-prod-boxes');
+  matchHeights(targetNode, '.subtitle');
+  matchHeights(targetNode, 'h2');
 }
