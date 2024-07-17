@@ -375,13 +375,11 @@
 }
 
 .section.banner-container #pricesBox .prod-save {
-  background-color: #4CA154;
-  color: white;
+  color: #1C7928;
   margin-left: 10px;
-  padding: 1px 7px;
   border-radius: 10px;
   line-height: 17px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 
