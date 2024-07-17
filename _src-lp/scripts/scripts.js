@@ -1049,7 +1049,7 @@ async function initializeProductsPriceLogic() {
       }, {}, 'module');
     }
   } else {
-    initZuoraProductPriceLogic(campaign);
+    initZuoraProductPriceLogic(campaign || pid);
   }
 
   addEventListenersOnVpnCheckboxes(pid);
