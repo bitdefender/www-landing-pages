@@ -230,8 +230,8 @@ export default function decorate(block) {
     block.children[0].children[0].prepend(logoBox);
   }
 
-   // create form section
-   if (config) {
+  // create form section
+  if (config) {
     const [hash, beginDate, endDate, prod, noDays, noUsers, keys, allowedEmail, allowedCountries] = config.split(',');
     parentBlock.classList.add('form');
     block.classList.add('form-banner');
