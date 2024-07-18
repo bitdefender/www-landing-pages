@@ -78,17 +78,17 @@ export default function decorate(block) {
 
     block.addEventListener('click', async (event) => {
       const { target } = event;
-      const formBox = block.querySelector('form#formBox');
-      const formErr = formBox.querySelector('.form_err');
+      const formSelector = block.querySelector('form#formBox');
+      const formErr = formSelector.querySelector('.form_err');
       if (target.tagName === 'BUTTON' && target.closest('form')) {
         event.preventDefault();
         const captchaToken = await grecaptcha?.execute(window.clientId, { action: 'submit' });
         const email = document.getElementById('formEmail').value;
-        const formBtn = formBox.querySelector('button');
+        const formBtn = formSelector.querySelector('button');
         const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
         if (email.includes(allowedEmail.split(':')[1].trim())) {
           formBtn.disabled = true;
-          formBox.classList.add('await-loader');
+          formSelector.classList.add('await-loader');
           formErr.style.display = 'none';
           const formData = new FormData(document.getElementById('formBox'));
           formData.append('nfo[hash_page]', hash.split(':')[1].trim());
@@ -115,12 +115,12 @@ export default function decorate(block) {
                 window.location.replace(jsonObj.redirect);
               }
               formBtn.disabled = false;
-              formBox.classList.remove('await-loader');
+              formSelector.classList.remove('await-loader');
             })
             .catch((error) => {
               console.error(error);
               formBtn.disabled = false;
-              formBox.classList.remove('await-loader');
+              formSelector.classList.remove('await-loader');
             });
         } else {
           formErr.style.display = 'block';
