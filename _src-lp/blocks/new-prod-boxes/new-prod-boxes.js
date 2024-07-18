@@ -95,8 +95,15 @@ export default function decorate(block) {
         title.innerHTML = `<a href="#" title="${title.innerText}" class="buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${title.querySelector('tr a').innerHTML}</a>`;
       }
 
+      let percentOffFlag = false;
+      let percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
+      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%')) {
+        percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
+        percentOffFlag = true;
+      }
+
       block.innerHTML += `
-        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'}">
+        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key}">
           <div class="inner_prod_box">
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
@@ -107,7 +114,7 @@ export default function decorate(block) {
             ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
               <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
               <strong class="prod-percent">
-                ${Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`)}
+                ${percentOff}
               </strong>
             </div>`}
 
@@ -127,7 +134,11 @@ export default function decorate(block) {
             <hr />
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
-        </div>`;
+      </div>`;
+
+      if (percentOffFlag) {
+        block.querySelector(`.index${key} .prod-percent`).style.setProperty('visibility', 'visible', 'important');
+      }
     });
   } else {
     block.innerHTML = `
@@ -136,19 +147,50 @@ export default function decorate(block) {
     </div>`;
   }
 
-  // get all subtitles
-  const subtitles = block.querySelectorAll('.subtitle');
+  // General function to match the height of elements based on a selector
+  const matchHeights = (targetNode, selector) => {
+    const resetHeights = () => {
+      const elements = targetNode.querySelectorAll(selector);
+      elements.forEach((element) => {
+        element.style.minHeight = '';
+      });
+    };
 
-  // detect if at least 1 has more words
-  const hasMoreWords = Array.from(subtitles).some((subtitle) => {
-    const wordCount = subtitle.textContent.trim().split(/\s+/).length;
-    return wordCount > 13;
-  });
+    const adjustHeights = () => {
+      if (window.innerWidth >= 768) {
+        resetHeights();
+        const elements = targetNode.querySelectorAll(selector);
+        const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
+        const maxHeight = Math.max(...elementsHeight);
 
-  // set specific class for all
-  if (hasMoreWords) {
-    subtitles.forEach((subtitle) => {
-      subtitle.classList.add('fixed_height');
+        elements.forEach((element) => {
+          element.style.minHeight = `${maxHeight}px`;
+        });
+      } else {
+        resetHeights();
+      }
+    };
+
+    const matchHeightsCallback = (mutationsList) => {
+      Array.from(mutationsList).forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          adjustHeights();
+        }
+      });
+    };
+
+    const observer = new MutationObserver(matchHeightsCallback);
+
+    if (targetNode) {
+      observer.observe(targetNode, { childList: true, subtree: true });
+    }
+
+    window.addEventListener('resize', () => {
+      adjustHeights();
     });
-  }
+  };
+
+  const targetNode = document.querySelector('.new-prod-boxes');
+  matchHeights(targetNode, '.subtitle');
+  matchHeights(targetNode, 'h2');
 }

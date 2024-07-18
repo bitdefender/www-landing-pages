@@ -49,7 +49,7 @@ export default async function decorate(block) {
     checkForRevolut(spanSvg, block);
 
     block.classList.add('lp-header', 'py-3');
-    if (window.location.href.indexOf('scuderiaferrari') !== -1 || window.location.href.indexOf('spurs') !== -1) {
+    if (window.location.href.indexOf('scuderiaferrari') !== -1) {
       headerWrapper.id = 'headerFerrari';
       headerWrapper.classList.add('headerSpurs', 'dark');
       block.innerHTML = html;
@@ -58,8 +58,13 @@ export default async function decorate(block) {
       lpHeader.addEventListener('click', () => {
         lpHeader.classList.toggle('active', !lpHeader.classList.contains('active'));
       });
+
+      block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('blue-logo') !== -1) {
       headerWrapper.id = 'headerBlue';
+      if (html.indexOf('affiliate') !== -1) {
+        headerWrapper.classList.add('affiliate');
+      }
 
       block.innerHTML = html;
       const logoEl = block.querySelector('p');
@@ -74,8 +79,8 @@ export default async function decorate(block) {
       block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('custom_nav') !== -1 || html.indexOf('custom_nav_white') !== -1) {
       headerWrapper.classList.add('customNav');
-      if (html.indexOf('"custom_nav"') !== -1) headerWrapper.classList.add('dark');
-      if (html.indexOf('"custom_nav_white"') !== -1) headerWrapper.classList.add('white');
+      if (html.indexOf('custom_nav') !== -1) headerWrapper.classList.add('dark');
+      if (html.indexOf('custom_nav_white') !== -1) headerWrapper.classList.add('white');
       block.innerHTML = html;
 
       const logo = block.querySelector('img').getAttribute('src');

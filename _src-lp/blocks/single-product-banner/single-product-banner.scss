@@ -22,6 +22,7 @@
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .customWrapper {
   justify-content: space-between;
   padding: 0 1em;
+  align-items: center;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox {
@@ -39,15 +40,15 @@
   color: white;
   padding: 20px;
   border-radius: 50%;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
   position: absolute;
   top: auto;
   bottom: 5%;
   left: 18%;
   white-space: pre-line;
   text-align: center;
-  line-height: 32px;
+  line-height: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,7 +62,8 @@
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .boxSide strong.prod-percent span {
   font-size: 32px;
-  line-height: auto;
+  line-height: unset;
+  margin-bottom: 8px;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox h1 {
@@ -89,7 +91,8 @@
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide {
-  width: 320px;
+  width: auto;
+  flex: 1;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide img {
@@ -318,6 +321,22 @@
   position: relative;
   top: -1px;
   fill: #61af53;
+}
+
+@media (width <= 992px) {
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3 {
+    font-size: 26px;
+    line-height: 30px;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide h3::after {
+    content: "";
+    margin: 10px auto;
+  }
+
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide .pricesBox .prod-newprice {
+    font-size: 33px;
+  }
 }
 
 @media (width <= 768px) {

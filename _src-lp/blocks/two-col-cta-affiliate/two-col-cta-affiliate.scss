@@ -1,0 +1,52 @@
+.two-col-cta-affiliate{
+    h3,p{
+        margin-top: 24px;
+        margin-bottom: 0;
+    }
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+
+    .left-column{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        
+        .button{
+            margin-top: 24px;
+        }
+    }
+
+    .right-column{
+        width: 100%;
+
+        p:nth-of-type(1){
+            color: #006EFF;
+            margin-bottom: 8px;
+            font: normal normal bold 24px/28px Arial, sans-serif;
+        }
+
+        p:nth-of-type(2){
+            margin-top: 0;
+            margin-bottom: 27px;
+        }
+    }
+}
+
+@media screen and (width >= 768px) {
+    .two-col-cta-affiliate{
+        flex-direction: row;
+        align-items: flex-start;
+
+        .left-column{
+            width:50%;
+        }
+
+        .right-column{
+            width:50%;
+        }
+    }
+}

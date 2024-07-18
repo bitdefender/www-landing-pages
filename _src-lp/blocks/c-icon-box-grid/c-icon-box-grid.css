@@ -8,6 +8,14 @@
   margin: 10px 0;
 }
 
+.c-icon-box-grid-container.affiliate {
+  margin-top: 20px;
+}
+
+.c-icon-box-grid-container.affiliate .quotebox {
+  margin-bottom: 25px;
+}
+
 .c-icon-box-grid-container.new .row div {
   margin: 0.5em 0;
 }
@@ -64,6 +72,11 @@
   background-size: 50px;
   margin-top: 0;
   height: 100%;
+}
+
+.c-icon-box-grid-container.center .icon-box-grid-column {
+  align-items: center;
+  text-align: center;
 }
 
 .c-icon-box-grid-container.c-iconbox-new2024 .quotes .icon-box-grid-column {
@@ -260,6 +273,12 @@
   .c-icon-box-grid-container.grey-box .col-lg .title {
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
+  }
+  .c-icon-box-grid-container.affiliate .quotebox {
+    margin-bottom: 0;
+  }
+  .c-icon-box-grid-container.affiliate .quotebox .subtitle {
+    max-width: 250px;
   }
   .c-icon-box-grid-container.grey-box .col-lg p {
     font-size: var(--body-font-size-s);

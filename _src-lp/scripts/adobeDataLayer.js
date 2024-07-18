@@ -1,3 +1,4 @@
+import { getMetadata } from './lib-franklin.js';
 import {
   getDefaultLanguage, getInstance, GLOBAL_EVENTS, getCookie,
 } from './utils.js';
@@ -158,7 +159,19 @@ export async function sendAnalyticsUserInfo() {
   const user = {};
   user.loggedIN = 'false';
   user.emarsysID = getParamValue('ems-uid') || getParamValue('sc_uid') || undefined;
-  user.ID = localStorage.getItem('rhvID') || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+
+  let userID;
+  try {
+    userID = (typeof localStorage !== 'undefined' && localStorage.getItem('rhvID')) || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+  } catch (e) {
+    if (e instanceof DOMException) {
+      userID = getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+    } else {
+      throw e;
+    }
+  }
+
+  user.ID = userID;
   user.productFinding = 'campaign page';
 
   if (typeof user.ID !== 'undefined') {
@@ -225,24 +238,22 @@ export async function sendAnalyticsProducts(product, region) {
   }
 
   productsInAdobe.push({
-    info: {
-      ID: product.selected_variation.platform_product_id,
-      name: productName,
-      devices: product.selected_users,
-      subscription: product.selected_years * 12,
-      version: '',
-      basePrice: product.selected_variation.price,
-      discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
-      discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
-      currency: product.selected_variation.currency_iso,
-      priceWithTax: discountVal,
-    },
+    ID: product.selected_variation.platform_product_id,
+    name: productName,
+    devices: product.selected_users,
+    subscription: product.selected_years * 12,
+    version: '',
+    basePrice: product.selected_variation.price,
+    discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
+    discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
+    currency: product.selected_variation.currency_iso,
+    priceWithTax: discountVal,
   });
 
   if (productsInAdobe.length === initCount) {
     window.adobeDataLayer.push({
       event: 'campaign product',
-      product: productsInAdobe,
+      product: { info: productsInAdobe },
     });
 
     window.adobeDataLayer.push({
@@ -262,8 +273,33 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
     return;
   }
 
-  if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || force) {
+  if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || getMetadata('free-product') || force) {
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
+}
+
+export async function sendTrialDownloadedEvent() {
+  // get every section that has the data-trial-downloaded attribute
+  const sections = document.querySelectorAll('[data-trial-download]');
+  // select the first button from each section
+  sections.forEach((section) => {
+    const button = section.querySelector('.button-container a');
+    button.addEventListener('click', () => {
+      // push the event to the data layer only if the event is not already pushed
+      if (!window.adobeDataLayer.some((obj) => obj.event === 'trial downloaded')) {
+        const trialEvent = {
+          event: 'trial downloaded',
+          product: {
+            trial: [
+              {
+                ID: getMetadata('free-product'),
+              },
+            ],
+          },
+        };
+        window.adobeDataLayer.push(trialEvent);
+      }
+    });
+  });
 }

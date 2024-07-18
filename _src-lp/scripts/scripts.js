@@ -17,6 +17,7 @@ import {
 
 import {
   sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,
+  sendTrialDownloadedEvent,
 } from './adobeDataLayer.js';
 import {
   addScript,
@@ -118,12 +119,77 @@ export function decorateMain(main) {
   decorateBlocks(main);
 }
 
+export async function createModal(path, template) {
+  const modalContainer = document.createElement('div');
+  modalContainer.classList.add('modal-container');
+
+  const modalContent = document.createElement('div');
+  modalContent.classList.add('modal-content');
+
+  // this makes fragments work on the www.bitdefender.com/pages domain
+  if (path.includes('www.bitdefender.com') && !path.includes('www.bitdefender.com/pages')) {
+    // eslint-disable-next-line no-param-reassign
+    path = path.replace('www.bitdefender.com', 'www.bitdefender.com/pages');
+
+    // sometime the path might have a query string,
+    // we need to remove it in order to get the correct path,
+    // so the modal content can be fetched
+    // eslint-disable-next-line no-param-reassign
+    path = path.split('?')[0];
+  }
+
+  // fetch modal content
+  const resp = await fetch(`${path}.plain.html`);
+
+  if (!resp.ok) {
+    // eslint-disable-next-line no-console
+    console.error(`modal url cannot be loaded: ${path}`);
+    return modalContainer;
+  }
+
+  const html = await resp.text();
+  modalContent.innerHTML = html;
+
+  decorateMain(modalContent);
+  await loadBlocks(modalContent);
+  modalContainer.append(modalContent);
+
+  // add class to modal container for opportunity to add custom modal styling
+  if (template) modalContainer.classList.add(template);
+
+  const closeModal = () => modalContainer.remove();
+  const close = document.createElement('div');
+  close.classList.add('modal-close');
+  close.addEventListener('click', closeModal);
+  modalContent.append(close);
+  return modalContainer;
+}
+
+export async function detectModalButtons(element) {
+  element.querySelectorAll('a.button.button--modal').forEach((link) => {
+    link.addEventListener('click', async (e) => {
+      e.preventDefault();
+      document.body.append(await createModal(link.href));
+    });
+  });
+}
+
+export async function go2Anchor() {
+  if (window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    const element = document.getElementById(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  document.documentElement.lang = DEFAULT_LANGUAGE === 'se' ? 'sv' : DEFAULT_LANGUAGE;
   decorateTemplateAndTheme();
 
   const templateMetadata = getMetadata('template');
@@ -136,6 +202,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    detectModalButtons(main);
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
@@ -210,6 +277,11 @@ export async function loadLazy(doc) {
 
   loadTrackers();
 
+  go2Anchor();
+
+  if (getMetadata('free-product')) {
+    sendTrialDownloadedEvent();
+  }
   sendAnalyticsPageLoadedEvent();
 
   sampleRUM('lazy');
@@ -566,8 +638,8 @@ function changeCheckboxVPN(checkboxId, pid) {
 
     // DEX-17862 - add new coupon based on param
     let couponValue = '';
-    if (coupon[selectedVariation.region_id][currency] !== 'undefined') couponValue = coupon[selectedVariation.region_id][currency];
-    if (coupon[selectedVariation.region_id].ALL !== 'undefined') couponValue = coupon[selectedVariation.region_id].ALL;
+    if (coupon[selectedVariation.region_id][currency] !== undefined) couponValue = coupon[selectedVariation.region_id][currency];
+    if (coupon[selectedVariation.region_id].ALL !== undefined) couponValue = coupon[selectedVariation.region_id].ALL;
 
     if (paramCoupon) {
       couponValue = `${paramCoupon},${couponValue}`;
@@ -841,10 +913,10 @@ function addEventListenersOnVpnCheckboxes(pid) {
         if (target.tagName === 'INPUT' && target.classList.contains('checkboxVPN')) {
           const checkboxId = target.getAttribute('id');
 
-          if (isZuoraForNetherlandsLangMode() && window.StoreProducts.product) {
-            const prodxId = target.getAttribute('id').split('-')[1];
+          if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
+            const prodxId = e.target.getAttribute('id').split('-')[1];
             const storeObjprod = window.StoreProducts.product[prodxId] || {};
-            showPrices(storeObjprod, target.checked, checkboxId);
+            showPrices(storeObjprod, e.target.checked, checkboxId);
           } else {
             changeCheckboxVPN(checkboxId, pid);
           }
@@ -886,63 +958,101 @@ async function initZuoraProductPriceLogic(campaign) {
   });
 }
 
+async function initVlaicuProductPriceLogic(campaign) {
+  import('./vendor/product.js').then(async (module) => {
+    const ProductPrice = module.default;
+    showLoaderSpinner();
+
+    if (productsList.length) {
+      try {
+        await Promise.all(
+          productsList.map(async (item) => {
+            const prodSplit = item.split('/');
+            const prodAlias = prodSplit[0].trim();
+            const prodUsers = prodSplit[1].trim();
+            const prodYears = prodSplit[2].trim();
+            const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+
+            const productPrice = new ProductPrice(item, campaign);
+            const vlaicuResult = await productPrice.getPrices();
+            showPrices(vlaicuResult);
+            adobeMcAppendVisitorId('main');
+            showLoaderSpinner(false, onSelectorClass);
+            sendAnalyticsProducts(vlaicuResult);
+
+            return vlaicuResult;
+          }),
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
+}
+
+/**
+ * Price logic should start only after adobe target is loaded.
+ */
 async function initializeProductsPriceLogic() {
   let pid = getParam('pid');
   let campaign = getParam('campaign');
+  const vlaicuCampaign = getParam('vcampaign');
 
   try {
+    const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
+    /* eslint no-underscore-dangle: ["error", { "allow": ["_supplementalDataIDCurrent"] }] */
+    const theCurrentSDID = visitor._supplementalDataIDCurrent ? visitor._supplementalDataIDCurrent : '';
+    const mcID = visitor.getMarketingCloudVisitorID();
+
     /* global adobe */
-    if (window.adobe?.target) {
-      const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
-      /* eslint no-underscore-dangle: ["error", { "allow": ["_supplementalDataIDCurrent"] }] */
-      const theCurrentSDID = visitor._supplementalDataIDCurrent ? visitor._supplementalDataIDCurrent : '';
-      const mcID = visitor.getMarketingCloudVisitorID();
-
-      const targetResponse = await adobe.target.getOffers({
-        consumerId: theCurrentSDID,
-        request: {
-          id: {
-            marketingCloudVisitorId: mcID,
-          },
-          execute: {
-            mboxes: [{ index: 0, name: 'initSelector-mbox' }],
-          },
+    const targetResponse = await adobe.target.getOffers({
+      consumerId: theCurrentSDID,
+      request: {
+        id: {
+          marketingCloudVisitorId: mcID,
         },
-      });
+        execute: {
+          mboxes: [{ index: 0, name: 'initSelector-mbox' }],
+        },
+      },
+    });
 
-      const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
-      const content = mboxOptions?.[0]?.content;
+    const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
+    const content = mboxOptions?.[0]?.content;
 
-      if (content) {
-        pid = content.pid ?? pid;
-        campaign = content.campaign ?? campaign;
-        const promotionID = content.pid || content.campaign;
+    if (content) {
+      pid = content.pid ?? pid;
+      campaign = content.campaign ?? campaign;
+      const promotionID = content.pid || content.campaign;
 
-        if (promotionID) {
-          window.adobeDataLayer.push({
-            page: { attributes: { promotionID } },
-          });
-        }
+      if (promotionID) {
+        window.adobeDataLayer.push({
+          page: { attributes: { promotionID } },
+        });
       }
     }
   } catch (ex) { /* empty */ }
 
   // skip Zuora if specific pids are applied
   let skipZuora = getMetadata('skip-zuora-for') && getMetadata('skip-zuora-for').indexOf(pid) !== -1;
+  skipZuora = skipZuora || getParam('vfone') || vlaicuCampaign;
 
-  if (getParam('vfone')) {
-    skipZuora = true;
-  }
+  const isNetherlandsLangMode = isZuoraForNetherlandsLangMode();
 
-  if (!isZuoraForNetherlandsLangMode() || skipZuora) {
-    addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
-      initSelectors(pid);
-      addEventListenersOnVpnCheckboxes(pid);
-    }, {}, 'module');
+  if (!isNetherlandsLangMode || skipZuora) {
+    if (vlaicuCampaign) {
+      window.isVlaicu = true;
+      initVlaicuProductPriceLogic(vlaicuCampaign);
+    } else {
+      addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
+        initSelectors(pid);
+      }, {}, 'module');
+    }
   } else {
-    initZuoraProductPriceLogic(campaign);
-    addEventListenersOnVpnCheckboxes(pid);
+    initZuoraProductPriceLogic(campaign || pid);
   }
+
+  addEventListenersOnVpnCheckboxes(pid);
 }
 
 function eventOnDropdownSlider() {
@@ -1024,10 +1134,14 @@ async function loadPage() {
 
   addIdsToEachSection();
 
-  if (window.ADOBE_MC_EVENT_LOADED) {
+  if (window.adobe?.target) {
     initializeProductsPriceLogic();
   } else {
-    document.addEventListener(GLOBAL_EVENTS.ADOBE_MC_LOADED, () => {
+    /**
+     * Old event: GLOBAL_EVENTS.ADOBE_MC_LOADED
+     * We prefer to listen for Adobe Targe Library to load.
+     */
+    document.addEventListener('at-library-loaded', () => {
       initializeProductsPriceLogic();
     });
   }
@@ -1039,6 +1153,8 @@ async function loadPage() {
   appendMetaReferrer();
 
   loadDelayed();
+
+  go2Anchor();
 }
 
 /*

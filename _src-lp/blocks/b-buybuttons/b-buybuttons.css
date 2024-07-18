@@ -3,31 +3,37 @@
   flex-wrap: wrap;
   width: 100%;
 }
+
 .b-buybuttons > div {
   display: flex;
   flex-grow: 1;
 }
+
 .b-buybuttons > div div {
   flex: 1;
   position: relative;
   padding-bottom: 3em;
 }
+
 .b-buybuttons > div div p {
   margin: 0;
 }
+
 .b-buybuttons > div div a, .b-buybuttons > div div em a {
   background-color: transparent;
   font-size: 15px;
   color: #006eff;
   text-transform: none;
-  font-weight: normal;
+  font-weight: bold;
   padding: 0;
   font-style: normal;
   border: 0 none;
 }
+
 .b-buybuttons > div div a .red-buy-button, .b-buybuttons > div div em a .red-buy-button {
   width: 5em;
 }
+
 .b-buybuttons > div div em a {
   position: absolute;
   bottom: 0;
@@ -42,8 +48,9 @@
   font-style: normal;
   border: 0 none !important;
 }
+
 .b-buybuttons > div div strong a {
-  padding: 10px 0 !important;
+  padding: 7px 11px !important;
   font-weight: 600 !important;
   color: #000 !important;
   font-size: 15px !important;
@@ -55,10 +62,12 @@
   margin: 0;
   width: auto !important;
 }
+
 .b-buybuttons > div div a:hover, .b-buybuttons > div div em a:hover {
   background: transparent;
   text-decoration: underline;
 }
+
 .b-buybuttons > div div strong a:hover {
   color: #fff !important;
   background-color: #000 !important;

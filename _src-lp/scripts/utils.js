@@ -1,3 +1,6 @@
+import { getMetadata } from './lib-franklin.js';
+import { Bundle } from './vendor/product.js';
+
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
   [4, { locale: 'au-AU', label: 'australia' }],
@@ -16,8 +19,8 @@ export const IANA_BY_REGION_MAP = new Map([
   [19, { locale: 'en-ZA', label: 'en south africa' }],
   [22, { locale: 'nl-NL', label: 'netherlands' }],
   [24, { locale: 'en-VN', label: 'en vietnam' }],
-  [20, { locale: 'en-es-MX', label: 'en es mexico' }],
-  [21, { locale: 'en-es-CO', label: 'en es columbia' }],
+  [20, { locale: 'en-MX', label: 'en es mexico' }],
+  [21, { locale: 'en-CO', label: 'en es columbia' }],
   [25, { locale: 'en-SG', label: 'en singapore' }],
   [26, { locale: 'en-SE', label: 'en sweden' }],
   [27, { locale: 'en-DK', label: 'en denmark' }],
@@ -35,7 +38,7 @@ export const IANA_BY_REGION_MAP = new Map([
   [39, { locale: 'en-PS', label: 'en palestinia' }],
   [40, { locale: 'en-CN', label: 'en china' }],
   [41, { locale: 'en-HK', label: 'en hong kong' }],
-  [42, { locale: 'en-au-CK', label: 'Cook Islands' }],
+  [42, { locale: 'en-CK', label: 'Cook Islands' }],
   [43, { locale: 'en-KE', label: 'en kenya' }],
   [44, { locale: 'en-NG', label: 'en nigeria' }],
   [45, { locale: 'fr-TN', label: 'en Tunisia' }],
@@ -122,6 +125,7 @@ export const GLOBAL_EVENTS = {
   ADOBE_MC_LOADED: 'adobe_mc::loaded',
   PAGE_LOADED: 'page::loaded',
   COUNTER_LOADED: 'counter::loaded',
+  GEOIPINFO_LOADED: 'geoipinfo::loaded',
 };
 
 // add new script file
@@ -182,6 +186,10 @@ export function appendAdobeMcLinks(selector) {
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*=".bitdefender."]';
     wrapperSelector.querySelectorAll(hrefSelector).forEach((link) => {
+      const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
+      if (isAdobeMcAlreadyAdded) {
+        return;
+      }
       const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
@@ -250,7 +258,7 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
       checkbox.setAttribute('disabled', 'true');
     });
   } else {
-    const prodLoadBox = document.querySelectorAll(`.prodload-${pid}`);
+    const prodLoadBox = document.querySelectorAll(pid ? `.prodload-${pid}` : '.prodload');
     prodLoadBox.forEach((item) => {
       item.classList.remove('await-loader');
     });
@@ -262,10 +270,13 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
 
 // DEX-17703 - replacing VAT INFO text for en regions
 export function updateVATinfo(countryCode, selector) {
-  const prodloadElements = document.querySelectorAll(selector);
+  const skipVATinfo = getMetadata('skip-vatinfo-logic');
+  if (skipVATinfo && skipVATinfo === 'true') return;
 
+  const prodloadElements = document.querySelectorAll(selector);
   prodloadElements.forEach((element) => {
-    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box');
+    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box') || element.closest('.hasProds');
+
     if (prodloadElement) {
       const vat2replace = [
         'Taxes not included',
@@ -308,18 +319,28 @@ function maxDiscount() {
     });
   }
 
-  const maxDiscountValue = Math.max(...discountAmounts).toString();
+  const maxDiscountValue = Math.max(...discountAmounts);
   const maxDiscountBox = document.querySelector('.max-discount');
-  if (maxDiscountBox) {
+  if (maxDiscountBox && maxDiscountValue) {
+    const discountText = `${maxDiscountValue.toString()}%`;
     document.querySelectorAll('.max-discount').forEach((item) => {
-      item.textContent = `${maxDiscountValue}%`;
+      item.textContent = discountText;
+      const closestEm = item.closest('em');
+      if (closestEm) closestEm.style.display = 'inline-block';
     });
-    maxDiscountBox.closest('div').style.visibility = 'visible';
+
+    const closestDiv = maxDiscountBox.closest('div');
+    if (closestDiv) closestDiv.style.visibility = 'visible';
+  } else {
+    document.querySelectorAll('.max-discount').forEach((item) => {
+      const closestEm = item.closest('em');
+      if (closestEm) closestEm.style.display = 'none';
+    });
   }
 }
 
 // display prices
-export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
+export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
@@ -345,6 +366,17 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     buyLink += '&bundle_id=com.bitdefender.vpn&bundle_payment_period=10d1y';
     selectedVarPrice += storeObjVPN.selected_variation.price || 0;
     selectedVarPrice = selectedVarPrice.toFixed(2);
+
+    if (window.isVlaicu) {
+      showLoaderSpinner(true);
+      const bundles = new Bundle(storeObj, storeObjVPN);
+      const bundleBuyLinkBody = await bundles.getBuyLink();
+      if (bundleBuyLinkBody) {
+        buyLink = bundleBuyLinkBody.buyLink;
+      }
+      showLoaderSpinner(false);
+    }
+
     if (showVpnBox) {
       showVpnBox.style.display = 'block';
     }
@@ -368,7 +400,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     if (document.querySelector(oldPriceClass)) {
       const allOldPriceBox = document.querySelectorAll(oldPriceClass);
       if (triggerVPN) {
-        parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
+        if (parentDiv) parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
         if (comparativeTextBox) {
           allOldPriceBox.forEach((item) => {
             item.innerHTML = fullPrice;
@@ -385,7 +417,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     if (document.querySelector(onewPriceClass)) {
       const allNewPriceBox = document.querySelectorAll(onewPriceClass);
       if (triggerVPN) {
-        parentDiv.querySelector(onewPriceClass).innerHTML = offerPrice;
+        if (parentDiv) parentDiv.querySelector(onewPriceClass).innerHTML = offerPrice;
         if (comparativeTextBox) {
           allNewPriceBox.forEach((item) => {
             item.innerHTML = offerPrice;
@@ -402,7 +434,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     if (document.querySelector(oldPriceMonthlyClass)) {
       const allOldPriceBox = document.querySelectorAll(oldPriceMonthlyClass);
       if (triggerVPN) {
-        parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
+        if (parentDiv) parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
         if (comparativeTextBox) {
           allOldPriceBox.forEach((item) => {
             item.innerHTML = fullPriceMonthly;
@@ -419,7 +451,7 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
     if (document.querySelector(onewPriceMonthlyClass)) {
       const allNewPriceBox = document.querySelectorAll(onewPriceMonthlyClass);
       if (triggerVPN) {
-        parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
+        if (parentDiv) parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
         if (comparativeTextBox) {
           allNewPriceBox.forEach((item) => {
             item.innerHTML = offerPriceMonthly;
@@ -432,11 +464,14 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
       }
     }
 
-    if (document.querySelector(`.save-${onSelectorClass}`)) {
+    const saveClass = document.querySelector(`.save-${onSelectorClass}`);
+    if (saveClass) {
       if (triggerVPN) {
-        const parentSaveBox = parentDiv.querySelector(`.save-${onSelectorClass}`);
-        parentSaveBox.innerHTML = savings;
-        parentSaveBox.style.visibility = 'visible';
+        const parentSaveBox = parentDiv?.querySelector(`.save-${onSelectorClass}`);
+        if (parentSaveBox) {
+          parentSaveBox.innerHTML = savings;
+          parentSaveBox.style.visibility = 'visible';
+        }
       } else {
         document.querySelectorAll(`.save-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = savings;
@@ -447,9 +482,11 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
 
     if (document.querySelector(`.percent-${onSelectorClass}`)) {
       if (triggerVPN) {
-        const parentPercentBox = parentDiv.querySelector(`.percent-${onSelectorClass}`);
-        parentPercentBox.innerHTML = `${percentageSticker}%`;
-        parentPercentBox.parentNode.style.visibility = 'visible';
+        const parentPercentBox = parentDiv?.querySelector(`.percent-${onSelectorClass}`);
+        if (parentPercentBox) {
+          parentPercentBox.innerHTML = `${percentageSticker}%`;
+          parentPercentBox.parentNode.style.visibility = 'visible';
+        }
       } else {
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = `${percentageSticker}%`;
@@ -505,18 +542,11 @@ export function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaul
         document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = fullPrice;
         });
-        if (oldPriceBox.parentNode.nodeName === 'P') {
-          oldPriceBox.parentNode.style.display = 'none';
-        }
-      } else {
-        oldPriceBox.style.visibility = 'hidden';
-        if (oldPriceBox.closest('.prod-oldprice')) {
-          oldPriceBox.closest('.prod-oldprice').style.visibility = 'hidden';
-          if (oldPriceBox.parentNode.nodeName === 'P') {
-            oldPriceBox.parentNode.style.display = 'none';
-          }
-        }
       }
+
+      document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
+        item.parentNode.style.display = 'none';
+      });
     }
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
@@ -644,4 +674,83 @@ export function getCookie(name) {
     cookie[key.trim()] = value;
   });
   return cookie[name];
+}
+
+/**
+ * Fetches geoip data from the /geoip endpoint and dispatches a custom event with the received information.
+ *
+ * This function makes an asynchronous call to the /geoip endpoint. If the call is successful, it parses
+ * the JSON response and dispatches a custom event named 'geoipinfo' with the received data. In case of an error
+ * during the fetch process, it logs the error to the console.
+ */
+export async function fetchGeoIP() {
+  try {
+    const response = await fetch('/geoip');
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    window.geoip = data;
+
+    const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: data });
+    window.dispatchEvent(event);
+  } catch (error) {
+    console.error('Failed to fetch geoip data:', error);
+  }
+}
+
+export function getOperatingSystem(userAgent) {
+  const systems = [
+    ['Windows NT 10.0', 'Windows 10'],
+    ['Windows NT 6.2', 'Windows 8'],
+    ['Windows NT 6.1', 'Windows 7'],
+    ['Windows NT 6.0', 'Windows Vista'],
+    ['Windows NT 5.1', 'Windows XP'],
+    ['Windows NT 5.0', 'Windows 2000'],
+    ['X11', 'X11'],
+    ['Linux', 'Linux'],
+    ['Android', 'Android'],
+    ['iPhone', 'iOS'],
+    ['iPod', 'iOS'],
+    ['iPad', 'iOS'],
+    ['Mac', 'MacOS'],
+  ];
+
+  return systems.find(([substr]) => userAgent.includes(substr))?.[1] || 'Unknown';
+}
+
+export function openUrlForOs(urlMacos, urlWindows, urlAndroid, urlIos) {
+  // Get user's operating system
+  const { userAgent } = navigator;
+  const userOS = getOperatingSystem(userAgent);
+
+  // Open the appropriate URL based on the OS
+  let openUrl;
+  switch (userOS) {
+    case 'MacOS':
+      openUrl = urlMacos;
+      break;
+    case 'Windows 10':
+    case 'Windows 8':
+    case 'Windows 7':
+    case 'Windows Vista':
+    case 'Windows XP':
+    case 'Windows 2000':
+      openUrl = urlWindows;
+      break;
+    case 'Android':
+      openUrl = urlAndroid;
+      break;
+    case 'iOS':
+      openUrl = urlIos;
+      break;
+    default:
+      openUrl = null; // Fallback or 'Unknown' case
+  }
+
+  if (openUrl) {
+    window.open(openUrl, '_self');
+  }
 }
