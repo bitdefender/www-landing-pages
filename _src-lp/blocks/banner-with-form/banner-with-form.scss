@@ -1,656 +1,442 @@
+@charset "UTF-8";
+
+.banner-with-form-container .banner-with-form h2 {
+  font-weight: normal;
+  margin: 0;
+}
+
+.banner-with-form-container h3, .banner-with-form-container h4 {
+  font-size: 20px;
+}
+
+.banner-with-form-container .form-logo {
+  width: 100px;
+}
+
+.banner-with-form-container p {
+    font-size: 11px;
+    margin: 0;
+}
+
+.banner-with-form-container #captchaBox {
+  margin: 1em 0;
+}
+
 .banner-with-form-container {
-  color: white;
-  height: auto;
   background-color: black;
-  background-repeat: no-repeat;
-  background-position: top right;
-  overflow: hidden;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.banner-with-form-container.full {
-  padding: 2em 0;
-}
-
-.banner-with-form-container .banner-image {
-  display: none;
-}
-
-.banner-with-form-container .banner-image--in-container img {
-  display: none;
-}
-
-.banner-with-form-container.full .banner-image img {
-  height: 100% !important;
-  width: auto !important;
-  max-width: unset;
-}
-
-.banner-with-form-container.blue-border {
-  border-bottom: 32px solid #E4F2FF;
-}
-
-.banner-with-form-container.negative {
-  margin-bottom: 0;
-  display: none;
-}
-
-.banner-with-form-container .hasDiscount {
-  display: none;
-}
-
-.banner-with-form-container .banner-with-form-wrapper {
-  position: relative;
-  padding-left: 0;
-  margin: 15px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper .banner-with-form {
-  z-index: 1;
-}
-
-.banner-with-form-container .banner-with-form-wrapper.flex-prod .banner-with-form {
-  flex-direction: column;
-  padding: 0 1em;
-}
-
-.banner-with-form-container .banner-with-form-wrapper .oldprice {
-  font-size: 24px;
-  text-decoration: line-through;
-  margin-right: 10px;
-  line-height: 19px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper .newprice {
-  font-size: 40px;
-  font-weight: bold;
-  line-height: 0;
-}
-
-.banner-with-form-container .banner-with-form-wrapper table {
-  border-collapse: separate;
-  border-spacing: 0 5px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper table p {
-  font-size: 21px;
-  font-weight: 400;
-  margin: 1em 0 0;
-  margin-right: 10px;
-  max-width: 595px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper table p .prod-percent.green_bck {
-  margin-top: 0;
-}
-
-.banner-with-form-container .banner-with-form-wrapper table tbody tr td p {
-  font-size: 16px;
-  margin: 0;
-  padding-left: 10px;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper p {
-  font-size: 11px;
-  margin: 0;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper p a {
-  text-decoration: underline;
-}
-
-.banner-with-form-container .banner-with-form-wrapper table tbody tr td p:nth-child(2) {
-  font-size: 12px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper .banner-with-form.paragraph-blue p {
-  color: #006dff;
-}
-
-.banner-with-form-container .banner-with-form-wrapper table.price-table {
-  border-spacing: 0 0;
-}
-
-.banner-with-form-container .banner-with-form-wrapper table.price-table tr:nth-child(3) td p {
+  color: white;
   padding: 0;
-  font-size: 11px;
 }
 
-.banner-with-form-container .banner-with-form-wrapper table.price-table tr:nth-child(3) td p a {
-  text-decoration: none;
-  color: #06f;
-  outline: none;
+.banner-with-form-container.borders-rounded .banner-with-form {
+  border-radius: 10px;
 }
 
-.banner-with-form-container .banner-with-form-wrapper .text-black {
-  color: black !important;
+.banner-with-form-container .banner-with-form p a {
+  color: inherit;
 }
 
-.banner-with-form-container .banner-with-form-wrapper h1 {
-  font-size: 24px;
-  max-width: unset;
+.banner-with-form-container .banner-with-form .img-right picture {
+  position: relative;
+  left: 15px;
+}
+
+.banner-with-form-container .banner-with-form .img-right {
+  position: relative;
+}
+
+.banner-with-form-container.new-2024 .banner-with-form .img-right div::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, rgb(247 247 247 / 0%), #F7F7F7);
+}
+
+.banner-with-form-container .banner-with-form h1 {
+  font-size: 28px;
+  text-align: left;
   margin-top: 0;
 }
 
-.banner-with-form-container .banner-with-form-wrapper h2 {
-  font-size: 21px;
-  max-width: unset;
-  margin-top: 10px;
+.banner-with-form-container.new-2024 .banner-with-form {
+  overflow: hidden;
+  background-color: #F6F6F6;
 }
 
-.banner-with-form-container .banner-with-form-wrapper h3 {
-  font-size: 19px;
-  max-width: unset;
-  margin-top: 10px;
+.banner-with-form-container.new-2024 .save-class {
+  color: #1C7928;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:0;
+  font: normal normal bold 18px/21px Arial, sans-serif;
+  gap: 5px;
 }
 
-.banner-with-form-container .banner-with-form-wrapper .prod-percent.green_bck_pill {
+.banner-with-form-container.new-2024 .banner-with-form h1 {
+  font-weight: normal;
+}
+
+
+
+.banner-with-form-container.new-2024 .banner-with-form h3 {
+  font: normal normal bold 24px/28px Arial, sans-serif;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.banner-with-form-container .banner-with-form .button-container {
+  display: none;
+}
+
+.banner-with-form-container .banner-with-form ul {
+  padding-left: 0;
+}
+
+.banner-with-form-container .banner-with-form ul li {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: var(--body-font-size-xs);
+  line-height: 20px;
+  color: #000;
+  text-align: left;
+  margin-top: 6px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.banner-with-form-container .banner-with-form ul li::before {
+  content: "•";
+  color: #4CA154;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 10px;
+  font-size: 35px;
+}
+
+.banner-with-form-container .banner-with-form .blue-box {
+  width: 290px;
+  background-color: #E4F2FF;
+  border-radius: 10px;
+  padding: 0 10px;
+  display: flex;
+}
+
+.banner-with-form-container .banner-with-form .blue-box tr {
+  display: flex;
+  align-items: center;
+}
+
+.banner-with-form-container .banner-with-form .blue-box tr:first-of-type {
+  display: none;
+}
+
+.banner-with-form-container .banner-with-form .blue-box tr td:first-of-type {
+  margin-right: 10px;
+}
+
+.banner-with-form-container .banner-with-form .blue-box tr td p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  line-height: 17px;
+}
+
+.banner-with-form-container .banner-with-form .blue-box tr td p strong {
+  margin-left: 5px;
+}
+
+.banner-with-form-container .banner-with-form .blue-box tr td p picture {
+  width: 80px;
+  margin: 5px 0;
+}
+
+.banner-with-form-container .banner-with-form .blue-box tr td p picture img {
+  min-width: unset;
+}
+
+.banner-with-form-container.new-2024 hr {
+  border: 2px solid #C6C6C6;
+  width: 80px;
+}
+
+.banner-with-form-container #greenPillBox {
   background-color: #2FB43E;
   display: inline-block;
   color: #fff;
   border-radius: 15px;
   margin-top: 15px;
   margin-left: 0 !important;
-  font-size: 16px;
+  font-size: 18px;
   padding: 2px 11px;
 }
 
-.banner-with-form-container .banner-with-form-wrapper .smaller-text h2 {
+.banner-with-form-container #redPillBox {
+  background-color: #E72325;
+  display: inline-block;
+  color: #fff;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
   font-size: 18px;
-  font-weight: 500;
-  margin: 1em 0;
+  padding: 2px 11px;
 }
 
-.banner-with-form-container .banner-with-form-wrapper .w-full h1, .banner-with-form-container .banner-with-form-wrapper .w-full h2 {
-  max-width: 100%;
+.banner-with-form-container #buyBtnGreenCircleBox {
+  align-items: center;
 }
 
-.banner-with-form-container .banner-with-form-wrapper ul {
+.banner-with-form-container #buyBtnGreenCircleBox a {
+  margin-right: 10px;
+}
+
+.banner-with-form-container #buyBtnGreenCircleBox span.green_circle_box {
+  position: relative;
+  background: #2cb43d;
+  border-radius: 50%;
+  width: 83px;
+  height: 83px;
+  font-size: 28px;
+  line-height: 81px;
+  text-align: center;
   padding: 0;
-}
-
-.banner-with-form-container .banner-with-form-wrapper ul li {
-  text-align: left;
-  background: url("/_src-lp/images/icons/check_full.svg") 0 3px no-repeat transparent;
-  list-style-type: none;
-  padding-left: 23px;
-  background-size: 16px;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-.banner-with-form-container .banner-image.flipClock-image {
-  position: relative;
-}
-.banner-with-form-container .banner-image.flipClock-image img {
-  position: relative;
-  z-index: 0;
-}
-
-.banner-with-form-container .banner-with-form-wrapper .banner-with-form.bigger-award-and-text table tbody tr td img {
-  max-height: 90px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper .banner-with-form.bigger-award-and-text table tbody tr td p {
-  font-size: 24px;
-  color: #523516;
-}
-
-.banner-with-form-container .banner-with-form-wrapper .banner-with-form.bigger-award-and-text table tbody tr td p:nth-child(2) {
-  font-size: 16px;
-  color: initial;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #captchaBox {
-  margin: 1em 0;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #bannerAward {
-  width: 250px;
-  position: static;
-  top: 30%;
-  right: 15%;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #bannerAward p {
-  font-size: 18px;
-  line-height: 20px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv p {
-  max-width: unset;
-  margin: 5px 0 0;
-  line-height: 17px;
-  font-size: 15px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #bannerAward p:first-of-type {
-  margin: 0;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #bannerAward p em {
-  font-weight: bold;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv img {
-  height: 20px;
-  margin: 0 5px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #bannerAward p img {
-  width: 160px;
-  display: block;
-  float: none;
-}
-
-.banner-with-form-container.form {
-  height: auto;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper h1 {
-  font-size: 23px;
-  font-weight: bold;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper h2 {
-  font-size: 20px;
-  font-weight: normal;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper h3 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper h4 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper .form-logo {
-  width: 100px;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper #formBox {
-  width: 215px;
-  margin-bottom: 1em;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper #formBox label {
-  display: none;
-  font-size: 11px;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper #formBox input {
-  font-size: 14px;
-  border-radius: 8px;
-  padding: 13px 15px;
-  line-height: 14px;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper #formBox button {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.banner-with-form-container.form .banner-with-form-wrapper #formBox p.form_err {
-  font-size: 12px;
-  color: red;
+  color: #fff;
+  display: inline-block;
+  margin-top: 10px;
 }
 
 .banner-with-form-container.form .banner-with-form-wrapper table {
   display: none;
 }
 
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv {
-  width: 90%;
-  position: relative;
-  padding: 0 10px 10px;
-  overflow: hidden;
-  text-align: center;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 2px 10px 0 #000;
-  color: black;
-  margin: 0 auto;
+.banner-with-form-container .banner-with-form-wrapper #formBox {
+  width: 215px;
+  margin-bottom: 1em;
 }
 
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv table {
-  width: 100%;
+.banner-with-form-container .banner-with-form-wrapper #formBox label {
+  display: none;
+  font-size: 11px;
 }
 
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv table:nth-of-type(1) {
-  background-color: #22ac3b;
-  text-align: center;
-  color: #fff;
-  padding: 10px 0;
-  font-weight: 600;
-  text-decoration: none;
+.banner-with-form-container .banner-with-form-wrapper #formBox input {
   font-size: 14px;
-  line-height: 0;
-  width: 108%;
-  margin-left: -10px;
-}
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv table:nth-of-type(1) td {
-  text-align: center;
+  border-radius: 8px;
+  padding: 13px 15px;
+  line-height: 14px;
 }
 
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv .prices_box {
-  text-align: center;
+.section.b-banner-container .banner-with-form-wrapper #formBox button {
+  width: 100%;
+  border-radius: 8px;
 }
 
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv .prices_box span.prod-oldprice {
-  margin-top: 10px;
-  font-size: 24px;
-  line-height: 24px;
-  color: #666;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv .prices_box span.prod-newprice {
-  font-size: 36px;
-  margin-bottom: 3px;
-  font-weight: bold;
-  line-height: 1.2;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv h2 {
-  max-width: 100%;
-  font-size: 24px;
-  margin: 0;
-  line-height: 28px;
-}
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv h2::after {
-  content: "";
-  border-bottom: 2px solid #9A9A9A;
-  width: 117px;
-  display: block;
-  margin: 8px auto 15px;
-}
-
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv p em {
-  color: #999;
+.banner-with-form-container .banner-with-form-wrapper #formBox p.form_err {
   font-size: 12px;
-  text-align: center;
-  margin-top: 0;
-  line-height: 12px;
-  border-bottom: 1px dashed #ccc;
-  padding-bottom: 10px;
-  font-style: normal;
-  width: 100%;
-  display: block;
+  color: red;
 }
 
-.banner-with-form-container .banner-with-form-wrapper #productBoxDiv p:last-of-type em {
-  border-bottom: 0 none;
-  border-top: 1px dashed #ccc;
-  padding-top: 10px;
-}
+@media (width >= 768px) {
+  .banner-with-form-container .banner-with-form h1 {
+    font-size: 30px;
+  }
 
-.banner-with-form-container.text-top .banner-with-form-wrapper {
-  align-items: flex-start;
-}
+  .banner-with-form-container #pricesBox {
+    text-align: left;
+  }
 
-.banner-with-form-container.text-top-centered .banner-with-form-wrapper {
-  align-items: flex-start;
-  text-align: center;
-}
-
-.banner-with-form-container.text-top-centered .banner-with-form-wrapper .banner-with-form {
-  width: 100%;
-}
-
-.banner-with-form-container.text-top-centered .banner-with-form-wrapper .banner-with-form h1 {
-  width: 100%;
-  max-width: 100%;
-}
-
-.banner-with-form-container .product-picture .green-bubble {
-  background: green;
-  color: white;
-  padding: 20px;
-  border-radius: 50%;
-  font-size: 16px;
-  font-weight: bold;
-  position: absolute;
-  bottom: 5%;
-  left: 25%;
-  white-space: pre-line;
-  text-align: center;
-  line-height: 1.2;
-}
-.banner-with-form-container .product-picture .green-bubble .discount-percentage {
-  font-size: 32px;
-}
-
-@media screen and (width >= 768px) {
-  .banner-with-form-container {
-    padding: 2em 0;
-    min-height: 450px;
-  }
-  .banner-with-form-container.small {
-    padding: 1em 0;
-    min-height: 350px;
-  }
-  .banner-with-form-container .banner-image {
-    display: block;
-    height: 100%;
-  }
-  .banner-with-form-container .banner-image img {
-    height: 100% !important;
-    width: auto !important;
-    max-width: unset;
-    float: right;
-    display: block;
-  }
-  .banner-with-form-container .banner-image.flipClock-image {
-    right: 10%;
-    top: 0;
-  }
-  .banner-with-form-container.smaller {
-    padding: 1em 0;
-    min-height: 250px;
-  }
-  .banner-with-form-container.bigger-banner {
-    min-height: 625px;
-  }
-  .banner-with-form-container.even-bigger-banner {
-    min-height: 725px;
-  }
-  .banner-with-form-container.negative {
-    display: block;
-    margin-bottom: -400px;
-  }
-  .banner-with-form-container.negative-mid {
-    margin-bottom: -20em;
-  }
-  .banner-with-form-container .banner-with-form-wrapper {
-    height: 100%;
-    align-items: center;
-    left: 0;
-    right: 0;
-    top: 0;
-    margin: 15px auto;
-    position: absolute;
-    display: block;
-  }
-  .banner-with-form-container.content-top .banner-with-form-wrapper {
-    align-items: flex-start;
-  }
-  .banner-with-form-container .banner-with-form-wrapper.flex-prod {
-    display: block;
-  }
-  .banner-with-form-container .banner-with-form-wrapper.flex-prod .banner-with-form {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-  }
-  .banner-with-form-container .banner-with-form-wrapper h1, .banner-with-form-container .banner-with-form-wrapper h2 {
-    max-width: 60%;
-    margin-top: 10px;
-  }
-  .banner-with-form-container .banner-with-form-wrapper #bannerAward {
-    width: 200px;
-    position: absolute;
-  }
-  .banner-with-form-container.form .banner-with-form-wrapper h1 {
-    font-size: 36px;
-  }
-  .banner-with-form-container.form .banner-with-form-wrapper h2 {
-    font-size: 36px;
-  }
-  .banner-with-form-container .banner-with-form-wrapper #productBoxDiv h2 {
-    max-width: 100%;
-    font-size: 36px;
-    line-height: 35px;
-  }
-  .banner-with-form-container.form .banner-with-form-wrapper h3, .banner-with-form-container.form .banner-with-form-wrapper h4 {
-    font-size: 20px;
-  }
-  .banner-with-form-container.form .banner-with-form-wrapper form-logo {
-    width: 125px;
-  }
-  .banner-with-form-container .hasDiscount {
-    display: block;
-  }
-  .banner-with-form-container .hasDiscount img {
-    width: auto;
-    float: right;
-  }
-  .banner-with-form-container .hasDiscount div {
-    background: url("../../images/bubble_discount.png") no-repeat 0 0 transparent;
-    position: absolute;
-    right: 10%;
-    top: 15%;
-    width: 110px;
-    height: 120px;
-    background-size: 100%;
-    padding: 0 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+ .banner-with-form-container #pricesBox .d-flex {
     align-items: center;
   }
-  .banner-with-form-container .hasDiscount div span {
-    color: red;
-    display: block;
-    font-weight: bold;
-    line-height: 26px;
-    font-size: 40px;
-    text-align: center;
+
+  .banner-with-form-container #pricesBox .d-flex p {
+    margin: 0 10px 0 0;
   }
-  .banner-with-form-container .hasDiscount div span:last-of-type {
-    font-size: 22px;
-  }
-  .banner-with-form-container .banner-with-form-wrapper #productBoxDiv {
-    width: 360px;
-  }
-}
-@media screen and (width >= 989px) {
-  .banner-with-form-container {
-    padding: 0;
-  }
-  .banner-with-form-container .banner-image img {
-    display: block;
-    height: 100%;
-    float: right;
-    width: auto;
-    max-width: none;
-    margin-right: -15px;
-  }
-  .banner-with-form-container .banner-with-form-wrapper {
-    left: 0;
-    right: 0;
-    top: 0;
-    margin: 15px auto;
-    position: relative;
-  }
-  .banner-with-form-container .banner-with-form-wrapper .banner-image--in-container img {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: -1;
-  }
-  .banner-with-form-container .banner-with-form-wrapper h1 {
-    font-size: 35px;
-    line-height: 43px;
-    max-width: 610px;
+
+  .banner-with-form-container #pricesBox .d-flex span.prod-oldprice {
+    text-decoration: line-through;
+    font-size: var(--heading-font-size-xs);
+    line-height: var(--heading-font-size-xs);
     font-weight: normal;
-    padding-bottom: 0;
-    margin-bottom: 0;
   }
-  .banner-with-form-container .banner-with-form-wrapper h2 {
-    font-weight: 700;
-    font-size: 35px;
-    line-height: 35px;
-    max-width: 595px;
-    margin-top: 0;
-    margin-bottom: 0;
+
+  .banner-with-form-container #pricesBox .d-flex span.prod-newprice {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+    font-weight: bold;
   }
-  .banner-with-form-container .banner-with-form-wrapper p {
-    max-width: 610px;
-    margin: 10px 0;
-    line-height: 20px;
+
+ .banner-with-form-container #pricesBox .d-flex .variation {
+    font-size: var(--body-font-size-xs);
+    line-height: 19px;
+    font-weight: bold;
   }
-  .banner-with-form-container .banner-with-form-wrapper .smaller-text h2 {
-    font-size: 18px;
-    font-weight: 500;
-    margin: 1em 0;
+
+  .banner-with-form-container #pricesBox .buy_box {
+    margin: 20px 0;
+    min-height: auto;
   }
-  .banner-with-form-container .banner-with-form-wrapper .prod-percent.green_bck_pill {
-    font-size: 18px;
+
+  .banner-with-form-container .animated_text span {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+    text-align: left;
+    margin-left: 25px;
   }
-  .banner-with-form-container.center-background-image .banner-image img {
-    display: block;
-    height: 100%;
-    width: auto;
-    max-width: none;
-    margin-right: -15px;
-    position: absolute;
-    right: -50%;
+
+  .banner-with-form-container #pricesBox .buy_box a, .banner-with-form-container #pricesBox .buy_box span {
+    display: inline;
   }
-  .banner-with-form-container .hasDiscount div {
-    right: 5%;
-    top: 10%;
+
+  .banner-with-form-container #pricesBox .terms {
+    margin: 5px 0 10px;
+    font: normal normal normal 14px/16px Arial, sans-serif;
   }
-}
-@media screen and (width >= 1199px) {
-  .banner-with-form-container.bigger-banner {
-    min-height: 625px;
+
+  .banner-with-form-container #pricesBox .terms p {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 5px;
   }
-  .banner-with-form-container.center-background-image .banner-image img {
-    display: block;
-    height: 100%;
-    width: auto;
-    max-width: none;
-    margin-right: -15px;
-    position: absolute;
-    right: -20%;
-  }
-  .banner-with-form-container .hasDiscount div {
-    right: 15%;
-    top: 15%;
-  }
-  .banner-with-form-wrapper {
-    left: 0;
-    right: 0;
+
+  .banner-with-form-container #pricesBox .terms p a {
+    color: #006EFF;
   }
 }
 
-@media screen and (width >= 1920px) {
-  .banner-with-form-container.center-background-image .banner-image img {
-    display: block;
-    height: 100%;
-    width: auto;
-    max-width: none;
-    margin-right: -15px;
-    position: absolute;
-    right: 10%;
+@media screen and (width >= 991px) {
+  .banner-with-form-container .banner-with-form h1 {
+    font-size: 36px;
+    line-height: 45px;
   }
-  .banner-with-form-container.full .banner-image img {
-    width: 100% !important;
+
+  .banner-with-form-container .banner.smaller-title h1 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .banner-with-form-container .banner-with-form h2 {
+    font-size: 36px;
+  }
+
+  .banner-with-form-container .banner-with-form .button-container {
+    display: block;
+  }
+}
+
+@media screen and (width <= 768px) {
+  .banner-with-form-container .banner-with-form {
+    padding: 1em 0!important;
+    margin-bottom: 2em!important;
+  }
+
+  .section.normal-padding-mobile .banner-with-form {
+    padding-bottom: 1rem;
+  }
+
+  .banner-with-form-container .banner-with-form h1 {
+    margin-top: 0;
+    font-size: 30px;
+    text-align: left;
+  }
+
+  .banner-with-form-container .banner-with-form h2 {
+    font-size: var(--body-font-size-m);
+  }
+
+  .banner-with-form-container .banner-with-form p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .banner-with-form-container .banner-with-form ul li {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .banner-with-form-container #pricesBox .d-flex {
+    justify-content: center;
+  }
+
+  .banner-with-form-container #pricesBox .d-flex p {
+    margin: 0 10px 0 0;
+  }
+
+  .banner-with-form-container #pricesBox .d-flex span.prod-oldprice {
+    text-decoration: line-through;
+    font: normal normal normal 18px/21px Arial, sans-serif;
+  }
+
+  .banner-with-form-container #pricesBox .d-flex span.prod-newprice {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+    font-weight: bold;
+  }
+
+  .banner-with-form-container #pricesBox .d-flex .variation {
+    font-size: var(--body-font-size-s);
+    line-height: 19px;
+    font-weight: bold;
+  }
+
+  .banner-with-form-container #pricesBox .buy_box {
+    margin: 20px 0;
+    min-height: auto;
+  }
+
+  .banner-with-form-container #pricesBox .buy_box a, .banner-with-form-container #pricesBox .buy_box span {
+    display: inline;
+    font-size: var(--body-font-size-s);
+  }
+
+  .banner-with-form-container #pricesBox .terms {
+    margin: 5px 0 10px;
+  }
+
+  .banner-with-form-container #pricesBox .terms p {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 5px;
+  }
+
+  .banner-with-form-container #pricesBox .terms p a {
+    color: #006EFF;
+  }
+
+  .banner-with-form-container.block-hide-mobile {
+    display: none !important;
+  }
+
+  .banner-with-form-container.hide-mobile, .banner-with-form-container.hide-mobile .block {
+    background-image: unset!important;
+  }
+
+  .banner-with-form-container.hide-mobile .bck-img {
+    display: none;
+  }
+
+  .banner-with-form-container .animated_box {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+@media screen and (width <= 991px) {
+  .banner-with-form-container.hide-tablet {
+    background-image: unset!important;
+    background-color: #000;
+  }
+}
+
+@media screen and (width >= 1400px) {
+  .banner-with-form-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+
+@media screen and (width >= 1800px) {
+  .banner-with-form-container .custom-justify-content-xxxl-center {
+    justify-content: center !important;
   }
 }
