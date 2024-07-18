@@ -3,9 +3,9 @@ import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
-  const parentBlockStyle = block.closest('.section').style;
+  const parentBlockStyle = parentBlock.style;
   const blockStyle = block.style;
-  const metaData = block.closest('.section').dataset;
+  const metaData = parentBlock.dataset;
   const {
     product, products, logo, config, imageAlign, paddingTop, paddingBottom, marginTop,
     marginBottom, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
