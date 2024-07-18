@@ -374,6 +374,15 @@
   align-items: center;
 }
 
+.section.banner-container #pricesBox .prod-save {
+  color: #1C7928;
+  margin-left: 10px;
+  border-radius: 10px;
+  line-height: 17px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
 @media (width >= 768px) {
   .section.lp-brand .banner h1 {
     font-weight: lighter;
