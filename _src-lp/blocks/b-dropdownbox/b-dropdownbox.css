@@ -447,4 +447,7 @@
     font-size: 18px;
     line-height: 24px;
   }
+  .b-dropdownbox-container .new ul, .b-dropdownbox-container.new .block ul {
+    text-align: left;
+  }
 }
