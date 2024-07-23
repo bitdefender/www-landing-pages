@@ -139,6 +139,14 @@
   margin: 1em 0;
 }
 
+.c-icon-box-grid-container.gray-background .col-lg {
+  background-color: #F6F6F6;
+  border-radius: 20px;
+  padding: 32px;
+  margin: 6px;
+  
+}
+
 .c-icon-box-grid-container.grey-box .col-lg .icon-box-grid-column {
   height: 100%;
 }
@@ -316,6 +324,10 @@
 
   .c-icon-box-grid-container.grey-box .col-lg .subtitle {
     font-size: 20px;
+  }
+
+  .c-icon-box-grid-container.four-columns .col-lg-4{
+    width: 23%;
   }
 }
 
