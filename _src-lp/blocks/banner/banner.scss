@@ -369,9 +369,19 @@
   margin-left: 10px;
 }
 
-.section.banner-container.divider #pricesBox .terms{
+.section.banner-container.divider #pricesBox .terms {
   padding-bottom: 20px;
-  border-bottom: 1px solid #E7E7E7;align-items: center;
+  border-bottom: 1px solid #E7E7E7;
+  align-items: center;
+}
+
+.section.banner-container #pricesBox .prod-save {
+  color: #1C7928;
+  margin-left: 10px;
+  border-radius: 10px;
+  line-height: 17px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 @media (width >= 768px) {
@@ -475,7 +485,7 @@
 
   .section.banner-container .banner h2 {
     font-size: var(--heading-font-size-l);
-    line-height: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-xl);
     text-align: left;
   }
 
@@ -555,6 +565,7 @@
 
   .section.banner-container .banner h2 {
     font-size: var(--body-font-size-m);
+    line-height: var(--body-font-size-l);
   }
 
   .section.banner-container .banner p {
