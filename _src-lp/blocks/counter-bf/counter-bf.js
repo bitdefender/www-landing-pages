@@ -179,6 +179,5 @@ export default function decorate(block) {
     });
 
     block.innerHTML = block.innerHTML.replace(/0%/g, '<span class="max-discount"></span>');
-    console.log(block.innerHTML)
   }
 }
