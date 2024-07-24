@@ -178,6 +178,6 @@ export default function decorate(block) {
       block.appendChild(pricesBox);
     });
 
-    block.innerHTML = block.innerHTML.replace(/0%/g, '<span class="max-discount"></span>');
+    block.innerHTML = block.innerHTML.replace(/0%/g, '<span class="max-discount"></span> ');
   }
 }
