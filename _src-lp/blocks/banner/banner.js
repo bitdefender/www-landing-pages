@@ -374,5 +374,11 @@ export default function decorate(block) {
     block.querySelector('.container-fluid h1 a').target = '_blank';
   }
 
+  if (block.querySelector('.divider .container-fluid ul li a')) {
+    block.querySelectorAll('.divider .container-fluid ul li a').forEach((link) => {
+      link.target = '_blank';
+    });
+  }
+
   detectModalButtons(block);
 }
