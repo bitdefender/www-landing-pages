@@ -11,6 +11,7 @@
 
 .counter-bf-container table:last-of-type img {
   margin-right: 10px;
+  height: 78px;
 }
 
 .counter-bf-container table#flipdownTable {
@@ -128,15 +129,16 @@
 
 .counter-bf-container .counter-bf-wrapper ul {
   padding: 0;
+  margin-bottom: 2em;
 }
 
 .counter-bf-container .counter-bf-wrapper ul li {
   text-align: left;
-  background: url("../../images/icons/check_full.svg") 0 3px no-repeat transparent;
+  background: url("../../images/icons/check_full_white.png") 0 center no-repeat transparent;
   list-style-type: none;
   padding-left: 23px;
   background-size: 16px;
-  font-size: 14px;
+  font-size: 18px;
   margin-top: 5px;
 }
 

@@ -11,7 +11,7 @@ export default function decorate(block) {
   // config new elements
   const {
     textColor, backgroundColor, paddingTop, paddingBottom, marginTop,
-    marginBottom, counterSwitchOn, counterHeadings, counterTheme, backgroundHide, products,
+    marginBottom, counterSwitchOn, counterHeadings, counterTheme, backgroundHide, products, type,
   } = metaData;
 
   const [contentEl, pictureBF, pictureCM] = [...block.children];
@@ -45,6 +45,16 @@ export default function decorate(block) {
     if (pictureBF && !pictureCM) {
       parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / auto 100% ${backgroundColor || '#000'}`;
       onePicture = true;
+    }
+
+    if (type && type === 'with_discount' && contentEl.querySelector('ul')) {
+      const ulList = contentEl.querySelector('ul');
+      const discountText = ulList.closest('tr').querySelector('td:last-of-type');
+      const divBulina = document.createElement('div');
+      divBulina.className = 'prod-percent red_bck_circle';
+      divBulina.innerHTML = discountText.innerText;
+      discountText.innerHTML = '';
+      discountText.appendChild(divBulina);
     }
 
     block.innerHTML = `
@@ -168,8 +178,6 @@ export default function decorate(block) {
       block.appendChild(pricesBox);
     });
 
-    if (block.querySelector('h1')) {
-      block.querySelector('h1').innerHTML = block.querySelector('h1').innerHTML.replace('0%', '<span class="max-discount"></span>');
-    }
+    block.innerHTML = block.innerHTML.replace(/0%/g, '<span class="max-discount"></span>');
   }
 }
