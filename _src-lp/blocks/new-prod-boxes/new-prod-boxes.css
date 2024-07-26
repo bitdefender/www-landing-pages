@@ -120,6 +120,15 @@
   font-size: calc(14px + 2 * (100vw - 768px) / 680);
 }
 
+.new-prod-boxes-container.green-pill .block .prod_box .inner_prod_box .save_price_box .prod-percent {
+  line-height: 15px;
+  color: #EDF9FF;
+  background-color: #68BA68;
+  font-weight: bold;
+  padding: 3px 7px 3px 7px;
+  border-radius: 16px;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box {
   display: flex;
   justify-content: left;
