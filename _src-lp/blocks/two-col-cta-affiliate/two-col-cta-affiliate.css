@@ -48,6 +48,10 @@
   .two-col-cta-affiliate.typev2 {
     flex-direction: column;
   }
+  .two-col-cta-affiliate.typev2 h3 {
+    font: normal normal bold 24px/28px Arial, sans-serif;
+    margin-bottom: 1em;
+  }
   .two-col-cta-affiliate.typev2 h4 {
     font: normal normal bold 24px/28px Arial, sans-serif;
   }
@@ -61,7 +65,7 @@
     justify-content: space-between;
   }
   .two-col-cta-affiliate.typev2 > div > div {
-    width: 45%;
+    width: 48%;
   }
   .two-col-cta-affiliate .left-column {
     width: 50%;

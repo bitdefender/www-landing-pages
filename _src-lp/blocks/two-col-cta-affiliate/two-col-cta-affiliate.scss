@@ -59,6 +59,11 @@
         &.typev2 {
             flex-direction: column;
 
+            h3 {
+                font: normal normal bold 24px / 28px Arial, sans-serif;
+                margin-bottom: 1em;
+            }
+
             h4 {
                 font: normal normal bold 24px / 28px Arial, sans-serif;
             }
@@ -74,7 +79,7 @@
                 }
 
                 > div {
-                    width: 45%;
+                    width: 48%;
                 }
             }
         }
