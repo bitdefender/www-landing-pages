@@ -10,7 +10,7 @@ export default function decorate(block) {
     block.classList.add('typev2');
 
     block.querySelector('a').classList.add(`buylink-${onSelectorClass}`);
-    block.querySelector('a').setAttribute('referrerpolicy', no-referrer-when-downgrade);
+    block.querySelector('a').setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
   } else {
     const [title, subtitle, ...rightColumns] = block.children;
 
