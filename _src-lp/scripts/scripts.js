@@ -57,6 +57,24 @@ export function productAliasesNames(name) {
     newName = 'Bitdefender Premium Security Family';
   } else if (newName === 'ps_i') {
     newName = 'Bitdefender Premium Security Individual';
+  } else if (newName === 'ts_i') {
+    newName = 'Bitdefender Total Security Individual';
+  } else if (newName === 'ts_f') {
+    newName = 'Bitdefender Total Security Family';
+  } else if (newName === 'us_i') {
+    newName = 'Bitdefender Ultimate Security Individual';
+  } else if (newName === 'us_f') {
+    newName = 'Bitdefender Ultimate Security Family';
+  } else if (newName === 'us_pf') {
+    newName = 'Bitdefender Ultimate Security Plus Family Standard';
+  } else if (newName === 'us_pfe') {
+    newName = 'Bitdefender Ultimate Security Plus Family Extended';
+  } else if (newName === 'av') {
+    newName = 'Bitdefender Antivirus Plus';
+  } else if (newName === 'is') {
+    newName = 'Bitdefender Internet Security';
+  } else if (newName === 'tsmd') {
+    newName = 'Bitdefender Total Security';
   }
 
   return newName;
