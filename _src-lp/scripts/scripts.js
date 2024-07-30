@@ -51,6 +51,17 @@ export function productAliases(name) {
   return newName;
 }
 
+export function productAliasesNames(name) {
+  let newName = name.trim();
+  if (newName === 'ps_f') {
+    newName = 'Bitdefender Premium Security Family';
+  } else if (newName === 'ps_i') {
+    newName = 'Bitdefender Premium Security Individual';
+  }
+
+  return newName;
+}
+
 // TODO: use the function from adobeDataLayer.js
 export function getParam(param) {
   const gUrlParams = {};
