@@ -73,13 +73,13 @@
                 flex-direction: row;
                 justify-content: space-between;
 
+                > div {
+                    width: 48%;
+                }
+
                 &:first-of-type {
                     align-items: center;
                     justify-content: space-between;
-                }
-
-                > div {
-                    width: 48%;
                 }
             }
         }
