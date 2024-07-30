@@ -125,7 +125,7 @@
   color: #EDF9FF;
   background-color: #68BA68;
   font-weight: bold;
-  padding: 3px 7px 3px 7px;
+  padding: 3px 7px;
   border-radius: 16px;
 }
 
@@ -350,6 +350,9 @@
   }
   .new-prod-boxes-container .block .prod_box .inner_prod_box {
     width: 92%;
+  }
+  .new-prod-boxes-container.width-small .block .prod_box .inner_prod_box {
+    width: 50%;
   }
   .new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
     min-height: 115px;

@@ -355,6 +355,10 @@ content: "";
         width: 92%;
     }
 
+    .new-prod-boxes-container.width-small .block .prod_box .inner_prod_box {
+        width: 50%;
+    }
+
     .new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
         min-height: 115px;
     }
