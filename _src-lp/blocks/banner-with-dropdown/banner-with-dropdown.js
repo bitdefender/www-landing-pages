@@ -7,7 +7,7 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
+    product, products, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
     marginBottom, imageCover, corners, textNextToPill, bestValue,
   } = metaData;
@@ -29,11 +29,6 @@ export default function decorate(block) {
       updateProductsList(product);
       [prodName, prodUsers, prodYears] = product.split('/');
       onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-    }
-
-    // BLUE-BOX
-    if (aliasTr && aliasTr.textContent.trim() === 'blue-box') {
-      table.classList.add('blue-box');
     }
 
     // TITLE_WITH_PRICES
@@ -207,61 +202,6 @@ export default function decorate(block) {
     }
   });
 
-  // tables from right content
-  if (contentRightEl && contentRightEl.querySelectorAll('table').length) {
-    [...contentRightEl.querySelectorAll('table')].forEach((table) => {
-      const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
-      if (aliasTr && aliasTr.innerText.trim() === 'right_content_lidl') {
-        // eslint-disable-next-line no-unused-vars
-        const [alias, title, btn1, btn2] = table.querySelectorAll('tr');
-        const onSelectorClasses = [];
-
-        const lidlBox = document.createElement('div');
-        lidlBox.id = 'lidlBox';
-        lidlBox.innerHTML = `${title.innerHTML}<hr />`;
-
-        const createBuyLink = (button, index) => {
-          const anchor = button.querySelector('a');
-          const link = anchor ? anchor.getAttribute('href') : '#';
-          const img = button.querySelector('img')?.getAttribute('src').split('?')[0];
-          const text = button.textContent;
-          const onSelectorClass = onSelectorClasses[index];
-
-          lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? `<img src="${img}" alt="Bitdefender">` : ''} ${text}</a>`;
-        };
-
-        if (products) {
-          const productsAsList = products.split(',');
-          productsAsList.forEach((prod) => updateProductsList(prod));
-
-          productsAsList.forEach((prod) => {
-            const [prodName, prodUsers, prodYears] = prod.split('/');
-            const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-            onSelectorClasses.push(onSelectorClass);
-          });
-        }
-
-        createBuyLink(btn1, 0);
-        createBuyLink(btn2, 1);
-
-        table.innerHTML = '';
-        table.appendChild(lidlBox);
-      }
-
-      if (aliasTr && aliasTr.innerText.trim() === 'right_content_input') {
-        const awesomeBox = document.querySelector('.b-productswithinputdevices').parentElement.parentElement;
-        awesomeBox.style.display = 'block';
-        contentRightEl.innerHTML = '';
-        contentRightEl.appendChild(awesomeBox);
-
-        const h1 = block.querySelector('h1');
-        h1.style.textAlign = 'left';
-
-        parentBlock.classList.add('hide-tablet');
-      }
-    });
-  }
-
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (innerBackgroundColor) blockStyle.backgroundColor = innerBackgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -373,33 +313,6 @@ export default function decorate(block) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
   }
 
-  if (animatedText) {
-    block.classList.add('animated_box');
-    if (block.innerText.includes('[animated_text]')) {
-      block.innerHTML = block.innerHTML.replace('[animated_text]', `<div class="animated_text">
-        ${animatedText.split('|').map((item, key) => `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`).join('')}
-      </div>`);
-    } else {
-      block.innerHTML += `<div class="animated_text">
-        ${animatedText.split('|').map((item, key) => `<span class="${key === 0 ? 'd-show' : ''}">${item}</span>`).join('')}
-      </div>`;
-    }
-
-    // Get all rotating text elements
-    // const rotatingTexts = document.querySelectorAll('.rotating-text');
-    setInterval(() => {
-      const show = block.querySelector('.animated_text span.d-show');
-      const next = show.nextElementSibling || block.querySelector('.animated_text span:first-child');
-      const up = block.querySelector('.animated_text span.d-up');
-      if (up) {
-        up.classList.remove('d-up');
-      }
-      show.classList.remove('d-show');
-      show.classList.add('d-up');
-      next.classList.add('d-show');
-    }, 2000);
-  }
-
   if (block.querySelector('.container-fluid h1 a')) {
     block.querySelector('.container-fluid h1 a').target = '_blank';
   }
@@ -410,8 +323,8 @@ export default function decorate(block) {
     });
   }
 
-  if (block.querySelector('.productSelector')) {
-    const selectElement = block.querySelector('.productSelector');
+  const selectElement = block.querySelector('.productSelector');
+  if (productSelector) {
     selectElement.addEventListener('change', function handleSelectChange() {
       const selectedValue = this.value;
       const elementProdBoxes = block.querySelectorAll('.pricesBox');
