@@ -369,3 +369,15 @@ content: "";
         padding: 20px;
     }
 }
+
+@media (width >= 989px) {
+    .new-prod-boxes-container.width-small .block .prod_box .inner_prod_box {
+        width: 40%;
+    }
+}
+
+@media (width >= 1173px) {
+    .new-prod-boxes-container.width-small .block .prod_box .inner_prod_box {
+        width: 30%;
+    }
+}
