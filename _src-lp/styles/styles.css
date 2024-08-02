@@ -1721,6 +1721,11 @@ main .section.highlight {
     transform: scale(0.9);
     margin-left: -20px;
   }
+  .mobile-centered-btn a.button {
+    margin: 0 auto !important;
+    width: fit-content;
+    display: flex;
+  }
 }
 @media (width >= 991px) {
   .overflow-top {
