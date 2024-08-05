@@ -18,6 +18,6 @@ export default function decorate(block) {
   subtitle.classList.add('subtitle');
   columnTitle.classList.add('columns-title');
   columnSubtitle.classList.add('columns-subtitle');
-  iconSubtitle.classList.add('icon-subtitle');
+  if (iconSubtitle.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
   block.appendChild(buybtn);
 }
