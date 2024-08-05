@@ -658,6 +658,17 @@
     border-radius: 10px;
   }
 
+  .section.banner-with-dropdown-container #prodSel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section.banner-with-dropdown-container #prodSel select.productSelector {
+    border-radius: 10px;
+  }
+
   .section.normal-padding-mobile .banner-with-dropdown {
     padding-bottom: 1rem;
   }
