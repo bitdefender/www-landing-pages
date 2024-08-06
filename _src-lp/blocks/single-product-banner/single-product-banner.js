@@ -14,9 +14,11 @@ export default function decorate(block) {
   // config new elements
   const {
     products, product, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, preselected, billedYearly, billedMonthly, per,
+    marginBottom, preselected, billedYearly, billedMonthly, per, logo, type,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, boxEl] = [...block.children];
+
+  if (type && type === 'slide') parentBlock.classList.add(type);
 
   const tablePrices = contentRightEl.querySelector('table');
   const tableBuybtn = contentRightEl.querySelector('table:last-of-type');
@@ -38,6 +40,9 @@ export default function decorate(block) {
     const productsAsList = products && products.split(',');
     const selectorBox = document.createElement('div');
     selectorBox.className = 'productSelector justify-content-start';
+    if (type && type === 'slide') {
+      selectorBox.classList.add('slideToggle');
+    }
     const selectorBoxOptions = ['yearly', 'monthly'];
     const selectorBoxTexts = Array.from(tablePrices.querySelectorAll('td')).map((td) => td.innerHTML);
 
@@ -62,8 +67,25 @@ export default function decorate(block) {
       }
 
       // prices
-      let billed = billedYearly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
-      let priceFull = `<span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> /${per}</span>`;
+      let billed = '';
+      if (billedYearly) {
+        billed = billedYearly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
+      }
+
+      let priceFull = '';
+      if (type && type === 'slide') {
+        priceFull = `
+          <div class="priced">
+            <span class='prod-newprice newprice-${onSelectorClass}'></span>
+            <span class='prod-oldprice oldprice-${onSelectorClass}'></span>
+            <span class='prod-save save-${onSelectorClass} greenTag d-inline'></span>
+          </div>`;
+      } else {
+        priceFull = `
+          <div class="d-flex justify-content-center priced">
+            <span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> /${per}</span>
+          </div>`;
+      }
 
       if (prodName.endsWith('m')) {
         billed = billedMonthly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
@@ -72,8 +94,8 @@ export default function decorate(block) {
 
       pricesBox.className = `${prodName}_box prices_box ${idx === 0 ? 'yearly' : 'monthly'} ${show} await-loader prodload prodload-${onSelectorClass}`;
       pricesBox.innerHTML = `<div>
-        <div class="d-flex justify-content-center priced">${priceFull}</div>
-        <div class="d-flex justify-content-center billed">${billed}</div>
+        ${priceFull}
+        ${billed ? `<div class="d-flex justify-content-center billed">${billed}</div>` : ''}
       </div>`;
       tablePrices.appendChild(pricesBox);
 
@@ -85,12 +107,17 @@ export default function decorate(block) {
       }
 
       selectorBox.innerHTML += `
-        <div class="d-flex">
+        <div class="d-flex ${idx === 0 ? 'active' : ''}">
           <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === checkedOption ? 'checked="check"' : ''}>
             <label for="pay_${selectorBoxOptions[idx]}_${counter}">${saveText}</label>
         </div>
       `;
-      tablePrices.appendChild(selectorBox);
+      if (type && type === 'slide') {
+        const parentElement = tablePrices.parentNode; // Get the parent of tablePrices
+        parentElement.insertBefore(selectorBox, tablePrices);
+      } else {
+        tablePrices.appendChild(selectorBox);
+      }
 
       // buylink
       const buyButton = document.createElement('div');
@@ -143,7 +170,10 @@ export default function decorate(block) {
   } else {
     block.innerHTML = `
     <div class="customWrapper d-block d-md-flex d-md-flex d-xl-flex">
-      <div class="leftSide col-xs-12 col-sm-12 col-md-5 col-xl-5">${contentEl.innerHTML}</div>
+      <div class="leftSide col-xs-12 col-sm-12 col-md-5 col-xl-5">
+        ${logo ? `<img src="${logo}" alt="Bitdefender" style="margin-bottom: -1em;">` : ''}
+        ${contentEl.innerHTML}
+      </div>
       <div class="rightSide col-xs-12 col-sm-12 col-md-5 col-xl-4">${contentRightEl.innerHTML}</div>
     </div>
   `;
@@ -153,6 +183,8 @@ export default function decorate(block) {
   if (radioGroups) {
     radioGroups.forEach((group) => {
       group.addEventListener('change', (event) => {
+        block.querySelectorAll('.slideToggle > div').forEach(item => item.classList.remove('active'));
+        event.target.closest('div').classList.add('active');
         if (['.selector-yearly', '.selector-monthly'].some((selector) => event.target.matches(selector))) {
           ['yearly', 'monthly'].forEach((period) => {
             block.querySelector(`.prices_box.${period}`)?.classList.toggle('show');
