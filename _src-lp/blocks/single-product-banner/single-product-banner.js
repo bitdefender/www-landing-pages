@@ -183,7 +183,7 @@ export default function decorate(block) {
   if (radioGroups) {
     radioGroups.forEach((group) => {
       group.addEventListener('change', (event) => {
-        block.querySelectorAll('.slideToggle > div').forEach(item => item.classList.remove('active'));
+        block.querySelectorAll('.slideToggle > div').forEach((item) => item.classList.remove('active'));
         event.target.closest('div').classList.add('active');
         if (['.selector-yearly', '.selector-monthly'].some((selector) => event.target.matches(selector))) {
           ['yearly', 'monthly'].forEach((period) => {
