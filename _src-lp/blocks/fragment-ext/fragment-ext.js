@@ -9,6 +9,7 @@ import {
 } from '../../scripts/scripts.js';
 
 import {
+  decorateIcons,
   loadCSS,
 } from '../../scripts/lib-franklin.js';
 
@@ -105,4 +106,5 @@ export default async function decorate(block) {
       block.closest('.fragment-ext-wrapper').replaceWith(...fragmentSection.childNodes);
     }
   }
+  decorateIcons(block);
 }
