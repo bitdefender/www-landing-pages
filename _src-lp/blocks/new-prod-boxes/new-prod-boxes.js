@@ -23,18 +23,11 @@ export default function decorate(block) {
       let vpnInfoContent = '';
 
       if (textBulina) {
-        // Create a temporary element to hold the HTML content
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = textBulina;
-      
-        // Perform the replace operation on the innerHTML of the temporary div
         tempDiv.innerHTML = tempDiv.innerHTML.replace('0%', `<span class="percent-${onSelectorClass} div-percent"></span>`);
-      
-        // Extract the modified HTML content
         divBulina = `<div class='bulina'>${tempDiv.innerHTML}</div>`;
       }
-      
-
       // if we have vpn
       if (billed.innerText.includes('[vpn_box]')) {
         // add VPN
@@ -45,12 +38,10 @@ export default function decorate(block) {
         const [alias, text1, text2, vpnInfo] = billedUL.querySelectorAll('li');
         const modifiedText1 = text1.innerHTML.replace('0', '<span class="newprice-vpn-101"></span>');
         const modifiedText2 = text2.innerHTML.replace('0', '<span class="oldprice-vpn-101"></span>').replace('0%', '<span class="percent-vpn-101"></span>');
-        
         if (vpnInfo) {
-        const vpnInfoText = vpnInfo.innerText;
-
-        if (vpnInfoText.trim()) {
-          vpnInfoContent = `<div class="vpn-info-container"><img class='vpn-icon' src='https://www.bitdefender.com/common/icons/media_1a6d98abfc4c5c31bbefcf4b6ac58b14815f7a968.png'><ul>${vpnInfoText.split(',').map(info => `<li>${info.trim()}</li>`).join('')}</ul></div>`;
+          const vpnInfoText = vpnInfo.innerText;
+          if (vpnInfoText.trim()) {
+            vpnInfoContent = `<div class="vpn-info-container"><img class='vpn-icon' src='https://www.bitdefender.com/common/icons/media_1a6d98abfc4c5c31bbefcf4b6ac58b14815f7a968.png'><ul>${vpnInfoText.split(',').map((info) => `<li>${info.trim()}</li>`).join('')}</ul></div>`;
           }
         }
 
@@ -109,7 +100,7 @@ export default function decorate(block) {
             liClass += ' nocheck';
             firstTdContent = firstTdContent.replace('-x-', '');
           }
-          
+
           const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
 
           return liContent;
@@ -157,7 +148,7 @@ export default function decorate(block) {
             </div>`}
 
             ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>` : ''}
-            ${ vpnInfoContent ? vpnInfoContent : ''}
+            ${vpnInfoContent && vpnInfoContent}
             ${buyLinkText && `<div class="buy-btn">
               <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
               </a>

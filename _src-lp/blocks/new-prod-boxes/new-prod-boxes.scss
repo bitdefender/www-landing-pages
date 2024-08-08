@@ -45,7 +45,6 @@ flex-direction: column;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .bulina{
-   
     position: relative;
     text-align: center;
     top:0;
@@ -60,15 +59,13 @@ flex-direction: column;
     background-color: #1C7928;
     font-family: Arial, sans-serif;
     color: white;
-    text-align: center;
     font-weight: bold;
-    background-color: #1C7928;
     margin-top: -64px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     .div-percent{
-        
         font-size: 26px;
         line-height: 26px;
         
@@ -183,20 +180,22 @@ flex-direction: column;
     margin: 7px 0;
 }
 
-.new-prod-boxes-container.new-v2.block .prod_box .inner_prod_box .vpn-info-container{
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container{
     display: flex;
     align-items: center;
-    font: normal normal normal 12px/18px Arial;
+    font: normal normal normal 12px/18px Arial, sans-serif;
+
     img{
         width: 50px;
         height: 50px;
     }
+
     li::marker{
-        color: #0066FF;
+        color: #06f;
     }
 }
 
-.new-prod-boxes-container.new-v2.block .prod_box .inner_prod_box .billed label{
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed label{
     font-size: 14px;
     width: 65%;
 }
@@ -229,8 +228,7 @@ flex-direction: column;
     padding: 1em 5px;
 }
 
-.new-prod-boxes-container.new-v2.block .prod_box .inner_prod_box .billed .vpn_box > div {
-   
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed .vpn_box > div {
     padding: 1.4em 5px;
     justify-content: left;
     min-width: 100%;
@@ -350,7 +348,7 @@ flex-direction: column;
     position: relative; 
   }
   
-.new-prod-boxes-container.new-v2.block .prod_box .inner_prod_box .billed .vpn_box > div:first-child::before {
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child::before {
     content: "";
     display: block;
     position: absolute;
