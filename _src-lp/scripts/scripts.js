@@ -928,9 +928,15 @@ function initSelectors(pid) {
 }
 
 function addIdsToEachSection() {
-  document.querySelectorAll('main .section').forEach((item) => {
-    const getIdentity = item.className.split('-container')[0];
-    item.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
+  document.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
+    // Find the first sibling that is not a default-content-wrapper
+    let sibling = item.nextElementSibling;
+    while (sibling && sibling.classList.contains('default-content-wrapper')) {
+      sibling = sibling.nextElementSibling;
+    }
+
+    const getIdentity = item.className.split('-wrapper')[0];
+    item.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
   });
 }
 
