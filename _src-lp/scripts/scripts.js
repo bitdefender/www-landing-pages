@@ -928,9 +928,9 @@ function initSelectors(pid) {
 }
 
 function addIdsToEachSection() {
-  document.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
-    const getIdentity = item.className.split('-wrapper')[0];
-    item.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
+  document.querySelectorAll('main .section').forEach((item) => {
+    const getIdentity = item.className.split('-container')[0];
+    item.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
   });
 }
 
