@@ -64,6 +64,10 @@
   margin-bottom: 8px;
 }
 
+.section.single-product-banner-container.slide h1 {
+  font-size: var(--heading-font-size-xl);
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox h1 {
   font-size: 22px;
   margin-top: 0;
@@ -181,6 +185,17 @@
   line-height: 32px;
 }
 
+.section.single-product-banner-container.slide .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .prod-oldprice {
+  color: #999;
+  font-weight: 400;
+  font-size: 18px;
+  margin: 3px 0 10px;
+}
+
+.section.single-product-banner-container.slide .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .prod-save {
+  font-size: 16px;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox .rightSide .pricesBox .prod-newprice {
   font-size: 36px;
   font-weight: bold;
@@ -251,10 +266,59 @@
   margin-bottom: 0.5rem;
 }
 
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle {
+  width: 300px;
+  display: flex;
+  border: 1px solid #2462ff;
+  border-radius: 10px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle > div {
+  padding: 10px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle > div.active {
+  background-color: #2462ff;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle > div.active:last-of-type {
+  border-radius: 0 8px 8px 0;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle input {
+  display: none;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle label {
+  transition: 0.3s ease-in-out;
+  color: #2462ff;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle > div.active label {
+  transition: 0.3s ease-in-out;
+  color: white;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide ul {
   text-align: left;
   width: 300px;
   margin: 0 auto 1em;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul {
+  padding-left: 0;
+}
+
+.section.single-product-banner-container.slide .single-product-banner-wrapper .single-product-banner .rightSide ul {
+  width: 350px;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner ul li {
@@ -266,10 +330,6 @@
   background: url("/_src-lp/icons/checkmark_solid-circle.svg") no-repeat;
   background-size: 15px;
   background-position: left top 4px;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul {
-  padding-left: 0;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(3) {
