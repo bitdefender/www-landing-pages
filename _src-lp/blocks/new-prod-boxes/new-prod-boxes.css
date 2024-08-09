@@ -183,9 +183,14 @@
   align-items: center;
   font: normal normal normal 12px/18px Arial, sans-serif;
 }
-.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container img {
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container .vpn-icon {
   width: 50px;
   height: 50px;
+  background-image: url("/_src-lp/icons/vpn.png");
+  display: inline-block;
+  vertical-align: middle;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container li::marker {
   color: #06f;

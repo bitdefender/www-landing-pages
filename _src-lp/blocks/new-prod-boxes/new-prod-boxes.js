@@ -21,11 +21,9 @@ export default function decorate(block) {
       // create procent - bulina
       let divBulina = '';
       let vpnInfoContent = '';
-
       if (textBulina) {
         const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = textBulina;
-        tempDiv.innerHTML = tempDiv.innerHTML.replace('0%', `<span class="percent-${onSelectorClass} div-percent"></span>`);
+        tempDiv.innerHTML = textBulina.replace('0%', `<span class="percent-${onSelectorClass} div-percent"></span>`);
         divBulina = `<div class='bulina'>${tempDiv.innerHTML}</div>`;
       }
       // if we have vpn
@@ -41,7 +39,7 @@ export default function decorate(block) {
         if (vpnInfo) {
           const vpnInfoText = vpnInfo.innerText;
           if (vpnInfoText.trim()) {
-            vpnInfoContent = `<div class="vpn-info-container"><img class='vpn-icon' src='https://www.bitdefender.com/common/icons/media_1a6d98abfc4c5c31bbefcf4b6ac58b14815f7a968.png'><ul>${vpnInfoText.split(',').map((info) => `<li>${info.trim()}</li>`).join('')}</ul></div>`;
+            vpnInfoContent = `<div class="vpn-info-container"><div class='vpn-icon'></div><ul>${vpnInfoText.split(',').map((info) => `<li>${info.trim()}</li>`).join('')}</ul></div>`;
           }
         }
 
@@ -122,6 +120,9 @@ export default function decorate(block) {
       if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
         percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
         percentOffFlag = true;
+      }
+      if (!percentOff) {
+        percentOffFlag = false;
       }
 
       block.innerHTML += `
