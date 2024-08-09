@@ -399,6 +399,9 @@
     background-color: #130076;
     padding: 0 15px;
   }
+  .section.single-product-banner-container.block-hide-mobile {
+    background-image: none !important;
+  }
   .section.single-product-banner-container h1 {
     font-size: 28px;
     line-height: 34px;
