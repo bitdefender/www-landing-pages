@@ -13,7 +13,7 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    products, product, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, bannerHide,
+    products, product, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, imageCover, bannerHide,
     marginBottom, preselected, billedYearly, billedMonthly, per, logo, type,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, boxEl] = [...block.children];
@@ -34,7 +34,11 @@ export default function decorate(block) {
 
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+  let imgPosition = '0 0';
+  if (imageCover) {
+    imgPosition = `top ${imageCover}`;
+  }
+  if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat ${imgPosition} / cover ${backgroundColor || '#000'}`;
 
   if (products) {
     const productsAsList = products && products.split(',');
