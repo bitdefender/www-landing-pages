@@ -110,12 +110,14 @@ export default function decorate(block) {
         saveText = saveText.replace(/<strong>/g, '<span class="greenTag">').replace(/<\/strong>/g, '</span>').replace(/0/g, `<b class='save-${onSelectorClass}'></b>`);
       }
 
-      selectorBox.innerHTML += `
-        <div class="d-flex ${idx === 0 ? 'active' : ''}">
-          <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === checkedOption ? 'checked="check"' : ''}>
-            <label for="pay_${selectorBoxOptions[idx]}_${counter}">${saveText}</label>
-        </div>
-      `;
+      if (selectorBoxTexts.length > 2) {
+        selectorBox.innerHTML += `
+          <div class="d-flex ${idx === 0 ? 'active' : ''}">
+            <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === checkedOption ? 'checked="check"' : ''}>
+              <label for="pay_${selectorBoxOptions[idx]}_${counter}">${saveText}</label>
+          </div>
+        `;
+      }
       if (type && type === 'slide') {
         const parentElement = tablePrices.parentNode; // Get the parent of tablePrices
         parentElement.insertBefore(selectorBox, tablePrices);

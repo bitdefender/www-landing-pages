@@ -130,7 +130,7 @@ export default function decorate(block) {
               </a>
             </div>`}
 
-            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML.trim()}</div>` : ''}
+            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
             <hr />
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
