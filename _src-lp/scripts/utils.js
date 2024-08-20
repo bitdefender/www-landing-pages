@@ -420,12 +420,20 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         if (parentDiv) parentDiv.querySelector(onewPriceClass).innerHTML = offerPrice;
         if (comparativeTextBox) {
           allNewPriceBox.forEach((item) => {
-            item.innerHTML = offerPrice;
+            if (item.classList.contains('calculate_monthly')) {
+              item.innerHTML = offerPriceMonthly
+            } else {
+              item.innerHTML = offerPrice;
+            }
           });
         }
       } else {
         allNewPriceBox.forEach((item) => {
-          item.innerHTML = offerPrice;
+          if (item.classList.contains('calculate_monthly')) {
+            item.innerHTML = offerPriceMonthly
+          } else {
+            item.innerHTML = offerPrice;
+          }
         });
       }
     }
