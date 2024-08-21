@@ -40,6 +40,17 @@ export default function decorate(block) {
   }
   if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat ${imgPosition} / cover ${backgroundColor || '#000'}`;
 
+
+  [...contentEl.querySelectorAll('table')].forEach((table) => {
+    const aliasTr = table.querySelector('tr');
+
+    if (aliasTr && aliasTr.textContent.trim() === 'display') {
+      aliasTr.remove();
+      table.style.display = 'block';
+    }
+  });
+
+
   if (products) {
     const productsAsList = products && products.split(',');
     const selectorBox = document.createElement('div');

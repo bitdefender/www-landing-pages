@@ -31,6 +31,11 @@ export default function decorate(block) {
       onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
     }
 
+    // NORMAL DISPLAY
+    if (aliasTr && aliasTr.textContent.trim() === 'display') {
+      table.style.display = 'block';
+    }
+
     // BLUE-BOX
     if (aliasTr && aliasTr.textContent.trim() === 'blue-box') {
       table.classList.add('blue-box');
@@ -64,7 +69,6 @@ export default function decorate(block) {
       table.appendChild(titleBox);
     }
 
-    // PRICE_BOX
     if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
       const [alias, save, prices, terms, buybtn] = [...table.querySelectorAll('tr')];
