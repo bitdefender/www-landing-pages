@@ -45,11 +45,10 @@ export default function decorate(block) {
     const aliasTr = table.querySelector('tr');
 
     if (aliasTr && aliasTr.textContent.trim() === 'display') {
-      aliasTr.remove();
+      aliasTr.parentNode.removeChild(aliasTr);
       table.style.display = 'block';
     }
   });
-
 
   if (products) {
     const productsAsList = products && products.split(',');
