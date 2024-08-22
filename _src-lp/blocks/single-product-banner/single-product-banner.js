@@ -40,7 +40,6 @@ export default function decorate(block) {
   }
   if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat ${imgPosition} / cover ${backgroundColor || '#000'}`;
 
-
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     const aliasTr = table.querySelector('tr');
 

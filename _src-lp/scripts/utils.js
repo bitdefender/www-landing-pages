@@ -421,7 +421,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         if (comparativeTextBox) {
           allNewPriceBox.forEach((item) => {
             if (item.classList.contains('calculate_monthly')) {
-              item.innerHTML = offerPriceMonthly
+              item.innerHTML = offerPriceMonthly;
             } else {
               item.innerHTML = offerPrice;
             }
@@ -430,7 +430,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       } else {
         allNewPriceBox.forEach((item) => {
           if (item.classList.contains('calculate_monthly')) {
-            item.innerHTML = offerPriceMonthly
+            item.innerHTML = offerPriceMonthly;
           } else {
             item.innerHTML = offerPrice;
           }
