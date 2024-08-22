@@ -239,7 +239,7 @@ export default function decorate(block) {
 
   if (backgroundColorGradient) {
     parentBlock.classList.add('has-gradient');
-    // parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+    parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
   }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
