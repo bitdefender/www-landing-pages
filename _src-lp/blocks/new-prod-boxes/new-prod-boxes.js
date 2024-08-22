@@ -144,15 +144,15 @@ export default function decorate(block) {
             </div>`}
 
             ${priceType === 'combined' && price.innerText.trim()
-              ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                  <span class="prod-newprice${!onSelectorClass.includes('monthly') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
-                </div>`
-              : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                  <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
-                </div>`
-            }
+    ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+                <span class="prod-newprice${!onSelectorClass.includes('monthly') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
+                <sup>${price.innerText.trim().replace('0', '')}</sup>
+              </div>`
+    : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+                <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
+                <sup>${price.innerText.trim().replace('0', '')}</sup>
+              </div>`
+}
 
             ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>` : ''}
             ${vpnInfoContent && vpnInfoContent}
