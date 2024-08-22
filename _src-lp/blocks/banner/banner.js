@@ -1,4 +1,4 @@
-import { detectModalButtons, productAliases } from '../../scripts/scripts.js';
+import { detectModalButtons, productAliases, isView } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
@@ -12,6 +12,7 @@ export default function decorate(block) {
     marginBottom, imageCover, corners, textNextToPill,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
+  const isDesktop = isView('desktop');
 
   if (imageCover) {
     parentBlock.classList.add(`bckimg-${imageCover}`);
@@ -236,7 +237,11 @@ export default function decorate(block) {
     });
   }
 
-  if (backgroundColorGradient) parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+  if (backgroundColorGradient) {
+    parentBlock.classList.add('has-gradient');
+    // parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+  }
+
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (innerBackgroundColor) blockStyle.backgroundColor = innerBackgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -261,7 +266,15 @@ export default function decorate(block) {
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
     if (backgroundColorGradient) {
-      blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover`;
+      if (isDesktop) {
+        blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        blockStyle.backgroundSize = 'cover';
+        blockStyle.backgroundPosition = '0 0';
+        blockStyle.backgroundRepeat = 'no-repeat';
+        blockStyle.backgroundBlendMode = 'unset';
+      } else {
+        blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
+      }
     } else {
       blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
     }
@@ -269,7 +282,15 @@ export default function decorate(block) {
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
       if (backgroundColorGradient) {
-        blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100%`;
+        if (isDesktop) {
+          blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+          blockStyle.backgroundSize = 'auto 100%';
+          blockStyle.backgroundPosition = `top ${imageCoverVar}`;
+          blockStyle.backgroundRepeat = 'no-repeat';
+          blockStyle.backgroundBlendMode = 'unset';
+        } else {
+          blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
+        }
       } else {
         blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
       }
@@ -299,11 +320,15 @@ export default function decorate(block) {
     `;
   } else if (imageCover) {
     if (backgroundColorGradient) {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
-      parentBlockStyle.backgroundSize = 'cover';
-      parentBlockStyle.backgroundPosition = 'top right';
-      parentBlockStyle.backgroundRepeat = 'no-repeat';
-      parentBlockStyle.backgroundBlendMode = 'unset';
+      if (isDesktop) {
+        parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        parentBlockStyle.backgroundSize = 'cover';
+        parentBlockStyle.backgroundPosition = 'top right';
+        parentBlockStyle.backgroundRepeat = 'no-repeat';
+        parentBlockStyle.backgroundBlendMode = 'unset';
+      } else {
+        parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+      }
     } else {
       parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
     }
@@ -311,11 +336,15 @@ export default function decorate(block) {
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
       if (backgroundColorGradient) {
-        parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
-        parentBlockStyle.backgroundSize = 'auto 100%';
-        parentBlockStyle.backgroundPosition = `top ${imageCoverVar}`;
-        parentBlockStyle.backgroundRepeat = 'no-repeat';
-        parentBlockStyle.backgroundBlendMode = 'unset';
+        if (isDesktop) {
+          parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+          parentBlockStyle.backgroundSize = 'auto 100%';
+          parentBlockStyle.backgroundPosition = `top ${imageCoverVar}`;
+          parentBlockStyle.backgroundRepeat = 'no-repeat';
+          parentBlockStyle.backgroundBlendMode = 'unset';
+        } else {
+          parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        }
       } else {
         parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
       }
