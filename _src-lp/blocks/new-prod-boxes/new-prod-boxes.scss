@@ -44,6 +44,34 @@ flex-direction: column;
     margin-bottom: 37px;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .bulina{
+    position: relative;
+    text-align: center;
+    top:0;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    line-height: 11px;
+    margin-left: auto;
+    margin-bottom: 0;
+    font-size: 10px;
+    background-color: #1C7928;
+    font-family: Arial, sans-serif;
+    color: white;
+    font-weight: bold;
+    margin-top: -64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .div-percent{
+        font-size: 26px;
+        line-height: 26px;
+
+    }
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box h2 {
     font-weight: bold;
     font-size: var(--body-font-size-m);
@@ -176,6 +204,31 @@ flex-direction: column;
     margin: 7px 0;
 }
 
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container{
+    display: flex;
+    align-items: center;
+    font: normal normal normal 12px/18px Arial, sans-serif;
+
+    .vpn-icon{
+        width: 50px;
+        height: 50px;
+        background-image: url('/_src-lp/icons/vpn.png');
+        display: inline-block;
+        vertical-align: middle;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    li::marker{
+        color: #06f;
+    }
+}
+
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed label{
+    font-size: 14px;
+    width: 65%;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
     border-top: 1px solid #D1D1D1;
     border-bottom: 1px solid #D1D1D1;
@@ -202,6 +255,12 @@ flex-direction: column;
     background-color: #EAF5EC;
     border-radius: 4px;
     padding: 1em 5px;
+}
+
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed .vpn_box > div {
+    padding: 1.4em 5px;
+    justify-content: left;
+    min-width: 100%;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div input {
@@ -309,6 +368,33 @@ flex-direction: column;
     background-size: 13px;
     position: relative;
 }
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.nocheck {
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 8px;
+    list-style-type: none;
+    background: url("https://www.bitdefender.com/common/icons/close.svg") top 2px left no-repeat transparent;
+    padding-left: 22px;
+    background-size: 13px;
+    position: relative;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child {
+    position: relative;
+  }
+
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 32px;
+    height: 33px;
+    background: url("https://www.bitdefender.com/common/icons/new.svg") no-repeat center center;
+    background-size: contain;
+  }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) span {
     position: absolute;
