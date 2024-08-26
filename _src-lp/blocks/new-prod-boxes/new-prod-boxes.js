@@ -4,22 +4,28 @@ import { updateProductsList } from '../../scripts/utils.js';
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType,
+    products, priceType, textBulina,
   } = metaData;
-
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
-
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
 
       [...block.children][key].innerHTML = '';
 
+      // create procent - bulina
+      let divBulina = '';
+      let vpnInfoContent = '';
+      if (textBulina) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = textBulina.replace('0%', `<span class="percent-${onSelectorClass} div-percent"></span>`);
+        divBulina = `<div class='bulina'>${tempDiv.innerHTML}</div>`;
+      }
       // if we have vpn
       if (billed.innerText.includes('[vpn_box]')) {
         // add VPN
@@ -27,10 +33,15 @@ export default function decorate(block) {
 
         const billedUL = billed.querySelector('ul');
         /* eslint-disable-next-line no-unused-vars */
-        const [alias, text1, text2] = billedUL.querySelectorAll('li');
-
+        const [alias, text1, text2, vpnInfo] = billedUL.querySelectorAll('li');
         const modifiedText1 = text1.innerHTML.replace('0', '<span class="newprice-vpn-101"></span>');
         const modifiedText2 = text2.innerHTML.replace('0', '<span class="oldprice-vpn-101"></span>').replace('0%', '<span class="percent-vpn-101"></span>');
+        if (vpnInfo) {
+          const vpnInfoText = vpnInfo.innerText;
+          if (vpnInfoText.trim()) {
+            vpnInfoContent = `<div class="vpn-info-container"><div class='vpn-icon'></div><ul>${vpnInfoText.split(',').map((info) => `<li>${info.trim()}</li>`).join('')}</ul></div>`;
+          }
+        }
 
         let labelId = `checkboxVPN-${onSelectorClass}`;
         if (document.getElementById(labelId)) {
@@ -83,6 +94,11 @@ export default function decorate(block) {
             firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
           }
 
+          if (firstTdContent.indexOf('-x-') !== -1) {
+            liClass += ' nocheck';
+            firstTdContent = firstTdContent.replace('-x-', '');
+          }
+
           const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
 
           return liContent;
@@ -97,14 +113,23 @@ export default function decorate(block) {
 
       let percentOffFlag = false;
       let percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
-      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%')) {
+      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+        percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
+        percentOffFlag = true;
+      }
+      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
         percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
         percentOffFlag = true;
       }
+      if (!percentOff) {
+        percentOffFlag = false;
+      }
 
       block.innerHTML += `
+
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key}">
           <div class="inner_prod_box">
+          ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
             ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
@@ -118,19 +143,25 @@ export default function decorate(block) {
               </strong>
             </div>`}
 
-            ${price.innerText.trim() && `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-              <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-              <sup>${price.innerText.trim().replace('0', '')}<sup>
-            </div>`}
+            ${priceType === 'combined' && price.innerText.trim()
+    ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+                <span class="prod-newprice${!onSelectorClass.includes('monthly') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
+                <sup>${price.innerText.trim().replace('0', '')}</sup>
+              </div>`
+    : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+                <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
+                <sup>${price.innerText.trim().replace('0', '')}</sup>
+              </div>`
+}
 
             ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>` : ''}
-
+            ${vpnInfoContent && vpnInfoContent}
             ${buyLinkText && `<div class="buy-btn">
               <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
               </a>
             </div>`}
 
-            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML.trim()}</div>` : ''}
+            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
             <hr />
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>

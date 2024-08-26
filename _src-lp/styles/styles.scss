@@ -471,6 +471,11 @@ main .section.width-medium .block {
   margin: 0 auto;
 }
 
+main .section.width-smaller .block, main .section.width-smaller .default-content-wrapper {
+  width: 750px;
+  margin: 0 auto;
+}
+
 .red-buy-button p {
   padding: 0 !important;
   margin: 0 !important;
@@ -702,6 +707,7 @@ main .section.highlight {
 
 .greenTag {
   background-color: #2fb43e;
+  color: white !important;
   font-size: 11px;
   display: inline;
   padding: 4px 6px;
@@ -1850,6 +1856,11 @@ main .section.highlight {
     margin: 0 auto !important;
     width: fit-content;
     display: flex;
+  }
+
+  main .section.width-smaller .block {
+    width: 100%;
+    margin: 0 auto;
   }
 }
 

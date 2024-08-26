@@ -13,7 +13,7 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    products, product, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, bannerHide,
+    products, product, textColor, backgroundColor, paddingTop, paddingBottom, marginTop, imageCover, bannerHide,
     marginBottom, preselected, billedYearly, billedMonthly, per, logo, type,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, boxEl] = [...block.children];
@@ -34,7 +34,20 @@ export default function decorate(block) {
 
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+  let imgPosition = '0 0';
+  if (imageCover) {
+    imgPosition = `top ${imageCover}`;
+  }
+  if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat ${imgPosition} / cover ${backgroundColor || '#000'}`;
+
+  [...contentEl.querySelectorAll('table')].forEach((table) => {
+    const aliasTr = table.querySelector('tr');
+
+    if (aliasTr && aliasTr.textContent.trim() === 'display') {
+      aliasTr.parentNode.removeChild(aliasTr);
+      table.style.display = 'block';
+    }
+  });
 
   if (products) {
     const productsAsList = products && products.split(',');
@@ -106,12 +119,14 @@ export default function decorate(block) {
         saveText = saveText.replace(/<strong>/g, '<span class="greenTag">').replace(/<\/strong>/g, '</span>').replace(/0/g, `<b class='save-${onSelectorClass}'></b>`);
       }
 
-      selectorBox.innerHTML += `
-        <div class="d-flex ${idx === 0 ? 'active' : ''}">
-          <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === checkedOption ? 'checked="check"' : ''}>
-            <label for="pay_${selectorBoxOptions[idx]}_${counter}">${saveText}</label>
-        </div>
-      `;
+      if (selectorBoxTexts.length > 2) {
+        selectorBox.innerHTML += `
+          <div class="d-flex ${idx === 0 ? 'active' : ''}">
+            <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === checkedOption ? 'checked="check"' : ''}>
+              <label for="pay_${selectorBoxOptions[idx]}_${counter}">${saveText}</label>
+          </div>
+        `;
+      }
       if (type && type === 'slide') {
         const parentElement = tablePrices.parentNode; // Get the parent of tablePrices
         parentElement.insertBefore(selectorBox, tablePrices);

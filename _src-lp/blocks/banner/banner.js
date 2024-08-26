@@ -1,4 +1,4 @@
-import { detectModalButtons, productAliases } from '../../scripts/scripts.js';
+import { detectModalButtons, productAliases, isView } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
@@ -7,11 +7,12 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
+    product, products, animatedText, contentSize, backgroundColor, backgroundColorGradient, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
     marginBottom, imageCover, corners, textNextToPill,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
+  const isDesktop = isView('desktop');
 
   if (imageCover) {
     parentBlock.classList.add(`bckimg-${imageCover}`);
@@ -29,6 +30,11 @@ export default function decorate(block) {
       updateProductsList(product);
       [prodName, prodUsers, prodYears] = product.split('/');
       onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    }
+
+    // NORMAL DISPLAY
+    if (aliasTr && aliasTr.textContent.trim() === 'display') {
+      table.style.display = 'block';
     }
 
     // BLUE-BOX
@@ -64,7 +70,6 @@ export default function decorate(block) {
       table.appendChild(titleBox);
     }
 
-    // PRICE_BOX
     if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
       const [alias, save, prices, terms, buybtn] = [...table.querySelectorAll('tr')];
@@ -232,6 +237,11 @@ export default function decorate(block) {
     });
   }
 
+  if (backgroundColorGradient) {
+    parentBlock.classList.add('has-gradient');
+    parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+  }
+
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (innerBackgroundColor) blockStyle.backgroundColor = innerBackgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -255,11 +265,35 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
-    blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
+    if (backgroundColorGradient) {
+      if (isDesktop) {
+        blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        blockStyle.backgroundSize = 'cover';
+        blockStyle.backgroundPosition = '0 0';
+        blockStyle.backgroundRepeat = 'no-repeat';
+        blockStyle.backgroundBlendMode = 'unset';
+      } else {
+        blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
+      }
+    } else {
+      blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
+    }
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
-      blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
+      if (backgroundColorGradient) {
+        if (isDesktop) {
+          blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+          blockStyle.backgroundSize = 'auto 100%';
+          blockStyle.backgroundPosition = `top ${imageCoverVar}`;
+          blockStyle.backgroundRepeat = 'no-repeat';
+          blockStyle.backgroundBlendMode = 'unset';
+        } else {
+          blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
+        }
+      } else {
+        blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
+      }
     }
 
     let defaultSize = 'col-sm-6 col-md-6 col-lg-5';
@@ -285,11 +319,35 @@ export default function decorate(block) {
       </div>
     `;
   } else if (imageCover) {
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+    if (backgroundColorGradient) {
+      if (isDesktop) {
+        parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        parentBlockStyle.backgroundSize = 'cover';
+        parentBlockStyle.backgroundPosition = 'top right';
+        parentBlockStyle.backgroundRepeat = 'no-repeat';
+        parentBlockStyle.backgroundBlendMode = 'unset';
+      } else {
+        parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+      }
+    } else {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+    }
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+      if (backgroundColorGradient) {
+        if (isDesktop) {
+          parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+          parentBlockStyle.backgroundSize = 'auto 100%';
+          parentBlockStyle.backgroundPosition = `top ${imageCoverVar}`;
+          parentBlockStyle.backgroundRepeat = 'no-repeat';
+          parentBlockStyle.backgroundBlendMode = 'unset';
+        } else {
+          parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        }
+      } else {
+        parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+      }
     }
 
     if (contentSize === 'fourth') {

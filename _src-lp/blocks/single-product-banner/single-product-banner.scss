@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+.section.single-product-banner-container * {
+  color: inherit;
+}
+
 .section.single-product-banner-container table {
   display: none;
 }
@@ -154,6 +158,30 @@
   width: 100%;
 }
 
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner ul li {
+  font-size: 14px;
+  line-height: 1.5;
+  list-style-type: none;
+  padding-left: 25px;
+  margin: 9px 0 -2px;
+  background: url('/_src-lp/icons/checkmark_solid-circle.svg') no-repeat;
+  background-size: 15px;
+  background-position: left top 4px;
+}
+
+.section.single-product-banner-container.list-with-icons .single-product-banner-wrapper .single-product-banner .leftSide ul li {
+  font-size: 18px;
+  line-height: 23px;
+  padding: 10px 0;
+  background: unset;
+}
+
+.section.single-product-banner-container.list-with-icons .single-product-banner-wrapper .single-product-banner .leftSide ul li picture {
+  margin-right: 10px;
+  width: 50px;
+  float: left;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .leftSide ul li em {
   background-color: #2fb43e;
   font-size: 11px;
@@ -275,6 +303,10 @@
   border-radius: 10px;
 }
 
+.section.single-product-banner-container.list-with-icons .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle {
+  border: 1px solid #f4f4f4;
+}
+
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle > div {
   padding: 10px;
   flex: 1;
@@ -323,17 +355,6 @@
   width: 350px;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner ul li {
-  font-size: 14px;
-  line-height: 1.5;
-  list-style-type: none;
-  padding-left: 25px;
-  margin: 9px 0 -2px;
-  background: url('/_src-lp/icons/checkmark_solid-circle.svg') no-repeat;
-  background-size: 15px;
-  background-position: left top 4px;
-}
-
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(3) {
   border-top: 1px solid #ddd;
   padding-top: 15px;
@@ -360,7 +381,7 @@
   border-radius: 5px;
   border-style: none;
   cursor: pointer;
-  padding: 10px 13px;
+  padding: 10px 12px;
   margin-top: 1rem;
 }
 
@@ -403,6 +424,10 @@
   .section.single-product-banner-container {
     background-color: #130076;
     padding: 0 15px;
+  }
+
+  .section.single-product-banner-container.block-hide-mobile {
+    background-image: none!important;
   }
 
   .section.single-product-banner-container h1 {

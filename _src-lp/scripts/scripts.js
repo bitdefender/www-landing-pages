@@ -929,8 +929,18 @@ function initSelectors(pid) {
 
 function addIdsToEachSection() {
   document.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
-    const getIdentity = item.className.split('-wrapper')[0];
-    item.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
+    // Find the first sibling that is not a default-content-wrapper
+    let componentWrapper = item;
+    while (componentWrapper && componentWrapper.classList.contains('default-content-wrapper')) {
+      if (!componentWrapper.nextElementSibling) {
+        return;
+      }
+
+      componentWrapper = componentWrapper.nextElementSibling;
+    }
+
+    const getIdentity = componentWrapper.className.split('-wrapper')[0];
+    componentWrapper.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
   });
 }
 
