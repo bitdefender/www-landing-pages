@@ -18,7 +18,7 @@ export default function decorate(block) {
     if (buttonLink) {
       buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}"><strong>${buttonText}</strong></a>`;
     } else {
-        buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#"><strong>${buttonText}</strong></a>`;
+      buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#"><strong>${buttonText}</strong></a>`;
     }
     block.appendChild(buybtn);
   }
