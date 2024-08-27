@@ -487,17 +487,3 @@
     width: 30%;
   }
 }
-@media (width >= 768px) and (width <= 1105px) {
-  .new-prod-boxes-container .block .prod_box .inner_prod_box .greenTag2 {
-    height: fit-content;
-    font-size: 14px;
-    width: 90%;
-    margin-top: -84px;
-    padding-top: 7px;
-    margin-bottom: 37px;
-    position: absolute;
-    left: 50%;
-    bottom: 96.6%;
-    transform: translateX(-50%);
-  }
-}
