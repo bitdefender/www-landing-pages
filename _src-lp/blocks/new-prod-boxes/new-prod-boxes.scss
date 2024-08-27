@@ -499,3 +499,12 @@ content: "";
         width: 30%;
     }
 }
+
+@media (width >= 768px) and (width <= 1105px){
+    .new-prod-boxes-container .block .prod_box .inner_prod_box .greenTag2{
+        height: 57px;
+        font-size: 14px;
+        margin-top: -84px;
+        padding-top: 5%;
+    }           
+}

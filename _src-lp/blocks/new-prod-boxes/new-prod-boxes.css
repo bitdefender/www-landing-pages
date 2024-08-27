@@ -125,15 +125,15 @@
   margin: 10px 0;
 }
 
-.new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .save_price_box {
-  justify-content: center;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box {
   display: flex;
   justify-content: left;
   align-items: center;
   margin-bottom: 8px;
+}
+
+.new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .save_price_box {
+  justify-content: center;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box .prod-oldprice {
@@ -159,13 +159,13 @@
   border-radius: 16px;
 }
 
-.new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .prices_box {
-  justify-content: center;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box {
   display: flex;
   justify-content: left;
+}
+
+.new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .prices_box {
+  justify-content: center;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box .prod-newprice {
@@ -187,6 +187,13 @@
   display: none;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  line-height: 13px;
+  margin: 7px 0;
+}
+
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .billed {
   font-size: 15px;
   line-height: 18px;
@@ -194,13 +201,6 @@
 
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .billed span {
   font-weight: bold;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
-  font-size: 12px;
-  font-family: Arial, sans-serif;
-  line-height: 13px;
-  margin: 7px 0;
 }
 
 .new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container {
@@ -270,13 +270,6 @@
   cursor: pointer;
 }
 
-.new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
-  min-width: 170px;
-  width: auto;
-  margin: 1em auto;
-  padding: 1em !important;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
   width: 100%;
   text-transform: none;
@@ -284,6 +277,13 @@
   line-height: 14px;
   font-weight: 600 !important;
   padding: 10px 1% !important;
+}
+
+.new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
+  min-width: 170px;
+  width: auto;
+  margin: 1em auto;
+  padding: 1em !important;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
@@ -485,5 +485,13 @@
 @media (width >= 1173px) {
   .new-prod-boxes-container.width-small .block .prod_box .inner_prod_box {
     width: 30%;
+  }
+}
+@media (width >= 768px) and (width <= 1105px) {
+  .new-prod-boxes-container .block .prod_box .inner_prod_box .greenTag2 {
+    height: 57px;
+    font-size: 14px;
+    margin-top: -84px;
+    padding-top: 5%;
   }
 }
