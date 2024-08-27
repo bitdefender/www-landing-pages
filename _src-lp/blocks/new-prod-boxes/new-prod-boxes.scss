@@ -30,8 +30,10 @@ flex-direction: column;
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .greenTag2 {
     position: absolute;
-    width: 80%;
+    left:8%;
+    right:8%;
     height: fit-content;
+    bottom:100.2%;
     font-size: 14px;
     font-family: Arial, sans-serif;
     color: white;
@@ -42,7 +44,6 @@ flex-direction: column;
     border-top-right-radius: 10px;
     padding-top: 7px;
     margin-top: -64px;
-    margin-bottom: 37px;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .bulina{
