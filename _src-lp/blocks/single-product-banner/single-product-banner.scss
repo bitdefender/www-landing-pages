@@ -420,6 +420,12 @@
   }
 }
 
+@media (width <= 500px) {
+  .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector.slideToggle, .section.single-product-banner-container.slide .single-product-banner-wrapper .single-product-banner .rightSide ul {
+    width: 100%;
+  }
+}
+
 @media (width <= 768px) {
   .section.single-product-banner-container {
     background-color: #130076;
