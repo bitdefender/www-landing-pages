@@ -3,7 +3,6 @@ import { productAliases } from '../../scripts/scripts.js';
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const { product, buttonText, buttonLink } = metaData;
-  console.log(product);
   const [, iconSubtitle, , subtitle, , columnTitle, columnSubtitle, columns] = block.children;
 
   const [prodName, prodUsers, prodYears] = product.split('/');
