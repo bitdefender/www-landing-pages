@@ -43,7 +43,7 @@ export default function decorate(block) {
 
     let onePicture = false;
     if (pictureBF && !pictureCM) {
-      parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 95% top / 1300px 100% ${backgroundColor || '#000'}`;
+      parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / 1400px 100% ${backgroundColor || '#000'}`;
       onePicture = true;
     }
 
