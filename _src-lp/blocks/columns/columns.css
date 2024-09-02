@@ -40,6 +40,10 @@
   font-weight: 500;
 }
 
+.columns-container.blue-headings .columns h4 {
+  color: #006dff;
+}
+
 .columns img {
   border-radius: 20px;
 }
