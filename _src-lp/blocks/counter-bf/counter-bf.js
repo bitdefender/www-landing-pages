@@ -43,9 +43,8 @@ export default function decorate(block) {
 
     let onePicture = false;
     if (pictureBF && !pictureCM) {
-      parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / auto 100% ${backgroundColor || '#000'}`;
+      parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / 1400px 100% ${backgroundColor || '#000'}`;
       onePicture = true;
-      parentBlock.style.zoom = '80%';
     }
 
     if (type && type === 'with_discount' && contentEl.querySelector('ul')) {
