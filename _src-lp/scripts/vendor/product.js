@@ -32,6 +32,22 @@ export default class ProductPrice {
     mobileios: 'com.bitdefender.iosprotection',
     dip: 'com.bitdefender.dataprivacy',
     dipm: 'com.bitdefender.dataprivacy',
+    ts_i: "com.bitdefender.tsmd.v2",
+    ts_f: "com.bitdefender.tsmd.v2",
+    ps_i: "com.bitdefender.premiumsecurity.v2",
+    ps_f: "com.bitdefender.premiumsecurity.v2",
+    us_i: "com.bitdefender.ultimatesecurityeu.v2",
+    us_i_m: "com.bitdefender.ultimatesecurityeu.v2",
+    us_f: "com.bitdefender.ultimatesecurityeu.v2",
+    us_f_m: "com.bitdefender.ultimatesecurityeu.v2",
+    us_pi: "com.bitdefender.ultimatesecurityus.v2",
+    us_pi_m: "com.bitdefender.ultimatesecurityus.v2",
+    us_pf: "com.bitdefender.ultimatesecurityus.v2",
+    us_pf_m: "com.bitdefender.ultimatesecurityus.v2",
+    us_pie: "com.bitdefender.ultimatesecurityplusus.v2",
+    us_pie_m: "com.bitdefender.ultimatesecurityplusus.v2",
+    us_pfe: "com.bitdefender.ultimatesecurityplusus.v2",
+    us_pfe_m: "com.bitdefender.ultimatesecurityplusus.v2"
   }
 
   #locale;
