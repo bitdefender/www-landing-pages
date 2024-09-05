@@ -2,6 +2,10 @@
 padding-bottom: 0;
 }
 
+.new-prod-boxes-container .await-loader{
+    min-height: 2rem;
+}
+
 .new-prod-boxes-container.subtitle{
     margin-bottom: -20px;
 }
@@ -117,7 +121,7 @@ flex-direction: column;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle {
-    min-height: 35px;
+    min-height: 70px;
     font-size: 14px;
     font-family: Arial, sans-serif;
     margin-bottom: 0;
