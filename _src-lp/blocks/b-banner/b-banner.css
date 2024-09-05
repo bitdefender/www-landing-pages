@@ -324,11 +324,10 @@
   background-color: #22ac3b;
   text-align: center;
   color: #fff;
-  padding: 10px 0;
+  padding: 0 10px;
   font-weight: 600;
   text-decoration: none;
   font-size: 14px;
-  line-height: 0;
   width: 108%;
   margin-left: -10px;
 }
@@ -471,6 +470,7 @@
     right: 0;
     top: 0;
     margin: 15px auto;
+    padding-bottom: 25px;
     position: absolute;
     display: block;
   }
