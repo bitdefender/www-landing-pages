@@ -121,7 +121,7 @@ flex-direction: column;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle {
-    min-height: 70px;
+    min-height: 35px;
     font-size: 14px;
     font-family: Arial, sans-serif;
     margin-bottom: 0;
@@ -503,5 +503,9 @@ content: "";
 @media (width >= 1173px) {
     .new-prod-boxes-container.width-small .block .prod_box .inner_prod_box {
         width: 30%;
+    }
+    
+    .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle{
+        min-height: 70px;
     }
 }
