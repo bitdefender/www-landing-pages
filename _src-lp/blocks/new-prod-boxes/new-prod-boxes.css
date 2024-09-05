@@ -492,7 +492,4 @@
   .new-prod-boxes-container.width-small .block .prod_box .inner_prod_box {
     width: 30%;
   }
-  .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle {
-    min-height: 70px;
-  }
 }
