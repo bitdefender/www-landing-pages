@@ -1185,6 +1185,7 @@ async function loadPage() {
     });
   }
 
+  // in the drafts folder adobe target is not loaded, so the price logic should be executed
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
   if (!isPageNotInDraftsFolder) {
     initializeProductsPriceLogic();
