@@ -22,7 +22,7 @@
   background-color: white;
 }
 .c-progress-section-container.blue-bar .progress-bar--first {
-  background: #006EFF;
+  background: #006eff;
   color: white;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .c-progress-section-container.c-progress-new2024 .inner-wrapper {
-  background: #F8F8F8;
+  background: #f8f8f8;
   border: 0 none;
   border-radius: 15px;
   padding: 20px;
@@ -123,6 +123,9 @@
 @media screen and (width >= 767px) {
   .c-progress-section-container .inner-wrapper .svg-icon {
     display: block;
+  }
+  .c-progress-section-container.affiliate .block div {
+    justify-content: space-between !important;
   }
 }
 @media screen and (width >= 989px) {
