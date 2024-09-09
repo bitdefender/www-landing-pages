@@ -1,0 +1,165 @@
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../../../styles/fonts/ibm-plex-sans-300.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../../../styles/fonts/ibm-plex-sans-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../../../styles/fonts/ibm-plex-sans-500.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+body.creators main {
+  background: linear-gradient(to bottom, #F6FCFF, white);
+}
+
+main .section {
+  width: 100%;
+  position: relative;
+  padding: 32px 0;
+  overflow: hidden;
+}
+
+main .section.py-1 {
+  padding: 0;
+}
+
+main .section.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+.creators h1 {
+  margin: 0 !important;
+}
+
+.creators .creators-block.block>div h3 {
+  margin: 0 !important;
+}
+
+.creators .creators-block.block>div:nth-child(2)>div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)) !important;
+  grid-gap: 15px !important;
+}
+
+.creators .creators-block.block>div:nth-child(2) .creator-box {
+  width: 205px !important;
+  height: 300px !important;
+  padding: 16px 15px !important;
+}
+
+.creators-block.block>div:nth-child(2) .creator-box>div:nth-child(1) {
+  bottom: 58px !important;
+}
+
+.creators-block.block>div:nth-child(2) .creator-box>div:nth-child(1) img {
+  top: -2px;
+}
+
+.creator-cards .four-cards > ul > li p {
+  font-size: 16px !important;
+}
+
+.creator-money-back .money-back > ul > li h4 {
+  margin: 0;
+}
+
+.qa-creators .questions-answers-item .question h4 em {
+  font-style: normal !important;
+}
+
+.creators .columns-container a.button {
+  height: auto !important;
+  padding: 10px 20px !important;
+}
+
+.creators .columns-container a.button:hover {
+  background-color: #D70000 !important;
+} 
+
+.creators-block.block>div:nth-child(3) a.button:any-link {
+  height: auto !important;
+  padding: 10px 20px !important;
+}
+
+.creators-block.block>div:nth-child(3) a.button:any-link:hover {
+  background-color: #D70000 !important;
+}
+
+.creator-cards .default-content-wrapper a.button:any-link {
+  height: auto !important;
+  padding: 10px 20px !important;
+}
+
+.creator-cards .default-content-wrapper a.button:any-link:hover {
+  background-color: #D70000 !important;
+}
+
+.creator-money-back .money-back > ul > li a {
+  height: auto !important;
+  padding: 10px 20px !important;
+}
+
+.creator-money-back .money-back > ul > li a:hover {
+  background-color: #D70000 !important;
+}
+
+@media (width >= 992px) {
+  main .section {
+    padding: 48px 0;
+  }
+
+  .creators .default-content-wrapper h2 {
+    font: normal normal 300 60px/69px "IBM Plex Sans", sans-serif;
+  }
+
+  .creators.creators-block-container .creators-block-wrapper {
+    padding: 20px;
+  }
+}
+
+@media (width >= 900px) {
+  .creators-block-wrapper {
+    padding: 0 50px !important;
+  }
+  .columns-wrapper {
+    max-width: 1300px !important;
+    padding: 0 20px !important;
+    margin: 0 auto !important;
+}
+}
+
+@media (width <= 525px) {
+  .creators .creators-block.block>div:nth-child(2) .creator-box {
+      width: 100% !important;
+      height: 120vw !important;
+  }
+}
+
+@media (width <= 1320px) {
+  .creators-block-wrapper {
+      max-width: 1300px;
+      padding: 0 20px;
+      margin: 8px;
+  }
+}
+
+@media (width >= 1600px) {
+  .columns-wrapper {
+      max-width: 1332px !important;
+      padding: 0 50px !important;
+  }
+}
