@@ -395,6 +395,10 @@
     line-height: var(--heading-font-size-l);
     margin-top: 1em;
   }
+  .section.banner-container.full-width-headings .banner h1 {
+    margin-right: -40vw;
+    border-bottom: 0;
+  }
   .section.lp-brand .banner p {
     width: 100%;
     font-size: var(--body-font-size-xs);
