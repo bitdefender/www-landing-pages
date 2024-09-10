@@ -397,6 +397,7 @@
   }
   .section.banner-container.full-width-headings .banner h1 {
     margin-right: -40vw;
+    border-bottom: 0;
   }
   .section.lp-brand .banner p {
     width: 100%;
