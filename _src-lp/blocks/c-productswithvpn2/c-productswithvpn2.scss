@@ -40,10 +40,6 @@
   margin-top: -10em;
 }
 
-.c-productswithvpn2-container.no-boxes .c-productswithvpn2 > div img:first-of-type {
-  display: none;
-}
-
 .c-productswithvpn2 > div h2 {
   font-size: 20px;
   margin: 0;
@@ -396,6 +392,10 @@
   width: 145px;
   height: auto;
   margin-top: -8em;
+}
+
+.c-productswithvpn2-container.no-boxes .c-productswithvpn2 > div img:first-of-type {
+  display: none;
 }
 
 /* 2st box */
