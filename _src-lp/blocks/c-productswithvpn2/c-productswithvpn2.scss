@@ -3,6 +3,10 @@
     padding-top: 9em!important;
 }
 
+.c-productswithvpn2-container.no-boxes {
+  padding-top: 3.5em !important;
+}
+
 .c-productswithvpn2 {
   display: flex;
   justify-content: center;
@@ -34,6 +38,10 @@
   width: 270px;
   height: auto;
   margin-top: -10em;
+}
+
+.c-productswithvpn2-container.no-boxes .c-productswithvpn2 > div img:first-of-type {
+  display: none;
 }
 
 .c-productswithvpn2 > div h2 {
