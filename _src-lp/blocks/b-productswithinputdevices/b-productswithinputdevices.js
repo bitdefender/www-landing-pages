@@ -71,7 +71,7 @@ export default function decorate(block) {
   const yearText = parent2ndDiv.querySelector('p:nth-child(2)').innerText;
   const oldpriceText = parent2ndDiv.querySelector('p:nth-child(3)').innerText;
   const savingText = parent2ndDiv.querySelector('p:nth-child(4)').innerText;
-  let buylinkText = parent2ndDiv.querySelector('p:nth-child(5)').innerText;
+  const buylinkText = parent2ndDiv.querySelector('p:nth-child(5)').innerText;
   const taxesText = parent2ndDiv.querySelector('p:nth-child(6)').innerText;
 
   let devicesMin = 5;
