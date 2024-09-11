@@ -173,7 +173,7 @@ export default function decorate(block) {
     });
 
     // change directly input number
-    block.querySelector('#devicesInput').addEventListener('change', (event) => {
+    block.querySelector('#devicesInput').addEventListener('input', (event) => {
       const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
       if (devicesSelector.length > 0) {
         devicesSelector.forEach((selector) => {
