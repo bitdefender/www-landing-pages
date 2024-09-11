@@ -71,7 +71,7 @@ export default function decorate(block) {
   const yearText = parent2ndDiv.querySelector('p:nth-child(2)').innerText;
   const oldpriceText = parent2ndDiv.querySelector('p:nth-child(3)').innerText;
   const savingText = parent2ndDiv.querySelector('p:nth-child(4)').innerText;
-  const buylinkText = parent2ndDiv.querySelector('p:nth-child(5)').innerText;
+  let buylinkText = parent2ndDiv.querySelector('p:nth-child(5)').innerText;
   const taxesText = parent2ndDiv.querySelector('p:nth-child(6)').innerText;
 
   let devicesMin = 5;
@@ -121,7 +121,7 @@ export default function decorate(block) {
     inputFieldset.classList = 'd-flex';
     inputFieldset.innerHTML += '<button>-</button>';
     inputFieldset.innerHTML += '<label for="devicesInput" style="display: none;">Number of Devices</label>';
-    inputFieldset.innerHTML += `<input type="text" readonly name="devicesInput" min=${devicesMin}" max="${devicesMax}" value="${devicesSelected}" id="devicesInput">`;
+    inputFieldset.innerHTML += `<input type="text" name="devicesInput" min=${devicesMin}" max="${devicesMax}" value="${devicesSelected}" id="devicesInput">`;
     inputFieldset.innerHTML += '<button>+</button>';
     // add fieldset
     const tableEl = parent1ndDiv.querySelector('table');
@@ -140,6 +140,7 @@ export default function decorate(block) {
     const tableElMailboxes2 = tableEl.querySelector('strong:nth-child(3) em');
     updateTableElement(tableElMailboxes2, devicesSelected, 150);
 
+    // click on buttons
     block.querySelectorAll('fieldset button').forEach((item) => {
       item.addEventListener('click', () => {
         const action = item.textContent;
@@ -171,6 +172,17 @@ export default function decorate(block) {
       });
     });
 
+    // change directly input number
+    block.querySelector('#devicesInput').addEventListener('change', (event) => {
+      const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
+      if (devicesSelector.length > 0) {
+        devicesSelector.forEach((selector) => {
+          selector.value = event.target.value;
+          selector.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+    });
+
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
@@ -191,7 +203,7 @@ export default function decorate(block) {
         if (reverseMonthlyTextWithPrice) {
           pricesDiv.innerHTML += `<div class="blue-monthly-tag">
                                     <span style="color: white; font-size: 24px" class="prod-newprice newprice-${onSelectorClass}"></span>
-                                    <p style="color: white;" class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} 
+                                    <p style="color: white;" class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText}
                                       <span class="oldprice-${onSelectorClass}"></span>
                                     </p>
                                     <p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>
@@ -243,6 +255,8 @@ export default function decorate(block) {
         pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
         pricesDiv.innerHTML += `<p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
       }
+
+      // buylinkText = buylinkText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
       pricesDiv.innerHTML += `<p class="percent percent-${onSelectorClass}" style="display: none;"></p>`;
       pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${buylinkText}</a></div>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
@@ -265,16 +279,6 @@ export default function decorate(block) {
 
         const breakDiv = document.createElement('b');
         table.before(breakDiv);
-
-        const selectElement = block.querySelector('#selectYears');
-        selectElement.addEventListener('change', (event) => {
-          const triggerValue = event.target.value;
-          if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
-            const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
-            fakeSelector.value = triggerValue;
-            fakeSelector.dispatchEvent(new Event('change'));
-          }
-        });
       }
     });
   }
