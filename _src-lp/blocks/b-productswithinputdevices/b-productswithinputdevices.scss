@@ -71,11 +71,11 @@
   margin-bottom: 10px;
 }
 
-.b-productswithinputdevices-container.bulina-only-boxes .prod-percent.green_bck_circle {
+.b-productswithinputdevices-container.bulina-only-boxes .prod-percent.green_bck_circle, .b-productswithinputdevices-container .prices_box .prod-percent.green_bck_circle {
   display: none !important;
 }
 
-.b-productswithinputdevices-container.bulina-only-boxes .b-productswithinputdevices .prod-percent.green_bck_circle {
+.b-productswithinputdevices-container.bulina-only-boxes .b-productswithinputdevices .prod-percent.green_bck_circle, .b-productswithinputdevices-container.bulina-only-boxes .prices_box .prod-percent.green_bck_circle  {
   display: flex !important;
 }
 
