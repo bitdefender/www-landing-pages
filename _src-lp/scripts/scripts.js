@@ -891,6 +891,17 @@ function initSelectors(pid) {
         onSelectorLoad() {
           sendAnalyticsProducts(this);
           try {
+            const checkoutLinks = {
+              ultsec: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.ultimatesecurityus&payment_period=10d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ultsec',
+              ps: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.premiumsecurity&payment_period=10d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ps',
+              av: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.cl.av&payment_period=3d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-av',
+              tsmd: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.cl.tsmd&payment_period=5d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ts',
+            };
+
+            if (window.location.href.includes('/lp-brand-4pr-1/')) {
+              this.buy_link = checkoutLinks[this.config.product_id];
+            }
+
             const fp = this;
             const paramCoupon = getParam('coupon');
 
