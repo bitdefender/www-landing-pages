@@ -883,7 +883,7 @@ function initSelectors(pid) {
         selected_years: prodYears,
         users_class: `users_${onSelectorClass}_fake`,
         years_class: `years_${onSelectorClass}_fake`,
-        method: 'GET',
+        method: 'POST',
 
         ...(pid === 'ignore' ? { ignore_promotions: true } : {}),
         ...(pid !== false && pid !== 'ignore' ? { extra_params: { pid } } : {}),
