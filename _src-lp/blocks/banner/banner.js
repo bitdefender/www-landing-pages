@@ -110,7 +110,7 @@ export default function decorate(block) {
       const greenPillBox = document.createElement('div');
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
-        let link = text.querySelector('a');
+        const link = text.querySelector('a');
         (link || text).innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
       }
 
