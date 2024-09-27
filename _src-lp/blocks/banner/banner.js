@@ -108,7 +108,6 @@ export default function decorate(block) {
     if (aliasTr && aliasTr.textContent.trim() === 'green_pill') {
       const [, text] = [...table.querySelectorAll('tr')];
       const greenPillBox = document.createElement('div');
-      console.log('text ', table)
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
         let link = text.querySelector('a');
