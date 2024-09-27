@@ -108,9 +108,11 @@ export default function decorate(block) {
     if (aliasTr && aliasTr.textContent.trim() === 'green_pill') {
       const [, text] = [...table.querySelectorAll('tr')];
       const greenPillBox = document.createElement('div');
+      console.log('text ', table)
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
-        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+        let link = text.querySelector('a');
+        (link || text).innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
       }
 
       greenPillBox.id = 'greenPillBox';
