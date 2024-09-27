@@ -313,6 +313,14 @@
   color: inherit;
 }
 
+.section.banner-container.new-2024.v2 p a {
+  text-decoration: underline;
+}
+
+.section.banner-container #buyBtnGreenCircleBox a {
+  margin-right: 10px;
+}
+
 .section.banner-container #greenPillBox:hover, .section.banner-container #greenPillBox:hover a {
   opacity: 0.9;
   text-decoration: none;
@@ -331,14 +339,6 @@
 
 .section.banner-container #buyBtnGreenCircleBox {
   align-items: center;
-}
-
-.section.banner-container.new-2024.v2 p a {
-  text-decoration: underline;
-}
-
-.section.banner-container #buyBtnGreenCircleBox a {
-  margin-right: 10px;
 }
 
 .section.banner-container #buyBtnGreenCircleBox span.green_circle_box {
