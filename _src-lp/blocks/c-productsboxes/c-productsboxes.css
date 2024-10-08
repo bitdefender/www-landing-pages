@@ -220,6 +220,27 @@
   top: 0;
 }
 
+.c-productsboxes #formBox input {
+  width: 94%;
+  text-align: center;
+  margin: 5px auto;
+  padding: 13px 3%;
+}
+
+.c-productsboxes #formBox .form_err {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.c-productsboxes #captchaBox {
+  display: flex;
+  justify-content: center;
+}
+
+.c-productsboxes #captchaBox .grecaptcha-badge {
+  margin: 10px auto;
+}
+
 /* for mobile */
 @media (width >= 1450px) {
   .c-productsboxes-container.has4boxes .c-productsboxes-wrapper {
