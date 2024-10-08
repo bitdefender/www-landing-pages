@@ -93,7 +93,7 @@ export default function decorate(block) {
 
         pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
         pricesBox.innerHTML += `<div class="buy_box">
-          <a class="red-buy-button" href="#c-productsboxes" referrerpolicy="no-referrer-when-downgrade">Get it now</a>
+          <a class="red-buy-button" href="#c-productsboxes" referrerpolicy="no-referrer-when-downgrade">Get it now <span class="save">| Save 70%</span></a>
         </div>`;
       } else {
         if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
