@@ -81,7 +81,6 @@ export default class ZuoraNLClass {
 
   static async getProductVariations(productId, campaign) {
     const endpoint = new URL('/v1/info/variations/price', this.zuoraConfig.endpoint);
-    console.log('endpoint2 ', endpoint)
     endpoint.searchParams.set('product_id', productId);
     if (campaign) endpoint.searchParams.set('campaign', campaign);
     endpoint.searchParams.set('country_code', 'NL');
