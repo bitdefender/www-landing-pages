@@ -4,11 +4,86 @@ import { updateProductsList } from '../../scripts/utils.js';
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, textBulina,
+    products, priceType, textBulina, individual, 
   } = metaData;
+  console.log("aici")
+  console.log(individual)
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
+
+
+  // if(individual){
+  //   let controlCardsType = document.createElement('div');
+  //   controlCardsType.innerHTML="<h3>asd</h3>"
+  //   const wrapper = document.getElementsByClassName("new-prod-boxes-wrapper")[0];
+  //   console.log(wrapper)
+  //   wrapper.prepend(controlCardsType)
+  // }
+
+  let defaultContentWrapperElements = block.closest('.section').querySelector('.default-content-wrapper')?.children;
+  let individualSwitchText;
+  let familySwitchText;
+  if (defaultContentWrapperElements) {
+    [...defaultContentWrapperElements].forEach((element) => {
+      if (element.innerHTML.includes('&lt;slider-1 ')) {
+        element.innerHTML = element.innerHTML.replace('&lt;slider-1 ', '');
+        individualSwitchText = element.innerHTML;
+        element.remove();
+      }
+      if (element.innerHTML.includes('&lt;slider-2 ')) {
+        element.innerHTML = element.innerHTML.replace('&lt;slider-2 ', '');
+        familySwitchText = element.innerHTML;
+        element.remove();
+      }
+    });
+  }
+
+  let switchBox = document.createElement('div');
+  if (individualSwitchText && familySwitchText) {
+    console.log(individualSwitchText)
+    switchBox.classList.add('switchBox');
+    switchBox.innerHTML = `
+      <label class="switch">
+        <input type="checkbox" id="switchCheckbox">
+        <span class="slider round">
+
+        </span>
+        <span class="label right">${individualSwitchText}</span>
+        <span class="label left">${familySwitchText}</span>
+      </label>
+    `;
+
+    // Get the checkbox inside the switchBox
+    let switchCheckbox = switchBox.querySelector('#switchCheckbox');
+    // Add an event listener to the checkbox
+    switchCheckbox.addEventListener('change', () => {
+      if (switchCheckbox.checked) {
+        let familyBoxes = block.querySelectorAll('.family-box');
+        familyBoxes.forEach((box) => {
+          box.style.display = 'block';
+        });
+
+        let individualBoxes = block.querySelectorAll('.individual-box');
+        individualBoxes.forEach((box) => {
+          box.style.display = 'none';
+        });
+      } else {
+        let familyBoxes = block.querySelectorAll('.family-box');
+        familyBoxes.forEach((box) => {
+          box.style.display = 'none';
+        });
+
+        let individualBoxes = block.querySelectorAll('.individual-box');
+        individualBoxes.forEach((box) => {
+          box.style.display = 'block';
+        });
+      }
+    });
+  }
+  if (individualSwitchText && familySwitchText) {
+    block.parentNode.insertBefore(switchBox, block);
+  }
 
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
@@ -17,7 +92,7 @@ export default function decorate(block) {
       const buyLinkText = buyLink.innerText.trim();
 
       [...block.children][key].innerHTML = '';
-
+  
       // create procent - bulina
       let divBulina = '';
       let vpnInfoContent = '';
@@ -124,10 +199,10 @@ export default function decorate(block) {
       if (!percentOff) {
         percentOffFlag = false;
       }
-
+      console.log(productsAsList.length)
       block.innerHTML += `
 
-        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key}">
+        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 ? 'individual-box' : 'family-box') : ''}">
           <div class="inner_prod_box">
           ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
