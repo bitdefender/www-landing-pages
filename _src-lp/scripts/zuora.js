@@ -25,7 +25,11 @@ export default class ZuoraNLClass {
     av: 'com.bitdefender.cl.av',
     is: 'com.bitdefender.cl.is',
     tsmd: 'com.bitdefender.cl.tsmd',
+    ts_i: 'com.bitdefender.tsmd.v2',
+    ts_f: 'com.bitdefender.tsmd.v2',
     fp: 'com.bitdefender.fp',
+    ps_i: 'com.bitdefender.ultimatesecurityeu.v2',
+    ps_f: 'com.bitdefender.ultimatesecurityeu.v2',
     ps: 'com.bitdefender.premiumsecurity',
     psm: 'com.bitdefender.premiumsecurity',
     psp: 'com.bitdefender.premiumsecurityplus',
@@ -77,6 +81,7 @@ export default class ZuoraNLClass {
 
   static async getProductVariations(productId, campaign) {
     const endpoint = new URL('/v1/info/variations/price', this.zuoraConfig.endpoint);
+    console.log('endpoint2 ', endpoint)
     endpoint.searchParams.set('product_id', productId);
     if (campaign) endpoint.searchParams.set('campaign', campaign);
     endpoint.searchParams.set('country_code', 'NL');
@@ -111,7 +116,6 @@ export default class ZuoraNLClass {
     const yearsNo = prod[2];
 
     let payload = (await this.getProductVariations(this.productId[id], campaign))?.payload;
-
     if (!payload || payload.length === 0) {
       return null;
     }
