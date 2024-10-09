@@ -162,6 +162,11 @@ export default function decorate(block) {
 
       if (isCampaign === 'jamestowntribe') {
         prodBox.querySelector('div.buybtn_box')?.remove();
+        const saveBox = document.createElement('div');
+        saveBox.innerHTML = 'Save 70%';
+        saveBox.className = 'tag';
+        const tag = prodBox.querySelector('.tag');
+        prodBox.replaceChild(saveBox, tag);
       }
 
       /// ///////////////////////////////////////////////////////////////////////
