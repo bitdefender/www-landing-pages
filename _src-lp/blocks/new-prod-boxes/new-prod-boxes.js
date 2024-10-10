@@ -197,7 +197,6 @@ export default function decorate(block) {
       }
 
       block.innerHTML += `
-
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}">
 
           <div class="inner_prod_box">
@@ -227,8 +226,8 @@ export default function decorate(block) {
 }
 
         ${billed ? ` <div class="billed">
-            ${billed.innerText.includes('0%') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
-          </div>` : billed.innerHTML}
+            ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
+          </div>` : billed.innerText}
 
             ${vpnInfoContent && vpnInfoContent}
             ${buyLinkText && `<div class="buy-btn">
