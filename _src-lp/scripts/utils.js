@@ -271,7 +271,8 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
 // DEX-17703 - replacing VAT INFO text for en regions
 export function updateVATinfo(countryCode, selector) {
   const skipVATinfo = getMetadata('skip-vatinfo-logic');
-  if (skipVATinfo && skipVATinfo === 'true') return;
+  if ((skipVATinfo && skipVATinfo === 'true') || getDefaultSection() === 'business')
+    return;
 
   const prodloadElements = document.querySelectorAll(selector);
   prodloadElements.forEach((element) => {
