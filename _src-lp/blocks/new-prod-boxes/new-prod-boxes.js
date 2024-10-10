@@ -42,10 +42,10 @@ export default function decorate(block) {
           <span class="label right">
           ${parts[0]}
           <hr>
-            <p>${parts[1]}</p> 
+            <p>${parts[1]}</p>
           </span>
-          
-          <span class="label left"> 
+
+          <span class="label left">
           ${partsFamily[0]}
           <hr>
           <p>${partsFamily[1]}</p>
@@ -195,8 +195,8 @@ export default function decorate(block) {
       if (!percentOff) {
         percentOffFlag = false;
       }
-      block.innerHTML += `
 
+      block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}">
 
           <div class="inner_prod_box">
@@ -225,7 +225,10 @@ export default function decorate(block) {
               </div>`
 }
 
-            ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>` : ''}
+        ${billed ? ` <div class="billed">
+            ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
+          </div>` : billed.innerText}
+
             ${vpnInfoContent && vpnInfoContent}
             ${buyLinkText && `<div class="buy-btn">
               <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
