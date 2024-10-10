@@ -226,11 +226,11 @@ export default function decorate(block) {
               </div>`
 }
 
-          ${billed ? `
-            <div class="billed">
-              ${billed.innerText.includes('0%') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
-            </div>`
-          : billed.innerHTML}
+${billed ? `
+  <div class="billed">
+    ${billed.innerText.includes('0%') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
+  </div>`
+: billed.innerHTML}
 
             ${vpnInfoContent && vpnInfoContent}
             ${buyLinkText && `<div class="buy-btn">
