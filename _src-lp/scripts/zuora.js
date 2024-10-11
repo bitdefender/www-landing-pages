@@ -25,7 +25,11 @@ export default class ZuoraNLClass {
     av: 'com.bitdefender.cl.av',
     is: 'com.bitdefender.cl.is',
     tsmd: 'com.bitdefender.cl.tsmd',
+    ts_i: 'com.bitdefender.tsmd.v2',
+    ts_f: 'com.bitdefender.tsmd.v2',
     fp: 'com.bitdefender.fp',
+    ps_i: 'com.bitdefender.ultimatesecurityeu.v2',
+    ps_f: 'com.bitdefender.ultimatesecurityeu.v2',
     ps: 'com.bitdefender.premiumsecurity',
     psm: 'com.bitdefender.premiumsecurity',
     psp: 'com.bitdefender.premiumsecurityplus',
@@ -111,7 +115,6 @@ export default class ZuoraNLClass {
     const yearsNo = prod[2];
 
     let payload = (await this.getProductVariations(this.productId[id], campaign))?.payload;
-
     if (!payload || payload.length === 0) {
       return null;
     }

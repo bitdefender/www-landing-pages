@@ -271,7 +271,9 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
 // DEX-17703 - replacing VAT INFO text for en regions
 export function updateVATinfo(countryCode, selector) {
   const skipVATinfo = getMetadata('skip-vatinfo-logic');
-  if (skipVATinfo && skipVATinfo === 'true') return;
+  if ((skipVATinfo && skipVATinfo === 'true') || getDefaultSection() === 'business') {
+    return;
+  }
 
   const prodloadElements = document.querySelectorAll(selector);
   prodloadElements.forEach((element) => {
@@ -302,10 +304,10 @@ export function updateVATinfo(countryCode, selector) {
   });
 }
 
-export function formatPrice(price, currency, region) {
+export function formatPrice(price, currency) {
   const urlParams = new URLSearchParams(window.location.search);
   const forceLocale = urlParams.get('locale'); // TODO: harcoded param remove
-  const ianaRegionFormat = forceLocale || IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
+  const ianaRegionFormat = forceLocale || 'en-US';
   return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
 }
 

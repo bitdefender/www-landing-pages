@@ -5,20 +5,22 @@ export default function decorate(block) {
   const { product, buttonText, buttonLink } = metaData;
   const [, iconSubtitle, , subtitle, , columnTitle, columnSubtitle, columns] = block.children;
 
-  const [prodName, prodUsers, prodYears] = product.split('/');
-  const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+  if (product) {
+    const [prodName, prodUsers, prodYears] = product.split('/');
+    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
-  const buybtn = document.createElement('span');
-  if (buttonLink) {
-    buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}"><strong>${buttonText}</strong></a>`;
-  } else {
-    buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#"><strong>${buttonText}</strong></a>`;
+    const buybtn = document.createElement('span');
+    if (buttonLink) {
+      buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}"><strong>${buttonText}</strong></a>`;
+    } else {
+      buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#"><strong>${buttonText}</strong></a>`;
+    }
+
+    columns.classList.add('columns-class');
+    subtitle.classList.add('subtitle');
+    columnTitle.classList.add('columns-title');
+    columnSubtitle.classList.add('columns-subtitle');
+    if (iconSubtitle.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
+    block.appendChild(buybtn);
   }
-
-  columns.classList.add('columns-class');
-  subtitle.classList.add('subtitle');
-  columnTitle.classList.add('columns-title');
-  columnSubtitle.classList.add('columns-subtitle');
-  if (iconSubtitle.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
-  block.appendChild(buybtn);
 }
