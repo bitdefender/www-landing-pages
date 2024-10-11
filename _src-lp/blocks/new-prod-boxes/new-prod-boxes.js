@@ -6,7 +6,7 @@ export default function decorate(block) {
   const {
     products, priceType, textBulina, individual,
   } = metaData;
-  const test= 3;
+
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
@@ -42,10 +42,10 @@ export default function decorate(block) {
           <span class="label right">
           ${partsIndividual[0]}
           <hr>
-            <p>${partsIndividual[1]}</p> 
+            <p>${partsIndividual[1]}</p>
           </span>
-          
-          <span class="label left"> 
+
+          <span class="label left">
           ${partsFamily[0]}
           <hr>
           <p>${partsFamily[1]}</p>
@@ -167,10 +167,10 @@ export default function decorate(block) {
           }
 
           if (firstTdContent.indexOf('?pill') !== -1) {
-            let pillText = firstTdContent.match(/\?pill (\w+)/);
-            let iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            const pillText = firstTdContent.match(/\?pill (\w+)/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
             if (pillText) {
-              let icon = tdList[0].querySelector('span');
+              const icon = tdList[0].querySelector('span');
               const pillElement = document.createElement('span');
               pillElement.classList.add('blue-pill');
               pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
@@ -184,8 +184,6 @@ export default function decorate(block) {
               }
             }
           }
-        
-
           if (firstTdContent.indexOf('-x-') !== -1) {
             liClass += ' nocheck';
             firstTdContent = firstTdContent.replace('-x-', '');
@@ -215,8 +213,8 @@ export default function decorate(block) {
       if (!percentOff) {
         percentOffFlag = false;
       }
-      block.innerHTML += `
 
+      block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}">
 
           <div class="inner_prod_box">
@@ -245,7 +243,10 @@ export default function decorate(block) {
               </div>`
 }
 
-            ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>` : ''}
+        ${billed ? ` <div class="billed">
+            ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
+          </div>` : billed.innerText}
+
             ${vpnInfoContent && vpnInfoContent}
             ${buyLinkText && `<div class="buy-btn">
               <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
