@@ -14,13 +14,14 @@
 }
 .new-prod-boxes-container .switchBox {
   text-align: center;
-  padding-bottom: 75px;
+  padding-bottom: 50px;
+  margin-top: -20px;
 }
 .new-prod-boxes-container .switchBox .switch {
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 440px;
+  width: 240px;
   height: 54px;
   background-color: #016DFF;
   border-radius: 22px;
@@ -32,7 +33,7 @@
   position: absolute;
   content: "";
   height: 50px;
-  width: 220px;
+  width: 120px;
   left: 2px;
   bottom: 2px;
   background-color: white;
@@ -40,7 +41,7 @@
   transition: all 0.4s;
 }
 .new-prod-boxes-container .switchBox .switch input:checked + .slider {
-  transform: translateX(217px);
+  transform: translateX(115px);
 }
 .new-prod-boxes-container .prod_box .inner_prod_box hr {
   border: 1px solid #D1D1D1;
@@ -522,7 +523,7 @@
   background-size: contain;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) span {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content {
   position: absolute;
   background-color: white;
   padding: 10px;
@@ -536,7 +537,7 @@
   display: none;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) span::before {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content::before {
   content: "";
   position: absolute;
   left: 17px;
@@ -546,7 +547,7 @@
   border-color: white transparent transparent;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover span {
+.new-prod-boxes-container .new-prod-boxes .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover .white-pill-content {
   display: block;
 }
 
@@ -580,7 +581,44 @@
   min-height: 7em;
 }
 
+.new-prod-boxes-container .blue-pill {
+  background-color: #026DFF;
+  padding: 2.5px 6.7px;
+  border-radius: 20px;
+  color: white;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0px;
+  font-weight: bold;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.new-prod-boxes-container .blue-pill .icon {
+  position: relative;
+  top: 1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-right: 0;
+}
+
+.new-prod-boxes-container .blue-pill svg {
+  width: 9px;
+  height: 9px;
+}
+
 @media (width >= 768px) {
+  .new-prod-boxes-container .switchBox .switch {
+    width: 440px;
+  }
+  .new-prod-boxes-container .switchBox .slider {
+    width: 220px;
+  }
+  .new-prod-boxes-container .switchBox .switch input:checked + .slider {
+    transform: translateX(215px);
+  }
   .new-prod-boxes-container .block {
     flex-direction: row;
     padding: 0;

@@ -6,7 +6,7 @@ export default function decorate(block) {
   const {
     products, priceType, textBulina, individual,
   } = metaData;
-
+  const test= 3;
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
@@ -31,7 +31,7 @@ export default function decorate(block) {
 
     const switchBox = document.createElement('div');
     if (individualSwitchText && familySwitchText) {
-      const parts = individualSwitchText.split('|');
+      const partsIndividual = individualSwitchText.split('|');
       const partsFamily = familySwitchText.split('|');
       switchBox.classList.add('switchBox');
       switchBox.innerHTML = `
@@ -40,9 +40,9 @@ export default function decorate(block) {
           <span class="slider round">
           </span>
           <span class="label right">
-          ${parts[0]}
+          ${partsIndividual[0]}
           <hr>
-            <p>${parts[1]}</p>
+            <p>${partsIndividual[1]}</p> 
           </span>
 
           <span class="label left">
@@ -146,7 +146,7 @@ export default function decorate(block) {
           let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
 
           // Extract the content of the second <td> (if present) inside a <span>
-          const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span>${tdList[1].innerHTML}</span>` : '';
+          const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span class="white-pill-content">${tdList[1].innerHTML}</span>` : '';
 
           // Create the <li> combining the first and second td content
           let liClass = '';
@@ -165,6 +165,26 @@ export default function decorate(block) {
             liClass += ' has_arrow_right';
             firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
           }
+
+          if (firstTdContent.indexOf('?pill') !== -1) {
+            let pillText = firstTdContent.match(/\?pill (\w+)/);
+            let iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            if (pillText) {
+              let icon = tdList[0].querySelector('span');
+              const pillElement = document.createElement('span');
+              pillElement.classList.add('blue-pill');
+              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
+              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
+              if (icon) {
+                let count = 0;
+                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
+                  count += 1;
+                  return (count === 2) ? '' : match;
+                });
+              }
+            }
+          }
+        
 
           if (firstTdContent.indexOf('-x-') !== -1) {
             liClass += ' nocheck';
