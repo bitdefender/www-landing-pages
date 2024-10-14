@@ -309,9 +309,7 @@ export function formatPrice(price, currency) {
   const forceLocale = urlParams.get('locale'); // TODO: harcoded param remove
   const ianaRegionFormat = forceLocale || 'en-US';
   const formatedVal = new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
-  if (ianaRegionFormat === 'en-au') {
-    return formatedVal.replace('$','A$');
-  }
+  if (ianaRegionFormat === 'en-au') return formatedVal.replace('$', 'A$');
 
   return formatedVal;
 }
