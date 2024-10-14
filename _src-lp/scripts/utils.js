@@ -305,13 +305,7 @@ export function updateVATinfo(countryCode, selector) {
 }
 
 export function formatPrice(price, currency) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const forceLocale = urlParams.get('locale'); // TODO: harcoded param remove
-  const ianaRegionFormat = forceLocale || 'en-US';
-  const formatedVal = new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
-  if (ianaRegionFormat === 'en-au') return formatedVal.replace('$', 'A$');
-
-  return formatedVal;
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(price);
 }
 
 // get max discount
