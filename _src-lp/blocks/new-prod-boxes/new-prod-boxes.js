@@ -6,7 +6,6 @@ export default function decorate(block) {
   const {
     products, priceType, textBulina, individual,
   } = metaData;
-  const test= 3;
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
@@ -167,10 +166,10 @@ export default function decorate(block) {
           }
 
           if (firstTdContent.indexOf('?pill') !== -1) {
-            let pillText = firstTdContent.match(/\?pill (\w+)/);
-            let iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            const pillText = firstTdContent.match(/\?pill (\w+)/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
             if (pillText) {
-              let icon = tdList[0].querySelector('span');
+              const icon = tdList[0].querySelector('span');
               const pillElement = document.createElement('span');
               pillElement.classList.add('blue-pill');
               pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
@@ -184,8 +183,6 @@ export default function decorate(block) {
               }
             }
           }
-        
-
           if (firstTdContent.indexOf('-x-') !== -1) {
             liClass += ' nocheck';
             firstTdContent = firstTdContent.replace('-x-', '');
