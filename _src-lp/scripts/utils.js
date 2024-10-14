@@ -3,7 +3,7 @@ import { Bundle } from './vendor/product.js';
 
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
-  [4, { locale: 'en-AU', label: 'australia' }],
+  [4, { locale: 'au-AU', label: 'australia' }],
   [5, { locale: 'de-DE', label: 'germany' }],
   [6, { locale: 'ro-RO', label: 'romania' }],
   [7, { locale: 'es-ES', label: 'spain' }],
