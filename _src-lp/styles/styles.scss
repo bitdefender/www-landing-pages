@@ -1423,6 +1423,23 @@ main .section.highlight {
   }
 }
 
+.bluetag {
+  font-size: var(--body-font-size-xs);
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  background-color: #026DFF;
+  display: inline-block;
+  border-radius: 20px;
+  padding: 6px 16px;
+  margin-bottom: 10px;
+  display: inline-flex;
+  gap: 5px;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;

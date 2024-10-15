@@ -92,6 +92,9 @@ export default function decorate(block) {
     });
   }
 
+  block.innerHTML = block.innerHTML.replace('[bluetag: ', '<span class="bluetag">');
+  block.innerHTML = block.innerHTML.replace(']', '</span>');
+
   if (imageVariation) {
     if (imageVariation === 'small') {
       const block2 = document.querySelector('.b-banner-container');
