@@ -230,16 +230,6 @@ export default function decorate(block) {
           `;
           selectElement.id = 'selectYears';
           selectorBox.appendChild(selectElement);
-
-          // Add an event listener for the 'change' event
-          selectElement.addEventListener('change', (event) => {
-            const triggerValue = event.target.value;
-            if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
-              const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
-              fakeSelector.value = triggerValue;
-              fakeSelector.dispatchEvent(new Event('change'));
-            }
-          });
         }
 
         pricesDiv.appendChild(selectorBox);
@@ -262,6 +252,17 @@ export default function decorate(block) {
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
 
       parent2ndDiv.appendChild(pricesDiv);
+
+      const selectElement = document.getElementById('selectYears');
+      // eslint-disable-next-line no-unused-expressions
+      selectElement && selectElement.addEventListener('change', (event) => {
+        const triggerValue = event.target.value;
+        if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
+          const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
+          fakeSelector.value = triggerValue;
+          fakeSelector.dispatchEvent(new Event('change'));
+        }
+      });
 
       /// ///////////////////////////////////////////////////////////////////////
       if (secondTemplate) {
