@@ -92,8 +92,7 @@ export default function decorate(block) {
     });
   }
 
-  block.innerHTML = block.innerHTML.replace('[bluetag: ', '<span class="bluetag">');
-  block.innerHTML = block.innerHTML.replace(']', '</span>');
+  block.innerHTML = block.innerHTML.replace(/\[bluetag:\s*([^\]]+)\]/g, '<span class="bluetag">$1</span>');
 
   if (imageVariation) {
     if (imageVariation === 'small') {
