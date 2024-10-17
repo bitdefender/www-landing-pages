@@ -907,8 +907,6 @@ function initSelectors(pid) {
 
             // DEX-17703 - replacing VAT INFO text for en regions
             showPrices(fp, false, null, onSelectorClass, paramCoupon);
-            if (getDefaultLanguage() === 'en' && fp.selected_variation.region_id) updateVATinfo(fp.selected_variation.region_id, `.buylink-${onSelectorClass}`);
-
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }

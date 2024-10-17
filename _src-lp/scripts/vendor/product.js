@@ -161,7 +161,7 @@ export default class ProductPrice {
         selected_years: this.#yearsNo,
         selected_variation: {
           product_id: this.#alias,
-          region_id: 22,
+          region_id: this.#locale === 'en-us' ? 8 : 22,
           variation_id: 0,
           platform_id: 16,
           price: pricing.total,
@@ -289,6 +289,7 @@ export class Locale {
       // Check for the target variable in localStorage
       const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
       let country;
+      let locale = null;
 
       if (cachedGeoData) {
         const geoData = JSON.parse(cachedGeoData);
@@ -310,8 +311,17 @@ export class Locale {
         }
       }
 
-      // Construct the locale string
-      const locale = `${language}-${country}`;
+      // fetch locale
+      const fetchLocale = `https://www.bitdefender.com/p-api/v1/countries/${country.toUpperCase()}/locales`;
+      fetch(fetchLocale).then(response => {
+        if (!response.ok) throw new Error('err ' + response.statusText);
+        return response.json();
+      }).then(data => {
+        locale = data[0].locale;
+      }).catch(error => {
+        console.error('ee', error);
+      });
+
       return locale;
     } catch (error) {
       console.error('Error fetching locale:', error);

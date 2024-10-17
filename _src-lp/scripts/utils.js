@@ -289,7 +289,7 @@ export function updateVATinfo(countryCode, selector) {
 
       vat2replace.forEach((text) => {
         let taxText = 'Sales tax included';
-        if (countryCode === '8') taxText = 'Plus applicable sales tax';
+        if (countryCode === 8) taxText = 'Plus applicable sales tax';
 
         if (prodloadElement.innerHTML.includes(text)) {
           const currentText = prodloadElement.innerHTML;
@@ -348,6 +348,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const { product_id: productId } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
+
+  if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(regionId, `.buylink-${onSelectorClass}`);
 
   let parentDiv = '';
 
