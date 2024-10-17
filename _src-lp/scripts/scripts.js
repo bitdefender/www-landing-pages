@@ -300,7 +300,6 @@ export async function loadLazy(doc) {
   loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
-  addFavIcon('https://www.bitdefender.com/favicon.ico');
 
   adobeMcAppendVisitorId('main');
 
