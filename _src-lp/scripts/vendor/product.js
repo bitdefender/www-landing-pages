@@ -289,7 +289,7 @@ export class Locale {
       // Check for the target variable in localStorage
       const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
       let country;
-      let locale = null;
+      let locale = '';
 
       if (cachedGeoData) {
         const geoData = JSON.parse(cachedGeoData);
