@@ -162,7 +162,7 @@ export default class ProductPrice {
         selected_years: this.#yearsNo,
         selected_variation: {
           product_id: this.#alias,
-          region_id: this.#locale === 'en-us' ? 8 : 22,
+          region_id: this.#locale === 'en-US' ? 8 : 22,
           variation_id: 0,
           platform_id: 16,
           price: pricing.total,
@@ -283,10 +283,6 @@ export class Locale {
 
   static async get() {
     try {
-      // Extract language from URL
-      const url = window.location.href;
-      const language = url.split('/')[5];
-
       // Check for the target variable in localStorage
       const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
       let country;
@@ -316,7 +312,7 @@ export class Locale {
       }
 
       // Fetch locale
-      const localeResponse = await fetch(`${LOCALE_ENDPOINT}${country.toUpperCase()}/locales`);
+      const localeResponse = await fetch(`${LOCALE_ENDPOINT}${country}/locales`);
       if (!localeResponse.ok) {
         throw new Error('Failed to fetch locales: ' + localeResponse.statusText);
       }
