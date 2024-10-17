@@ -3,6 +3,7 @@ const LOCALE_PARAMETER = 'locale';
 const API_BASE = 'https://www.bitdefender.com';
 const API_ROOT = '/p-api/v1';
 const GEOIP_ENDPOINT = 'https://www.bitdefender.com/geoip';
+const LOCALE_ENDPOINT = 'https://www.bitdefender.com/p-api/v1/countries/';
 const COUNTRY = 'bd:country';
 const TGT_GEO_OBJ = 'tgt:-424784351:h';
 const TGT_GEO_OBJ_KEY = 'x-geo-country-code';
@@ -289,7 +290,7 @@ export class Locale {
       // Check for the target variable in localStorage
       const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
       let country;
-      let locale = '';
+      let locale;
 
       if (cachedGeoData) {
         const geoData = JSON.parse(cachedGeoData);
@@ -303,6 +304,9 @@ export class Locale {
         } else {
           // Fetch country information from the endpoint
           const response = await fetch(GEOIP_ENDPOINT);
+          if (!response.ok) {
+            throw new Error('Failed to fetch geo data: ' + response.statusText);
+          }
           const data = await response.json();
           country = data.country;
 
@@ -311,16 +315,13 @@ export class Locale {
         }
       }
 
-      // fetch locale
-      const fetchLocale = `https://www.bitdefender.com/p-api/v1/countries/${country.toUpperCase()}/locales`;
-      fetch(fetchLocale).then(response => {
-        if (!response.ok) throw new Error('err ' + response.statusText);
-        return response.json();
-      }).then(data => {
-        locale = data[0].locale;
-      }).catch(error => {
-        console.error('ee', error);
-      });
+      // Fetch locale
+      const localeResponse = await fetch(`${LOCALE_ENDPOINT}${country.toUpperCase()}/locales`);
+      if (!localeResponse.ok) {
+        throw new Error('Failed to fetch locales: ' + localeResponse.statusText);
+      }
+      const localeData = await localeResponse.json();
+      locale = localeData[0]?.locale || null;
 
       return locale;
     } catch (error) {
