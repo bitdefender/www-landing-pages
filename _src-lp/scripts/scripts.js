@@ -31,7 +31,6 @@ import {
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
   formatPrice,
-  updateVATinfo,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
