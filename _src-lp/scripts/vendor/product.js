@@ -161,7 +161,7 @@ export default class ProductPrice {
         selected_years: this.#yearsNo,
         selected_variation: {
           product_id: this.#alias,
-          region_id: 22,
+          region_id: this.#locale === 'en-US' ? 8 : 22,
           variation_id: 0,
           platform_id: 16,
           price: pricing.total,
@@ -280,15 +280,21 @@ export class Locale {
     }
   }
 
+  static getParamFromUrl(value) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(value);
+  }
+
   static async get() {
     try {
-      // Extract language from URL
-      const url = window.location.href;
-      const language = url.split('/')[5];
+      // Check for the locale in url
+      const paramLocale = getParamFromUrl('locale');
+      if (paramLocale) return paramLocale;
 
       // Check for the target variable in localStorage
       const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
       let country;
+      let locale;
 
       if (cachedGeoData) {
         const geoData = JSON.parse(cachedGeoData);
@@ -302,6 +308,9 @@ export class Locale {
         } else {
           // Fetch country information from the endpoint
           const response = await fetch(GEOIP_ENDPOINT);
+          if (!response.ok) {
+            throw new Error('Failed to fetch geo data: ' + response.statusText);
+          }
           const data = await response.json();
           country = data.country;
 
@@ -310,8 +319,14 @@ export class Locale {
         }
       }
 
-      // Construct the locale string
-      const locale = `${language}-${country}`;
+      // Fetch locale
+      const localeResponse = await fetch(`${API_BASE}${API_ROOT}/${country}/locales`);
+      if (!localeResponse.ok) {
+        throw new Error('Failed to fetch locales: ' + localeResponse.statusText);
+      }
+      const localeData = await localeResponse.json();
+      locale = localeData[0]?.locale || 'en-us';
+
       return locale;
     } catch (error) {
       console.error('Error fetching locale:', error);
