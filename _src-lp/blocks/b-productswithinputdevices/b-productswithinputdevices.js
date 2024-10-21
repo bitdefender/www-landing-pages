@@ -1,21 +1,3 @@
-/*
-  Information:
-  - displays:
-  - top text
-  - input for devices with - + controllers
-  and
-  - 3 boxes positioned in flex mode:
-    1. product 1
-    2. product 2
-    3. product 3
-
-  MetaData:
-  - products : ex: tsmd/5/1, is/3/1, av/3/1 (alias_name/nr_devices/nr_years)
-
-  Samples:
-  - https://www.bitdefender.com/media/html/business/cross-sell-2023-mobile-launch/existing.html?pid=cross-sell-30off - http://localhost:3000/business/en/cross-sell-2023-mobile-launch
-*/
-
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -58,8 +40,30 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
-  const parent1ndDiv = block.children[0];
-  const parent2ndDiv = block.children[1];
+  const parentSelectorStyle = block.closest('.section').style;
+  const [ parent1ndDiv, parent2ndDiv, backgroundImage, campaignImage ] = block.children
+
+  if (backgroundImage) {
+    parentSelectorStyle.backgroundImage = `url(${backgroundImage.querySelector('img')?.getAttribute('src').split('?')[0]})`;
+    parentSelectorStyle.backgroundSize = 'cover';
+    parentSelectorStyle.backgroundPosition = '0 0';
+    parentSelectorStyle.backgroundRepeat = 'no-repeat';
+    parentSelectorStyle.backgroundBlendMode = 'unset';
+    backgroundImage.remove();
+  }
+
+  if (campaignImage) {
+    const campaignLogo = document.createElement('div');
+    campaignLogo.id = 'campaign-logo';
+
+    const imgElement = campaignImage.querySelector('img');
+    if (imgElement) {
+        campaignLogo.appendChild(imgElement.cloneNode(true)); // Clone the img element
+    }
+
+    block.appendChild(campaignLogo);
+    campaignImage.remove();
+  }
 
   const metaData = parentSelector.dataset;
   const {

@@ -348,6 +348,49 @@
   }
 }
 
+.b-productswithinputdevices-container #campaign-logo {
+  position: absolute;
+  top: -8em;
+  left: -9em;
+  width: 24em;
+}
+
+.b-productswithinputdevices-container.bf2024 a.red-buy-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.b-productswithinputdevices-container.bf2024 a.red-buy-button::before {
+  content: '';
+  background: url('../../icons/bf24-sticker.svg') no-repeat 0 0 transparent;
+  width: 52px;
+  height: 45px;
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  left: auto;
+  bottom: auto;
+  z-index: 9999;
+  background-size: 100%;
+  box-sizing: unset;
+}
+
+.b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
+  background: url('../../icons/bf24-Ribbon.svg') no-repeat 0 0 transparent;
+  right: 20px;
+  top: -27px;
+  left: auto;
+  width: 182px;
+  height: 135px;
+  background-size: 100%;
+  border-radius: unset;
+}
+
+.b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .b-productswithinputdevices {
+  margin-top: 11em;
+}
+
 /* for mobile */
 @media (width <= 768px) {
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
