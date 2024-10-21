@@ -287,10 +287,9 @@ export function updateVATinfo(countryCode, selector) {
         'Tax included',
       ];
 
-
       vat2replace.forEach((text) => {
         let taxText = 'Sales tax included';
-        if (countryCode == 8) taxText = 'Plus applicable sales tax';
+        if (countryCode === 8) taxText = 'Plus applicable sales tax';
 
         if (prodloadElement.innerHTML.includes(text)) {
           const currentText = prodloadElement.innerHTML;
@@ -350,7 +349,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
-  if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(regionId, `.buylink-${onSelectorClass}`);
+  if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
   let parentDiv = '';
 
