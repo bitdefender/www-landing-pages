@@ -287,14 +287,14 @@ export class Locale {
 
   static async get() {
     try {
-      // Check for the locale in url
-      const paramLocale = getParamFromUrl('locale');
+      // Check locale in url param
+      const paramLocale = this.getParamFromUrl('locale');
       if (paramLocale) return paramLocale;
 
-      // Check for the target variable in localStorage
+      // Check locale in localStorage
       const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
       let country;
-      let locale;
+      let locale = 'en-us'; // Default
 
       if (cachedGeoData) {
         const geoData = JSON.parse(cachedGeoData);
@@ -309,7 +309,8 @@ export class Locale {
           // Fetch country information from the endpoint
           const response = await fetch(GEOIP_ENDPOINT);
           if (!response.ok) {
-            throw new Error('Failed to fetch geo data: ' + response.statusText);
+            console.error(`Failed to fetch geo data: ${response.statusText}`);
+            return locale; // Return default locale in case of error
           }
           const data = await response.json();
           country = data.country;
@@ -319,18 +320,21 @@ export class Locale {
         }
       }
 
-      // Fetch locale
+      // Fetch locale based on the country
       const localeResponse = await fetch(`${API_BASE}${API_ROOT}/${country}/locales`);
       if (!localeResponse.ok) {
-        throw new Error('Failed to fetch locales: ' + localeResponse.statusText);
+        console.error(`Failed to fetch locales: ${localeResponse.statusText}`);
+        return locale; // Return default locale in case of error
       }
       const localeData = await localeResponse.json();
-      locale = localeData[0]?.locale || 'en-us';
+      if (localeData.length && localeData[0]?.locale) {
+        locale = localeData[0].locale;
+      }
 
       return locale;
     } catch (error) {
       console.error('Error fetching locale:', error);
-      return null;
+      return 'en-us'; // Return default locale in case of any other error
     }
   }
 }
