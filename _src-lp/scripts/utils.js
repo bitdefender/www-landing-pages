@@ -287,9 +287,10 @@ export function updateVATinfo(countryCode, selector) {
         'Tax included',
       ];
 
+
       vat2replace.forEach((text) => {
         let taxText = 'Sales tax included';
-        if (countryCode === 8) taxText = 'Plus applicable sales tax';
+        if (countryCode == 8) taxText = 'Plus applicable sales tax';
 
         if (prodloadElement.innerHTML.includes(text)) {
           const currentText = prodloadElement.innerHTML;
