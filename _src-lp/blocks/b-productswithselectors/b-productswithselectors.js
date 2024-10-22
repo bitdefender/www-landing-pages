@@ -5,14 +5,34 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
+  const parentSelectorStyle = parentSelector.style;
   const metaData = parentSelector.dataset;
   const {
     products, selectorsName, taxesText, discountText, tagText, priceText1, priceText2, priceText3, buttonText3, buttonText2, buttonText,
-    devicesLimits,
+    devicesLimits, backgroundColor, backgroundImage, campaignImage,
   } = metaData;
 
-  const productsAsList = products && products.split(',');
+  if (backgroundImage) {
+    parentSelectorStyle.backgroundImage = `url(${backgroundImage})`;
+    if (backgroundColor) {
+      parentSelectorStyle.backgroundSize = '100% auto';
+      parentSelectorStyle.backgroundColor = backgroundColor;
+    } else {
+      parentSelectorStyle.backgroundSize = 'cover';
+    }
+    parentSelectorStyle.backgroundPosition = '0 0';
+    parentSelectorStyle.backgroundRepeat = 'no-repeat';
+    parentSelectorStyle.backgroundBlendMode = 'unset';
+  }
 
+  if (campaignImage) {
+    const campaignLogo = document.createElement('div');
+    campaignLogo.id = 'campaign-logo';
+    campaignLogo.innerHTML = `<img src="${campaignImage}" alt="Bitdefender">`;
+    block.appendChild(campaignLogo);
+  }
+
+  const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     block.classList.add(`has${productsAsList.length}prods`);
     /// ///////////////////////////////////////////////////////////////////////
@@ -139,7 +159,10 @@ export default function decorate(block) {
 
       pricesDiv.id = 'pricesBox';
       pricesDiv.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-      pricesDiv.innerHTML = '';
+      pricesDiv.innerHTML = `<span class="prod-percent prod-percent-tag">
+          <span class="percent-${onSelectorClass}">0%</span>
+          ${discountText}
+        </span>`;
 
       pricesDiv.innerHTML += `
         ${customPrice ? '<div class="custom_hide">' : ''}

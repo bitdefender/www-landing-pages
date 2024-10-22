@@ -40,35 +40,13 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
-  const parentSelectorStyle = block.closest('.section').style;
-  const [ parent1ndDiv, parent2ndDiv, backgroundImage, campaignImage ] = block.children
-
-  if (backgroundImage) {
-    parentSelectorStyle.backgroundImage = `url(${backgroundImage.querySelector('img')?.getAttribute('src').split('?')[0]})`;
-    parentSelectorStyle.backgroundSize = 'cover';
-    parentSelectorStyle.backgroundPosition = '0 0';
-    parentSelectorStyle.backgroundRepeat = 'no-repeat';
-    parentSelectorStyle.backgroundBlendMode = 'unset';
-    backgroundImage.remove();
-  }
-
-  if (campaignImage) {
-    const campaignLogo = document.createElement('div');
-    campaignLogo.id = 'campaign-logo';
-
-    const imgElement = campaignImage.querySelector('img');
-    if (imgElement) {
-        campaignLogo.appendChild(imgElement.cloneNode(true)); // Clone the img element
-    }
-
-    block.appendChild(campaignLogo);
-    campaignImage.remove();
-  }
+  const parentSelectorStyle = parentSelector.style;
+  const [ parent1ndDiv, parent2ndDiv ] = block.children
 
   const metaData = parentSelector.dataset;
   const {
     products, yearsText, bulinaText, devicesLimits, yearsSelector, monthlyText, incrementalCounter, titleTag,
-    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice,
+    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice, backgroundColor, backgroundImage, campaignImage,
   } = metaData;
   const productsAsList = products && products.split(',');
   const subscribeTexts = parent2ndDiv.querySelector('p').innerText;
@@ -77,6 +55,27 @@ export default function decorate(block) {
   const savingText = parent2ndDiv.querySelector('p:nth-child(4)').innerText;
   const buylinkText = parent2ndDiv.querySelector('p:nth-child(5)').innerText;
   const taxesText = parent2ndDiv.querySelector('p:nth-child(6)').innerText;
+
+  if (backgroundImage) {
+    parentSelectorStyle.backgroundImage = `url(${backgroundImage})`;
+    if (backgroundColor) {
+      parentSelectorStyle.backgroundSize = '100% auto';
+      parentSelectorStyle.backgroundColor = backgroundColor;
+    } else {
+      parentSelectorStyle.backgroundSize = 'cover';
+    }
+
+    parentSelectorStyle.backgroundPosition = '0 0';
+    parentSelectorStyle.backgroundRepeat = 'no-repeat';
+    parentSelectorStyle.backgroundBlendMode = 'unset';
+  }
+
+  if (campaignImage) {
+    const campaignLogo = document.createElement('div');
+    campaignLogo.id = 'campaign-logo';
+    campaignLogo.innerHTML = `<img src="${campaignImage}" alt="Bitdefender">`;
+    block.appendChild(campaignLogo);
+  }
 
   let devicesMin = 5;
   let devicesSelected = 5;

@@ -183,6 +183,96 @@
   visibility: hidden !important;
 }
 
+.b-productswithselectors-container .prod-percent-tag {
+  display: none;
+}
+
+.b-productswithselectors-container.bf2024 {
+  display: grid;
+}
+
+.b-productswithselectors-container.bf2024 .prod-percent-tag {
+  display: flex;
+  background: url("../../icons/bf24-Ribbon.svg") no-repeat 0 0 transparent;
+  right: 3px;
+  top: -18px;
+  left: auto;
+  width: 105px;
+  height: 80px;
+  background-size: 100%;
+  border-radius: unset;
+  position: absolute;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 17px;
+}
+
+.b-productswithselectors-container.bf2024 .prod-percent-tag span {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.b-productswithselectors-container.bf2024 #campaign-logo {
+  position: absolute;
+  top: -13em;
+  left: -14em;
+  width: 24em;
+  background-color: transparent;
+}
+
+.b-productswithselectors-container.bf2024 a.red-buy-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.b-productswithselectors-container.bf2024 a.red-buy-button::before {
+  content: "";
+  background: url("../../icons/bf24-sticker.svg") no-repeat 0 0 transparent;
+  width: 52px;
+  height: 45px;
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  left: auto;
+  bottom: auto;
+  z-index: 9999;
+  background-size: 100%;
+  box-sizing: unset;
+}
+
+.b-productswithselectors-container.bf2024 .b-productswithselectors-wrapper .b-productswithselectors {
+  margin-top: 11em;
+  position: relative;
+}
+
+@media (width <= 1445px) {
+  .b-productswithselectors-container.bf2024 #campaign-logo {
+    top: -14em;
+    left: -11em;
+  }
+}
+@media (width <= 1360px) {
+  .b-productswithselectors-container.bf2024 #campaign-logo {
+    top: -15em;
+    left: -6em;
+  }
+}
+@media (width <= 1100px) {
+  .b-productswithselectors-container.bf2024 .prod-percent-tag {
+    width: 90px;
+    height: 67px;
+  }
+  .b-productswithselectors-container.bf2024 .prod-percent-tag span {
+    font-size: 21px;
+  }
+}
 /* for mobile */
 @media (width <= 768px) {
   .b-productswithselectors-container {
@@ -217,7 +307,7 @@
     font-size: 10px;
   }
   .b-productswithselectors > div:nth-child(1) {
-    width: 100%;
+    width: 98%;
     margin-bottom: 4em !important;
   }
   .b-productswithselectors > div:not(:nth-child(1)) {
@@ -287,5 +377,22 @@
   .b-productswithselectors .prod-oldprice {
     font-size: 12px;
     letter-spacing: -0.5px;
+  }
+  .b-productswithselectors-container.bf2024 .b-productswithselectors > div:nth-child(1) {
+    margin-bottom: 0 !important;
+    padding-bottom: 1em !important;
+  }
+  .b-productswithselectors-container.bf2024 .prod-percent-tag {
+    display: none;
+  }
+  .b-productswithselectors-container.bf2024 .b-productswithselectors > div:not(:first-child) ul:first-of-type {
+    min-height: 9em;
+  }
+  .b-productswithselectors-container.bf2024 #campaign-logo {
+    top: -11em;
+    left: 0;
+    right: 0;
+    width: 18em;
+    margin: auto;
   }
 }
