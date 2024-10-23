@@ -41,7 +41,7 @@ export default function decorate(block) {
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const parentSelectorStyle = parentSelector.style;
-  const [ parent1ndDiv, parent2ndDiv ] = block.children
+  const [parent1ndDiv, parent2ndDiv] = block.children;
 
   const metaData = parentSelector.dataset;
   const {
