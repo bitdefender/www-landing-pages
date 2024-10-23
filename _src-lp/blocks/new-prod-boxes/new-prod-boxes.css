@@ -1,7 +1,3 @@
-.hide-switch-text.new-prod-boxes-container hr {
-  display: none;
-}
-
 .new-prod-boxes-container {
   margin: 0 auto;
   padding: 0 15px;
@@ -93,6 +89,12 @@
   position: relative;
   margin-right: 10px;
 }
+.new-prod-boxes-container .hide-switch-text .switchBox .label p {
+  display: none;
+}
+.new-prod-boxes-container .hide-switch-text .switchBox .label hr {
+  display: none;
+}
 .new-prod-boxes-container .new-2024 .inner_prod_box > hr:last-of-type {
   display: none;
 }
@@ -108,10 +110,6 @@
 }
 .new-prod-boxes-container .switchBox .label.left hr {
   border-color: #fff;
-}
-
-.hide-switch-text .switchBox .label p {
-  display: none;
 }
 
 .switchBox .switch input:checked ~ .label.right {
