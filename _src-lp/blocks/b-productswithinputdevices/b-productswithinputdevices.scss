@@ -376,11 +376,6 @@
   box-sizing: unset;
 }
 
-.b-productswithinputdevices-container.bf2024.blue-tag .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
-  background: url('../../icons/bf24-Ribbon-blue.png') no-repeat 0 0 transparent;
-  background-size: 100%;
-}
-
 .b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
   background: url('../../icons/bf24-Ribbon.png') no-repeat 0 0 transparent;
   right: 5em;
@@ -390,6 +385,11 @@
   height: 111px;
   background-size: 100%;
   border-radius: unset;
+}
+
+.b-productswithinputdevices-container.bf2024.blue-tag .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
+  background: url('../../icons/bf24-Ribbon-blue.png') no-repeat 0 0 transparent;
+  background-size: 100%;
 }
 
 .b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .b-productswithinputdevices {
