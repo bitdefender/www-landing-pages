@@ -191,9 +191,14 @@
   display: grid;
 }
 
+.b-productswithselectors-container.bf2024.blue-tag .prod-percent-tag {
+  background: url("../../icons/bf24-Ribbon-blue.png") no-repeat 0 0 transparent;
+  background-size: 100%;
+}
+
 .b-productswithselectors-container.bf2024 .prod-percent-tag {
   display: flex;
-  background: url("../../icons/bf24-Ribbon.svg") no-repeat 0 0 transparent;
+  background: url("../../icons/bf24-Ribbon.png") no-repeat 0 0 transparent;
   right: 3px;
   top: -18px;
   left: auto;
@@ -210,10 +215,6 @@
   font-size: 13px;
   font-weight: 700;
   line-height: 17px;
-}
-
-.b-productswithselectors-container.bf2024.bluetag .prod-percent-tag {
-  background: url("../../icons/bf24-Ribbon-blue.svg") no-repeat 0 0 transparent;
 }
 
 .b-productswithselectors-container.bf2024 .prod-percent-tag span {
