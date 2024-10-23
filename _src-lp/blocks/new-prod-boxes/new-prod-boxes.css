@@ -89,6 +89,12 @@
   position: relative;
   margin-right: 10px;
 }
+.new-prod-boxes-container .hide-switch-text .switchBox .label p {
+  display: none;
+}
+.new-prod-boxes-container .hide-switch-text .switchBox .label hr {
+  display: none;
+}
 .new-prod-boxes-container .new-2024 .inner_prod_box > hr:last-of-type {
   display: none;
 }
