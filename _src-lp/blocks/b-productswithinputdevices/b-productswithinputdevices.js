@@ -1,21 +1,3 @@
-/*
-  Information:
-  - displays:
-  - top text
-  - input for devices with - + controllers
-  and
-  - 3 boxes positioned in flex mode:
-    1. product 1
-    2. product 2
-    3. product 3
-
-  MetaData:
-  - products : ex: tsmd/5/1, is/3/1, av/3/1 (alias_name/nr_devices/nr_years)
-
-  Samples:
-  - https://www.bitdefender.com/media/html/business/cross-sell-2023-mobile-launch/existing.html?pid=cross-sell-30off - http://localhost:3000/business/en/cross-sell-2023-mobile-launch
-*/
-
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -58,13 +40,13 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
-  const parent1ndDiv = block.children[0];
-  const parent2ndDiv = block.children[1];
+  const parentSelectorStyle = parentSelector.style;
+  const [parent1ndDiv, parent2ndDiv] = block.children;
 
   const metaData = parentSelector.dataset;
   const {
     products, yearsText, bulinaText, devicesLimits, yearsSelector, monthlyText, incrementalCounter, titleTag,
-    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice,
+    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice, backgroundColor, backgroundImage, campaignImage,
   } = metaData;
   const productsAsList = products && products.split(',');
   const subscribeTexts = parent2ndDiv.querySelector('p').innerText;
@@ -73,6 +55,27 @@ export default function decorate(block) {
   const savingText = parent2ndDiv.querySelector('p:nth-child(4)').innerText;
   const buylinkText = parent2ndDiv.querySelector('p:nth-child(5)').innerText;
   const taxesText = parent2ndDiv.querySelector('p:nth-child(6)').innerText;
+
+  if (backgroundImage) {
+    parentSelectorStyle.backgroundImage = `url(${backgroundImage.split('?')[0]})`;
+    if (backgroundColor) {
+      parentSelectorStyle.backgroundSize = '100% auto';
+      parentSelectorStyle.backgroundColor = backgroundColor;
+    } else {
+      parentSelectorStyle.backgroundSize = 'cover';
+    }
+
+    parentSelectorStyle.backgroundPosition = '0 0';
+    parentSelectorStyle.backgroundRepeat = 'no-repeat';
+    parentSelectorStyle.backgroundBlendMode = 'unset';
+  }
+
+  if (campaignImage) {
+    const campaignLogo = document.createElement('div');
+    campaignLogo.id = 'campaign-logo';
+    campaignLogo.innerHTML = `<img src="${campaignImage}" alt="Bitdefender">`;
+    block.appendChild(campaignLogo);
+  }
 
   let devicesMin = 5;
   let devicesSelected = 5;
