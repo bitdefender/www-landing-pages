@@ -13,7 +13,7 @@ export default function decorate(block) {
   } = metaData;
 
   if (backgroundImage) {
-    parentSelectorStyle.backgroundImage = `url(${backgroundImage})`;
+    parentSelectorStyle.backgroundImage = `url(${backgroundImage.split('?')[0]})`;
     if (backgroundColor) {
       parentSelectorStyle.backgroundSize = '100% auto';
       parentSelectorStyle.backgroundColor = backgroundColor;
