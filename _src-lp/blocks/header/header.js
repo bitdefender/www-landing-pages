@@ -1,6 +1,6 @@
 import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
 import {
-  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl,
+  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection,
 } from '../../scripts/utils.js';
 
 /**
@@ -43,7 +43,8 @@ export default async function decorate(block) {
   if (resp.ok) {
     const html = await resp.text();
     const spanSvg = [...await extractSpanSvgs(html)];
-    const homeUrl = getDefaultBaseUrl();
+    // DEX-20933 - if section is business should redirect to the bd business
+    const homeUrl = `${getDefaultBaseUrl()}${getDefaultSection() === 'business' ? 'business' : ''}`;
     const headerWrapper = block.closest('header');
 
     checkForRevolut(spanSvg, block);
