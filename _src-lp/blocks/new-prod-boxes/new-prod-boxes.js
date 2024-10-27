@@ -11,10 +11,22 @@ export default function decorate(block) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     const defaultContentWrapperElements = block.closest('.section').querySelector('.default-content-wrapper')?.children;
+    let titleText;
+    let subText;
     let individualSwitchText;
     let familySwitchText;
     if (defaultContentWrapperElements) {
       [...defaultContentWrapperElements].forEach((element) => {
+        if (element.innerHTML.includes('titleText:')) {
+          element.innerHTML = element.innerHTML.replace('titleText:', '');
+          titleText = element.innerHTML;
+          element.remove();
+        }
+        if (element.innerHTML.includes('subText:')) {
+          element.innerHTML = element.innerHTML.replace('subText:', '');
+          subText = element.innerHTML;
+          element.remove();
+        }
         if (element.innerHTML.includes('&lt;slider-1 ')) {
           element.innerHTML = element.innerHTML.replace('&lt;slider-1 ', '');
           individualSwitchText = element.innerHTML;
@@ -26,6 +38,21 @@ export default function decorate(block) {
           element.remove();
         }
       });
+    }
+
+    const titleBox = document.createElement('div');
+    if (titleText && subText) {
+      titleBox.classList.add('titleBox');
+      titleBox.innerHTML = `
+      <h2>${titleText}</h2>
+      <p>${subText}</p>`;
+
+      if (titleBox.innerHTML.includes('0%')) {
+        titleBox.innerHTML = titleBox.innerHTML.replace('0%', '<span class=\'max-discount\'></span>');
+      }
+    }
+    if (titleText && subText) {
+      block.parentNode.insertBefore(titleBox, block);
     }
 
     const switchBox = document.createElement('div');
@@ -226,7 +253,7 @@ export default function decorate(block) {
 
             ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
               <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-              <strong class="prod-percent">
+              <strong class="percent prod-percent">
                 ${percentOff}
               </strong>
             </div>`}
