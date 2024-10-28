@@ -3,11 +3,16 @@ const SnapshotBlockTest = require('./json-tests/snapshot-block');
 require('dotenv').config();
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
+const hlxEnv = {
+  PROD: 'live',
+  STAGE: 'page'
+};
+
 const snapshotsSuiteId = '64c8d884960593b38bb68331';
-const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.page`;
+const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.${hlxEnv.PROD}`;
 const pathToBlocks = 'sidekick/blocks';
 const localBlocksPath = '_src-lp/blocks';
-const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
+const FETCH_TIMEOUT = 1000 * 60 * 5; // 5 minutes
 
 // todo add sidekick config for those
 const EXCLUDED_SNAPSHOT_BLOCKS = [
@@ -70,6 +75,38 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
     if (!areAllTestsPassing) {
       process.exit(1);
     }
+  }
+
+  try {
+    const blockSnapshotsToTest = fs.readdirSync(localBlocksPath).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
+    // get snapshots tests
+    const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
+
+    const snapshotsPromises = blockSnapshotsToTest
+      .map((testName) => {
+        const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
+
+        if (testAlreadyExists) {
+          return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testAlreadyExists.name}`).then((res) => res.json());
+        }
+
+        return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
+          name: testName,
+          startUrl: `${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testName}`,
+        }).generate())
+          .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
+      });
+
+    const [
+      snapshotsResult,
+    ] = await Promise.all([
+      Promise.all(snapshotsPromises),
+    ]);
+
+    showSnapshotTestsFullLogs(snapshotsResult);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
   }
 
   try {
