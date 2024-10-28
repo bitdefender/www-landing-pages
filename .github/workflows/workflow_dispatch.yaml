@@ -7,3 +7,11 @@ on:
         description: 'Accept new baseline screenshots on merge'
         required: false
         default: false
+
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder Step
+        run: echo "This workflow is used to trigger the Accept New Baseline flag."
