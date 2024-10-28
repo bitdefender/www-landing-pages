@@ -1,0 +1,23 @@
+name: Accept New Baseline on Merge
+
+on:
+  workflow_run:
+    workflows: ["run-tests.yaml"]
+    types:
+      - completed
+
+jobs:
+  accept-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Baseline Acceptance Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: baseline-acceptance
+      - name: Update Baseline in Ghost Inspector
+        if: env.accept_baseline == 'true'
+        run: node index.js
+        env:
+          GI_KEY: ${{ secrets.GI_KEY }}
+          ACCEPT_NEW_BASELINE: 'true'
