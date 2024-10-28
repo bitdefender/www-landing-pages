@@ -1,6 +1,11 @@
 name: Workflow
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
 
 jobs:
   setup-nodejs:
@@ -35,20 +40,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-
-      # Dynamically extract the branch name from GITHUB_REF
       - name: Get Branch Name
         id: extract_branch_name
         run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-
       - run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
-      - run: npm run compile-sass
-        env:
-          CI: true
-
       - name: Save Accept Baseline Option
         if: github.event.inputs.accept_new_baseline == 'true'
         run: echo "accept_new_baseline=true" > accept_baseline_flag
@@ -59,6 +57,8 @@ jobs:
           path: accept_baseline_flag
 
   accept-baseline:
+    needs: [ setup-nodejs, snapshots-tests ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -66,19 +66,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: baseline-acceptance
-
-      - name: Check Baseline Acceptance Flag
-        id: check_accept
-        run: |
-          if [[ -f "accept_baseline_flag" ]]; then
-            echo "accept_baseline=true" >> $GITHUB_ENV
-          else
-            echo "accept_baseline=false" >> $GITHUB_ENV
-          fi
-
       - name: Update Baseline in Ghost Inspector
         if: env.accept_baseline == 'true'
-        run: |
-          # Call Ghost Inspector API to update the baseline
-          # Example curl command:
-          curl -X POST "https://api.ghostinspector.com/v1/tests/update-baseline?apiKey=${{ secrets.GI_KEY }}"
+        run: node index.js
+        env:
+          GI_KEY: ${{ secrets.GI_KEY }}
+          ACCEPT_NEW_BASELINE: 'true'
