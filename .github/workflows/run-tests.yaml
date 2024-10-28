@@ -48,3 +48,37 @@ jobs:
       - run: npm run compile-sass
         env:
           CI: true
+
+      - name: Save Accept Baseline Option
+        if: github.event.inputs.accept_new_baseline == 'true'
+        run: echo "accept_new_baseline=true" > accept_baseline_flag
+      - name: Upload Baseline Acceptance Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: baseline-acceptance
+          path: accept_baseline_flag
+
+  accept-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Baseline Acceptance Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: baseline-acceptance
+
+      - name: Check Baseline Acceptance Flag
+        id: check_accept
+        run: |
+          if [[ -f "accept_baseline_flag" ]]; then
+            echo "accept_baseline=true" >> $GITHUB_ENV
+          else
+            echo "accept_baseline=false" >> $GITHUB_ENV
+          fi
+
+      - name: Update Baseline in Ghost Inspector
+        if: env.accept_baseline == 'true'
+        run: |
+          # Call Ghost Inspector API to update the baseline
+          # Example curl command:
+          curl -X POST "https://api.ghostinspector.com/v1/tests/update-baseline?apiKey=${{ secrets.GI_KEY }}"

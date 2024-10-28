@@ -1,0 +1,9 @@
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      accept_new_baseline:
+        description: 'Accept new baseline screenshots on merge'
+        required: false
+        default: false
