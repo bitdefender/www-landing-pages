@@ -630,6 +630,22 @@
   display: inline-flex;
   justify-content: center;
 }
+.new-prod-boxes-container .blue-pill .icon {
+  margin: 0 3px;
+}
+
+.new-prod-boxes-container .green-pill {
+  background-color: #68ba68;
+  padding: 2.5px 6.7px;
+  border-radius: 20px;
+  color: white;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0;
+  font-weight: bold;
+  display: inline-flex;
+  justify-content: center;
+}
 
 @media (width >= 768px) {
   .new-prod-boxes-container .switchBox .switch {

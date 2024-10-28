@@ -210,6 +210,24 @@ export default function decorate(block) {
               }
             }
           }
+          if (firstTdContent.indexOf('?green-pill') !== -1) {
+            const pillText = firstTdContent.match(/\?green-pill (\w+)/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            if (pillText) {
+              const icon = tdList[0].querySelector('span');
+              const pillElement = document.createElement('span');
+              pillElement.classList.add('green-pill');
+              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
+              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
+              if (icon) {
+                let count = 0;
+                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
+                  count += 1;
+                  return (count === 2) ? '' : match;
+                });
+              }
+            }
+          }
           if (firstTdContent.indexOf('-x-') !== -1) {
             liClass += ' nocheck';
             firstTdContent = firstTdContent.replace('-x-', '');
