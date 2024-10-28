@@ -42,7 +42,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 240px;
+  width: 290px;
   height: 54px;
   background-color: #016DFF;
   border-radius: 22px;
@@ -54,7 +54,7 @@
   position: absolute;
   content: "";
   height: 50px;
-  width: 120px;
+  width: 145px;
   left: 2px;
   bottom: 2px;
   background-color: white;
@@ -62,7 +62,7 @@
   transition: all 0.4s;
 }
 .new-prod-boxes-container .switchBox .switch input:checked + .slider {
-  transform: translateX(115px);
+  transform: translateX(141px);
 }
 .new-prod-boxes-container .prod_box .inner_prod_box hr {
   border: 1px solid #D1D1D1;
