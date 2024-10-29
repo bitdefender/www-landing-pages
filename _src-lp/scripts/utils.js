@@ -130,6 +130,7 @@ export const GLOBAL_EVENTS = {
 
 const LOCALISATIONS = {
   au: 'en-au',
+  be: 'en-us',
   br: 'pt-br',
   de: 'de-de',
   en: 'en-us',
