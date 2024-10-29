@@ -182,7 +182,7 @@ export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallba
 
 export function getDefaultLanguage() {
   const currentPathUrl = window.location.pathname;
-  return Object.keys(LOCALISATIONS).find(lang => currentPathUrl.includes(`/${lang}/`)) || DEFAULT_LANGUAGE;
+  return Object.keys(LOCALISATIONS).find((lang) => currentPathUrl.includes(`/${lang}/`)) || DEFAULT_LANGUAGE;
 }
 
 export function getLocale(lang) {
