@@ -129,19 +129,19 @@ export const GLOBAL_EVENTS = {
 };
 
 const LOCALISATIONS = {
-  'au': 'en-au',
-  'be': 'en',
-  'br': 'pt-br',
-  'de': 'de-de',
-  'en': 'en-us',
-  'es': 'es-es',
-  'fr': 'fr-fr',
-  'it': 'it-it',
-  'nl': 'nl-nl',
-  'pt': 'pt-pt',
-  'ro': 'ro-ro',
-  'se': 'sv-se',
-  'uk': 'en-gb',
+  au: 'en-au',
+  be: 'en',
+  br: 'pt-br',
+  de: 'de-de',
+  en: 'en-us',
+  es: 'es-es',
+  fr: 'fr-fr',
+  it: 'it-it',
+  nl: 'nl-nl',
+  pt: 'pt-pt',
+  ro: 'ro-ro',
+  se: 'sv-se',
+  uk: 'en-gb',
   'zh-tw': 'zh-tw',
 };
 const DEFAULT_LANGUAGE = 'en';
