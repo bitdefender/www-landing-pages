@@ -474,6 +474,11 @@
   margin: 0;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag div p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists u {
   font-size: var(--body-font-size-xs);
   text-decoration: none;
@@ -534,6 +539,9 @@
   padding-left: 22px;
   background-size: 13px;
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.nocheck {

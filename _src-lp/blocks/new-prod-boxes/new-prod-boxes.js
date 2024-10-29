@@ -4,29 +4,17 @@ import { updateProductsList } from '../../scripts/utils.js';
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, textBulina, individual,
+    products, priceType, textBulina, individual, titleText, subText,
   } = metaData;
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     const defaultContentWrapperElements = block.closest('.section').querySelector('.default-content-wrapper')?.children;
-    let titleText;
-    let subText;
     let individualSwitchText;
     let familySwitchText;
     if (defaultContentWrapperElements) {
       [...defaultContentWrapperElements].forEach((element) => {
-        if (element.innerHTML.includes('titleText:')) {
-          element.innerHTML = element.innerHTML.replace('titleText:', '');
-          titleText = element.innerHTML;
-          element.remove();
-        }
-        if (element.innerHTML.includes('subText:')) {
-          element.innerHTML = element.innerHTML.replace('subText:', '');
-          subText = element.innerHTML;
-          element.remove();
-        }
         if (element.innerHTML.includes('&lt;slider-1 ')) {
           element.innerHTML = element.innerHTML.replace('&lt;slider-1 ', '');
           individualSwitchText = element.innerHTML;
