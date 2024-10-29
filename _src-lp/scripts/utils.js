@@ -128,6 +128,24 @@ export const GLOBAL_EVENTS = {
   GEOIPINFO_LOADED: 'geoipinfo::loaded',
 };
 
+const LOCALISATIONS = {
+  'au': 'en-au',
+  'be': 'en',
+  'br': 'pt-br',
+  'de': 'de-de',
+  'en': 'en-us',
+  'es': 'es-es',
+  'fr': 'fr-fr',
+  'it': 'it-it',
+  'nl': 'nl-nl',
+  'pt': 'pt-pt',
+  'ro': 'ro-ro',
+  'se': 'sv-se',
+  'uk': 'en-gb',
+  'zh-tw': 'zh-tw',
+};
+const DEFAULT_LANGUAGE = 'en';
+
 // add new script file
 export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallback = undefined, onErrorCallback = undefined, type = undefined) {
   const s = document.createElement('script');
@@ -164,10 +182,12 @@ export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallba
 }
 
 export function getDefaultLanguage() {
-  const localisationList = ['au', 'be', 'br', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pt', 'ro', 'se', 'uk', 'zh-tw'];
   const currentPathUrl = window.location.pathname;
-  const foundLanguage = localisationList.find((item) => currentPathUrl.indexOf(`/${item}/`) !== -1);
-  return foundLanguage || 'en';
+  return Object.keys(LOCALISATIONS).find(lang => currentPathUrl.includes(`/${lang}/`)) || DEFAULT_LANGUAGE;
+}
+
+export function getLocale(lang) {
+  return LOCALISATIONS[lang] || LOCALISATIONS[DEFAULT_LANGUAGE];
 }
 
 export function getDefaultSection() {
