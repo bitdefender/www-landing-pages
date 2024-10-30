@@ -1408,6 +1408,10 @@ main .section.highlight {
   justify-content: center;
 }
 
+.fake-banner {
+  display: none;
+}
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
