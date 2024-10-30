@@ -31,6 +31,9 @@
   margin-top: 0;
   max-width: 700px;
 }
+.new-prod-boxes-container .blue-pill .icon {
+  margin: 0 3px;
+}
 .new-prod-boxes-container .switchBox {
   text-align: center;
   padding-bottom: 50px;
@@ -39,7 +42,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 240px;
+  width: 290px;
   height: 54px;
   background-color: #016DFF;
   border-radius: 22px;
@@ -51,7 +54,7 @@
   position: absolute;
   content: "";
   height: 50px;
-  width: 120px;
+  width: 145px;
   left: 2px;
   bottom: 2px;
   background-color: white;
@@ -59,7 +62,7 @@
   transition: all 0.4s;
 }
 .new-prod-boxes-container .switchBox .switch input:checked + .slider {
-  transform: translateX(115px);
+  transform: translateX(141px);
 }
 .new-prod-boxes-container .prod_box .inner_prod_box hr {
   border: 1px solid #D1D1D1;
@@ -469,6 +472,12 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists p {
   margin: 0;
+  display: inline-block;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag div p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists u {
@@ -620,6 +629,19 @@
 
 .new-prod-boxes-container .blue-pill {
   background-color: #026DFF;
+  padding: 2.5px 6.7px;
+  border-radius: 20px;
+  color: white;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0;
+  font-weight: bold;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.new-prod-boxes-container .green-pill {
+  background-color: #68ba68;
   padding: 2.5px 6.7px;
   border-radius: 20px;
   color: white;
