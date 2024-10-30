@@ -4,29 +4,17 @@ import { updateProductsList } from '../../scripts/utils.js';
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, textBulina, individual,
+    products, priceType, textBulina, individual, titleText, subText,
   } = metaData;
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     const defaultContentWrapperElements = block.closest('.section').querySelector('.default-content-wrapper')?.children;
-    let titleText;
-    let subText;
     let individualSwitchText;
     let familySwitchText;
     if (defaultContentWrapperElements) {
       [...defaultContentWrapperElements].forEach((element) => {
-        if (element.innerHTML.includes('titleText:')) {
-          element.innerHTML = element.innerHTML.replace('titleText:', '');
-          titleText = element.innerHTML;
-          element.remove();
-        }
-        if (element.innerHTML.includes('subText:')) {
-          element.innerHTML = element.innerHTML.replace('subText:', '');
-          subText = element.innerHTML;
-          element.remove();
-        }
         if (element.innerHTML.includes('&lt;slider-1 ')) {
           element.innerHTML = element.innerHTML.replace('&lt;slider-1 ', '');
           individualSwitchText = element.innerHTML;
@@ -199,6 +187,24 @@ export default function decorate(block) {
               const icon = tdList[0].querySelector('span');
               const pillElement = document.createElement('span');
               pillElement.classList.add('blue-pill');
+              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
+              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
+              if (icon) {
+                let count = 0;
+                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
+                  count += 1;
+                  return (count === 2) ? '' : match;
+                });
+              }
+            }
+          }
+          if (firstTdContent.indexOf('?green-pill') !== -1) {
+            const pillText = firstTdContent.match(/\?green-pill (\w+)/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            if (pillText) {
+              const icon = tdList[0].querySelector('span');
+              const pillElement = document.createElement('span');
+              pillElement.classList.add('green-pill');
               pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
               firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
               if (icon) {
