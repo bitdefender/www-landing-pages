@@ -472,6 +472,7 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists p {
   margin: 0;
+  display: inline-block;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag div p {
@@ -539,9 +540,6 @@
   padding-left: 22px;
   background-size: 13px;
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.nocheck {
