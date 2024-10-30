@@ -1,22 +1,44 @@
-export default function decorate(block) {
-  const sectionParent = block.closest('.section');
-  const sectionParentStyle = sectionParent.style;
-  const blockStyle = block.style;
-  const { bckImg, bckRepeat, bckColor, txtColor, paddingTop, paddingBottom, marginTop, marginBottom } = sectionParent.dataset;
+function applySpacing(blockStyle, sectionStyle, spacing) {
+  const { paddingTop, paddingBottom, marginTop, marginBottom } = spacing;
 
   if (paddingTop) blockStyle.paddingTop = `${paddingTop}rem`;
   if (paddingBottom) blockStyle.paddingBottom = `${paddingBottom}rem`;
-  if (marginTop) sectionParentStyle.marginTop = `${marginTop}rem`;
-  if (marginBottom) sectionParentStyle.marginBottom = `${marginBottom}rem`;
+  if (marginTop) sectionStyle.marginTop = `${marginTop}rem`;
+  if (marginBottom) sectionStyle.marginBottom = `${marginBottom}rem`;
+}
 
-  blockStyle.color = txtColor || 'white';
+function applyBackground(sectionStyle, backgroundImage, backgroundRepeat) {
+  sectionStyle.backgroundImage = `url("${backgroundImage}")`;
+  sectionStyle.backgroundPosition = '0 0';
+  sectionStyle.backgroundRepeat = backgroundRepeat || 'no-repeat';
+  sectionStyle.backgroundBlendMode = 'unset';
+}
 
-  if (bckImg) {
-    sectionParentStyle.backgroundImage = `url("${bckImg}")`;
-    sectionParentStyle.backgroundPosition = '0 0';
-    sectionParentStyle.backgroundRepeat = bckRepeat || 'no-repeat';
-    sectionParentStyle.backgroundBlendMode = 'unset';
+export default function decorate(block) {
+  const section = block.closest('.section');
+  const sectionStyle = section.style;
+  const blockStyle = block.style;
+  const {
+    bckImg: backgroundImage,
+    bckRepeat: backgroundRepeat,
+    bckColor: backgroundColor,
+    txtColor: textColor,
+    paddingTop,
+    paddingBottom,
+    marginTop,
+    marginBottom,
+  } = section.dataset;
+
+  // padding and margin
+  applySpacing(blockStyle, sectionStyle, { paddingTop, paddingBottom, marginTop, marginBottom });
+
+  // text color
+  blockStyle.color = textColor || 'white';
+
+  // background properties
+  if (backgroundImage) {
+    applyBackground(sectionStyle, backgroundImage, backgroundRepeat);
   }
 
-  sectionParentStyle.backgroundColor = bckColor || 'black';
+  sectionStyle.backgroundColor = backgroundColor || 'black';
 }
