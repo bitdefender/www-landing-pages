@@ -1,8 +1,8 @@
-function applySpacing(blockStyle, sectionStyle, spacing) {
+function applySpacing(sectionStyle, spacing) {
   const { paddingTop, paddingBottom, marginTop, marginBottom } = spacing;
 
-  if (paddingTop) blockStyle.paddingTop = `${paddingTop}rem`;
-  if (paddingBottom) blockStyle.paddingBottom = `${paddingBottom}rem`;
+  if (paddingTop) sectionStyle.paddingTop = `${paddingTop}rem`;
+  if (paddingBottom) sectionStyle.paddingBottom = `${paddingBottom}rem`;
   if (marginTop) sectionStyle.marginTop = `${marginTop}rem`;
   if (marginBottom) sectionStyle.marginBottom = `${marginBottom}rem`;
 }
@@ -31,7 +31,7 @@ export default function decorate(block) {
   } = section.dataset;
 
   // padding and margin
-  applySpacing(blockStyle, sectionStyle, { paddingTop, paddingBottom, marginTop, marginBottom });
+  applySpacing(sectionStyle, { paddingTop, paddingBottom, marginTop, marginBottom });
 
   // text color
   blockStyle.color = textColor || 'white';
