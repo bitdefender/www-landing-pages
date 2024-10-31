@@ -40,8 +40,8 @@ export default function decorate(block) {
     paddingTop,
     paddingBottom,
     marginTop,
-    marginBottom }
-  );
+    marginBottom,
+  });
 
   // text color
   blockStyle.color = textColor || 'white';
