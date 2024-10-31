@@ -3,7 +3,7 @@ function applySpacing(sectionStyle, spacing) {
     paddingTop,
     paddingBottom,
     marginTop,
-    marginBottom
+    marginBottom,
   } = spacing;
 
   if (paddingTop) sectionStyle.paddingTop = `${paddingTop}rem`;
@@ -36,7 +36,12 @@ export default function decorate(block) {
   } = section.dataset;
 
   // padding and margin
-  applySpacing(sectionStyle, { paddingTop, paddingBottom, marginTop, marginBottom });
+  applySpacing(sectionStyle, {
+    paddingTop,
+    paddingBottom,
+    marginTop,
+    marginBottom }
+  );
 
   // text color
   blockStyle.color = textColor || 'white';
