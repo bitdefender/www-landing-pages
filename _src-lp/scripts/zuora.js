@@ -195,6 +195,8 @@ export default class ZuoraNLClass {
             : `${bundle.getDevices()}d${bundle.getSubscription("years")}y`);
         } */
 
+      if (!period.pricing || period.pricing.length === 0) return;
+
       const pricing = {};
       period.pricing.forEach((item) => {
         if (item.devices_no === 50) item.devices_no = 1;
@@ -204,6 +206,8 @@ export default class ZuoraNLClass {
           pricing.price = item.total;
         }
       });
+
+      if (Object.keys(pricing).length === 0) return;
 
       window.StoreProducts.product[id] = {
         selected_users: devicesNo,
