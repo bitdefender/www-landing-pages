@@ -20,4 +20,5 @@
 
 .ribbon-container.bf24 .block > div > div {
   display: inline-block;
+  text-shadow: 0 0 5px #ff0000, 0 0 5px #ff0000, 0 0 5px #ff0000, 0 0 5px #ff0000, 0 0 5px #ff0000;
 }
