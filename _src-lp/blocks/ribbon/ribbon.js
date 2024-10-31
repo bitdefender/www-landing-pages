@@ -19,10 +19,10 @@ export default function decorate(block) {
   const sectionStyle = section.style;
   const blockStyle = block.style;
   const {
-    bckImg: backgroundImage,
-    bckRepeat: backgroundRepeat,
-    bckColor: backgroundColor,
-    txtColor: textColor,
+    backgroundImage,
+    backgroundRepeat,
+    backgroundColor,
+    textColor,
     paddingTop,
     paddingBottom,
     marginTop,
