@@ -1,5 +1,10 @@
 function applySpacing(sectionStyle, spacing) {
-  const { paddingTop, paddingBottom, marginTop, marginBottom } = spacing;
+  const {
+    paddingTop,
+    paddingBottom,
+    marginTop,
+    marginBottom
+  } = spacing;
 
   if (paddingTop) sectionStyle.paddingTop = `${paddingTop}rem`;
   if (paddingBottom) sectionStyle.paddingBottom = `${paddingBottom}rem`;
