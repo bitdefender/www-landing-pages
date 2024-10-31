@@ -13,11 +13,6 @@
   margin-right: 10px;
 }
 
-.ribbon-container.bf24 .block {
-  background: url("../../images/red-glow-bf24.png") no-repeat center transparent;
-  background-size: auto 100%;
-}
-
 .ribbon-container.bf24 .block > div > div {
   display: inline-block;
   text-shadow: 0 0 34px #FF0000;
