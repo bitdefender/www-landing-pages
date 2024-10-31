@@ -7,9 +7,9 @@ function applySpacing(blockStyle, sectionStyle, spacing) {
   if (marginBottom) sectionStyle.marginBottom = `${marginBottom}rem`;
 }
 
-function applyBackground(sectionStyle, backgroundImage, backgroundRepeat) {
+function applyBackground(sectionStyle, backgroundImage, backgroundRepeat, backgroundPosition) {
   sectionStyle.backgroundImage = `url("${backgroundImage}")`;
-  sectionStyle.backgroundPosition = '0 0';
+  sectionStyle.backgroundPosition = backgroundPosition || '0 0';
   sectionStyle.backgroundRepeat = backgroundRepeat || 'no-repeat';
   sectionStyle.backgroundBlendMode = 'unset';
 }
@@ -21,6 +21,7 @@ export default function decorate(block) {
   const {
     backgroundImage,
     backgroundRepeat,
+    backgroundPosition,
     backgroundColor,
     textColor,
     paddingTop,
@@ -37,7 +38,7 @@ export default function decorate(block) {
 
   // background properties
   if (backgroundImage) {
-    applyBackground(sectionStyle, backgroundImage, backgroundRepeat);
+    applyBackground(sectionStyle, backgroundImage, backgroundRepeat, backgroundPosition);
   }
 
   sectionStyle.backgroundColor = backgroundColor || 'black';
