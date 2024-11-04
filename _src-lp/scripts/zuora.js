@@ -188,65 +188,56 @@ export default class ZuoraNLClass {
       zuoraCart.searchParams.set('language', 'nl_NL');
       zuoraCart.searchParams.set('client', '8f768650-6915-11ed-83e3-e514e761ac46');
 
-      /* if (bundle) {
-          zuoraCart.searchParams.set("bundle_id", this.productId);
-          zuoraCart.searchParams.set("bundle_payment_period", monthlyProducts[bundle.id]
-            ? `${bundle.getDevices()}d1m`
-            : `${bundle.getDevices()}d${bundle.getSubscription("years")}y`);
-        } */
+      let { totalPrice, totalDiscount, totalAmount } = { totalPrice: 0, totalDiscount: 0, totalAmount: 0 };
+      const currentItem = period.pricing?.[0];
+      currentItem.devices_no = currentItem.devices_no === 50 ? 1 : currentItem.devices_no;
+      if (Number(devicesNo) === currentItem.devices_no && Number(yearsNo) === billingPeriod) {
+        totalPrice = currentItem.price;
+        totalDiscount = currentItem.discount;
+        totalAmount = currentItem.total;
 
-      const pricing = {};
-      period.pricing.forEach((item) => {
-        if (item.devices_no === 50) item.devices_no = 1;
-        if (item.devices_no === Number(devicesNo)) {
-          pricing.total = item.price;
-          pricing.discount = item.discount;
-          pricing.price = item.total;
-        }
-      });
-
-      if (Object.keys(pricing).length === 0) return;
-
-      window.StoreProducts.product[id] = {
-        selected_users: devicesNo,
-        selected_years: yearsNo,
-        selected_variation: {
-          product_id: id,
-          region_id: 22,
-          variation_id: 0,
-          platform_id: 16,
-          price: pricing.total,
-          variation: {
-            years: yearsNo,
-          },
-          currency_label: '€',
-          currency_iso: 'EUR',
-          discount: {
-            discounted_price: pricing.price,
-            discount_value: pricing.discount,
-          },
-          promotion: campaign,
-        },
-        buy_link: zuoraCart.href,
-        config: {
-          product_id: id,
-          name: payload.name,
-          full_price_class: `oldprice-${id}`,
-          discounted_price_class: `newprice-${id}`,
-          price_class: `price-${id}`,
-          buy_class: `buylink-${id}`,
+        window.StoreProducts.product[id] = {
           selected_users: devicesNo,
           selected_years: yearsNo,
-          users_class: `users_${id}_fake`,
-          years_class: `years_${id}_fake`,
-        },
-      };
+          selected_variation: {
+            product_id: id,
+            region_id: 22,
+            variation_id: 0,
+            platform_id: 16,
+            price: totalPrice,
+            variation: {
+              years: yearsNo,
+            },
+            currency_label: '€',
+            currency_iso: 'EUR',
+            discount: {
+              discounted_price: totalPrice,
+              discount_value: totalDiscount,
+            },
+            promotion: campaign,
+          },
+          buy_link: zuoraCart.href,
+          config: {
+            product_id: id,
+            name: payload.name,
+            full_price_class: `oldprice-${id}`,
+            discounted_price_class: `newprice-${id}`,
+            price_class: `price-${id}`,
+            buy_class: `buylink-${id}`,
+            selected_users: devicesNo,
+            selected_years: yearsNo,
+            users_class: `users_${id}_fake`,
+            years_class: `years_${id}_fake`,
+          },
+        };
+      }
     });
 
     return window.StoreProducts.product[id];
   }
 
   static async loadProduct(id, campaignParam = '') {
+    console.log('id ', id)
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
 
