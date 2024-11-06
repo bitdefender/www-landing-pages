@@ -28,6 +28,10 @@
   min-height: 11em;
 }
 
+.b-productswithselectors-container.bigger-list .b-productswithselectors > div:not(:first-child) ul:first-of-type {
+  min-height: 14em;
+}
+
 .b-productswithselectors > div:not(:first-child) ul:nth-of-type(2) {
   margin-top: 0;
 }
@@ -207,9 +211,10 @@
   align-items: center;
   justify-content: center;
   font-family: "IBM Plex Sans", sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 17px;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 11px;
+  padding: 0 20px 10px;
 }
 
 .b-productswithselectors-container.bf2024.blue-tag .prod-percent-tag {
