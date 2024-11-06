@@ -12,6 +12,14 @@
 .new-prod-boxes-container .icon svg {
   fill: #fff;
 }
+.new-prod-boxes-container.black-theme {
+  background-color: black !important;
+  margin-top: -5px;
+}
+.new-prod-boxes-container.black-theme .block .prod_box .inner_prod_box .greenTag2 {
+  background-color: red;
+  bottom: 100%;
+}
 .new-prod-boxes-container .titleBox {
   text-align: center;
   display: flex;

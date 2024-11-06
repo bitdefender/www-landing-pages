@@ -14,6 +14,13 @@
     }
 }
 
+&.black-theme{
+    background-color: black!important;
+    margin-top:-20px;
+
+   
+}
+
 .titleBox{
     text-align: center;
     display: flex;
@@ -256,6 +263,12 @@
     border-top-right-radius: 10px;
     padding-top: 7px;
     padding-bottom: 8px;
+}
+
+
+.new-prod-boxes-container.black-theme .block .prod_box .inner_prod_box .greenTag2{
+    background-color: #e72325;
+    bottom: 100%;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .bulina{
