@@ -57,6 +57,10 @@ export default function decorate(block) {
       discountText.appendChild(divBulina);
     }
 
+    block.innerHTML = block.innerHTML.replace('<p>[counter]</p>', `
+      <div style="display: none" id="flipdown" class="flipdown"></div>
+    `);
+
     block.innerHTML = `
       <div class="container-fluid">
         <div class="row d-xs-block d-sm-flex d-md-flex d-lg-flex position-relative">
