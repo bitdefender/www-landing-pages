@@ -14,7 +14,7 @@
   height: 78px;
 }
 
-.counter-bf-container:not(.default) table#flipdownTable {
+.counter-bf-container table#flipdownTable {
   display: none;
 }
 
