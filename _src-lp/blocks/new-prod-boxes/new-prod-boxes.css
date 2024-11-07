@@ -14,11 +14,7 @@
 }
 .new-prod-boxes-container.black-theme {
   background-color: black !important;
-  margin-top: -5px;
-}
-.new-prod-boxes-container.black-theme .block .prod_box .inner_prod_box .greenTag2 {
-  background-color: red;
-  bottom: 100%;
+  margin-top: -20px;
 }
 .new-prod-boxes-container .titleBox {
   text-align: center;
@@ -229,6 +225,14 @@
   border-top-right-radius: 10px;
   padding-top: 7px;
   padding-bottom: 8px;
+}
+
+.new-prod-boxes-container.black-theme .block .prod_box .inner_prod_box .greenTag2 {
+  background-color: #e72325;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .bulina {
@@ -633,6 +637,10 @@
 
 .new-prod-boxes-container.match-benefits-height .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
   min-height: 7em;
+}
+
+.new-prod-boxes-container.black-theme .block .prod_box.hasGreenTag .inner_prod_box {
+  border-radius: 0 0 20px 20px;
 }
 
 .new-prod-boxes-container .blue-pill {
