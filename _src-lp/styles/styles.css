@@ -777,6 +777,10 @@ main .section.highlight {
   margin-top: 10px;
 }
 
+.section.red-circles .prod-percent.green_bck_circle, .section.red-circles .green_circle_box {
+  background: #e72325 !important;
+}
+
 .prod-percent.green_bck_circle.medium span:first-of-type {
   margin-top: 0;
   font-size: var(--heading-font-size-l);

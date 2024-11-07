@@ -341,6 +341,16 @@
   align-items: center;
 }
 
+.section.banner-container #buyBtnGreenCircleBox span.green_circle_box.v2 {
+  flex-direction: row;
+  font-size: 28px;
+  line-height: 28px;
+  gap: 3px;
+  position: absolute;
+  right: 1em;
+  z-index: 999;
+}
+
 .section.banner-container #buyBtnGreenCircleBox span.green_circle_box {
   position: relative;
   background: #2cb43d;
