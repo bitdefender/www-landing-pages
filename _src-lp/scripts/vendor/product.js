@@ -49,6 +49,7 @@ export default class ProductPrice {
     us_pfe: "com.bitdefender.ultimatesecurityplusus.v2",
     us_pfe_m: "com.bitdefender.ultimatesecurityplusus.v2",
     avpm: "com.bitdefender.cl.avplus.v2",
+    ultsec: "com.bitdefender.ultimatesecurityus",
   }
 
   #locale;
