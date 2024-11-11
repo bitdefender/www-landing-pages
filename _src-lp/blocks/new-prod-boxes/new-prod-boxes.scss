@@ -1,4 +1,4 @@
-.new-prod-boxes-container {   
+    .new-prod-boxes-container {   
     margin: 0 auto;
     padding: 0 15px;
     display: flex;
@@ -352,11 +352,32 @@
     line-height: 1.25;
 }
 
+
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box {
     display: flex;
     justify-content: left;
     align-items: center;
     margin-bottom: 8px;
+}
+
+.new-prod-boxes-container.disable-product-1 .prod_box.index0{
+.save_price_box {
+    visibility: hidden;
+}
+
+.prices_box{
+    visibility: hidden;
+}
+
+.billed{
+    visibility: hidden;
+}
+
+a.red-buy-button{
+    pointer-events: none;
+    background: #C1C1C1!important;
+}
 }
 
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .save_price_box {
