@@ -460,6 +460,14 @@ main .section.width-smaller2 .block {
   max-width: 500px;
 }
 
+main .section[data-backgroundcolor=black] * {
+  color: black;
+}
+
+main .section[data-textcolor=white] * {
+  color: white;
+}
+
 .red-buy-button p {
   padding: 0 !important;
   margin: 0 !important;
