@@ -318,6 +318,10 @@
   margin-bottom: 8px;
 }
 
+.new-prod-boxes-container.disable-product .prod_box.index1 .blueTag {
+  visibility: hidden;
+}
+
 .new-prod-boxes-container.disable-product .prod_box.index0 .blueTag {
   visibility: hidden;
 }
