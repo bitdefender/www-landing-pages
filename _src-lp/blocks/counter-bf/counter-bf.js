@@ -111,6 +111,7 @@ export default function decorate(block) {
       block.querySelector('table#flipdownTable').style.display = 'block';
       document.addEventListener(GLOBAL_EVENTS.COUNTER_LOADED, () => {
         // Initialize the first counter
+        // eslint-disable-next-line no-undef
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
         firstCounter.start().ifEnded(() => {
           // Clear previous HTML and pictures
@@ -119,6 +120,7 @@ export default function decorate(block) {
           block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
 
           // Initialize the second counter
+          // eslint-disable-next-line no-undef
           const secondCounter = new FlipDown(Number(newTime), flipClockConfig);
           secondCounter.start();
         });
