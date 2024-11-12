@@ -226,7 +226,7 @@
     min-height: 2rem;
 }
 
-.new-prod-boxes-container .tag-subtitle {
+.new-prod-boxes-container.flex-height .tag-subtitle {
     min-height: 80px;
     display: flex;
     flex-direction: column;
