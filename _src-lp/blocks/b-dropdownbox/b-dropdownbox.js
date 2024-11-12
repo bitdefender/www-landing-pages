@@ -9,7 +9,11 @@
 
 export default function decorate(block) {
   const parentSelector = block.closest('.section');
-  const { type, loader, topBackgroundColor, topTextColor } = parentSelector.dataset;
+  const {
+    type,
+    loader,
+    topBackgroundColor,
+    topTextColor } = parentSelector.dataset;
 
   // search for [] to replace with span greeenTag class
   const getFirstDivs = block.querySelectorAll('.b-dropdownbox-container .block > div > div:nth-child(1)');

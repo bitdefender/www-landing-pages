@@ -225,7 +225,6 @@ export default function decorate(block) {
     }
   });
 
-
   // tables from right content
   if (contentRightEl && contentRightEl.querySelectorAll('table').length) {
     [...contentRightEl.querySelectorAll('table')].forEach((table) => {
