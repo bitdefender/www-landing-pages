@@ -13,7 +13,8 @@ export default function decorate(block) {
     type,
     loader,
     topBackgroundColor,
-    topTextColor } = parentSelector.dataset;
+    topTextColor
+  } = parentSelector.dataset;
 
   // search for [] to replace with span greeenTag class
   const getFirstDivs = block.querySelectorAll('.b-dropdownbox-container .block > div > div:nth-child(1)');
@@ -46,7 +47,7 @@ export default function decorate(block) {
 
   // if it's slider
   if (type === 'slider') {
-    block.closest('.b-dropdownbox-container').classList.add('container', 'dropdownSlider', loader && `no-loader`);
+    block.closest('.b-dropdownbox-container').classList.add('container', 'dropdownSlider', loader && 'no-loader');
     const sliderBox = document.createElement('div');
     sliderBox.className = 'slider_box';
 
