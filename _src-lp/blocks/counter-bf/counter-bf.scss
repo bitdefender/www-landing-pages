@@ -154,36 +154,44 @@
     font-size: 41px;
     line-height: 47px;
   }
+
   .counter-bf-container .counter-bf-wrapper h2 {
     font-size: 35px;
     line-height: 37px;
   }
+
   .counter-bf-container .counter-bf-wrapper h3 {
     font-size: 30px;
     line-height: 35px;
   }
+
   .counter-bf-container .counter-bf-wrapper p {
     font-size: 22px;
     line-height: 33px;
   }
 }
+
 @media screen and (width < 998px) {
   .counter-bf-container.hide-tablet {
     background-image: none !important;
   }
 }
+
 @media screen and (width < 767px) {
   .counter-bf-container.hide-mobile {
     background-image: none !important;
   }
+
   .counter-bf-container .block {
     padding-top: 1em !important;
     padding-bottom: 1em !important;
   }
+
   .counter-bf-container .flipdown .rotor {
     width: 35px;
     font-size: 3rem;
   }
+
   .counter-bf-container:not(.default) table#flipdownTable.red td {
     width: 100%;
     flex-direction: column;
@@ -192,6 +200,7 @@
     background: transparent;
     text-align: left;
   }
+
   .counter-bf-container:not(.default) table#flipdownTable .flipdown {
     width: auto !important;
     height: 45px;
@@ -199,10 +208,12 @@
     padding: 15px 1em;
     border-radius: 10px;
   }
+
   .counter-bf-container:not(.default) table#flipdownTable .flipdown .rotor-group-heading::before {
     font-size: 11px;
     margin-left: 9px;
   }
+
   .counter-bf-container .counter-bf-wrapper h1 {
     font-size: 30px;
     line-height: 34px;
