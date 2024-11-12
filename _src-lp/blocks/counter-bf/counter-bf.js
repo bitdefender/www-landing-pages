@@ -108,19 +108,18 @@ export default function decorate(block) {
     }
 
     if (newTime > currentTime) {
-      blockFlopDown.style.display = 'block';
+      block.querySelector('table#flipdownTable').style.display = 'block';
       document.addEventListener(GLOBAL_EVENTS.COUNTER_LOADED, () => {
         // Initialize the first counter
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
         firstCounter.start().ifEnded(() => {
           // Clear previous HTML and pictures
-          blockFlopDown.innerHTML = '';
+          block.querySelector('#flipdown').innerHTML = '';
           block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
           block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
 
           // Initialize the second counter
-          block.querySelector('table#flipdownTable').style.display = 'block';
-          const secondCounter = new FlipDown(newTime, flipClockConfig);
+          const secondCounter = new FlipDown(Number(newTime), flipClockConfig);
           secondCounter.start();
         });
 
