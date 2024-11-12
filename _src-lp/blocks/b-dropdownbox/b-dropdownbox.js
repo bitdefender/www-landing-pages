@@ -13,7 +13,7 @@ export default function decorate(block) {
     type,
     loader,
     topBackgroundColor,
-    topTextColor
+    topTextColor,
   } = parentSelector.dataset;
 
   // search for [] to replace with span greeenTag class
