@@ -181,8 +181,8 @@
     padding-bottom: 1em !important;
   }
   .counter-bf-container .flipdown .rotor {
-    width: 35px;
-    font-size: 3rem;
+    width: 18px;
+    font-size: 2rem;
   }
   .counter-bf-container:not(.default) table#flipdownTable.red td {
     width: 100%;
