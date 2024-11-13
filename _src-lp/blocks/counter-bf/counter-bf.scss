@@ -173,23 +173,23 @@
 
 @media screen and (width < 998px) {
   .counter-bf-container.hide-tablet {
-    background-image: none!important;
+    background-image: none !important;
   }
 }
 
 @media screen and (width < 767px) {
   .counter-bf-container.hide-mobile {
-    background-image: none!important;
+    background-image: none !important;
   }
 
   .counter-bf-container .block {
-    padding-top: 1em!important;
-    padding-bottom: 1em!important;
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
   }
 
   .counter-bf-container .flipdown .rotor {
-    width: 35px;
-    font-size: 3rem;
+    width: 18px;
+    font-size: 2rem;
   }
 
   .counter-bf-container:not(.default) table#flipdownTable.red td {

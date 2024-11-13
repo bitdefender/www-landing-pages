@@ -80,6 +80,10 @@
   gap: 5px;
 }
 
+.section.banner-container.normal-title .banner h1, .section.banner-container.normal-title .banner h2, .section.banner-container.normal-title .banner h3, .section.banner-container.normal-title .banner h4 {
+  font-weight: normal;
+}
+
 .section.banner-container.lp-brand .banner h1 {
   font-weight: lighter;
   font-size: var(--heading-font-size-s);
@@ -341,6 +345,17 @@
   align-items: center;
 }
 
+.section.banner-container #buyBtnGreenCircleBox span.green_circle_box.v2 {
+  flex-direction: row;
+  font-size: 28px;
+  line-height: 28px;
+  gap: 3px;
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+  z-index: 999;
+}
+
 .section.banner-container #buyBtnGreenCircleBox span.green_circle_box {
   position: relative;
   background: #2cb43d;
@@ -498,8 +513,13 @@
     line-height: var(--heading-font-size-xl);
   }
 
-  .section.banner-container .banner.smaller-title h1 {
+  .section.banner-container .banner.smaller-title h1, .section.banner-container.smaller-title .banner h1 {
     font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container.smaller-title-2 .banner h1 {
+    font-size: var(--heading-font-size-m);
     line-height: var(--heading-font-size-l);
   }
 
