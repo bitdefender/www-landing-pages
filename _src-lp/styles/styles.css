@@ -460,8 +460,8 @@ main .section.width-smaller2 .block {
   max-width: 500px;
 }
 
-main .section[data-backgroundcolor=black] * {
-  color: black;
+main .section[data-backgroundcolor=black] {
+  background-color: black;
 }
 
 main .section[data-textcolor=white] * {
