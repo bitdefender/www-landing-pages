@@ -71,6 +71,8 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-left: 0;
+  letter-spacing: normal;
+  white-space: unset;
 }
 
 .c-productswithvpn > div .prices_box .oldprice_percent {
