@@ -190,6 +190,14 @@
   min-height: 2rem;
 }
 
+.new-prod-boxes-container.flex-height .tag-subtitle {
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+
 .new-prod-boxes-container.subtitle {
   margin-bottom: -20px;
 }
