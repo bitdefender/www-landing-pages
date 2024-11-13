@@ -237,7 +237,6 @@ export default class ZuoraNLClass {
   }
 
   static async loadProduct(id, campaignParam = '') {
-    console.log('id ', id)
     window.StoreProducts = window.StoreProducts || [];
     window.StoreProducts.product = window.StoreProducts.product || {};
 

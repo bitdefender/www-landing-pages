@@ -75,7 +75,7 @@ describe('scripts.js', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(window.StoreProducts.product).toBeTruthy();
-      // expect(window.StoreProducts.product).toEqual(assertedProductData);
+      expect(window.StoreProducts.product).toEqual(assertedProductData);
 
       expect(zuoraFetchCampaignNameSpy).toHaveBeenCalledTimes(4);
       expect(zuoraGetProductVariationsSpy).toHaveBeenCalledTimes(4);
