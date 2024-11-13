@@ -12,6 +12,10 @@
 .new-prod-boxes-container .icon svg {
   fill: #fff;
 }
+.new-prod-boxes-container.black-theme {
+  background-color: black !important;
+  margin-top: -20px;
+}
 .new-prod-boxes-container .titleBox {
   text-align: center;
   display: flex;
@@ -186,6 +190,14 @@
   min-height: 2rem;
 }
 
+.new-prod-boxes-container.flex-height .tag-subtitle {
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+
 .new-prod-boxes-container.subtitle {
   margin-bottom: -20px;
 }
@@ -221,6 +233,14 @@
   border-top-right-radius: 10px;
   padding-top: 7px;
   padding-bottom: 8px;
+}
+
+.new-prod-boxes-container.black-theme .block .prod_box .inner_prod_box .greenTag2 {
+  background-color: #e72325;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .bulina {
@@ -306,6 +326,27 @@
   margin-bottom: 8px;
 }
 
+.new-prod-boxes-container.disable-product .prod_box.index1 .blueTag {
+  visibility: hidden;
+}
+
+.new-prod-boxes-container.disable-product .prod_box.index0 .blueTag {
+  visibility: hidden;
+}
+.new-prod-boxes-container.disable-product .prod_box.index0 .save_price_box {
+  visibility: hidden;
+}
+.new-prod-boxes-container.disable-product .prod_box.index0 .prices_box {
+  visibility: hidden;
+}
+.new-prod-boxes-container.disable-product .prod_box.index0 .billed {
+  visibility: hidden;
+}
+.new-prod-boxes-container.disable-product .prod_box.index0 a.red-buy-button {
+  pointer-events: none;
+  background: #C1C1C1 !important;
+}
+
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .save_price_box {
   justify-content: center;
 }
@@ -331,6 +372,7 @@
   font-weight: bold;
   padding: 3px 7px;
   border-radius: 16px;
+  font-size: 14px;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box {
@@ -625,6 +667,10 @@
 
 .new-prod-boxes-container.match-benefits-height .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
   min-height: 7em;
+}
+
+.new-prod-boxes-container.black-theme .block .prod_box.hasGreenTag .inner_prod_box {
+  border-radius: 0 0 20px 20px;
 }
 
 .new-prod-boxes-container .blue-pill {

@@ -56,7 +56,7 @@ export default function decorate(block) {
           <span class="label right">
           ${partsIndividual[0]}
           <hr>
-          <p>${partsIndividual[1]}</p> 
+          <p>${partsIndividual[1]}</p>
           </span>
 
           <span class="label left">
@@ -253,8 +253,10 @@ export default function decorate(block) {
           ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
-            ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
-            ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerText.trim()}</p>` : ''}
+            <div class="tag-subtitle">
+              ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
+              ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerHTML.trim()}</p>` : ''}
+            </div>
             <hr />
 
             ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
