@@ -480,11 +480,6 @@
   }
 }
 @media screen and (width >= 991px) {
-  .section.banner-container.smaller-h1 .banner h1 {
-    font-size: var(--heading-font-size-l);
-    line-height: 37px;
-    text-align: left;
-  }
   .section.banner-container .banner h1 {
     font-size: var(--heading-font-size-xl);
     line-height: 45px;
@@ -495,9 +490,13 @@
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
   }
-  .section.banner-container .banner.smaller-title h1 {
+  .section.banner-container .banner.smaller-title h1, .section.banner-container.smaller-title .banner h1 {
     font-size: var(--heading-font-size-l);
     line-height: var(--heading-font-size-l);
+  }
+  .section.banner-container.smaller-title-2 .banner h1 {
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-m);
   }
   .section.banner-container .banner h2 {
     font-size: var(--heading-font-size-l);
