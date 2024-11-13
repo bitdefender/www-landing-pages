@@ -497,12 +497,6 @@
 }
 
 @media screen and (width >= 991px) {
-  .section.banner-container.smaller-h1 .banner h1 {
-    font-size: var(--heading-font-size-l);
-    line-height: 37px;
-    text-align: left;
-  }
-
   .section.banner-container .banner h1 {
     font-size: var(--heading-font-size-xl);
     line-height: 45px;
