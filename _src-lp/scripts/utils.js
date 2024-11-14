@@ -575,10 +575,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         });
       }
 
-      document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach(item => {
+      document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
         const parent = item.parentNode;
         const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
-        sibling ? sibling.style.display = 'none' : parent.style.display = 'none';
+        if (sibling) {
+          sibling.style.display = 'none';
+        } else {
+          parent.style.display = 'none';
+        }
       });
     }
 
