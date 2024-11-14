@@ -190,7 +190,7 @@ export default class ZuoraNLClass {
       zuoraCart.searchParams.set('client', '8f768650-6915-11ed-83e3-e514e761ac46');
 
       let { priceValue, percentValue, totalValue } = { priceValue: 0, discountValue: 0, totalValue: 0 };
-      const currentItem = period.pricing?.find((item) => item.devices_no === devicesNo);
+      const currentItem = period.pricing?.find((item) => Number(item.devices_no) === Number(devicesNo));
       if (!currentItem) return;
 
       currentItem.devices_no = currentItem.devices_no === 50 ? 1 : currentItem.devices_no;
