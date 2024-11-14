@@ -189,14 +189,14 @@ export default class ZuoraNLClass {
       zuoraCart.searchParams.set('language', 'nl_NL');
       zuoraCart.searchParams.set('client', '8f768650-6915-11ed-83e3-e514e761ac46');
 
-      let { priceValue, discountValue, totalValue } = { priceValue: 0, discountValue: 0, totalValue: 0 };
+      let { priceValue, percentValue, totalValue } = { priceValue: 0, discountValue: 0, totalValue: 0 };
       const currentItem = period.pricing?.find(item => item.devices_no == devicesNo);
       if (!currentItem) return;
 
       currentItem.devices_no = currentItem.devices_no === 50 ? 1 : currentItem.devices_no;
       if (Number(devicesNo) === currentItem.devices_no && Number(yearsNo) === billingPeriod) {
         priceValue = currentItem.price;
-        discountValue = currentItem.discount;
+        percentValue = currentItem.discount;
         totalValue = currentItem.total;
 
         window.StoreProducts.product[id] = {
@@ -207,15 +207,15 @@ export default class ZuoraNLClass {
             region_id: 22,
             variation_id: 0,
             platform_id: 16,
-            price: totalValue,
+            price: priceValue,
             variation: {
               years: yearsNo,
             },
             currency_label: '€',
             currency_iso: 'EUR',
             discount: {
-              discounted_price: discountValue,
-              discount_value: priceValue,
+              discounted_price: totalValue,
+              discount_value: percentValue,
             },
             promotion: campaign,
           },
