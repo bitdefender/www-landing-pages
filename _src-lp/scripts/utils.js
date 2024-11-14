@@ -576,9 +576,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       }
 
       document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
-        if(!item) {
-          item.parentNode.style.display = 'none';
-        }
+        if (!item) item.parentNode.style.display = 'none';
       });
     }
 
