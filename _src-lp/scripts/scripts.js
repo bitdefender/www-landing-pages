@@ -1093,15 +1093,17 @@ function eventOnDropdownSlider() {
 
     function showLoadingBar(index) {
       const loadingBar = loadingBars[index];
-      loadingBar.style.width = '0';
-      let width = 0;
-      const interval2 = setInterval(() => {
-        width += 1;
-        loadingBar.style.width = `${width}%`;
-        if (width >= 100) {
-          clearInterval(interval2);
-        }
-      }, 30); // Adjust the interval for smoother animation
+      if (loadingBar) {
+        loadingBar.style.width = '0';
+        let width = 0;
+        const interval2 = setInterval(() => {
+          width += 1;
+          loadingBar.style.width = `${width}%`;
+          if (width >= 100) {
+            clearInterval(interval2);
+          }
+        }, 30); // Adjust the interval for smoother animation
+      }
     }
 
     function moveToNextItem() {
