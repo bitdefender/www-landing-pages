@@ -214,8 +214,8 @@ export default class ZuoraNLClass {
             currency_label: '€',
             currency_iso: 'EUR',
             discount: {
-              discounted_price: priceValue,
-              discount_value: discountValue,
+              discounted_price: discountValue,
+              discount_value: priceValue,
             },
             promotion: campaign,
           },
