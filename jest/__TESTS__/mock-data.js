@@ -106,7 +106,7 @@ export const assertedProductData = {
       region_id: 22,
       variation_id: 0,
       platform_id: 16,
-      price: 39.99,
+      price: 69.99,
       variation: {
         years: '1',
       },
@@ -114,7 +114,7 @@ export const assertedProductData = {
       currency_iso: 'EUR',
       discount: {
         discount_value: 30,
-        discounted_price: 69.99,
+        discounted_price: 39.99,
       },
       promotion: 'WinterMC2023',
     },
