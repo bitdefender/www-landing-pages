@@ -576,7 +576,13 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       }
 
       document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
-        item.parentNode.style.display = 'none';
+        const parent = item.parentNode;
+        const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
+        if (sibling) {
+          sibling.style.display = 'none';
+        } else {
+          parent.style.display = 'none';
+        }
       });
     }
 
