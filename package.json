@@ -5,6 +5,7 @@
   "description": "Starter project for Adobe Helix",
   "scripts": {
     "test:unit": "jest --config",
+    "test:accept-baseline": "node ghosti/accept-baseline.js",
     "test:snapshots": "node ghosti/index.js",
     "lint:js": "eslint .",
     "lint:css": "stylelint _src-lp/blocks/**/*.css styles/*.css",
