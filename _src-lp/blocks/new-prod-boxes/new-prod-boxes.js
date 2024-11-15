@@ -4,29 +4,17 @@ import { updateProductsList } from '../../scripts/utils.js';
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, textBulina, individual,
+    products, priceType, textBulina, individual, titleText, subText,
   } = metaData;
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
     const defaultContentWrapperElements = block.closest('.section').querySelector('.default-content-wrapper')?.children;
-    let titleText;
-    let subText;
     let individualSwitchText;
     let familySwitchText;
     if (defaultContentWrapperElements) {
       [...defaultContentWrapperElements].forEach((element) => {
-        if (element.innerHTML.includes('titleText:')) {
-          element.innerHTML = element.innerHTML.replace('titleText:', '');
-          titleText = element.innerHTML;
-          element.remove();
-        }
-        if (element.innerHTML.includes('subText:')) {
-          element.innerHTML = element.innerHTML.replace('subText:', '');
-          subText = element.innerHTML;
-          element.remove();
-        }
         if (element.innerHTML.includes('&lt;slider-1 ')) {
           element.innerHTML = element.innerHTML.replace('&lt;slider-1 ', '');
           individualSwitchText = element.innerHTML;
@@ -68,7 +56,7 @@ export default function decorate(block) {
           <span class="label right">
           ${partsIndividual[0]}
           <hr>
-          <p>${partsIndividual[1]}</p> 
+          <p>${partsIndividual[1]}</p>
           </span>
 
           <span class="label left">
@@ -210,6 +198,24 @@ export default function decorate(block) {
               }
             }
           }
+          if (firstTdContent.indexOf('?green-pill') !== -1) {
+            const pillText = firstTdContent.match(/\?green-pill (\w+)/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            if (pillText) {
+              const icon = tdList[0].querySelector('span');
+              const pillElement = document.createElement('span');
+              pillElement.classList.add('green-pill');
+              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
+              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
+              if (icon) {
+                let count = 0;
+                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
+                  count += 1;
+                  return (count === 2) ? '' : match;
+                });
+              }
+            }
+          }
           if (firstTdContent.indexOf('-x-') !== -1) {
             liClass += ' nocheck';
             firstTdContent = firstTdContent.replace('-x-', '');
@@ -247,8 +253,10 @@ export default function decorate(block) {
           ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
-            ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
-            ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerText.trim()}</p>` : ''}
+            <div class="tag-subtitle">
+              ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
+              ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerHTML.trim()}</p>` : ''}
+            </div>
             <hr />
 
             ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
