@@ -1,11 +1,20 @@
-export const SNAPSHOTS_SUITE_ID = '64c8d884960593b38bb68331';
-export const PATH_TO_BLOCKS = 'sidekick/blocks';
-export const LOCAL_BLOCKS_PATH = '_src-lp/blocks';
-export const FETCH_TIMEOUT = 1000 * 60 * 5; // 5 minutes
+const SNAPSHOTS_SUITE_ID = '64c8d884960593b38bb68331';
+const PATH_TO_BLOCKS = 'sidekick/blocks';
+const LOCAL_BLOCKS_PATH = '_src-lp/blocks';
+const FETCH_TIMEOUT = 1000 * 60 * 5; // 5 minutes
 
-export function logError(message) {
+function logError(message) {
   console.log('\x1b[31m%s\x1b[0m', message);
 }
-export function logSuccess(message) {
+function logSuccess(message) {
   console.log('\x1b[32m%s\x1b[0m', message);
+}
+
+module.exports = {
+  SNAPSHOTS_SUITE_ID,
+  PATH_TO_BLOCKS,
+  LOCAL_BLOCKS_PATH,
+  FETCH_TIMEOUT,
+  logError,
+  logSuccess
 }
