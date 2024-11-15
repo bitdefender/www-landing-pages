@@ -1,8 +1,8 @@
-name: Accept New Baseline on Merge
+name: Accept Ghost Inspector Snapshots New Baseline on Merge
 
 on:
   workflow_run:
-    workflows: ["run-tests.yaml"]
+    workflows: ["Accept New Baseline"]
     types:
       - completed
 
@@ -15,9 +15,22 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: baseline-acceptance
+      - name: Validate Baseline Acceptance
+        run: |
+          if [ ! -f accept_baseline_flag ]; then
+            echo "Baseline acceptance flag not found."
+            exit 1
+          fi
       - name: Update Baseline in Ghost Inspector
-        if: env.accept_baseline == 'true'
-        run: node index.js
+        run: npm run test:accept-baseline
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
           ACCEPT_NEW_BASELINE: 'true'
+      - name: Mark PR as Safe to Merge
+        run: echo "The baseline has been updated successfully. The PR is safe to merge."
+      - name: Auto-Merge PR
+        if: success()
+        run: gh pr merge ${{ github.event.pull_request.number }} --squash --admin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

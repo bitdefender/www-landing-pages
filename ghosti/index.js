@@ -1,6 +1,14 @@
 const fs = require('fs');
-const SnapshotBlockTest = require('./json-tests/snapshot-block');
 require('dotenv').config();
+const SnapshotBlockTest = require('./json-tests/snapshot-block');
+const {
+  PATH_TO_BLOCKS,
+  LOCAL_BLOCKS_PATH,
+  SNAPSHOTS_SUITE_ID,
+  FETCH_TIMEOUT,
+  logSuccess,
+  logError
+} = require('./constants');
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
 const hlxEnv = {
@@ -8,11 +16,7 @@ const hlxEnv = {
   STAGE: 'page'
 };
 
-const snapshotsSuiteId = '64c8d884960593b38bb68331';
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.${hlxEnv.PROD}`;
-const pathToBlocks = 'sidekick/blocks';
-const localBlocksPath = '_src-lp/blocks';
-const FETCH_TIMEOUT = 1000 * 60 * 5; // 5 minutes
 
 // todo add sidekick config for those
 const EXCLUDED_SNAPSHOT_BLOCKS = [
@@ -29,13 +33,6 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
 ];
 
 (async () => {
-  function logError(message) {
-    console.log('\x1b[31m%s\x1b[0m', message);
-  }
-  function logSuccess(message) {
-    console.log('\x1b[32m%s\x1b[0m', message);
-  }
-
   function snapshotIsPassing({ screenshotComparePassing }) {
     return screenshotComparePassing === true;
   }
@@ -78,9 +75,9 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   }
 
   try {
-    const blockSnapshotsToTest = fs.readdirSync(localBlocksPath).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
+    const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
     // get snapshots tests
-    const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
+    const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
 
     const snapshotsPromises = blockSnapshotsToTest
       .map((testName) => {
@@ -90,9 +87,9 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
           return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testAlreadyExists.name}`).then((res) => res.json());
         }
 
-        return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
+        return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
           name: testName,
-          startUrl: `${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testName}`,
+          startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
         }).generate())
           .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
       });
@@ -110,10 +107,10 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   }
 
   try {
-    const blockSnapshotsToTest = fs.readdirSync(localBlocksPath).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
+    const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
 
     // get snapshots tests
-    const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
+    const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
 
     const batches = createBatches(blockSnapshotsToTest, 3);
 
@@ -128,9 +125,9 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
           }).then((res) => res.json());
         }
         console.log('New test was imported', testName);
-        return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
+        return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
           name: testName,
-          startUrl: `${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testName}`,
+          startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
         }).generate())
           .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
       });
@@ -145,35 +142,5 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   } catch (err) {
     console.error(err);
     process.exit(1);
-  }
-
-  // Baseline Update Logic
-  if (process.env.ACCEPT_NEW_BASELINE === 'true') {
-    try {
-      console.log('Updating baseline screenshots in Ghost Inspector...');
-      // Trigger the baseline update using Ghost Inspector's API
-      const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
-
-      // Loop over each test to accept the new baseline
-      await Promise.all(snapshotSuiteTests.map(test =>
-        fetch(`https://api.ghostinspector.com/v1/tests/${test._id}/accept-screenshot?apiKey=${process.env.GI_KEY}`, {
-          method: 'POST'
-        })
-          .then(res => res.json())
-          .then((response) => {
-            if (response.code === 'SUCCESS') {
-              logSuccess(`Baseline updated successfully for test: ${test.name}`);
-            } else {
-              logError(`Failed to update baseline for test: ${test.name}`);
-            }
-          })
-      ));
-
-      console.log('Baseline update completed.');
-    } catch (err) {
-      logError('An error occurred while updating baselines:');
-      console.error(err);
-      process.exit(1);
-    }
   }
 })();

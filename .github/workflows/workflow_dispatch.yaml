@@ -1,17 +1,27 @@
+name: Accept New Baselines
+
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
-      accept_new_baseline:
-        description: 'Accept new baseline screenshots on merge'
-        required: false
-        default: false
-
+      confirm_baseline:
+        description: 'Type "yes" to accept the new baseline'
+        required: true
+        default: ''
 
 jobs:
-  placeholder:
+  accept-baseline-trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Placeholder Step
-        run: echo "This workflow is used to trigger the Accept New Baseline flag."
+      - name: Validate Input
+        run: |
+          if [ "${{ github.event.inputs.confirm_baseline }}" != "yes" ]; then
+            echo "You must type 'yes' to accept the baseline."
+            exit 1
+          fi
+      - name: Set Baseline Acceptance Flag
+        run: echo "baseline_accepted=true" > accept_baseline_flag
+      - name: Upload Baseline Acceptance Flag
+        uses: actions/upload-artifact@v3
+        with:
+          name: baseline-acceptance
+          path: accept_baseline_flag

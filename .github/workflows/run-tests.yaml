@@ -1,11 +1,8 @@
-name: Workflow
+name: Lint, unit tests, and snapshots
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-  push:
-    branches:
-      - main
 
 jobs:
   setup-nodejs:
@@ -40,35 +37,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-      - name: Get Branch Name
-        id: extract_branch_name
-        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-      - run: npm run test:snapshots
+      - name: Run Snapshot Tests
+        run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
-          BRANCH_NAME: ${{ env.BRANCH_NAME }}
+      - name: Inform Developer About Failing Snapshots
+        if: failure()  # This runs if snapshot tests fail
+        run: echo "Snapshots failed. Check your code or accept new baselines in the GitHub Actions tab."
       - name: Save Accept Baseline Option
-        if: github.event.inputs.accept_new_baseline == 'true'
-        run: echo "accept_new_baseline=true" > accept_baseline_flag
+        if: failure()
+        run: echo "baseline_failure=true" > baseline_failure_flag
       - name: Upload Baseline Acceptance Artifact
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: baseline-acceptance
-          path: accept_baseline_flag
-
-  accept-baseline:
-    needs: [ setup-nodejs, snapshots-tests ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Download Baseline Acceptance Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: baseline-acceptance
-      - name: Update Baseline in Ghost Inspector
-        if: env.accept_baseline == 'true'
-        run: node index.js
-        env:
-          GI_KEY: ${{ secrets.GI_KEY }}
-          ACCEPT_NEW_BASELINE: 'true'
+          path: baseline_failure_flag
