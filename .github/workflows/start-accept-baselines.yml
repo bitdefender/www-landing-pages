@@ -1,0 +1,27 @@
+name: Accept New Baselines
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_baseline:
+        description: 'Type "yes" to accept the new baseline'
+        required: true
+        default: ''
+
+jobs:
+  accept-baseline-trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Input
+        run: |
+          if [ "${{ github.event.inputs.confirm_baseline }}" != "yes" ]; then
+            echo "You must type 'yes' to accept the baseline."
+            exit 1
+          fi
+      - name: Set Baseline Acceptance Flag
+        run: echo "baseline_accepted=true" > accept_baseline_flag
+      - name: Upload Baseline Acceptance Flag
+        uses: actions/upload-artifact@v3
+        with:
+          name: baseline-acceptance
+          path: accept_baseline_flag

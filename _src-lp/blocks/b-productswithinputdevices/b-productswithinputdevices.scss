@@ -8,7 +8,7 @@
   left: 5%;
   top: -3em;
   transform: none;
-  font-size: 16px;
+  font-size: 14px;
   padding: 0 10px;
   align-items: center;
   display: flex;
@@ -71,11 +71,11 @@
   margin-bottom: 10px;
 }
 
-.b-productswithinputdevices-container.bulina-only-boxes .prod-percent.green_bck_circle {
+.b-productswithinputdevices-container.bulina-only-boxes .prod-percent.green_bck_circle, .b-productswithinputdevices-container .prices_box .prod-percent.green_bck_circle {
   display: none !important;
 }
 
-.b-productswithinputdevices-container.bulina-only-boxes .b-productswithinputdevices .prod-percent.green_bck_circle {
+.b-productswithinputdevices-container.bulina-only-boxes .b-productswithinputdevices .prod-percent.green_bck_circle, .b-productswithinputdevices-container.bulina-only-boxes .prices_box .prod-percent.green_bck_circle  {
   display: flex !important;
 }
 
@@ -348,6 +348,96 @@
   }
 }
 
+.b-productswithinputdevices-container.bf2024 #campaign-logo {
+  position: absolute;
+  top: -8em;
+  left: -9em;
+  width: 24em;
+}
+
+.b-productswithinputdevices-container.bf2024 a.red-buy-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.b-productswithinputdevices-container.bf2024 a.red-buy-button::before {
+  content: '';
+  background: url('../../icons/bf24-sticker.svg') no-repeat 0 0 transparent;
+  width: 52px;
+  height: 45px;
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  left: auto;
+  bottom: auto;
+  z-index: 9999;
+  background-size: 100%;
+  box-sizing: unset;
+}
+
+.b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
+  background: url('../../icons/bf24-Ribbon.png') no-repeat 0 0 transparent;
+  right: 5em;
+  top: -27px;
+  left: auto;
+  width: 150px;
+  height: 111px;
+  background-size: 100%;
+  border-radius: unset;
+  padding: 0 40px !important;
+  line-height: 13px;
+  gap: 10px;
+}
+
+.b-productswithinputdevices-container.bf2024.blue-tag .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
+  background: url('../../icons/bf24-Ribbon-blue.png') no-repeat 0 0 transparent;
+  background-size: 100%;
+}
+
+.b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .b-productswithinputdevices {
+  margin-top: 11em;
+  background: #ECECEC;
+}
+
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices fieldset button {
+  color: black;
+}
+
+.b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div .prod-taxes {
+  color: #A1A2A2;
+}
+
+@media (width <= 1360px) {
+  .b-productswithinputdevices-container.bf2024 #campaign-logo {
+    top: -12em;
+    left: -3em;
+  }
+}
+
+@media (width <= 1100px) {
+  .b-productswithinputdevices-container.bf2024 #campaign-logo {
+    top: -14em;
+    left: 1em;
+  }
+
+  .b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
+    right: 2em;
+    top: -24px;
+    left: auto;
+    width: 128px;
+    height: 95px
+  }
+}
+
+@media (width <= 991px) {
+  .b-productswithinputdevices-container.bf2024 #campaign-logo {
+    top: -10em;
+    left: 1em;
+    width: 18em;
+  }
+}
+
 /* for mobile */
 @media (width <= 768px) {
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
@@ -407,7 +497,6 @@
   }
 
   .b-productswithinputdevices-container.second-template {
-
     .b-productswithinputdevices {
       max-width: 330px;
       margin: 0;
@@ -417,5 +506,23 @@
         margin: 0;
       }
     }
+  }
+
+  .b-productswithinputdevices-container.bf2024 #campaign-logo {
+    top: -12em;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+
+@media (width <= 500px) {
+  .b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .b-productswithinputdevices {
+    margin-top: 7em;
+  }
+
+  .b-productswithinputdevices-container.bf2024 #campaign-logo {
+    width: 14em;
+    top: -9em;
   }
 }

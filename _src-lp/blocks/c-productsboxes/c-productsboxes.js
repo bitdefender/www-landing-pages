@@ -7,7 +7,7 @@ export default function decorate(block) {
   const parentSelector = block.parentNode.parentNode;
   const metaData = parentSelector.dataset;
   const {
-    backgroundColor, title, subtitle, titlePosition, products, bulinaText, marginTop, marginBottom, paddingTop, paddingBottom,
+    backgroundColor, title, subtitle, titlePosition, products, bulinaText, marginTop, marginBottom, paddingTop, paddingBottom, isCampaign,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -77,16 +77,22 @@ export default function decorate(block) {
       const saveText = prodBox?.querySelector('table:nth-of-type(2)').innerText.trim();
       const firstYearText = prodBox?.querySelector('table:nth-of-type(3)').innerText.trim();
 
-      pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-      if (saveText && saveText.indexOf('0') !== -1) {
-        pricesDiv.innerHTML += `<p class="save-green-pill">
-          ${saveText.replace(/0/g, `<span class="save-${onSelectorClass}"></span>`)}
-        </p>`;
+      if (isCampaign === 'jamestowntribe') {
+        pricesDiv.classList = 'prices_box';
+        pricesDiv.innerHTML += '<span class="prod-newprice">$26.99</span>';
+        pricesDiv.innerHTML += '<span class="prod-oldprice">$89.99</span>';
       } else {
-        pricesDiv.innerHTML += `<span>${saveText}</span>`;
+        pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+        if (saveText && saveText.indexOf('0') !== -1) {
+          pricesDiv.innerHTML += `<p class="save-green-pill">
+            ${saveText.replace(/0/g, `<span class="save-${onSelectorClass}"></span>`)}
+          </p>`;
+        } else {
+          pricesDiv.innerHTML += `<span>${saveText}</span>`;
+        }
+        pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+        pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
       }
-      pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
-      pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
 
       if (firstYearText) pricesDiv.innerHTML += `<span class="first_year">${firstYearText}</span>`;
 
@@ -112,6 +118,7 @@ export default function decorate(block) {
       const tableBuybtn = prodBox?.querySelector('table:last-of-type');
 
       const aBuybtn = document.createElement('a');
+
       aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
       aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
       aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
@@ -120,15 +127,124 @@ export default function decorate(block) {
       const divBuybtn = document.createElement('div');
       divBuybtn.classList.add('buybtn_box', 'buy_box', `buy_box${idx + 1}`);
       divBuybtn.appendChild(aBuybtn);
+
+      if (isCampaign === 'jamestowntribe') {
+        // adding reCaptcha script
+        const recaptchaScript = document.createElement('script');
+        recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback';
+        recaptchaScript.defer = true;
+        document.body.appendChild(recaptchaScript);
+        /* global grecaptcha */
+
+        // Create the form element
+        const formBox = document.createElement('div');
+        const [inputText, buttonText] = parentSelector.querySelectorAll('table td');
+        if (inputText && buttonText) {
+          formBox.innerHTML = `<form id="formBox" onsubmit="event.preventDefault();">
+            <p class="form_err"></p>
+            <input class='input' id='formEmail' name='nfo[email]' placeholder='Email' type='email'></input>
+            <button class='red-buy-button' type='submit'>${tableBuybtn.innerHTML}</button>
+            <div id="captchaBox"></div>
+          </form>`;
+          window.onRecaptchaLoadCallback = () => {
+            window.clientId = grecaptcha.render('captchaBox', {
+              sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
+              badge: 'inline',
+              size: 'invisible',
+            });
+          };
+        }
+        tableBuybtn.innerHTML = '';
+        tableBuybtn.append(formBox);
+      }
+
       tableBuybtn?.before(divBuybtn);
+
+      if (isCampaign === 'jamestowntribe') {
+        prodBox.querySelector('div.buybtn_box')?.remove();
+        const saveBox = document.createElement('div');
+        saveBox.innerHTML = 'Save 70%';
+        saveBox.className = 'tag';
+        const tag = prodBox.querySelector('.tag');
+        prodBox.replaceChild(saveBox, tag);
+      }
 
       /// ///////////////////////////////////////////////////////////////////////
       // removing last table
-      tableBuybtn?.remove();
+      if (isCampaign !== 'jamestowntribe') {
+        tableBuybtn?.remove();
+      }
 
       // add prod class on block
       prodBox?.classList.add(`${onSelectorClass}_box`, 'prod_box');
       prodBox?.setAttribute('data-testid', 'prod_box');
     });
   }
+  // Event listener for form submission
+  block.querySelector('#formBox button').addEventListener('click', async (event) => {
+    const { target } = event;
+
+    const allowedDomain = 'jamestowntribe.org';
+
+    // Check if the click event is on a button inside a form
+    if (target.tagName === 'BUTTON' && target.closest('form')) {
+      event.preventDefault();
+
+      const formBox = block.querySelector('#formBox');
+      // Perform validation and reCAPTCHA
+      const email = block.querySelector('#formEmail').value;
+      const formErr = block.querySelector('#formBox .form_err');
+      const formBtn = block.querySelector('#formBox button');
+      const formErrData = {
+        '001': 'Invalid page',
+        '002': 'Invalid email address',
+        '003': 'Invalid captcha',
+        '004': 'Email successfully sent',
+      };
+
+      try {
+        const emailDomain = email.split('@')[1];
+        // Validate email with allowed domain
+        if (emailDomain === allowedDomain) {
+          formBtn.disabled = true;
+          formBox.classList.add('await-loader');
+          formErr.style.display = 'none';
+
+          // Execute reCAPTCHA
+          const captchaToken = await grecaptcha.execute(window.clientId, { action: 'submit' });
+
+          // Prepare form data
+          const formData = new FormData(block.querySelector('#formBox'));
+          formData.append('email_field', email);
+          formData.append('captcha', captchaToken);
+
+          // Submit the form via fetch
+          const response = await fetch(`https://www.bitdefender.com/site/Main/sendBuyLinkEmail?email_field=${email}&captcha=${captchaToken}`, {
+            method: 'GET',
+          });
+          const jsonObj = await response.json();
+
+          // Handle response
+          if (jsonObj.error) {
+            formErr.style.display = 'block';
+            formErr.innerText = formErrData[jsonObj.error] || 'Please try again later';
+          } else if (jsonObj.success) {
+            window.location.replace(jsonObj.redirect);
+          }
+
+          formBtn.disabled = false;
+          formBox.classList.remove('await-loader');
+        } else {
+          // Show invalid email error
+          formErr.style.display = 'block';
+          formErr.innerText = 'Invalid email address';
+        }
+      } catch (error) {
+        // Handle errors
+        console.error(error);
+        formBtn.disabled = false;
+        formBox.classList.remove('await-loader');
+      }
+    }
+  });
 }

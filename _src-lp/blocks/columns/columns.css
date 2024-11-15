@@ -40,6 +40,10 @@
   font-weight: 500;
 }
 
+.columns-container.blue-headings .columns h4 {
+  color: #006dff;
+}
+
 .columns img {
   border-radius: 20px;
 }
@@ -88,7 +92,7 @@
   .columns > div {
     align-items: center;
     flex-direction: unset;
-    padding: 18px;
+    padding: 0 18px;
   }
   .columns div.text-content {
     padding: 2em;

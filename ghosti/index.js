@@ -1,13 +1,22 @@
 const fs = require('fs');
-const SnapshotBlockTest = require('./json-tests/snapshot-block');
 require('dotenv').config();
+const SnapshotBlockTest = require('./json-tests/snapshot-block');
+const {
+  PATH_TO_BLOCKS,
+  LOCAL_BLOCKS_PATH,
+  SNAPSHOTS_SUITE_ID,
+  FETCH_TIMEOUT,
+  logSuccess,
+  logError
+} = require('./constants');
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
-const snapshotsSuiteId = '64c8d884960593b38bb68331';
-const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.page`;
-const pathToBlocks = 'sidekick/blocks';
-const localBlocksPath = '_src-lp/blocks';
-const FETCH_TIMEOUT = 1000 * 60 * 6; // 6 minutes
+const hlxEnv = {
+  PROD: 'live',
+  STAGE: 'page'
+};
+
+const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.${hlxEnv.PROD}`;
 
 // todo add sidekick config for those
 const EXCLUDED_SNAPSHOT_BLOCKS = [
@@ -24,13 +33,6 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
 ];
 
 (async () => {
-  function logError(message) {
-    console.log('\x1b[31m%s\x1b[0m', message);
-  }
-  function logSuccess(message) {
-    console.log('\x1b[32m%s\x1b[0m', message);
-  }
-
   function snapshotIsPassing({ screenshotComparePassing }) {
     return screenshotComparePassing === true;
   }
@@ -73,10 +75,42 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   }
 
   try {
-    const blockSnapshotsToTest = fs.readdirSync(localBlocksPath).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
+    const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
+    // get snapshots tests
+    const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
+
+    const snapshotsPromises = blockSnapshotsToTest
+      .map((testName) => {
+        const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
+
+        if (testAlreadyExists) {
+          return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`).then((res) => res.json());
+        }
+
+        return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
+          name: testName,
+          startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
+        }).generate())
+          .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
+      });
+
+    const [
+      snapshotsResult,
+    ] = await Promise.all([
+      Promise.all(snapshotsPromises),
+    ]);
+
+    showSnapshotTestsFullLogs(snapshotsResult);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+
+  try {
+    const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
 
     // get snapshots tests
-    const snapshotSuiteTests = await GhostInspector.getSuiteTests(snapshotsSuiteId);
+    const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
 
     const batches = createBatches(blockSnapshotsToTest, 3);
 
@@ -86,14 +120,14 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
       const snapshotsPromises = batch.map((testName) => {
         const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
         if (testAlreadyExists) {
-          return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testAlreadyExists.name}`, {
+          return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
             signal: AbortSignal.timeout(FETCH_TIMEOUT)
           }).then((res) => res.json());
         }
         console.log('New test was imported', testName);
-        return GhostInspector.importTest(snapshotsSuiteId, new SnapshotBlockTest({
+        return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
           name: testName,
-          startUrl: `${featureBranchEnvironmentBaseUrl}/${pathToBlocks}/${testName}`,
+          startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
         }).generate())
           .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
       });

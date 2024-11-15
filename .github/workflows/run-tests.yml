@@ -1,6 +1,8 @@
-name: Workflow
+name: Lint, unit tests, and snapshots
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   setup-nodejs:
@@ -35,16 +37,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-
-      # Dynamically extract the branch name from GITHUB_REF
-      - name: Get Branch Name
-        id: extract_branch_name
-        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-
-      - run: npm run test:snapshots
+      - name: Run Snapshot Tests
+        run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
-          BRANCH_NAME: ${{ env.BRANCH_NAME }}
-      - run: npm run compile-sass
-        env:
-          CI: true
+      - name: Inform Developer About Failing Snapshots
+        if: failure()  # This runs if snapshot tests fail
+        run: echo "Snapshots failed. Check your code or accept new baselines in the GitHub Actions tab."
+      - name: Save Accept Baseline Option
+        if: failure()
+        run: echo "baseline_failure=true" > baseline_failure_flag
+      - name: Upload Baseline Acceptance Artifact
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: baseline-acceptance
+          path: baseline_failure_flag

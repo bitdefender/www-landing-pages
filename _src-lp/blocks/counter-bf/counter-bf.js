@@ -43,7 +43,7 @@ export default function decorate(block) {
 
     let onePicture = false;
     if (pictureBF && !pictureCM) {
-      parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / auto 100% ${backgroundColor || '#000'}`;
+      parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / 1400px 100% ${backgroundColor || '#000'}`;
       onePicture = true;
     }
 
@@ -56,6 +56,10 @@ export default function decorate(block) {
       discountText.innerHTML = '';
       discountText.appendChild(divBulina);
     }
+
+    block.innerHTML = block.innerHTML.replace('<p>[counter]</p>', `
+      <div style="display: none" id="flipdown" class="flipdown"></div>
+    `);
 
     block.innerHTML = `
       <div class="container-fluid">
@@ -104,35 +108,28 @@ export default function decorate(block) {
     }
 
     if (newTime > currentTime) {
-      blockFlopDown.style.display = 'block';
+      block.querySelector('table#flipdownTable').style.display = 'block';
       document.addEventListener(GLOBAL_EVENTS.COUNTER_LOADED, () => {
         // Initialize the first counter
         // eslint-disable-next-line no-undef
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
         firstCounter.start().ifEnded(() => {
-          if (!skip2ndCounter) {
-            // The initial counter (Black Friday) has ended; start a new one + 48 hours from now - CyberMonday
-            blockFlopDown.innerHTML = '';
-            block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
-            block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
+          // Clear previous HTML and pictures
+          block.querySelector('#flipdown').innerHTML = '';
+          block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
+          block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'block'; });
 
-            // Initialize the second counter
-            // eslint-disable-next-line no-undef
-            const secondCounter = new FlipDown(newTime, flipClockConfig);
-            secondCounter.start();
-          } else {
-            flipdownTable.style.display = 'none';
-            if (contentEl.querySelector('div').children.length === 1) {
-              parentBlock.remove();
-            }
-          }
+          // Initialize the second counter
+          // eslint-disable-next-line no-undef
+          const secondCounter = new FlipDown(Number(newTime), flipClockConfig);
+          secondCounter.start();
         });
 
         if (!firstCounter.countdownEnded) {
           block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'block'; });
           block.querySelectorAll('.pictureCM').forEach((elem) => { elem.style.display = 'none'; });
         }
-      });
+      }, { once: true }); // Ensures listener only triggers once
     }
 
     // update background color if set, if not set default: #000

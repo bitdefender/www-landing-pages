@@ -258,11 +258,6 @@
   font-weight: normal;
 }
 
-.b-banner-container.form .b-banner-wrapper h3 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
 .b-banner-container.form .b-banner-wrapper h4 {
   font-size: 18px;
   font-weight: bold;
@@ -324,11 +319,10 @@
   background-color: #22ac3b;
   text-align: center;
   color: #fff;
-  padding: 10px 0;
+  padding: 0 10px;
   font-weight: 600;
   text-decoration: none;
   font-size: 14px;
-  line-height: 0;
   width: 108%;
   margin-left: -10px;
 }
@@ -423,6 +417,18 @@
   font-size: 32px;
 }
 
+.b-banner-container .b-banner-wrapper #productBoxDiv h3 {
+  margin-top: 0.5em;
+  font-size: 22px;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv hr {
+  border: 0;
+  border-bottom: 2px solid black;
+  width: 66px;
+  margin: 0.5em auto 1em;
+}
+
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
@@ -471,6 +477,7 @@
     right: 0;
     top: 0;
     margin: 15px auto;
+    padding-bottom: 25px;
     position: absolute;
     display: block;
   }

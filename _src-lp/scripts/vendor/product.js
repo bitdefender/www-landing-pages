@@ -32,6 +32,24 @@ export default class ProductPrice {
     mobileios: 'com.bitdefender.iosprotection',
     dip: 'com.bitdefender.dataprivacy',
     dipm: 'com.bitdefender.dataprivacy',
+    ts_i: "com.bitdefender.tsmd.v2",
+    ts_f: "com.bitdefender.tsmd.v2",
+    ps_i: "com.bitdefender.premiumsecurity.v2",
+    ps_f: "com.bitdefender.premiumsecurity.v2",
+    us_i: "com.bitdefender.ultimatesecurityeu.v2",
+    us_i_m: "com.bitdefender.ultimatesecurityeu.v2",
+    us_f: "com.bitdefender.ultimatesecurityeu.v2",
+    us_f_m: "com.bitdefender.ultimatesecurityeu.v2",
+    us_pi: "com.bitdefender.ultimatesecurityus.v2",
+    us_pi_m: "com.bitdefender.ultimatesecurityus.v2",
+    us_pf: "com.bitdefender.ultimatesecurityus.v2",
+    us_pf_m: "com.bitdefender.ultimatesecurityus.v2",
+    us_pie: "com.bitdefender.ultimatesecurityplusus.v2",
+    us_pie_m: "com.bitdefender.ultimatesecurityplusus.v2",
+    us_pfe: "com.bitdefender.ultimatesecurityplusus.v2",
+    us_pfe_m: "com.bitdefender.ultimatesecurityplusus.v2",
+    avpm: "com.bitdefender.cl.avplus.v2",
+    ultsec: "com.bitdefender.ultimatesecurityus",
   }
 
   #locale;
@@ -145,7 +163,7 @@ export default class ProductPrice {
         selected_years: this.#yearsNo,
         selected_variation: {
           product_id: this.#alias,
-          region_id: 22,
+          region_id: this.#locale === 'en-US' ? 8 : 22,
           variation_id: 0,
           platform_id: 16,
           price: pricing.total,
@@ -264,15 +282,21 @@ export class Locale {
     }
   }
 
+  static getParamFromUrl(value) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(value);
+  }
+
   static async get() {
     try {
-      // Extract language from URL
-      const url = window.location.href;
-      const language = url.split('/')[5];
+      // Check locale in url param
+      const paramLocale = this.getParamFromUrl('locale');
+      if (paramLocale) return paramLocale;
 
-      // Check for the target variable in localStorage
+      // Check locale in localStorage
       const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
       let country;
+      let locale = 'en-us'; // Default
 
       if (cachedGeoData) {
         const geoData = JSON.parse(cachedGeoData);
@@ -286,6 +310,10 @@ export class Locale {
         } else {
           // Fetch country information from the endpoint
           const response = await fetch(GEOIP_ENDPOINT);
+          if (!response.ok) {
+            console.error(`Failed to fetch geo data: ${response.statusText}`);
+            return locale; // Return default locale in case of error
+          }
           const data = await response.json();
           country = data.country;
 
@@ -294,12 +322,21 @@ export class Locale {
         }
       }
 
-      // Construct the locale string
-      const locale = `${language}-${country}`;
+      // Fetch locale based on the country
+      const localeResponse = await fetch(`${API_BASE}${API_ROOT}/${country}/locales`);
+      if (!localeResponse.ok) {
+        console.error(`Failed to fetch locales: ${localeResponse.statusText}`);
+        return locale; // Return default locale in case of error
+      }
+      const localeData = await localeResponse.json();
+      if (localeData.length && localeData[0]?.locale) {
+        locale = localeData[0].locale;
+      }
+
       return locale;
     } catch (error) {
       console.error('Error fetching locale:', error);
-      return null;
+      return 'en-us'; // Return default locale in case of any other error
     }
   }
 }

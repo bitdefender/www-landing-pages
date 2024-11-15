@@ -1,21 +1,3 @@
-/*
-  Information:
-  - displays:
-  - top text
-  - input for devices with - + controllers
-  and
-  - 3 boxes positioned in flex mode:
-    1. product 1
-    2. product 2
-    3. product 3
-
-  MetaData:
-  - products : ex: tsmd/5/1, is/3/1, av/3/1 (alias_name/nr_devices/nr_years)
-
-  Samples:
-  - https://www.bitdefender.com/media/html/business/cross-sell-2023-mobile-launch/existing.html?pid=cross-sell-30off - http://localhost:3000/business/en/cross-sell-2023-mobile-launch
-*/
-
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -58,13 +40,13 @@ export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
-  const parent1ndDiv = block.children[0];
-  const parent2ndDiv = block.children[1];
+  const parentSelectorStyle = parentSelector.style;
+  const [parent1ndDiv, parent2ndDiv] = block.children;
 
   const metaData = parentSelector.dataset;
   const {
     products, yearsText, bulinaText, devicesLimits, yearsSelector, monthlyText, incrementalCounter, titleTag,
-    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice,
+    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice, backgroundColor, backgroundImage, campaignImage,
   } = metaData;
   const productsAsList = products && products.split(',');
   const subscribeTexts = parent2ndDiv.querySelector('p').innerText;
@@ -73,6 +55,27 @@ export default function decorate(block) {
   const savingText = parent2ndDiv.querySelector('p:nth-child(4)').innerText;
   const buylinkText = parent2ndDiv.querySelector('p:nth-child(5)').innerText;
   const taxesText = parent2ndDiv.querySelector('p:nth-child(6)').innerText;
+
+  if (backgroundImage) {
+    parentSelectorStyle.backgroundImage = `url(${backgroundImage.split('?')[0]})`;
+    if (backgroundColor) {
+      parentSelectorStyle.backgroundSize = '100% auto';
+      parentSelectorStyle.backgroundColor = backgroundColor;
+    } else {
+      parentSelectorStyle.backgroundSize = 'cover';
+    }
+
+    parentSelectorStyle.backgroundPosition = '0 0';
+    parentSelectorStyle.backgroundRepeat = 'no-repeat';
+    parentSelectorStyle.backgroundBlendMode = 'unset';
+  }
+
+  if (campaignImage) {
+    const campaignLogo = document.createElement('div');
+    campaignLogo.id = 'campaign-logo';
+    campaignLogo.innerHTML = `<img src="${campaignImage}" alt="Bitdefender">`;
+    block.appendChild(campaignLogo);
+  }
 
   let devicesMin = 5;
   let devicesSelected = 5;
@@ -121,7 +124,7 @@ export default function decorate(block) {
     inputFieldset.classList = 'd-flex';
     inputFieldset.innerHTML += '<button>-</button>';
     inputFieldset.innerHTML += '<label for="devicesInput" style="display: none;">Number of Devices</label>';
-    inputFieldset.innerHTML += `<input type="text" readonly name="devicesInput" min=${devicesMin}" max="${devicesMax}" value="${devicesSelected}" id="devicesInput">`;
+    inputFieldset.innerHTML += `<input type="text" name="devicesInput" min=${devicesMin}" max="${devicesMax}" value="${devicesSelected}" id="devicesInput">`;
     inputFieldset.innerHTML += '<button>+</button>';
     // add fieldset
     const tableEl = parent1ndDiv.querySelector('table');
@@ -140,6 +143,7 @@ export default function decorate(block) {
     const tableElMailboxes2 = tableEl.querySelector('strong:nth-child(3) em');
     updateTableElement(tableElMailboxes2, devicesSelected, 150);
 
+    // click on buttons
     block.querySelectorAll('fieldset button').forEach((item) => {
       item.addEventListener('click', () => {
         const action = item.textContent;
@@ -171,6 +175,17 @@ export default function decorate(block) {
       });
     });
 
+    // change directly input number
+    block.querySelector('#devicesInput').addEventListener('input', (event) => {
+      const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
+      if (devicesSelector.length > 0) {
+        devicesSelector.forEach((selector) => {
+          selector.value = event.target.value;
+          selector.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+    });
+
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
@@ -191,7 +206,7 @@ export default function decorate(block) {
         if (reverseMonthlyTextWithPrice) {
           pricesDiv.innerHTML += `<div class="blue-monthly-tag">
                                     <span style="color: white; font-size: 24px" class="prod-newprice newprice-${onSelectorClass}"></span>
-                                    <p style="color: white;" class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} 
+                                    <p style="color: white;" class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText}
                                       <span class="oldprice-${onSelectorClass}"></span>
                                     </p>
                                     <p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>
@@ -218,16 +233,6 @@ export default function decorate(block) {
           `;
           selectElement.id = 'selectYears';
           selectorBox.appendChild(selectElement);
-
-          // Add an event listener for the 'change' event
-          selectElement.addEventListener('change', (event) => {
-            const triggerValue = event.target.value;
-            if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
-              const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
-              fakeSelector.value = triggerValue;
-              fakeSelector.dispatchEvent(new Event('change'));
-            }
-          });
         }
 
         pricesDiv.appendChild(selectorBox);
@@ -243,11 +248,24 @@ export default function decorate(block) {
         pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
         pricesDiv.innerHTML += `<p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
       }
+
+      // buylinkText = buylinkText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
       pricesDiv.innerHTML += `<p class="percent percent-${onSelectorClass}" style="display: none;"></p>`;
       pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${buylinkText}</a></div>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
 
       parent2ndDiv.appendChild(pricesDiv);
+
+      const selectElement = document.getElementById('selectYears');
+      // eslint-disable-next-line no-unused-expressions
+      selectElement && selectElement.addEventListener('change', (event) => {
+        const triggerValue = event.target.value;
+        if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
+          const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
+          fakeSelector.value = triggerValue;
+          fakeSelector.dispatchEvent(new Event('change'));
+        }
+      });
 
       /// ///////////////////////////////////////////////////////////////////////
       if (secondTemplate) {
@@ -265,16 +283,6 @@ export default function decorate(block) {
 
         const breakDiv = document.createElement('b');
         table.before(breakDiv);
-
-        const selectElement = block.querySelector('#selectYears');
-        selectElement.addEventListener('change', (event) => {
-          const triggerValue = event.target.value;
-          if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
-            const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
-            fakeSelector.value = triggerValue;
-            fakeSelector.dispatchEvent(new Event('change'));
-          }
-        });
       }
     });
   }

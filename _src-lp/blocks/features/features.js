@@ -22,7 +22,7 @@ function replaceListWithAccordions(ul) {
     if (typeof improved !== 'undefined') {
       newTitle = `${newTitle} <span class="improved">${improved}</span>`;
     }
-    const { button, panel } = createAccordion(newTitle, content.trim());
+    const { button, panel } = createAccordion(newTitle, content?.trim());
     div.appendChild(button);
     div.appendChild(panel);
   });

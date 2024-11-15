@@ -60,6 +60,11 @@
   background: linear-gradient(to left, rgba(247, 247, 247, 0), #F7F7F7);
 }
 
+.section.banner-container.smaller-icons img {
+  height: 20px;
+  margin-top: -5px;
+}
+
 .section.banner-container.new-2024 .banner {
   overflow: hidden;
   background-color: #F6F6F6;
@@ -72,6 +77,10 @@
   margin-top: 0;
   font: normal normal bold 18px/21px Arial, sans-serif;
   gap: 5px;
+}
+
+.section.banner-container.normal-title .banner h1, .section.banner-container.normal-title .banner h2, .section.banner-container.normal-title .banner h3, .section.banner-container.normal-title .banner h4 {
+  font-weight: normal;
 }
 
 .section.banner-container.lp-brand .banner h1 {
@@ -108,7 +117,7 @@
   padding-left: 0;
   font-size: var(--body-font-size-xs);
   line-height: 20px;
-  color: #000;
+  color: inherit;
   text-align: left;
   margin-top: 6px;
 }
@@ -303,6 +312,23 @@
   padding: 2px 11px;
 }
 
+.section.banner-container #greenPillBox * {
+  color: inherit;
+}
+
+.section.banner-container.new-2024.v2 p a {
+  text-decoration: underline;
+}
+
+.section.banner-container #buyBtnGreenCircleBox a {
+  margin-right: 10px;
+}
+
+.section.banner-container #greenPillBox:hover, .section.banner-container #greenPillBox:hover a {
+  opacity: 0.9;
+  text-decoration: none;
+}
+
 .section.banner-container #redPillBox {
   background-color: #E72325;
   display: inline-block;
@@ -318,12 +344,15 @@
   align-items: center;
 }
 
-.section.banner-container.new-2024.v2 p a {
-  text-decoration: underline;
-}
-
-.section.banner-container #buyBtnGreenCircleBox a {
-  margin-right: 10px;
+.section.banner-container #buyBtnGreenCircleBox span.green_circle_box.v2 {
+  flex-direction: row;
+  font-size: 28px;
+  line-height: 28px;
+  gap: 3px;
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+  z-index: 999;
 }
 
 .section.banner-container #buyBtnGreenCircleBox span.green_circle_box {
@@ -390,6 +419,10 @@
     line-height: var(--heading-font-size-l);
     margin-top: 1em;
   }
+  .section.banner-container.full-width-headings .banner h1 {
+    margin-right: -40vw;
+    border-bottom: 0;
+  }
   .section.lp-brand .banner p {
     width: 100%;
     font-size: var(--body-font-size-xs);
@@ -426,6 +459,7 @@
   .section.banner-container #pricesBox .buy_box {
     margin: 2em 0 1em;
     min-height: auto;
+    white-space: nowrap;
   }
   .section.banner-container .animated_text span {
     font-size: var(--heading-font-size-xl);
@@ -460,8 +494,12 @@
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
   }
-  .section.banner-container .banner.smaller-title h1 {
+  .section.banner-container .banner.smaller-title h1, .section.banner-container.smaller-title .banner h1 {
     font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+  .section.banner-container.smaller-title-2 .banner h1 {
+    font-size: var(--heading-font-size-m);
     line-height: var(--heading-font-size-l);
   }
   .section.banner-container .banner h2 {

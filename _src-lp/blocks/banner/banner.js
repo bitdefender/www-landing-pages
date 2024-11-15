@@ -1,4 +1,4 @@
-import { detectModalButtons, productAliases } from '../../scripts/scripts.js';
+import { detectModalButtons, productAliases, isView } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
@@ -7,11 +7,12 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
+    product, products, animatedText, contentSize, backgroundColor, backgroundColorGradient, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, corners, textNextToPill,
+    marginBottom, imageCover, corners, textNextToPill, isCampaign,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
+  const isDesktop = isView('desktop');
 
   if (imageCover) {
     parentBlock.classList.add(`bckimg-${imageCover}`);
@@ -29,6 +30,11 @@ export default function decorate(block) {
       updateProductsList(product);
       [prodName, prodUsers, prodYears] = product.split('/');
       onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    }
+
+    // NORMAL DISPLAY
+    if (aliasTr && aliasTr.textContent.trim() === 'display') {
+      table.style.display = 'block';
     }
 
     // BLUE-BOX
@@ -64,36 +70,57 @@ export default function decorate(block) {
       table.appendChild(titleBox);
     }
 
-    // PRICE_BOX
     if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
       const [alias, save, prices, terms, buybtn] = [...table.querySelectorAll('tr')];
       const pricesBox = document.createElement('div');
 
-      if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
-        buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+      if (isCampaign === 'jamestowntribe') {
+        pricesBox.id = 'pricesBox';
+        pricesBox.className = 'prices_box';
+        pricesBox.innerHTML += `<div class="d-flex">
+          <p>
+          <div>
+            <div class="d-flex">
+              <span class="prod-oldprice mr-2">$89.99</span>
+            </div>
+            </p>
+            <div class="d-flex">
+              <span class="prod-newprice">$26.99</span>
+              <p class="variation">1 year /<br>3 Devices</p>
+            </div>
+        </div>`;
+
+        pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
+        pricesBox.innerHTML += `<div class="buy_box">
+          <a class="red-buy-button" href="#c-productsboxes" referrerpolicy="no-referrer-when-downgrade">Get it now <span class="save">| Save 70%</span></a>
+        </div>`;
+      } else {
+        if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
+          buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+        }
+
+        pricesBox.id = 'pricesBox';
+        pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+        pricesBox.innerHTML += `<div class="d-flex">
+          <p>
+          <div>
+            <div class="d-flex">
+              <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
+              <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
+            </div>
+            </p>
+            <div class="d-flex">
+              <span class="prod-newprice newprice-${onSelectorClass}"></span>
+              <p class="variation">${prices.innerHTML}</p>
+            </div>
+        </div>`;
+
+        pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
+        pricesBox.innerHTML += `<div class="buy_box">
+          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
+        </div>`;
       }
-
-      pricesBox.id = 'pricesBox';
-      pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-      pricesBox.innerHTML += `<div class="d-flex">
-        <p>
-        <div>
-          <div class="d-flex">
-            <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
-            <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
-          </div>
-          </p>
-          <div class="d-flex">
-            <span class="prod-newprice newprice-${onSelectorClass}"></span>
-            <p class="variation">${prices.innerHTML}</p>
-          </div>
-      </div>`;
-
-      pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
-      pricesBox.innerHTML += `<div class="buy_box">
-        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
-      </div>`;
 
       table.innerHTML = '';
       table.appendChild(pricesBox);
@@ -105,7 +132,8 @@ export default function decorate(block) {
       const greenPillBox = document.createElement('div');
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
-        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+        const link = text.querySelector('a');
+        (link || text).innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
       }
 
       greenPillBox.id = 'greenPillBox';
@@ -151,7 +179,7 @@ export default function decorate(block) {
         text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
       }
 
-      if (buybtn && buybtn.innerText !== '' && (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerText.indexOf('0 %') !== -1)) {
+      if (buybtn && buybtn.innerText && buybtn.innerText !== '' && (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerText.indexOf('0 %') !== -1)) {
         buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
       }
 
@@ -174,6 +202,26 @@ export default function decorate(block) {
 
       table.innerHTML = '';
       table.appendChild(greenCircleBox);
+    }
+
+    // GREEN_CIRCLE_BOX
+    if (aliasTr && aliasTr.textContent.trim() === 'percent_circle') {
+      // eslint-disable-next-line no-unused-vars
+      const textContent = table.querySelector('tr:nth-of-type(2)')?.innerText.trim();
+      const greenCircleBox = document.createElement('div');
+
+      greenCircleBox.id = 'buyBtnGreenCircleBox';
+      greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
+
+      if (textContent?.includes('0%') || textContent?.includes('0 %')) {
+        greenCircleBox.innerHTML = `
+          <span class="green_circle_box v2">
+            ${textContent.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`)}
+          </span>
+        `;
+      }
+
+      table.replaceChildren(greenCircleBox);
     }
   });
 
@@ -232,6 +280,11 @@ export default function decorate(block) {
     });
   }
 
+  if (backgroundColorGradient) {
+    parentBlock.classList.add('has-gradient');
+    parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+  }
+
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (innerBackgroundColor) blockStyle.backgroundColor = innerBackgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -255,11 +308,35 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
-    blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
+    if (backgroundColorGradient) {
+      if (isDesktop) {
+        blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        blockStyle.backgroundSize = 'cover';
+        blockStyle.backgroundPosition = '0 0';
+        blockStyle.backgroundRepeat = 'no-repeat';
+        blockStyle.backgroundBlendMode = 'unset';
+      } else {
+        blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
+      }
+    } else {
+      blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
+    }
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
-      blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
+      if (backgroundColorGradient) {
+        if (isDesktop) {
+          blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+          blockStyle.backgroundSize = 'auto 100%';
+          blockStyle.backgroundPosition = `top ${imageCoverVar}`;
+          blockStyle.backgroundRepeat = 'no-repeat';
+          blockStyle.backgroundBlendMode = 'unset';
+        } else {
+          blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
+        }
+      } else {
+        blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
+      }
     }
 
     let defaultSize = 'col-sm-6 col-md-6 col-lg-5';
@@ -285,11 +362,35 @@ export default function decorate(block) {
       </div>
     `;
   } else if (imageCover) {
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+    if (backgroundColorGradient) {
+      if (isDesktop) {
+        parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        parentBlockStyle.backgroundSize = 'cover';
+        parentBlockStyle.backgroundPosition = 'top right';
+        parentBlockStyle.backgroundRepeat = 'no-repeat';
+        parentBlockStyle.backgroundBlendMode = 'unset';
+      } else {
+        parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+      }
+    } else {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+    }
 
     const imageCoverVar = imageCover.split('-')[1];
     if (imageCoverVar) {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+      if (backgroundColorGradient) {
+        if (isDesktop) {
+          parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+          parentBlockStyle.backgroundSize = 'auto 100%';
+          parentBlockStyle.backgroundPosition = `top ${imageCoverVar}`;
+          parentBlockStyle.backgroundRepeat = 'no-repeat';
+          parentBlockStyle.backgroundBlendMode = 'unset';
+        } else {
+          parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+        }
+      } else {
+        parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+      }
     }
 
     if (contentSize === 'fourth') {
