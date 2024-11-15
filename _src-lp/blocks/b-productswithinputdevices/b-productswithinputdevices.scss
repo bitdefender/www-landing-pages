@@ -8,7 +8,7 @@
   left: 5%;
   top: -3em;
   transform: none;
-  font-size: 16px;
+  font-size: 14px;
   padding: 0 10px;
   align-items: center;
   display: flex;
@@ -385,6 +385,9 @@
   height: 111px;
   background-size: 100%;
   border-radius: unset;
+  padding: 0 40px !important;
+  line-height: 13px;
+  gap: 10px;
 }
 
 .b-productswithinputdevices-container.bf2024.blue-tag .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
