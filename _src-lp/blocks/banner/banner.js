@@ -216,7 +216,7 @@ export default function decorate(block) {
       if (textContent?.includes('0%') || textContent?.includes('0 %')) {
         greenCircleBox.innerHTML = `
           <span class="green_circle_box v2">
-            ${textContent.replace(/0\s*%/g, `<strong class="max-discount"></strong>`)}
+            ${textContent.replace(/0\s*%/g, `<strong class='max-discount'></strong>`)}
           </span>
         `;
       }
