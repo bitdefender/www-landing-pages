@@ -359,6 +359,10 @@ main {
   background-color: var(--background-color);
 }
 
+main .section.fake-block {
+  display: none !important;
+}
+
 main .section {
   position: relative;
   padding: 15px;

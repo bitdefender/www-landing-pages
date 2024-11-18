@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 .section.banner-container {
   background-color: black;
   color: white;
@@ -10,6 +9,10 @@
   padding: 0 15px;
   background: unset;
   padding-bottom: 3rem;
+}
+
+.section.banner-container[data-text-color=white] * {
+  color: white;
 }
 
 .section.banner-container.borders-rounded .banner {

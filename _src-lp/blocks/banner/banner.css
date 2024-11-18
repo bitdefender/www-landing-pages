@@ -11,6 +11,10 @@
   padding-bottom: 3rem;
 }
 
+.section.banner-container[data-text-color=white] * {
+  color: white;
+}
+
 .section.banner-container.borders-rounded .banner {
   border-radius: 10px;
 }
