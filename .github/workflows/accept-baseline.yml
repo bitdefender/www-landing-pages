@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Verify Required Checks
         run: |
-          CHECKS=$(gh pr checks ${{ github.event.pull_request.number }} --json name,state --jq '.[] | select(.state != "SUCCESS") | .name')
+          CHECKS=$(gh pr checks ${{ github.event.pull_request.number }} --json name,state --jq '.[] | select(.state != "SUCCESS" and .name != "snapshots-tests") | .name')
           if [ -n "$CHECKS" ]; then
             echo "Some required checks failed: $CHECKS"
             exit 1
