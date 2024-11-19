@@ -93,6 +93,20 @@ jobs:
           node-version: '20.4'
       - run: npm install
 
+      - name: Create Lock File
+        run: |
+          echo "Updating baselines for PR #${{ github.event.pull_request.number }}" > .baseline-lock
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git fetch origin gi-flow:gi-flow
+          git checkout gi-flow
+          git pull origin gi-flow
+          git add .baseline-lock
+          git commit -m "Lock for baseline update by PR #${{ github.event.pull_request.number }}"
+          git push origin gi-flow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update Baselines in Ghost Inspector
         run: npm run test:accept-baseline
         env:
@@ -103,11 +117,12 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git checkout main
-          git pull origin main
+          git fetch origin gi-flow:gi-flow
+          git checkout gi-flow
+          git pull origin gi-flow
           git rm .baseline-lock
           git commit -m "Release lock for baseline update"
-          git push origin main
+          git push origin gi-flow
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
