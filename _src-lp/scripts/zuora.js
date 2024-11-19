@@ -222,7 +222,7 @@ export default class ZuoraNLClass {
           buy_link: zuoraCart.href,
           config: {
             product_id: id,
-            name: payload.name,
+            name: payload[0].name,
             full_price_class: `oldprice-${id}`,
             discounted_price_class: `newprice-${id}`,
             price_class: `price-${id}`,
