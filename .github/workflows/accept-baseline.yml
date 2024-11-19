@@ -71,11 +71,11 @@ jobs:
           echo "Updating baselines for PR #${{ github.event.pull_request.number }}" > .baseline-lock
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git checkout main
-          git pull origin main
+          git checkout gi-flow
+          git pull origin gi-flow
           git add .baseline-lock
           git commit -m "Lock for baseline update by PR #${{ github.event.pull_request.number }}"
-          git push origin main
+          git push origin gi-flow
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
