@@ -19,6 +19,33 @@
   text-decoration: underline;
 }
 
+.topRibbon {
+  text-align: center;
+  background-position: 0 -18px;
+  background-repeat: repeat;
+  background-blend-mode: unset;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+.topRibbon * {
+  font-family: Arial, sans-serif !important;
+  font-size: 14px;
+}
+
+.topRibbon img {
+  width: 27px;
+  float: left;
+}
+
+.topRibbon .block > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-shadow: 0 0 34px #f00, 0 0 34px #f00, 0 0 34px #f00, 0 0 34px #f00, 0 0 34px #f00;
+}
+
 @media screen and (width >= 991px) {
   .news-bar {
     height: 44px;
