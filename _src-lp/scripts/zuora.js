@@ -43,6 +43,8 @@ export default class ZuoraNLClass {
     passm: 'com.bitdefender.passwordmanager',
     pass_sp: 'com.bitdefender.passwordmanager',
     pass_spm: 'com.bitdefender.passwordmanager',
+    secpass: 'com.bitdefender.securepass',
+    secpassm: 'com.bitdefender.securepass',
     bms: 'com.bitdefender.bms',
     mobile: 'com.bitdefender.bms',
     ios: 'com.bitdefender.iosprotection',
