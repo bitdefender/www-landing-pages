@@ -23,6 +23,8 @@ jobs:
             echo "Label 'accept-baselines' not found. Exiting."
             exit 1
           fi
+      - name: Checkout Repository
+        uses: actions/checkout@v3
       - name: Verify Required Checks
         run: |
           CHECKS=$(gh pr checks ${{ github.event.pull_request.number }} --json name,state --jq '.[] | select(.state != "SUCCESS") | .name')
