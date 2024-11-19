@@ -30,6 +30,8 @@ jobs:
             echo "Some required checks failed. Exiting."
             exit 1
           fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify Approvals
         run: |
@@ -38,6 +40,8 @@ jobs:
             echo "Not enough approvals. Exiting."
             exit 1
           fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   acquire-lock:
     needs: check-conditions
@@ -52,6 +56,9 @@ jobs:
             echo "Baseline update is already in progress. Exiting."
             exit 1
           fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Acquire Lock
         run: |
           echo "Updating baselines for PR #${{ github.event.pull_request.number }}" > .baseline-lock
@@ -62,6 +69,8 @@ jobs:
           git add .baseline-lock
           git commit -m "Lock for baseline update by PR #${{ github.event.pull_request.number }}"
           git push origin main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   update-baselines:
     needs: acquire-lock
@@ -85,6 +94,8 @@ jobs:
           git rm .baseline-lock
           git commit -m "Release lock for baseline update"
           git push origin main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   auto-merge:
     needs: update-baselines
