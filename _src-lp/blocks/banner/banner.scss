@@ -12,6 +12,10 @@
   padding-bottom: 3rem;
 }
 
+.section.banner-container[data-text-color='white'] * {
+  color: white;
+}
+
 .section.banner-container.borders-rounded .banner {
   border-radius: 10px;
 }
@@ -411,6 +415,19 @@
   line-height: 17px;
   font-size: 16px;
   font-weight: 600;
+}
+
+
+.section.banner-container.white-btn-2nd #pricesBox .buy_box a:nth-of-type(2) {
+  color: white;
+  border: 1px solid white;
+  transition: opacity 0.2s;
+}
+
+.section.banner-container.white-btn-2nd #pricesBox .buy_box a:nth-of-type(2):hover {
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
 
 @media (width >= 768px) {
