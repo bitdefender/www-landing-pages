@@ -256,8 +256,6 @@ export async function sendAnalyticsProducts(product, region) {
       product: { info: productsInAdobe },
     });
 
-    console.log('productsInAdobe ', productsInAdobe)
-
     window.adobeDataLayer.push({
       event: 'page loaded',
     });
