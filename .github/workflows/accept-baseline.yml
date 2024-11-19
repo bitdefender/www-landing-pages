@@ -101,9 +101,19 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git pull origin gi-flow
+          
+          # Update the lock file with unique content
+          echo "$(date +%s): Updating baselines for PR #${{ github.event.pull_request.number }}" > .baseline-lock
+      
           git add .baseline-lock
-          git commit -m "Lock for baseline update by PR #${{ github.event.pull_request.number }} [skip husky]"
-          git push origin gi-flow
+          
+          # Commit only if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit. Skipping commit."
+          else
+            git commit -m "Lock for baseline update by PR #${{ github.event.pull_request.number }} [skip husky]"
+            git push origin gi-flow
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
