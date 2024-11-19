@@ -25,10 +25,12 @@ jobs:
           fi
       - name: Verify Required Checks
         run: |
-          CHECKS=$(gh pr checks ${{ github.event.pull_request.number }} --json checks --jq '.checks[].status')
-          if [[ "$CHECKS" =~ "failure" ]]; then
-            echo "Some required checks failed. Exiting."
+          CHECKS=$(gh pr checks ${{ github.event.pull_request.number }} --json name,state --jq '.[] | select(.state != "SUCCESS") | .name')
+          if [ -n "$CHECKS" ]; then
+            echo "Some required checks failed: $CHECKS"
             exit 1
+          else
+            echo "All required checks passed."
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
