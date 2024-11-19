@@ -30,7 +30,7 @@ jobs:
             echo "Some required checks failed: $CHECKS"
             exit 1
           else
-            echo "All required checks passed.."
+            echo "All required checks passed."
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
