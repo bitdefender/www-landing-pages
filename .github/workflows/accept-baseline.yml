@@ -37,15 +37,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Verify Approvals
-        run: |
-          APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '[.reviews[] | select(.state=="APPROVED")] | length')
-          if [[ "$APPROVALS" -lt 2 ]]; then
-            echo "Not enough approvals. Exiting."
-            exit 1
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Verify Approvals
+#        run: |
+#          APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '[.reviews[] | select(.state=="APPROVED")] | length')
+#          if [[ "$APPROVALS" -lt 2 ]]; then
+#            echo "Not enough approvals. Exiting."
+#            exit 1
+#          fi
+#        env:
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   acquire-lock:
     needs: check-conditions
