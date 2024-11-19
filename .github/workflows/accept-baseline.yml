@@ -46,7 +46,7 @@ jobs:
       - name: Check for Lock
         id: check-lock
         run: |
-          LOCK_FILE_URL="https://github.com/bitdefender/www-landing-pages/blob/main/.baseline-lock"
+          LOCK_FILE_URL="https://github.com/bitdefender/www-landing-pages/blob/gi-flow/.baseline-lock"
           STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}" $LOCK_FILE_URL)
           if [ "$STATUS_CODE" == "200" ]; then
             echo "Baseline update is already in progress. Exiting."
