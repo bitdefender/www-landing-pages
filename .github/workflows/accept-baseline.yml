@@ -51,6 +51,9 @@ jobs:
     needs: check-conditions
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Check for Lock
         id: check-lock
         run: |
