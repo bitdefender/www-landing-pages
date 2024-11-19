@@ -1,36 +1,97 @@
-name: Accept Ghost Inspector Snapshots New Baseline on Merge
+name: Accept Baselines Workflow
 
 on:
-  workflow_run:
-    workflows: ["Accept New Baseline"]
+  pull_request:
     types:
-      - completed
+      - labeled
+
+permissions:
+  contents: write
 
 jobs:
-  accept-baseline:
+  check-conditions:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Download Baseline Acceptance Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: baseline-acceptance
-      - name: Validate Baseline Acceptance
+      - name: Validate Conditions
         run: |
-          if [ ! -f accept_baseline_flag ]; then
-            echo "Baseline acceptance flag not found."
+          if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
+            echo "PR is already merged. Exiting."
             exit 1
           fi
-      - name: Update Baseline in Ghost Inspector
+
+          if [[ ! "${{ github.event.label.name }}" == "accept-baselines" ]]; then
+            echo "Label 'accept-baselines' not found. Exiting."
+            exit 1
+          fi
+      - name: Verify Required Checks
+        run: |
+          CHECKS=$(gh pr checks ${{ github.event.pull_request.number }} --json checks --jq '.checks[].status')
+          if [[ "$CHECKS" =~ "failure" ]]; then
+            echo "Some required checks failed. Exiting."
+            exit 1
+          fi
+
+      - name: Verify Approvals
+        run: |
+          APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '[.reviews[] | select(.state=="APPROVED")] | length')
+          if [[ "$APPROVALS" -lt 2 ]]; then
+            echo "Not enough approvals. Exiting."
+            exit 1
+          fi
+
+  acquire-lock:
+    needs: check-conditions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Lock
+        id: check-lock
+        run: |
+          LOCK_FILE_URL="https://raw.githubusercontent.com/<OWNER>/<REPO>/main/.baseline-lock"
+          STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}" $LOCK_FILE_URL)
+          if [ "$STATUS_CODE" == "200" ]; then
+            echo "Baseline update is already in progress. Exiting."
+            exit 1
+          fi
+      - name: Acquire Lock
+        run: |
+          echo "Updating baselines for PR #${{ github.event.pull_request.number }}" > .baseline-lock
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git checkout main
+          git pull origin main
+          git add .baseline-lock
+          git commit -m "Lock for baseline update by PR #${{ github.event.pull_request.number }}"
+          git push origin main
+
+  update-baselines:
+    needs: acquire-lock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Update Baselines in Ghost Inspector
         run: npm run test:accept-baseline
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
-          ACCEPT_NEW_BASELINE: 'true'
-      - name: Mark PR as Safe to Merge
-        run: echo "The baseline has been updated successfully. The PR is safe to merge."
+
+      - name: Release Lock
+        if: success()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git checkout main
+          git pull origin main
+          git rm .baseline-lock
+          git commit -m "Release lock for baseline update"
+          git push origin main
+
+  auto-merge:
+    needs: update-baselines
+    runs-on: ubuntu-latest
+    steps:
       - name: Auto-Merge PR
         if: success()
         run: gh pr merge ${{ github.event.pull_request.number }} --squash --admin
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
