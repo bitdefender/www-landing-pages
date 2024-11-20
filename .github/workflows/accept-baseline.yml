@@ -41,7 +41,7 @@ jobs:
       - name: Verify Approvals
         run: |
           APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '[.reviews[] | select(.state=="APPROVED")] | length')
-          if [[ "$APPROVALS" -lt 1 ]]; then
+          if [[ "$APPROVALS" -lt 2 ]]; then
             echo "Not enough approvals. Exiting."
             exit 1
           fi
