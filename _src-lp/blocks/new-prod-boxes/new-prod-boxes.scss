@@ -1,20 +1,241 @@
-.new-prod-boxes-container {
-padding-bottom: 0;
+    .new-prod-boxes-container {
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+
+ .icon{
+    height: 14px;
+    width: 12px;
+    margin-right: 10px;
+
+    svg {
+        fill:#fff;
+    }
 }
+
+&.black-theme{
+    background-color: black!important;
+    margin-top:-20px;
+}
+
+.titleBox{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+
+    h2{
+        color: #006dff;
+        margin: 0 0 15px;
+    }
+
+    p{
+        font-size: 20px;
+        font-weight: normal;
+        line-height: 25px;
+        margin-bottom: 30px;
+        margin-top: 0;
+        max-width: 700px;
+    }
+}
+
+.blue-pill .icon{
+    margin: 0 3px;
+}
+
+.switchBox {
+    text-align: center;
+    padding-bottom: 50px;
+  }
+
+  .switchBox .switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 290px;
+    height: 54px;
+    background-color: #016DFF;
+    border-radius: 22px;
+  }
+
+  .switchBox .switch input {
+    display: none;
+  }
+
+  .switchBox .slider {
+        position: absolute;
+        content: "";
+        height: 50px;
+        width: 145px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        border-radius: 20px;
+        transition: all 0.4s;
+  }
+
+  .switchBox .switch input:checked + .slider {
+    transform: translateX(141px);
+  }
+
+  .prod_box .inner_prod_box hr {
+    border: 1px solid #D1D1D1;
+    margin: 10px 0;
+}
+
+  .switchBox .label {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    transition: color 0.4s;
+    cursor: pointer;
+
+    p{
+        margin-top: 0;
+        margin-bottom: 3px;
+        font: normal normal normal 10px/11px Arial, sans-serif;
+    }
+
+    hr{
+        margin: 0 auto 8px;
+        width: 90%;
+        border: 0.5px solid;
+        opacity: .65;
+
+    }
+
+    .icon {
+        width: 14px;
+        height: 16px;
+        }
+
+    .blue-pill .icon {
+        position: relative;
+        top: 1.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-right: 0;
+      }
+
+    .blue-pill svg {
+        width: 9px;
+        height: 9px;
+      }
+
+    .switch input ~ .label .icon {
+        position: relative;
+        margin-right: 10px;
+
+        }
+  }
+
+  &.hide-switch-text{
+    .switchBox .label{
+      p {
+        display: none;
+    }
+
+    hr{
+            display: none;
+        }
+    }
+    }
+
+  .new-2024 .inner_prod_box > hr:last-of-type {
+    display: none;
+}
+
+  .switchBox .label.right {
+    z-index: 10;
+    color: black;
+
+    hr{
+        border-color:#016DFF;
+    }
+  }
+
+  .switchBox .label.left {
+    z-index: 10;
+
+    hr{
+        border-color: #fff;
+    }
+  }
+
+}
+
+  .switchBox .switch input:checked ~ .label.right {
+    transition: color 0.4s;
+    color: white !important;
+
+    hr{
+        border-color: #fff;
+    }
+  }
+
+  .switchBox .switch input ~ .label .icon svg {
+    width: 14px;
+    height: 16px;
+  }
+
+  .switchBox .switch input ~ .label.right .icon svg {
+    fill: #026DFF;
+  }
+
+  .switchBox .switch input:checked ~ .label.right .icon svg {
+    fill: white;
+  }
+
+  .switchBox .switch input:checked ~ .label.left {
+    transition: color 0.4s;
+    color: black;
+
+    hr{
+        border-color: #016DFF;
+    }
+  }
+
+  .switchBox .switch input:checked ~ .label.left .icon svg {
+    fill: #026DFF;
+  }
+
+  .prod-box.individual-box {
+    transition: all 0.4s;
+  }
+
+  .prod_box.family-box {
+    display: none;
+    transition: all 0.4s;
+  }
+
+  .new-prod-boxes-container .block {
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    }
 
 .new-prod-boxes-container .await-loader{
     min-height: 2rem;
 }
 
-.new-prod-boxes-container.subtitle{
-    margin-bottom: -20px;
+.new-prod-boxes-container.flex-height .tag-subtitle {
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: flex-end;
 }
 
-.new-prod-boxes-container .block {
-margin: 0 auto;
-padding: 0 15px;
-display: flex;
-flex-direction: column;
+.new-prod-boxes-container.subtitle{
+    margin-bottom: -20px;
 }
 
 .new-prod-boxes-container .block .prod_box {
@@ -48,6 +269,15 @@ flex-direction: column;
     border-top-right-radius: 10px;
     padding-top: 7px;
     padding-bottom: 8px;
+}
+
+
+.new-prod-boxes-container.black-theme .block .prod_box .inner_prod_box .greenTag2{
+    background-color: #e72325;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .bulina{
@@ -128,16 +358,42 @@ flex-direction: column;
     line-height: 1.25;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box hr {
-    border: 1px solid #D1D1D1;
-    margin: 10px 0;
-}
+
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box {
     display: flex;
     justify-content: left;
     align-items: center;
     margin-bottom: 8px;
+}
+
+.new-prod-boxes-container.disable-product .prod_box.index1{
+    .blueTag{
+        visibility: hidden;
+    }
+}
+
+.new-prod-boxes-container.disable-product .prod_box.index0{
+.blueTag{
+    visibility: hidden;
+}
+
+.save_price_box {
+    visibility: hidden;
+}
+
+.prices_box{
+    visibility: hidden;
+}
+
+.billed{
+    visibility: hidden;
+}
+
+a.red-buy-button{
+    pointer-events: none;
+    background: #C1C1C1!important;
+}
 }
 
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .save_price_box {
@@ -165,6 +421,7 @@ flex-direction: column;
     font-weight: bold;
     padding: 3px 7px;
     border-radius: 16px;
+    font-size: 14px;;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box {
@@ -189,10 +446,6 @@ flex-direction: column;
 
 .new-prod-boxes-container.new-2024 * {
     text-align: center;
-}
-
-.new-prod-boxes-container.new-2024 .inner_prod_box > hr:last-of-type {
-    display: none;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
@@ -312,6 +565,12 @@ flex-direction: column;
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists p {
     margin: 0;
+    display: inline-block;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag div p{
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists u {
@@ -370,7 +629,7 @@ flex-direction: column;
     line-height: 17px;
     margin-bottom: 8px;
     list-style-type: none;
-    background: url("https://bitdefender.com/icons/circle-check-sharp-solid.svg") top 2px left no-repeat transparent;
+    background: url("../../icons/circle-check-sharp-solid.png") top 2px left no-repeat transparent;
     padding-left: 22px;
     background-size: 13px;
     position: relative;
@@ -403,7 +662,7 @@ flex-direction: column;
     background-size: contain;
   }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) span {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content {
     position: absolute;
     background-color: white;
     padding: 10px;
@@ -417,7 +676,7 @@ flex-direction: column;
     display: none;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) span::before {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content::before {
 content: "";
     position: absolute;
     left: 17px;
@@ -427,9 +686,10 @@ content: "";
     border-color: white transparent transparent;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover span {
+.new-prod-boxes-container .new-prod-boxes .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover .white-pill-content{
     display: block;
-}
+  }
+
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) u {
     font-size: 14px;
@@ -461,7 +721,51 @@ content: "";
     min-height: 7em;
 }
 
+.new-prod-boxes-container.black-theme .block .prod_box.hasGreenTag .inner_prod_box {
+    border-radius: 0 0 20px 20px;
+}
+
+.new-prod-boxes-container .blue-pill {
+    background-color: #026DFF;
+    padding: 2.5px 6.7px;
+    border-radius: 20px;
+    color: white;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0;
+    font-weight: bold;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  .new-prod-boxes-container .green-pill {
+    background-color: #68ba68;
+    padding: 2.5px 6.7px;
+    border-radius: 20px;
+    color: white;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0;
+    font-weight: bold;
+    display: inline-flex;
+    justify-content: center;
+  }
+
 @media (width >= 768px) {
+    .new-prod-boxes-container{
+        .switchBox .switch{
+            width: 440px
+        }
+
+        .switchBox .slider{
+            width: 220px;
+        }
+
+        .switchBox .switch input:checked + .slider{
+            transform: translateX(215px);
+        }
+    }
+
     .new-prod-boxes-container .block {
         flex-direction: row;
         padding: 0;

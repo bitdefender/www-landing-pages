@@ -1,6 +1,12 @@
-name: Workflow
+name: Run Tests and Snapshots
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: ["Accept Baselines Workflow"]
+    types:
+      - completed
 
 jobs:
   setup-nodejs:
@@ -16,6 +22,7 @@ jobs:
   lint:
     needs: setup-nodejs
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v3
       - run: npm install
@@ -24,27 +31,25 @@ jobs:
   unit-tests:
     needs: setup-nodejs
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v3
       - run: npm install
       - run: npm run test:unit
 
   snapshots-tests:
-    needs: setup-nodejs
+    needs: [lint, unit-tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-
-      # Dynamically extract the branch name from GITHUB_REF
-      - name: Get Branch Name
-        id: extract_branch_name
-        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-
-      - run: npm run test:snapshots
+      - name: Run Snapshot Tests
+        run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
-          BRANCH_NAME: ${{ env.BRANCH_NAME }}
-      - run: npm run compile-sass
-        env:
-          CI: true
+      - name: Inform Developer About Snapshot Failures
+        if: failure()
+        run: echo "Snapshots failed. Add the 'accept-baselines' label to update the baselines or fix your code."
+      - name: Set PR Ready for Merge
+        if: success()
+        run: echo "PR is ready for merge."

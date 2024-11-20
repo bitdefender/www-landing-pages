@@ -258,11 +258,6 @@
   font-weight: normal;
 }
 
-.b-banner-container.form .b-banner-wrapper h3 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
 .b-banner-container.form .b-banner-wrapper h4 {
   font-size: 18px;
   font-weight: bold;
@@ -420,6 +415,18 @@
 }
 .b-banner-container .product-picture .green-bubble .discount-percentage {
   font-size: 32px;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv h3 {
+  margin-top: 0.5em;
+  font-size: 22px;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv hr {
+  border: 0;
+  border-bottom: 2px solid black;
+  width: 66px;
+  margin: 0.5em auto 1em;
 }
 
 @media screen and (width >= 768px) {

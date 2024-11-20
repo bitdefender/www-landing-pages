@@ -142,6 +142,10 @@
   margin: 6px;
 }
 
+.c-icon-box-grid-container.button-center .button-container {
+  text-align: center;
+}
+
 .c-icon-box-grid-container.grey-box .col-lg .icon-box-grid-column {
   height: 100%;
 }

@@ -1,0 +1,157 @@
+name: Accept Baselines Workflow
+
+on:
+  pull_request:
+    types:
+      - labeled
+
+permissions:
+  contents: write
+  statuses: write
+
+jobs:
+  check-conditions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Conditions
+        run: |
+          if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
+            echo "PR is already merged. Exiting."
+            exit 1
+          fi
+
+          if [[ ! "${{ github.event.label.name }}" == "accept-baselines" ]]; then
+            echo "Label 'accept-baselines' not found. Exiting."
+            exit 1
+          fi
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Verify Required Checks
+        run: |
+          CHECKS=$(gh pr checks ${{ github.event.pull_request.number }} --json name,state --jq '.[] | select(.state != "SUCCESS" and .name != "snapshots-tests" and .name != "check-conditions" and .name != "auto-merge" and .name != "update-baselines" and .name != "acquire-lock" and .name != "aem-psi-check") | .name')
+          if [ -n "$CHECKS" ]; then
+            echo "Some required checks failed: $CHECKS"
+            exit 1
+          else
+            echo "All required checks passed."
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Approvals
+        run: |
+          APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '[.reviews[] | select(.state=="APPROVED")] | length')
+          if [[ "$APPROVALS" -lt 2 ]]; then
+            echo "Not enough approvals. Exiting."
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  acquire-lock:
+    needs: check-conditions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: aquire-lock
+
+      - name: Check for Lock
+        id: check-lock
+        run: |
+          LOCK_FILE_URL="https://github.com/bitdefender/www-landing-pages/blob/aquire-lock/.baseline-lock"
+          STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}" $LOCK_FILE_URL)
+          if [ "$STATUS_CODE" == "200" ]; then
+            echo "Baseline update is already in progress. Exiting."
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Acquire Lock
+        run: |
+          echo "Updating baselines for PR #${{ github.event.pull_request.number }}" > .baseline-lock
+          
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          
+          git pull origin aquire-lock
+          git add .baseline-lock
+          git commit -m "Lock for baseline update by PR #${{ github.event.pull_request.number }}"
+          git push origin aquire-lock
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  update-baselines:
+    needs: acquire-lock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout `aquire-lock` Branch
+        uses: actions/checkout@v3
+        with:
+          ref: aquire-lock
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.4'
+      - run: npm install
+
+      - name: Create Lock File
+        run: |
+          echo "Updating baselines for PR #${{ github.event.pull_request.number }}" > .baseline-lock
+          
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          
+          git pull origin aquire-lock
+          
+          # Update the lock file with unique content
+          echo "$(date +%s): Updating baselines for PR #${{ github.event.pull_request.number }}" > .baseline-lock
+      
+          git add .baseline-lock
+          
+          # Commit only if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit. Skipping commit."
+          else
+            git commit -m "Lock for baseline update by PR #${{ github.event.pull_request.number }} [skip husky]"
+            git push origin aquire-lock
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Baselines in Ghost Inspector
+        run: npm run test:accept-baseline
+        env:
+          GI_KEY: ${{ secrets.GI_KEY }}
+
+  auto-merge:
+    needs: update-baselines
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: aquire-lock
+
+      - name: Release Lock
+        if: success()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git pull origin aquire-lock --rebase
+
+          git rm .baseline-lock
+          git commit -m "Release lock for baseline update [skip husky]"
+          git push origin aquire-lock
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-Merge PR
+        if: success()
+        run: gh pr merge ${{ github.event.pull_request.number }} --squash --admin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

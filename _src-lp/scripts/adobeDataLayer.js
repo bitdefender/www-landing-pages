@@ -238,7 +238,7 @@ export async function sendAnalyticsProducts(product, region) {
   }
 
   productsInAdobe.push({
-    ID: product.selected_variation.platform_product_id,
+    ID: product.selected_variation.platform_product_id || product.selected_variation.platform_id,
     name: productName,
     devices: product.selected_users,
     subscription: product.selected_years * 12,

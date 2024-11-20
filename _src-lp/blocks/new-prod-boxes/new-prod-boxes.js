@@ -4,12 +4,99 @@ import { updateProductsList } from '../../scripts/utils.js';
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, textBulina,
+    products, priceType, textBulina, individual, titleText, subText,
   } = metaData;
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
+    const defaultContentWrapperElements = block.closest('.section').querySelector('.default-content-wrapper')?.children;
+    let individualSwitchText;
+    let familySwitchText;
+    if (defaultContentWrapperElements) {
+      [...defaultContentWrapperElements].forEach((element) => {
+        if (element.innerHTML.includes('&lt;slider-1 ')) {
+          element.innerHTML = element.innerHTML.replace('&lt;slider-1 ', '');
+          individualSwitchText = element.innerHTML;
+          element.remove();
+        }
+        if (element.innerHTML.includes('&lt;slider-2 ')) {
+          element.innerHTML = element.innerHTML.replace('&lt;slider-2 ', '');
+          familySwitchText = element.innerHTML;
+          element.remove();
+        }
+      });
+    }
+
+    const titleBox = document.createElement('div');
+    if (titleText && subText) {
+      titleBox.classList.add('titleBox');
+      titleBox.innerHTML = `
+      <h2>${titleText}</h2>
+      <p>${subText}</p>`;
+
+      if (titleBox.innerHTML.includes('0%')) {
+        titleBox.innerHTML = titleBox.innerHTML.replace('0%', '<span class=\'max-discount\'></span>');
+      }
+    }
+    if (titleText && subText) {
+      block.parentNode.insertBefore(titleBox, block);
+    }
+
+    const switchBox = document.createElement('div');
+    if (individualSwitchText && familySwitchText) {
+      const partsIndividual = individualSwitchText.split('|');
+      const partsFamily = familySwitchText.split('|');
+      switchBox.classList.add('switchBox');
+      switchBox.innerHTML = `
+        <label class="switch">
+          <input type="checkbox" id="switchCheckbox">
+          <span class="slider round">
+          </span>
+          <span class="label right">
+          ${partsIndividual[0]}
+          <hr>
+          <p>${partsIndividual[1]}</p>
+          </span>
+
+          <span class="label left">
+          ${partsFamily[0]}
+          <hr>
+          <p>${partsFamily[1]}</p>
+          </span>
+        </label>
+      `;
+
+      // Get the checkbox inside the switchBox
+      const switchCheckbox = switchBox.querySelector('#switchCheckbox');
+      // Add an event listener to the checkbox
+      switchCheckbox.addEventListener('change', () => {
+        if (switchCheckbox.checked) {
+          const familyBoxes = block.querySelectorAll('.family-box');
+          familyBoxes.forEach((box) => {
+            box.style.display = 'block';
+          });
+
+          const individualBoxes = block.querySelectorAll('.individual-box');
+          individualBoxes.forEach((box) => {
+            box.style.display = 'none';
+          });
+        } else {
+          const familyBoxes = block.querySelectorAll('.family-box');
+          familyBoxes.forEach((box) => {
+            box.style.display = 'none';
+          });
+
+          const individualBoxes = block.querySelectorAll('.individual-box');
+          individualBoxes.forEach((box) => {
+            box.style.display = 'block';
+          });
+        }
+      });
+    }
+    if (individualSwitchText && familySwitchText) {
+      block.parentNode.insertBefore(switchBox, block);
+    }
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
@@ -17,7 +104,6 @@ export default function decorate(block) {
       const buyLinkText = buyLink.innerText.trim();
 
       [...block.children][key].innerHTML = '';
-
       // create procent - bulina
       let divBulina = '';
       let vpnInfoContent = '';
@@ -74,7 +160,7 @@ export default function decorate(block) {
           let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
 
           // Extract the content of the second <td> (if present) inside a <span>
-          const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span>${tdList[1].innerHTML}</span>` : '';
+          const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span class="white-pill-content">${tdList[1].innerHTML}</span>` : '';
 
           // Create the <li> combining the first and second td content
           let liClass = '';
@@ -94,11 +180,46 @@ export default function decorate(block) {
             firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
           }
 
+          if (firstTdContent.indexOf('?pill') !== -1) {
+            const pillText = firstTdContent.match(/\?pill (\w+)/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            if (pillText) {
+              const icon = tdList[0].querySelector('span');
+              const pillElement = document.createElement('span');
+              pillElement.classList.add('blue-pill');
+              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
+              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
+              if (icon) {
+                let count = 0;
+                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
+                  count += 1;
+                  return (count === 2) ? '' : match;
+                });
+              }
+            }
+          }
+          if (firstTdContent.indexOf('?green-pill') !== -1) {
+            const pillText = firstTdContent.match(/\?green-pill (\w+)/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            if (pillText) {
+              const icon = tdList[0].querySelector('span');
+              const pillElement = document.createElement('span');
+              pillElement.classList.add('green-pill');
+              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
+              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
+              if (icon) {
+                let count = 0;
+                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
+                  count += 1;
+                  return (count === 2) ? '' : match;
+                });
+              }
+            }
+          }
           if (firstTdContent.indexOf('-x-') !== -1) {
             liClass += ' nocheck';
             firstTdContent = firstTdContent.replace('-x-', '');
           }
-
           const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
 
           return liContent;
@@ -126,26 +247,28 @@ export default function decorate(block) {
       }
 
       block.innerHTML += `
+        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}">
 
-        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key}">
           <div class="inner_prod_box">
           ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
-            ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
-            ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerText.trim()}</p>` : ''}
+            <div class="tag-subtitle">
+              ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
+              ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerHTML.trim()}</p>` : ''}
+            </div>
             <hr />
 
             ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
               <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-              <strong class="prod-percent">
+              <strong class="percent prod-percent">
                 ${percentOff}
               </strong>
             </div>`}
 
             ${priceType === 'combined' && price.innerText.trim()
     ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                <span class="prod-newprice${!onSelectorClass.includes('monthly') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
+                <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
               </div>`
     : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
@@ -154,7 +277,10 @@ export default function decorate(block) {
               </div>`
 }
 
-            ${billed ? `<div class="billed">${billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`)}</div>` : ''}
+        ${billed ? ` <div class="billed">
+            ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
+          </div>` : billed.innerText}
+
             ${vpnInfoContent && vpnInfoContent}
             ${buyLinkText && `<div class="buy-btn">
               <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}

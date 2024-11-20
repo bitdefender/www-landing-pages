@@ -128,6 +128,24 @@ export const GLOBAL_EVENTS = {
   GEOIPINFO_LOADED: 'geoipinfo::loaded',
 };
 
+const LOCALISATIONS = {
+  au: 'en-au',
+  be: 'en-us',
+  br: 'pt-br',
+  de: 'de-de',
+  en: 'en-us',
+  es: 'es-es',
+  fr: 'fr-fr',
+  it: 'it-it',
+  nl: 'nl-nl',
+  pt: 'pt-pt',
+  ro: 'ro-ro',
+  se: 'sv-se',
+  uk: 'en-gb',
+  'zh-tw': 'zh-tw',
+};
+const DEFAULT_LANGUAGE = 'en';
+
 // add new script file
 export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallback = undefined, onErrorCallback = undefined, type = undefined) {
   const s = document.createElement('script');
@@ -164,10 +182,12 @@ export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallba
 }
 
 export function getDefaultLanguage() {
-  const localisationList = ['au', 'be', 'br', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pt', 'ro', 'se', 'uk', 'zh-tw'];
   const currentPathUrl = window.location.pathname;
-  const foundLanguage = localisationList.find((item) => currentPathUrl.indexOf(`/${item}/`) !== -1);
-  return foundLanguage || 'en';
+  return Object.keys(LOCALISATIONS).find((lang) => currentPathUrl.includes(`/${lang}/`)) || DEFAULT_LANGUAGE;
+}
+
+export function getLocale(lang) {
+  return LOCALISATIONS[lang] || LOCALISATIONS[DEFAULT_LANGUAGE];
 }
 
 export function getDefaultSection() {
@@ -271,7 +291,9 @@ export function showLoaderSpinner(showSpinner = true, pid = null) {
 // DEX-17703 - replacing VAT INFO text for en regions
 export function updateVATinfo(countryCode, selector) {
   const skipVATinfo = getMetadata('skip-vatinfo-logic');
-  if (skipVATinfo && skipVATinfo === 'true') return;
+  if ((skipVATinfo && skipVATinfo === 'true') || getDefaultSection() === 'business') {
+    return;
+  }
 
   const prodloadElements = document.querySelectorAll(selector);
   prodloadElements.forEach((element) => {
@@ -287,7 +309,7 @@ export function updateVATinfo(countryCode, selector) {
 
       vat2replace.forEach((text) => {
         let taxText = 'Sales tax included';
-        if (countryCode === '8') taxText = 'Plus applicable sales tax';
+        if (countryCode === 8) taxText = 'Plus applicable sales tax';
 
         if (prodloadElement.innerHTML.includes(text)) {
           const currentText = prodloadElement.innerHTML;
@@ -302,9 +324,8 @@ export function updateVATinfo(countryCode, selector) {
   });
 }
 
-export function formatPrice(price, currency, region) {
-  const ianaRegionFormat = IANA_BY_REGION_MAP.get(Number(region))?.locale || 'en-US';
-  return new Intl.NumberFormat(ianaRegionFormat, { style: 'currency', currency }).format(price);
+export function formatPrice(price, currency) {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(price);
 }
 
 // get max discount
@@ -347,6 +368,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const { product_id: productId } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
+
+  if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
   let parentDiv = '';
 
@@ -553,7 +576,13 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       }
 
       document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
-        item.parentNode.style.display = 'none';
+        const parent = item.parentNode;
+        const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
+        if (sibling) {
+          sibling.style.display = 'none';
+        } else {
+          parent.style.display = 'none';
+        }
       });
     }
 

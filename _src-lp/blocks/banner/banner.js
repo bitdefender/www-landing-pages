@@ -9,7 +9,7 @@ export default function decorate(block) {
   const {
     product, products, animatedText, contentSize, backgroundColor, backgroundColorGradient, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, corners, textNextToPill,
+    marginBottom, imageCover, corners, textNextToPill, isCampaign,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
   const isDesktop = isView('desktop');
@@ -75,30 +75,52 @@ export default function decorate(block) {
       const [alias, save, prices, terms, buybtn] = [...table.querySelectorAll('tr')];
       const pricesBox = document.createElement('div');
 
-      if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
-        buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+      if (isCampaign === 'jamestowntribe') {
+        pricesBox.id = 'pricesBox';
+        pricesBox.className = 'prices_box';
+        pricesBox.innerHTML += `<div class="d-flex">
+          <p>
+          <div>
+            <div class="d-flex">
+              <span class="prod-oldprice mr-2">$89.99</span>
+            </div>
+            </p>
+            <div class="d-flex">
+              <span class="prod-newprice">$26.99</span>
+              <p class="variation">1 year /<br>3 Devices</p>
+            </div>
+        </div>`;
+
+        pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
+        pricesBox.innerHTML += `<div class="buy_box">
+          <a class="red-buy-button" href="#c-productsboxes" referrerpolicy="no-referrer-when-downgrade">Get it now <span class="save">| Save 70%</span></a>
+        </div>`;
+      } else {
+        if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
+          buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+        }
+
+        pricesBox.id = 'pricesBox';
+        pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+        pricesBox.innerHTML += `<div class="d-flex">
+          <p>
+          <div>
+            <div class="d-flex">
+              <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
+              <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
+            </div>
+            </p>
+            <div class="d-flex">
+              <span class="prod-newprice newprice-${onSelectorClass}"></span>
+              <p class="variation">${prices.innerHTML}</p>
+            </div>
+        </div>`;
+
+        pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
+        pricesBox.innerHTML += `<div class="buy_box">
+          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
+        </div>`;
       }
-
-      pricesBox.id = 'pricesBox';
-      pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-      pricesBox.innerHTML += `<div class="d-flex">
-        <p>
-        <div>
-          <div class="d-flex">
-            <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
-            <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
-          </div>
-          </p>
-          <div class="d-flex">
-            <span class="prod-newprice newprice-${onSelectorClass}"></span>
-            <p class="variation">${prices.innerHTML}</p>
-          </div>
-      </div>`;
-
-      pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
-      pricesBox.innerHTML += `<div class="buy_box">
-        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
-      </div>`;
 
       table.innerHTML = '';
       table.appendChild(pricesBox);
@@ -110,7 +132,8 @@ export default function decorate(block) {
       const greenPillBox = document.createElement('div');
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
-        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+        const link = text.querySelector('a');
+        (link || text).innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
       }
 
       greenPillBox.id = 'greenPillBox';
@@ -156,7 +179,7 @@ export default function decorate(block) {
         text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
       }
 
-      if (buybtn && buybtn.innerText !== '' && (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerText.indexOf('0 %') !== -1)) {
+      if (buybtn && buybtn.innerText && buybtn.innerText !== '' && (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerText.indexOf('0 %') !== -1)) {
         buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
       }
 
@@ -179,6 +202,26 @@ export default function decorate(block) {
 
       table.innerHTML = '';
       table.appendChild(greenCircleBox);
+    }
+
+    // GREEN_CIRCLE_BOX
+    if (aliasTr && aliasTr.textContent.trim() === 'percent_circle') {
+      // eslint-disable-next-line no-unused-vars
+      const textContent = table.querySelector('tr:nth-of-type(2)')?.innerText.trim();
+      const greenCircleBox = document.createElement('div');
+
+      greenCircleBox.id = 'buyBtnGreenCircleBox';
+      greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
+
+      if (textContent?.includes('0%') || textContent?.includes('0 %')) {
+        greenCircleBox.innerHTML = `
+          <span class='green_circle_box v2'>
+            ${textContent.replace(/0\s*%/g, '<strong class="max-discount"></strong>')}
+          </span>
+        `;
+      }
+
+      table.replaceChildren(greenCircleBox);
     }
   });
 

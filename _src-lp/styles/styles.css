@@ -359,6 +359,10 @@ main {
   background-color: var(--background-color);
 }
 
+main .section.fake-block {
+  display: none !important;
+}
+
 main .section {
   position: relative;
   padding: 15px;
@@ -454,6 +458,18 @@ main .section.width-medium .block {
 main .section.width-smaller .block, main .section.width-smaller .default-content-wrapper {
   width: 750px;
   margin: 0 auto;
+}
+
+main .section.width-smaller2 .block {
+  max-width: 500px;
+}
+
+main .section[data-backgroundcolor=black] {
+  background-color: black;
+}
+
+main .section[data-textcolor=white] * {
+  color: white;
 }
 
 .red-buy-button p {
@@ -688,6 +704,25 @@ main .section.highlight {
   background-color: var(--highlight-background-color);
 }
 
+.tag-green {
+  background-color: #2cb43d;
+}
+
+.tag {
+  margin-left: 5px;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 75pt;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  font-style: normal;
+  letter-spacing: 0.8px;
+  padding: 3px 7px 3px 8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .greenTag {
   background-color: #2fb43e;
   color: white !important;
@@ -775,6 +810,10 @@ main .section.highlight {
   color: #fff;
   display: inline-block;
   margin-top: 10px;
+}
+
+.section.red-circles .prod-percent.green_bck_circle, .section.red-circles .green_circle_box {
+  background: #e72325 !important;
 }
 
 .prod-percent.green_bck_circle.medium span:first-of-type {
@@ -1389,6 +1428,23 @@ main .section.highlight {
   height: 69px;
   margin-right: 23px;
   position: absolute;
+}
+
+.bluetag {
+  font-size: var(--body-font-size-xs);
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  background-color: #026DFF;
+  display: inline-block;
+  border-radius: 20px;
+  padding: 6px 16px;
+  margin-bottom: 10px;
+  display: inline-flex;
+  gap: 5px;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (width <= 1387px) {

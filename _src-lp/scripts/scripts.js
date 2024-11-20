@@ -31,7 +31,6 @@ import {
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
   formatPrice,
-  updateVATinfo,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -238,23 +237,6 @@ async function loadEager(doc) {
 }
 
 /**
- * Adds the favicon.
- * @param {string} href The favicon URL
- */
-function addFavIcon(href) {
-  const link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/svg+xml';
-  link.href = href;
-  const existingLink = document.querySelector('head link[rel="icon"]');
-  if (existingLink) {
-    existingLink.parentElement.replaceChild(link, existingLink);
-  } else {
-    document.getElementsByTagName('head')[0].appendChild(link);
-  }
-}
-
-/**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
@@ -300,7 +282,6 @@ export async function loadLazy(doc) {
   loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
-  addFavIcon('https://www.bitdefender.com/favicon.ico');
 
   adobeMcAppendVisitorId('main');
 
@@ -883,7 +864,7 @@ function initSelectors(pid) {
         selected_years: prodYears,
         users_class: `users_${onSelectorClass}_fake`,
         years_class: `years_${onSelectorClass}_fake`,
-        method: 'GET',
+        method: 'POST',
 
         ...(pid === 'ignore' ? { ignore_promotions: true } : {}),
         ...(pid !== false && pid !== 'ignore' ? { extra_params: { pid } } : {}),
@@ -891,13 +872,22 @@ function initSelectors(pid) {
         onSelectorLoad() {
           sendAnalyticsProducts(this);
           try {
+            const checkoutLinks = {
+              ultsec: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.ultimatesecurityus&payment_period=10d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ultsec',
+              ps: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.premiumsecurity&payment_period=10d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ps',
+              av: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.cl.av&payment_period=3d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-av',
+              tsmd: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.cl.tsmd&payment_period=5d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ts',
+            };
+
+            if (window.location.href.includes('/lp-brand-4pr-1/')) {
+              this.buy_link = checkoutLinks[this.config.product_id];
+            }
+
             const fp = this;
             const paramCoupon = getParam('coupon');
 
             // DEX-17703 - replacing VAT INFO text for en regions
             showPrices(fp, false, null, onSelectorClass, paramCoupon);
-            if (getDefaultLanguage() === 'en' && fp.selected_variation.region_id) updateVATinfo(fp.selected_variation.region_id, `.buylink-${onSelectorClass}`);
-
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }
