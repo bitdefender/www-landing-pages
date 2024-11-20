@@ -43,13 +43,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
+
+      - name: Get Branch Name
+        id: extract_branch_name
+        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+
       - name: Run Snapshot Tests
         run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
+
       - name: Inform Developer About Snapshot Failures
         if: failure()
         run: echo "Snapshots failed. Add the 'accept-baselines' label to update the baselines or fix your code."
+
       - name: Set PR Ready for Merge
         if: success()
         run: echo "PR is ready for merge."
