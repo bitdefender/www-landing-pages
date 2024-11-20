@@ -53,6 +53,8 @@ export default class ZuoraNLClass {
     dipm: 'com.bitdefender.dataprivacy',
     vsb: 'com.bitdefender.vsb',
     vsbm: 'com.bitdefender.vsb',
+    us_i: 'com.bitdefender.ultimatesecurityeu.v2',
+    us_f: 'com.bitdefender.ultimatesecurityeu.v2',
   };
 
   static names = {
