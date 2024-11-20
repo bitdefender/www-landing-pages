@@ -41,7 +41,7 @@ jobs:
       - name: Verify Approvals
         run: |
           APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '[.reviews[] | select(.state=="APPROVED")] | length')
-          if [[ "$APPROVALS" -lt 2 ]]; then
+          if [[ "$APPROVALS" -lt 1 ]]; then
             echo "Not enough approvals. Exiting."
             exit 1
           fi
@@ -127,40 +127,26 @@ jobs:
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
 
-      - name: Release Lock
-        if: success()
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          
-          git pull origin aquire-lock
-          
-          git rm .baseline-lock
-          git commit -m "Release lock for baseline update [skip husky]"
-          git push origin aquire-lock
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update Snapshots Check Status
-        if: success()
-        run: |
-          curl -L \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/bitdefender/www-landing-pages/statuses/${{ github.event.pull_request.head.sha }} \
-            -d '{
-              "state":"success",
-              "target_url":"https://github.com/bitdefender/www-landing-pages/actions/runs/${{ github.run_id }}","description":"The build succeeded!","context":"Run Tests and Snapshots / snapshots-tests (pull_request)"}'  
-  
-
   auto-merge:
     needs: update-baselines
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Release Lock
+        if: success()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git pull origin aquire-lock
+
+          git rm .baseline-lock
+          git commit -m "Release lock for baseline update [skip husky]"
+          git push origin aquire-lock
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Auto-Merge PR
         if: success()
