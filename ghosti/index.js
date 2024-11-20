@@ -17,7 +17,7 @@ const hlxEnv = {
   STAGE: 'page'
 };
 
-const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.${hlxEnv.STAGE}`;
+const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.hlx.${hlxEnv.PROD}`;
 
 // todo add sidekick config for those
 const EXCLUDED_SNAPSHOT_BLOCKS = [
