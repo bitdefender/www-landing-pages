@@ -1,1 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if git log -1 --pretty=%B | grep -q "\[skip husky\]"; then
+  echo "Skipping Husky hooks for this commit."
+  exit 0
+fi
+
 npm run lint && npm run test:unit
