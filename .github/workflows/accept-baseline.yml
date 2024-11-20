@@ -133,6 +133,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          ref: aquire-lock
 
       - name: Release Lock
         if: success()
@@ -140,7 +142,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
-          git pull origin aquire-lock
+          git pull origin aquire-lock --rebase
 
           git rm .baseline-lock
           git commit -m "Release lock for baseline update [skip husky]"

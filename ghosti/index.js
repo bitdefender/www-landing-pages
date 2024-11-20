@@ -9,6 +9,7 @@ const {
   logSuccess,
   logError
 } = require('./constants');
+const { fetchWithRetry } = require('./utils');
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
 const hlxEnv = {
@@ -75,57 +76,19 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
     }
   }
 
-  try {
-    const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
-    // get snapshots tests
-    const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
-
-    const snapshotsPromises = blockSnapshotsToTest
-      .map((testName) => {
-        const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
-
-        if (testAlreadyExists) {
-          return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`).then((res) => res.json());
-        }
-
-        return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
-          name: testName,
-          startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
-        }).generate())
-          .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
-      });
-
-    const [
-      snapshotsResult,
-    ] = await Promise.all([
-      Promise.all(snapshotsPromises),
-    ]);
-
-    showSnapshotTestsFullLogs(snapshotsResult);
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
-
   // try {
   //   const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
-  //
   //   // get snapshots tests
   //   const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
   //
-  //   const batches = createBatches(blockSnapshotsToTest, 3);
-  //
-  //   let allTestResults = [];
-  //
-  //   for (const batch of batches) {
-  //     const snapshotsPromises = batch.map((testName) => {
+  //   const snapshotsPromises = blockSnapshotsToTest
+  //     .map((testName) => {
   //       const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
+  //
   //       if (testAlreadyExists) {
-  //         return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
-  //           signal: AbortSignal.timeout(FETCH_TIMEOUT)
-  //         }).then((res) => res.json());
+  //         return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`).then((res) => res.json());
   //       }
-  //       console.log('New test was imported', testName);
+  //
   //       return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
   //         name: testName,
   //         startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
@@ -133,17 +96,55 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   //         .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
   //     });
   //
-  //     // Await the completion of all promises in the current batch before proceeding to the next
-  //     const batchResults = await Promise.all(snapshotsPromises);
-  //     allTestResults.push(...batchResults);
-  //   }
+  //   const [
+  //     snapshotsResult,
+  //   ] = await Promise.all([
+  //     Promise.all(snapshotsPromises),
+  //   ]);
   //
-  //   // Once all batches are processed, show the full logs of the snapshot tests
-  //   showSnapshotTestsFullLogs(allTestResults);
+  //   showSnapshotTestsFullLogs(snapshotsResult);
   // } catch (err) {
   //   console.error(err);
   //   process.exit(1);
   // }
+
+  try {
+    const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
+
+    // get snapshots tests
+    const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
+
+    const batches = createBatches(blockSnapshotsToTest, 5);
+
+    let allTestResults = [];
+
+    for (const batch of batches) {
+      const snapshotsPromises = batch.map((testName) => {
+        const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
+        if (testAlreadyExists) {
+          return fetchWithRetry(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
+            signal: AbortSignal.timeout(FETCH_TIMEOUT)
+          }).then((res) => res.json());
+        }
+        console.log('New test was imported', testName);
+        return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
+          name: testName,
+          startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
+        }).generate())
+          .then(({ _id }) => fetchWithRetry(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
+      });
+
+      // Await the completion of all promises in the current batch before proceeding to the next
+      const batchResults = await Promise.all(snapshotsPromises);
+      allTestResults.push(...batchResults);
+    }
+
+    // Once all batches are processed, show the full logs of the snapshot tests
+    showSnapshotTestsFullLogs(allTestResults);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
 
   // await new Promise((res) => setTimeout(res, 1000))
 })();
