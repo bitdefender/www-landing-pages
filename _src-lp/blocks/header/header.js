@@ -45,8 +45,8 @@ export default async function decorate(block) {
     // DEX-20933 - if section is business should redirect to the bd business
     let homeUrl = getDefaultBaseUrl();
     if (getDefaultSection() === 'business') {
-      const locale = getLocale(getDefaultLanguage());
-      homeUrl += `${locale}/business`;
+      // const locale = getLocale(getDefaultLanguage());
+      homeUrl += `business`;
     }
 
     const headerWrapper = block.closest('header');
