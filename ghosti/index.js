@@ -30,6 +30,7 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   'lp-custom',
   'support',
   'tos',
+  'video',
 ];
 
 (async () => {

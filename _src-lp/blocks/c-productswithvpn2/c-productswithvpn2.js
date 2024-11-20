@@ -70,7 +70,7 @@ export default function decorate(block) {
         bulinaSplitted.forEach((item, key) => {
           let newItem = item;
           if (item.indexOf('0%') !== -1) {
-            newItem = item.replace(/0%/g, `<b class='percent-${onSelectorClass}'></b>`);
+            newItem = item.replace(/0%/g, `<b class='percent percent-${onSelectorClass}'></b>`);
           }
           divBulina += `<span class="bulina_text${key + 1}">${newItem}</span>`;
         });
