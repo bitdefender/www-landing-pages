@@ -1,6 +1,6 @@
 import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
 import {
-  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection, getDefaultLanguage, getLocale,
+  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection,
 } from '../../scripts/utils.js';
 
 /**
@@ -46,7 +46,7 @@ export default async function decorate(block) {
     let homeUrl = getDefaultBaseUrl();
     if (getDefaultSection() === 'business') {
       // const locale = getLocale(getDefaultLanguage());
-      homeUrl += `business`;
+      homeUrl += 'business';
     }
 
     const headerWrapper = block.closest('header');
