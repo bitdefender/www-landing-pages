@@ -121,7 +121,7 @@ export const assertedProductData = {
     buy_link: 'https://checkout.bitdefender.com/index.html:step=cart?theme=light&campaign=WinterMC2023&product_id=com.bitdefender.vpn&payment_period=10d1y&country=NL&language=nl_NL&client=8f768650-6915-11ed-83e3-e514e761ac46',
     config: {
       product_id: 'vpn',
-      name: undefined,
+      name: 'Bitdefender Premium VPN',
       full_price_class: 'oldprice-vpn',
       discounted_price_class: 'newprice-vpn',
       price_class: 'price-vpn',
