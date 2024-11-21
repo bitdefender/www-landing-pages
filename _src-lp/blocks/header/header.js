@@ -1,6 +1,6 @@
 import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
 import {
-  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection,
+  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection, getLocale, getDefaultLanguage,
 } from '../../scripts/utils.js';
 
 /**
@@ -44,9 +44,10 @@ export default async function decorate(block) {
     const spanSvg = [...await extractSpanSvgs(html)];
     // DEX-20933 - if section is business should redirect to the bd business
     let homeUrl = getDefaultBaseUrl();
+    const locale = getLocale(getDefaultLanguage());
+    homeUrl += locale;
     if (getDefaultSection() === 'business') {
-      // const locale = getLocale(getDefaultLanguage());
-      homeUrl += 'business';
+      homeUrl += '/business';
     }
 
     const headerWrapper = block.closest('header');
