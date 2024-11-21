@@ -1,7 +1,5 @@
 import {
   addScript,
-  DOMAIN_NAME_MAP,
-  getDefaultBaseUrl,
   getLocalizedResourceUrl
 } from "../../_src-lp/scripts/utils.js";
 
@@ -83,27 +81,5 @@ describe('utils.js', () => {
 
       expect(footerPath).toEqual(`${regionPathNameBasePath}/footer`);
     });
-  });
-
-  describe('getDefaultBaseUrl', () => {
-    beforeEach(() => {
-      window = Object.create(window);
-      Object.defineProperty(window, 'location', {
-        value: {
-          pathname: '',
-          hostname: 'pages.bitdefender.com',
-        },
-        writable: true
-      });
-    })
-
-    it.each(Array.from(DOMAIN_NAME_MAP))(
-      'returns the correct domain for locale "%s" => %p',
-      (locale, expectedDomain) => {
-        window.location.pathname = `/${locale}/consumer/lp-1`;
-        const result = getDefaultBaseUrl();
-        expect(result).toEqual(expectedDomain);
-      }
-    );
   });
 });
