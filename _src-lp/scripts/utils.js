@@ -687,17 +687,8 @@ export function generateUuidv4() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 }
 
-export const DOMAIN_NAME_MAP = new Map([
-  ['en', 'https://www.bitdefender.com/'],
-  ['uk', 'https://www.bitdefender.co.uk/'],
-  ['au', 'https://www.bitdefender.com.au/'],
-  ['br', 'https://www.bitdefender.com.br/'],
-]);
-
 export function getDefaultBaseUrl() {
-  const dynamicLanguage = getInstance() === 'dev' ? 'com' : getDefaultLanguage();
-  const defaultHomeUrl = `https://www.bitdefender.${dynamicLanguage}/`;
-  return DOMAIN_NAME_MAP.get(dynamicLanguage) || defaultHomeUrl;
+  return 'https://www.bitdefender.com/';
 }
 
 /**
