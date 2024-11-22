@@ -136,6 +136,15 @@ jobs:
         with:
           ref: aquire-lock
 
+      - name: Wait for Snapshots Check to Complete
+        run: |
+          echo "Waiting for snapshots-tests check to pass..."
+          while ! gh pr checks ${{ github.event.pull_request.number }} --json checks --jq '.checks[] | select(.name == "Run Tests and Snapshots / snapshots-tests").state == "SUCCESS"'; do
+            sleep 10
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Release Lock
         if: success()
         run: |
