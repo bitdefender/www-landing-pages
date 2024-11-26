@@ -225,6 +225,16 @@ export default function decorate(block) {
     }
   });
 
+  if (products) {
+    const productsAsList = products.split(',');
+    productsAsList.forEach((prod) => updateProductsList(prod));
+    const targetElement = Array.from(block.querySelectorAll('*')).find(el => el.textContent.includes('0%'));
+    if (targetElement) {
+      targetElement.innerHTML = targetElement.innerHTML.replace('0%', '<span class="max-discount"></span>');
+    }
+  }
+
+
   // tables from right content
   if (contentRightEl && contentRightEl.querySelectorAll('table').length) {
     [...contentRightEl.querySelectorAll('table')].forEach((table) => {

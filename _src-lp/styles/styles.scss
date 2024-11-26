@@ -351,6 +351,11 @@ main img {
   }
 }
 
+.blue-divider p:nth-of-type(1){
+  border-right: solid #006eff;
+  padding-right: 10px;
+}
+
 @media (width >= 768px) {
   .affiliate .block div {
     justify-content: start!important;
