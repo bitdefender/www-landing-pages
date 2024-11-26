@@ -179,7 +179,7 @@ export default function decorate(block) {
         text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
       }
 
-      if (buybtn && buybtn.innerText && buybtn.innerText !== '' && (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerText.indexOf('0 %') !== -1)) {
+      if (buybtn && buybtn.innerText !== '' && (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerText.indexOf('0 %') !== -1)) {
         buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
       }
 
@@ -203,28 +203,17 @@ export default function decorate(block) {
       table.innerHTML = '';
       table.appendChild(greenCircleBox);
     }
-
-    // GREEN_CIRCLE_BOX
-    if (aliasTr && aliasTr.textContent.trim() === 'percent_circle') {
-      // eslint-disable-next-line no-unused-vars
-      const textContent = table.querySelector('tr:nth-of-type(2)')?.innerText.trim();
-      const greenCircleBox = document.createElement('div');
-
-      greenCircleBox.id = 'buyBtnGreenCircleBox';
-      greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
-
-      if (textContent?.includes('0%') || textContent?.includes('0 %')) {
-        greenCircleBox.innerHTML = `
-          <span class='green_circle_box v2'>
-            ${textContent.replace(/0\s*%/g, '<strong class="max-discount"></strong>')}
-          </span>
-        `;
-      }
-
-      table.replaceChildren(greenCircleBox);
-    }
   });
 
+  if (products) {
+    const productsAsList = products.split(',');
+    productsAsList.forEach((prod) => updateProductsList(prod));
+    const targetElement = Array.from(block.querySelectorAll('*')).find(el => el.textContent.includes('0%'));
+    if (targetElement) {
+      targetElement.innerHTML = targetElement.innerHTML.replace('0%', '<span class="max-discount"></span>');
+    }
+  }
+  
   // tables from right content
   if (contentRightEl && contentRightEl.querySelectorAll('table').length) {
     [...contentRightEl.querySelectorAll('table')].forEach((table) => {

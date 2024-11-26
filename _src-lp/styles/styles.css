@@ -333,6 +333,10 @@ main img {
   padding-left: 12px !important;
 }
 
+.affiliate.blue-divider .block div p {
+  border: solid;
+}
+
 @media (width >= 768px) {
   .affiliate .block div {
     justify-content: start !important;

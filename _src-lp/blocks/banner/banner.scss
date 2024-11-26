@@ -58,6 +58,24 @@
   position: relative;
 }
 
+.section.banner-container.cobranding{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.section.banner-container.cobranding div{
+  width: 100%;
+}
+
+.section.banner-container.cobranding h4{
+  margin-bottom: 5px;
+}
+
+.section.banner-container.cobranding h5{
+  margin-top: 0;
+  font-weight: 400;
+}
+
 .section.banner-container.new-2024 .banner .img-right div::after {
   content: '';
   position: absolute;
