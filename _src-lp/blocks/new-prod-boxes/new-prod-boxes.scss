@@ -790,67 +790,6 @@ content: "";
     .new-prod-boxes-container {
         overflow: hidden;
     }
-    .slider-container {
-        width: 100%;
-        position: relative;
-        margin: auto;
-    }
-    .slider-container .slides-wrapper {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-        width: 100%;
-        flex-direction: row;
-    }
-    .slider-container .prod_box {
-        flex: 0 0 100%!important;
-        box-sizing: border-box;
-        padding: 15px;
-    }
-    .slider-container .arrow {
-        position: absolute;
-        top: 14%;
-        font-size: 19px;
-        color: #006EFF;
-        cursor: pointer;
-        z-index: 10;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 40px;
-        width: 40px;
-        padding: 0;
-        background: #D6F0FF 0% 0% no-repeat padding-box;
-        box-shadow: 0px 0px 6px #00000029;
-        border: 1px solid #FFFFFF;
-        border-radius: 100%;
-    }
-    .slider-container .arrow.left {
-        left: 4px;
-    }
-    .slider-container .arrow.right {
-        right: 4px;
-    }
-    .slider-container .bulletsSlider {
-        display: flex;
-        justify-content: center;
-    }
-    .slider-container .bulletsSlider .bullet {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        background: #FFFFFF;
-        border: 1px solid #006EFF;
-        border-radius: 50%;
-        margin: 0 5px;
-        cursor: pointer;
-    }
-    .slider-container .bulletsSlider .bullet.active {
-        background: #006EFF;
-    }
-
-    .table-container.hasslide .block > div:nth-of-type(3) {
-        width: 100%;
-    }
 }
 
 @media (width >= 768px) {

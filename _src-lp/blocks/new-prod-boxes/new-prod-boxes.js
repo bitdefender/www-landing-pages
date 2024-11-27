@@ -1,6 +1,63 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
+function initializeSlider(block) {
+  const slidesContainer = block.closest('.slider-container');
+  const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
+  const slides = slidesContainer.querySelectorAll('.slide');
+  const leftArrow = slidesContainer.querySelector('.arrow.left');
+  const rightArrow = slidesContainer.querySelector('.arrow.right');
+  const bullets = slidesContainer.querySelectorAll('.bulletsSlider .bullet');
+
+  let currentIndex = 0;
+  const updateSlider = () => {
+      // Update slide position
+      slidesWrapper.style.transform = `translateX(-${currentIndex * 91}%)`;
+
+      // Update bullets' active state
+      bullets.forEach((bullet, index) => {
+          bullet.classList.toggle('active', index === currentIndex);
+      });
+
+      // Update arrow states
+      leftArrow.disabled = currentIndex === 0;
+      rightArrow.disabled = currentIndex === slides.length - 1;
+
+      // inactive arrows
+      leftArrow.classList.toggle('inactive', currentIndex === 0);
+      rightArrow.classList.toggle('inactive', currentIndex === slides.length - 1);
+  };
+
+  // Event listeners for arrows
+  leftArrow.addEventListener('click', () => {
+      if (currentIndex > 0) {
+          currentIndex -= 1;
+          updateSlider();
+      }
+  });
+
+  rightArrow.addEventListener('click', () => {
+      if (currentIndex < slides.length - 1) {
+          currentIndex += 1;
+          updateSlider();
+      }
+  });
+
+  // Event listeners for bullets
+  bullets.forEach((bullet) => {
+      bullet.addEventListener('click', () => {
+          const index = parseInt(bullet.dataset.index, 10);
+          if (index >= 0 && index < slides.length) {
+              currentIndex = index;
+              updateSlider();
+          }
+      });
+  });
+
+  // Initialize the slider
+  updateSlider();
+}
+
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
@@ -346,8 +403,8 @@ export default function decorate(block) {
     if (type === 'mobileSlider') {
       const arrowsSlider = document.createElement('div');
       arrowsSlider.className = 'arrowsSlider';
-      arrowsSlider.innerHTML = `<button class="arrow left"><</button>
-        <button class="arrow right">></button>`;
+      arrowsSlider.innerHTML = `<button class="arrow left"></button>
+        <button class="arrow right"></button>`;
       block.parentNode.appendChild(arrowsSlider);
 
       const bulletsSlider = document.createElement('div');
@@ -431,41 +488,5 @@ export default function decorate(block) {
   });
 
   // slider:
-  const slidesContainer = block.closest('.slider-container');
-  const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
-  const slides = slidesContainer.querySelectorAll('.prod_box');
-  const leftArrow = slidesContainer.querySelector('.arrow.left');
-  const rightArrow = slidesContainer.querySelector('.arrow.right');
-  const bullets = slidesContainer.querySelectorAll('.bulletsSlider .bullet');
-
-  let currentIndex = 0;
-  const updateSlider = () => {
-      slidesWrapper.style.transform = `translateX(-${currentIndex * 91}%)`;
-
-      bullets.forEach((bullet, index) => {
-          bullet.classList.toggle('active', index === currentIndex);
-      });
-  };
-
-  // Event listeners for arrows
-  leftArrow.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      updateSlider();
-  });
-
-  rightArrow.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateSlider();
-  });
-
-  // Event listeners for bullets
-  bullets.forEach((bullet) => {
-      bullet.addEventListener('click', () => {
-          currentIndex = parseInt(bullet.dataset.index, 10);
-          updateSlider();
-      });
-  });
-
-  // Initialize the slider
-  updateSlider();
+  if (type === 'mobileSlider') initializeSlider(block);
 }

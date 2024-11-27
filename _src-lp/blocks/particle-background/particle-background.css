@@ -50,6 +50,19 @@
   text-transform: unset;
 }
 
+@media screen and (width <= 767px) {
+  .particle-background {
+    min-height: 300px;
+  }
+  .particle-background h2 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .particle-background p {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
 @media screen and (width >= 768px) {
   .particle-background h2 {
     font-size: 40px;

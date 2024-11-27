@@ -478,3 +478,48 @@
     width: auto;
   }
 }
+
+@media (width <= 768px) {
+  .c-icon-box-grid-container {
+    overflow: hidden;
+  }
+
+  .c-icon-box-grid-container .slider-container .container > div:last-of-type {
+    font-size: 8px;
+    line-height: 10px;
+    width: 200px;
+    text-align: left;
+  }
+
+  .c-icon-box-grid-container .slider-container .arrow.inactive {
+    display: flex;
+    opacity: 0.6;
+  }
+
+  .c-icon-box-grid-container .slider-container .arrow.left {
+    left: 0;
+  }
+
+  .c-icon-box-grid-container .slider-container .arrow.right {
+    right: 0;
+  }
+
+  .c-icon-box-grid-container .arrowsSlider {
+    display: flex;
+    gap: 10px;
+    float: right;
+    margin-top: -29px;
+  }
+
+  .c-icon-box-grid-container.usbs-brand .container > div:first-of-type {
+    text-align: left;
+  }
+
+  .c-icon-box-grid-container.usbs-brand .container > div:first-of-type p br {
+    display: none;
+  }
+
+  .c-icon-box-grid-container .slider-container .arrow {
+    position: relative;
+  }
+}
