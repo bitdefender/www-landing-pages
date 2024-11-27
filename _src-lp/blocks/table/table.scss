@@ -1,0 +1,101 @@
+.table-container.hasslide {
+
+}
+
+.table-container.hasslide .block > div:first-of-type h1 {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 48px;
+    line-height: 60px;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+}
+
+.table-container.hasslide .block > div:first-of-type h1 u {
+    color: #006DFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.table-container.hasslide .block > div:first-of-type p {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+}
+
+.table-container.hasslide .block > div:nth-of-type(2) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    border-radius: 22px;
+    border: 2px solid #006EFF;
+    background-color: #016DFF;
+    color: white;
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
+    margin: 1em 0;
+}
+
+.table-container.hasslide .block > div:nth-of-type(2) > div {
+    min-width: 160px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.table-container.hasslide .block > div:nth-of-type(2) > div::before {
+    content: '';
+    height: 16px;
+    width: 18px;
+    margin-right: 5px;
+    background-size: auto 100%!important;
+}
+
+.table-container.hasslide .block > div:nth-of-type(2) > div .button {
+    background: transparent;
+    padding: unset;
+}
+
+.table-container.hasslide.selected2 .block > div:nth-of-type(2) > div:nth-of-type(1)::before {
+    background: url('../../icons/individual_white.png') no-repeat 0 0 transparent;
+}
+
+.table-container.hasslide.selected1 .block > div:nth-of-type(2) > div:nth-of-type(1)::before {
+    background: url('../../icons/individual_blue.svg') no-repeat 0 0 transparent;
+}
+
+.table-container.hasslide.selected1 .block > div:nth-of-type(2) > div:nth-of-type(2)::before {
+    background: url('../../icons/small_bs_white.svg') no-repeat 0 0 transparent;
+}
+
+.table-container.hasslide.selected2 .block > div:nth-of-type(2) > div:nth-of-type(2)::before {
+    background: url('../../icons/small_bs_blue.png') no-repeat 0 0 transparent;
+}
+
+.table-container.hasslide.selected1 .block > div:nth-of-type(2) > div:nth-of-type(1), .table-container.hasslide.selected2 .block > div:nth-of-type(2) > div:nth-of-type(2) {
+    background-color: white;
+    color: black;
+}
+
+.table-container.hasslide.selected2 .block > div:nth-of-type(2) > div .button {
+    color: black;
+}
+
+.table-container.hasslide .block > div:nth-of-type(3) {
+    width: 630px;
+    margin: 0 auto;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: normal;
+}

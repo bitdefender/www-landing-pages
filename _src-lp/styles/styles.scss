@@ -185,6 +185,22 @@ main pre {
   white-space: pre;
 }
 
+main .section.py-1 {
+  padding: 0;
+}
+
+main .section.pt-0 {
+  padding-top: 0;
+}
+
+main .section.pb-0, .pb-0 {
+  padding-bottom: 0!important;
+}
+
+main .section[data-textcolor=black] * {
+  color: black;
+}
+
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
@@ -192,6 +208,29 @@ a:any-link {
 
 .underlined a:any-link {
   text-decoration: underline;
+}
+
+main .section.ibmplex-font * {
+  font-family: "IBM Plex Sans", sans-serif!important;
+}
+
+main .section.blue-slogan * {
+  color: #006EFF;
+  font-size: 60px;
+  line-height: 60px;
+}
+
+main .section.bold-anchor a.button:any-link {
+  font-weight: bold!important;
+  padding: 10px 15px;
+  background-color: #D70000;
+}
+
+main .section.mp0-all, main .section.mp0-all .default-content-wrapper, main .section.mp0-all .default-content-wrapper p {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 a:hover {
@@ -467,10 +506,15 @@ main .section.size-40-normal .default-content-wrapper h2 {
 
 main .section.size-12-normal .default-content-wrapper p {
   font-size: 12px;
+  line-height: 14px;
   font-weight: normal;
 }
 
-main .section.width-medium .block {
+main .section[data-textcolor='grey'] .default-content-wrapper p {
+  color: #6F6F6F;
+}
+
+main .section.width-medium .block, main .section.width-medium .default-content-wrapper {
   width: 940px;
   margin: 0 auto;
 }
@@ -478,6 +522,31 @@ main .section.width-medium .block {
 main .section.width-smaller .block, main .section.width-smaller .default-content-wrapper {
   width: 750px;
   margin: 0 auto;
+}
+
+main .section.margin-0, main .section.margin-0 * {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+main .section.mt-0, main .section.mt-0 * {
+  margin-top: 0;
+}
+
+main .section.my-0, main .section.my-0 * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+main .section.pt-0, main .section.pt-0 * {
+  padding-top: 0;
+}
+
+main .section.py-0, main .section.py-0 * {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 main .section.width-smaller2 .block {
@@ -1730,7 +1799,7 @@ main .section.highlight {
     bottom: 14px;
   }
 
-  main .section.width-medium .block {
+  main .section.width-medium .block, main .section.width-smaller .block, main .section.width-smaller .default-content-wrapper {
     width: 100%;
   }
 

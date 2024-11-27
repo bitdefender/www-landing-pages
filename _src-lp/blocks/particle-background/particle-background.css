@@ -46,6 +46,10 @@
   margin: 1em auto;
 }
 
+.usbs-brand .particle-background div:last-of-type p {
+  text-transform: unset;
+}
+
 @media screen and (width >= 768px) {
   .particle-background h2 {
     font-size: 40px;
@@ -59,5 +63,8 @@
   }
   .particle-background div:last-of-type p {
     width: 360px;
+  }
+  .usbs-brand .particle-background div:last-of-type p {
+    width: 100%;
   }
 }

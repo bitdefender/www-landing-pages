@@ -8,12 +8,66 @@
   margin: 10px 0;
 }
 
-.c-icon-box-grid-container.affiliate{
+.c-icon-box-grid-container.affiliate {
   margin-top: 20px;
 }
 
-.c-icon-box-grid-container.affiliate .quotebox{
+.c-icon-box-grid-container.affiliate .quotebox {
   margin-bottom: 25px;
+}
+
+.c-icon-box-grid-container.usbs-brand .row {
+  gap: 10px;
+}
+
+.c-icon-box-grid-container.usbs-brand.no-quotes .row {
+  gap: 0;
+}
+
+.c-icon-box-grid-container.usbs-brand .container > div:last-of-type {
+  color: #6F6F6F;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.c-icon-box-grid-container.usbs-brand .subtitle {
+  display: flex;
+  line-height: 19px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  position: relative;
+}
+
+.c-icon-box-grid-container.has-icons .subtitle img {
+  position: absolute;
+  right: -17px;
+  width: 56px;
+  top: 10px;
+}
+
+.c-icon-box-grid-container.usbs-brand.gray-background .subtitle {
+  display: block;
+  margin-top: 1em;
+}
+
+.c-icon-box-grid-container.usbs-brand.no-quotes .subtitle h4 {
+  margin: 0;
+  line-height: 26px;
+}
+
+.c-icon-box-grid-container.usbs-brand .subtitle > p {
+  margin: 0;
+}
+
+.c-icon-box-grid-container.usbs-brand .subtitle > :nth-child(3) {
+  margin-top: auto;
+  background: transparent;
+  padding: 0;
+}
+
+.c-icon-box-grid-container.usbs-brand .subtitle > p:first-of-type {
+  line-height: 17px;
 }
 
 .c-icon-box-grid-container.new .row div {
@@ -54,7 +108,15 @@
   height: 1px;
   display: block;
   margin-bottom: 7px;
-  background-color: #00439C;
+  background-color: #08499F;
+}
+
+.c-icon-box-grid-container.usbs-brand .subtitle p:last-of-type a {
+  color: #006EFF;
+}
+
+.c-icon-box-grid-container.usbs-brand.no-quotes .subtitle p:last-of-type::before {
+  display: none;
 }
 
 .c-icon-box-grid-container.new h3 {
@@ -83,6 +145,16 @@
   background: url("../../images/baby-blue-quote.svg") no-repeat top 2em left 20px #F6F6F6;
 }
 
+.c-icon-box-grid-container.usbs-brand .quotes .icon-box-grid-column {
+  background: url("../../images/baby-blue-quote-small.svg") no-repeat top 5.5em left 20px #EDF9FF;
+  background-size: auto 28px;
+}
+
+.c-icon-box-grid-container.usbs-brand.no-quotes .quotes .icon-box-grid-column {
+  background: #EDF9FF;
+  padding: 1.5em;
+}
+
 .c-icon-box-grid-container .quotes hr {
   width: 24px;
   border: 1px solid #00439C;
@@ -90,7 +162,12 @@
   display: none;
 }
 
-
+.c-icon-box-grid-container.usbs-brand .quotes hr {
+  display: block;
+  border: 1px solid #08499F;
+  opacity: 1;
+  margin: 4px 0 18px;
+}
 
 .c-icon-box-grid-container .quotes .quotebox {
   margin: 1em 0;
@@ -144,7 +221,7 @@
   border-radius: 20px;
   padding: 32px;
   margin: 6px;
-  
+
 }
 
 .c-icon-box-grid-container.button-center .button-container{
@@ -299,6 +376,12 @@
     color: black;
   }
 
+  .c-icon-box-grid-container.usbs-brand .w-lg-65 p {
+    font-size: 18px;
+    line-height: 23px;
+
+  }
+
   .c-icon-box-grid-container .w-lg-65 {
     width: 65%;
   }
@@ -310,7 +393,7 @@
 
   .c-icon-box-grid-container.affiliate .quotebox{
     margin-bottom: 0;
-    
+
     .subtitle{
       max-width: 250px;
     }
@@ -368,14 +451,27 @@
     padding: 3rem 6rem;
     margin: 0 15px;
   }
+  .c-icon-box-grid-container.usbs-brand-v2 .col-lg {
+    padding: 2em;
+  }
 
   .c-icon-box-grid-container.grey-box .col-lg .title {
     font-size: 26px;
     line-height: 29px;
   }
 
+  .c-icon-box-grid-container.usbs-brand-v2 .col-lg .title {
+    font-size: 24px;
+    line-height: 37px;
+  }
+
   .c-icon-box-grid-container.grey-box .col-lg .subtitle {
     font-size: var(--body-font-size-s);
+  }
+
+  .c-icon-box-grid-container.usbs-brand-v2 .col-lg .subtitle {
+    font-size: 16px;
+    line-height: 24px;
   }
 
   .c-icon-box-grid-container.grey-box .col-lg p.button-container a {

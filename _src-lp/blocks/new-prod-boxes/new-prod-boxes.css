@@ -231,8 +231,6 @@
   background-color: #1C7928;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding-top: 7px;
-  padding-bottom: 8px;
 }
 
 .new-prod-boxes-container.black-theme .block .prod_box .inner_prod_box .greenTag2 {
@@ -317,6 +315,32 @@
   font-family: Arial, sans-serif;
   margin-bottom: 0;
   line-height: 1.25;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul {
+  padding-left: 0;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul li:hover {
+  opacity: 0.7;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul li * {
+  cursor: pointer;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul li input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box {
@@ -491,6 +515,14 @@
   padding: 10px 1% !important;
 }
 
+.new-prod-boxes-container.usbs-brand-v2 .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
+  border-radius: 5px;
+  padding: 15px 1% !important;
+  font-weight: 500 !important;
+  font-size: 16px;
+  line-height: 21px;
+}
+
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
   min-width: 170px;
   width: auto;
@@ -510,6 +542,10 @@
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists {
   font-family: Arial, sans-serif;
   color: transparent;
+}
+
+.new-prod-boxes-container.usbs-brand-v2 .block .prod_box .inner_prod_box .benefitsLists li {
+  margin: 10px 0;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists p {
@@ -584,6 +620,11 @@
   position: relative;
 }
 
+.new-prod-boxes-container.usbs-brand-v2 .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+  padding-left: 28px;
+  background-size: 18px;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.nocheck {
   font-size: 14px;
   line-height: 17px;
@@ -653,10 +694,6 @@
   min-height: 5em;
 }
 
-.new-prod-boxes-container .block .prod_box.hasGreenTag {
-  margin-top: 3em;
-}
-
 .new-prod-boxes-container .block .prod_box.hasGreenTag .inner_prod_box {
   box-shadow: 0 3px 7px 0 #C1C1C1;
 }
@@ -699,6 +736,71 @@
   justify-content: center;
 }
 
+@media (width <= 767px) {
+  .new-prod-boxes-container {
+    overflow: hidden;
+  }
+  .slider-container {
+    width: 100%;
+    position: relative;
+    margin: auto;
+  }
+  .slider-container .slides-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    flex-direction: row;
+  }
+  .slider-container .prod_box {
+    flex: 0 0 100% !important;
+    box-sizing: border-box;
+    padding: 15px;
+  }
+  .slider-container .arrow {
+    position: absolute;
+    top: 14%;
+    font-size: 19px;
+    color: #006EFF;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    background: #D6F0FF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1607843137);
+    border: 1px solid #FFFFFF;
+    border-radius: 100%;
+  }
+  .slider-container .arrow.left {
+    left: 4px;
+  }
+  .slider-container .arrow.right {
+    right: 4px;
+  }
+  .slider-container .bulletsSlider {
+    display: flex;
+    justify-content: center;
+  }
+  .slider-container .bulletsSlider .bullet {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #FFFFFF;
+    border: 1px solid #006EFF;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  .slider-container .bulletsSlider .bullet.active {
+    background: #006EFF;
+  }
+  .table-container.hasslide .block > div:nth-of-type(3) {
+    width: 100%;
+  }
+}
 @media (width >= 768px) {
   .new-prod-boxes-container .switchBox .switch {
     width: 440px;
@@ -709,15 +811,15 @@
   .new-prod-boxes-container .switchBox .switch input:checked + .slider {
     transform: translateX(215px);
   }
+  .slider-container .arrow {
+    display: none;
+  }
   .new-prod-boxes-container .block {
     flex-direction: row;
     padding: 0;
   }
   .new-prod-boxes-container.subtitle {
     margin-bottom: -35px;
-  }
-  .new-prod-boxes-container .block .prod_box.hasGreenTag {
-    margin-top: 1em;
   }
   .new-prod-boxes-container .block .prod_box .inner_prod_box {
     width: 92%;

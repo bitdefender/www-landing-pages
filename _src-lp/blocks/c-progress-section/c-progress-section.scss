@@ -51,6 +51,13 @@
   font-weight: 500;
 }
 
+.c-progress-section-container.usbs-brand .footer {
+  color: black;
+  font-size: 12px;
+  width: 100%;
+  margin-top: 10px !important;
+}
+
 .c-progress-section-container .footer {
   color: #999;
   font-size: 11px;
@@ -104,6 +111,14 @@
   margin-left: 1rem;
 }
 
+.c-progress-section-container.usbs-brand .inner-wrapper .svg-icon {
+  margin-left: 0;
+}
+
+.c-progress-section-container.usbs-brand .inner-wrapper .svg-icon svg * {
+
+}
+
 .c-progress-section-container .title {
   font-size: 18px;
   font-weight: 600;
@@ -123,6 +138,7 @@
 
 .c-progress-section-container .subtitle {
   font-size: 14px;
+  line-height: 18px;
   margin-top: 0;
 }
 
