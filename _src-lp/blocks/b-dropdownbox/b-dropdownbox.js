@@ -67,4 +67,6 @@ export default function decorate(block) {
 
     block.closest('.b-dropdownbox-container').appendChild(sliderBox);
   }
+
+  if (parentSelector.classList.contains('inactive')) block.classList.add('inactive');
 }
