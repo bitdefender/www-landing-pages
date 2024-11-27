@@ -462,7 +462,6 @@
     display: flex;
     gap: 10px;
     float: right;
-    margin-top: -29px;
   }
   .c-icon-box-grid-container.usbs-brand .container > div:first-of-type {
     text-align: left;
