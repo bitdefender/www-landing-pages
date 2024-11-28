@@ -115,7 +115,7 @@ export default function decorate(block) {
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
         firstCounter.start().ifEnded(() => {
           block.innerHTML = block.innerHTML.replace('Black Friday', 'Cyber Monday');
-          document.title = 'Cyber Monday Sales'
+          document.title = 'Cyber Monday Sales';
           // Clear previous HTML and pictures
           block.querySelector('#flipdown').innerHTML = '';
           block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
