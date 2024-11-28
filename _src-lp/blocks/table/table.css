@@ -1,4 +1,4 @@
-.table-container.hasslide .block > div:first-of-type h1 {
+.table-container.hasslide .block > div:first-of-type h1, .table-container.hasslide .block > div:first-of-type h1 * {
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 48px;
   line-height: 60px;
@@ -115,9 +115,7 @@
   padding-left: 0;
   margin-left: 0;
   color: #006DFF;
-  font-weight: bold;
-  font-size: var(--heading-font-size-l);
-  line-height: var(--heading-font-size-xl);
+  font-weight: bold !important;
   font-family: "IBM Plex Sans", sans-serif;
   text-align: center;
 }
