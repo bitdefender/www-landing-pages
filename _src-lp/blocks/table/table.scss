@@ -100,6 +100,42 @@
     font-weight: normal;
 }
 
+/* animated text */
+.section.table-container .animated_text {
+    height: 40px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .section.table-container .animated_text span {
+    width: 100%;
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    top: 50px;
+    padding-bottom: 15px;
+    padding-left: 0;
+    margin-left: 0;
+    color: #006DFF;
+    font-weight: lighter;
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-xl);
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-align: center;
+  }
+
+  .section.table-container .animated_text span.d-show {
+    transform: translateY(-100%);
+    transition: .5s transform ease-in-out;
+  }
+
+  .section.table-container .animated_text span.d-up {
+    transform: translateY(-200%);
+    transition: .5s transform ease-in-out;
+  }
+
 @media (width <= 767px) {
     .table-container.hasslide .block > div {
         text-align: left;
