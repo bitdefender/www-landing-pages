@@ -95,7 +95,7 @@ export default function decorate(block) {
     const skip2ndCounter = flipdownTable !== null;
 
     const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
-    const newTime = counterSwitchOnUpdated + 48 * 60 * 60;
+    const newTime = counterSwitchOnUpdated + 62 * 60 * 60;
     const currentTime = Math.floor(Date.now() / 1000);
 
     if (skip2ndCounter && counterSwitchOnUpdated > currentTime) {
@@ -114,6 +114,8 @@ export default function decorate(block) {
         // eslint-disable-next-line no-undef
         const firstCounter = new FlipDown(Number(counterSwitchOnUpdated), flipClockConfig);
         firstCounter.start().ifEnded(() => {
+          block.innerHTML = block.innerHTML.replace('Black Friday', 'Cyber Monday');
+          document.title = 'Cyber Monday Sales'
           // Clear previous HTML and pictures
           block.querySelector('#flipdown').innerHTML = '';
           block.querySelectorAll('.pictureBF').forEach((elem) => { elem.style.display = 'none'; });
