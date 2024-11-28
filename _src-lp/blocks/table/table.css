@@ -115,7 +115,7 @@
   padding-left: 0;
   margin-left: 0;
   color: #006DFF;
-  font-weight: lighter;
+  font-weight: bold;
   font-size: var(--heading-font-size-l);
   line-height: var(--heading-font-size-xl);
   font-family: "IBM Plex Sans", sans-serif;
@@ -143,9 +143,10 @@
   .table-container.hasslide .block > div:nth-of-type(3) {
     width: 100%;
   }
-  .table-container.hasslide .block > div:first-of-type h1 {
+  .table-container.hasslide .block > div:first-of-type h1, .table-container.hasslide .block > div:first-of-type h1 * {
     font-size: 24px;
     line-height: 28px;
+    text-align: left;
   }
   .table-container.hasslide .block > div:first-of-type p {
     font-size: 16px;
