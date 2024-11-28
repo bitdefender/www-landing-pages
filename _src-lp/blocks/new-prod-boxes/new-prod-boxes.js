@@ -410,7 +410,7 @@ export default function decorate(block) {
       const bulletsSlider = document.createElement('div');
       bulletsSlider.className = 'bulletsSlider';
       bulletsSlider.innerHTML = `<div class="bullets">
-        ${productsAsList.map((prod, idx) => `<span class="bullet" data-index="${idx}"></span>`).join('')}
+        ${[...block.querySelectorAll('.prod_box')].map((prod, idx) => `<span class="bullet" data-index="${idx}"></span>`).join('')}
       </div>`;
       block.parentNode.appendChild(bulletsSlider);
     }
