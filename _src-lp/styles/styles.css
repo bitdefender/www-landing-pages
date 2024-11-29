@@ -59,7 +59,7 @@ body.appear {
   display: unset;
 }
 
-.section[data-align=center], .section[data-align=center] *, .centered {
+*[data-align=center], .section[data-align=center], .section[data-align=center] *, .centered {
   text-align: center !important;
 }
 
