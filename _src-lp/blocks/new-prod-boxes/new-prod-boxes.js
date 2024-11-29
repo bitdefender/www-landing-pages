@@ -16,7 +16,7 @@ function initializeSlider(block) {
 
     // Update bullets' active state
     bullets.forEach((bullet, index) => {
-        bullet.classList.toggle('active', index === currentIndex);
+      bullet.classList.toggle('active', index === currentIndex);
     });
 
     // Update arrow states
@@ -472,10 +472,12 @@ export default function decorate(block) {
     const { target } = event;
     if (target.type === 'radio') {
       const { selectorU, valueU, selectorY, valueY } = target.closest('li')?.dataset || {};
+
       target.closest('.inner_prod_box').querySelectorAll('.combinedPricesBox').forEach((item) => {
         item.style.display = 'none';
       });
-      target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';;
+
+      target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';
 
       if (selectorU && selectorY) {
         const selectorUsers = document.getElementById(selectorU);
