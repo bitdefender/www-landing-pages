@@ -1,5 +1,9 @@
 .table-container.hasslide {
+    z-index: 9;
+}
 
+.table-container.hasslide .block > div * {
+    background: transparent;
 }
 
 .table-container.hasslide .block > div:first-of-type h1, .table-container.hasslide .block > div:first-of-type h1 * {
