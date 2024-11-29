@@ -59,8 +59,8 @@ body.appear {
   display: unset;
 }
 
-*[data-align=center], .centered {
-  text-align: center;
+.section[data-align=center], .section[data-align=center] *, .centered {
+  text-align: center !important;
 }
 
 body [data-mobile-detector] {
