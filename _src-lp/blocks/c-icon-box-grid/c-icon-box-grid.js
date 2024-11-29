@@ -23,31 +23,31 @@ function initializeSlider(block) {
 
   let currentIndex = 0;
   const updateSlider = () => {
-      // Update slide position
-      slidesWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+    // Update slide position
+    slidesWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-      // Update arrow
-      leftArrow.disabled = currentIndex === 0;
-      rightArrow.disabled = currentIndex === slides.length - 1;
+    // Update arrow
+    leftArrow.disabled = currentIndex === 0;
+    rightArrow.disabled = currentIndex === slides.length - 1;
 
-      // inactive arrows
-      leftArrow.classList.toggle('inactive', currentIndex === 0);
-      rightArrow.classList.toggle('inactive', currentIndex === slides.length - 1);
+    // inactive arrows
+    leftArrow.classList.toggle('inactive', currentIndex === 0);
+    rightArrow.classList.toggle('inactive', currentIndex === slides.length - 1);
   };
 
   // Event listeners for arrows
   leftArrow.addEventListener('click', () => {
-      if (currentIndex > 0) {
-          currentIndex -= 1;
-          updateSlider();
-      }
+    if (currentIndex > 0) {
+      currentIndex -= 1;
+      updateSlider();
+    }
   });
 
   rightArrow.addEventListener('click', () => {
-      if (currentIndex < slides.length - 1) {
-          currentIndex += 1;
-          updateSlider();
-      }
+    if (currentIndex < slides.length - 1) {
+      currentIndex += 1;
+      updateSlider();
+    }
   });
 
   // Initialize the slider
