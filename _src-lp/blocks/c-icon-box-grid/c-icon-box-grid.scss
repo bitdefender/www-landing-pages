@@ -16,21 +16,21 @@
   margin-bottom: 25px;
 }
 
-.c-icon-box-grid-container.usbs-brand .row {
+.c-icon-box-grid-container.top-author .row {
   gap: 10px;
 }
 
-.c-icon-box-grid-container.usbs-brand.no-quotes .row {
+.c-icon-box-grid-container.top-author.no-quotes .row {
   gap: 0;
 }
 
-.c-icon-box-grid-container.usbs-brand .container > div:last-of-type {
+.c-icon-box-grid-container.top-author .container > div:last-of-type {
   color: #6F6F6F;
   font-size: 12px;
   line-height: 15px;
 }
 
-.c-icon-box-grid-container.usbs-brand .subtitle {
+.c-icon-box-grid-container.top-author .subtitle {
   display: flex;
   line-height: 19px;
   align-items: flex-start;
@@ -46,27 +46,27 @@
   top: 10px;
 }
 
-.c-icon-box-grid-container.usbs-brand.gray-background .subtitle {
+.c-icon-box-grid-container.top-author.gray-background .subtitle {
   display: block;
   margin-top: 1em;
 }
 
-.c-icon-box-grid-container.usbs-brand.no-quotes .subtitle h4 {
+.c-icon-box-grid-container.top-author.no-quotes .subtitle h4 {
   margin: 0;
   line-height: 26px;
 }
 
-.c-icon-box-grid-container.usbs-brand .subtitle > p {
+.c-icon-box-grid-container.top-author .subtitle > p {
   margin: 0;
 }
 
-.c-icon-box-grid-container.usbs-brand .subtitle > :nth-child(3) {
+.c-icon-box-grid-container.top-author .subtitle > :nth-child(3) {
   margin-top: auto;
   background: transparent;
   padding: 0;
 }
 
-.c-icon-box-grid-container.usbs-brand .subtitle > p:first-of-type {
+.c-icon-box-grid-container.top-author .subtitle > p:first-of-type {
   line-height: 17px;
 }
 
@@ -111,11 +111,11 @@
   background-color: #08499F;
 }
 
-.c-icon-box-grid-container.usbs-brand .subtitle p:last-of-type a {
+.c-icon-box-grid-container.top-author .subtitle p:last-of-type a {
   color: #006EFF;
 }
 
-.c-icon-box-grid-container.usbs-brand.no-quotes .subtitle p:last-of-type::before {
+.c-icon-box-grid-container.top-author.no-quotes .subtitle p:last-of-type::before {
   display: none;
 }
 
@@ -145,12 +145,12 @@
   background: url("../../images/baby-blue-quote.svg") no-repeat top 2em left 20px #F6F6F6;
 }
 
-.c-icon-box-grid-container.usbs-brand .quotes .icon-box-grid-column {
+.c-icon-box-grid-container.top-author .quotes .icon-box-grid-column {
   background: url("../../images/baby-blue-quote-small.svg") no-repeat top 5.5em left 20px #EDF9FF;
   background-size: auto 28px;
 }
 
-.c-icon-box-grid-container.usbs-brand.no-quotes .quotes .icon-box-grid-column {
+.c-icon-box-grid-container.top-author.no-quotes .quotes .icon-box-grid-column {
   background: #EDF9FF;
   padding: 1.5em;
 }
@@ -162,7 +162,7 @@
   display: none;
 }
 
-.c-icon-box-grid-container.usbs-brand .quotes hr {
+.c-icon-box-grid-container.top-author .quotes hr {
   display: block;
   border: 1px solid #08499F;
   opacity: 1;
@@ -376,7 +376,7 @@
     color: black;
   }
 
-  .c-icon-box-grid-container.usbs-brand .w-lg-65 p {
+  .c-icon-box-grid-container.top-author .w-lg-65 p {
     font-size: 18px;
     line-height: 23px;
 
@@ -451,7 +451,7 @@
     padding: 3rem 6rem;
     margin: 0 15px;
   }
-  .c-icon-box-grid-container.usbs-brand-v2 .col-lg {
+  .c-icon-box-grid-container.grey-box-v2 .col-lg {
     padding: 2em;
   }
 
@@ -460,7 +460,7 @@
     line-height: 29px;
   }
 
-  .c-icon-box-grid-container.usbs-brand-v2 .col-lg .title {
+  .c-icon-box-grid-container.grey-box-v2 .col-lg .title {
     font-size: 24px;
     line-height: 37px;
   }
@@ -469,7 +469,7 @@
     font-size: var(--body-font-size-s);
   }
 
-  .c-icon-box-grid-container.usbs-brand-v2 .col-lg .subtitle {
+  .c-icon-box-grid-container.grey-box-v2 .col-lg .subtitle {
     font-size: 16px;
     line-height: 24px;
   }
@@ -510,11 +510,11 @@
     float: right;
   }
 
-  .c-icon-box-grid-container.usbs-brand .container > div:first-of-type {
+  .c-icon-box-grid-container.top-author .container > div:first-of-type {
     text-align: left;
   }
 
-  .c-icon-box-grid-container.usbs-brand .container > div:first-of-type p br {
+  .c-icon-box-grid-container.top-author .container > div:first-of-type p br {
     display: none;
   }
 
