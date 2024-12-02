@@ -475,7 +475,7 @@ export default function decorate(block) {
         selectorU,
         valueU,
         selectorY,
-        valueY
+        valueY,
       } = target.closest('li')?.dataset || {};
 
       target.closest('.inner_prod_box').querySelectorAll('.combinedPricesBox').forEach((item) => {
