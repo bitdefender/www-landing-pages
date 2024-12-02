@@ -206,13 +206,6 @@ main .section.bold-anchor a.button:any-link {
   background-color: #D70000;
 }
 
-main .section.mp0-all, main .section.mp0-all .default-content-wrapper, main .section.mp0-all .default-content-wrapper p {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
 a:hover {
   text-decoration: underline;
   color: var(--link-hover-color);

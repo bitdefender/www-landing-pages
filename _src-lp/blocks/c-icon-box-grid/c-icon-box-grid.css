@@ -16,11 +16,18 @@
   margin-bottom: 25px;
 }
 
+.c-icon-box-grid-container.usbs-brand {
+  margin-bottom: 0;
+}
+
+.c-icon-box-grid-container.usbs-brand .default-content-wrapper * {
+  text-align: center;
+}
+
 .c-icon-box-grid-container.usbs-brand .default-content-wrapper h2 {
   font-size: var(--heading-font-size-xl);
   line-height: var(--heading-font-size-xl);
   font-weight: normal;
-  text-align: center;
 }
 
 .c-icon-box-grid-container.top-author .row {
