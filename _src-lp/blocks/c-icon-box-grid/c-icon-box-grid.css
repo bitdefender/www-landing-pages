@@ -24,6 +24,14 @@
   text-align: center;
 }
 
+.c-icon-box-grid-container.phishing h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #006DFF;
+  font-size: 5rem;
+  text-align: center;
+}
+
 .c-icon-box-grid-container.usbs-brand .default-content-wrapper h2 {
   font-size: var(--heading-font-size-xl);
   line-height: var(--heading-font-size-xl);
@@ -313,13 +321,6 @@
 }
 
 /* Phishing start */
-.c-icon-box-grid-container.phishing h2 {
-  margin-top: 0;
-  margin-bottom: 0;
-  color: #006DFF;
-  font-size: 5rem;
-  text-align: center;
-}
 .c-icon-box-grid-container.phishing .quotebox {
   padding: 35px;
   background-color: rgb(255, 255, 255);
