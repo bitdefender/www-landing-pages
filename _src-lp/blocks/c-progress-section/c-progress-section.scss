@@ -51,18 +51,18 @@
   font-weight: 500;
 }
 
-.c-progress-section-container.less-spaces .footer {
-  color: black;
-  font-size: 12px;
-  width: 100%;
-  margin-top: 10px !important;
-}
-
 .c-progress-section-container .footer {
   color: #999;
   font-size: 11px;
   width: 94%;
   margin: 0 auto;
+}
+
+.c-progress-section-container.less-spaces .footer {
+  color: black;
+  font-size: 12px;
+  width: 100%;
+  margin-top: 10px !important;
 }
 
 .c-progress-section-container .heading {
@@ -113,10 +113,6 @@
 
 .c-progress-section-container.less-spaces .inner-wrapper .svg-icon {
   margin-left: 0;
-}
-
-.c-progress-section-container.less-spaces .inner-wrapper .svg-icon svg * {
-
 }
 
 .c-progress-section-container .title {

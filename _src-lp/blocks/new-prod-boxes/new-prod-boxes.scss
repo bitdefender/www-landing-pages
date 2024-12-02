@@ -368,8 +368,22 @@
     font-weight: bold;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul li, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box li {
+    list-style-type: none;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists li {
+    margin: 10px 0;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul li:hover {
     opacity: 0.7;
+}
+
+.new-prod-boxes-container.new-2024 * {
+    text-align: center;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul li * {
@@ -389,33 +403,33 @@
     margin-bottom: 8px;
 }
 
-.new-prod-boxes-container.disable-product .prod_box.index1{
-    .blueTag{
+.new-prod-boxes-container.disable-product .prod_box.index1 {
+    .blueTag {
         visibility: hidden;
     }
 }
 
-.new-prod-boxes-container.disable-product .prod_box.index0{
-.blueTag{
-    visibility: hidden;
-}
+.new-prod-boxes-container.disable-product .prod_box.index0 {
+    .blueTag {
+        visibility: hidden;
+    }
 
-.save_price_box {
-    visibility: hidden;
-}
+    .save_price_box {
+        visibility: hidden;
+    }
 
-.prices_box{
-    visibility: hidden;
-}
+    .prices_box {
+        visibility: hidden;
+    }
 
-.billed{
-    visibility: hidden;
-}
+    .billed {
+        visibility: hidden;
+    }
 
-a.red-buy-button{
-    pointer-events: none;
-    background: #C1C1C1!important;
-}
+    a.red-buy-button {
+        pointer-events: none;
+        background: #C1C1C1!important;
+    }
 }
 
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .save_price_box {
@@ -466,10 +480,6 @@ a.red-buy-button{
     line-height: var(--heading-font-size-s);
 }
 
-.new-prod-boxes-container.new-2024 * {
-    text-align: center;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
     font-size: 12px;
     font-family: Arial, sans-serif;
@@ -506,7 +516,7 @@ a.red-buy-button{
     }
 }
 
-.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed label{
+.new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed label {
     font-size: 14px;
     width: 65%;
 }
@@ -516,12 +526,6 @@ a.red-buy-button{
     border-bottom: 1px solid #D1D1D1;
     padding: 1em 0;
     min-height: auto;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul li, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box li {
-    list-style-type: none;
-    font-size: 14px;
-    margin: 5px 0;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
@@ -591,10 +595,6 @@ a.red-buy-button{
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists {
     font-family: Arial, sans-serif;
     color: transparent;
-}
-
-.new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists li {
-    margin: 10px 0;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists p {
