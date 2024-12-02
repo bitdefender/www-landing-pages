@@ -1,10 +1,67 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
+function initializeSlider(block) {
+  const slidesContainer = block.closest('.slider-container');
+  const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
+  const slides = slidesContainer.querySelectorAll('.slide');
+  const leftArrow = slidesContainer.querySelector('.arrow.left');
+  const rightArrow = slidesContainer.querySelector('.arrow.right');
+  const bullets = slidesContainer.querySelectorAll('.bulletsSlider .bullet');
+
+  let currentIndex = 0;
+  const updateSlider = () => {
+    // Update slide position
+    slidesWrapper.style.transform = `translateX(-${currentIndex * 91}%)`;
+
+    // Update bullets' active state
+    bullets.forEach((bullet, index) => {
+      bullet.classList.toggle('active', index === currentIndex);
+    });
+
+    // Update arrow states
+    leftArrow.disabled = currentIndex === 0;
+    rightArrow.disabled = currentIndex === slides.length - 1;
+
+    // inactive arrows
+    leftArrow.classList.toggle('inactive', currentIndex === 0);
+    rightArrow.classList.toggle('inactive', currentIndex === slides.length - 1);
+  };
+
+  // Event listeners for arrows
+  leftArrow.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex -= 1;
+      updateSlider();
+    }
+  });
+
+  rightArrow.addEventListener('click', () => {
+    if (currentIndex < slides.length - 1) {
+      currentIndex += 1;
+      updateSlider();
+    }
+  });
+
+  // Event listeners for bullets
+  bullets.forEach((bullet) => {
+    bullet.addEventListener('click', () => {
+      const index = parseInt(bullet.dataset.index, 10);
+      if (index >= 0 && index < slides.length) {
+        currentIndex = index;
+        updateSlider();
+      }
+    });
+  });
+
+  // Initialize the slider
+  updateSlider();
+}
+
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, textBulina, individual, titleText, subText,
+    products, priceType, type, textBulina, individual, titleText, subText,
   } = metaData;
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
@@ -97,6 +154,12 @@ export default function decorate(block) {
     if (individualSwitchText && familySwitchText) {
       block.parentNode.insertBefore(switchBox, block);
     }
+
+    if (type === 'mobileSlider') {
+      block.parentNode.classList.add('slider-container');
+      block.classList.add('slides-wrapper');
+    }
+
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
@@ -246,8 +309,48 @@ export default function decorate(block) {
         percentOffFlag = false;
       }
 
+      const optionList = subtitle.querySelector('ul');
+      const combinedPricesBox = document.createElement('div');
+      if (optionList) {
+        optionList.querySelectorAll('li').forEach((li, idx) => {
+          const [labelText, variationText] = li.textContent.trim().split('+');
+          const [pname, pusers, pyears] = variationText.split('/');
+          const selectorClass = `${pname.trim()}-${pusers}${pyears}`;
+          const value = variationText.trim();
+          const isChecked = idx === 0 ? 'checked' : '';
+
+          li.setAttribute('data-selector-u', `u_${selectorClass}`);
+          li.setAttribute('data-value-u', pusers);
+          li.setAttribute('data-selector-y', `y_${selectorClass}`);
+          li.setAttribute('data-value-y', pyears);
+
+          li.innerHTML = `<input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+          <label for="${value}">${labelText.trim()}</label>`;
+
+          combinedPricesBox.innerHTML += `<div class="combinedPricesBox combinedPricesBox-${selectorClass}" ${idx !== 0 ? 'style="display: none;"' : ''}>
+            <div class="save_price_box await-loader prodload prodload-${selectorClass}">
+              <span class="prod-oldprice oldprice-${selectorClass}"></span>
+              <strong class="save prod-percent">${percentOff}</strong>
+            </div>
+            <div class="prices_box await-loader prodload prodload-${selectorClass}">
+              <span class="prod-newprice newprice-${selectorClass}"></span>
+              <sup>${price.innerText.trim().replace('0', '')}</sup>
+            </div>
+
+              ${billed ? ` <div class="billed">
+                ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
+              </div>` : billed.innerText}
+
+              ${buyLinkText && `<div class="buy-btn">
+                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                </a>
+              </div>`}
+            </div>`;
+        });
+      }
+
       block.innerHTML += `
-        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}">
+        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
 
           <div class="inner_prod_box">
           ${divBulina}
@@ -255,37 +358,36 @@ export default function decorate(block) {
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
             <div class="tag-subtitle">
               ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
-              ${subtitle.innerText.trim() ? `<p class="subtitle">${subtitle.innerHTML.trim()}</p>` : ''}
+              ${subtitle.innerText.trim() ? `<div class="subtitle">${subtitle.innerHTML.trim()}</div>` : ''}
             </div>
             <hr />
 
-            ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
-              <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-              <strong class="percent prod-percent">
-                ${percentOff}
-              </strong>
-            </div>`}
+            ${combinedPricesBox && combinedPricesBox.innerText ? combinedPricesBox.innerHTML : `
+              ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
+                <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+                <strong class="percent prod-percent">
+                  ${percentOff}
+                </strong>
+              </div>`}
 
-            ${priceType === 'combined' && price.innerText.trim()
-    ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+              ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                 <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
-              </div>`
-    : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+              </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                 <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
-              </div>`
-}
+              </div>`}
 
-        ${billed ? ` <div class="billed">
-            ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
-          </div>` : billed.innerText}
+              ${billed ? ` <div class="billed">
+                ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
+              </div>` : billed.innerText}
 
-            ${vpnInfoContent && vpnInfoContent}
-            ${buyLinkText && `<div class="buy-btn">
-              <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
-              </a>
-            </div>`}
+              ${vpnInfoContent && vpnInfoContent}
+              ${buyLinkText && `<div class="buy-btn">
+                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                </a>
+              </div>`}
+            `}
 
             ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
             <hr />
@@ -297,6 +399,21 @@ export default function decorate(block) {
         block.querySelector(`.index${key} .prod-percent`).style.setProperty('visibility', 'visible', 'important');
       }
     });
+
+    if (type === 'mobileSlider') {
+      const arrowsSlider = document.createElement('div');
+      arrowsSlider.className = 'arrowsSlider';
+      arrowsSlider.innerHTML = `<button class="arrow left"></button>
+        <button class="arrow right"></button>`;
+      block.parentNode.appendChild(arrowsSlider);
+
+      const bulletsSlider = document.createElement('div');
+      bulletsSlider.className = 'bulletsSlider';
+      bulletsSlider.innerHTML = `<div class="bullets">
+        ${[...block.querySelectorAll('.prod_box')].map((prod, idx) => `<span class="bullet" data-index="${idx}"></span>`).join('')}
+      </div>`;
+      block.parentNode.appendChild(bulletsSlider);
+    }
   } else {
     block.innerHTML = `
     <div class="container-fluid">
@@ -350,4 +467,33 @@ export default function decorate(block) {
   const targetNode = document.querySelector('.new-prod-boxes');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
+
+  block.addEventListener('change', (event) => {
+    const { target } = event;
+    if (target.type === 'radio') {
+      const {
+        selectorU,
+        valueU,
+        selectorY,
+        valueY,
+      } = target.closest('li')?.dataset || {};
+
+      target.closest('.inner_prod_box').querySelectorAll('.combinedPricesBox').forEach((item) => {
+        item.style.display = 'none';
+      });
+
+      target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';
+
+      if (selectorU && selectorY) {
+        const selectorUsers = document.getElementById(selectorU);
+        const selectorYears = document.getElementById(selectorY);
+
+        if (selectorUsers) selectorUsers.value = valueU;
+        if (selectorYears) selectorYears.value = valueY;
+      }
+    }
+  });
+
+  // slider:
+  if (type === 'mobileSlider') initializeSlider(block);
 }
