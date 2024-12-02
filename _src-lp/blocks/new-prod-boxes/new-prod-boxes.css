@@ -186,6 +186,18 @@
   flex-direction: column;
 }
 
+.new-prod-boxes-container.greytos .default-content-wrapper * {
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: normal;
+  color: #6F6F6F;
+  text-align: center;
+}
+
+.new-prod-boxes-container.greytos .default-content-wrapper a {
+  text-decoration: underline;
+}
+
 .new-prod-boxes-container .await-loader {
   min-height: 2rem;
 }

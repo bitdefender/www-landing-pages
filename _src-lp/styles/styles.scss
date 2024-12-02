@@ -189,14 +189,6 @@ main .section.py-1 {
   padding: 0;
 }
 
-main .section.pt-0 {
-  padding-top: 0;
-}
-
-main .section.pb-0, .pb-0 {
-  padding-bottom: 0!important;
-}
-
 main .section[data-textcolor=black] * {
   color: black;
 }
@@ -218,6 +210,8 @@ main .section.blue-slogan * {
   color: #006EFF;
   font-size: 60px;
   line-height: 60px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 main .section.bold-anchor a.button:any-link {

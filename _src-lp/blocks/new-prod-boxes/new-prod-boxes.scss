@@ -1,10 +1,10 @@
-    .new-prod-boxes-container {
+.new-prod-boxes-container {
     margin: 0 auto;
     padding: 0 15px;
     display: flex;
     flex-direction: column;
 
- .icon{
+ .icon {
     height: 14px;
     width: 12px;
     margin-right: 10px;
@@ -14,7 +14,7 @@
     }
 }
 
-&.black-theme{
+&.black-theme {
     background-color: black!important;
     margin-top:-20px;
 }
@@ -41,7 +41,7 @@
     }
 }
 
-.blue-pill .icon{
+.blue-pill .icon {
     margin: 0 3px;
 }
 
@@ -220,6 +220,18 @@
     padding: 0 15px;
     display: flex;
     flex-direction: column;
+}
+
+.new-prod-boxes-container.greytos .default-content-wrapper * {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: normal;
+    color: #6F6F6F;
+    text-align: center;
+}
+
+.new-prod-boxes-container.greytos .default-content-wrapper a {
+    text-decoration: underline;
 }
 
 .new-prod-boxes-container .await-loader {
