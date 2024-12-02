@@ -314,35 +314,35 @@ export default function decorate(block) {
       if (optionList) {
         optionList.querySelectorAll('li').forEach((li, idx) => {
           const [labelText, variationText] = li.textContent.trim().split('+');
-          const [prodName, prodUsers, prodYears] = variationText.split('/');
-          const onSelectorClass = `${prodName.trim()}-${prodUsers}${prodYears}`;
+          const [pname, pusers, pyears] = variationText.split('/');
+          const selectorClass = `${pname.trim()}-${pusers}${pyears}`;
           const value = variationText.trim();
           const isChecked = idx === 0 ? 'checked' : '';
 
-          li.setAttribute('data-selector-u', `u_${onSelectorClass}`);
-          li.setAttribute('data-value-u', prodUsers);
-          li.setAttribute('data-selector-y', `y_${onSelectorClass}`);
-          li.setAttribute('data-value-y', prodYears);
+          li.setAttribute('data-selector-u', `u_${selectorClass}`);
+          li.setAttribute('data-value-u', pusers);
+          li.setAttribute('data-selector-y', `y_${selectorClass}`);
+          li.setAttribute('data-value-y', pyears);
 
-          li.innerHTML = `<input type="radio" name="${prodName.trim()}" id="${value}" value="${onSelectorClass}" ${isChecked}>
+          li.innerHTML = `<input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
           <label for="${value}">${labelText.trim()}</label>`;
 
-          combinedPricesBox.innerHTML += `<div class="combinedPricesBox combinedPricesBox-${onSelectorClass}" ${idx !== 0 ? 'style="display: none;"' : ''}>
-            <div class="save_price_box await-loader prodload prodload-${onSelectorClass}">
-              <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+          combinedPricesBox.innerHTML += `<div class="combinedPricesBox combinedPricesBox-${selectorClass}" ${idx !== 0 ? 'style="display: none;"' : ''}>
+            <div class="save_price_box await-loader prodload prodload-${selectorClass}">
+              <span class="prod-oldprice oldprice-${selectorClass}"></span>
               <strong class="save prod-percent">${percentOff}</strong>
             </div>
-            <div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-              <span class="prod-newprice newprice-${onSelectorClass}"></span>
+            <div class="prices_box await-loader prodload prodload-${selectorClass}">
+              <span class="prod-newprice newprice-${selectorClass}"></span>
               <sup>${price.innerText.trim().replace('0', '')}</sup>
             </div>
 
               ${billed ? ` <div class="billed">
-                ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
+                ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed.innerText}
 
               ${buyLinkText && `<div class="buy-btn">
-                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
               </div>`}
             </div>`;
@@ -471,7 +471,12 @@ export default function decorate(block) {
   block.addEventListener('change', (event) => {
     const { target } = event;
     if (target.type === 'radio') {
-      const { selectorU, valueU, selectorY, valueY } = target.closest('li')?.dataset || {};
+      const {
+        selectorU,
+        valueU,
+        selectorY,
+        valueY
+      } = target.closest('li')?.dataset || {};
 
       target.closest('.inner_prod_box').querySelectorAll('.combinedPricesBox').forEach((item) => {
         item.style.display = 'none';
