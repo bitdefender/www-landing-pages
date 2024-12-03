@@ -229,6 +229,7 @@
   font-style: normal;
   color: white;
   padding: 5px 10px;
+  display: block;
 }
 
 .section.banner-container.partnerportale .banner table {
@@ -751,6 +752,9 @@
   .section.banner-container.hasslide .block p:last-of-type {
     font-size: 14px;
     line-height: 18px;
+  }
+  .section.banner-container.partnerportale .banner table {
+    width: 100%;
   }
   .section.banner-container.hasslide .block table tr td {
     font-size: 12px;
