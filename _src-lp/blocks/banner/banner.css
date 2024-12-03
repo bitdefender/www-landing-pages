@@ -229,7 +229,7 @@
   font-style: normal;
   color: white;
   padding: 5px 10px;
-  display: block;
+  display: inline-block;
 }
 
 .section.banner-container.partnerportale .banner table {
