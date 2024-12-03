@@ -333,6 +333,31 @@
   line-height: 1.25;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle select {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle select:focus {
+  border: none;
+  outline: none;
+}
+
+.new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .subtitle ul {
+  margin: 0;
+}
+
+.new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box > hr:last-of-type {
+  display: none;
+}
+
+.new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .underBuyLink {
+  color: black;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul {
   padding-left: 0;
 }

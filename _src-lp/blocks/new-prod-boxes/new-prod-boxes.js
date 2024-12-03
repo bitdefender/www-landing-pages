@@ -61,7 +61,7 @@ function initializeSlider(block) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, type, textBulina, individual, titleText, subText,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText,
   } = metaData;
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
@@ -312,6 +312,7 @@ export default function decorate(block) {
       const optionList = subtitle.querySelector('ul');
       const combinedPricesBox = document.createElement('div');
       if (optionList) {
+        const optionSelector = document.createElement('select');
         optionList.querySelectorAll('li').forEach((li, idx) => {
           const [labelText, variationText] = li.textContent.trim().split('+');
           const [pname, pusers, pyears] = variationText.split('/');
@@ -324,8 +325,13 @@ export default function decorate(block) {
           li.setAttribute('data-selector-y', `y_${selectorClass}`);
           li.setAttribute('data-value-y', pyears);
 
-          li.innerHTML = `<input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
-          <label for="${value}">${labelText.trim()}</label>`;
+          if (optionsType && optionsType === 'dropdown') {
+            if (!optionSelector.id) optionSelector.id = `optionSelector_${pname.trim()}`;
+            optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
+          } else {
+            li.innerHTML = `<input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+            <label for="${value}">${labelText.trim()}</label>`;
+          }
 
           combinedPricesBox.innerHTML += `<div class="combinedPricesBox combinedPricesBox-${selectorClass}" ${idx !== 0 ? 'style="display: none;"' : ''}>
             <div class="save_price_box await-loader prodload prodload-${selectorClass}">
@@ -347,6 +353,12 @@ export default function decorate(block) {
               </div>`}
             </div>`;
         });
+
+        if (optionsType && optionsType === 'dropdown') {
+          block.classList.add('optionsDropdown');
+          optionList.innerHTML = '';
+          optionList.appendChild(optionSelector);
+        }
       }
 
       block.innerHTML += `
@@ -470,13 +482,8 @@ export default function decorate(block) {
 
   block.addEventListener('change', (event) => {
     const { target } = event;
-    if (target.type === 'radio') {
-      const {
-        selectorU,
-        valueU,
-        selectorY,
-        valueY,
-      } = target.closest('li')?.dataset || {};
+    if (target.type === 'radio' || target.type === 'select-one') {
+      const { selectorU, valueU, selectorY, valueY } = target.closest('li')?.dataset || target.options[target.selectedIndex]?.dataset || {};
 
       target.closest('.inner_prod_box').querySelectorAll('.combinedPricesBox').forEach((item) => {
         item.style.display = 'none';

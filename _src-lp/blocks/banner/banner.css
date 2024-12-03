@@ -219,6 +219,36 @@
   margin-right: 10px;
 }
 
+.section.banner-container.partnerportale .banner h5 {
+  margin-bottom: 1em;
+}
+
+.section.banner-container.partnerportale .banner div.col-12 div > p strong em {
+  border-radius: 20px;
+  background-color: #1C7928;
+  font-style: normal;
+  color: white;
+  padding: 5px 10px;
+}
+
+.section.banner-container.partnerportale .banner table {
+  width: 360px;
+  margin-top: 2em;
+}
+
+.section.banner-container.partnerportale .banner table tr {
+  display: flex;
+  gap: 10px;
+}
+
+.section.banner-container.partnerportale .banner table tr p {
+  margin-top: 0;
+}
+
+.section.banner-container.partnerportale .banner table tr td:first-of-type img {
+  width: 255px;
+}
+
 .section.lp-brand .banner p {
   width: 235px;
   font-size: 12px;
