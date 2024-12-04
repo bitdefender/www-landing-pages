@@ -16,7 +16,7 @@ export default class ZuoraNLClass {
     return data.data[0].CAMPAIGN_NAME;
   }
 
-  static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm', 'vsbm'];
+  static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'secpassm', 'dipm', 'vsbm'];
 
   // this products come with device_no set differently from the init-selector api where they are set to 1
   static wrongDeviceNumber = ['bms', 'mobile', 'ios', 'mobileios', 'psm', 'passm'];
