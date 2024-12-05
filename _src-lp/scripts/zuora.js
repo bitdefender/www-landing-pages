@@ -1,5 +1,5 @@
 export default class ZuoraNLClass {
-  static async fetchCampaignName() {
+  static async fetchZuoraConfig() {
     let jsonFilePath = '/zuoracampaign.json';
 
     if (window.location.hostname === 'www.bitdefender.com') {
@@ -13,10 +13,27 @@ export default class ZuoraNLClass {
     }
     const data = await resp.json();
 
-    return data.data[0].CAMPAIGN_NAME;
+    return data;
   }
 
-  static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm', 'vsbm'];
+  static async fetchZuoraConfig() {
+    let jsonFilePath = '/zuoraconfig.json';
+
+    if (window.location.hostname === 'www.bitdefender.com') {
+      jsonFilePath = `https://${window.location.hostname}/pages/zuoraconfig.json`;
+    }
+
+    const resp = await fetch(jsonFilePath);
+    if (!resp.ok) {
+      console.error(`Failed to fetch data. Status: ${resp.status}`);
+      return '';
+    }
+    const data = await resp.json();
+
+    return data;
+  }
+
+  static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'secpassm', 'dipm', 'vsbm'];
 
   // this products come with device_no set differently from the init-selector api where they are set to 1
   static wrongDeviceNumber = ['bms', 'mobile', 'ios', 'mobileios', 'psm', 'passm'];
@@ -249,7 +266,9 @@ export default class ZuoraNLClass {
 
     try {
       let coupon = campaignParam;
-      if (!coupon) coupon = await this.fetchCampaignName();
+      const dataZuoraConfig = await this.fetchZuoraConfig();
+      console.log('dataZuoraConfig ', dataZuoraConfig)
+
       return this.getProductVariationsPrice(id, coupon);
     } catch (error) {
       console.error('loadProduct error:', error);
