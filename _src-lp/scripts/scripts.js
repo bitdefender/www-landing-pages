@@ -850,6 +850,9 @@ function initSelectors(pid) {
         }
       });
 
+      const metaPID = getMetadata('pid');
+      if (metaPID && metaPID !== '') pid = metaPID;
+
       const initSelectorConfig = {
         product_id: prodAlias,
         full_price_class: `oldprice-${onSelectorClass}`,
