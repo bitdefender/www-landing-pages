@@ -483,7 +483,12 @@ export default function decorate(block) {
   block.addEventListener('change', (event) => {
     const { target } = event;
     if (target.type === 'radio' || target.type === 'select-one') {
-      const { selectorU, valueU, selectorY, valueY } = target.closest('li')?.dataset || target.options[target.selectedIndex]?.dataset || {};
+      const {
+        selectorU,
+        valueU,
+        selectorY,
+        valueY
+      } = target.closest('li')?.dataset || target.options[target.selectedIndex]?.dataset || {};
 
       target.closest('.inner_prod_box').querySelectorAll('.combinedPricesBox').forEach((item) => {
         item.style.display = 'none';
