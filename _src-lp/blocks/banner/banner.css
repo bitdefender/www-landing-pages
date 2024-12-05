@@ -273,6 +273,10 @@
   border-radius: 10px;
 }
 
+.section.banner-container .banner .blue-box tr td p picture img {
+  min-width: unset;
+}
+
 .section.banner-container.partnerportale .banner table tr td:first-of-type img {
   width: 255px;
 }
@@ -291,10 +295,6 @@
 .section.banner-container .banner .blue-box tr td p picture {
   width: 80px;
   margin: 5px 0;
-}
-
-.section.banner-container .banner .blue-box tr td p picture img {
-  min-width: unset;
 }
 
 .section.banner-container .banner #lidlBox {
