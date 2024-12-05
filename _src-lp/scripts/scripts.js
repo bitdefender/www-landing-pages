@@ -851,9 +851,8 @@ function initSelectors(pid) {
       });
 
       const metaPID = getMetadata('pid');
-      if (metaPID && metaPID !== '') {
-        pid = metaPID;
-      }
+      // eslint-disable-next-line no-param-reassign
+      if (metaPID && metaPID !== '') pid = metaPID;
 
       const initSelectorConfig = {
         product_id: prodAlias,
