@@ -39,46 +39,8 @@ export default class ZuoraNLClass {
     }
   }
 
-  static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm', 'vsbm'];
-
   // this products come with device_no set differently from the init-selector api where they are set to 1
   static wrongDeviceNumber = ['bms', 'mobile', 'ios', 'mobileios', 'psm', 'passm'];
-
-  static productId = {
-    av: 'com.bitdefender.cl.av',
-    avpm: 'com.bitdefender.cl.avplus.v2',
-    is: 'com.bitdefender.cl.is',
-    tsmd: 'com.bitdefender.cl.tsmd',
-    ts_i: 'com.bitdefender.tsmd.v2',
-    ts_f: 'com.bitdefender.tsmd.v2',
-    fp: 'com.bitdefender.fp',
-    ps_i: 'com.bitdefender.premiumsecurity.v2',
-    ps_f: 'com.bitdefender.premiumsecurity.v2',
-    ps: 'com.bitdefender.premiumsecurity',
-    psm: 'com.bitdefender.premiumsecurity',
-    psp: 'com.bitdefender.premiumsecurityplus',
-    pspm: 'com.bitdefender.premiumsecurityplus',
-    soho: 'com.bitdefender.soho',
-    mac: 'com.bitdefender.avformac',
-    vpn: 'com.bitdefender.vpn',
-    'vpn-monthly': 'com.bitdefender.vpn',
-    pass: 'com.bitdefender.passwordmanager',
-    passm: 'com.bitdefender.passwordmanager',
-    pass_sp: 'com.bitdefender.passwordmanager',
-    pass_spm: 'com.bitdefender.passwordmanager',
-    secpass: 'com.bitdefender.securepass',
-    secpassm: 'com.bitdefender.securepass',
-    bms: 'com.bitdefender.bms',
-    mobile: 'com.bitdefender.bms',
-    ios: 'com.bitdefender.iosprotection',
-    mobileios: 'com.bitdefender.iosprotection',
-    dip: 'com.bitdefender.dataprivacy',
-    dipm: 'com.bitdefender.dataprivacy',
-    vsb: 'com.bitdefender.vsb',
-    vsbm: 'com.bitdefender.vsb',
-    us_i: 'com.bitdefender.ultimatesecurityeu.v2',
-    us_f: 'com.bitdefender.ultimatesecurityeu.v2',
-  };
 
   static names = {
     pass: 'Bitdefender Password Manager',
