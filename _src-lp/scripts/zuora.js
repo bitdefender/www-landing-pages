@@ -1,9 +1,16 @@
 export default class ZuoraNLClass {
+  static cachedZuoraConfig = null;
+
   static async fetchZuoraConfig() {
+    // If cached data exists, return it directly
+    if (this.cachedZuoraConfig) {
+      return this.cachedZuoraConfig;
+    }
+
     const defaultJsonFilePath = '/zuoraconfig.json';
     const jsonFilePath = window.location.hostname === 'www.bitdefender.com'
-    ? `https://${window.location.hostname}/pages/zuoraconfig.json`
-    : defaultJsonFilePath;
+      ? `https://${window.location.hostname}/pages/zuoraconfig.json`
+      : defaultJsonFilePath;
 
     try {
       const response = await fetch(jsonFilePath);
@@ -20,6 +27,7 @@ export default class ZuoraNLClass {
         CAMPAIGN_MONTHLY_PRODS: [],
       };
 
+      // build zuoraConfigData
       data.forEach(item => {
         if (item.ZUORA_PRODS) {
           const [key, value] = item.ZUORA_PRODS.split(':').map(s => s.trim());
@@ -31,6 +39,9 @@ export default class ZuoraNLClass {
           }
         }
       });
+
+      // Cache the fetched data
+      this.cachedZuoraConfig = zuoraConfigData;
 
       return zuoraConfigData;
     } catch (error) {
@@ -235,6 +246,8 @@ export default class ZuoraNLClass {
 
     try {
       let coupon = campaignParam;
+
+      // Fetch the Zuora config once (cached or freshly fetched)
       const fetchedData = await this.fetchZuoraConfig();
 
       if (!coupon) coupon = fetchedData.CAMPAIGN_NAME;
