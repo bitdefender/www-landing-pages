@@ -52,6 +52,13 @@
   margin: 0 auto;
 }
 
+.c-progress-section-container.less-spaces .footer {
+  color: black;
+  font-size: 12px;
+  width: 100%;
+  margin-top: 10px !important;
+}
+
 .c-progress-section-container .heading {
   font-size: 13px;
   text-transform: uppercase;
@@ -98,6 +105,10 @@
   margin-left: 1rem;
 }
 
+.c-progress-section-container.less-spaces .inner-wrapper .svg-icon {
+  margin-left: 0;
+}
+
 .c-progress-section-container .title {
   font-size: 18px;
   font-weight: 600;
@@ -117,6 +128,7 @@
 
 .c-progress-section-container .subtitle {
   font-size: 14px;
+  line-height: 18px;
   margin-top: 0;
 }
 
