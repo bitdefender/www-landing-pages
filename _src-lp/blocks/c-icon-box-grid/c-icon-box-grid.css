@@ -108,9 +108,9 @@
 }
 
 .c-icon-box-grid-container.top-author .subtitle > :nth-child(3) {
-  margin-top: auto;
   background: transparent;
   padding: 0;
+  margin-top: 0;
 }
 
 .c-icon-box-grid-container.top-author .subtitle > p:first-of-type {

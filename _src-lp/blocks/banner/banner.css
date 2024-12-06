@@ -202,6 +202,11 @@
   border-radius: 22px;
 }
 
+.section.banner-container.partnerportale .banner table tr {
+  display: flex;
+  gap: 10px;
+}
+
 .section.banner-container .banner .blue-box tr:first-of-type {
   display: none;
 }
@@ -217,6 +222,24 @@
 
 .section.banner-container .banner .blue-box tr td:first-of-type {
   margin-right: 10px;
+}
+
+.section.banner-container.partnerportale .banner h5 {
+  margin-bottom: 1em;
+}
+
+.section.banner-container.partnerportale .banner div.col-12 div > p strong em {
+  border-radius: 20px;
+  background-color: #1C7928;
+  font-style: normal;
+  color: white;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.section.banner-container.partnerportale .banner table {
+  width: 360px;
+  margin-top: 2em;
 }
 
 .section.lp-brand .banner p {
@@ -241,6 +264,23 @@
   margin: 0;
 }
 
+.section.banner-container.partnerportale .banner table tr p {
+  margin-top: 0;
+}
+
+.section.lp-brand .banner img {
+  width: 97%;
+  border-radius: 10px;
+}
+
+.section.banner-container .banner .blue-box tr td p picture img {
+  min-width: unset;
+}
+
+.section.banner-container.partnerportale .banner table tr td:first-of-type img {
+  width: 255px;
+}
+
 .section.banner-container .banner .blue-box tr td p {
   display: flex;
   align-items: center;
@@ -255,15 +295,6 @@
 .section.banner-container .banner .blue-box tr td p picture {
   width: 80px;
   margin: 5px 0;
-}
-
-.section.lp-brand .banner img {
-  width: 97%;
-  border-radius: 10px;
-}
-
-.section.banner-container .banner .blue-box tr td p picture img {
-  min-width: unset;
 }
 
 .section.banner-container .banner #lidlBox {
@@ -721,6 +752,9 @@
   .section.banner-container.hasslide .block p:last-of-type {
     font-size: 14px;
     line-height: 18px;
+  }
+  .section.banner-container.partnerportale .banner table {
+    width: 100%;
   }
   .section.banner-container.hasslide .block table tr td {
     font-size: 12px;

@@ -333,8 +333,56 @@
   line-height: 1.25;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle select {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle select:focus {
+  border: none;
+  outline: none;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul {
+  margin: 0;
+  margin-bottom: -5px;
+  padding: 0;
+  color: black;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul {
   padding-left: 0;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul {
+  border-top: 1px solid #D1D1D1;
+  border-bottom: 1px solid #D1D1D1;
+  padding: 1em 0;
+  min-height: auto;
+}
+
+.new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .subtitle ul {
+  margin: 0;
+}
+
+.new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box > hr:last-of-type {
+  display: none;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  line-height: 13px;
+  margin: 7px 0;
+  color: #7E7E7E;
+  text-align: center;
+}
+
+.new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .underBuyLink {
+  color: black;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul li {
@@ -484,14 +532,11 @@
   width: 65%;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
   border-top: 1px solid #D1D1D1;
   border-bottom: 1px solid #D1D1D1;
   padding: 1em 0;
   min-height: auto;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box {
   display: flex;
   justify-content: center;
 }
@@ -546,15 +591,6 @@
   padding: 1em !important;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
-  font-size: 12px;
-  font-family: Arial, sans-serif;
-  line-height: 13px;
-  margin: 7px 0;
-  color: #7E7E7E;
-  text-align: center;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists {
   font-family: Arial, sans-serif;
   color: transparent;
@@ -573,13 +609,6 @@
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists u {
   font-size: var(--body-font-size-xs);
   text-decoration: none;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul {
-  margin: 0;
-  margin-bottom: -5px;
-  padding: 0;
-  color: black;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li em {
