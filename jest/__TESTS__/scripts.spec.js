@@ -45,6 +45,7 @@ describe('scripts.js', () => {
       })
     );
 
+    const zuoraFetchCampaignNameSpy = jest.spyOn(ZuoraNLClass, 'fetchZuoraConfig');
     const zuoraGetProductVariationsSpy = jest.spyOn(ZuoraNLClass, 'getProductVariations');
     const zuoraGetProductVariationsPriceSpy = jest.spyOn(ZuoraNLClass, 'getProductVariationsPrice');
     const zuoraLoadProductSpy = jest.spyOn(ZuoraNLClass, 'loadProduct');
@@ -76,6 +77,7 @@ describe('scripts.js', () => {
       expect(window.StoreProducts.product).toBeTruthy();
       expect(window.StoreProducts.product).toEqual(assertedProductData);
 
+      expect(zuoraFetchCampaignNameSpy).toHaveBeenCalledTimes(4);
       expect(zuoraGetProductVariationsSpy).toHaveBeenCalledTimes(4);
       expect(zuoraGetProductVariationsPriceSpy).toHaveBeenCalledTimes(4);
       expect(zuoraLoadProductSpy).toHaveBeenCalledTimes(4);
