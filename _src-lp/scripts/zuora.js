@@ -110,8 +110,10 @@ export default class ZuoraNLClass {
   }
 
   static async getProductVariationsPrice(product, campaign, fetchedData) {
+    /* eslint-disable-next-line no-unused-vars */
     const {
       CAMPAIGN_MONTHLY_PRODS: monthlyProducts,
+      CAMPAIGN_NAME: campaignName,
       CAMPAIGN_PRODS: productId,
     } = fetchedData;
     const prod = product.split('/');
