@@ -36,6 +36,55 @@ jest.mock('../../_src-lp/scripts/adobeDataLayer.js', () => ({
   sendAnalyticsProducts: jest.fn(() => Promise.resolve(undefined)),
 }));
 
+const mappedConfig = {
+  "CAMPAIGN_NAME": "Master-2024-irenivargaen",
+  "CAMPAIGN_PRODS": {
+    "av": "com.bitdefender.cl.av",
+    "avpm": "com.bitdefender.cl.avplus.v2",
+    "is": "com.bitdefender.cl.is",
+    "tsmd": "com.bitdefender.cl.tsmd",
+    "ts_i": "com.bitdefender.tsmd.v2",
+    "ts_f": "com.bitdefender.tsmd.v2",
+    "fp": "com.bitdefender.fp",
+    "ps_i": "com.bitdefender.premiumsecurity.v2",
+    "ps_f": "com.bitdefender.premiumsecurity.v2",
+    "ps": "com.bitdefender.premiumsecurity",
+    "psm": "com.bitdefender.premiumsecurity",
+    "psp": "com.bitdefender.premiumsecurityplus",
+    "pspm": "com.bitdefender.premiumsecurityplus",
+    "soho": "com.bitdefender.soho",
+    "mac": "com.bitdefender.avformac",
+    "vpn": "com.bitdefender.vpn",
+    "vpn-monthly": "com.bitdefender.vpn",
+    "pass": "com.bitdefender.passwordmanager",
+    "passm": "com.bitdefender.passwordmanager",
+    "pass_sp": "com.bitdefender.passwordmanager",
+    "pass_spm": "com.bitdefender.passwordmanager",
+    "secpass": "com.bitdefender.securepass",
+    "secpassm": "com.bitdefender.securepass",
+    "bms": "com.bitdefender.bms",
+    "mobile": "com.bitdefender.bms",
+    "ios": "com.bitdefender.iosprotection",
+    "mobileios": "com.bitdefender.iosprotection",
+    "dip": "com.bitdefender.dataprivacy",
+    "dipm": "com.bitdefender.dataprivacy",
+    "vsb": "com.bitdefender.vsb",
+    "vsbm": "com.bitdefender.vsb",
+    "us_i": "com.bitdefender.ultimatesecurityeu.v2",
+    "us_f": "com.bitdefender.ultimatesecurityeu.v2",
+  },
+  "CAMPAIGN_MONTHLY_PRODS": [
+    "psm",
+    "pspm",
+    "vpn-monthly",
+    "passm",
+    "pass_spm",
+    "secpassm",
+    "dipm",
+    "vsbm",
+  ]
+};
+
 describe('scripts.js', () => {
   describe('Zuora NL workflow', () => {
     global.fetch = jest.fn(() =>
@@ -45,7 +94,7 @@ describe('scripts.js', () => {
       })
     );
 
-    const zuorafetchZuoraConfigSpy = jest.spyOn(ZuoraNLClass, 'fetchZuoraConfig');
+    const zuoraFetchZuoraConfigSpy = jest.spyOn(ZuoraNLClass, 'fetchZuoraConfig').mockImplementation(() => Promise.resolve(mappedConfig));
     const zuoraGetProductVariationsSpy = jest.spyOn(ZuoraNLClass, 'getProductVariations');
     const zuoraGetProductVariationsPriceSpy = jest.spyOn(ZuoraNLClass, 'getProductVariationsPrice');
     const zuoraLoadProductSpy = jest.spyOn(ZuoraNLClass, 'loadProduct');
@@ -77,7 +126,7 @@ describe('scripts.js', () => {
       expect(window.StoreProducts.product).toBeTruthy();
       expect(window.StoreProducts.product).toEqual(assertedProductData);
 
-      expect(zuorafetchZuoraConfigSpy).toHaveBeenCalledTimes(4);
+      expect(zuoraFetchZuoraConfigSpy).toHaveBeenCalledTimes(4);
       expect(zuoraGetProductVariationsSpy).toHaveBeenCalledTimes(4);
       expect(zuoraGetProductVariationsPriceSpy).toHaveBeenCalledTimes(4);
       expect(zuoraLoadProductSpy).toHaveBeenCalledTimes(4);
