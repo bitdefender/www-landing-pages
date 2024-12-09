@@ -109,11 +109,10 @@ export default class ZuoraNLClass {
     }
   }
 
-  static async getProductVariationsPrice(product, campaign, fetchedData) {
-    /* eslint-disable-next-line no-unused-vars */
+  static async getProductVariationsPrice(product, fetchedData) {
     const {
       CAMPAIGN_MONTHLY_PRODS: monthlyProducts,
-      CAMPAIGN_NAME: campaignName,
+      CAMPAIGN_NAME: campaign,
       CAMPAIGN_PRODS: productId,
     } = fetchedData;
     const prod = product.split('/');
@@ -250,13 +249,11 @@ export default class ZuoraNLClass {
     window.StoreProducts.product = window.StoreProducts.product || {};
 
     try {
-      let coupon = campaignParam;
-
       // Fetch the Zuora config once (cached or freshly fetched)
       const fetchedData = await this.fetchZuoraConfig();
+      if (campaignParam) fetchedData.CAMPAIGN_NAME = campaignParam;
 
-      if (!coupon) coupon = fetchedData.CAMPAIGN_NAME;
-      return this.getProductVariationsPrice(id, coupon, fetchedData);
+      return this.getProductVariationsPrice(id, fetchedData);
     } catch (error) {
       console.error('loadProduct error:', error);
     }
