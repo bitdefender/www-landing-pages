@@ -30,7 +30,7 @@ export default class ZuoraNLClass {
       // build zuoraConfigData
       data.forEach((item) => {
         if (item.ZUORA_PRODS) {
-          const [key, value] = item.ZUORA_PRODS.split(':').map(s => s.trim());
+          const [key, value] = item.ZUORA_PRODS.split(':').map((itm) => itm.trim());
           const clearKey = key.replace('*', '');
           zuoraConfigData.CAMPAIGN_PRODS[clearKey] = value;
 
@@ -112,7 +112,6 @@ export default class ZuoraNLClass {
   static async getProductVariationsPrice(product, campaign, fetchedData) {
     const {
       CAMPAIGN_MONTHLY_PRODS: monthlyProducts,
-      CAMPAIGN_NAME: campaignName,
       CAMPAIGN_PRODS: productId,
     } = fetchedData;
     const prod = product.split('/');
