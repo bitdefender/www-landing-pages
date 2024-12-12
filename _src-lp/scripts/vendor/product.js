@@ -51,6 +51,7 @@ export default class ProductPrice {
     avpm: "com.bitdefender.cl.avplus.v2",
     ultsec: "com.bitdefender.ultimatesecurityus",
     secpass: "com.bitdefender.securepass",
+    secpassm: "com.bitdefender.securepass",
   }
 
   #locale;
