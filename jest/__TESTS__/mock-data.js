@@ -67,7 +67,7 @@ export const zuoraNlPriceVariationData = {
   ],
   success: true,
   meta: {
-    campaign: 'WinterMC2023',
+    campaign: 'Master-2024-irenivargaen',
     session_status: 'initiated',
     order_id: 'XxUFX3f1Gk4RRiqbyB2Cl7Axp3ckyZEB',
     order_no: 'BIT-8PJZM05DUG',
@@ -116,9 +116,9 @@ export const assertedProductData = {
         discount_value: 30,
         discounted_price: 39.99,
       },
-      promotion: 'WinterMC2023',
+      promotion: 'Master-2024-irenivargaen',
     },
-    buy_link: 'https://checkout.bitdefender.com/index.html:step=cart?theme=light&campaign=WinterMC2023&product_id=com.bitdefender.vpn&payment_period=10d1y&country=NL&language=nl_NL&client=8f768650-6915-11ed-83e3-e514e761ac46',
+    buy_link: 'https://checkout.bitdefender.com/index.html:step=cart?theme=light&campaign=Master-2024-irenivargaen&product_id=com.bitdefender.vpn&payment_period=10d1y&country=NL&language=nl_NL&client=8f768650-6915-11ed-83e3-e514e761ac46',
     config: {
       product_id: 'vpn',
       name: 'Bitdefender Premium VPN',
