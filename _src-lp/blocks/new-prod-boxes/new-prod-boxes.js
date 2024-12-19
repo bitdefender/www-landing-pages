@@ -126,6 +126,11 @@ export default function decorate(block) {
 
       // Get the checkbox inside the switchBox
       const switchCheckbox = switchBox.querySelector('#switchCheckbox');
+
+      // Check if individualSwitchText includes 'reverted'
+      if (individual === 'reverted') {
+        switchCheckbox.checked = true; // Set the checkbox to checked by default
+      }
       // Add an event listener to the checkbox
       switchCheckbox.addEventListener('change', () => {
         if (switchCheckbox.checked) {

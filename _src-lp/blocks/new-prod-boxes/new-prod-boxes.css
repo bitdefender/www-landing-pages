@@ -179,6 +179,21 @@
   transition: all 0.4s;
 }
 
+.reverted .prod_box.family-box {
+  display: block;
+  transition: all 0.4s;
+}
+
+.prod_box.individual-box {
+  display: block;
+  transition: all 0.4s;
+}
+
+.reverted .prod_box.individual-box {
+  display: none;
+  transition: all 0.4s;
+}
+
 .new-prod-boxes-container .block {
   margin: 0 auto;
   padding: 0 15px;
