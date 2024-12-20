@@ -134,16 +134,16 @@ export default class ProductPrice {
     }
 
     payload.product.options.forEach((option) => {
+      let alreadyAdded = false;
+      Object.values(window.StoreProducts.product).forEach(value => {
+        if (value.period === option.months) alreadyAdded = true;
+      });
+      if (alreadyAdded) return;
 
       // TODO: remove this
-      if (this.#alias == 'vpn')
-        option.slots = 10;
+      if (this.#alias == 'vpn') option.slots = 10;
 
       if (this.#devicesNo != option.slots) {
-        return;
-      }
-
-      if (this.#yearsNo != option.months / 12) {
         return;
       }
 
@@ -155,6 +155,7 @@ export default class ProductPrice {
       let buy_link = decorator.getFullyDecoratedUrl();
 
       window.StoreProducts.product[this.#alias] = {
+        period: option.months,
         product_alias: this.#alias,
         product_id: this.#productId[this.#alias],
         product_name: payload.product.productName,
@@ -195,6 +196,10 @@ export default class ProductPrice {
         },
       };
     });
+
+
+
+   // console.log('window.StoreProducts.product[this.#alias] ', window.StoreProducts.product[this.#alias])
 
     return window.StoreProducts.product[this.#alias];
   }
