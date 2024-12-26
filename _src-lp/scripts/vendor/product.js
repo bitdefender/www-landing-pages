@@ -155,6 +155,8 @@ export default class ProductPrice {
       const decorator = new DecorateLink(option.buyLink, this.#campaign);
       let buy_link = decorator.getFullyDecoratedUrl();
 
+      console.log('pricing ', this.#alias, pricing)
+
       window.StoreProducts.product[this.#alias] = {
         period: option.months,
         product_alias: this.#alias,
@@ -197,10 +199,6 @@ export default class ProductPrice {
         },
       };
     });
-
-
-
-   // console.log('window.StoreProducts.product[this.#alias] ', window.StoreProducts.product[this.#alias])
 
     return window.StoreProducts.product[this.#alias];
   }
