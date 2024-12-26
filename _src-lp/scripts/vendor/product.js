@@ -126,7 +126,6 @@ export default class ProductPrice {
   }
 
   async #getProductVariationsPrice() {
-
     let payload = await this.#getProductVariations();
 
     if (!payload || payload.length === 0) {
@@ -134,11 +133,13 @@ export default class ProductPrice {
     }
 
     payload.product.options.forEach((option) => {
-      let alreadyAdded = false;
-      Object.values(window.StoreProducts.product).forEach(value => {
-        if (value.period === option.months) alreadyAdded = true;
-      });
-      if (alreadyAdded) return;
+      // if the product is already added, skip
+      if (window.StoreProducts?.product?.[this.#alias]) return;
+
+      if (window.StoreProducts?.product) {
+        let alreadyAdded = Object.values(window.StoreProducts.product).some(value => value.period === option.months);
+        if (alreadyAdded) return;
+      }
 
       // TODO: remove this
       if (this.#alias == 'vpn') option.slots = 10;
