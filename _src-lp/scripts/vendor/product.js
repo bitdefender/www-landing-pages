@@ -133,7 +133,6 @@ export default class ProductPrice {
     }
 
     payload.product.options.forEach((option) => {
-      console.log('this.#alias ', this.#alias)
       // if the product is already added, skip
       if (window.StoreProducts?.product?.[this.#alias]) return;
 
