@@ -170,6 +170,7 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
+      const containsAnchorTag = buyLink && buyLink.querySelector('a');
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -352,10 +353,23 @@ export default function decorate(block) {
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed.innerText}
 
-              ${buyLinkText && `<div class="buy-btn">
-                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
-                </a>
-              </div>`}
+              ${buyLinkText && containsAnchorTag ?
+                `<div class="buy-btn">
+                  <a class="red-buy-button" href="${containsAnchorTag.getAttribute('href')}" title="Bitdefender">
+                    ${buyLinkText.includes('0%') ?
+                      buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) :
+                      buyLinkText}
+                  </a>
+                </div>` :
+                (buyLinkText && !containsAnchorTag ?
+                  `<div class="buy-btn">
+                    <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
+                      ${buyLinkText.includes('0%') ?
+                        buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) :
+                        buyLinkText}
+                    </a>
+                  </div>` :
+                '')}
             </div>`;
         });
 
@@ -400,10 +414,24 @@ export default function decorate(block) {
               </div>` : billed.innerText}
 
               ${vpnInfoContent && vpnInfoContent}
-              ${buyLinkText && `<div class="buy-btn">
-                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
-                </a>
-              </div>`}
+
+              ${buyLinkText && containsAnchorTag ?
+                `<div class="buy-btn">
+                  <a class="red-buy-button" href="${containsAnchorTag.getAttribute('href')}" title="Bitdefender">
+                    ${buyLinkText.includes('0%') ?
+                      buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) :
+                      buyLinkText}
+                  </a>
+                </div>` :
+                (buyLinkText && !containsAnchorTag ?
+                  `<div class="buy-btn">
+                    <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
+                      ${buyLinkText.includes('0%') ?
+                        buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) :
+                        buyLinkText}
+                    </a>
+                  </div>` :
+                '')}
             `}
 
             ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}

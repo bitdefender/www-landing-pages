@@ -92,7 +92,6 @@ export default function decorate(block) {
         tableBuybtn.innerHTML = `<div class="buy_box buy_box${idx + 1}"><a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
       }
 
-
       /// ///////////////////////////////////////////////////////////////////////
       // adding vpn input checkbox
       const tableVpn = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:nth-of-type(3)`);
