@@ -127,6 +127,9 @@ export default class ProductPrice {
 
   async #getProductVariationsPrice() {
     let payload = await this.#getProductVariations();
+    const monthlyProducts = ["psm", "pspm", "vpn-monthly", "passm", "pass_spm", "secpassm",
+      "dipm", "us_i_m", "us_f_m", "us_pf_m", "us_pi_m", "us_pie_m", "us_pfe_m", "ultsecm",
+      "ultsecplusm", "idtheftsm", "idtheftpm", "vsbm", "scm"];
 
     if (!payload || payload.length === 0) {
       return null;
@@ -137,7 +140,7 @@ export default class ProductPrice {
       if (window.StoreProducts?.product?.[this.#alias]) return;
 
       if (window.StoreProducts?.product) {
-        let alreadyAdded = Object.values(window.StoreProducts.product).some(value => value.period === option.months);
+        let alreadyAdded = Object.values(window.StoreProducts.product).some(value => value.period === option.months && value.product_alias === this.#alias);
         if (alreadyAdded) return;
       }
 
@@ -145,6 +148,8 @@ export default class ProductPrice {
       if (this.#alias == 'vpn') option.slots = 10;
 
       if (this.#devicesNo != option.slots) return;
+
+      if (!monthlyProducts.includes(this.#alias) && option.months < 12) return;
 
       const pricing = {};
       pricing.total = option.price;
