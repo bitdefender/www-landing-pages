@@ -126,7 +126,6 @@ export default class ProductPrice {
   }
 
   async #getProductVariationsPrice() {
-
     let payload = await this.#getProductVariations();
 
     if (!payload || payload.length === 0) {
@@ -134,18 +133,18 @@ export default class ProductPrice {
     }
 
     payload.product.options.forEach((option) => {
+      // if the product is already added, skip
+      if (window.StoreProducts?.product?.[this.#alias]) return;
+
+      if (window.StoreProducts?.product) {
+        let alreadyAdded = Object.values(window.StoreProducts.product).some(value => value.period === option.months);
+        if (alreadyAdded) return;
+      }
 
       // TODO: remove this
-      if (this.#alias == 'vpn')
-        option.slots = 10;
+      if (this.#alias == 'vpn') option.slots = 10;
 
-      if (this.#devicesNo != option.slots) {
-        return;
-      }
-
-      if (this.#yearsNo != option.months / 12) {
-        return;
-      }
+      if (this.#devicesNo != option.slots) return;
 
       const pricing = {};
       pricing.total = option.price;
@@ -155,6 +154,7 @@ export default class ProductPrice {
       let buy_link = decorator.getFullyDecoratedUrl();
 
       window.StoreProducts.product[this.#alias] = {
+        period: option.months,
         product_alias: this.#alias,
         product_id: this.#productId[this.#alias],
         product_name: payload.product.productName,
