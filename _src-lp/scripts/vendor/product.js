@@ -149,6 +149,8 @@ export default class ProductPrice {
 
       if (this.#devicesNo != option.slots) return;
 
+      if (monthlyProducts.includes(this.#alias) && option.months > 1) return;
+
       if (!monthlyProducts.includes(this.#alias) && option.months < 12) return;
 
       const pricing = {};
