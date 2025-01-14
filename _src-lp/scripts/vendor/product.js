@@ -50,6 +50,8 @@ export default class ProductPrice {
     us_pfe_m: "com.bitdefender.ultimatesecurityplusus.v2",
     avpm: "com.bitdefender.cl.avplus.v2",
     ultsec: "com.bitdefender.ultimatesecurityus",
+    secpass: "com.bitdefender.securepass",
+    secpassm: "com.bitdefender.securepass",
   }
 
   #locale;
@@ -124,26 +126,30 @@ export default class ProductPrice {
   }
 
   async #getProductVariationsPrice() {
-
     let payload = await this.#getProductVariations();
+    const monthlyProducts = ["psm", "pspm", "vpn-monthly", "passm", "pass_spm", "secpassm",
+      "dipm", "us_i_m", "us_f_m", "us_pf_m", "us_pi_m", "us_pie_m", "us_pfe_m", "ultsecm",
+      "ultsecplusm", "idtheftsm", "idtheftpm", "vsbm", "scm"];
 
     if (!payload || payload.length === 0) {
       return null;
     }
 
     payload.product.options.forEach((option) => {
+      // if the product is already added, skip
+      if (window.StoreProducts?.product?.[this.#alias]) return;
+
+      if (window.StoreProducts?.product) {
+        let alreadyAdded = Object.values(window.StoreProducts.product).some(value => value.period === option.months && value.product_alias === this.#alias);
+        if (alreadyAdded) return;
+      }
 
       // TODO: remove this
-      if (this.#alias == 'vpn')
-        option.slots = 10;
+      if (this.#alias == 'vpn') option.slots = 10;
 
-      if (this.#devicesNo != option.slots) {
-        return;
-      }
+      if (this.#devicesNo != option.slots) return;
 
-      if (this.#yearsNo != option.months / 12) {
-        return;
-      }
+      if (!monthlyProducts.includes(this.#alias) && option.months < 12) return;
 
       const pricing = {};
       pricing.total = option.price;
@@ -153,6 +159,7 @@ export default class ProductPrice {
       let buy_link = decorator.getFullyDecoratedUrl();
 
       window.StoreProducts.product[this.#alias] = {
+        period: option.months,
         product_alias: this.#alias,
         product_id: this.#productId[this.#alias],
         product_name: payload.product.productName,

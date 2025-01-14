@@ -15,6 +15,10 @@
   color: white;
 }
 
+.section.banner-container.hasslide .block div.animated_text * {
+  font-weight: bold;
+}
+
 .section.banner-container.borders-rounded .banner {
   border-radius: 10px;
 }
@@ -95,6 +99,15 @@
 
 .section.banner-container.new-2024 .banner h1 {
   font-weight: normal;
+}
+
+.section.banner-container.hasslide .block h1 {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 48px;
+  line-height: 60px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
 }
 
 .section.banner-container.new-2024.v2 .banner h1 {
@@ -180,12 +193,53 @@
   align-items: center;
 }
 
+.section.banner-container.hasslide .block table tr {
+  min-width: 160px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+}
+
+.section.banner-container.partnerportale .banner table tr {
+  display: flex;
+  gap: 10px;
+}
+
 .section.banner-container .banner .blue-box tr:first-of-type {
   display: none;
 }
 
+.section.banner-container.hasslide .block table tr td {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+  border-radius: 22px;
+}
+
 .section.banner-container .banner .blue-box tr td:first-of-type {
   margin-right: 10px;
+}
+
+.section.banner-container.partnerportale .banner h5 {
+  margin-bottom: 1em;
+}
+
+.section.banner-container.partnerportale .banner div.col-12 div > p strong em {
+  border-radius: 20px;
+  background-color: #1C7928;
+  font-style: normal;
+  color: white;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.section.banner-container.partnerportale .banner table {
+  width: 360px;
+  margin-top: 2em;
 }
 
 .section.lp-brand .banner p {
@@ -199,6 +253,32 @@
 .section.banner-container.new-2024.v2 p {
   font-size: 13px;
   line-height: 15px;
+}
+
+.section.banner-container.hasslide .block p {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+.section.banner-container.partnerportale .banner table tr p {
+  margin-top: 0;
+}
+
+.section.lp-brand .banner img {
+  width: 97%;
+  border-radius: 10px;
+}
+
+.section.banner-container .banner .blue-box tr td p picture img {
+  min-width: unset;
+}
+
+.section.banner-container.partnerportale .banner table tr td:first-of-type img {
+  width: 255px;
 }
 
 .section.banner-container .banner .blue-box tr td p {
@@ -215,15 +295,6 @@
 .section.banner-container .banner .blue-box tr td p picture {
   width: 80px;
   margin: 5px 0;
-}
-
-.section.lp-brand .banner img {
-  width: 97%;
-  border-radius: 10px;
-}
-
-.section.banner-container .banner .blue-box tr td p picture img {
-  min-width: unset;
 }
 
 .section.banner-container .banner #lidlBox {
@@ -316,12 +387,22 @@
   padding: 2px 11px;
 }
 
+.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1) *, .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2) * {
+  background-color: white;
+  color: black;
+}
+
 .section.banner-container #greenPillBox * {
   color: inherit;
 }
 
 .section.banner-container.new-2024.v2 p a {
   text-decoration: underline;
+}
+
+.section.banner-container.hasslide .block table tr td a:hover {
+  text-decoration: none;
+  opacity: 0.7;
 }
 
 .section.banner-container #buyBtnGreenCircleBox a {
@@ -426,6 +507,91 @@
   text-decoration: none;
   opacity: 0.7;
   transition: opacity 0.2s;
+}
+
+.section.banner-container.hasslide {
+  z-index: 9;
+}
+
+.section.banner-container.hasslide .block div {
+  margin: 0 auto;
+}
+
+.section.banner-container.hasslide .block div.animated_text {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 48px;
+  line-height: 60px;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+}
+
+.section.banner-container.hasslide .block table {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 22px;
+  border: 2px solid #006EFF;
+  background-color: #016DFF;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.section.banner-container.hasslide .block table tbody {
+  height: 100%;
+}
+
+.section.banner-container.hasslide .block table tr td::before {
+  content: "";
+  height: 16px;
+  width: 18px;
+  margin-right: 5px;
+  background-size: auto 100% !important;
+  display: inline-block;
+}
+
+.section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(1)::before {
+  background: url("../../icons/individual_white.png") no-repeat 0 0 transparent;
+}
+
+.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1)::before {
+  background: url("../../icons/individual_blue.svg") no-repeat 0 0 transparent;
+}
+
+.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(2)::before {
+  background: url("../../icons/small_bs_white.svg") no-repeat 0 0 transparent;
+}
+
+.section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2)::before {
+  background: url("../../icons/small_bs_blue.png") no-repeat 0 0 transparent;
+}
+
+.section.banner-container.hasslide .block > div:first-of-type .button {
+  background: transparent;
+  padding: unset;
+}
+
+.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1), .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2) {
+  background-color: white;
+  color: black;
+}
+
+.section.banner-container.hasslide.selected2 .block table div .button {
+  color: black;
+}
+
+.section.banner-container.hasslide .block > div:nth-of-type(3) {
+  width: 630px;
+  margin: 0 auto;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: normal;
 }
 
 @media (width >= 768px) {
@@ -548,9 +714,61 @@
     font-size: 26px;
   }
 }
-@media screen and (width <= 768px) {
-  .section.banner-container {
-    margin: 0 15px;
+@media screen and (width <= 767px) {
+  .section.section.banner-container.hasslide .block > div {
+    text-align: left;
+    width: 100%;
+  }
+  .section.banner-container.hasslide .block div * {
+    text-align: left !important;
+  }
+  .section.banner-container .banner h1 {
+    margin-top: 0;
+    font-size: 30px;
+    text-align: center;
+  }
+  .section.lp-brand .banner h1 {
+    text-align: center;
+  }
+  .section.banner-container.new-2024.v2 .banner h1 {
+    font-size: 22px;
+    line-height: 30px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: normal;
+  }
+  .section.banner-container.hasslide .block > div:first-of-type h1 {
+    font-size: 24px;
+    line-height: 28px;
+    text-align: left;
+  }
+  .section.banner-container .banner p {
+    font-size: 14px;
+    line-height: 19px;
+  }
+  .section.banner-container.hasslide .block p {
+    font-size: 16px;
+    line-height: 28px;
+  }
+  .section.banner-container.hasslide .block p:last-of-type {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .section.banner-container.partnerportale .banner table {
+    width: 100%;
+  }
+  .section.banner-container.hasslide .block table tr td {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  .section.section.banner-container .animated_text {
+    height: 21px;
+    margin-top: 6px !important;
+    padding-top: 14px !important;
+  }
+  .section.section.banner-container .animated_text span {
+    top: 34px;
+    font-size: 24px;
+    line-height: 18px;
   }
   .section.banner-container .banner {
     padding: 1em 0 !important;
@@ -568,27 +786,9 @@
     margin-top: 0 !important;
     margin-bottom: 1em !important;
   }
-  .section.banner-container .banner h1 {
-    margin-top: 0;
-    font-size: 30px;
-    text-align: center;
-  }
-  .section.lp-brand .banner h1 {
-    text-align: center;
-  }
-  .section.banner-container.new-2024.v2 .banner h1 {
-    font-size: 22px;
-    line-height: 30px;
-    font-family: "IBM Plex Sans", sans-serif;
-    font-weight: normal;
-  }
   .section.banner-container .banner h2 {
     font-size: var(--body-font-size-m);
     line-height: var(--body-font-size-l);
-  }
-  .section.banner-container .banner p {
-    font-size: 14px;
-    line-height: 19px;
   }
   .section.banner-container.new-2024.v2 .banner ul {
     text-align: left;

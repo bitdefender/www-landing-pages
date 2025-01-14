@@ -14,6 +14,46 @@ import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
 import { getDatasetFromSection } from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
+function initializeSlider(block) {
+  const slidesContainer = block.closest('.slider-container');
+  const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
+  const slides = slidesContainer.querySelectorAll('.slide');
+  const leftArrow = slidesContainer.querySelector('.arrow.left');
+  const rightArrow = slidesContainer.querySelector('.arrow.right');
+
+  let currentIndex = 0;
+  const updateSlider = () => {
+    // Update slide position
+    slidesWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Update arrow
+    leftArrow.disabled = currentIndex === 0;
+    rightArrow.disabled = currentIndex === slides.length - 1;
+
+    // inactive arrows
+    leftArrow.classList.toggle('inactive', currentIndex === 0);
+    rightArrow.classList.toggle('inactive', currentIndex === slides.length - 1);
+  };
+
+  // Event listeners for arrows
+  leftArrow.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex -= 1;
+      updateSlider();
+    }
+  });
+
+  rightArrow.addEventListener('click', () => {
+    if (currentIndex < slides.length - 1) {
+      currentIndex += 1;
+      updateSlider();
+    }
+  });
+
+  // Initialize the slider
+  updateSlider();
+}
+
 function hasOldSvgImplementation(svgNameEl) {
   return svgNameEl.childElementCount === 0;
 }
@@ -23,6 +63,7 @@ function sanitiseStrongItalic(el) {
 }
 
 export default function decorate(block) {
+  const { type } = block.closest('.section').dataset;
   const metaData = getDatasetFromSection(block);
 
   const svgColor = metaData.svgcolor;
@@ -45,12 +86,16 @@ export default function decorate(block) {
     upperText.firstElementChild.style.margin = '0 auto';
   }
 
+  if (type === 'mobileSlider') {
+    block.parentNode.classList.add('slider-container');
+  }
+
   block.innerHTML = `
     <div class="container rounded-bottom">
       ${upperText ? `${upperText.innerHTML}` : ''}
-      <div class="row ${columnsAlignment === 'center' ? 'justify-content-center' : ''}">
+      <div class="row ${columnsAlignment === 'center' ? 'justify-content-center' : ''}${type === 'mobileSlider' ? 'slides-wrapper' : ''}">
         ${formattedDataColumns.map((col) => `
-          <div class="quotebox col-md-12 col-lg ${columnsAlignment === 'center' ? 'col-lg-4' : ''}">
+          <div class="quotebox col-md-12 col-lg ${columnsAlignment === 'center' ? 'col-lg-4' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
             <div class="icon-box-grid-column d-flex flex-column justify-content-start">
               ${hasOldSvgImplementation(col.svgNameEl) ? new SvgLoaderComponent(col.svgNameEl.innerText, svgColor, svgSize).render() : col.svgNameEl.innerHTML}
               ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
@@ -63,6 +108,16 @@ export default function decorate(block) {
       ${bottomText ? `${bottomText.innerHTML}` : ''}
     </div>
   `;
+
+  if (type === 'mobileSlider') {
+    const arrowsSlider = document.createElement('div');
+    arrowsSlider.className = 'arrowsSlider';
+    arrowsSlider.innerHTML = '<button class="arrow left"></button><button class="arrow right"></button>';
+    block.parentNode.appendChild(arrowsSlider);
+
+    // slider:
+    initializeSlider(block);
+  }
 
   decorateIcons(block);
 }

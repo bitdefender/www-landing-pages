@@ -1,59 +1,57 @@
 export default class ZuoraNLClass {
-  static async fetchCampaignName() {
-    let jsonFilePath = '/zuoracampaign.json';
+  static cachedZuoraConfig = null;
 
-    if (window.location.hostname === 'www.bitdefender.com') {
-      jsonFilePath = `https://${window.location.hostname}/pages/zuoracampaign.json`;
+  static async fetchZuoraConfig() {
+    // If cached data exists, return it directly
+    if (this.cachedZuoraConfig) {
+      return this.cachedZuoraConfig;
     }
 
-    const resp = await fetch(jsonFilePath);
-    if (!resp.ok) {
-      console.error(`Failed to fetch data. Status: ${resp.status}`);
-      return '';
-    }
-    const data = await resp.json();
+    const defaultJsonFilePath = '/zuoraconfig.json';
+    const jsonFilePath = window.location.hostname === 'www.bitdefender.com'
+      ? `https://${window.location.hostname}/pages/zuoraconfig.json`
+      : defaultJsonFilePath;
 
-    return data.data[0].CAMPAIGN_NAME;
+    try {
+      const response = await fetch(jsonFilePath);
+
+      if (!response.ok) {
+        console.error(`Failed to fetch data. Status: ${response.status}`);
+        return {};
+      }
+
+      const { data = [] } = await response.json();
+      const zuoraConfigData = {
+        CAMPAIGN_NAME: data[0]?.CAMPAIGN_NAME || '',
+        CAMPAIGN_PRODS: {},
+        CAMPAIGN_MONTHLY_PRODS: [],
+      };
+
+      // build zuoraConfigData
+      data.forEach((item) => {
+        if (item.ZUORA_PRODS) {
+          const [key, value] = item.ZUORA_PRODS.split(':').map((itm) => itm.trim());
+          const clearKey = key.replace('*', '');
+          zuoraConfigData.CAMPAIGN_PRODS[clearKey] = value;
+
+          if (key.includes('*')) {
+            zuoraConfigData.CAMPAIGN_MONTHLY_PRODS.push(clearKey);
+          }
+        }
+      });
+
+      // Cache the fetched data
+      this.cachedZuoraConfig = zuoraConfigData;
+
+      return zuoraConfigData;
+    } catch (error) {
+      console.error(`Error fetching Zuora config: ${error.message}`);
+      return {};
+    }
   }
-
-  static monthlyProducts = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'dipm', 'vsbm'];
 
   // this products come with device_no set differently from the init-selector api where they are set to 1
   static wrongDeviceNumber = ['bms', 'mobile', 'ios', 'mobileios', 'psm', 'passm'];
-
-  static productId = {
-    av: 'com.bitdefender.cl.av',
-    avpm: 'com.bitdefender.cl.avplus.v2',
-    is: 'com.bitdefender.cl.is',
-    tsmd: 'com.bitdefender.cl.tsmd',
-    ts_i: 'com.bitdefender.tsmd.v2',
-    ts_f: 'com.bitdefender.tsmd.v2',
-    fp: 'com.bitdefender.fp',
-    ps_i: 'com.bitdefender.premiumsecurity.v2',
-    ps_f: 'com.bitdefender.premiumsecurity.v2',
-    ps: 'com.bitdefender.premiumsecurity',
-    psm: 'com.bitdefender.premiumsecurity',
-    psp: 'com.bitdefender.premiumsecurityplus',
-    pspm: 'com.bitdefender.premiumsecurityplus',
-    soho: 'com.bitdefender.soho',
-    mac: 'com.bitdefender.avformac',
-    vpn: 'com.bitdefender.vpn',
-    'vpn-monthly': 'com.bitdefender.vpn',
-    pass: 'com.bitdefender.passwordmanager',
-    passm: 'com.bitdefender.passwordmanager',
-    pass_sp: 'com.bitdefender.passwordmanager',
-    pass_spm: 'com.bitdefender.passwordmanager',
-    secpass: 'com.bitdefender.securepass',
-    secpassm: 'com.bitdefender.securepass',
-    bms: 'com.bitdefender.bms',
-    mobile: 'com.bitdefender.bms',
-    ios: 'com.bitdefender.iosprotection',
-    mobileios: 'com.bitdefender.iosprotection',
-    dip: 'com.bitdefender.dataprivacy',
-    dipm: 'com.bitdefender.dataprivacy',
-    vsb: 'com.bitdefender.vsb',
-    vsbm: 'com.bitdefender.vsb',
-  };
 
   static names = {
     pass: 'Bitdefender Password Manager',
@@ -111,13 +109,18 @@ export default class ZuoraNLClass {
     }
   }
 
-  static async getProductVariationsPrice(product, campaign) {
+  static async getProductVariationsPrice(product, fetchedData) {
+    const {
+      CAMPAIGN_MONTHLY_PRODS: monthlyProducts,
+      CAMPAIGN_NAME: campaign,
+      CAMPAIGN_PRODS: productId,
+    } = fetchedData;
     const prod = product.split('/');
     const id = prod[0];
     const devicesNo = prod[1];
     const yearsNo = prod[2];
 
-    let payload = (await this.getProductVariations(this.productId[id], campaign))?.payload;
+    let payload = (await this.getProductVariations(productId[id], campaign))?.payload;
     if (!payload || payload.length === 0) {
       return null;
     }
@@ -133,7 +136,7 @@ export default class ZuoraNLClass {
 
     window.StoreProducts.product[id] = {
       product_alias: id,
-      product_id: this.productId[id],
+      product_id: productId[id],
       product_name: payload[0].name,
       variations: {},
     };
@@ -160,11 +163,11 @@ export default class ZuoraNLClass {
           billingPeriod = 10;
       }
 
-      if ((this.monthlyProducts.indexOf(id) === -1 && billingPeriod === 0) || (this.monthlyProducts.indexOf(id) !== -1 && billingPeriod !== 0)) {
+      if ((monthlyProducts.indexOf(id) === -1 && billingPeriod === 0) || (monthlyProducts.indexOf(id) !== -1 && billingPeriod !== 0)) {
         return;
       }
 
-      if (this.monthlyProducts.indexOf(id) !== -1) {
+      if (monthlyProducts.indexOf(id) !== -1) {
         billingPeriod = 1;
       }
 
@@ -185,8 +188,8 @@ export default class ZuoraNLClass {
       if (windowURL.searchParams.has('channel')) {
         zuoraCart.searchParams.set('channel', windowURL.searchParams.get('channel'));
       }
-      zuoraCart.searchParams.set('product_id', this.productId[id]);
-      zuoraCart.searchParams.set('payment_period', this.monthlyProducts.includes(id) ? `${devicesNo}d1m` : `${devicesNo}d${yearsNo}y`);
+      zuoraCart.searchParams.set('product_id', productId[id]);
+      zuoraCart.searchParams.set('payment_period', monthlyProducts.includes(id) ? `${devicesNo}d1m` : `${devicesNo}d${yearsNo}y`);
       zuoraCart.searchParams.set('country', 'NL');
       zuoraCart.searchParams.set('language', 'nl_NL');
       zuoraCart.searchParams.set('client', '8f768650-6915-11ed-83e3-e514e761ac46');
@@ -246,9 +249,11 @@ export default class ZuoraNLClass {
     window.StoreProducts.product = window.StoreProducts.product || {};
 
     try {
-      let coupon = campaignParam;
-      if (!coupon) coupon = await this.fetchCampaignName();
-      return this.getProductVariationsPrice(id, coupon);
+      // Fetch the Zuora config once (cached or freshly fetched)
+      const fetchedData = await this.fetchZuoraConfig();
+      if (campaignParam) fetchedData.CAMPAIGN_NAME = campaignParam;
+
+      return this.getProductVariationsPrice(id, fetchedData);
     } catch (error) {
       console.error('loadProduct error:', error);
     }
