@@ -419,7 +419,7 @@ export class DecorateLink {
 
       const isAdobeMcAlreadyAdded = link.includes('adobe_mc');
       if (isAdobeMcAlreadyAdded) {
-        return;
+        return link.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
       }
 
       const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link);
