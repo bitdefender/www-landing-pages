@@ -1029,7 +1029,7 @@ async function initVlaicuProductPriceLogic(campaign) {
 async function initializeProductsPriceLogic() {
   let pid = getParam('pid');
   let campaign = getParam('campaign');
-  const vlaicuCampaign = getParam('vcampaign');
+  const vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
 
   try {
     const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
