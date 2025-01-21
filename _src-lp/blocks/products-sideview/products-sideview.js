@@ -101,6 +101,8 @@ async function renderNanoBlocks(
 }
 
 const state = {
+  firstProduct: null,
+  secondProduct: null,
   currentProduct: null,
   currentUsers: null,
   currentYears: null,
@@ -224,7 +226,7 @@ function extractFeatures(col) {
   return ul;
 }
 
-function renderRadioGroup(block, _firstProduct, secondProduct) {
+function renderRadioGroup(block) {
   const radioBoxParent = document.createElement('div');
   radioBoxParent.className = 'radioBoxParent d-flex';
   const [radio1, radio2] = block.closest('.section').dataset.radioLabels.split(',');
@@ -237,42 +239,46 @@ function renderRadioGroup(block, _firstProduct, secondProduct) {
     return radioBox;
   };
 
-  radioBoxParent.appendChild(createRadioBox(`pay_${secondProduct}`, `selector-${secondProduct}`, 'selectorBox', secondProduct, radio1, 'monthly', true));
-  radioBoxParent.appendChild(createRadioBox(`pay_${_firstProduct}`, `selector-${_firstProduct}`, 'selectorBox', _firstProduct, radio2, 'yearly'));
+  radioBoxParent.appendChild(createRadioBox(`pay_${state.secondProduct}`, `selector-${state.secondProduct}`, 'selectorBox', state.secondProduct, radio1, 'monthly', true));
+  radioBoxParent.appendChild(createRadioBox(`pay_${state.firstProduct}`, `selector-${state.firstProduct}`, 'selectorBox', state.firstProduct, radio2, 'yearly'));
 
   return radioBoxParent;
 }
 
 function renderPrice(block, ...price) {
-  console.log(price);
   const variant = 'vsbm51';
+  const saveText = state.blockDataset.saveText;
   const priceZone = document.createElement('div');
   priceZone.classList.add('price-element-wrapper');
-
+  const btnText = block.querySelector('a').textContent;
   // Function to create and append price boxes
   const createPriceBox = (className, selectorClass) => {
     const pricesBox = document.createElement('div');
-    pricesBox.classList.add('price-element-wrapper');
-    pricesBox.className = `${className} ${selectorClass}_box prices_box await-loader prodload prodload-${selectorClass}`;
+    const [productCode, prodUsers, prodYears] = selectorClass.split('/');
+    pricesBox.className = `${className} ${productCode}_box prices_box await-loader prodload prodload-${productCode}-${prodUsers}${prodYears}`;
     pricesBox.innerHTML = `<div>
         <div class="display-flex">
-          <span class="prod-oldprice oldprice-${selectorClass}"></span>
-          <span class="prod-save"><span class="save-${selectorClass}"></span></span>
-          <span class="d-none percent percent-${selectorClass}">0%</span>
+          <span class="prod-oldprice oldprice-${productCode}-${prodUsers}${prodYears}"></span>
+          <span class="d-none prod-save"> ${saveText}<span class="save-${productCode}-${prodUsers}${prodYears}"></span></span>
+          <span class="d-none percent percent-${productCode}-${prodUsers}${prodYears}">0%</span>
         </div>
         <div class="display-flex">
-          <span class="prod-newprice newprice-${selectorClass}"></span>
+          <span class="prod-newprice newprice-${productCode}-${prodUsers}${prodYears}"></span>
         </div>
+        <p class="button-container">
+          <a href='#' title='Bitdefender ${selectorClass.split('/')[0]}' class=' red-buy-button prodload prodload-${productCode}-${prodUsers}${prodYears} buylink-${productCode}-${prodUsers}${prodYears} referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>
+        </p>
       </div>`;
     return pricesBox;
   };
 
   price.forEach((product) => {
     if (product && typeof product === 'string') {
-      priceZone.appendChild(createPriceBox(product === variant ? 'show' : 'hide', product));
+      priceZone.appendChild(createPriceBox(product.replaceAll('/', '') === variant ? 'show' : 'hide', product));
     }
   });
 
+  block.querySelector('a').remove();
   return priceZone;
 }
 
@@ -314,7 +320,7 @@ function renderSelector(block, ...options) {
   el.innerHTML = `
       <select>
           ${selectorOptions.sort((first, second) => first - second).map((opt) => `
-            <option value="${opt}" ${opt === defaultSelection ? 'selected' : ''}></option>
+            <option value="${opt}" ${opt === defaultSelection ? 'selected' : ''}>${opt} members</option>
           `).join('/n')}
       </select>
     `;
@@ -343,11 +349,73 @@ function initMembersMap() {
   selectMembers.forEach((member, index) => MEMBERS_MAP.set(index, Number(member)));
 }
 
+function initializeDynamicSelection(block) {
+  const updateStateAndBuyZone = (updatedState) => {
+    // Update the state object
+    state.currentProduct = updatedState.currentProduct;
+    state.currentUsers = updatedState.currentUsers;
+    state.currentYears = updatedState.currentYears;
+
+    // Build the variation dynamically
+    const variation = `${state.currentUsers}${state.currentYears}`;
+
+    // Hide all buy zones
+    const allBuyZones = block.querySelectorAll('.prices_box');
+    allBuyZones.forEach((zone) => zone.classList.add('hide'));
+
+    // Build the buy zone key dynamically
+    const buyZoneKey = `.prodload-${state.currentProduct}-${variation}`;
+    console.log(buyZoneKey);
+    const selectedBuyZone = block.querySelector(buyZoneKey);
+    console.log(selectedBuyZone);
+    if (selectedBuyZone) {
+      selectedBuyZone.classList.remove('hide');
+    }
+  };
+
+  // Set the default radio group selection
+  const radioInputs = block.querySelectorAll('.d-radio input[type="radio"]');
+  radioInputs.forEach((radio) => {
+    if (radio.checked) {
+      const product = radio.value;
+      state.currentProduct = product;
+      updateStateAndBuyZone(state);
+    }
+
+    // Add event listener to update selection dynamically
+    radio.addEventListener('change', (event) => {
+      const selectedProduct = event.target.value;
+      state.currentProduct = selectedProduct;
+      updateStateAndBuyZone(state);
+    });
+  });
+
+  // Set the default selector group selection
+  const selector = block.querySelector('.products-sideview-selector select');
+  if (selector) {
+    selector.addEventListener('change', () => {
+      const selectedUsers = selector.options[selector.selectedIndex].value;
+      state.currentUsers = selectedUsers;
+      // Get the selected radio input to maintain consistency
+      updateStateAndBuyZone(state);
+    });
+
+    // Trigger change event to set the default state
+    const defaultOption = selector.querySelector('option[selected]');
+    if (defaultOption) {
+      selector.value = defaultOption.value;
+      selector.dispatchEvent(new Event('change'));
+    }
+  }
+}
+
 export default function decorate(block) {
   const blockDataset = getDatasetFromSection(block);
+
   state.blockDataset = blockDataset;
-  state.currentProduct = state.blockDataset.defaultProduct;
-  console.log(state.currentProduct);
+  [state.currentProduct, state.currentUsers, state.currentYears] = state.blockDataset.defaultProduct.split('/');
+  state.firstProduct = state.blockDataset.blockProducts.split(',')[0].trim();
+  state.secondProduct = state.blockDataset.blockProducts.split(',')[1].trim();
   initMembersMap();
   block.firstElementChild.classList.add('d-flex');
   block.firstElementChild.firstElementChild.classList.add('pricing-wrapper');
@@ -357,4 +425,5 @@ export default function decorate(block) {
   block.classList.add(`features-${cols.length}-cols`);
   const col = block.children[0].children[1];
   col.appendChild(extractFeatures(col));
+  initializeDynamicSelection(block);
 }
