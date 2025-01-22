@@ -1029,7 +1029,7 @@ async function initVlaicuProductPriceLogic(campaign) {
 async function initializeProductsPriceLogic() {
   let pid = getParam('pid');
   let campaign = getParam('campaign');
-  const vlaicuCampaign = getParam('vcampaign');
+  const vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
 
   try {
     const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
@@ -1177,6 +1177,12 @@ async function loadPage() {
     document.addEventListener('at-library-loaded', () => {
       initializeProductsPriceLogic();
     });
+  }
+
+  // in the drafts folder adobe target is not loaded, so the price logic should be executed
+  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
+  if (!isPageNotInDraftsFolder) {
+    initializeProductsPriceLogic();
   }
 
   addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
