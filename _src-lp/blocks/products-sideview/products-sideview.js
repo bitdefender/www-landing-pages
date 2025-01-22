@@ -364,9 +364,7 @@ function initializeDynamicSelection(block) {
 
     // Build the buy zone key dynamically
     const buyZoneKey = `.prodload-${state.currentProduct}-${variation}`;
-    console.log(buyZoneKey);
     const selectedBuyZone = block.querySelector(buyZoneKey);
-    console.log(selectedBuyZone);
     if (selectedBuyZone) {
       selectedBuyZone.classList.remove('hide');
     }
