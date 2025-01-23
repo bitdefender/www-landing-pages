@@ -1,6 +1,4 @@
-import {
-  getDatasetFromSection,
-} from '../../scripts/utils.js';
+import { updateProductsList, getDatasetFromSection } from '../../scripts/utils.js';
 
 const nanoBlocks = new Map();
 
@@ -252,9 +250,9 @@ function renderPrice(block, ...price) {
   priceZone.classList.add('price-element-wrapper');
   const btnText = block.querySelector('a').textContent;
   // Function to create and append price boxes
-  const createPriceBox = (className, selectorClass) => {
+  const createPriceBox = (className, product) => {
     const pricesBox = document.createElement('div');
-    const [productCode, prodUsers, prodYears] = selectorClass.split('/');
+    const [productCode, prodUsers, prodYears] = product.split('/');
     pricesBox.className = `${className} ${productCode}_box prices_box await-loader prodload prodload-${productCode}-${prodUsers}${prodYears}`;
     pricesBox.innerHTML = `<div>
         <div class="display-flex">
@@ -265,9 +263,10 @@ function renderPrice(block, ...price) {
           <span class="prod-newprice newprice-${productCode}-${prodUsers}${prodYears}"></span>
         </div>
         <p class="button-container">
-          <a href='#' title='Bitdefender ${selectorClass.split('/')[0]}' class=' red-buy-button prodload prodload-${productCode}-${prodUsers}${prodYears} buylink-${productCode}-${prodUsers}${prodYears} referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>
+          <a href='#' title='Bitdefender ${product.split('/')[0]}' class=' red-buy-button prodload prodload-${productCode}-${prodUsers}${prodYears} buylink-${productCode}-${prodUsers}${prodYears} referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>
         </p>
       </div>`;
+    updateProductsList(product.trim());
     return pricesBox;
   };
 
