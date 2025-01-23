@@ -245,7 +245,6 @@ function renderRadioGroup(block) {
 
 function renderPrice(block, ...price) {
   const variant = 'vsbm51';
-  const saveText = state.blockDataset.saveText;
   const priceZone = document.createElement('div');
   priceZone.classList.add('price-element-wrapper');
   const btnText = block.querySelector('a').textContent;
@@ -257,7 +256,6 @@ function renderPrice(block, ...price) {
     pricesBox.innerHTML = `<div>
         <div class="display-flex">
           <span class="prod-oldprice oldprice-${productCode}-${prodUsers}${prodYears}"></span>
-          <span class="percent prod-percent"> ${saveText ?? ''} <span class="percent-${productCode}-${prodUsers}${prodYears}"> 0%</span></span>
         </div>
         <div class="display-flex">
           <span class="prod-newprice newprice-${productCode}-${prodUsers}${prodYears}"></span>
