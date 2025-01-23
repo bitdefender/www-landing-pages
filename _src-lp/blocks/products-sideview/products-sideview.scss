@@ -41,14 +41,6 @@
     margin-right: 8px;
   }
   
-  .products-sideview .prod-save, .products-sideview .percent {
-      margin-bottom: 10px;
-      color: #1C7928;
-      font-size: 16px;
-      font-weight: bold;
-  
-  }
-  
   .products-sideview .price-element-wrapper {
     margin: 20px 0;
     font-family: Arial, sans-serif;
@@ -242,13 +234,13 @@
     display: none;
   }
   
-  @media (min-width >= 480px) {
+  @media (width >= 480px) {
     .products-sideview .features-tabs li > a {
       font-size: 16px;
     }
   }
 
-  @media (min-width >= 768px) {
+  @media (width >= 768px) {
     .products-sideview .features-wrapper {
       border-radius: 0 20px 20px 0;
       width: 50%;
@@ -300,7 +292,7 @@
     }
   }
   
-  @media (min-width >= 993px) {
+  @media (width >= 993px) {
     .products-sideview.features-3-cols > div > div {
       width: calc(33.33% - 30px);
       margin: 0 15px;
@@ -316,7 +308,7 @@
 
   }
 
-  @media (min-width >= 1200px) {
+  @media (width >= 1200px) {
     .products-sideview .pricing-wrapper {
       width: 33.33%;
     }
@@ -337,7 +329,7 @@
     }
   }
 
-  @media (min-width >= 1600px) { /* large desktop */
+  @media (width >= 1600px) { /* large desktop */
     .products-sideview-wrapper {
       max-width: var(--section-large-desktop-max-width);
       padding: 0 var(--section-large-desktop-padding);
