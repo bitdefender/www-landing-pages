@@ -328,6 +328,7 @@
   display: inline-block;
   border-radius: 20px;
   padding: 1px 12px;
+  margin-bottom: 5px;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag div {
@@ -437,10 +438,6 @@
   justify-content: left;
   align-items: center;
   margin-bottom: 8px;
-}
-
-.new-prod-boxes-container.disable-product .prod_box.index1 .blueTag {
-  visibility: hidden;
 }
 
 .new-prod-boxes-container.disable-product .prod_box.index0 .blueTag {
