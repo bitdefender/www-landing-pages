@@ -482,6 +482,8 @@ export default function decorate(block) {
   };
 
   const targetNode = document.querySelector('.new-prod-boxes');
+  matchHeights(targetNode, '.tag-subtitle');
+  matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
 
