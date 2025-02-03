@@ -301,6 +301,18 @@ export default function decorate(block) {
       }
 
       let percentOffFlag = false;
+      let percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
+      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+        percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
+        percentOffFlag = true;
+      }
+      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+        percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
+        percentOffFlag = true;
+      }
+      if (!percentOff) {
+        percentOffFlag = false;
+      }
 
       const optionList = subtitle.querySelector('ul');
       const combinedPricesBox = document.createElement('div');
@@ -313,7 +325,7 @@ export default function decorate(block) {
           const value = variationText.trim();
           const isChecked = idx === 0 ? 'checked' : '';
 
-          let percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${selectorClass}"></span>`);
+          percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${selectorClass}"></span>`);
           if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
             percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${selectorClass}"></span>`);
             percentOffFlag = true;
