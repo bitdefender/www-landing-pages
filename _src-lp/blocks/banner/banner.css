@@ -220,6 +220,10 @@
   border-radius: 22px;
 }
 
+.section.banner-container.new-2024.v2 p a {
+  text-decoration: underline;
+}
+
 .section.banner-container.hasslide .block table tr td a {
   color: white;
 }
@@ -398,10 +402,6 @@
 
 .section.banner-container #greenPillBox * {
   color: inherit;
-}
-
-.section.banner-container.new-2024.v2 p a {
-  text-decoration: underline;
 }
 
 .section.banner-container.hasslide .block table tr td a:hover {
