@@ -325,6 +325,19 @@ export default function decorate(block) {
           const value = variationText.trim();
           const isChecked = idx === 0 ? 'checked' : '';
 
+          percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${selectorClass}"></span>`);
+          if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+            percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${selectorClass}"></span>`);
+            percentOffFlag = true;
+          }
+          if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+            percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
+            percentOffFlag = true;
+          }
+          if (!percentOff) {
+            percentOffFlag = false;
+          }
+
           li.setAttribute('data-selector-u', `u_${selectorClass}`);
           li.setAttribute('data-value-u', pusers);
           li.setAttribute('data-selector-y', `y_${selectorClass}`);
@@ -482,6 +495,8 @@ export default function decorate(block) {
   };
 
   const targetNode = document.querySelector('.new-prod-boxes');
+  matchHeights(targetNode, '.tag-subtitle');
+  matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
 

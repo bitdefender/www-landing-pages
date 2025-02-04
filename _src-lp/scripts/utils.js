@@ -502,11 +502,15 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         if (parentSaveBox) {
           parentSaveBox.innerHTML = savings;
           parentSaveBox.style.visibility = 'visible';
+          const saveElement = parentSaveBox.closest('.save');
+          if (saveElement) saveElement.style.visibility = 'visible';
         }
       } else {
         document.querySelectorAll(`.save-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = savings;
           item.style.visibility = 'visible';
+          const saveElement = item.closest('.save');
+          if (saveElement) saveElement.style.visibility = 'visible';
         });
       }
     }
