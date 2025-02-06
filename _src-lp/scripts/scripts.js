@@ -1094,16 +1094,18 @@ function eventOnDropdownSlider() {
     const loadingBars = slider.querySelectorAll('.loading-bar');
     let activeIndex = 0;
     let interval;
+    let loadingInterval;
 
     function showLoadingBar(index) {
+      clearInterval(loadingInterval); // Clear any existing loading animation
       const loadingBar = loadingBars[index];
       loadingBar.style.width = '0';
       let width = 0;
-      const interval2 = setInterval(() => {
+      loadingInterval = setInterval(() => {
         width += 1;
         loadingBar.style.width = `${width}%`;
         if (width >= 100) {
-          clearInterval(interval2);
+          clearInterval(loadingInterval);
         }
       }, 30); // Adjust the interval for smoother animation
     }
@@ -1123,6 +1125,7 @@ function eventOnDropdownSlider() {
     }
 
     function startAutomaticMovement() {
+      clearInterval(interval);
       interval = setInterval(moveToNextItem, 4000); // Set the interval
     }
 
