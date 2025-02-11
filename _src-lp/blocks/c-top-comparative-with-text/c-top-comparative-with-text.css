@@ -10,6 +10,10 @@
   font-size: 18px;
 }
 
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text {
+  gap: 30px;
+}
+
 .c-top-comparative-with-text > div {
   position: relative;
   padding: 1%;
@@ -25,13 +29,30 @@
   margin-top: 20px;
 }
 
-.c-top-comparative-with-text > .active {
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text div {
+  text-align: center;
 }
 
 .c-top-comparative-with-text.no-highlight > div:nth-child(3), .no-highlight .c-top-comparative-with-text > div:nth-child(3) {
   box-shadow: initial;
   border-top-color: transparent;
+}
+
+.c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div {
+  width: 24%;
+  padding: 1%;
+  border: 0 none;
+  overflow: hidden;
+}
+
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div:not(:first-child) {
+  border: 1px solid #21375E !important;
+  border-bottom: none !important;
+  border-radius: 20px 20px 0 0;
+}
+
+.c-top-comparative-with-text > .active {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
 }
 
 .c-top-comparative-with-text > div picture img {
@@ -115,6 +136,24 @@
   display: block;
   color: #999;
   text-decoration: line-through;
+}
+
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div div.prices_box span.prod-oldprice {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div div.prices_box span.percent {
+  display: inline-block;
+  font-size: 16px;
+  color: #1C7928;
+  font-weight: bold;
+}
+
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text [class*=description_comp] {
+  font-size: 12px;
+  font-weight: normal;
 }
 
 .c-top-comparative-with-text > div div.prices_box span.prod-newprice {
@@ -219,16 +258,15 @@
   text-align: center;
 }
 
+.c-top-comparative-with-text-container.netgear > div table:last-of-type a {
+  background-color: #3E4DA4 !important;
+  width: 213px;
+  border-radius: 40px;
+}
+
 /* if has 4 elements */
 .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text-wrapper {
   max-width: 87%;
-}
-
-.c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div {
-  width: 24%;
-  padding: 1%;
-  border: 0 none;
-  overflow: hidden;
 }
 
 .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div p:nth-of-type(1) {
@@ -268,22 +306,43 @@
   .c-top-comparative-with-text {
     flex-wrap: wrap;
   }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text {
+    gap: 0;
+  }
   .c-top-comparative-with-text > div {
     padding: 3% !important;
     margin-bottom: 1em !important;
     padding-bottom: 10px !important;
     flex: unset;
   }
-  .c-top-comparative-with-text > div p:nth-of-type(7) {
-    margin: 0;
-    padding-bottom: 10px;
+  .c-top-comparative-with-text > div:not(:nth-child(1)) {
+    padding: 1% !important;
+    flex: 1;
   }
   .c-top-comparative-with-text > div:nth-child(1) {
     padding: 0 !important;
   }
-  .c-top-comparative-with-text > div:not(:nth-child(1)) {
-    padding: 1% !important;
-    flex: 1;
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div {
+    margin-bottom: 0 !important;
+  }
+  .c-top-comparative-with-text > div p:nth-of-type(7) {
+    margin: 0;
+    padding-bottom: 10px;
+  }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div:nth-child(1) {
+    display: none;
+  }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div:not(:nth-child(1)) {
+    width: calc(50% - 10px);
+    flex: 0 1 auto;
+    background-color: #F6F6F6;
+    border: none !important;
+  }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div:not(:nth-child(1)) h4 {
+    line-height: 28px;
+    margin-top: 19px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #D1D1D1;
   }
   .c-top-comparative-with-text > div h2 {
     font-size: 24px;
@@ -301,5 +360,20 @@
   }
   .c-top-comparative-with-text-container {
     padding-top: 1em !important;
+  }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div div.prices_box span.prod-oldprice {
+    font-size: 14px;
+  }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div div.prices_box span.percent {
+    font-size: 14px;
+  }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div div.prices_box span.prod-newprice {
+    font-size: 36px;
+  }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div table:last-of-type {
+    margin: 0;
+  }
+  .c-top-comparative-with-text-container.netgear > div table:last-of-type a {
+    width: 120px;
   }
 }
