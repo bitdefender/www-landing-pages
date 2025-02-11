@@ -202,6 +202,12 @@ main .section.bold-anchor a.button:any-link {
   background-color: #D70000;
 }
 
+main .netgear .default-content-wrapper .button-container a {
+  background-color: #21375E !important;
+  width: 213px;
+  border-radius: 40px;
+}
+
 a:hover {
   text-decoration: underline;
   color: var(--link-hover-color);
