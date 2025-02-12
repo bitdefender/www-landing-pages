@@ -151,11 +151,6 @@
   font-weight: bold;
 }
 
-.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text p {
-  font-size: 12px;
-  font-weight: normal;
-}
-
 .c-top-comparative-with-text > div div.prices_box span.prod-newprice {
   font-weight: bold;
   line-height: 1.1;
@@ -191,6 +186,11 @@
   justify-content: space-between;
   margin: 10px 0;
   text-align: left;
+}
+
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text p {
+  font-size: 12px;
+  font-weight: normal;
 }
 
 .c-top-comparative-with-text > div table:nth-of-type(1) p span {
@@ -265,7 +265,7 @@
 }
 
 .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div:last-of-type table:last-of-type a {
-  background-color: #55596b !important;
+  background-color: #717caa !important;
 }
 
 /* if has 4 elements */

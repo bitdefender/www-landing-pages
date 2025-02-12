@@ -34,6 +34,10 @@
   font-family: Arial, sans-serif;
 }
 
+.columns-container.netgear .text-content a {
+  text-decoration: underline;
+}
+
 .columns-container.new .columns p.button-container a {
   text-transform: none;
   font-size: var(--body-font-size-xs);
