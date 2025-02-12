@@ -505,10 +505,14 @@
 
   .b-dropdownbox-container .block > div:not(:first-child) > div {
     padding: 8px 2% !important;
+    font-size: 15px;
+  }
+
+  .b-dropdownbox-container.netgear .block > div:not(:first-child) > div {
     font-size: 12px;
   }
 
-  .b-dropdownbox-container .block img {
+  .b-dropdownbox-container.netgear .block img {
     width: 15px;
   }
 
