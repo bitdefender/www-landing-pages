@@ -7,6 +7,14 @@
   width: 20px;
 }
 
+.b-dropdownbox-container.netgear .block img {
+  width: 32px;
+}
+
+.b-dropdownbox-container.netgear .default-content-wrapper p {
+  font-size: 12px;
+}
+
 .b-dropdownbox-container .block > div {
   padding: 15px 30px;
 }
@@ -44,17 +52,44 @@
   display: inline-block;
 }
 
-.b-dropdownbox-container .block > div > div strong em {
-  color: red;
-  font-style: normal;
+.b-dropdownbox-container.netgear .block > div:not(:first-child) {
+  gap: 30px;
 }
 
 .b-dropdownbox-container .block.hide-title > div:nth-child(1) > div, .b-dropdownbox-container.hide-title .block > div:nth-child(1) > div {
   display: none;
 }
 
+.b-dropdownbox-container.netgear .block > div:nth-child(1) > div {
+  pointer-events: none;
+  cursor: pointer;
+  background-color: #55596b;
+}
+
+.b-dropdownbox-container.netgear .block > div > div:not(:first-child) {
+  border-bottom: 1px solid #D6D6D6;
+  border-left: 1px solid #21375E;
+  border-right: 1px solid #21375E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.b-dropdownbox-container.netgear .block > div > div:first-child {
+  border-bottom: none;
+}
+
+.b-dropdownbox-container .block > div > div strong em {
+  color: red;
+  font-style: normal;
+}
+
 .b-dropdownbox-container .block:not(.selected-2) > div > div:nth-child(2), .b-dropdownbox-container .block.selected-1 > div > div:nth-child(2), .b-dropdownbox-container .block.selected-2 > div > div:nth-child(3), .b-dropdownbox-container .block.selected-3 > div > div:nth-child(4) {
   background-color: #f6f6f6;
+}
+
+.b-dropdownbox-container .block:not(.selected-2) > div > div:nth-child(2) {
+  background-color: #fff;
 }
 
 .b-dropdownbox-container.selected-1 .block > div > div:nth-child(2), .b-dropdownbox-container.selected-2 .block > div > div:nth-child(3), .b-dropdownbox-container.selected-3 .block > div > div:nth-child(4) {
@@ -85,6 +120,11 @@
 
 .b-dropdownbox-container .block.inactive > div:not(:first-child) > div, .b-dropdownbox-container .block.closed > div:not(:first-child) > div, .b-dropdownbox-container.inactive .block > div:not(:first-child) > div, .b-dropdownbox-container.closed .block > div:not(:first-child) > div {
   display: none;
+}
+
+.b-dropdownbox-container.netgear .block > div:last-child > div:not(:first-child) {
+  border-bottom: 1px solid #21375E;
+  border-radius: 0 0 20px 20px;
 }
 
 .b-dropdownbox-container .block.baby-blue > div:not(:first-child) > div:first-child, .b-dropdownbox-container.baby-blue .block > div:not(:first-child) > div:first-child {
@@ -142,6 +182,11 @@
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
+}
+
+.b-dropdownbox-container.netgear .block > div:nth-child(1) > div::before,
+.b-dropdownbox-container.netgear .block.closed.inactive > div:nth-child(1) > div::before {
+  display: none;
 }
 
 .b-dropdownbox-container.arrow-dark .block > div:nth-child(1) > div::before,
@@ -391,6 +436,12 @@
   .b-dropdownbox-container .block > div:not(:first-child) {
     display: block;
   }
+  .b-dropdownbox-container.netgear .block > div:not(:first-child) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    justify-content: space-between;
+  }
   .b-dropdownbox-container .block > div:nth-child(1) > div::before, .b-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div::before {
     margin-top: 1px !important;
   }
@@ -419,11 +470,18 @@
     padding: 8px 2% !important;
     font-size: 15px;
   }
-  .b-dropdownbox-container .block img {
+  .b-dropdownbox-container.netgear .block > div:not(:first-child) > div {
+    font-size: 12px;
+  }
+  .b-dropdownbox-container.netgear .block img {
     width: 15px;
   }
   .b-dropdownbox-container .block > div:not(:first-child) > div:nth-child(1) {
     width: 100%;
+    text-align: center;
+  }
+  .b-dropdownbox-container.netgear .block > div:not(:first-child) > div:nth-child(1) {
+    min-width: 100%;
     text-align: center;
   }
   .b-dropdownbox-container .block > div:not(:first-child) > div:not(:first-child) {
@@ -444,6 +502,15 @@
     min-height: 3em;
     font-size: 13px;
     line-height: 16px;
+  }
+  .b-dropdownbox-container.netgear .block.has3divs > div:not(:first-child) > div:not(:first-child) {
+    background-color: #F6F6F6;
+    border: none;
+    flex: 0 1 auto;
+    width: calc(50% - 10px);
+  }
+  .b-dropdownbox-container.netgear .block > div:nth-child(1) > div {
+    justify-content: center;
   }
   .b-dropdownbox-container .block.has2divs > div:not(:first-child) > div:not(:first-child) {
     width: 100%;

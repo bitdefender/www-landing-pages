@@ -28,7 +28,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, topText, bulinaText, activeCardColor, activeCard, userText,
+    products, topText, bulinaText, activeCardColor, activeCard, userText, discount,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -70,6 +70,7 @@ export default function decorate(block) {
         const pricesSection = item.querySelector('table:first-of-type');
         let pricesDiv = `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">`;
         pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+        if (discount)pricesDiv += `<span class="percent"><span class="percent percent-${onSelectorClass}""></span> OFF</span>`;
         pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
         pricesDiv += '<div>';
         if (bulinaText && (isActiveCard || isLastCard)) {
@@ -108,4 +109,40 @@ export default function decorate(block) {
       }
     });
   }
+  const matchHeights = (targetNode, selector) => {
+    const resetHeights = () => {
+      const elements = targetNode.querySelectorAll(selector);
+      elements.forEach((element) => {
+        element.style.minHeight = ''; // Reset minHeight
+      });
+    };
+
+    const adjustHeights = () => {
+      resetHeights(); // Always reset before recalculating
+
+      const elements = targetNode.querySelectorAll(selector);
+      const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
+      const maxHeight = Math.max(...elementsHeight);
+
+      elements.forEach((element) => {
+        element.style.minHeight = `${maxHeight}px`;
+      });
+    };
+    const matchHeightsCallback = (mutationsList) => {
+      mutationsList.forEach((mutation) => {
+        if (mutation.type === 'childList' || mutation.type === 'subtree') {
+          adjustHeights();
+        }
+      });
+    };
+    const observer = new MutationObserver(matchHeightsCallback);
+    if (targetNode) {
+      observer.observe(targetNode, { childList: true, subtree: true });
+    }
+
+    window.addEventListener('resize', adjustHeights);
+    adjustHeights();
+  };
+  const targetNode = document.querySelector('.c-top-comparative-with-text');
+  matchHeights(targetNode, 'h4');
 }
