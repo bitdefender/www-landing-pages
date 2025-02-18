@@ -88,7 +88,7 @@ main .section.pb-0 {
 
 .creators .columns-container a.button:hover {
   background-color: #D70000 !important;
-} 
+}
 
 .creators-block.block>div:nth-child(3) a.button:any-link {
   height: auto !important;
@@ -117,6 +117,46 @@ main .section.pb-0 {
   background-color: #D70000 !important;
 }
 
+.creators .c-icon-box-grid-container .quotebox {
+  background: #F5F5F7;
+  border-radius: 20px;
+  padding: 60px 68px;
+  flex: 1;
+  width: auto;
+  text-align: left;
+  margin: 0 30px;
+  vertical-align: top;
+  font: normal normal normal 20px / 23px Arial, sans-serif;
+}
+
+.creators .c-icon-box-grid-container .quotebox img {
+  height: 60px;
+}
+
+.creators .c-icon-box-grid-container .quotebox h6 {
+  font: normal normal bold 32px / 38px "IBM Plex Sans", sans-serif;
+  margin-top: 0;
+}
+
+.creators .c-icon-box-grid-container .quotebox p {
+  font: normal normal normal 20px / 26px Arial, sans-serif;
+}
+
+.creators .c-icon-box-grid-container .quotebox .subtitle {
+  margin-bottom: 2em;
+}
+
+.creators .c-icon-box-grid-container .quotebox .buttons a {
+  height: auto !important;
+  padding: 10px 20px !important;
+  min-width: 230px;
+  background: #E72325 0% 0% no-repeat padding-box;
+  border-radius: 40px;
+  justify-content: center;
+  font: normal normal 500 18px / 24px Roboto, sans-serif;
+  color: white;
+}
+
 @media (width >= 992px) {
   main .section {
     padding: 48px 0;
@@ -139,7 +179,14 @@ main .section.pb-0 {
     max-width: 1300px !important;
     padding: 0 20px !important;
     margin: 0 auto !important;
+  }
 }
+
+@media (width <= 767px) {
+  .creators .c-icon-box-grid-container .quotebox {
+    padding: 1em;
+    margin-bottom: 2em !important;
+  }
 }
 
 @media (width <= 525px) {
