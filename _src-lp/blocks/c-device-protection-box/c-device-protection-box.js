@@ -26,7 +26,7 @@ export default function decorate(block) {
   block.innerHTML = `
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 image-container">
           ${pictureEl.innerHTML}
         </div>
         <div class="col-12 col-lg-6 mt-3">
