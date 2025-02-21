@@ -837,6 +837,36 @@ content: "";
     justify-content: center;
   }
 
+  .open-modal-button {
+    text-align: center;
+    display: block;
+    color: #000;
+    text-decoration: none;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 10px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.open-modal-button:hover {
+    color: #fff;
+    background: #000;
+    text-decoration: none;
+}
+
+.additional-price-info{
+    color: #1c7928;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 7px;
+    text-align: left;
+    line-height: 13px;
+}
+
 @media (width <= 767px) {
     .new-prod-boxes-container {
         overflow: hidden;
