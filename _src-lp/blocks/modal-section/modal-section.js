@@ -68,7 +68,7 @@ export default function decorate(block) {
     }
   });
 
-  const modal = block.querySelector('.modal-section-container');
+  const modal = document.querySelector('.modal-section-container');
 
   function handleClosingModal() {
     if (modal) {
