@@ -29,6 +29,9 @@
     font-size: 14px;
     margin-top: 0;
   }
+  .c-device-protection-box-container .image-container {
+    align-content: center;
+  }
 }
 @media (width <= 768px) {
   .c-device-protection-box-container {

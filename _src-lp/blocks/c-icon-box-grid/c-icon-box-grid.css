@@ -453,6 +453,9 @@
   .c-icon-box-grid-container.grey-box .col-lg p.button-container a {
     width: auto;
   }
+  .c-icon-box-grid-container .arrowsSlider {
+    display: none;
+  }
 }
 @media (width <= 768px) {
   .c-icon-box-grid-container {

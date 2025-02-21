@@ -34,6 +34,10 @@
   font-family: Arial, sans-serif;
 }
 
+.columns-container.netgear .text-content a {
+  text-decoration: underline;
+}
+
 .columns-container.new .columns p.button-container a {
   text-transform: none;
   font-size: var(--body-font-size-xs);
@@ -70,6 +74,10 @@
   display: block;
   max-width: calc(100% + 24px);
   margin-left: -12px;
+}
+
+.columns-container.netgear .text-content {
+  margin-top: 20px;
 }
 
 .columns-container.new-v2 u {
@@ -159,5 +167,9 @@
   .columns > div > .columns-img-col img {
     max-width: 100%;
     margin-left: 0;
+  }
+  .columns-container.netgear .columns > div > .columns-img-col {
+    display: flex;
+    justify-content: center;
   }
 }

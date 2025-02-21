@@ -332,7 +332,7 @@ export class Locale {
       }
 
       // Fetch locale based on the country
-      const localeResponse = await fetch(`${API_BASE}${API_ROOT}/${country}/locales`);
+      const localeResponse = await fetch(`${API_BASE}${API_ROOT}/countries/${country}/locales`);
       if (!localeResponse.ok) {
         console.error(`Failed to fetch locales: ${localeResponse.statusText}`);
         return locale; // Return default locale in case of error
