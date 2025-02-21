@@ -24,13 +24,15 @@ export default function decorate(block) {
   });
 
   // make slideUp slideDown functionality
-  const getFirstTabs = block.querySelectorAll('.b-dropdownbox-container .block > div:first-child');
-  getFirstTabs.forEach((tab) => {
-    tab.parentNode.classList.remove('inactive');
-    tab.addEventListener('click', () => {
-      tab.parentNode.classList.toggle('inactive');
+  if (type !== 'inactive') {
+    const getFirstTabs = block.querySelectorAll('.b-dropdownbox-container .block > div:first-child');
+    getFirstTabs.forEach((tab) => {
+      tab.parentNode.classList.remove('inactive');
+      tab.addEventListener('click', () => {
+        tab.parentNode.classList.toggle('inactive');
+      });
     });
-  });
+  }
 
   if (block.children.length >= 2) {
     const childrenNr = block.children[1].children.length;
