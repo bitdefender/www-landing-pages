@@ -224,6 +224,11 @@
   text-decoration: underline;
 }
 
+.section.banner-container.new-2024.v2 p.button-container a {
+  text-decoration: none;
+  color: white !important;
+}
+
 .section.banner-container.hasslide .block table tr td a {
   color: white;
 }
