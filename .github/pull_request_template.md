@@ -7,5 +7,5 @@ Documentation
 - [ ] I have updated new baselines in GhostInspector.
 
 Test URLs:
-- Before: https://main--www-landing-pages--bitdefender.hlx.page/drafts/test-page/
-- After: https://<branch>--www-landing-pages--bitdefender.hlx.page/drafts/test-page/
+- Before: https://main--www-landing-pages--bitdefender.aem.page/drafts/test-page/
+- After: https://<branch>--www-landing-pages--bitdefender.aem.page/drafts/test-page/
