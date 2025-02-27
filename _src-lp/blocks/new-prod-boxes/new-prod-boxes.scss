@@ -419,6 +419,20 @@
     min-height: auto;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul {
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 28px;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    font-size: 12px;
+    box-shadow: 4px 4px 7px -8px #000;
+    display: none;
+}
+
 .new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .subtitle ul {
     margin: 0;
 }
@@ -686,7 +700,7 @@
     list-style-type: none;
     font-weight: bold;
     font-family: Arial, sans-serif;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1em;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type.has_arrow::before {
@@ -718,6 +732,14 @@
     padding-left: 22px;
     background-size: 13px;
     position: relative;
+    cursor: pointer;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul li:first-of-type {
+    font-size: 12px;
+    font-weight: normal;
+    padding-bottom: 0;
+    margin: 0;
 }
 
 .new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
@@ -738,7 +760,7 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child {
     position: relative;
-  }
+}
 
 .new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child::before {
     content: "";
@@ -750,7 +772,7 @@
     height: 33px;
     background: url("https://www.bitdefender.com/common/icons/new.svg") no-repeat center center;
     background-size: contain;
-  }
+}
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content {
     position: absolute;
@@ -766,7 +788,7 @@
     display: none;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content::before {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content::before, .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul::before {
 content: "";
     position: absolute;
     left: 17px;
@@ -776,9 +798,13 @@ content: "";
     border-color: white transparent transparent;
 }
 
-.new-prod-boxes-container .new-prod-boxes .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover .white-pill-content{
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
+    min-height: 5em;
+}
+
+.new-prod-boxes-container .new-prod-boxes .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover .white-pill-content, .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:hover ul {
     display: block;
-  }
+}
 
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) u {
@@ -789,10 +815,6 @@ content: "";
     padding: 2px 21px 2px 7px;
     background: url("/_src-lp/images/icons/individual.svg") center right 6px no-repeat #026DFF;
     background-size: auto 12px;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
-    min-height: 5em;
 }
 
 .new-prod-boxes-container .block .prod_box.hasGreenTag .inner_prod_box {
