@@ -639,7 +639,7 @@
   list-style-type: none;
   font-weight: bold;
   font-family: Arial, sans-serif;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1em;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type.has_arrow::before {
@@ -705,7 +705,11 @@
   background-size: contain;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+  cursor: pointer;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content, .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul {
   position: absolute;
   background-color: white;
   padding: 10px;
@@ -719,7 +723,14 @@
   display: none;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content::before {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul li:first-of-type {
+  font-size: 12px;
+  font-weight: normal;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content::before, .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul::before {
   content: "";
   position: absolute;
   left: 17px;
@@ -729,7 +740,7 @@
   border-color: white transparent transparent;
 }
 
-.new-prod-boxes-container .new-prod-boxes .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover .white-pill-content {
+.new-prod-boxes-container .new-prod-boxes .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover .white-pill-content, .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:hover ul {
   display: block;
 }
 
