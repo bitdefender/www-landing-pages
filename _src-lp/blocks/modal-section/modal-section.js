@@ -70,9 +70,27 @@ export default function decorate(block) {
 
   const modal = document.querySelector('.modal-section-container');
 
-  function handleClosingModal() {
+  function handleCloseModal() {
     if (modal) {
       modal.style.display = 'none';
+    }
+  }
+
+  function handleAdobeDataLayer() {
+    const campaignEvent = window.adobeDataLayer.find((item) => item.event === 'campaign product');
+    const formFields = Array.from(document.querySelectorAll('.ag_dropdown, input, textarea, select'))
+      .map((field) => field.value.trim())
+      .filter((value) => value)
+      .join('|');
+    if (campaignEvent.product.info && formFields) {
+      window.adobeDataLayer.push({
+        event: 'discount unlocked',
+        product: { info: campaignEvent.product.info },
+        user: {
+          form: 'discount unlocked',
+          formFields,
+        },
+      });
     }
   }
 
@@ -86,7 +104,9 @@ export default function decorate(block) {
   const closeButton = document.createElement('button');
   closeButton.classList.add('modal-close-button');
   closeButton.innerHTML = '&times;';
-  closeButton.addEventListener('click', () => handleClosingModal());
+  closeButton.addEventListener('click', () => {
+    handleCloseModal();
+  });
 
   table.parentNode.appendChild(newDiv);
   table.parentNode.appendChild(closeButton);
@@ -104,7 +124,8 @@ export default function decorate(block) {
         saveFormSelections();
         localStorage.setItem('discountApplied', 'true');
         document.dispatchEvent(new Event('formSubmittedEvent'));
-        handleClosingModal();
+        handleAdobeDataLayer();
+        handleCloseModal();
       } else {
         newDiv.reportValidity();
       }

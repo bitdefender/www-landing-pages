@@ -453,20 +453,21 @@ export default function decorate(block) {
     </div>`;
   }
 
-  function applyDiscount(modalButtons, pricesBoxes, discountsBoxes) {
-    modalButtons.forEach((button) => {
-      button.style.display = 'none';
+  function toggleElements(elements, { display = null, addClass = null, removeClass = null }) {
+    elements.forEach((element) => {
+      if (display !== null) element.style.display = display;
+      if (addClass) element.classList.add(addClass);
+      if (removeClass) element.classList.remove(removeClass);
     });
+  }
 
-    [...pricesBoxes, ...discountsBoxes].forEach((element) => {
-      element.classList.add('await-loader');
-    });
+  function applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes) {
+    toggleElements(modalButtons, { display: 'none' });
+    toggleElements([...pricesBoxes, ...discountsBoxes], { addClass: 'await-loader' });
 
     setTimeout(() => {
-      [...pricesBoxes, ...discountsBoxes].forEach((element) => {
-        element.classList.remove('await-loader');
-        element.style.display = 'flex';
-      });
+      toggleElements([...pricesBoxes, ...discountsBoxes], { removeClass: 'await-loader', display: 'flex' });
+      toggleElements(billedBoxes, { display: 'block' });
 
       pricesBoxes.forEach((box) => {
         const newSpan = document.createElement('span');
@@ -474,12 +475,19 @@ export default function decorate(block) {
         newSpan.textContent = 'With your discount applied';
         box.appendChild(newSpan);
       });
+
+      discountsBoxes.forEach((element) => {
+        const spanElement = element.querySelector('span');
+        if (spanElement) toggleElements([spanElement], { display: 'block', removeClass: 'main-price' });
+
+        const strongElement = element.querySelector('strong');
+        if (strongElement) toggleElements([strongElement], { display: 'flex' });
+      });
     }, 3000);
   }
 
   if (openModalButton) {
     const modalButtons = block.querySelectorAll('.open-modal-button');
-
     modalButtons.forEach((button) => {
       button.addEventListener('click', () => {
         document.dispatchEvent(new Event('openModalEvent'));
@@ -488,17 +496,24 @@ export default function decorate(block) {
 
     const discountsBoxes = Array.from(block.querySelectorAll('.save_price_box'));
     const pricesBoxes = Array.from(block.querySelectorAll('.prices_box'));
+    const billedBoxes = Array.from(block.querySelectorAll('.billed'));
+
+    toggleElements([...billedBoxes, ...pricesBoxes], { display: 'none' });
 
     discountsBoxes.forEach((element) => {
-      element.style.display = 'none';
+      const spanElement = element.querySelector('span');
+      if (spanElement) spanElement.classList.add('main-price');
+
+      const strongElement = element.querySelector('strong');
+      if (strongElement) strongElement.style.display = 'none';
     });
 
     document.addEventListener('formSubmittedEvent', () => {
-      applyDiscount(modalButtons, pricesBoxes, discountsBoxes);
+      applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
     });
 
     if (localStorage.getItem('discountApplied') === 'true') {
-      applyDiscount(modalButtons, pricesBoxes, discountsBoxes);
+      applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
     }
   }
 

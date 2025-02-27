@@ -789,7 +789,7 @@
   justify-content: center;
 }
 
-.open-modal-button {
+.new-prod-boxes-container .open-modal-button {
   text-align: center;
   display: block;
   color: #000;
@@ -804,19 +804,27 @@
   cursor: pointer;
 }
 
-.open-modal-button:hover {
+.new-prod-boxes-container .open-modal-button:hover {
   color: #fff;
   background: #000;
   text-decoration: none;
 }
 
-.additional-price-info {
+.new-prod-boxes-container .additional-price-info {
   color: #1c7928;
   font-size: 12px;
   font-weight: 700;
   margin-top: 7px;
   text-align: left;
   line-height: 13px;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box .prod-oldprice.main-price {
+  font-size: var(--heading-font-size-xl);
+  line-height: var(--heading-font-size-xl);
+  text-decoration: none;
+  font-weight: bold;
+  color: #000;
 }
 
 @media (width <= 767px) {
