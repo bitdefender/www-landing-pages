@@ -787,7 +787,7 @@ export function openUrlForOs(urlMacos, urlWindows, urlAndroid, urlIos) {
   }
 }
 
-// General function to match the height of elements based on a selector
+// Debounce function to limit the rate at which a function is executed.
 export function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -800,6 +800,7 @@ export function debounce(func, wait) {
   };
 }
 
+// General function to match the height of elements based on a selector
 export async function matchHeights(targetNode, selector) {
   const resetHeights = () => {
     const elements = targetNode.querySelectorAll(selector);
