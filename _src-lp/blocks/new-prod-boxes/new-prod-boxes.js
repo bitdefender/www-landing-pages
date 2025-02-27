@@ -61,8 +61,9 @@ function initializeSlider(block) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, openModalButton,
   } = metaData;
+
   const productsAsList = products && products.split(',');
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
@@ -417,6 +418,7 @@ export default function decorate(block) {
                 <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
               </div>`}
+              ${openModalButton && `<a class="open-modal-button">${openModalButton}</a>`}
             `}
 
             ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
@@ -449,6 +451,70 @@ export default function decorate(block) {
     <div class="container-fluid">
       add some products
     </div>`;
+  }
+
+  function toggleElements(elements, { display = null, addClass = null, removeClass = null }) {
+    elements.forEach((element) => {
+      if (display !== null) element.style.display = display;
+      if (addClass) element.classList.add(addClass);
+      if (removeClass) element.classList.remove(removeClass);
+    });
+  }
+
+  function applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes) {
+    toggleElements(modalButtons, { display: 'none' });
+    toggleElements([...pricesBoxes, ...discountsBoxes], { addClass: 'await-loader' });
+
+    setTimeout(() => {
+      toggleElements([...pricesBoxes, ...discountsBoxes], { removeClass: 'await-loader', display: 'flex' });
+      toggleElements(billedBoxes, { display: 'block' });
+
+      pricesBoxes.forEach((box) => {
+        const newSpan = document.createElement('span');
+        newSpan.classList.add('additional-price-info');
+        newSpan.textContent = 'With your discount applied';
+        box.appendChild(newSpan);
+      });
+
+      discountsBoxes.forEach((element) => {
+        const spanElement = element.querySelector('span');
+        if (spanElement) toggleElements([spanElement], { display: 'block', removeClass: 'main-price' });
+
+        const strongElement = element.querySelector('strong');
+        if (strongElement) toggleElements([strongElement], { display: 'flex' });
+      });
+    }, 3000);
+  }
+
+  if (openModalButton) {
+    const modalButtons = block.querySelectorAll('.open-modal-button');
+    modalButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        document.dispatchEvent(new Event('openModalEvent'));
+      });
+    });
+
+    const discountsBoxes = Array.from(block.querySelectorAll('.save_price_box'));
+    const pricesBoxes = Array.from(block.querySelectorAll('.prices_box'));
+    const billedBoxes = Array.from(block.querySelectorAll('.billed'));
+
+    toggleElements([...billedBoxes, ...pricesBoxes], { display: 'none' });
+
+    discountsBoxes.forEach((element) => {
+      const spanElement = element.querySelector('span');
+      if (spanElement) spanElement.classList.add('main-price');
+
+      const strongElement = element.querySelector('strong');
+      if (strongElement) strongElement.style.display = 'none';
+    });
+
+    document.addEventListener('formSubmittedEvent', () => {
+      applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
+    });
+
+    if (localStorage.getItem('discountApplied') === 'true') {
+      applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
+    }
   }
 
   // General function to match the height of elements based on a selector
