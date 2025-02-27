@@ -671,6 +671,7 @@
   padding-left: 22px;
   background-size: 13px;
   position: relative;
+  cursor: pointer;
 }
 
 .new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
@@ -703,10 +704,6 @@
   height: 33px;
   background: url("https://www.bitdefender.com/common/icons/new.svg") no-repeat center center;
   background-size: contain;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-  cursor: pointer;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content, .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul {
