@@ -369,6 +369,17 @@
   color: black;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul {
+  padding-left: 0;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul {
+  border-top: 1px solid #D1D1D1;
+  border-bottom: 1px solid #D1D1D1;
+  padding: 1em 0;
+  min-height: auto;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul {
   position: absolute;
   background-color: white;
@@ -381,17 +392,6 @@
   font-size: 12px;
   box-shadow: 4px 4px 7px -8px #000;
   display: none;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul {
-  padding-left: 0;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul {
-  border-top: 1px solid #D1D1D1;
-  border-bottom: 1px solid #D1D1D1;
-  padding: 1em 0;
-  min-height: auto;
 }
 
 .new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .subtitle ul {
