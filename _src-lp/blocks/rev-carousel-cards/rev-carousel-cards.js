@@ -9,7 +9,7 @@ import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.j
   - tagText: ex.: BEST DEAL
 
   Samples:
-  - https://main--www-landing-pages--bitdefender.hlx.page/drafts/test-page/consumer/en/new/ps-ts-vpn-opt/
+  - https://main--www-landing-pages--bitdefender.aem.page/drafts/test-page/consumer/en/new/ps-ts-vpn-opt/
 */
 export default function decorate(block) {
   const carouselSlides = [...block.children];
