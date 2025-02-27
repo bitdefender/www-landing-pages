@@ -760,7 +760,7 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child {
     position: relative;
-  }
+}
 
 .new-prod-boxes-container.new-v2 .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child::before {
     content: "";
@@ -773,6 +773,7 @@
     background: url("https://www.bitdefender.com/common/icons/new.svg") no-repeat center center;
     background-size: contain;
 }
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content {
     position: absolute;
     background-color: white;
