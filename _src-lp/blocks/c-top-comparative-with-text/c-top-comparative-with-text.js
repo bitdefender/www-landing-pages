@@ -19,7 +19,7 @@
 */
 
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { updateProductsList, GLOBAL_EVENTS, matchHeights } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const defaultBorderTopColorForActiveCard = '#e60093';
@@ -109,40 +109,6 @@ export default function decorate(block) {
       }
     });
   }
-  const matchHeights = (targetNode, selector) => {
-    const resetHeights = () => {
-      const elements = targetNode.querySelectorAll(selector);
-      elements.forEach((element) => {
-        element.style.minHeight = ''; // Reset minHeight
-      });
-    };
-
-    const adjustHeights = () => {
-      resetHeights(); // Always reset before recalculating
-
-      const elements = targetNode.querySelectorAll(selector);
-      const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
-      const maxHeight = Math.max(...elementsHeight);
-
-      elements.forEach((element) => {
-        element.style.minHeight = `${maxHeight}px`;
-      });
-    };
-    const matchHeightsCallback = (mutationsList) => {
-      mutationsList.forEach((mutation) => {
-        if (mutation.type === 'childList' || mutation.type === 'subtree') {
-          adjustHeights();
-        }
-      });
-    };
-    const observer = new MutationObserver(matchHeightsCallback);
-    if (targetNode) {
-      observer.observe(targetNode, { childList: true, subtree: true });
-    }
-
-    window.addEventListener('resize', adjustHeights);
-    adjustHeights();
-  };
   const targetNode = document.querySelector('.c-top-comparative-with-text');
   matchHeights(targetNode, 'h4');
 }
