@@ -172,6 +172,7 @@
     transition: color 0.4s;
     color: white !important;
 }
+
 .switchBox .switch input:checked ~ .label.right hr {
     border-color: #fff;
 }
@@ -193,6 +194,7 @@
     transition: color 0.4s;
     color: black;
 }
+
 .switchBox .switch input:checked ~ .label.left hr {
     border-color: #016DFF;
 }
