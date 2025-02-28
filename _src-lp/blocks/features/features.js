@@ -1,3 +1,5 @@
+import { matchHeights } from '../../scripts/utils.js';
+
 function createAccordion(text, content) {
   const button = document.createElement('div');
   button.classList.add('accordion');
@@ -55,4 +57,7 @@ export default function decorate(block) {
       }
     });
   }
+
+  matchHeights(block, 'h6');
+  matchHeights(block, '.features >div >div >p:first-of-type');
 }
