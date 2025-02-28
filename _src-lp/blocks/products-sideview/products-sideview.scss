@@ -2,6 +2,7 @@
     --tab-header-color-blue: #005ed9;
     --tab-description-color-light-grey: #3c3c3c;
     --tab-emphasis-color: #2cb43d;
+    --heading-font-size: 26px;
   }
   
   .products-sideview .features-wrapper {
@@ -74,6 +75,7 @@
   
   .radioBoxParent {
     gap: 10px;
+    margin-top: 10px;
   }
   
   .d-radio {
@@ -233,6 +235,12 @@
   .hide {
     display: none;
   }
+
+  .products-sideview .features-wrapper h2 {
+    font-size: var(--heading-font-size);
+    line-height: 1.25;
+    font-weight: 700;
+  }
   
   @media (width >= 480px) {
     .products-sideview .features-tabs li > a {
@@ -252,16 +260,11 @@
     }
 
     .products-sideview .pricing-wrapper h4 {
-      font-size: 26px;
-      line-height: 32.5px;
+      font-size: var(--heading-font-size);
+      line-height: 1.25;
       font-weight: 700;
     }
 
-    .products-sideview .features-wrapper h2 {
-      font-size: 38px;
-      line-height: 45.6px;
-      font-weight: 700;
-    }
 
     .features-tabs {
       display: flex;

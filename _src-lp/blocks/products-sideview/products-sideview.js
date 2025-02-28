@@ -1,4 +1,4 @@
-import { updateProductsList, getDatasetFromSection } from '../../scripts/utils.js';
+import { updateProductsList, getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
 
 const nanoBlocks = new Map();
 
@@ -420,4 +420,5 @@ export default function decorate(block) {
   const col = block.children[0].children[1];
   col.appendChild(extractFeatures(col));
   initializeDynamicSelection(block);
+  matchHeights(block, '.block >div >div >p:first-of-type');
 }
