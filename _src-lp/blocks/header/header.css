@@ -64,6 +64,10 @@ header#headerBlue .header {
   padding-bottom: 10px;
 }
 
+header.biggerLogo img {
+  height: 33px;
+}
+
 @media screen and (width >= 768px) {
   header#headerBlue a {
     text-align: left;

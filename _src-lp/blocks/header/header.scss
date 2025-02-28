@@ -84,6 +84,10 @@ header#headerBlue {
   }
 }
 
+header.biggerLogo img {
+  height: 33px;
+}
+
 @media screen and (width >= 768px) {
   header#headerBlue a {
     text-align: left;
