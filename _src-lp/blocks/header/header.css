@@ -1,3 +1,7 @@
+header.biggerLogo img {
+  height: 33px;
+}
+
 header.dark {
   background-color: black;
 }

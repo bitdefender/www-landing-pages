@@ -61,9 +61,10 @@ function initializeSlider(block) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set,
   } = metaData;
   const productsAsList = products && products.split(',');
+
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
@@ -181,6 +182,7 @@ export default function decorate(block) {
         divBulina = `<div class='bulina'>${tempDiv.innerHTML}</div>`;
       }
       // if we have vpn
+
       if (billed.innerText.includes('[vpn_box]')) {
         // add VPN
         updateProductsList('vpn/10/1');
@@ -456,6 +458,13 @@ export default function decorate(block) {
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
+
+  // set max height for benefits
+  if (set && set === 'height') {
+    [1, 2, 3].forEach((i) => {
+      matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
+    });
+  }
 
   block.addEventListener('change', (event) => {
     const { target } = event;
