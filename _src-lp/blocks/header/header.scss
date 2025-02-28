@@ -1,3 +1,7 @@
+header.biggerLogo img {
+  height: 33px;
+}
+
 header {
   &.dark {
     background-color: black;
@@ -82,10 +86,6 @@ header#headerBlue {
     padding-top: 10px;
     padding-bottom: 10px;
   }
-}
-
-header.biggerLogo img {
-  height: 33px;
 }
 
 @media screen and (width >= 768px) {
