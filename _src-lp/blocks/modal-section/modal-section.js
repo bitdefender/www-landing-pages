@@ -89,6 +89,15 @@ export default function decorate(block) {
       })
       .join('|');
 
+    if (Array.isArray(campaignEvent.product.info)) {
+      campaignEvent.product.info.forEach((item) => {
+        const productData = window.StoreProducts.product[item.ID];
+        if (productData && productData.platformProductID) {
+          item.ID = productData.platformProductID;
+        }
+      });
+    }
+
     if (campaignEvent.product.info && formFields) {
       window.adobeDataLayer.push({
         event: 'discount unlocked',
