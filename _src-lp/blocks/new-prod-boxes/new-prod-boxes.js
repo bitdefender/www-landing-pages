@@ -461,7 +461,7 @@ export default function decorate(block) {
 
   // set max height for benefits
   if (set && set === 'height') {
-    [1, 2, 3].forEach(i => {
+    [1, 2, 3].forEach((i) => {
       matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
     });
   }
