@@ -453,7 +453,7 @@ export default function decorate(block) {
     </div>`;
   }
 
-  // General function to match the height of elements based on a selector
+  //General function to match the height of elements based on a selector
   const matchHeights = (targetNode, selector) => {
     const resetHeights = () => {
       const elements = targetNode.querySelectorAll(selector);
