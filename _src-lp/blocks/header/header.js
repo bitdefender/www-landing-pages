@@ -77,7 +77,7 @@ export default async function decorate(block) {
       const logoEl = block.querySelector('p');
       const imgEl = block.querySelector('p:first-child img');
 
-      const anchorEl = `<a title="Bitdefender" href="${homeUrl}">${imgEl.cloneNode(true).outerHTML}</a>`;
+      const anchorEl = `<a title="Bitdefender" href="${linklessNav ? '#' : homeUrl}">${imgEl.cloneNode(true).outerHTML}</a>`;
       // clear first paragraf
       logoEl.innerHTML = '';
       // add the new content logo with anchor
@@ -94,7 +94,7 @@ export default async function decorate(block) {
       const logoEl = block.querySelector('p');
       const anchorEl = document.createElement('a');
       anchorEl.className = 'd-flex justify-content-between';
-      anchorEl.href = homeUrl;
+      anchorEl.href = linklessNav ? '#' : homeUrl;
       anchorEl.innerHTML = `<img src="${logo}" alt="Bitdefender">`;
       logoEl.outerHTML = anchorEl.outerHTML;
 
