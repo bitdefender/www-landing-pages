@@ -72,6 +72,10 @@
     line-height: 1;
     font-weight: bolder;
   }
+
+  .products-sideview.no-feature-tags .features-tabs .tag-blue {
+    display: none;
+  }
   
   .radioBoxParent {
     gap: 10px;
