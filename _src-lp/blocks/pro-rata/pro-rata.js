@@ -19,10 +19,11 @@ const checkEligibility = async (block, optionCode, neeligibilText) => {
     const upgradeBundle = getParameterValue('upgrade_bundle');
     const productCode = getParameterValue('product_code');
     const paramOptionCode = getParameterValue('option_code');
+    let updatedOptionCode = optionCode;
     if (paramOptionCode) {
-      optionCode = paramOptionCode;
+      updatedOptionCode = paramOptionCode;
     }
-    const url = `https://www.bitdefender.com/site/Main/proRata?service_id=${serviceId}&option_code=${optionCode}&product_code=${productCode}&upgrade_bundle=${upgradeBundle}`;
+    const url = `https://www.bitdefender.com/site/Main/proRata?service_id=${serviceId}&option_code=${updatedOptionCode}&product_code=${productCode}&upgrade_bundle=${upgradeBundle}`;
     const options = {
       method: 'GET',
       headers: {
