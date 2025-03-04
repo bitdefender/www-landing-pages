@@ -61,7 +61,7 @@ function initializeSlider(block) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, openModalButton,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -568,6 +568,13 @@ export default function decorate(block) {
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
+
+  // set max height for benefits
+  if (set && set === 'height') {
+    [1, 2, 3].forEach((i) => {
+      matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
+    });
+  }
 
   block.addEventListener('change', (event) => {
     const { target } = event;
