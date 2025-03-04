@@ -461,6 +461,23 @@ export default function decorate(block) {
     });
   }
 
+  function restoreCouponsToButtons() {
+    const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || [];
+
+    document.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+      const url = new URL(button.href);
+
+      // Ensure we only add the coupon if it's not already present
+      if (!url.search.includes('COUPON=') && removedCoupons.length > 0) {
+        removedCoupons.forEach((coupon) => {
+          url.search += (url.search ? '&' : '?') + coupon.replace('&', '');
+        });
+
+        button.href = url.href;
+      }
+    });
+  }
+
   function applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes) {
     toggleElements(modalButtons, { display: 'none' });
     toggleElements([...pricesBoxes, ...discountsBoxes], { addClass: 'await-loader' });
@@ -483,6 +500,8 @@ export default function decorate(block) {
         const strongElement = element.querySelector('strong');
         if (strongElement) toggleElements([strongElement], { display: 'flex' });
       });
+
+      restoreCouponsToButtons();
     }, 3000);
   }
 
@@ -514,6 +533,33 @@ export default function decorate(block) {
 
     if (localStorage.getItem('discountApplied') === 'true') {
       applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
+    }
+
+    const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || [];
+    if (removedCoupons.length === 0) {
+      const observer = new MutationObserver(() => {
+        if (window.adobeDataLayer?.some((event) => event.event === 'page loaded')) {
+          block.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+            const url = button.href;
+            const couponMatch = url.match(/(COUPON=[^&]*&?)/);
+
+            if (couponMatch) {
+              const fullCouponString = couponMatch[1];
+
+              if (!removedCoupons.includes(fullCouponString)) {
+                removedCoupons.push(fullCouponString);
+              }
+
+              localStorage.setItem('removedCoupons', JSON.stringify(removedCoupons));
+              const updatedUrl = url.replace(fullCouponString, '').replace(/[?&]$/, '');
+              button.href = updatedUrl;
+            }
+          });
+
+          observer.disconnect();
+        }
+      });
+      observer.observe(document, { childList: true, subtree: true });
     }
   }
 
