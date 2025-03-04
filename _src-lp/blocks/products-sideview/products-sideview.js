@@ -422,4 +422,5 @@ export default function decorate(block) {
   col.appendChild(extractFeatures(col));
   initializeDynamicSelection(block);
   matchHeights(block, '.block >div >div >p:first-of-type');
+  matchHeights(block, '.block >div >div >:first-child');
 }
