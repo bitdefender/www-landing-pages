@@ -65,6 +65,7 @@ export default function decorate(block) {
   } = metaData;
 
   const productsAsList = products && products.split(',');
+
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
@@ -182,6 +183,7 @@ export default function decorate(block) {
         divBulina = `<div class='bulina'>${tempDiv.innerHTML}</div>`;
       }
       // if we have vpn
+
       if (billed.innerText.includes('[vpn_box]')) {
         // add VPN
         updateProductsList('vpn/10/1');
