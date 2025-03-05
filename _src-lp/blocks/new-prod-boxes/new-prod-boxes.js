@@ -465,8 +465,7 @@ export default function decorate(block) {
 
   function restoreCouponsToButtons() {
     const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || {};
-
-    document.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+    block.querySelectorAll('[class*="buylink-"]').forEach((button) => {
       const originalUrl = removedCoupons[button.href];
 
       if (originalUrl) {
@@ -532,33 +531,38 @@ export default function decorate(block) {
       applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
     }
 
-    if (Object.keys(JSON.parse(localStorage.getItem('removedCoupons')) || {}).length === 0) {
-      const observer = new MutationObserver(() => {
-        if (window.adobeDataLayer?.some((event) => event.event === 'page loaded')) {
-          const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || {};
+    const observer = new MutationObserver(() => {
+      if (window.adobeDataLayer?.some((event) => event.event === 'page loaded')) {
+        localStorage.removeItem('removedCoupons');
+        const removedCoupons = {}; // Reset storage object
+        let couponsWereRemoved = false;
 
-          block.querySelectorAll('[class*="buylink-"]').forEach((button) => {
-            const url = button.href;
-            const couponMatch = url.match(/(COUPON=[^&]*&?)/);
+        document.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+          const url = button.href;
+          const couponMatch = url.match(/(COUPON=[^&]*&?)/);
 
-            if (couponMatch) {
-              if (!removedCoupons[url]) {
-                removedCoupons[url] = url;
-              }
+          if (couponMatch) {
+            const cleanUrl = url.replace(couponMatch[1], '').replace(/[?&]$/, '');
 
-              localStorage.setItem('removedCoupons', JSON.stringify(removedCoupons));
-
-              const updatedUrl = url.replace(couponMatch[1], '').replace(/[?&]$/, '');
-              button.href = updatedUrl;
+            if (!removedCoupons[cleanUrl]) {
+              removedCoupons[cleanUrl] = url; // Store original URL
             }
-          });
 
-          observer.disconnect();
+            localStorage.setItem('removedCoupons', JSON.stringify(removedCoupons));
+
+            button.href = cleanUrl;
+            couponsWereRemoved = true;
+          }
+        });
+
+        if (couponsWereRemoved) {
+          localStorage.setItem('couponRemoved', 'true');
         }
-      });
 
-      observer.observe(document, { childList: true, subtree: true });
-    }
+        observer.disconnect(); // Stop observing after first execution
+      }
+    });
+    observer.observe(document, { childList: true, subtree: true });
   }
 
   const targetNode = document.querySelector('.new-prod-boxes');

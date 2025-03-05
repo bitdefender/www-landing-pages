@@ -25,6 +25,8 @@ export default function decorate(block) {
     });
   }
 
+  const questionContainers = [];
+
   table.querySelectorAll('tbody tr').forEach((row, index) => {
     const cells = row.querySelectorAll('td');
 
@@ -52,6 +54,7 @@ export default function decorate(block) {
       defaultOption.textContent = '-';
       select.appendChild(defaultOption);
 
+      const optionArray = [];
       optionElements.forEach((p) => {
         const optionTexts = p.innerHTML.split('<br>');
         optionTexts.forEach((text) => {
@@ -59,14 +62,48 @@ export default function decorate(block) {
           option.value = text.trim().replace(/\s+/g, '-');
           option.textContent = text.trim();
           select.appendChild(option);
+          optionArray.push(option.value);
         });
       });
 
       questionContainer.appendChild(label);
       questionContainer.appendChild(select);
       newDiv.appendChild(questionContainer);
+
+      questionContainers.push({ container: questionContainer, select, options: optionArray });
+
+      // Hide second question initially
+      if (index > 0) {
+        questionContainer.style.display = 'none';
+      }
     }
   });
+
+  // Function to handle question visibility logic
+  function updateQuestionVisibility() {
+    if (questionContainers.length > 1) {
+      const firstSelect = questionContainers[0].select;
+      const secondQuestion = questionContainers[1].container;
+      const secondSelect = questionContainers[1].select;
+
+      firstSelect.addEventListener('change', () => {
+        const selectedIndex = firstSelect.selectedIndex;
+
+        if (selectedIndex === 1 || selectedIndex === firstSelect.options.length - 1) {
+          // First or last option selected → Hide second question
+          secondQuestion.style.display = 'none';
+          secondSelect.value = '-'; // Default value
+          secondSelect.removeAttribute('required');
+        } else {
+          // Middle options selected → Show second question
+          secondQuestion.style.display = 'block';
+          secondSelect.setAttribute('required', true);
+        }
+      });
+    }
+  }
+
+  updateQuestionVisibility(); // Call function to set up logic
 
   const modal = document.querySelector('.modal-section-container');
 
@@ -136,9 +173,16 @@ export default function decorate(block) {
     formButton.addEventListener('click', (event) => {
       event.preventDefault();
 
+      const secondSelect = questionContainers.length > 1 ? questionContainers[1].select : null;
+
       if (newDiv.checkValidity()) {
         saveFormSelections();
         localStorage.setItem('discountApplied', 'true');
+
+        if (secondSelect && secondSelect.parentNode.style.display === 'none') {
+          secondSelect.value = '-';
+        }
+
         document.dispatchEvent(new Event('formSubmittedEvent'));
         handleAdobeDataLayer();
         handleCloseModal();
