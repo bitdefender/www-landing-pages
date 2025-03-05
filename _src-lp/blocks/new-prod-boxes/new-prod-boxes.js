@@ -464,12 +464,13 @@ export default function decorate(block) {
   }
 
   function restoreCouponsToButtons() {
-    const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || [];
+    const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || {};
 
-    document.querySelectorAll('[class*="buylink-"]').forEach((button, index) => {
-      // ✅ Restore the full saved URL if available
-      if (removedCoupons[index]) {
-        button.href = removedCoupons[index]; // Restore the original full URL
+    document.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+      const originalUrl = removedCoupons[button.href];
+
+      if (originalUrl) {
+        button.href = originalUrl;
       }
     });
   }
@@ -531,24 +532,22 @@ export default function decorate(block) {
       applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
     }
 
-    const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || [];
-
-    if (removedCoupons.length === 0) {
+    if (Object.keys(JSON.parse(localStorage.getItem('removedCoupons')) || {}).length === 0) {
       const observer = new MutationObserver(() => {
         if (window.adobeDataLayer?.some((event) => event.event === 'page loaded')) {
+          const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || {};
+
           block.querySelectorAll('[class*="buylink-"]').forEach((button) => {
             const url = button.href;
             const couponMatch = url.match(/(COUPON=[^&]*&?)/);
 
             if (couponMatch) {
-              // ✅ Save the full original URL before removing the coupon
-              if (!removedCoupons.includes(url)) {
-                removedCoupons.push(url);
+              if (!removedCoupons[url]) {
+                removedCoupons[url] = url;
               }
 
               localStorage.setItem('removedCoupons', JSON.stringify(removedCoupons));
 
-              // ✅ Remove the coupon parameter from the URL
               const updatedUrl = url.replace(couponMatch[1], '').replace(/[?&]$/, '');
               button.href = updatedUrl;
             }
