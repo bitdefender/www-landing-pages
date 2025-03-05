@@ -167,6 +167,7 @@ export default class ProductPrice {
         product_name: payload.product.productName,
         campaign: this.#campaign,
         locale: this.#locale,
+        platformProductID: payload.platformProductId,
         variations: {},
         selected_users: this.#devicesNo,
         selected_years: this.#yearsNo,
