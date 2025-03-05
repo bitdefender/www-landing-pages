@@ -464,16 +464,10 @@ export default function decorate(block) {
   function restoreCouponsToButtons() {
     const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || [];
 
-    document.querySelectorAll('[class*="buylink-"]').forEach((button) => {
-      const url = new URL(button.href);
-
-      // Ensure we only add the coupon if it's not already present
-      if (!url.search.includes('COUPON=') && removedCoupons.length > 0) {
-        removedCoupons.forEach((coupon) => {
-          url.search += (url.search ? '&' : '?') + coupon.replace('&', '');
-        });
-
-        button.href = url.href;
+    document.querySelectorAll('[class*="buylink-"]').forEach((button, index) => {
+      // ✅ Restore the full saved URL if available
+      if (removedCoupons[index]) {
+        button.href = removedCoupons[index]; // Restore the original full URL
       }
     });
   }
@@ -536,6 +530,7 @@ export default function decorate(block) {
     }
 
     const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || [];
+
     if (removedCoupons.length === 0) {
       const observer = new MutationObserver(() => {
         if (window.adobeDataLayer?.some((event) => event.event === 'page loaded')) {
@@ -544,14 +539,15 @@ export default function decorate(block) {
             const couponMatch = url.match(/(COUPON=[^&]*&?)/);
 
             if (couponMatch) {
-              const fullCouponString = couponMatch[1];
-
-              if (!removedCoupons.includes(fullCouponString)) {
-                removedCoupons.push(fullCouponString);
+              // ✅ Save the full original URL before removing the coupon
+              if (!removedCoupons.includes(url)) {
+                removedCoupons.push(url);
               }
 
               localStorage.setItem('removedCoupons', JSON.stringify(removedCoupons));
-              const updatedUrl = url.replace(fullCouponString, '').replace(/[?&]$/, '');
+
+              // ✅ Remove the coupon parameter from the URL
+              const updatedUrl = url.replace(couponMatch[1], '').replace(/[?&]$/, '');
               button.href = updatedUrl;
             }
           });
@@ -559,6 +555,7 @@ export default function decorate(block) {
           observer.disconnect();
         }
       });
+
       observer.observe(document, { childList: true, subtree: true });
     }
   }
