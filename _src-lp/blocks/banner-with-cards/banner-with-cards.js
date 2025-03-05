@@ -113,7 +113,7 @@ export default function decorate(block) {
   // get Metadatas:
   const {
     products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, imageCover, imageHeight, contentSize,
+    marginBottom, imageCover, imageHeight, contentSize, greenTag,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
   const prodBoxesParent = document.createElement('div');
@@ -165,31 +165,39 @@ export default function decorate(block) {
       const contentRightItem = contentRightEl.children[idx];
       if (!contentRightItem) return;
       const [, tableRadios, tablePrices] = contentRightItem.querySelectorAll('table');
-      const [radio1, radio2] = tableRadios.querySelectorAll('td');
-      const tablePricesText = tablePrices.textContent;
-      const tableBuyBtn = contentRightItem.querySelector('table:last-of-type');
+      if (tableRadios && tablePrices) {
+        const [radio1, radio2] = tableRadios.querySelectorAll('td');
+        const tablePricesText = tablePrices.textContent;
+        const tableBuyBtn = contentRightItem.querySelector('table:last-of-type');
 
-      // radios
-      if (!display) {
-        createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, `${idx}_${counter}`, radio1, radio2);
-      } else {
-        tableRadios.remove();
+        // radios
+        if (!display) {
+          createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, `${idx}_${counter}`, radio1, radio2);
+        } else {
+          tableRadios.remove();
+        }
+
+        // prices:
+        updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display);
+
+        // buylink
+        createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display);
       }
 
-      // prices:
-      updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display);
-
-      // buylink
-      createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display);
-
       const prodBox = document.createElement('div');
-      prodBox.className = `prodBox box-${idx + 1}`;
+      prodBox.className = 'prodBox-wrapper';
+      prodBox.innerHTML = `<div class="prodBox box-${idx + 1}"> ${contentRightItem.innerHTML} </div>`;
       if (cardsColor && cardsColor === 'grey') {
         prodBox.style.backgroundColor = '#F6F6F6';
         prodBox.style.boxShadow = 'unset';
         prodBox.style.border = '1px solid #D1D1D1';
       }
-      prodBox.innerHTML = contentRightItem.innerHTML;
+
+      if (greenTag) {
+        const greenTagEl = `<div class="prod-box-green-tag"><p><strong>${greenTag}</strong></p></div>`;
+        prodBox.innerHTML = greenTagEl + prodBox.innerHTML;
+      }
+
       prodBoxesParent.appendChild(prodBox);
     });
   }

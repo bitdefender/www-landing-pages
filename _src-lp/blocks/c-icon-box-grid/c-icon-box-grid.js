@@ -73,9 +73,9 @@ export default function decorate(block) {
 
   const formattedDataColumns = [...block.children[0].children].map((svgNameEl, tableIndex) => ({
     svgNameEl: sanitiseStrongItalic(svgNameEl),
-    title: block.children[1].children[tableIndex].innerText,
-    subtitle: block.children[2].children[tableIndex].innerHTML,
-    buttons: block.children[5]?.children[tableIndex].innerHTML,
+    title: block.children[1]?.children[tableIndex]?.innerText,
+    subtitle: block.children[2]?.children[tableIndex]?.innerHTML,
+    buttons: block.children[5]?.children[tableIndex]?.innerHTML,
   }));
 
   const upperText = block.children[3];

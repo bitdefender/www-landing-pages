@@ -1,3 +1,15 @@
+.c-progress-section-container .inner-wrapper .svg-icon {
+  display: none;
+}
+
+.c-progress-section-container.c-progress-new2024 .inner-wrapper .svg-icon {
+  margin-left: 1rem;
+}
+
+.c-progress-section-container.less-spaces .inner-wrapper .svg-icon {
+  margin-left: 0;
+}
+
 .c-progress-section-container {
   background: #f2f2f2;
   padding: 30px 10px;
@@ -28,6 +40,20 @@
     .progress-bar--first {
       background: #006eff;
       color: white;
+    }
+
+    .c-progress-section.edeka {
+      text-align: left;
+
+      .progress-bar--first {
+        background: transparent linear-gradient(180deg, #006EFF 0%, #005BD5 100%) 0% 0% no-repeat padding-box;
+        box-shadow: inset 0 0.5px 1px #FFFFFF80, 0 1px 4px #00000029;
+        border-radius: 8px;
+      }
+
+      .svg-icon{
+        margin-left: 0;
+      }
     }
   }
 }
@@ -101,18 +127,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-}
-
-.c-progress-section-container .inner-wrapper .svg-icon {
-  display: none;
-}
-
-.c-progress-section-container.c-progress-new2024 .inner-wrapper .svg-icon {
-  margin-left: 1rem;
-}
-
-.c-progress-section-container.less-spaces .inner-wrapper .svg-icon {
-  margin-left: 0;
 }
 
 .c-progress-section-container .title {

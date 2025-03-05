@@ -52,6 +52,13 @@
   margin-top: 20px;
 }
 
+.awards-affiliate.no-button .button {
+  display: none;
+}
+.awards-affiliate.no-button img {
+  width: 125px;
+}
+
 @media screen and (width >= 768px) {
   .awards-affiliate img {
     max-width: none;
@@ -74,5 +81,10 @@
   }
   .awards-affiliate .columns-class div {
     padding: 34px;
+  }
+  .awards-affiliate.no-button .subtitle > div {
+    display: flex;
+    gap: 60px;
+    margin-top: 20px;
   }
 }
