@@ -56,6 +56,9 @@ export default async function decorate(block) {
     checkForRevolut(spanSvg, block);
 
     block.classList.add('lp-header', 'py-3');
+    if (html.indexOf('bigger-logo') !== -1) {
+      headerWrapper.classList.add('biggerLogo');
+    }
     if (window.location.href.indexOf('scuderiaferrari') !== -1) {
       headerWrapper.id = 'headerFerrari';
       headerWrapper.classList.add('headerSpurs', 'dark');
