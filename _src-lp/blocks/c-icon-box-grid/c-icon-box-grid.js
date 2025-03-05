@@ -11,7 +11,7 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html
 */
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
-import { getDatasetFromSection } from '../../scripts/utils.js';
+import { getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 function initializeSlider(block) {
@@ -120,4 +120,5 @@ export default function decorate(block) {
   }
 
   decorateIcons(block);
+  matchHeights(block, 'h6');
 }
