@@ -1,4 +1,4 @@
-import { updateProductsList, getDatasetFromSection } from '../../scripts/utils.js';
+import { updateProductsList, getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
 
 const nanoBlocks = new Map();
 
@@ -307,6 +307,8 @@ function updateBenefits(block, selectEl, metadata) {
 }
 
 function renderSelector(block, ...options) {
+  const metadata = block.parentElement.parentElement.dataset;
+  const membersText = metadata.membersText ?? ',';
   const selectorOptions = options
     .filter((option) => option && !Number.isNaN(Number(option)))
     .map((opt) => Number(opt));
@@ -316,12 +318,11 @@ function renderSelector(block, ...options) {
   el.innerHTML = `
       <select>
           ${selectorOptions.sort((first, second) => first - second).map((opt) => `
-            <option value="${opt}" ${opt === defaultSelection ? 'selected' : ''}>${opt} members</option>
+            <option value="${opt}" ${opt === defaultSelection ? 'selected' : ''}>${opt} ${opt === 1 ? membersText.split(',')[0] : membersText.split(',')[1]}</option>
           `).join('/n')}
       </select>
     `;
   const selectEl = el.querySelector('select');
-  const metadata = block.parentElement.parentElement.dataset;
   selectEl.value = defaultSelection;
   selectEl.querySelectorAll('option')?.forEach((option, idx) => {
     option.setAttribute('data-selector-u', `u_${options[idx]}`);
@@ -420,4 +421,6 @@ export default function decorate(block) {
   const col = block.children[0].children[1];
   col.appendChild(extractFeatures(col));
   initializeDynamicSelection(block);
+  matchHeights(block, '.block >div >div >p:first-of-type');
+  matchHeights(block, '.block >div >div >:first-child');
 }
