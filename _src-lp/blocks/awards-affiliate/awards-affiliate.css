@@ -55,7 +55,7 @@
 .awards-affiliate.no-button .button {
   display: none;
 }
-.awards-affiliate.no-button img {
+.awards-affiliate.no-button .subtitle img {
   width: 125px;
 }
 
