@@ -188,9 +188,10 @@ export default function decorate(block) {
       prodBox.className = 'prodBox-wrapper';
       prodBox.innerHTML = `<div class="prodBox box-${idx + 1}"> ${contentRightItem.innerHTML} </div>`;
       if (cardsColor && cardsColor === 'grey') {
-        prodBox.style.backgroundColor = '#F6F6F6';
-        prodBox.style.boxShadow = 'unset';
-        prodBox.style.border = '1px solid #D1D1D1';
+        const prodBoxCard = prodBox.querySelector('.prodBox');
+        prodBoxCard.style.backgroundColor = '#F6F6F6';
+        prodBoxCard.style.boxShadow = 'unset';
+        prodBoxCard.style.border = '1px solid #D1D1D1';
       }
 
       if (greenTag) {

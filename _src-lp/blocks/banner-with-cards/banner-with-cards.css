@@ -74,14 +74,20 @@
   max-width: 410px;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox {
-  flex: 1 !important;
-  background: #FFF;
-  color: black;
-  border-radius: 20px;
+.section.banner-with-cards-container .banner-with-cards .prodBox{
   padding: 1.5em;
-  align-self: flex-start;
+  margin: 0;
+  height: 100%;
   box-shadow: 0 0 5px 0 #5d5c5c;
+  border-radius: 20px;
+  background-color: #FFF;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox-wrapper {
+  flex: 1 !important;
+  color: black;
+  max-width: 336px;
+  align-self: flex-start;
 }
 
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox {
@@ -344,7 +350,7 @@
     flex-direction: column;
     justify-content: center;
   }
-  .section.banner-with-cards-container .banner-with-cards .prodBox {
+  .section.banner-with-cards-container .banner-with-cards .prodBox-wrapper {
     max-width: unset;
     width: 400px;
     margin: 1em auto !important;
@@ -361,7 +367,7 @@
   .section.banner-with-cards-container .banner-with-cards .prodBox:first-of-type {
     margin-top: 0 !important;
   }
-  .section.banner-with-cards-container .banner-with-cards .prodBox:last-of-type {
+  .section.banner-with-cards-container .banner-with-cards .prodBox-wrapper:last-of-type {
     margin-bottom: 0 !important;
   }
 }
@@ -388,11 +394,16 @@
     width: 100%;
     margin: 0 auto;
   }
-  .section.banner-with-cards-container .banner-with-cards .prodBox {
+  .section.banner-with-cards-container .banner-with-cards .prodBox-wrapper {
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards .prodBox{
     width: 100%;
     padding: 10px;
-    border-radius: 10px;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox h3 {
     font-size: 22px;
     line-height: 26px;
