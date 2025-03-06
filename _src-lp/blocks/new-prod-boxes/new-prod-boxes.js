@@ -495,7 +495,7 @@ export default function decorate(block) {
         if (storedPrices[product.ID]) {
           product.discountValue = storedPrices[product.ID].discountValue;
           product.priceWithTax = storedPrices[product.ID].priceWithTax;
-          product.discountRate = (product.discountValue / product.basePrice) * 100;
+          product.discountRate = Math.floor((product.discountValue / product.basePrice) * 100);
         }
       });
     }
