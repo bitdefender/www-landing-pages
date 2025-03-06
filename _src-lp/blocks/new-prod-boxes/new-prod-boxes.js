@@ -463,6 +463,44 @@ export default function decorate(block) {
     });
   }
 
+  function modifyAdobeDataLayer() {
+    const campaignEvent = window.adobeDataLayer.find((event) => event.event === 'campaign product');
+
+    if (campaignEvent && Array.isArray(campaignEvent.product.info)) {
+      const storedPrices = JSON.parse(localStorage.getItem('originalPrices')) || {};
+
+      campaignEvent.product.info.forEach((product) => {
+        // Save original values if not already saved
+        if (!storedPrices[product.ID]) {
+          storedPrices[product.ID] = {
+            discountValue: product.discountValue,
+            priceWithTax: product.priceWithTax,
+          };
+        }
+
+        product.discountRate = 0;
+        product.discountValue = 0;
+        product.priceWithTax = product.basePrice;
+      });
+      localStorage.setItem('originalPrices', JSON.stringify(storedPrices));
+    }
+  }
+
+  function restoreOriginalPrices() {
+    const storedPrices = JSON.parse(localStorage.getItem('originalPrices')) || {};
+    const campaignEvent = window.adobeDataLayer.find((event) => event.event === 'campaign product');
+
+    if (campaignEvent && Array.isArray(campaignEvent.product.info)) {
+      campaignEvent.product.info.forEach((product) => {
+        if (storedPrices[product.ID]) {
+          product.discountValue = storedPrices[product.ID].discountValue;
+          product.priceWithTax = storedPrices[product.ID].priceWithTax;
+          product.discountRate = (product.discountValue / product.basePrice) * 100;
+        }
+      });
+    }
+  }
+
   function restoreCouponsToButtons() {
     const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || {};
     block.querySelectorAll('[class*="buylink-"]').forEach((button) => {
@@ -496,7 +534,7 @@ export default function decorate(block) {
         const strongElement = element.querySelector('strong');
         if (strongElement) toggleElements([strongElement], { display: 'flex' });
       });
-
+      restoreOriginalPrices();
       restoreCouponsToButtons();
     }, 3000);
   }
@@ -558,7 +596,7 @@ export default function decorate(block) {
         if (couponsWereRemoved) {
           localStorage.setItem('couponRemoved', 'true');
         }
-
+        modifyAdobeDataLayer();
         observer.disconnect(); // Stop observing after first execution
       }
     });
