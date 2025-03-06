@@ -64,15 +64,15 @@
   font-weight: normal;
 }
 
-.section.banner-with-cards-container .banner-with-cards > div table {
+.section.banner-with-cards-container .banner-with-cards.edeka > div table {
   margin-top: 30px;
 }
 
-.section.banner-with-cards-container .banner-with-cards > div td img {
+.section.banner-with-cards-container .banner-with-cards.edeka > div td img {
   height: 32px;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox-wrapper {
+.section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper {
   max-width: 410px;
 }
 
@@ -310,7 +310,7 @@
   fill: #61af53;
 }
 
-.section.banner-with-cards-container .banner-with-cards > div td .icon {
+.section.banner-with-cards-container .banner-with-cards.edeka > div td .icon {
   height: 42px;
   width: 59px;
   margin-right: 30px;
@@ -363,6 +363,10 @@
     width: unset;
     margin: 0;
     margin-top: 0 !important;
+  }
+
+  .section.banner-with-cards-container .banner-with-cards.edeka .hasProds {
+    align-items: center;
   }
   
   .section.banner-with-cards-container .banner-with-cards .prodBox:first-of-type {
