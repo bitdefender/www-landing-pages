@@ -318,6 +318,12 @@ window.StoreProducts.initSelector = function (config) {
         }
       }
 
+      if (DEFAULT_LANGUAGE !== 'ro-ro') {
+        if (so.product_id === 'vsb' || so.product_id === 'vsbm') {
+          so.config.force_region = '2';
+        }
+      }
+
       try {
         if (typeof multilang_js !== 'undefined' && multilang_js != null && window.location.href.match(/www2.bitdefender.com/gi)) {
           if ('DEFAULT_LANGUAGE' in multilang_js) { url = `/${multilang_js.DEFAULT_LANGUAGE}/Store/ajax`; }
