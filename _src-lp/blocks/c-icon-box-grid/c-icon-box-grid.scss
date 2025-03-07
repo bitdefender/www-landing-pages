@@ -8,6 +8,10 @@
   margin: 10px 0;
 }
 
+.c-icon-box-grid-container .quotebox{
+  text-align: left;
+}
+
 .c-icon-box-grid-container.affiliate {
   margin-top: 20px;
 }
@@ -322,19 +326,27 @@
 }
 
 /* Phishing start */
-.c-icon-box-grid-container.phishing {
- .quotebox {
-    padding: 35px;
-    background-color: rgba(255 255 255 / 100%);
-    box-shadow: 0 0 2rem 0 rgba(0 0 0 / 10%);
-  }
+.c-icon-box-grid-container.phishing .quotebox {
+  padding: 35px;
+  background-color: rgba(255 255 255 / 100%);
+  box-shadow: 0 0 2rem 0 rgba(0 0 0 / 10%);
+}
 
-  div.subtitle {
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.c-icon-box-grid-container.phishing div.subtitle {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-icon-box-grid-container .c-icon-box-grid.blue-cards .row{
+  gap: 30px;
+}
+
+.c-icon-box-grid-container .c-icon-box-grid.blue-cards .quotebox{
+  background-color: #E4F2FF;
+  border-radius: 10px;
+  padding: 40px 20px;
 }
 
 /* Phishing end */
@@ -401,12 +413,12 @@
     line-height: var(--heading-font-size-xl);
   }
 
-  .c-icon-box-grid-container.affiliate .quotebox{
+  .c-icon-box-grid-container.affiliate .quotebox {
     margin-bottom: 0;
+  }
 
-    .subtitle{
-      max-width: 250px;
-    }
+  .c-icon-box-grid-container.affiliate .quotebox .subtitle {
+    max-width: 250px;
   }
 
   .c-icon-box-grid-container.grey-box .col-lg p {
@@ -423,8 +435,24 @@
     font-size: 20px;
   }
 
-  .c-icon-box-grid-container.four-columns .col-lg-4{
+  .c-icon-box-grid-container.four-columns .col-lg-4 {
     width: 23%;
+  }
+
+  .c-icon-box-grid-container .c-icon-box-grid.blue-cards .quotebox{
+    width: 30%;
+    max-width: 300px;
+  }
+
+  .c-icon-box-grid-container .c-icon-box-grid.narrow-cards .row{
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+  }
+
+  .c-icon-box-grid-container .c-icon-box-grid.narrow-cards .quotebox{
+    width: 30%;
+    max-width: 300px;
   }
 }
 
@@ -489,7 +517,7 @@
     width: auto;
   }
 
-  .c-icon-box-grid-container .arrowsSlider{
+  .c-icon-box-grid-container .arrowsSlider {
     display: none;
   }
 }

@@ -14,6 +14,32 @@
   font-size: 1rem;
 }
 
+.tos h3 {
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0 0 10px;
+}
+
+.tos svg {
+  flex-shrink: 0;
+}
+
+.tos ul {
+  display: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.tos li {
+  list-style: disc;
+  margin: 0 0 4px 20px;
+  font-size: 16px;
+}
+
+.tos h3:hover {
+  opacity: 0.7;
+}
+
 .tos-container.new-tos2024 .tos {
   font-size: 12px;
   padding: 0 2em;
@@ -29,6 +55,38 @@
   margin-bottom: 16px;
 }
 
+.tos-container.blue-accordion .tos > div {
+  background-color: #F4F8FF;
+  padding: 20px;
+  border-radius: 10px;
+}
+.tos-container.blue-accordion .tos div:first-of-type {
+  display: none;
+}
+.tos-container.blue-accordion h3 {
+  color: #006EFF;
+  font-size: 21px;
+}
+.tos-container.blue-accordion h3 svg {
+  display: none;
+}
+.tos-container.blue-accordion h3 strong {
+  display: inline-flex;
+  align-content: center;
+  gap: 10px;
+}
+.tos-container.blue-accordion h3 ::before {
+  content: url("/_src-lp/icons/minus.svg");
+  font-size: 20px;
+  width: 14px;
+  height: 16px;
+  display: inline-block;
+  filter: invert(25%) sepia(100%) saturate(10000%) hue-rotate(200deg) brightness(100%) contrast(100%);
+}
+.tos-container.blue-accordion li {
+  list-style: none;
+}
+
 .tos-container.new-tos2024 .tos > div:not(:first-child) {
   margin-bottom: 2em;
 }
@@ -39,16 +97,6 @@
   font-size: 16px;
 }
 
-.tos h3 {
-  cursor: pointer;
-  font-size: 1rem;
-  margin: 0 0 10px;
-}
-
-.tos h3:hover {
-  opacity: 0.7;
-}
-
 .tos-container.new-tos2024 .tos h3, .tos-container.new-tos2024 .tos h3:hover {
   font-size: 12px;
   color: black;
@@ -56,28 +104,12 @@
   cursor: default;
 }
 
-.tos svg {
-  flex-shrink: 0;
-}
-
 .tos-container.new-tos2024 .tos svg {
   display: none;
 }
 
-.tos ul {
-  display: none;
-  padding: 0;
-  margin-top: 0;
-}
-
 .tos-container.new-tos2024 .tos ul {
   display: block;
-}
-
-.tos li {
-  list-style: disc;
-  margin: 0 0 4px 20px;
-  font-size: 16px;
 }
 
 .tos-container.new-tos2024 .tos ul li {

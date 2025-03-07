@@ -1,5 +1,5 @@
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
-import { getDatasetFromSection } from '../../scripts/utils.js';
+import { getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const [title, subtitle] = block.children;
@@ -114,4 +114,6 @@ export default function decorate(block) {
       </div>
     </div>
   `;
+  matchHeights(block, '.title');
+  matchHeights(block, '.subtitle');
 }

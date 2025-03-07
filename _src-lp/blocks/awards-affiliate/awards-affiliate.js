@@ -16,11 +16,11 @@ export default function decorate(block) {
       buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#"><strong>${buttonText}</strong></a>`;
     }
 
-    columns.classList.add('columns-class');
-    subtitle.classList.add('subtitle');
-    columnTitle.classList.add('columns-title');
-    columnSubtitle.classList.add('columns-subtitle');
-    if (iconSubtitle.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
+    columns?.classList.add('columns-class');
+    subtitle?.classList.add('subtitle');
+    columnTitle?.classList.add('columns-title');
+    columnSubtitle?.classList.add('columns-subtitle');
+    if (iconSubtitle?.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
     block.appendChild(buybtn);
   }
 }
