@@ -822,6 +822,32 @@ function changeCheckboxVPN(checkboxId, pid) {
   setDataOnBuyLinks(dataInfo);
 }
 
+const createFakeSelectors = () => {
+  const fakeSelectorsBottom = document.createElement('div');
+  fakeSelectorsBottom.id = 'fakeSelectors_bottom';
+  document.querySelector('footer').before(fakeSelectorsBottom);
+  productsList.forEach((prod) => {
+    const prodSplit = prod.split('/');
+    const prodAlias = productAliases(prodSplit[0].trim());
+    const prodUsers = prodSplit[1].trim();
+    const prodYears = prodSplit[2].trim();
+    const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+
+    ['u', 'y'].forEach((prefix) => {
+      const selectorId = `${prefix}_${onSelectorClass}`;
+      const prefixAlias = prefix === 'u' ? 'users' : 'years';
+      if (!document.getElementById(selectorId)) {
+        fakeSelectorsBottom.innerHTML += `<label for="${selectorId}">Fake ${prefix === 'u' ? 'Devices' : 'Years'} for ${onSelectorClass}: </label>`;
+        const createSelect = document.createElement('select');
+        createSelect.id = selectorId;
+        createSelect.name = selectorId;
+        createSelect.classList.add(`${prefixAlias}_${prodAlias}`, `${prefixAlias}_${onSelectorClass}_fake`);
+        document.getElementById('fakeSelectors_bottom').append(createSelect);
+      }
+    });
+  });
+};
+
 function initSelectors(pid) {
   showLoaderSpinner();
   const productsExistsOnPage = productsList.length;
@@ -1008,7 +1034,8 @@ async function initVlaicuProductPriceLogic(campaign) {
 
             const productPrice = new ProductPrice(item, campaign);
             const vlaicuResult = await productPrice.getPrices();
-            showPrices(vlaicuResult);
+            const vlaicuVariation = productPrice.getVariation();
+            showPrices(vlaicuVariation);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
             sendAnalyticsProducts(vlaicuResult);
@@ -1076,6 +1103,7 @@ async function initializeProductsPriceLogic() {
     if (vlaicuCampaign) {
       window.isVlaicu = true;
       initVlaicuProductPriceLogic(vlaicuCampaign);
+      createFakeSelectors();
     } else {
       addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
         initSelectors(pid);
