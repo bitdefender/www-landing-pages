@@ -377,17 +377,16 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   let buyLink = paramCoupon ? `${storeObj.buy_link}?COUPON=${paramCoupon}` : storeObj.buy_link;
   let selectedVarPrice = storeObj.selected_variation.price;
   let selectedVarDiscount = storeObj.selected_variation.discount?.discounted_price;
+  let selectedVarDiscountValue = storeObj.selected_variation.discount?.discount_value;
 
-  const showVpnBox = document.querySelector(`.show_vpn_${productId}`);
-  if (showVpnBox) {
-    showVpnBox.style.display = 'none';
-  }
+  const showVpnBox = document.querySelector(`.show_vpn_${productId}`) || document.querySelector(`.show_vpn-${productId}`) || document.querySelector(`.show_vpn-${productId}-${prodUsers}${prodYears}`);
+  if (showVpnBox) showVpnBox.style.display = 'none';
 
   const storeObjVPN = StoreProducts.product.vpn;
   if (triggerVPN) {
     parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
     buyLink += '&bundle_id=com.bitdefender.vpn&bundle_payment_period=10d1y';
-    selectedVarPrice += storeObjVPN.selected_variation.price || 0;
+    selectedVarPrice += storeObjVPN.selected_variation.discount.discounted_price || storeObjVPN.selected_variation.price;
     selectedVarPrice = selectedVarPrice.toFixed(2);
 
     if (window.isVlaicu) {
@@ -400,9 +399,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       showLoaderSpinner(false);
     }
 
-    if (showVpnBox) {
-      showVpnBox.style.display = 'block';
-    }
+    if (showVpnBox) showVpnBox.style.display = 'block';
   }
 
   if (storeObj.selected_variation.discount && storeObj.selected_variation.discount?.discount_value) {
@@ -582,7 +579,9 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
         const parent = item.parentNode;
         const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
+        if (item.closest('p') && !item.closest('label')) item.closest('p').style.display = 'none';
         if (sibling) {
+          item.style.display = 'none';
           sibling.style.display = 'none';
         } else {
           parent.style.display = 'none';
@@ -592,6 +591,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
+      if (selectedVarDiscountValue === 0 && !saveBox.closest('label')) saveBox.closest('p').style.display = 'none';
       const siblingElements = saveBox.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
