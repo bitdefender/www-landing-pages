@@ -51,6 +51,10 @@ export default class ProductPrice {
     ultsec: "com.bitdefender.ultimatesecurityus",
     secpass: "com.bitdefender.securepass",
     secpassm: "com.bitdefender.securepass",
+    vsb: "com.bitdefender.vsb",
+    vsbm: "com.bitdefender.vsb",
+    sc: "com.bitdefender.ccp",
+    scm: "com.bitdefender.ccp",
   }
 
   #locale;
