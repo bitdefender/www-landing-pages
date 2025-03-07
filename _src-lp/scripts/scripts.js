@@ -22,6 +22,7 @@ import {
 import {
   addScript,
   getDefaultLanguage,
+  getDefaultSection,
   getInstance,
   isZuoraForNetherlandsLangMode,
   productsList,
@@ -1100,7 +1101,7 @@ async function initializeProductsPriceLogic() {
   const isNetherlandsLangMode = isZuoraForNetherlandsLangMode();
 
   if (!isNetherlandsLangMode || skipZuora) {
-    if (!pid) {
+    if (!pid && getDefaultSection() === 'consumer') {
       window.isVlaicu = true;
       initVlaicuProductPriceLogic(vlaicuCampaign);
       createFakeSelectors();

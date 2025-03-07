@@ -187,9 +187,15 @@ export default class ProductPrice {
     payload.product.options.forEach((option) => {
       // if the product is already added, skip
       // if (window.StoreProducts?.product?.[this.#alias]) return;
+      if (this.#alias == 'vpn') option.slots = 10;
+
       if (this.#devicesNo != option.slots) return;
 
       if (this.#yearsNo != Math.ceil(option.months / 12)) return;
+
+      if (monthlyProducts.includes(this.#alias) && option.months > 1) return;
+
+      if (!monthlyProducts.includes(this.#alias) && option.months < 12) return;
 
       const fakeDevicesSelector = document.getElementById(`u_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
       const fakeYearsSelector = document.getElementById(`y_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
@@ -219,13 +225,6 @@ export default class ProductPrice {
           return;
         }
       }
-
-      // TODO: remove this
-      if (this.#alias == 'vpn') option.slots = 10;
-
-      if (monthlyProducts.includes(this.#alias) && option.months > 1) return;
-
-      if (!monthlyProducts.includes(this.#alias) && option.months < 12) return;
 
       const pricing = {};
       pricing.total = option.price;
