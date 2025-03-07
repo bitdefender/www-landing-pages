@@ -1017,7 +1017,7 @@ async function initZuoraProductPriceLogic(campaign) {
   });
 }
 
-async function initVlaicuProductPriceLogic(campaign) {
+async function initVlaicuProductPriceLogic(campaign = undefined) {
   import('./vendor/product.js').then(async (module) => {
     const ProductPrice = module.default;
     showLoaderSpinner();
@@ -1100,7 +1100,7 @@ async function initializeProductsPriceLogic() {
   const isNetherlandsLangMode = isZuoraForNetherlandsLangMode();
 
   if (!isNetherlandsLangMode || skipZuora) {
-    if (vlaicuCampaign) {
+    if (!pid) {
       window.isVlaicu = true;
       initVlaicuProductPriceLogic(vlaicuCampaign);
       createFakeSelectors();
