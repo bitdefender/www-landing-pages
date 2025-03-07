@@ -83,8 +83,8 @@
 
 @media (width <= 767px) {
   .modal-section {
-    width: 100%;
-    left: 0;
+    width: 90%;
+    left: auto;
   }
   .modal-section > div {
     display: flex;
