@@ -238,6 +238,7 @@ export default class ProductPrice {
         product_name: payload.product.productName,
         campaign: this.#campaign,
         locale: this.#locale,
+        platformProductID: payload.platformProductId,
         variations: {
           [this.#devicesNo]: {
             [this.#yearsNo]: this.#generateVariationObject(payload, option, buy_link)
