@@ -83,3 +83,28 @@
 .modal-section .modal-close-button:hover {
     color: red;
 }
+
+@media (width <= 767px) {
+    .modal-section {
+        width: 100%;
+        left: 0;
+    }
+
+    .modal-section > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .modal-section .modal-close-button {
+        color: #F44336;
+    }
+
+    .modal-section > div > div:first-child {
+        width: 100%;
+    }
+
+    .modal-section > div > div:last-child {
+        display: none;
+    }
+}
