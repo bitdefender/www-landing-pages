@@ -11,7 +11,7 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html
 */
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
-import { getDatasetFromSection } from '../../scripts/utils.js';
+import { getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 function initializeSlider(block) {
@@ -73,9 +73,9 @@ export default function decorate(block) {
 
   const formattedDataColumns = [...block.children[0].children].map((svgNameEl, tableIndex) => ({
     svgNameEl: sanitiseStrongItalic(svgNameEl),
-    title: block.children[1].children[tableIndex].innerText,
-    subtitle: block.children[2].children[tableIndex].innerHTML,
-    buttons: block.children[5]?.children[tableIndex].innerHTML,
+    title: block.children[1]?.children[tableIndex]?.innerText,
+    subtitle: block.children[2]?.children[tableIndex]?.innerHTML,
+    buttons: block.children[5]?.children[tableIndex]?.innerHTML,
   }));
 
   const upperText = block.children[3];
@@ -120,4 +120,5 @@ export default function decorate(block) {
   }
 
   decorateIcons(block);
+  matchHeights(block, 'h6');
 }
