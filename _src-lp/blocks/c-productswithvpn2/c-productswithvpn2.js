@@ -115,7 +115,7 @@ export default function decorate(block) {
       priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
 
-      const prodDescription = block.querySelector(`.${prodName}-${prodUsers}${prodYears}_box > div > p:nth-child(4)`);
+      // const prodDescription = block.querySelector(`.${prodName}-${prodUsers}${prodYears}_box > div > p:nth-child(4)`);
       // prodDescription.classList.add(`${prodName}_description`);
 
       if (userText && yearText) {

@@ -377,7 +377,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   let buyLink = paramCoupon ? `${storeObj.buy_link}?COUPON=${paramCoupon}` : storeObj.buy_link;
   let selectedVarPrice = storeObj.selected_variation.price;
   let selectedVarDiscount = storeObj.selected_variation.discount?.discounted_price;
-  let selectedVarDiscountValue = storeObj.selected_variation.discount?.discount_value;
+  const selectedVarDiscountValue = storeObj.selected_variation.discount?.discount_value;
 
   const showVpnBox = document.querySelector(`.show_vpn_${productId}`) || document.querySelector(`.show_vpn-${productId}`) || document.querySelector(`.show_vpn-${productId}-${prodUsers}${prodYears}`);
   if (showVpnBox) showVpnBox.style.display = 'none';
