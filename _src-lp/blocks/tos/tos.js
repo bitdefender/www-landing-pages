@@ -2,6 +2,10 @@ export default function decorate(block) {
   const links = block.querySelectorAll('h3');
 
   for (let i = 0; i < links.length; i += 1) {
+    if (block.classList.contains('full-open')) {
+      links[i].parentElement.parentElement.children[1].children[0].classList.toggle('d-block');
+    }
+
     links[i].addEventListener('click', () => {
       const svg = links[i].parentElement.querySelector('svg');
       svg.classList.toggle('tos__link--active');
