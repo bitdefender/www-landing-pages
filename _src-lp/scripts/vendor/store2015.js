@@ -318,7 +318,8 @@ window.StoreProducts.initSelector = function (config) {
         }
       }
 
-      if (DEFAULT_LANGUAGE !== 'ro-ro') {
+      if (window.location.pathname.indexOf(`/ro/`) !== -1) {
+        console.log('1');
         if (so.product_id === 'vsb' || so.product_id === 'vsbm') {
           so.config.force_region = '2';
         }
