@@ -420,7 +420,7 @@ export default function decorate(block) {
                 <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
               </div>`}
-              ${openModalButton && `<a class="open-modal-button">${openModalButton}</a>`}
+               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
             ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
