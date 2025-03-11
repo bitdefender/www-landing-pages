@@ -579,7 +579,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
         const parent = item.parentNode;
         const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
-        if (item.closest('p') && !item.closest('label')) item.closest('p').style.display = 'none';
+        if (item.closest('p') && !item.closest('label') && item.closest('p')) item.closest('p').style.display = 'none';
         if (sibling) {
           item.style.display = 'none';
           sibling.style.display = 'none';
@@ -591,7 +591,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
-      if (selectedVarDiscountValue === 0 && !saveBox.closest('label')) saveBox.closest('p').style.display = 'none';
+      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p')) saveBox.closest('p').style.display = 'none';
       const siblingElements = saveBox.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
