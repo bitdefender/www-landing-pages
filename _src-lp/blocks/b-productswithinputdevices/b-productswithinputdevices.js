@@ -77,7 +77,7 @@ export default function decorate(block) {
     block.appendChild(campaignLogo);
   }
 
-  let devicesMin = 5;
+  let devicesMin = 1;
   let devicesSelected = 5;
   let devicesMax = 100;
   if (devicesLimits) {
@@ -128,19 +128,19 @@ export default function decorate(block) {
     inputFieldset.innerHTML += '<button>+</button>';
     // add fieldset
     const tableEl = parent1ndDiv.querySelector('table');
-    tableEl.before(inputFieldset);
+    tableEl?.before(inputFieldset);
 
     // add event listeners
-    const devicesInput = document.getElementById('devicesInput');
+    const devicesInput = block.querySelector('#devicesInput');
     const prodiId = productAliases(productsAsList[0].split('/')[0]);
 
-    const tableElServers = tableEl.querySelector('strong:nth-child(1) em');
+    const tableElServers = tableEl?.querySelector('strong:nth-child(1) em');
     updateTableElement(tableElServers, devicesSelected, 30);
 
-    const tableElMailboxes = tableEl.querySelector('strong:nth-child(2) em');
+    const tableElMailboxes = tableEl?.querySelector('strong:nth-child(2) em');
     updateTableElement(tableElMailboxes, devicesSelected, 150);
 
-    const tableElMailboxes2 = tableEl.querySelector('strong:nth-child(3) em');
+    const tableElMailboxes2 = tableEl?.querySelector('strong:nth-child(3) em');
     updateTableElement(tableElMailboxes2, devicesSelected, 150);
 
     // click on buttons
@@ -163,12 +163,10 @@ export default function decorate(block) {
 
         // trigger selector
         const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
-        if (devicesSelector) {
-          devicesSelector.forEach((selector) => {
-            selector.value = devicesInput.value;
-            selector.dispatchEvent(new Event('change'));
-          });
-        }
+        devicesSelector?.forEach((selector) => {
+          selector.value = devicesInput.value;
+          selector.dispatchEvent(new Event('change'));
+        });
 
         updateTableElement(tableElServers, currentdevices, 30);
         updateTableElement(tableElMailboxes, currentdevices, 150);
@@ -176,7 +174,7 @@ export default function decorate(block) {
     });
 
     // change directly input number
-    block.querySelector('#devicesInput').addEventListener('input', (event) => {
+    block.querySelector('#devicesInput')?.addEventListener('input', (event) => {
       const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
       if (devicesSelector.length > 0) {
         devicesSelector.forEach((selector) => {
@@ -256,7 +254,7 @@ export default function decorate(block) {
 
       parent2ndDiv.appendChild(pricesDiv);
 
-      const selectElement = document.getElementById('selectYears');
+      const selectElement = block.querySelector('#selectYears');
       // eslint-disable-next-line no-unused-expressions
       selectElement && selectElement.addEventListener('change', (event) => {
         const triggerValue = event.target.value;
