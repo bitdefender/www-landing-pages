@@ -55,7 +55,7 @@ export default function decorate(block) {
       // old price:
       pricesSections[0].innerHTML += `<span class='prod-oldprice oldprice-${onSelectorClass}'></span>`;
       // vpn:
-      pricesSections[1].classList.add(`show_vpn-${onSelectorClass}`);
+      pricesSections[1].className = `show_vpn_box show_vpn-${onSelectorClass}`;
       pricesSections[1].style.display = 'none';
       pricesSections[1].innerHTML += '<i><span class="prod-oldprice oldprice-vpn-101"></span><span class="prod-newprice newprice-vpn-101"></span>';
       // new price:
@@ -115,8 +115,8 @@ export default function decorate(block) {
       priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
 
-      const prodDescription = block.querySelector(`.${prodName}-${prodUsers}${prodYears}_box > div > p:nth-child(4)`);
-      prodDescription.classList.add(`${prodName}_description`);
+      // const prodDescription = block.querySelector(`.${prodName}-${prodUsers}${prodYears}_box > div > p:nth-child(4)`);
+      // prodDescription.classList.add(`${prodName}_description`);
 
       if (userText && yearText) {
         document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
@@ -139,7 +139,7 @@ export default function decorate(block) {
             yearsText = `${textYear[0]}`;
           }
           const devicesDesc = block.querySelector(`.${prodName}_description`);
-          devicesDesc.innerHTML = `${upText} ${users} ${devicesText} / ${years} ${yearsText}`;
+          if (devicesDesc) devicesDesc.innerHTML = `${upText} ${users} ${devicesText} / ${years} ${yearsText}`;
         });
       }
     });

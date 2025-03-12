@@ -117,7 +117,7 @@
 .c-productswithvpn2 > div .vpn_box p span,
 .c-productswithvpn2 > div .vpn_box p strong {
   display: inline;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 14px;
 }
 
@@ -201,7 +201,7 @@
 .c-productswithvpn2 > div .vpn_box p {
   padding: 0;
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 /* table 1 - prices */
@@ -336,7 +336,7 @@
   background: #eee;
   border-radius: 5px;
   padding: 10px;
-  margin: 10px 0;
+  margin: 16px 0 10px;
   text-align: center;
   font-size: 14px;
   line-height: 12px;
@@ -366,10 +366,19 @@
   flex-grow: 1;
   margin-left: 10px;
   cursor: pointer;
+  position: relative;
+}
+
+.c-productswithvpn2 > div .vpn_box label p:first-of-type {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 
 .c-productswithvpn2 > div .vpn_box p b {
-  display: block;
+  display: inline;
 }
 
 /* last table - vpn list */

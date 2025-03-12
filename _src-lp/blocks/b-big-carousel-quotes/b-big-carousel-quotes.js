@@ -1,6 +1,5 @@
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
 import { generateUuidv4 } from '../../scripts/utils.js';
-import { isView } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   const carouselSlides = [...block.children];
@@ -8,7 +7,7 @@ export default function decorate(block) {
   const carouselId = generateUuidv4();
   const offsetWidth = 2.5;
   const maxSlideNr = carouselSlides.length - 1;
-  let isDesktopView = isView('desktop');
+  let isDesktopView = window.innerWidth >= 1200;
 
   function getReadMoreEl(el) {
     return el.children[0].children[3]?.classList
@@ -48,7 +47,7 @@ export default function decorate(block) {
                     ${positionEl ? `<div class="position">${positionEl.innerText}</div>` : ''}
                     ${readMoreEl ? `<a class="read-more" href="${readMoreEl.children[0].href}" title="${readMoreEl.children[0].innerText}">${readMoreEl.children[0].innerText}</a>` : ''}
                   </div>
-                  ${isDesktopView ? pictureEl.innerHTML : ''}
+                  ${pictureEl.innerHTML}
                 </div>
                 `;
   }).join('')}
@@ -103,7 +102,7 @@ export default function decorate(block) {
     const ref = document.querySelector('.b-big-carousel-quotes-container');
 
     const resizeObserver = new ResizeObserver(() => {
-      const newViewportView = isView('desktop');
+      const newViewportView = window.innerWidth >= 1200;
 
       const viewHasChanged = isDesktopView !== newViewportView;
 

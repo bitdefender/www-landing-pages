@@ -1,4 +1,3 @@
-
 const LOCALE_PARAMETER = 'locale';
 const API_BASE = 'https://www.bitdefender.com';
 const API_ROOT = '/p-api/v1';
@@ -52,6 +51,10 @@ export default class ProductPrice {
     ultsec: "com.bitdefender.ultimatesecurityus",
     secpass: "com.bitdefender.securepass",
     secpassm: "com.bitdefender.securepass",
+    vsb: "com.bitdefender.vsb",
+    vsbm: "com.bitdefender.vsb",
+    sc: "com.bitdefender.ccp",
+    scm: "com.bitdefender.ccp",
   }
 
   #locale;
@@ -125,6 +128,56 @@ export default class ProductPrice {
     }
   }
 
+  #appendOptionIfMissing(baseElement, targetSelector, value) {
+    // Check if the option already exists in the given base element.
+    if (!baseElement.querySelector(`option[value="${value}"]`)) {
+      // Get all elements that match the target selector.
+      document.querySelectorAll(targetSelector).forEach(element => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        element.appendChild(option);
+      });
+    }
+  }
+
+  #generateVariationObject(payload, option, buy_link) {
+    return {
+      selected_users: this.#devicesNo,
+      selected_years: this.#yearsNo,
+      selected_variation: {
+        product_id: this.#alias,
+        region_id: this.#locale === 'en-US' ? 8 : 22,
+        variation_id: 0,
+        platform_id: 16,
+        price: option.price,
+        variation: {
+          years: this.#yearsNo,
+        },
+        currency_label: this.#getCurrencySymbol(this.#locale, option.currency),
+        currency_iso: option.currency,
+        discount: {
+          discounted_price: option.discountedPrice,
+          discount_value: option.discountAmount,
+        },
+        promotion: this.#campaign,
+      },
+      config: {
+        product_id: this.#alias,
+        name: payload.product.name,
+        full_price_class: `oldprice-${this.#alias}`,
+        discounted_price_class: `newprice-${this.#alias}`,
+        price_class: `price-${this.#alias}`,
+        buy_class: `buylink-${this.#alias}`,
+        selected_users: this.#devicesNo,
+        selected_years: this.#yearsNo,
+        users_class: `users_${this.#alias}_fake`,
+        years_class: `years_${this.#alias}_fake`,
+      },
+      buy_link: buy_link,
+    }
+  }
+
   async #getProductVariationsPrice() {
     let payload = await this.#getProductVariations();
     const monthlyProducts = ["psm", "pspm", "vpn-monthly", "passm", "pass_spm", "secpassm",
@@ -137,28 +190,50 @@ export default class ProductPrice {
 
     payload.product.options.forEach((option) => {
       // if the product is already added, skip
-      if (window.StoreProducts?.product?.[this.#alias]) return;
-
-      if (window.StoreProducts?.product) {
-        let alreadyAdded = Object.values(window.StoreProducts.product).some(value => value.period === option.months && value.product_alias === this.#alias);
-        if (alreadyAdded) return;
-      }
-
-      // TODO: remove this
+      // if (window.StoreProducts?.product?.[this.#alias]) return;
       if (this.#alias == 'vpn') option.slots = 10;
 
       if (this.#devicesNo != option.slots) return;
+
+      if (this.#yearsNo != Math.ceil(option.months / 12)) return;
 
       if (monthlyProducts.includes(this.#alias) && option.months > 1) return;
 
       if (!monthlyProducts.includes(this.#alias) && option.months < 12) return;
 
+      const fakeDevicesSelector = document.getElementById(`u_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
+      const fakeYearsSelector = document.getElementById(`y_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
+      const decorator = new DecorateLink(option.buyLink, this.#campaign);
+      let buy_link = decorator.getFullyDecoratedUrl();
+
+      if (window.StoreProducts?.product) {
+        const alreadyAdded = Object.values(window.StoreProducts.product).some(value =>
+          value.product_alias === this.#alias
+          && value.variations?.[option.slots]?.[Math.ceil(option.months / 12)]
+        );
+        if (alreadyAdded) return;
+
+        const alreadyExistingProduct = Object.values(window.StoreProducts.product).find(value =>
+          value.product_alias === this.#alias
+        );
+
+        if (alreadyExistingProduct) {
+          alreadyExistingProduct.variations[this.#devicesNo] = {
+            ...(alreadyExistingProduct.variations[this.#devicesNo] || {}),
+            [this.#yearsNo]: this.#generateVariationObject(payload, option, buy_link)
+          }
+
+          this.#appendOptionIfMissing(fakeDevicesSelector, `.users_${this.#alias}`, this.#devicesNo);
+          this.#appendOptionIfMissing(fakeYearsSelector, `.years_${this.#alias}`, this.#yearsNo);
+
+          return;
+        }
+      }
+
       const pricing = {};
       pricing.total = option.price;
       pricing.discount = option.discountAmount;
       pricing.price = option.discountedPrice;
-      const decorator = new DecorateLink(option.buyLink, this.#campaign);
-      let buy_link = decorator.getFullyDecoratedUrl();
 
       window.StoreProducts.product[this.#alias] = {
         period: option.months,
@@ -167,7 +242,12 @@ export default class ProductPrice {
         product_name: payload.product.productName,
         campaign: this.#campaign,
         locale: this.#locale,
-        variations: {},
+        platformProductID: payload.platformProductId,
+        variations: {
+          [this.#devicesNo]: {
+            [this.#yearsNo]: this.#generateVariationObject(payload, option, buy_link)
+          }
+        },
         selected_users: this.#devicesNo,
         selected_years: this.#yearsNo,
         selected_variation: {
@@ -201,6 +281,9 @@ export default class ProductPrice {
           years_class: `years_${this.#alias}_fake`,
         },
       };
+
+      this.#appendOptionIfMissing(fakeDevicesSelector, `.users_${this.#alias}`, this.#devicesNo);
+      this.#appendOptionIfMissing(fakeYearsSelector, `.years_${this.#alias}`, this.#yearsNo);
     });
 
     return window.StoreProducts.product[this.#alias];
@@ -224,6 +307,9 @@ export default class ProductPrice {
     return await this.#getProductVariationsPrice(this.id, this.#campaign);
   }
 
+  getVariation() {
+    return window.StoreProducts.product[this.#alias].variations[this.#devicesNo][this.#yearsNo];
+  }
 }
 
 export class Bundle {
@@ -332,7 +418,7 @@ export class Locale {
       }
 
       // Fetch locale based on the country
-      const localeResponse = await fetch(`${API_BASE}${API_ROOT}/${country}/locales`);
+      const localeResponse = await fetch(`${API_BASE}${API_ROOT}/countries/${country}/locales`);
       if (!localeResponse.ok) {
         console.error(`Failed to fetch locales: ${localeResponse.statusText}`);
         return locale; // Return default locale in case of error
