@@ -22,6 +22,10 @@
   margin-bottom: 30px;
 }
 
+main .columns-container.padding-0 .columns-wrapper{
+  padding: 0;
+}
+
 .columns p {
   font-size: var(--heading-font-size-s);
   margin-top: 20px;
@@ -111,13 +115,17 @@
     flex: 1;
     order: unset;
     padding: 0.5rem;
-
+  
     &:first-of-type {
       padding-left: 0;
     }
-
+  
     &:last-of-type {
       padding-right: 0;
+    }
+
+    .padding-0 & {
+      padding-bottom: 0;
     }
   }
 
