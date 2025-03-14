@@ -382,6 +382,16 @@ export default function decorate(block) {
         }
       }
 
+      const newBlueTag = document.createElement('div');
+      if (blueTag) {
+        let blueTagChildren = blueTag.children;
+        blueTagChildren = Array.from(blueTagChildren);
+        blueTagChildren?.forEach((child) => {
+          // create a different blueTag element
+          newBlueTag.innerHTML += `<div class="blueTag">${child.innerHTML}</div>`;
+        });
+      }
+
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
 
@@ -390,7 +400,7 @@ export default function decorate(block) {
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
             <div class="tag-subtitle">
-              ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
+              <div class="blueTagsWrapper">${newBlueTag.innerText.trim() ? `${newBlueTag.innerHTML.trim()}` : ''}</div>
               ${subtitle.innerText.trim() ? `<div class="subtitle">${subtitle.innerHTML.trim()}</div>` : ''}
             </div>
             <hr />

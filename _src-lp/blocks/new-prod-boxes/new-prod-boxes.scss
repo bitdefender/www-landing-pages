@@ -366,13 +366,19 @@
     transition: all 0.5s ease;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .blueTagsWrapper{
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag {
     font-size: var(--body-font-size-xs);
     font-family: Arial, sans-serif;
     color: white;
     text-align: center;
     background-color: #026DFF;
-    display: inline-block;
+    display: inline-flex;
     border-radius: 20px;
     padding: 1px 12px;
     margin-bottom: 5px;
@@ -680,7 +686,7 @@
     display: inline-block;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag div p {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag p {
     margin-top: 0;
     margin-bottom: 0;
 }
