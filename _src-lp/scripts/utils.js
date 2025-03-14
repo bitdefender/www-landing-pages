@@ -857,9 +857,15 @@ export async function matchHeights(targetNode, selector) {
 }
 
 /**
+ * /**
+ * @typedef {{
+ *  auds: string,
+ *  [key: string]: string
+ * }} CdpData
+ *
  * @param {string} mcID
  * @returns {Promise<CdpData>}
- */
+*/
 export async function getCdpData(mcID) {
   try {
     const cdpDataCall = await fetch(`https://solns-api.syntasa.net/vismdl/${mcID}`);
