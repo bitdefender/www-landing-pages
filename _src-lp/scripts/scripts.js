@@ -1055,7 +1055,8 @@ async function initVlaicuProductPriceLogic(campaign = undefined) {
  * Price logic should start only after adobe target is loaded.
  */
 async function initializeProductsPriceLogic() {
-  let pid = getParam('pid');
+  let parameterPid = getParam('pid');
+  let targetPid;
   let campaign = getParam('campaign');
   const vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
 
@@ -1082,7 +1083,7 @@ async function initializeProductsPriceLogic() {
     const content = mboxOptions?.[0]?.content;
 
     if (content) {
-      pid = content.pid ?? pid;
+      targetPid = content.pid ?? pid;
       campaign = content.campaign ?? campaign;
       const promotionID = content.pid || content.campaign;
 
@@ -1099,11 +1100,12 @@ async function initializeProductsPriceLogic() {
   skipZuora = skipZuora || getParam('vfone') || vlaicuCampaign;
 
   const isNetherlandsLangMode = isZuoraForNetherlandsLangMode();
+  const pid = targetPid || parameterPid;
 
   if (!isNetherlandsLangMode || skipZuora) {
-    if (!pid && getDefaultSection() === 'consumer') {
+    if (!parameterPid && getDefaultSection() === 'consumer') {
       window.isVlaicu = true;
-      initVlaicuProductPriceLogic(vlaicuCampaign);
+      initVlaicuProductPriceLogic(pid || vlaicuCampaign);
       createFakeSelectors();
     } else {
       addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
