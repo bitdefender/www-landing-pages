@@ -400,7 +400,7 @@ export default function decorate(block) {
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
             <div class="tag-subtitle">
-              <div class="blueTagsWrapper">${newBlueTag.innerText.trim() ? `${newBlueTag.innerHTML.trim()}` : ''}</div>
+              ${newBlueTag.innerText.trim() ? `<div class="blueTagsWrapper">${newBlueTag.innerHTML.trim()}</div>` : ''}
               ${subtitle.innerText.trim() ? `<div class="subtitle">${subtitle.innerHTML.trim()}</div>` : ''}
             </div>
             <hr />
