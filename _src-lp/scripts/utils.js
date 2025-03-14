@@ -855,3 +855,37 @@ export async function matchHeights(targetNode, selector) {
 
   adjustHeights();
 }
+
+/**
+ * @param {string} mcID
+ * @returns {Promise<CdpData>}
+ */
+export async function getCdpData(mcID) {
+  try {
+    const cdpDataCall = await fetch(`https://solns-api.syntasa.net/vismdl/${mcID}`);
+
+    /** @type {{auds: string[], mdl: {key: string, value: string}[], ub: any[] vid: string}} */
+    const receivedCdpData = await cdpDataCall.json();
+    let cdpData = {
+      auds: receivedCdpData?.auds[0] || '',
+    };
+
+    if (receivedCdpData.mdl) {
+      cdpData = receivedCdpData?.mdl.reduce((acc, mdlValue) => {
+        acc[mdlValue.key] = mdlValue.value;
+        return acc;
+      }, cdpData);
+    }
+
+    window.adobeDataLayer.push({
+      event: 'cdp data',
+      parameters: cdpData,
+    });
+
+    return cdpData;
+  } catch (e) {
+    console.warn(e);
+  }
+
+  return {};
+}
