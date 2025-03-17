@@ -124,9 +124,9 @@
   line-height: 1.1;
 }
 
-.c-dropdownbox-container .block.inactive > div:nth-child(1) > div strong::after,
-.c-dropdownbox-container .block.closed > div:nth-child(1) > div strong::after,
-.c-dropdownbox-container.closed .block > div:nth-child(1) > div strong::after {
+.c-dropdownbox-container .block.inactive > div:nth-child(1) > div p:first-of-type::after,
+.c-dropdownbox-container .block.closed > div:nth-child(1) > div p:first-of-type::after,
+.c-dropdownbox-container.closed .block > div:nth-child(1) > div p:first-of-type::after {
   background: url("/_src-lp/images/icons/arrow_down_blue.png") bottom left no-repeat transparent;
   transform: rotate(0deg);
   background-size: 100%;
@@ -134,9 +134,9 @@
 
 /* handling - arrow down/up */
 /* stylelint-disable no-descending-specificity */
-.c-dropdownbox-container .block > div:nth-child(1) > div strong::after,
-.c-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div strong::after,
-.c-dropdownbox-container.closed .block.inactive > div:nth-child(1) > div strong::after {
+.c-dropdownbox-container .block > div:nth-child(1) > div p:first-of-type::after,
+.c-dropdownbox-container .block.closed.inactive > div:nth-child(1) > div p:first-of-type::after,
+.c-dropdownbox-container.closed .block.inactive > div:nth-child(1) > div p:first-of-type::after {
   content: "";
   width: 13px;
   height: 13px;

@@ -1,6 +1,6 @@
 {
   "project": "Bitdefender Pages",
-  "host": "https://main--www-landing-pages--bitdefender.hlx.live",
+  "host": "https://main--www-landing-pages--bitdefender.aem.live",
   "plugins": [
     {
       "id": "library",

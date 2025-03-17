@@ -19,7 +19,7 @@
 */
 
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { updateProductsList, GLOBAL_EVENTS, matchHeights } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const defaultBorderTopColorForActiveCard = '#e60093';
@@ -28,7 +28,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
   const {
-    products, topText, bulinaText, activeCardColor, activeCard, userText,
+    products, topText, bulinaText, activeCardColor, activeCard, userText, discount,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -70,6 +70,7 @@ export default function decorate(block) {
         const pricesSection = item.querySelector('table:first-of-type');
         let pricesDiv = `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">`;
         pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+        if (discount)pricesDiv += `<span class="percent"><span class="percent percent-${onSelectorClass}""></span> OFF</span>`;
         pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
         pricesDiv += '<div>';
         if (bulinaText && (isActiveCard || isLastCard)) {
@@ -108,4 +109,6 @@ export default function decorate(block) {
       }
     });
   }
+  const targetNode = document.querySelector('.c-top-comparative-with-text');
+  matchHeights(targetNode, 'h4');
 }

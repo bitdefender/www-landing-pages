@@ -22,6 +22,7 @@ import {
 import {
   addScript,
   getDefaultLanguage,
+  getDefaultSection,
   getInstance,
   isZuoraForNetherlandsLangMode,
   productsList,
@@ -822,6 +823,32 @@ function changeCheckboxVPN(checkboxId, pid) {
   setDataOnBuyLinks(dataInfo);
 }
 
+const createFakeSelectors = () => {
+  const fakeSelectorsBottom = document.createElement('div');
+  fakeSelectorsBottom.id = 'fakeSelectors_bottom';
+  document.querySelector('footer').before(fakeSelectorsBottom);
+  productsList.forEach((prod) => {
+    const prodSplit = prod.split('/');
+    const prodAlias = productAliases(prodSplit[0].trim());
+    const prodUsers = prodSplit[1].trim();
+    const prodYears = prodSplit[2].trim();
+    const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
+
+    ['u', 'y'].forEach((prefix) => {
+      const selectorId = `${prefix}_${onSelectorClass}`;
+      const prefixAlias = prefix === 'u' ? 'users' : 'years';
+      if (!document.getElementById(selectorId)) {
+        fakeSelectorsBottom.innerHTML += `<label for="${selectorId}">Fake ${prefix === 'u' ? 'Devices' : 'Years'} for ${onSelectorClass}: </label>`;
+        const createSelect = document.createElement('select');
+        createSelect.id = selectorId;
+        createSelect.name = selectorId;
+        createSelect.classList.add(`${prefixAlias}_${prodAlias}`, `${prefixAlias}_${onSelectorClass}_fake`);
+        document.getElementById('fakeSelectors_bottom').append(createSelect);
+      }
+    });
+  });
+};
+
 function initSelectors(pid) {
   showLoaderSpinner();
   const productsExistsOnPage = productsList.length;
@@ -991,7 +1018,7 @@ async function initZuoraProductPriceLogic(campaign) {
   });
 }
 
-async function initVlaicuProductPriceLogic(campaign) {
+async function initVlaicuProductPriceLogic(campaign = undefined) {
   import('./vendor/product.js').then(async (module) => {
     const ProductPrice = module.default;
     showLoaderSpinner();
@@ -1008,7 +1035,8 @@ async function initVlaicuProductPriceLogic(campaign) {
 
             const productPrice = new ProductPrice(item, campaign);
             const vlaicuResult = await productPrice.getPrices();
-            showPrices(vlaicuResult);
+            const vlaicuVariation = productPrice.getVariation();
+            showPrices(vlaicuVariation);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
             sendAnalyticsProducts(vlaicuResult);
@@ -1073,9 +1101,10 @@ async function initializeProductsPriceLogic() {
   const isNetherlandsLangMode = isZuoraForNetherlandsLangMode();
 
   if (!isNetherlandsLangMode || skipZuora) {
-    if (vlaicuCampaign) {
+    if (!pid && getDefaultSection() === 'consumer') {
       window.isVlaicu = true;
       initVlaicuProductPriceLogic(vlaicuCampaign);
+      createFakeSelectors();
     } else {
       addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
         initSelectors(pid);
@@ -1094,16 +1123,18 @@ function eventOnDropdownSlider() {
     const loadingBars = slider.querySelectorAll('.loading-bar');
     let activeIndex = 0;
     let interval;
+    let loadingInterval;
 
     function showLoadingBar(index) {
+      clearInterval(loadingInterval); // Clear any existing loading animation
       const loadingBar = loadingBars[index];
       loadingBar.style.width = '0';
       let width = 0;
-      const interval2 = setInterval(() => {
+      loadingInterval = setInterval(() => {
         width += 1;
         loadingBar.style.width = `${width}%`;
         if (width >= 100) {
-          clearInterval(interval2);
+          clearInterval(loadingInterval);
         }
       }, 30); // Adjust the interval for smoother animation
     }
@@ -1123,6 +1154,7 @@ function eventOnDropdownSlider() {
     }
 
     function startAutomaticMovement() {
+      clearInterval(interval);
       interval = setInterval(moveToNextItem, 4000); // Set the interval
     }
 

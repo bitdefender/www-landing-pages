@@ -48,7 +48,7 @@
       }
     }
 
-    @media (width >= 768px) {
+    @media (width >= 1200px) {
       bottom: -55px;
       width: 100%;
       justify-content: center;
@@ -60,10 +60,8 @@
 
     .carousel-item {
       padding: 25px 20px;
-      position: relative;
 
       q {
-        position: relative;
         display: block;
         padding:0 20px;
         font-size: 24px;
@@ -77,29 +75,29 @@
         &::before {
           width: 15px;
           height: 15px;
-          left: 0;
-          top: 0;
+          left: -30px;
+          top: 20px;
           background: url('/_src-lp/icons/blue-quotes.svg') no-repeat;
           background-size: 100%;
           content: "";
           display: block;
-          position: absolute;
+          position: relative;
         }
 
         &::after {
           width: 15px;
           height: 15px;
-          right: 0;
-          bottom: 0;
+          left: 95%;
+          top: 0;
           background: url('/_src-lp/icons/blue-quotes.svg') no-repeat;
           background-size: 100%;
           content: "";
           display: block;
-          position: absolute;
+          position: relative;
         }
 
         @media screen and (width >= 992px) {
-          padding: 0 40px;
+          padding: 0 50px;
 
           &::before,
           &::after {
@@ -110,14 +108,21 @@
       }
 
       img {
+        position: absolute;
+        right: 0;
+        top: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        z-index: -999;
+        
+        @media (width < 992px){
+          display: none;
+        }
       }
 
       @media screen and (width >= 992px) {
         padding: 0;
-        height: 550px;
 
         &::before {
           content: "";
@@ -133,12 +138,15 @@
         .inner {
           width: 55%;
           height: 100%;
-          position: absolute;
+          position: relative;
           z-index: 1;
           color: white;
           display: flex;
           flex-direction: column;
           justify-content: center;
+          padding: 20px 0;
+          padding-bottom: 100px;
+          min-height: 550px;
         }
       }
     }
@@ -174,7 +182,7 @@
       height: 20px !important;
     }
 
-    @media (width >= 768px) {
+    @media (width >= 1200px) {
       display: none;
     }
   }

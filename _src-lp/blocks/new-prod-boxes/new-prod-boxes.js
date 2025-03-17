@@ -1,5 +1,5 @@
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, matchHeights } from '../../scripts/utils.js';
 
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
@@ -61,9 +61,11 @@ function initializeSlider(block) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton,
   } = metaData;
+
   const productsAsList = products && products.split(',');
+
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
@@ -181,6 +183,7 @@ export default function decorate(block) {
         divBulina = `<div class='bulina'>${tempDiv.innerHTML}</div>`;
       }
       // if we have vpn
+
       if (billed.innerText.includes('[vpn_box]')) {
         // add VPN
         updateProductsList('vpn/10/1');
@@ -417,6 +420,7 @@ export default function decorate(block) {
                 <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
               </div>`}
+               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
             ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
@@ -451,54 +455,166 @@ export default function decorate(block) {
     </div>`;
   }
 
-  // General function to match the height of elements based on a selector
-  const matchHeights = (targetNode, selector) => {
-    const resetHeights = () => {
-      const elements = targetNode.querySelectorAll(selector);
-      elements.forEach((element) => {
-        element.style.minHeight = '';
+  function toggleElements(elements, { display = null, addClass = null, removeClass = null }) {
+    elements.forEach((element) => {
+      if (display !== null) element.style.display = display;
+      if (addClass) element.classList.add(addClass);
+      if (removeClass) element.classList.remove(removeClass);
+    });
+  }
+
+  function modifyAdobeDataLayer() {
+    const campaignEvent = window.adobeDataLayer.find((event) => event.event === 'campaign product');
+
+    if (campaignEvent && Array.isArray(campaignEvent.product.info)) {
+      const storedPrices = JSON.parse(localStorage.getItem('originalPrices')) || {};
+
+      campaignEvent.product.info.forEach((product) => {
+        // Save original values if not already saved
+        if (!storedPrices[product.ID]) {
+          storedPrices[product.ID] = {
+            discountValue: product.discountValue,
+            priceWithTax: product.priceWithTax,
+          };
+        }
+
+        product.discountRate = 0;
+        product.discountValue = 0;
+        product.priceWithTax = product.basePrice;
       });
-    };
+      localStorage.setItem('originalPrices', JSON.stringify(storedPrices));
+    }
+  }
 
-    const adjustHeights = () => {
-      if (window.innerWidth >= 768) {
-        resetHeights();
-        const elements = targetNode.querySelectorAll(selector);
-        const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
-        const maxHeight = Math.max(...elementsHeight);
+  function restoreOriginalPrices() {
+    const storedPrices = JSON.parse(localStorage.getItem('originalPrices')) || {};
+    const campaignEvent = window.adobeDataLayer.find((event) => event.event === 'campaign product');
 
-        elements.forEach((element) => {
-          element.style.minHeight = `${maxHeight}px`;
-        });
-      } else {
-        resetHeights();
-      }
-    };
-
-    const matchHeightsCallback = (mutationsList) => {
-      Array.from(mutationsList).forEach((mutation) => {
-        if (mutation.type === 'childList') {
-          adjustHeights();
+    if (campaignEvent && Array.isArray(campaignEvent.product.info)) {
+      campaignEvent.product.info.forEach((product) => {
+        if (storedPrices[product.ID]) {
+          product.discountValue = storedPrices[product.ID].discountValue;
+          product.priceWithTax = storedPrices[product.ID].priceWithTax;
+          product.discountRate = Math.floor((product.discountValue / product.basePrice) * 100);
         }
       });
-    };
+    }
+  }
 
-    const observer = new MutationObserver(matchHeightsCallback);
+  function restoreCouponsToButtons() {
+    const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || {};
+    block.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+      const originalUrl = removedCoupons[button.href];
 
-    if (targetNode) {
-      observer.observe(targetNode, { childList: true, subtree: true });
+      if (originalUrl) {
+        button.href = originalUrl;
+      }
+    });
+  }
+
+  function applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes) {
+    toggleElements(modalButtons, { display: 'none' });
+    toggleElements([...pricesBoxes, ...discountsBoxes], { addClass: 'await-loader' });
+
+    setTimeout(() => {
+      toggleElements([...pricesBoxes, ...discountsBoxes], { removeClass: 'await-loader', display: 'flex' });
+      toggleElements(billedBoxes, { display: 'block' });
+
+      pricesBoxes.forEach((box) => {
+        const newSpan = document.createElement('span');
+        newSpan.classList.add('additional-price-info');
+        newSpan.textContent = 'With your discount applied';
+        box.appendChild(newSpan);
+      });
+
+      discountsBoxes.forEach((element) => {
+        const spanElement = element.querySelector('span');
+        if (spanElement) toggleElements([spanElement], { display: 'block', removeClass: 'main-price' });
+
+        const strongElement = element.querySelector('strong');
+        if (strongElement) toggleElements([strongElement], { display: 'flex' });
+      });
+      restoreOriginalPrices();
+      restoreCouponsToButtons();
+    }, 3000);
+  }
+
+  if (openModalButton) {
+    const modalButtons = block.querySelectorAll('.open-modal-button');
+    modalButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        document.dispatchEvent(new Event('openModalEvent'));
+      });
+    });
+
+    const discountsBoxes = Array.from(block.querySelectorAll('.save_price_box'));
+    const pricesBoxes = Array.from(block.querySelectorAll('.prices_box'));
+    const billedBoxes = Array.from(block.querySelectorAll('.billed'));
+
+    toggleElements([...billedBoxes, ...pricesBoxes], { display: 'none' });
+
+    discountsBoxes.forEach((element) => {
+      const spanElement = element.querySelector('span');
+      if (spanElement) spanElement.classList.add('main-price');
+
+      const strongElement = element.querySelector('strong');
+      if (strongElement) strongElement.style.display = 'none';
+    });
+
+    document.addEventListener('formSubmittedEvent', () => {
+      applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
+    });
+
+    if (localStorage.getItem('discountApplied') === 'true') {
+      applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes);
     }
 
-    window.addEventListener('resize', () => {
-      adjustHeights();
+    const observer = new MutationObserver(() => {
+      if (window.adobeDataLayer?.some((event) => event.event === 'page loaded')) {
+        localStorage.removeItem('removedCoupons');
+        const removedCoupons = {}; // Reset storage object
+        let couponsWereRemoved = false;
+
+        document.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+          const url = button.href;
+          const couponMatch = url.match(/(COUPON=[^&]*&?)/);
+
+          if (couponMatch) {
+            const cleanUrl = url.replace(couponMatch[1], '').replace(/[?&]$/, '');
+
+            if (!removedCoupons[cleanUrl]) {
+              removedCoupons[cleanUrl] = url; // Store original URL
+            }
+
+            localStorage.setItem('removedCoupons', JSON.stringify(removedCoupons));
+
+            button.href = cleanUrl;
+            couponsWereRemoved = true;
+          }
+        });
+
+        if (couponsWereRemoved) {
+          localStorage.setItem('couponRemoved', 'true');
+        }
+        modifyAdobeDataLayer();
+        observer.disconnect(); // Stop observing after first execution
+      }
     });
-  };
+    observer.observe(document, { childList: true, subtree: true });
+  }
 
   const targetNode = document.querySelector('.new-prod-boxes');
   matchHeights(targetNode, '.tag-subtitle');
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
+
+  // set max height for benefits
+  if (set && set === 'height') {
+    [1, 2, 3].forEach((i) => {
+      matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
+    });
+  }
 
   block.addEventListener('change', (event) => {
     const { target } = event;
