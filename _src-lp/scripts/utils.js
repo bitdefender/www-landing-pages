@@ -868,7 +868,7 @@ export async function matchHeights(targetNode, selector) {
 */
 export async function getCdpData(mcID) {
   try {
-    const cdpDataCall = await fetch(`https://solns-api.syntasa.net/vismdl/${mcID}`);
+    const cdpDataCall = await fetch(`https://www.bitdefender.com/cdp/${mcID}`);
 
     /** @type {{auds: string[], mdl: {key: string, value: string}[], ub: any[] vid: string}} */
     const receivedCdpData = await cdpDataCall.json();
