@@ -102,7 +102,10 @@ export default function decorate(block) {
 
       if (prodName.endsWith('m')) {
         billed = billedMonthly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
-        priceFull = `<span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month"> /${per}</span>`;
+        priceFull = `
+        <div class="d-flex justify-content-center priced">
+        <span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month"> /${per}</span>
+        </div>`;
       }
 
       pricesBox.className = `${prodName}_box prices_box ${idx === 0 ? 'yearly' : 'monthly'} ${show} await-loader prodload prodload-${onSelectorClass}`;
