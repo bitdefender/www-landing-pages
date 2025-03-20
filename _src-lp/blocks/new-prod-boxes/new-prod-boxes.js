@@ -61,7 +61,7 @@ function initializeSlider(block) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -108,7 +108,9 @@ export default function decorate(block) {
       const partsFamily = familySwitchText.split('|');
       switchBox.classList.add('switchBox');
       switchBox.innerHTML = `
+        ${switchText ? `<div class="switch-text"><strong>${switchText}</strong></div>` : ''}
         <label class="switch">
+          
           <input type="checkbox" id="switchCheckbox">
           <span class="slider round">
           </span>
@@ -654,4 +656,26 @@ export default function decorate(block) {
 
   // slider:
   if (type === 'mobileSlider') initializeSlider(block);
+  function updateMargin() {
+    const switchTextEl = block.parentElement?.querySelector('.switch-text');
+    const switchBoxEl = block.parentElement?.querySelector('.switchBox');
+
+    if (switchTextEl && switchBoxEl) {
+      if (window.innerWidth >= 989) {
+        switchBoxEl.style.marginLeft = `-${switchTextEl.offsetWidth}px`;
+      } else {
+        switchBoxEl.style.marginLeft = 'unset'; // Reset margin for small screens
+      }
+    }
+  }
+  const resizeObserver = new ResizeObserver(() => {
+    updateMargin();
+  });
+  resizeObserver.observe(document.body);
+  window.addEventListener('resize', () => {
+    updateMargin();
+  });
+
+  window.addEventListener('resize', updateMargin());
+  setTimeout(() => updateMargin(), 0);
 }
