@@ -32,6 +32,7 @@ import {
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
   formatPrice,
+  getCdpData,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -1066,6 +1067,7 @@ async function initializeProductsPriceLogic() {
     const theCurrentSDID = visitor._supplementalDataIDCurrent ? visitor._supplementalDataIDCurrent : '';
     const mcID = visitor.getMarketingCloudVisitorID();
 
+    const cdpData = await getCdpData(mcID);
     /* global adobe */
     const targetResponse = await adobe.target.getOffers({
       consumerId: theCurrentSDID,
@@ -1074,7 +1076,12 @@ async function initializeProductsPriceLogic() {
           marketingCloudVisitorId: mcID,
         },
         execute: {
-          mboxes: [{ index: 0, name: 'initSelector-mbox' }],
+          mboxes: [{
+            index: 0,
+            name: 'initSelector-mbox',
+            parameters: cdpData,
+            profileParameters: cdpData,
+          }],
         },
       },
     });
