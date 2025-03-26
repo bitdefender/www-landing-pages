@@ -5,7 +5,7 @@ export default function decorate(block) {
     <div class="main-wrapper">
       <div class="inner-wrapper">
         <h3>${heading.innerHTML}</h3>
-        <div class="subtitle">${subtitle.innerText}</div>
+        <div class="subtitle">${subtitle.innerHTML}</div>
       </div>
     </div>
     ${picture.children[0].innerHTML}
