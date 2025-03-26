@@ -280,7 +280,7 @@ export default function decorate(block) {
           formData.append('nfo[allowed_email]', allowedEmail);
           formData.append('nfo[allowed_countries]', allowedCountries);
           formData.append('nfo[captcha_token]', captchaToken);
-          fetch('http://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
+          fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
             method: 'POST',
             body: formData,
           }).then((response) => response.json())
