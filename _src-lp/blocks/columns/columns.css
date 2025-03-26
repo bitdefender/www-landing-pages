@@ -22,6 +22,10 @@
   margin-bottom: 30px;
 }
 
+main .columns-container.padding-0 .columns-wrapper {
+  padding: 0;
+}
+
 .columns p {
   font-size: var(--heading-font-size-s);
   margin-top: 20px;
@@ -50,6 +54,7 @@
 
 .columns img {
   border-radius: 20px;
+  width: unset;
 }
 
 .columns > div {
@@ -118,6 +123,9 @@
   }
   .columns > div > div:last-of-type {
     padding-right: 0;
+  }
+  .padding-0 .columns > div > div {
+    padding-bottom: 0;
   }
   .columns > div > .columns-img-col--left img {
     max-width: 100%;

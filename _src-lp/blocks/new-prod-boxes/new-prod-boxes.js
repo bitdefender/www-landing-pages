@@ -61,7 +61,7 @@ function initializeSlider(block) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -108,7 +108,9 @@ export default function decorate(block) {
       const partsFamily = familySwitchText.split('|');
       switchBox.classList.add('switchBox');
       switchBox.innerHTML = `
+        ${switchText ? `<div class="switch-text"><strong>${switchText}</strong></div>` : ''}
         <label class="switch">
+          
           <input type="checkbox" id="switchCheckbox">
           <span class="slider round">
           </span>
@@ -382,6 +384,16 @@ export default function decorate(block) {
         }
       }
 
+      const newBlueTag = document.createElement('div');
+      if (blueTag) {
+        let blueTagChildren = blueTag.children;
+        blueTagChildren = Array.from(blueTagChildren);
+        blueTagChildren?.forEach((child) => {
+          // create a different blueTag element
+          newBlueTag.innerHTML += `<div class="blueTag">${child.innerHTML}</div>`;
+        });
+      }
+
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
 
@@ -390,7 +402,7 @@ export default function decorate(block) {
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
             <div class="tag-subtitle">
-              ${blueTag.innerText.trim() ? `<div class="blueTag"><div>${blueTag.innerHTML.trim()}</div></div>` : ''}
+              ${newBlueTag.innerText.trim() ? `<div class="blueTagsWrapper">${newBlueTag.innerHTML.trim()}</div>` : ''}
               ${subtitle.innerText.trim() ? `<div class="subtitle">${subtitle.innerHTML.trim()}</div>` : ''}
             </div>
             <hr />
@@ -644,4 +656,26 @@ export default function decorate(block) {
 
   // slider:
   if (type === 'mobileSlider') initializeSlider(block);
+  function updateMargin() {
+    const switchTextEl = block.parentElement?.querySelector('.switch-text');
+    const switchBoxEl = block.parentElement?.querySelector('.switchBox');
+
+    if (switchTextEl && switchBoxEl) {
+      if (window.innerWidth >= 989) {
+        switchBoxEl.style.marginLeft = `-${switchTextEl.offsetWidth}px`;
+      } else {
+        switchBoxEl.style.marginLeft = 'unset'; // Reset margin for small screens
+      }
+    }
+  }
+  const resizeObserver = new ResizeObserver(() => {
+    updateMargin();
+  });
+  resizeObserver.observe(document.body);
+  window.addEventListener('resize', () => {
+    updateMargin();
+  });
+
+  window.addEventListener('resize', updateMargin());
+  setTimeout(() => updateMargin(), 0);
 }
