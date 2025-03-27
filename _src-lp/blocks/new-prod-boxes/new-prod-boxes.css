@@ -577,11 +577,65 @@
   line-height: var(--heading-font-size-s);
 }
 
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed strong {
+  font-size: 16px;
+}
+
+.new-prod-boxes-container.business.disable-first .block .prod_box.index0 .save_price_box {
+  visibility: hidden;
+}
+
+.new-prod-boxes-container.business.disable-third .block .prod_box.index2 .save_price_box {
+  visibility: hidden;
+}
+
+.new-prod-boxes-container.business .block .prod_box.index0 .prices_box {
+  visibility: visible;
+}
+
+.new-prod-boxes-container.business .block .prod_box.index2 .prices_box {
+  visibility: visible;
+}
+
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .prices_box .prod-newprice {
+  font-size: var(--heading-font-size-l);
+  line-height: var(--heading-font-size-l);
+}
+
+.new-prod-boxes-container.business.disable-first .block .prod_box.index0 .inner_prod_box .prices_box .prod-newprice {
+  font-size: var(--heading-font-size-xs);
+  line-height: var(--heading-font-size-xl);
+}
+
+.new-prod-boxes-container.business.disable-third .block .prod_box.index2 .inner_prod_box .prices_box .prod-newprice {
+  font-size: var(--heading-font-size-xs);
+  line-height: var(--heading-font-size-xl);
+}
+
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .prices_box sup {
+  margin: 20px 0 0 5px;
+}
+
+.new-prod-boxes-container.business .block .prod_box.index0 .inner_prod_box .prices_box sup {
+  font-size: var(--heading-font-size-xs);
+  line-height: var(--heading-font-size-xs);
+  margin: 22px 0 0 5px;
+  font-weight: bold;
+}
+
+.new-prod-boxes-container.business .block .prod_box.index2 .inner_prod_box .prices_box sup {
+  font-size: var(--heading-font-size-xs);
+  line-height: var(--heading-font-size-xs);
+  margin: 22px 0 0 5px;
+  font-weight: bold;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
   font-size: 12px;
   font-family: Arial, sans-serif;
   line-height: 13px;
   margin: 7px 0;
+  min-height: 26px;
 }
 
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .billed {

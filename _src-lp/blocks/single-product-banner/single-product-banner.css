@@ -68,12 +68,12 @@
   margin-bottom: 8px;
 }
 
-.section.single-product-banner-container.slide h1 {
-  font-size: var(--heading-font-size-xl);
-}
-
 .section.single-product-banner-container h1 {
   font-size: 39px;
+}
+
+.section.single-product-banner-container.slide h1 {
+  font-size: var(--heading-font-size-xl);
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .hasBox h1 {
