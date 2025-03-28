@@ -368,7 +368,7 @@ export default function decorate(block) {
 
               ${billed ? ` <div class="billed">
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
-              </div>` : billed.innerText}
+              </div>` : billed.innerHTML}
 
               ${buyLinkText && `<div class="buy-btn">
                 <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
@@ -423,11 +423,26 @@ export default function decorate(block) {
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
               </div>`}
 
-              ${billed ? `
-              <div class="billed">
-              ${billed.innerHTML.replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`).replace(/\[monthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`).replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)}
-              </div>
-              ` : ''}
+${billed ? (() => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = billed.innerHTML;
+
+    const firstP = tempDiv.querySelector('p');
+
+    if (firstP) {
+      firstP.innerHTML = firstP.innerHTML
+        .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+        .replace(/\[monthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`);
+    } else {
+      tempDiv.innerHTML = tempDiv.innerHTML
+        .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+        .replace(/\[monthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`);
+    }
+
+    return `<div class="billed">${tempDiv.innerHTML}</div>`;
+  })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
               ${buyLinkText && `<div class="buy-btn">
