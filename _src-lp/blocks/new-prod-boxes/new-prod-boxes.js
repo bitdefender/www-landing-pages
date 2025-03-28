@@ -368,7 +368,7 @@ export default function decorate(block) {
 
               ${billed ? ` <div class="billed">
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
-              </div>` : billed.innerHTML}
+              </div>` : billed.innerText}
 
               ${buyLinkText && `<div class="buy-btn">
                 <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
