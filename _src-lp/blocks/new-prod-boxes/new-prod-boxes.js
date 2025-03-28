@@ -423,9 +423,11 @@ export default function decorate(block) {
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
               </div>`}
 
-              ${billed ? ` <div class="billed">
-                ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`) : billed.innerHTML}
-              </div>` : billed.innerText}
+              ${billed ? `
+              <div class="billed">
+              ${billed.innerHTML.replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`).replace(/\[monthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`).replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)}
+              </div>
+              ` : ''}
 
               ${vpnInfoContent && vpnInfoContent}
               ${buyLinkText && `<div class="buy-btn">
