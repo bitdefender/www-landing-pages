@@ -1018,7 +1018,7 @@ async function initZuoraProductPriceLogic(campaign) {
   });
 }
 
-async function initVlaicuProductPriceLogic(campaign = undefined) {
+async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks = {}) {
   import('./vendor/product.js').then(async (module) => {
     const ProductPrice = module.default;
     showLoaderSpinner();
@@ -1033,7 +1033,7 @@ async function initVlaicuProductPriceLogic(campaign = undefined) {
             const prodYears = prodSplit[2].trim();
             const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
-            const productPrice = new ProductPrice(item, campaign);
+            const productPrice = new ProductPrice(item, campaign, targetBuylinks);
             const vlaicuResult = await productPrice.getPrices();
             const vlaicuVariation = productPrice.getVariation();
             showPrices(vlaicuVariation);
@@ -1055,6 +1055,7 @@ async function initVlaicuProductPriceLogic(campaign = undefined) {
  * Price logic should start only after adobe target is loaded.
  */
 async function initializeProductsPriceLogic() {
+  let targetBuyLinkMappings = {};
   const parameterPid = getParam('pid');
   let targetPid;
   let campaign = getParam('campaign');
@@ -1074,14 +1075,14 @@ async function initializeProductsPriceLogic() {
           marketingCloudVisitorId: mcID,
         },
         execute: {
-          mboxes: [{ index: 0, name: 'initSelector-mbox' }],
+          mboxes: [{ index: 0, name: 'initSelector-mbox' }, { index: 1, name: 'buyLinks-mbox' }],
         },
       },
     });
 
     const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
     const content = mboxOptions?.[0]?.content;
-
+    targetBuyLinkMappings = targetResponse?.execute?.mboxes[1]?.options[0]?.content ?? {};
     if (content) {
       targetPid = content.pid;
       campaign = content.campaign ?? campaign;
@@ -1105,7 +1106,7 @@ async function initializeProductsPriceLogic() {
   if (!isNetherlandsLangMode || skipZuora) {
     if (!parameterPid && getDefaultSection() === 'consumer') {
       window.isVlaicu = true;
-      initVlaicuProductPriceLogic(pid || vlaicuCampaign);
+      initVlaicuProductPriceLogic(pid || vlaicuCampaign, targetBuyLinkMappings);
       createFakeSelectors();
     } else {
       addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
