@@ -309,7 +309,12 @@ export default class ProductPrice {
   }
 
   getVariation() {
-    return window.StoreProducts.product[this.#alias].variations[this.#devicesNo][this.#yearsNo];
+    const variation = window.StoreProducts?.product?.[this.#alias]?.variations?.[this.#devicesNo]?.[this.#yearsNo];
+    if (!variation) {
+      console.warn(`The product ${this.#alias} with the variation ${this.#devicesNo}-${this.#yearsNo} does not exist on this campaign in Vlaicu`);
+    }
+
+    return variation;
   }
 }
 

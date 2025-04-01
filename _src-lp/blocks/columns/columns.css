@@ -54,6 +54,7 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns img {
   border-radius: 20px;
+  width: unset;
 }
 
 .columns > div {
@@ -123,7 +124,7 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns > div > div:last-of-type {
     padding-right: 0;
   }
-  .padding-0 .columns > div > div:last-of-type {
+  .padding-0 .columns > div > div {
     padding-bottom: 0;
   }
   .columns > div > .columns-img-col--left img {

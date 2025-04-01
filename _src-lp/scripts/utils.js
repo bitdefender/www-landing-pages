@@ -263,6 +263,21 @@ export function setDataOnBuyLinks(dataInfo) {
   }
 }
 
+export function checkIfLocaleCanSupportInitSelector() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const forceLocale = urlParams.get('locale');
+
+  if (forceLocale && ['de-de', 'de-at', 'nl-nl', 'nl-be'].some((locale) => forceLocale.toLowerCase() === locale)) {
+    return false;
+  }
+
+  if (!forceLocale && getDefaultLanguage() === 'nl') {
+    return false;
+  }
+
+  return true;
+}
+
 export function isZuoraForNetherlandsLangMode() {
   return getDefaultLanguage() === 'nl' && getDefaultSection() === 'consumer';
 }
@@ -854,4 +869,44 @@ export async function matchHeights(targetNode, selector) {
   });
 
   adjustHeights();
+}
+
+/**
+ * /**
+ * @typedef {{
+ *  auds: string,
+ *  [key: string]: string
+ * }} CdpData
+ *
+ * @param {string} mcID
+ * @returns {Promise<CdpData>}
+*/
+export async function getCdpData(mcID) {
+  try {
+    const cdpDataCall = await fetch(`https://www.bitdefender.com/cdp/${mcID}`);
+
+    /** @type {{auds: string[], mdl: {key: string, value: string}[], ub: any[] vid: string}} */
+    const receivedCdpData = await cdpDataCall.json();
+    let cdpData = {
+      auds: receivedCdpData?.auds[0] || '',
+    };
+
+    if (receivedCdpData.mdl) {
+      cdpData = receivedCdpData?.mdl.reduce((acc, mdlValue) => {
+        acc[mdlValue.key] = mdlValue.value;
+        return acc;
+      }, cdpData);
+    }
+
+    window.adobeDataLayer.push({
+      event: 'cdp data',
+      parameters: cdpData,
+    });
+
+    return cdpData;
+  } catch (e) {
+    console.warn(e);
+  }
+
+  return {};
 }
