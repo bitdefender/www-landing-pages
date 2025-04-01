@@ -263,6 +263,21 @@ export function setDataOnBuyLinks(dataInfo) {
   }
 }
 
+export function checkIfLocaleCanSupportInitSelector() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const forceLocale = urlParams.get('locale');
+
+  if (forceLocale && ['de-de', 'de-at', 'nl-nl', 'nl-be'].some((locale) => forceLocale.toLowerCase() === locale)) {
+    return false;
+  }
+
+  if (!forceLocale && getDefaultLanguage() === 'nl') {
+    return false;
+  }
+
+  return true;
+}
+
 export function isZuoraForNetherlandsLangMode() {
   return getDefaultLanguage() === 'nl' && getDefaultSection() === 'consumer';
 }
