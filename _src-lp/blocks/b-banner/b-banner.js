@@ -262,7 +262,8 @@ export default function decorate(block) {
         const formErr = formBox.querySelector('.form_err');
         const formBtn = formBox.querySelector('button');
         const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
-        if (email.includes(allowedEmail.split(':')[1].trim())) {
+        const allowedDomains = allowedEmail.split(';').map((domain) => domain.trim());
+        if (allowedDomains.some((domain) => email.endsWith(domain))) {
           formBtn.disabled = true;
           formBox.classList.add('await-loader');
           formErr.style.display = 'none';
@@ -276,8 +277,8 @@ export default function decorate(block) {
           formData.append('nfo[end_date]', endDate.split(':')[1].trim());
           formData.append('nfo[no_days]', noDays.split(':')[1].trim());
           formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
-          formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
-          formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
+          formData.append('nfo[allowed_email]', allowedEmail);
+          formData.append('nfo[allowed_countries]', allowedCountries);
           formData.append('nfo[captcha_token]', captchaToken);
           fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
             method: 'POST',

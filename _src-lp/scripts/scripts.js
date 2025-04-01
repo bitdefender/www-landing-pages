@@ -1107,7 +1107,8 @@ async function initializeProductsPriceLogic() {
   skipZuora = skipZuora || getParam('vfone') || vlaicuCampaign;
 
   const isNetherlandsLangMode = isZuoraForNetherlandsLangMode();
-  const pid = targetPid || parameterPid;
+  const metaPID = getMetadata('pid');
+  const pid = targetPid || parameterPid || metaPID;
 
   if (!isNetherlandsLangMode || skipZuora) {
     if (!parameterPid && getDefaultSection() === 'consumer') {
