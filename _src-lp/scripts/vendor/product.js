@@ -65,8 +65,9 @@ export default class ProductPrice {
   #yearsNo;
   #bundleId;
   initCount;
+  #targetBuyLinks;
 
-  constructor(productString, campaign) {
+  constructor(productString, campaign, targetBuyLinks) {
     this.#prodString = productString;
     const prod = this.#prodString.split('/');
     this.#alias = prod[0];
@@ -74,7 +75,7 @@ export default class ProductPrice {
     this.#yearsNo = prod[2];
     this.#bundleId = this.#productId[this.#alias];
     this.#campaign = campaign;
-
+    this.#targetBuyLinks = targetBuyLinks;
     const urlParams = new URLSearchParams(window.location.search);
     let forceLocale = urlParams.get(LOCALE_PARAMETER);
 
@@ -204,7 +205,7 @@ export default class ProductPrice {
       const fakeDevicesSelector = document.getElementById(`u_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
       const fakeYearsSelector = document.getElementById(`y_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
       const decorator = new DecorateLink(option.buyLink, this.#campaign);
-      let buy_link = decorator.getFullyDecoratedUrl();
+      let buy_link = this.#targetBuyLinks?.[this.#alias]?.[`${this.#devicesNo}-${this.#yearsNo}`] || decorator.getFullyDecoratedUrl();
 
       if (window.StoreProducts?.product) {
         const alreadyAdded = Object.values(window.StoreProducts.product).some(value =>
@@ -308,7 +309,12 @@ export default class ProductPrice {
   }
 
   getVariation() {
-    return window.StoreProducts.product[this.#alias].variations[this.#devicesNo][this.#yearsNo];
+    const variation = window.StoreProducts?.product?.[this.#alias]?.variations?.[this.#devicesNo]?.[this.#yearsNo];
+    if (!variation) {
+      console.warn(`The product ${this.#alias} with the variation ${this.#devicesNo}-${this.#yearsNo} does not exist on this campaign in Vlaicu`);
+    }
+
+    return variation;
   }
 }
 
