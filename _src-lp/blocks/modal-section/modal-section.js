@@ -116,12 +116,12 @@ export default function decorate(block) {
   function handleAdobeDataLayer() {
     const campaignEvent = window.adobeDataLayer.find((item) => item.event === 'campaign product');
     const formFields = Array.from(document.querySelectorAll('.ag_dropdown, input, textarea, select'))
+      .filter((field) => field.offsetParent !== null)
       .map((field) => field.value.trim())
       .filter((value) => value)
       .map((value) => {
         const parts = value.split(',');
         const relevantPart = parts.length > 1 ? parts[1] : parts[0];
-
         return relevantPart.replace(/-(?=\D)/g, ' ').trim();
       })
       .join('|');
