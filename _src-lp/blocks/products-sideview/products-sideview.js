@@ -225,7 +225,7 @@ function extractFeatures(col) {
 }
 
 function renderRadioGroup(block) {
-  const onlyLabel = block.closest('.section').dataset['onlyLabel'];
+  const onlyLabel = block.closest('.section').dataset.onlyLabel;
   const radioBoxParent = document.createElement('div');
   radioBoxParent.className = 'radioBoxParent d-flex';
   const [radio1, radio2] = block.closest('.section').dataset.radioLabels.split(',');
