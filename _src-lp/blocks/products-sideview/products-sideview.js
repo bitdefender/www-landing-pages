@@ -246,7 +246,6 @@ function renderRadioGroup(block) {
     radioBoxParent.appendChild(createRadioBox(`pay_${state.secondProduct}`, `selector-${state.secondProduct}`, 'selectorBox', state.secondProduct, radio1, 'monthly', true));
     radioBoxParent.appendChild(createRadioBox(`pay_${state.firstProduct}`, `selector-${state.firstProduct}`, 'selectorBox', state.firstProduct, radio2, 'yearly'));
   }
-  
   return radioBoxParent;
 }
 
