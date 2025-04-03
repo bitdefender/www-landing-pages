@@ -377,6 +377,14 @@
     gap: 5px;
 }
 
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .blueTagsWrapper{
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	width: 100%;
+	justify-content: center;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag {
     font-size: var(--body-font-size-xs);
     font-family: Arial, sans-serif;
