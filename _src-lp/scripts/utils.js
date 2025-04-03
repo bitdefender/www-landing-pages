@@ -425,8 +425,10 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
     const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
+    const fullPriceYearly = formatPrice((selectedVarPrice * 12).toFixed(2), currencyIso, regionId);
     const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
     const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
+    const offerPriceYearly = formatPrice((selectedVarDiscount * 12).toFixed(2), currencyIso, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
     const savings = formatPrice(savingsPrice.toFixed(0), currencyIso, regionId);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
@@ -443,7 +445,13 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         }
       } else {
         allOldPriceBox.forEach((item) => {
-          item.innerHTML = fullPrice;
+          if (item.classList.contains('calculate_monthly')) {
+            item.innerHTML = fullPriceMonthly;
+          } else if (item.classList.contains('calculate_yearly')) {
+            item.innerHTML = fullPriceYearly;
+          } else {
+            item.innerHTML = fullPrice;
+          }
         });
       }
     }
@@ -466,6 +474,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         allNewPriceBox.forEach((item) => {
           if (item.classList.contains('calculate_monthly')) {
             item.innerHTML = offerPriceMonthly;
+          } else if (item.classList.contains('calculate_yearly')) {
+            item.innerHTML = offerPriceYearly;
           } else {
             item.innerHTML = offerPrice;
           }

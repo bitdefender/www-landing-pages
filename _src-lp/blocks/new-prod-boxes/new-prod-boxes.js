@@ -426,21 +426,28 @@ export default function decorate(block) {
 ${billed ? (() => {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = billed.innerHTML;
-
     const firstP = tempDiv.querySelector('p');
-
     if (firstP) {
       firstP.innerHTML = firstP.innerHTML
         .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[monthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
         .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`);
     } else {
       tempDiv.innerHTML = tempDiv.innerHTML
         .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[monthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
         .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`);
     }
-
     return `<div class="billed">${tempDiv.innerHTML}</div>`;
   })() : ''}
 

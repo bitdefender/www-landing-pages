@@ -354,6 +354,10 @@
     margin-top: 10px;
 }
 
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box h2 {
+	text-align: center;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box h2 a {
     transition: all 0.5s ease;
 }
@@ -401,6 +405,10 @@
     font-family: Arial, sans-serif;
     margin-bottom: 0;
     line-height: 1.25;
+}
+
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .subtitle {
+	text-align: center;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle select {
@@ -529,6 +537,10 @@
     background: #C1C1C1 !important;
 }
 
+.new-prod-boxes-container.business .block .prod_box .save_price_box {
+	justify-content: center;
+}
+
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .save_price_box {
     justify-content: center;
 }
@@ -590,12 +602,21 @@
     line-height: 18px;
 }
 
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed {
+	visibility: visible;
+	min-height: 110px;
+	text-align: center;
+	font-size: var(--heading-font-size-xs);
+  line-height: var(--heading-font-size-m);
+	margin-top: 20px;
+}
+
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .billed span {
     font-weight: bold;
 }
 
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed strong  {
-	font-size: 16px;
+	font-size: var(--heading-font-size-s);
 }
 
 .new-prod-boxes-container.business.disable-first .block .prod_box.index0 .save_price_box {
@@ -612,6 +633,10 @@
 
 .new-prod-boxes-container.business .block .prod_box.index2 .prices_box {
 	visibility: visible;
+}
+
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .prices_box {
+	display: none;
 }
 
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box .prices_box .prod-newprice {
@@ -758,6 +783,14 @@ margin: 20px 0 0 5px;
     border-radius: 20px;
     font-size: 11px;
     font-style: normal;
+}
+
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed em  {
+	font-size: 14px;
+	line-height: 36px;
+	font-style: normal;
+	font-weight: bold;
+	color: #68BA68;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
