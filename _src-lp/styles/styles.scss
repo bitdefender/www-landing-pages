@@ -817,6 +817,36 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
   font-weight: bold;
 }
 
+.affiliate-div {
+  display: none;
+  flex-direction: column;
+  position: relative;
+  margin-top: 10px;
+
+  .affiliate-text {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .affiliate-image img {
+    height: 45px;
+  }
+
+  @media (width >= 767px) {
+    display: flex;
+  }
+
+  @media (width >= 1200px) {
+    position: absolute;
+    left: 5%;
+    top: 35%;
+  }
+
+  @media (width >= 1400px) {
+    left: 11%;
+  }
+}
+
 .prices_box {
   text-align: center;
 }
