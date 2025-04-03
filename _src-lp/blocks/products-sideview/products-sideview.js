@@ -225,21 +225,27 @@ function extractFeatures(col) {
 }
 
 function renderRadioGroup(block) {
+  const onlyLabel = block.closest('.section').dataset.onlyLabel;
   const radioBoxParent = document.createElement('div');
   radioBoxParent.className = 'radioBoxParent d-flex';
   const [radio1, radio2] = block.closest('.section').dataset.radioLabels.split(',');
   const createRadioBox = (id, className, name, value, text, type, checked = false) => {
     const radioBox = document.createElement('div');
-    radioBox.innerHTML = `<div class="d-radio">
+    radioBox.innerHTML = `<div class="${onlyLabel ? 'd-none' : 'd-radio'}">
       <input type="radio" id="${id}" data-select="${type}" class="${className}" name="${name}" value="${value}" ${checked ? 'checked="checked"' : ''}>
       <label for="${id}">${text}</label>
     </div>`;
     return radioBox;
   };
 
-  radioBoxParent.appendChild(createRadioBox(`pay_${state.secondProduct}`, `selector-${state.secondProduct}`, 'selectorBox', state.secondProduct, radio1, 'monthly', true));
-  radioBoxParent.appendChild(createRadioBox(`pay_${state.firstProduct}`, `selector-${state.firstProduct}`, 'selectorBox', state.firstProduct, radio2, 'yearly'));
-
+  if (onlyLabel && onlyLabel === 'm') {
+    radioBoxParent.appendChild(createRadioBox(`pay_${state.secondProduct}`, `selector-${state.secondProduct}`, 'selectorBox', state.secondProduct, radio1, 'monthly', true));
+  } else if (onlyLabel && onlyLabel === 'y') {
+    radioBoxParent.appendChild(createRadioBox(`pay_${state.firstProduct}`, `selector-${state.firstProduct}`, 'selectorBox', state.firstProduct, radio2, 'yearly', true));
+  } else {
+    radioBoxParent.appendChild(createRadioBox(`pay_${state.secondProduct}`, `selector-${state.secondProduct}`, 'selectorBox', state.secondProduct, radio1, 'monthly', true));
+    radioBoxParent.appendChild(createRadioBox(`pay_${state.firstProduct}`, `selector-${state.firstProduct}`, 'selectorBox', state.firstProduct, radio2, 'yearly'));
+  }
   return radioBoxParent;
 }
 
