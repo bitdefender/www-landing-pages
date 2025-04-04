@@ -1086,7 +1086,7 @@ async function initializeProductsPriceLogic() {
 
   if ((!parameterPid || !checkIfLocaleCanSupportInitSelector()) && getDefaultSection() === 'consumer') {
     window.isVlaicu = true;
-    initVlaicuProductPriceLogic(pid || vlaicuCampaign, targetBuyLinkMappings);
+    initVlaicuProductPriceLogic(vlaicuCampaign || pid, targetBuyLinkMappings);
     createFakeSelectors();
   } else {
     addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
