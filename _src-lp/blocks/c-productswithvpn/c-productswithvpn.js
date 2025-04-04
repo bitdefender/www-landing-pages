@@ -45,6 +45,8 @@ export default function decorate(block) {
     borderColor,
     listStyle,
     noBorder,
+    affiliateText,
+    affiliateImage,
   } = metaData;
   const productsAsList = products && products.split(',');
 
@@ -105,6 +107,21 @@ export default function decorate(block) {
       }
     }
 
+    // create affiliate recommendations div
+    if (affiliateText && affiliateImage) {
+      console.log(block.parentNode.querySelector('.top_title'));
+      const affiliateDiv = document.createElement('div');
+      affiliateDiv.classList.add('affiliate-div');
+
+      affiliateDiv.innerHTML = `
+          <div class="affiliate-text">${affiliateText}</div>
+          <div class="affiliate-image">
+            <img src="${affiliateImage}" alt="Affiliate Image">
+          </div>
+      `;
+
+      block.parentNode?.parentNode?.previousElementSibling?.querySelector('.button-container')?.insertAdjacentElement('beforeend', affiliateDiv);
+    }
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {

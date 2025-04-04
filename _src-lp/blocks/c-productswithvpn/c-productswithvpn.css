@@ -200,6 +200,37 @@
   display: block;
 }
 
+.affiliate-div {
+  display: none;
+  flex-direction: column;
+  position: relative;
+  margin-top: 10px;
+}
+.affiliate-div .affiliate-text {
+  font-size: 18px;
+  font-weight: bold;
+}
+.affiliate-div .affiliate-image img {
+  height: 45px;
+}
+@media (width >= 767px) {
+  .affiliate-div {
+    display: flex;
+  }
+}
+@media (width >= 1200px) {
+  .affiliate-div {
+    position: absolute;
+    left: 5%;
+    top: 35%;
+  }
+}
+@media (width >= 1400px) {
+  .affiliate-div {
+    left: 11%;
+  }
+}
+
 .c-productswithvpn .logo_table tbody tr {
   padding: 3px 0;
 }
