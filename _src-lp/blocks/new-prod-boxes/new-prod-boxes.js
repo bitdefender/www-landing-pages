@@ -255,7 +255,7 @@ export default function decorate(block) {
 
           if (firstTdContent.indexOf('?pill') !== -1) {
             const pillText = firstTdContent.match(/\?pill (\w+)/);
-            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
             if (pillText) {
               const icon = tdList[0].querySelector('span');
               const pillElement = document.createElement('span');
@@ -273,7 +273,7 @@ export default function decorate(block) {
           }
           if (firstTdContent.indexOf('?green-pill') !== -1) {
             const pillText = firstTdContent.match(/\?green-pill (\w+)/);
-            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
             if (pillText) {
               const icon = tdList[0].querySelector('span');
               const pillElement = document.createElement('span');
