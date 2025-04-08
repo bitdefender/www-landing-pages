@@ -436,7 +436,8 @@ ${billed ? (() => {
         .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
         .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
         .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`);
+        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
     } else {
       tempDiv.innerHTML = tempDiv.innerHTML
         .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
@@ -446,7 +447,8 @@ ${billed ? (() => {
         .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
         .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
         .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`);
+        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
     }
     return `<div class="billed">${tempDiv.innerHTML}</div>`;
   })() : ''}
