@@ -6,6 +6,12 @@ jest.mock('../../../scripts/lib-franklin.js', () => ({
   loadHeader: jest.fn(),
   loadFooter: jest.fn(),
 }));
+// Mock the external fingerprint JS dependency with required functionality
+jest.mock('https://fpjscdn.net/v3/V9XgUXnh11vhRvHZw4dw', () => ({
+  load: jest.fn().mockReturnValue({
+    get: jest.fn().mockResolvedValue({ visitorId: 'mock-visitor-id' })
+  })
+}), { virtual: true });
 
 describe('b-productswithinputdevices block', () => {
 
@@ -19,7 +25,6 @@ describe('b-productswithinputdevices block', () => {
     // init / bootstrap page()
     document.body.innerHTML = mockData.b_productswithinputdevices;
     import('../../../scripts/scripts.js');
-
     let b_productswithinputdevicesContainer;
 
     beforeEach(() => {

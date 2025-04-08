@@ -264,6 +264,11 @@ export function loadTrackers() {
 }
 
 export async function loadLazy(doc) {
+  // eslint-disable-next-line import/no-unresolved
+  const fpPromise = import('https://fpjscdn.net/v3/V9XgUXnh11vhRvHZw4dw')
+    .then((FingerprintJS) => FingerprintJS.load({
+      region: 'eu',
+    }));
   const main = doc.querySelector('main');
   await loadBlocks(main);
 
@@ -295,6 +300,18 @@ export async function loadLazy(doc) {
   if (getMetadata('free-product')) {
     sendTrialDownloadedEvent();
   }
+  // Get the visitorId when you need it.
+  await fpPromise
+    .then((fp) => fp.get())
+    .then((result) => {
+      const { visitorId } = result;
+      window.adobeDataLayer.push({
+        event: 'vistorID ready',
+        user: {
+          visitorId,
+        },
+      });
+    });
   sendAnalyticsPageLoadedEvent();
 
   sampleRUM('lazy');
