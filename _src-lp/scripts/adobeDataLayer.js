@@ -256,6 +256,25 @@ export async function sendAnalyticsProducts(product, region) {
       product: { info: productsInAdobe },
     });
 
+    // eslint-disable-next-line import/no-unresolved
+    const fpPromise = import('https://fpjscdn.net/v3/V9XgUXnh11vhRvHZw4dw')
+      .then((FingerprintJS) => FingerprintJS.load({
+        region: 'eu',
+      }));
+
+    // Get the visitorId when you need it.
+    await fpPromise
+      .then((fp) => fp.get())
+      .then((result) => {
+        const { visitorId } = result;
+        window.adobeDataLayer.push({
+          event: 'vistorID ready',
+          user: {
+            visitorId,
+          },
+        });
+      });
+
     window.adobeDataLayer.push({
       event: 'page loaded',
     });
