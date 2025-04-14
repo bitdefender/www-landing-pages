@@ -179,7 +179,9 @@ function checkAddOn(featuresSet) {
   return addOn;
 }
 
+alert('sdafadsf')
 export default async function decorate(block) {
+  alert('sdafadsf')
   const {
     // eslint-disable-next-line no-unused-vars
     products, familyProducts, monthlyProducts, pid, mainProduct,
