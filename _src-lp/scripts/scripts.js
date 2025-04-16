@@ -1084,7 +1084,7 @@ async function initializeProductsPriceLogic() {
 
     const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
     const content = mboxOptions?.[0]?.content;
-    targetBuyLinkMappings = targetResponse?.execute?.mboxes[1]?.options[0]?.content ?? {};
+    targetBuyLinkMappings = targetResponse?.execute?.mboxes?.[1]?.options?.[0]?.content ?? {};
     if (content) {
       targetPid = content.pid;
       vlaicuCampaign = content.pid || content.campaign || vlaicuCampaign;
@@ -1126,15 +1126,17 @@ function eventOnDropdownSlider() {
     function showLoadingBar(index) {
       clearInterval(loadingInterval); // Clear any existing loading animation
       const loadingBar = loadingBars[index];
-      loadingBar.style.width = '0';
-      let width = 0;
-      loadingInterval = setInterval(() => {
-        width += 1;
-        loadingBar.style.width = `${width}%`;
-        if (width >= 100) {
-          clearInterval(loadingInterval);
-        }
-      }, 30); // Adjust the interval for smoother animation
+      if (loadingBar) {
+        loadingBar.style.width = '0';
+        let width = 0;
+        loadingInterval = setInterval(() => {
+          width += 1;
+          loadingBar.style.width = `${width}%`;
+          if (width >= 100) {
+            clearInterval(loadingInterval);
+          }
+        }, 30); // Adjust the interval for smoother animation
+      }
     }
 
     function moveToNextItem() {
