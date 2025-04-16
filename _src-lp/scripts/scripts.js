@@ -1048,7 +1048,7 @@ async function initializeProductsPriceLogic() {
   const parameterPid = getParam('pid');
   let targetPid;
   let campaign = getParam('campaign');
-  const vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
+  let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
 
   try {
     const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
@@ -1087,6 +1087,7 @@ async function initializeProductsPriceLogic() {
     targetBuyLinkMappings = targetResponse?.execute?.mboxes[1]?.options[0]?.content ?? {};
     if (content) {
       targetPid = content.pid;
+      vlaicuCampaign = content.pid || content.campaign || vlaicuCampaign;
       campaign = content.campaign ?? campaign;
       const promotionID = content.pid || content.campaign;
 
