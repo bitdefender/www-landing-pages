@@ -612,7 +612,7 @@
 
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed {
   visibility: visible;
-  min-height: 110px;
+  min-height: 130px;
   text-align: center;
   font-size: var(--heading-font-size-xs);
   line-height: var(--heading-font-size-m);
@@ -795,10 +795,17 @@
 
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed em {
   font-size: 14px;
-  line-height: 36px;
+  line-height: 20px;
   font-style: normal;
   font-weight: bold;
   color: #68BA68;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed em span.black-text {
+  color: black;
+  font-weight: normal;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {

@@ -255,7 +255,7 @@ export default function decorate(block) {
 
           if (firstTdContent.indexOf('?pill') !== -1) {
             const pillText = firstTdContent.match(/\?pill (\w+)/);
-            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
             if (pillText) {
               const icon = tdList[0].querySelector('span');
               const pillElement = document.createElement('span');
@@ -273,7 +273,7 @@ export default function decorate(block) {
           }
           if (firstTdContent.indexOf('?green-pill') !== -1) {
             const pillText = firstTdContent.match(/\?green-pill (\w+)/);
-            const iconElement = firstTdContent.match(/<span class="[^"]*">(.*?)<\/span>/);
+            const iconElement = firstTdContent.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
             if (pillText) {
               const icon = tdList[0].querySelector('span');
               const pillElement = document.createElement('span');
@@ -436,7 +436,8 @@ ${billed ? (() => {
         .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
         .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
         .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`);
+        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
     } else {
       tempDiv.innerHTML = tempDiv.innerHTML
         .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
@@ -446,7 +447,8 @@ ${billed ? (() => {
         .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
         .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
         .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`);
+        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
     }
     return `<div class="billed">${tempDiv.innerHTML}</div>`;
   })() : ''}
