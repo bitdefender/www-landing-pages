@@ -8,8 +8,8 @@ import { Locale } from './vendor/product.js';
 const getEnvironment = () => {
   const hostToInstance = {
     'bitdefender.com': 'prod',
-    'hlx.page': 'stage',
-    'hlx.live': 'stage',
+    'hlx.page': 'dev',
+    'hlx.live': 'dev',
   };
 
   // eslint-disable-next-line no-restricted-syntax
