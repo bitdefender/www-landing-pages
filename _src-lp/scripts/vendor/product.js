@@ -1,3 +1,4 @@
+import Target from "@repobit/dex-target";
 const LOCALE_PARAMETER = 'locale';
 const API_BASE = 'https://www.bitdefender.com';
 const API_ROOT = '/p-api/v1';
@@ -189,7 +190,7 @@ export default class ProductPrice {
       return null;
     }
 
-    payload.product.options.forEach((option) => {
+    const allOptions = payload.product.options.map(async (option) => {
       // if the product is already added, skip
       // if (window.StoreProducts?.product?.[this.#alias]) return;
       if (this.#alias == 'vpn') option.slots = 10;
@@ -204,8 +205,12 @@ export default class ProductPrice {
 
       const fakeDevicesSelector = document.getElementById(`u_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
       const fakeYearsSelector = document.getElementById(`y_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
-      const decorator = new DecorateLink(option.buyLink, this.#campaign);
-      let buy_link = this.#targetBuyLinks?.[this.#alias]?.[`${this.#devicesNo}-${this.#yearsNo}`] || decorator.getFullyDecoratedUrl();
+      const decorator = new DecorateLink(
+        this.#targetBuyLinks?.[this.#alias]?.[`${this.#devicesNo}-${this.#yearsNo}`]?.buyLink
+          || option.buyLink,
+        this.#campaign
+      );
+      let buy_link = await decorator.getFullyDecoratedUrl();
 
       if (window.StoreProducts?.product) {
         const alreadyAdded = Object.values(window.StoreProducts.product).some(value =>
@@ -287,6 +292,8 @@ export default class ProductPrice {
       this.#appendOptionIfMissing(fakeYearsSelector, `.years_${this.#alias}`, this.#yearsNo);
     });
 
+    await Promise.allSettled(allOptions);
+
     return window.StoreProducts.product[this.#alias];
   }
 
@@ -365,7 +372,7 @@ export class Bundle {
       const returnObj = await response.json();
       if (returnObj.buyLink) {
         const decorator = new DecorateLink(returnObj.buyLink);
-        returnObj.buyLink = decorator.getFullyDecoratedUrl();
+        returnObj.buyLink = await decorator.getFullyDecoratedUrl();
       }
       return returnObj;
     } catch (error) {
@@ -500,21 +507,14 @@ export class DecorateLink {
     return null;
   }
 
-  #appendAdobeMc(link) {
+  async #appendAdobeMc(link) {
     try {
-      const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
-        trackingServer: 'sstats.bitdefender.com',
-        trackingServerSecure: 'sstats.bitdefender.com',
-        marketingCloudServer: 'sstats.bitdefender.com',
-        marketingCloudServerSecure: 'sstats.bitdefender.com',
-      });
-
       const isAdobeMcAlreadyAdded = link.includes('adobe_mc');
       if (isAdobeMcAlreadyAdded) {
         return link.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
       }
 
-      const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link);
+      const destinationURLWithVisitorIDs = await Target.appendVisitorIDsTo(link);
       return destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     } catch (e) {
       console.error(e);
@@ -523,13 +523,13 @@ export class DecorateLink {
 
   /**
    * Returns the fully decorated URL with all necessary parameters added.
-   * @returns {string} Fully decorated URL.
+   * @returns {Promise<string>} Fully decorated URL.
    */
-  getFullyDecoratedUrl() {
+  async getFullyDecoratedUrl() {
     this.#addSHOPURL();
     this.#addSRC();
     this.#cleanSection();
     this.#urlObj.search = this.#params.toString();
-    return this.#appendAdobeMc(this.#urlObj.toString());
+    return await this.#appendAdobeMc(this.#urlObj.toString());
   }
 }

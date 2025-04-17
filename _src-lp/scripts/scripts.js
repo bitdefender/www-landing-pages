@@ -1,3 +1,7 @@
+import Launch from '@repobit/dex-launch';
+import Target from '@repobit/dex-target';
+import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
+import page from './page.js';
 import {
   sampleRUM,
   buildBlock,
@@ -14,7 +18,6 @@ import {
   getMetadata,
   decorateTags,
 } from './lib-franklin.js';
-
 import {
   sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,
   sendTrialDownloadedEvent,
@@ -23,7 +26,6 @@ import {
   addScript,
   getDefaultLanguage,
   getDefaultSection,
-  getInstance,
   isZuoraForNetherlandsLangMode,
   checkIfLocaleCanSupportInitSelector,
   productsList,
@@ -33,7 +35,6 @@ import {
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
   formatPrice,
-  getCdpData,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -244,7 +245,7 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 
-export function loadTrackers() {
+export async function loadTrackers() {
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
 
   const onAdobeMcLoaded = () => {
@@ -253,11 +254,13 @@ export function loadTrackers() {
   };
 
   if (isPageNotInDraftsFolder) {
-    addScript(getInstance() === 'prod'
-      ? 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-b1f76be4d2ee.min.js'
-      : 'https://assets.adobedtm.com/8a93f8486ba4/5492896ad67e/launch-3e7065dd10db-staging.min.js', {}, 'async', onAdobeMcLoaded, onAdobeMcLoaded);
+    try {
+      await Launch.load((await page).environment);
+    } catch {
+      Target.abort();
+    }
 
-    addScript('https://www.googletagmanager.com/gtm.js?id=GTM-PLJJB3', {}, 'async');
+    onAdobeMcLoaded();
   } else {
     onAdobeMcLoaded();
   }
@@ -292,9 +295,7 @@ export async function loadLazy(doc) {
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
 
   adobeMcAppendVisitorId('main');
-
   loadTrackers();
-
   go2Anchor();
 
   if (getMetadata('free-product')) {
@@ -305,12 +306,7 @@ export async function loadLazy(doc) {
     .then((fp) => fp.get())
     .then((result) => {
       const { visitorId } = result;
-      window.adobeDataLayer.push({
-        event: 'vistorID ready',
-        user: {
-          visitorId,
-        },
-      });
+      AdobeDataLayerService.push(new VisitorIdEvent(visitorId));
     });
   sendAnalyticsPageLoadedEvent();
 
@@ -1051,45 +1047,13 @@ async function initializeProductsPriceLogic() {
   let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
 
   try {
-    const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg');
-    /* eslint no-underscore-dangle: ["error", { "allow": ["_supplementalDataIDCurrent"] }] */
-    const theCurrentSDID = visitor._supplementalDataIDCurrent ? visitor._supplementalDataIDCurrent : '';
-    const mcID = visitor.getMarketingCloudVisitorID();
-
-    const cdpData = await getCdpData(mcID);
-    /* global adobe */
-    const targetResponse = await adobe.target.getOffers({
-      consumerId: theCurrentSDID,
-      request: {
-        id: {
-          marketingCloudVisitorId: mcID,
-        },
-        execute: {
-          mboxes: [{
-            index: 0,
-            name: 'initSelector-mbox',
-            parameters: cdpData,
-            profileParameters: cdpData,
-          },
-          {
-            index: 1,
-            name: 'buyLinks-mbox',
-            parameters: cdpData,
-            profileParameters: cdpData,
-          }],
-
-        },
-      },
-    });
-
-    const mboxOptions = targetResponse?.execute?.mboxes[0]?.options;
-    const content = mboxOptions?.[0]?.content;
-    targetBuyLinkMappings = targetResponse?.execute?.mboxes?.[1]?.options?.[0]?.content ?? {};
-    if (content) {
-      targetPid = content.pid;
-      vlaicuCampaign = content.pid || content.campaign || vlaicuCampaign;
-      campaign = content.campaign ?? campaign;
-      const promotionID = content.pid || content.campaign;
+    const configMbox = await Target.configMbox;
+    targetBuyLinkMappings = configMbox?.products ?? {};
+    if (configMbox) {
+      targetPid = configMbox?.promotion;
+      vlaicuCampaign = configMbox?.promotion || vlaicuCampaign;
+      campaign = configMbox?.promotion ?? campaign;
+      const promotionID = configMbox?.promotion;
 
       if (promotionID) {
         window.adobeDataLayer.push({
@@ -1199,23 +1163,12 @@ async function loadPage() {
 
   addIdsToEachSection();
 
-  if (window.adobe?.target) {
-    initializeProductsPriceLogic();
-  } else {
-    /**
-     * Old event: GLOBAL_EVENTS.ADOBE_MC_LOADED
-     * We prefer to listen for Adobe Targe Library to load.
-     */
-    document.addEventListener('at-library-loaded', () => {
-      initializeProductsPriceLogic();
-    });
-  }
-
   // in the drafts folder adobe target is not loaded, so the price logic should be executed
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
   if (!isPageNotInDraftsFolder) {
-    initializeProductsPriceLogic();
+    Target.abort();
   }
+  initializeProductsPriceLogic();
 
   addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 

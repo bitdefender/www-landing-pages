@@ -1,3 +1,4 @@
+import Target from '@repobit/dex-target';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
 
@@ -197,20 +198,15 @@ export function getDefaultSection() {
 
 export function appendAdobeMcLinks(selector) {
   try {
-    const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
-      trackingServer: 'sstats.bitdefender.com',
-      trackingServerSecure: 'sstats.bitdefender.com',
-      marketingCloudServer: 'sstats.bitdefender.com',
-      marketingCloudServerSecure: 'sstats.bitdefender.com',
-    });
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*=".bitdefender."]';
-    wrapperSelector.querySelectorAll(hrefSelector).forEach((link) => {
+    wrapperSelector.querySelectorAll(hrefSelector).forEach(async (link) => {
       const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
       if (isAdobeMcAlreadyAdded) {
         return;
       }
-      const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link.href);
+
+      const destinationURLWithVisitorIDs = await Target.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
   } catch (e) {
