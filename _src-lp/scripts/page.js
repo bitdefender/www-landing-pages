@@ -1,5 +1,5 @@
-import { Page } from "@repobit/dex-utils";
-import { Locale } from "./vendor/product.js";
+import { Page } from '@repobit/dex-utils';
+import { Locale } from './vendor/product.js';
 
 /**
  * Returns the environment based on the hostname
@@ -18,12 +18,17 @@ const getEnvironment = () => {
   }
 
   return 'dev';
-}
+};
 
 /**
  * @returns {string} page name
  */
 const getPageName = () => window.location.pathname.split('/').filter(Boolean).pop();
 
-export default new Page(await Locale.get(), getPageName(), getEnvironment());
+/**
+ *
+ * @returns {Promise<Page>}
+ */
+const getPage = async () => new Page(await Locale.get(), getPageName(), getEnvironment());
 
+export default getPage();

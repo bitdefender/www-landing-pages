@@ -1,8 +1,7 @@
-import page from './page.js';
 import Launch from '@repobit/dex-launch';
 import Target from '@repobit/dex-target';
 import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
-
+import page from './page.js';
 import {
   sampleRUM,
   buildBlock,
@@ -256,7 +255,7 @@ export async function loadTrackers() {
 
   if (isPageNotInDraftsFolder) {
     try {
-      await Launch.load(page.environment);
+      await Launch.load((await page).environment);
     } catch {
       Target.abort();
     }
