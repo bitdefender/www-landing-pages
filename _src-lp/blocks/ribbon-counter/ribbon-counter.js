@@ -1,8 +1,8 @@
 export default function decorate(block) {
   const parentSection = block.closest('.section');
-  const { 
-    backgroundColor, textColor, counterEndsOn, counterHeadings, paddingTop, paddingBottom, marginTop, marginBottom
-  } = parentSection.dataset;  
+  const {
+    backgroundColor, textColor, counterEndsOn, counterHeadings, paddingTop, paddingBottom, marginTop, marginBottom,
+  } = parentSection.dataset;
   const [, backgroundEl] = block.children;
 
   if (backgroundColor) parentSection.style.backgroundColor = backgroundColor;
@@ -34,7 +34,7 @@ export default function decorate(block) {
     const targetDate = new Date(counterEndsOn).getTime();
     let interval;
 
-    function updateCountdown() {
+    const updateCountdown = () => {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
