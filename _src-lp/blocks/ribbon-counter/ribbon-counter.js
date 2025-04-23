@@ -51,7 +51,7 @@ export default function decorate(block) {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       countdownElement.innerHTML = `${days}${daysLabel} : ${hours}${hoursLabel} : ${minutes}${minsLabel} : ${seconds}${secLabel}`;
-    }
+    };
 
     interval = setInterval(updateCountdown, 1000);
     updateCountdown();
