@@ -1,6 +1,6 @@
 export default function decorate(block) {
   const parentSection = block.closest('.section');
-  const { backgroundColor, textColor, counterSwitchOn, counterTheme, counterHeadings, paddingTop, paddingBottom, marginTop, marginBottom } = parentSection.dataset;  
+  const { backgroundColor, textColor, counterEndsOn, counterHeadings, paddingTop, paddingBottom, marginTop, marginBottom } = parentSection.dataset;  
   const [, backgroundEl] = block.children;
 
   if (backgroundColor) parentSection.style.backgroundColor = backgroundColor;
@@ -21,12 +21,15 @@ export default function decorate(block) {
     }
   }
 
-  if (counterSwitchOn) {
+  if (counterEndsOn) {
+    const [daysLabel, hoursLabel, minsLabel, secLabel] = counterHeadings ? counterHeadings.split(',').map(v => v.trim()) : ['d', 'h', 'm', 's'];
+
     block.innerHTML = block.innerHTML.replace('[counter]', `
       <strong class="ribbonCounter"></strong>
     `);
+
     const countdownElement = block.querySelector('.ribbonCounter');
-    const targetDate = new Date(counterSwitchOn).getTime();
+    const targetDate = new Date(counterEndsOn).getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
@@ -38,11 +41,13 @@ export default function decorate(block) {
         clearInterval(interval);
         return;
       }
+
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      countdownElement.innerHTML = `${days}j : ${hours}h : ${minutes}min : ${seconds}s`;
+
+      countdownElement.innerHTML = `${days}${daysLabel} : ${hours}${hoursLabel} : ${minutes}${minsLabel} : ${seconds}${secLabel}`;
     }
 
     const interval = setInterval(updateCountdown, 1000);
