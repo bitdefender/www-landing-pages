@@ -17,7 +17,7 @@ export default function decorate(block) {
     const backgroundImgSrc = backgroundImgEl?.getAttribute('src');
 
     if (backgroundImgSrc) {
-      block.closest('.section').style.backgroundImage = `url("${backgroundImgSrc}")`;
+      parentSection.style.backgroundImage = `url("${backgroundImgSrc}")`;
       // Remove the row after setting background
       backgroundEl.remove();
     }
