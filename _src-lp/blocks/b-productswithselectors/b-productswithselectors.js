@@ -9,8 +9,13 @@ export default function decorate(block) {
   const metaData = parentSelector.dataset;
   const {
     products, selectorsName, taxesText, discountText, tagText, priceText1, priceText2, priceText3, buttonText3, buttonText2, buttonText,
-    devicesLimits, backgroundColor, backgroundImage, campaignImage,
+    devicesLimits, backgroundColor, backgroundImage, campaignImage, paddingTop, paddingBottom, marginTop, marginBottom,
   } = metaData;
+
+  if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
+  if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
+  if (marginTop) parentSelector.style.marginTop = `${marginTop}rem`;
+  if (marginBottom) parentSelector.style.marginBottom = `${marginBottom}rem`;
 
   if (backgroundImage) {
     parentSelectorStyle.backgroundImage = `url(${backgroundImage.split('?')[0]})`;
