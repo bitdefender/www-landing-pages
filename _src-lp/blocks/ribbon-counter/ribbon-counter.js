@@ -1,10 +1,12 @@
 export default function decorate(block) {
   const parentSection = block.closest('.section');
-  const { backgroundColor, textColor, counterEndsOn, counterHeadings, paddingTop, paddingBottom, marginTop, marginBottom } = parentSection.dataset;  
+  const { 
+    backgroundColor, textColor, counterEndsOn, counterHeadings, paddingTop, paddingBottom, marginTop, marginBottom
+  } = parentSection.dataset;  
   const [, backgroundEl] = block.children;
 
   if (backgroundColor) parentSection.style.backgroundColor = backgroundColor;
-  if (textColor) block.querySelector("*").style.color = textColor;
+  if (textColor) block.querySelector('*').style.color = textColor;
   if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
   if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
   if (marginTop) parentSection.style.marginTop = `${marginTop}rem`;
@@ -22,7 +24,7 @@ export default function decorate(block) {
   }
 
   if (counterEndsOn) {
-    const [daysLabel, hoursLabel, minsLabel, secLabel] = counterHeadings ? counterHeadings.split(',').map(v => v.trim()) : ['d', 'h', 'm', 's'];
+    const [daysLabel, hoursLabel, minsLabel, secLabel] = counterHeadings ? counterHeadings.split(',').map((v) => v.trim()) : ['d', 'h', 'm', 's'];
 
     block.innerHTML = block.innerHTML.replace('[counter]', `
       <strong class="ribbonCounter"></strong>
@@ -30,6 +32,7 @@ export default function decorate(block) {
 
     const countdownElement = block.querySelector('.ribbonCounter');
     const targetDate = new Date(counterEndsOn).getTime();
+    let interval;
 
     function updateCountdown() {
       const now = new Date().getTime();
@@ -50,7 +53,7 @@ export default function decorate(block) {
       countdownElement.innerHTML = `${days}${daysLabel} : ${hours}${hoursLabel} : ${minutes}${minsLabel} : ${seconds}${secLabel}`;
     }
 
-    const interval = setInterval(updateCountdown, 1000);
+    interval = setInterval(updateCountdown, 1000);
     updateCountdown();
   }
 }
