@@ -1,15 +1,26 @@
-<!DOCTYPE html>
-<html>
-
-<head>
+<!DOCTYPE html><html><head>
+  <script type="importmap">{
+  "imports": {
+    "@repobit/dex-data-layer": "https://cdn.jsdelivr.net/npm/@repobit/dex-data-layer@1.5.2/+esm",
+    "/npm/@repobit/dex-data-layer@1.5.2/+esm": "https://cdn.jsdelivr.net//npm/@repobit/dex-data-layer@1.5.2/+esm",
+    "@repobit/dex-store": "https://cdn.jsdelivr.net/npm/@repobit/dex-store@0.2.1/+esm",
+    "/npm/@repobit/dex-store@0.2.1/+esm": "https://cdn.jsdelivr.net//npm/@repobit/dex-store@0.2.1/+esm",
+    "@repobit/dex-utils": "https://cdn.jsdelivr.net/npm/@repobit/dex-utils@1.2.1/+esm",
+    "/npm/@repobit/dex-utils@1.2.1/+esm": "https://cdn.jsdelivr.net//npm/@repobit/dex-utils@1.2.1/+esm",
+    "/npm/deepmerge@4.3.1/+esm": "https://cdn.jsdelivr.net//npm/deepmerge@4.3.1/+esm",
+    "@repobit/dex-launch": "https://cdn.jsdelivr.net/npm/@repobit/dex-launch@1.4.1/+esm",
+    "@repobit/dex-target": "https://cdn.jsdelivr.net/npm/@repobit/dex-target@1.8.14/+esm",
+    "/npm/js-cookie@3.0.5/+esm": "https://cdn.jsdelivr.net//npm/js-cookie@3.0.5/+esm"
+  }
+}</script>
   <title>Page not found</title>
   <script type="text/javascript">
     window.isErrorPage = true;
     window.errorCode = '404';
   </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Page not found">
-  <script src="/_src-lp/scripts/scripts.js" type="module" crossorigin="use-credentials"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="Page not found" />
+  <script src="/_src-lp/scripts/scripts.js" type="module"></script>
   <script type="module">
     import { sampleRUM } from '/_src-lp/scripts/lib-franklin.js';
 
@@ -29,7 +40,7 @@
       sampleRUM('404', { source: document.referrer, target: window.location.href });
     });
   </script>
-  <link rel="stylesheet" href="/_src-lp/styles/styles.css">
+  <link rel="stylesheet" href="/_src-lp/styles/styles.css" />
   <style>
     main.error {
       min-height: calc(100vh - var(--nav-height));
@@ -106,8 +117,8 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="/_src-lp/styles/vendor/bootstrap.min.css">
-  <link rel="stylesheet" href="/_src-lp/styles/lazy-styles.css">
+  <link rel="stylesheet" href="/_src-lp/styles/vendor/bootstrap.min.css" />
+  <link rel="stylesheet" href="/_src-lp/styles/lazy-styles.css" />
 </head>
 
 <body>
@@ -115,7 +126,7 @@
   <main class="error section">
       <h1 class="error-number">404</h1>
       <h2 class="error-message">Page Not Found</h2>
-      <p class="error-message-2">The page you are looking for might have been removed,<br class="d-none d-md-block"> had its name changed, or is temporarily unavailable.</p>
+      <p class="error-message-2">The page you are looking for might have been removed,<br class="d-none d-md-block" /> had its name changed, or is temporarily unavailable.</p>
       <div class="links-section p-5 my-5">
         <h3 class="popular-sections text-center">Our most popular sections</h3>
         <div>
@@ -135,6 +146,7 @@
       </div>
   </main>
   <footer></footer>
-</body>
 
-</html>
+
+
+</body></html>
