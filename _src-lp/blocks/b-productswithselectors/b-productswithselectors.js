@@ -30,6 +30,7 @@ export default function decorate(block) {
     campaignLogo.id = 'campaign-logo';
     campaignLogo.innerHTML = `<img src="${campaignImage}" alt="Bitdefender">`;
     block.appendChild(campaignLogo);
+    block.classList.add('has-campaign-logo');
   }
 
   const productsAsList = products && products.split(',');
