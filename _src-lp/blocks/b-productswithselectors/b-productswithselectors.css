@@ -262,6 +262,14 @@
   position: relative;
 }
 
+.b-productswithselectors-container .b-productswithselectors-wrapper .b-productswithselectors.has-campaign-logo {
+  margin-top: 16em;
+}
+
+.b-productswithselectors-container .b-productswithselectors-wrapper .b-productswithselectors.has-campaign-logo #campaign-logo {
+  top: -20em;
+}
+
 @media (width <= 1445px) {
   .b-productswithselectors-container.bf2024 #campaign-logo {
     top: -14em;
