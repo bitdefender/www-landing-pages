@@ -1,3 +1,4 @@
+import Target from '@repobit/dex-target';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
 
@@ -197,20 +198,15 @@ export function getDefaultSection() {
 
 export function appendAdobeMcLinks(selector) {
   try {
-    const visitor = Visitor.getInstance('0E920C0F53DA9E9B0A490D45@AdobeOrg', {
-      trackingServer: 'sstats.bitdefender.com',
-      trackingServerSecure: 'sstats.bitdefender.com',
-      marketingCloudServer: 'sstats.bitdefender.com',
-      marketingCloudServerSecure: 'sstats.bitdefender.com',
-    });
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*=".bitdefender."]';
-    wrapperSelector.querySelectorAll(hrefSelector).forEach((link) => {
+    wrapperSelector.querySelectorAll(hrefSelector).forEach(async (link) => {
       const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
       if (isAdobeMcAlreadyAdded) {
         return;
       }
-      const destinationURLWithVisitorIDs = visitor.appendVisitorIDsTo(link.href);
+
+      const destinationURLWithVisitorIDs = await Target.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
   } catch (e) {
@@ -417,44 +413,45 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     if (showVpnBox) showVpnBox.style.display = 'block';
   }
 
+  const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
+  const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
+  const fullPriceYearly = formatPrice((selectedVarPrice * 12).toFixed(2), currencyIso, regionId);
+
+  const oldPriceClass = `.oldprice-${onSelectorClass}`;
+  if (document.querySelector(oldPriceClass)) {
+    const allOldPriceBox = document.querySelectorAll(oldPriceClass);
+    if (triggerVPN) {
+      if (parentDiv) parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
+      if (comparativeTextBox) {
+        allOldPriceBox.forEach((item) => {
+          item.innerHTML = fullPrice;
+        });
+      }
+    } else {
+      allOldPriceBox.forEach((item) => {
+        if (item.classList.contains('calculate_monthly')) {
+          item.innerHTML = fullPriceMonthly;
+        } else if (item.classList.contains('calculate_yearly')) {
+          item.innerHTML = fullPriceYearly;
+        } else {
+          item.innerHTML = fullPrice;
+        }
+      });
+    }
+  }
+
   if (storeObj.selected_variation.discount && storeObj.selected_variation.discount?.discount_value) {
     if (triggerVPN) {
       selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
-    const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
-    const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
-    const fullPriceYearly = formatPrice((selectedVarPrice * 12).toFixed(2), currencyIso, regionId);
     const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
     const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
     const offerPriceYearly = formatPrice((selectedVarDiscount * 12).toFixed(2), currencyIso, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
     const savings = formatPrice(savingsPrice.toFixed(0), currencyIso, regionId);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
-
-    const oldPriceClass = `.oldprice-${onSelectorClass}`;
-    if (document.querySelector(oldPriceClass)) {
-      const allOldPriceBox = document.querySelectorAll(oldPriceClass);
-      if (triggerVPN) {
-        if (parentDiv) parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
-        if (comparativeTextBox) {
-          allOldPriceBox.forEach((item) => {
-            item.innerHTML = fullPrice;
-          });
-        }
-      } else {
-        allOldPriceBox.forEach((item) => {
-          if (item.classList.contains('calculate_monthly')) {
-            item.innerHTML = fullPriceMonthly;
-          } else if (item.classList.contains('calculate_yearly')) {
-            item.innerHTML = fullPriceYearly;
-          } else {
-            item.innerHTML = fullPrice;
-          }
-        });
-      }
-    }
 
     const onewPriceClass = `.newprice-${onSelectorClass}`;
     if (document.querySelector(onewPriceClass)) {
@@ -563,7 +560,6 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       showSaveBox.style.visibility = 'visible';
     }
   } else {
-    const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
     let vpnHasDiscount = false;
     let offerPrice = 0;
     let percentageSticker = 0;
@@ -605,12 +601,10 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         const parent = item.parentNode;
         const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
         if (item.closest('p') && !item.closest('label') && item.closest('p')) item.closest('p').style.display = 'none';
-        if (sibling) {
+        if (sibling && !parent.classList.contains('billed')) {
           item.style.display = 'none';
           sibling.style.display = 'none';
-        } else {
-          parent.style.display = 'none';
-        }
+        } else if (!parent.classList.contains('billed')) parent.style.display = 'none';
       });
     }
 
