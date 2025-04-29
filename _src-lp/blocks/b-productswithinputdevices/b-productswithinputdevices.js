@@ -75,6 +75,7 @@ export default function decorate(block) {
     campaignLogo.id = 'campaign-logo';
     campaignLogo.innerHTML = `<img src="${campaignImage}" alt="Bitdefender">`;
     block.appendChild(campaignLogo);
+    block.classList.add('has-campaign-logo');
   }
 
   let devicesMin = 1;
