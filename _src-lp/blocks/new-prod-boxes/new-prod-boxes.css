@@ -280,6 +280,10 @@
   justify-content: center;
 }
 
+.new-prod-boxes-container.width-large .block {
+  justify-content: center;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box {
   position: relative;
   width: 100%;
@@ -1076,5 +1080,8 @@
   }
   .new-prod-boxes-container.width-medium .block .prod_box {
     flex: 0 0 315px;
+  }
+  .new-prod-boxes-container.width-large .block .prod_box {
+    flex: 0 0 450px;
   }
 }
