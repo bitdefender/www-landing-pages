@@ -1,3 +1,4 @@
+import Target from '@repobit/dex-target';
 import { getMetadata } from './lib-franklin.js';
 import {
   getDefaultLanguage, getInstance, GLOBAL_EVENTS, getCookie,
@@ -112,8 +113,7 @@ const currentGMTDate = (() => {
 export const sendAnalyticsPageEvent = () => {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
   window.adobeDataLayer = window.adobeDataLayer || [];
-
-  const { pageName, sections, subSection } = getPageNameAndSections();
+  const { pageName, sections } = getPageNameAndSections();
 
   window.adobeDataLayer.push({
     event: 'page load started',
@@ -144,9 +144,20 @@ export const sendAnalyticsPageEvent = () => {
       },
     },
   });
+};
+
+/**
+ *
+ * @param {string} subSection
+ */
+export const sendAnalyticsErrorEvent = async () => {
+  const { subSection } = getPageNameAndSections();
 
   if ((subSection && subSection === '404') || window.errorCode === '404') {
+    await Target.configMbox; // wait for CDP data to finalize
     window.adobeDataLayer.push({ event: 'page error' });
+    window.adobeDataLayer.push({ event: 'page loaded' });
+    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 };
 
@@ -262,13 +273,20 @@ export async function sendAnalyticsProducts(product, region) {
   }
 }
 
-export async function sendAnalyticsPageLoadedEvent() {
+export async function sendAnalyticsPageLoadedEvent(force = false) {
   if (!Array.isArray(window.adobeDataLayer)) {
     return;
   }
 
-  window.adobeDataLayer.push({ event: 'page loaded' });
-  document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
+  const hasPageLoadedEvent = window.adobeDataLayer.some((obj) => obj.event === 'page loaded');
+  if (hasPageLoadedEvent) {
+    return;
+  }
+
+  if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || getMetadata('free-product') || force) {
+    window.adobeDataLayer.push({ event: 'page loaded' });
+    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
+  }
 }
 
 export async function sendTrialDownloadedEvent() {

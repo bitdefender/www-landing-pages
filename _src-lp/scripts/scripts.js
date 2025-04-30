@@ -21,6 +21,7 @@ import {
 import {
   sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,
   sendTrialDownloadedEvent,
+  sendAnalyticsErrorEvent,
 } from './adobeDataLayer.js';
 import {
   addScript,
@@ -308,6 +309,8 @@ export async function loadLazy(doc) {
       const { visitorId } = result;
       AdobeDataLayerService.push(new VisitorIdEvent(visitorId));
     });
+
+  await sendAnalyticsErrorEvent();
   sendAnalyticsPageLoadedEvent();
 
   sampleRUM('lazy');
