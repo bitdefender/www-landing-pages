@@ -355,6 +355,14 @@
   width: 24em;
 }
 
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo {
+  margin-top: 16em!important;
+}
+
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo #campaign-logo {
+  top: -20em;
+}
+
 .b-productswithinputdevices-container.bf2024 a.red-buy-button {
   position: relative;
   overflow: hidden;
@@ -524,5 +532,11 @@
   .b-productswithinputdevices-container.bf2024 #campaign-logo {
     width: 14em;
     top: -9em;
+  }
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo {
+    margin-top: 13em !important;
+  }
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo #campaign-logo {
+    top: -14em;
   }
 }
