@@ -151,6 +151,9 @@ export default function decorate(block) {
     const productsAsList = products && products.split(',');
     const selectorBox = document.createElement('div');
     selectorBox.className = 'productSelector justify-content-start';
+    if (productsAsList.length > 1) {
+      block.classList.add('hasMoreThan1');
+    }
 
     productsAsList.forEach((prod, idx) => {
       // eslint-disable-next-line prefer-const
