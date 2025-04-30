@@ -332,19 +332,12 @@
   outline: none;
 }
 
-.b-productswithinputdevices-container.bf2024 #campaign-logo {
-  position: absolute;
-  top: -8em;
-  left: -9em;
+.b-productswithinputdevices-container #campaign-logo {
   width: 24em;
-}
-
-.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo {
-  margin-top: 16em !important;
-}
-
-.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo #campaign-logo {
-  top: -20em;
+  background-color: transparent;
+  position: absolute;
+  z-index: 9;
+  margin-left: 10%;
 }
 
 .b-productswithinputdevices-container.bf2024 a.red-buy-button {
@@ -400,17 +393,13 @@
   color: #A1A2A2;
 }
 
-@media (width <= 1360px) {
-  .b-productswithinputdevices-container.bf2024 #campaign-logo {
-    top: -12em;
-    left: -3em;
+@media (width <= 1400px) {
+  .b-productswithinputdevices-container #campaign-logo {
+    width: 21em;
+    margin-left: 0;
   }
 }
 @media (width <= 1100px) {
-  .b-productswithinputdevices-container.bf2024 #campaign-logo {
-    top: -14em;
-    left: 1em;
-  }
   .b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
     right: 2em;
     top: -24px;
@@ -420,10 +409,13 @@
   }
 }
 @media (width <= 991px) {
-  .b-productswithinputdevices-container.bf2024 #campaign-logo {
-    top: -10em;
-    left: 1em;
-    width: 18em;
+  .b-productswithinputdevices-container #campaign-logo {
+    width: 21em;
+    margin: 0 auto;
+    position: relative;
+  }
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo {
+    margin-top: 1em;
   }
 }
 /* for mobile */
@@ -482,26 +474,5 @@
   }
   .b-productswithinputdevices-container.second-template .b-productswithinputdevices > div:nth-child(2) > div {
     margin: 0;
-  }
-  .b-productswithinputdevices-container.bf2024 #campaign-logo {
-    top: -12em;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-}
-@media (width <= 500px) {
-  .b-productswithinputdevices-container.bf2024 .b-productswithinputdevices-wrapper .b-productswithinputdevices {
-    margin-top: 7em;
-  }
-  .b-productswithinputdevices-container.bf2024 #campaign-logo {
-    width: 14em;
-    top: -9em;
-  }
-  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo {
-    margin-top: 13em !important;
-  }
-  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo #campaign-logo {
-    top: -14em;
   }
 }
