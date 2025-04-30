@@ -31,8 +31,16 @@
   margin: 0 1em;
 }
 
+.section.banner-with-cards-container .banner-with-cards .hasProds > div {
+  flex: 0 0 300px;
+}
+
 .section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type {
   flex: 0 0 400px;
+}
+
+.section.banner-with-cards-container.free-size .banner-with-cards .hasProds > div:first-of-type {
+  flex: auto;
 }
 
 .section.banner-with-cards-container .banner-with-cards.edeka .hasProds > div:first-of-type {
@@ -62,6 +70,12 @@
   font-size: 18px;
   line-height: 24px;
   font-weight: normal;
+}
+
+.section.banner-with-cards-container.free-size .banner-with-cards .hasProds > div:first-of-type p {
+  font-size: 14px;
+  line-height: 1.5;
+  list-style-type: none;
 }
 
 .section.banner-with-cards-container .banner-with-cards.edeka > div table {
@@ -125,8 +139,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  line-height: 18px;
+  font-size: 13px;
+  line-height: 16px;
   font-weight: normal;
   color: white;
 }
@@ -161,6 +175,24 @@
   max-width: unset;
   width: 100%;
   margin: 0;
+}
+
+.section.banner-with-cards-container ul {
+  padding-left: 0;
+}
+
+.section.banner-with-cards-container .banner-with-cards ul li strong u {
+  background-color: #2fb43e;
+  color: white !important;
+  font-size: 11px;
+  display: inline;
+  padding: 4px 6px;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+  line-height: 15px;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox ul {
@@ -289,8 +321,8 @@
 
 .section.banner-with-cards-container .banner-with-cards .prodBox .red-buy-button  {
   margin-top: 10px;
+  width: 100%;
 }
-
 
 .section.banner-with-cards-container .banner-with-cards .hasBox h1 {
   font-size: 22px;
@@ -346,10 +378,13 @@
     width: 500px;
     margin: 0 auto;
   }
+  
 
   .section.banner-with-cards-container .banner-with-cards .hasProds {
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 1em;
   }
 
   .section.banner-with-cards-container .banner-with-cards .prodBox {
