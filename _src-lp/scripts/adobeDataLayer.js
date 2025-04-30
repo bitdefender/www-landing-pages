@@ -18,7 +18,6 @@ function getPageNameAndSections() {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
 
   const pageSectionParts = window.location.pathname.split('/').filter((subPath) => subPath !== '' && subPath !== 'pages');
-  console.log(pageSectionParts);
   const subSubSection = pageSectionParts[0];
 
   pageSectionParts[0] = DEFAULT_LANGUAGE === 'en' ? 'us' : DEFAULT_LANGUAGE;
