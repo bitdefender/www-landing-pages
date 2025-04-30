@@ -17,6 +17,7 @@ function getPageNameAndSections() {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
 
   const pageSectionParts = window.location.pathname.split('/').filter((subPath) => subPath !== '' && subPath !== 'pages');
+  console.log(pageSectionParts);
   const subSubSection = pageSectionParts[0];
 
   pageSectionParts[0] = DEFAULT_LANGUAGE === 'en' ? 'us' : DEFAULT_LANGUAGE;
@@ -108,7 +109,7 @@ const currentGMTDate = (() => {
 /**
  * Sends the page load started event to the Adobe Data Layer
  */
-export const sendAnalyticsPageEvent = async () => {
+export const sendAnalyticsPageEvent = () => {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
   window.adobeDataLayer = window.adobeDataLayer || [];
 
@@ -144,10 +145,8 @@ export const sendAnalyticsPageEvent = async () => {
     },
   });
 
-  if (subSection && subSection === '404') {
+  if ((subSection && subSection === '404') || window.errorCode === '404') {
     window.adobeDataLayer.push({ event: 'page error' });
-    window.adobeDataLayer.push({ event: 'page loaded' });
-    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 };
 
@@ -263,20 +262,13 @@ export async function sendAnalyticsProducts(product, region) {
   }
 }
 
-export async function sendAnalyticsPageLoadedEvent(force = false) {
+export async function sendAnalyticsPageLoadedEvent() {
   if (!Array.isArray(window.adobeDataLayer)) {
     return;
   }
 
-  const hasPageLoadedEvent = window.adobeDataLayer.some((obj) => obj.event === 'page loaded');
-  if (hasPageLoadedEvent) {
-    return;
-  }
-
-  if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || getMetadata('free-product') || force) {
-    window.adobeDataLayer.push({ event: 'page loaded' });
-    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
-  }
+  window.adobeDataLayer.push({ event: 'page loaded' });
+  document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
 }
 
 export async function sendTrialDownloadedEvent() {

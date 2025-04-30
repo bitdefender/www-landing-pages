@@ -287,7 +287,7 @@ export async function loadLazy(doc) {
     event: 'gtm.js',
   });
 
-  await sendAnalyticsPageEvent();
+  sendAnalyticsPageEvent();
   await sendAnalyticsUserInfo();
 
   loadFooter(doc.querySelector('footer'));
