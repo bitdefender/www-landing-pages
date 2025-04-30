@@ -1,6 +1,6 @@
 import Launch from '@repobit/dex-launch';
 import Target from '@repobit/dex-target';
-import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
+// import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
 import page from './page.js';
 import {
   sampleRUM,
@@ -269,10 +269,10 @@ export async function loadTrackers() {
 
 export async function loadLazy(doc) {
   // eslint-disable-next-line import/no-unresolved
-  const fpPromise = import('https://fpjscdn.net/v3/V9XgUXnh11vhRvHZw4dw')
-    .then((FingerprintJS) => FingerprintJS.load({
-      region: 'eu',
-    }));
+  // const fpPromise = import('https://fpjscdn.net/v3/V9XgUXnh11vhRvHZw4dw')
+  //   .then((FingerprintJS) => FingerprintJS.load({
+  //     region: 'eu',
+  //   }));
   const main = doc.querySelector('main');
   await loadBlocks(main);
 
@@ -303,12 +303,12 @@ export async function loadLazy(doc) {
     sendTrialDownloadedEvent();
   }
   // Get the visitorId when you need it.
-  await fpPromise
-    .then((fp) => fp.get())
-    .then((result) => {
-      const { visitorId } = result;
-      AdobeDataLayerService.push(new VisitorIdEvent(visitorId));
-    });
+  // await fpPromise
+  //   .then((fp) => fp.get())
+  //   .then((result) => {
+  //     const { visitorId } = result;
+  //     AdobeDataLayerService.push(new VisitorIdEvent(visitorId));
+  //   });
 
   await sendAnalyticsErrorEvent();
   sendAnalyticsPageLoadedEvent();
