@@ -24,8 +24,9 @@
   text-align: left;
 }
 
-.section.banner-with-cards-container.margin-0 .banner-with-cards .hasProds > div {
+.section.banner-with-cards-container.margin-0 .banner-with-cards .hasProds > div, .section.banner-with-cards-container.margin-0 .banner-with-cards .customWrapper {
   margin: 0;
+  padding: 0;
 }
 
 .section.banner-with-cards-container .banner-with-cards .hasProds > div {
@@ -124,7 +125,7 @@
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox h3 {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 22px;
   font-weight: bold;
   margin: 0;
@@ -359,6 +360,11 @@
   margin-right: 30px;
 }
 
+@media (width <= 1225px) {
+  .section.banner-with-cards-container.margin-0 .banner-with-cards .customWrapper {
+    padding: 0 15px;
+  }
+}
 @media (width <= 992px) {
   .section.banner-with-cards-container.hide-tablet {
     background: none !important;
