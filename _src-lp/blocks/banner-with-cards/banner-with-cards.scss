@@ -26,6 +26,10 @@
   text-align: left;
 }
 
+.section.banner-with-cards-container.free-size .banner-with-cards .hasProds > div {
+  margin: 0;
+}
+
 .section.banner-with-cards-container .banner-with-cards .hasProds > div {
   flex: 0 0 350px;
   margin: 0 1em;
