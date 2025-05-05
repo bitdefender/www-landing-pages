@@ -1,4 +1,5 @@
 import Target from '@repobit/dex-target';
+import { Constants } from '@repobit/dex-utils';
 import { getMetadata } from './lib-franklin.js';
 import {
   getDefaultLanguage, getInstance, GLOBAL_EVENTS, getCookie,
@@ -109,40 +110,57 @@ const currentGMTDate = (() => {
 /**
  * Sends the page load started event to the Adobe Data Layer
  */
-export const sendAnalyticsPageEvent = () => {
+export const sendAnalyticsPageEvent = async () => {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
   window.adobeDataLayer = window.adobeDataLayer || [];
   const { pageName, sections } = getPageNameAndSections();
+  const pageData = {
+    info: {
+      name: pageName,
+      section: sections[0] || '',
+      subSection: sections[1] || '',
+      subSubSection: sections[2] || '',
+      subSubSubSection: sections[3] || '',
+      destinationURL: window.location.href,
+      queryString: window.location.search,
+      referringURL: getParamValue('ref') || getParamValue('adobe_mc') || document.referrer || '',
+      serverName: 'hlx.live',
+      language: navigator.language || navigator.userLanguage || DEFAULT_LANGUAGE,
+      // geoRegion: await getIpCountry(), // TODO: uncomment when we have a way to get the user country
+      sysEnv: operatingSystem,
+    },
+    attributes: {
+      promotionID: getParamValue('pid') || '',
+      internalPromotionID: getParamValue('icid') || '',
+      trackingID: getParamValue('cid') || '',
+      time: formatUserTime,
+      date: currentGMTDate,
+      domain: window.location.hostname,
+      domainPeriod: window.location.hostname.split('.').length - 1,
+    },
+  };
 
   window.adobeDataLayer.push({
     event: 'page load started',
     pageInstanceID: getInstance(),
-    page: {
-      info: {
-        name: pageName,
-        section: sections[0] || '',
-        subSection: sections[1] || '',
-        subSubSection: sections[2] || '',
-        subSubSubSection: sections[3] || '',
-        destinationURL: window.location.href,
-        queryString: window.location.search,
-        referringURL: getParamValue('ref') || getParamValue('adobe_mc') || document.referrer || '',
-        serverName: 'hlx.live',
-        language: navigator.language || navigator.userLanguage || DEFAULT_LANGUAGE,
-        // geoRegion: await getIpCountry(), // TODO: uncomment when we have a way to get the user country
-        sysEnv: operatingSystem,
-      },
-      attributes: {
-        promotionID: getParamValue('pid') || '',
-        internalPromotionID: getParamValue('icid') || '',
-        trackingID: getParamValue('cid') || '',
-        time: formatUserTime,
-        date: currentGMTDate,
-        domain: window.location.hostname,
-        domainPeriod: window.location.hostname.split('.').length - 1,
-      },
-    },
+    page: pageData,
   });
+
+  // send cdp data
+  try {
+    await fetch(
+      `${Constants.PUBLIC_URL_ORIGIN}/cdp/`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          mcvisid: (await Target.visitorInfo)?.identity?.ECID || '',
+          ...pageData,
+        }),
+      },
+    );
+  } catch (e) {
+    console.warn(e);
+  }
 };
 
 /**
