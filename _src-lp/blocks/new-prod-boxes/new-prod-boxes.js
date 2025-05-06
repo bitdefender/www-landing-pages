@@ -174,6 +174,7 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
+      const buyLinkAnchor = buyLink.querySelector('a')?.getAttribute('href');
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -455,10 +456,11 @@ ${billed ? (() => {
 
               ${vpnInfoContent && vpnInfoContent}
               ${buyLinkText && `<div class="buy-btn">
-                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                <a class="red-buy-button ${buyLinkAnchor ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkAnchor || '#'}" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
               </div>`}
-               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
+
+              ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
             ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
