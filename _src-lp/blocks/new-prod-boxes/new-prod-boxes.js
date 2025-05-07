@@ -174,6 +174,7 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
+      const buyLinkAnchor = buyLink.querySelector('a')?.getAttribute('href')
 
       const buyLinksObj = [];
       buyLink.querySelectorAll('a').forEach((anchor) => {
@@ -393,7 +394,7 @@ export default function decorate(block) {
               </div>` : billed.innerText}
 
               ${buyLinkObj && `<div class="buy-btn">
-                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
               </div>`}
             </div>`;
