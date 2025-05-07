@@ -190,9 +190,7 @@ export default function decorate(block) {
           node.querySelectorAll('a').length === 0
         ) {
           const text = node.innerText.trim();
-          if (text) {
-            buyLinksObj.push({text, href: null});
-          }
+          if (text) buyLinksObj.push({text, href: null});
         }
       });
 
