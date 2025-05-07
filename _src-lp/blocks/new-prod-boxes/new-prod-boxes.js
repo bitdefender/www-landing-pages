@@ -184,12 +184,12 @@ export default function decorate(block) {
 
       buyLink.childNodes.forEach((node) => {
         if (
-          node.nodeType === Node.ELEMENT_NODE 
+          node.nodeType === Node.ELEMENT_NODE
           && node.querySelectorAll
           && node.querySelectorAll('a').length === 0
         ) {
           const text = node.innerText.trim();
-          if (text) buyLinksObj.push({text, href: null});
+          if (text) buyLinksObj.push({ text, href: null });
         }
       });
 
@@ -410,8 +410,8 @@ export default function decorate(block) {
           newBlueTag.innerHTML += `<div class="blueTag">${child.innerHTML}</div>`;
         });
       }
+
       const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
-      console.log('buyLinkObj ', buyLinkObj)
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
 
@@ -442,34 +442,34 @@ export default function decorate(block) {
               </div>`}
 
             ${billed ? (() => {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = billed.innerHTML;
-                const firstP = tempDiv.querySelector('p');
-                if (firstP) {
-                  firstP.innerHTML = firstP.innerHTML
-                    .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                    .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-                    .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-                    .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-                    .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-                    .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-                    .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                    .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-                    .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-                } else {
-                  tempDiv.innerHTML = tempDiv.innerHTML
-                    .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                    .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-                    .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-                    .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-                    .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-                    .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-                    .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                    .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-                    .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-                }
-                return `<div class="billed">${tempDiv.innerHTML}</div>`;
-              })() : ''}
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = billed.innerHTML;
+              const firstP = tempDiv.querySelector('p');
+              if (firstP) {
+                firstP.innerHTML = firstP.innerHTML
+                  .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                  .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+                  .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+                  .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+                  .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+                  .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+                  .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                  .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                  .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+              } else {
+                tempDiv.innerHTML = tempDiv.innerHTML
+                  .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                  .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+                  .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+                  .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+                  .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+                  .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+                  .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                  .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                  .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+              }
+              return `<div class="billed">${tempDiv.innerHTML}</div>`;
+            })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
               ${buyLinkObj && `<div class="buy-btn">
