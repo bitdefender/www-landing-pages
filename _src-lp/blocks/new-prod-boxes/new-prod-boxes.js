@@ -442,7 +442,7 @@ export default function decorate(block) {
               </div>`}
 
             ${billed ? (() => {
-              /* eslint-disable indent */
+            /* eslint-disable indent */
               const tempDiv = document.createElement('div');
               tempDiv.innerHTML = billed.innerHTML;
               const firstP = tempDiv.querySelector('p');
@@ -470,7 +470,7 @@ export default function decorate(block) {
                   .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
               }
               return `<div class="billed">${tempDiv.innerHTML}</div>`;
-              /* eslint-enable indent */
+            /* eslint-enable indent */  
             })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
