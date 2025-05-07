@@ -173,6 +173,7 @@ export default function decorate(block) {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const buyLinkText = buyLink.innerText.trim();
 
       const buyLinksObj = [];
       buyLink.querySelectorAll('a').forEach((anchor) => {
@@ -395,7 +396,6 @@ export default function decorate(block) {
                 <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
               </div>`}
-
             </div>`;
         });
 
