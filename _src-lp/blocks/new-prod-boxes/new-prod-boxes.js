@@ -173,8 +173,14 @@ export default function decorate(block) {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const buyLinkText = buyLink.innerText.trim();
-      const buyLinkAnchor = buyLink.querySelector('a')?.getAttribute('href');
+
+      const buyLinksAnchors = buyLink.querySelectorAll('a');
+      const buyLinksObj = Array.from(buyLinksAnchors).map(anchor => ({
+        text: anchor.innerText.trim(),
+        href: anchor.getAttribute('href'),
+      }));
+
+      console.log('buyLink ', buyLink);
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -371,8 +377,8 @@ export default function decorate(block) {
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed.innerText}
 
-              ${buyLinkText && `<div class="buy-btn">
-                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+              ${buyLinksObj[idx] && `<div class="buy-btn 1">
+                <a class="red-buy-button ${buyLinksObj[idx].href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinksObj[idx].href || '#'}" title="Bitdefender">${buyLinksObj[idx].text.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinksObj[idx].text}
                 </a>
               </div>`}
             </div>`;
@@ -424,35 +430,35 @@ export default function decorate(block) {
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
               </div>`}
 
-${billed ? (() => {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = billed.innerHTML;
-    const firstP = tempDiv.querySelector('p');
-    if (firstP) {
-      firstP.innerHTML = firstP.innerHTML
-        .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-    } else {
-      tempDiv.innerHTML = tempDiv.innerHTML
-        .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-    }
-    return `<div class="billed">${tempDiv.innerHTML}</div>`;
-  })() : ''}
+            ${billed ? (() => {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = billed.innerHTML;
+                const firstP = tempDiv.querySelector('p');
+                if (firstP) {
+                  firstP.innerHTML = firstP.innerHTML
+                    .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                    .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+                    .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+                    .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+                    .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+                    .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+                    .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                    .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                    .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+                } else {
+                  tempDiv.innerHTML = tempDiv.innerHTML
+                    .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                    .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+                    .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+                    .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+                    .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+                    .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+                    .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                    .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                    .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+                }
+                return `<div class="billed">${tempDiv.innerHTML}</div>`;
+              })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
               ${buyLinkText && `<div class="buy-btn">
