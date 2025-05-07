@@ -168,8 +168,7 @@ export default function decorate(block) {
       block.parentNode.classList.add('slider-container');
       block.classList.add('slides-wrapper');
     }
-    
-    
+
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
@@ -185,9 +184,9 @@ export default function decorate(block) {
 
       buyLink.childNodes.forEach((node) => {
         if (
-          node.nodeType === Node.ELEMENT_NODE &&
-          node.querySelectorAll &&
-          node.querySelectorAll('a').length === 0
+          node.nodeType === Node.ELEMENT_NODE 
+          && node.querySelectorAll
+          && node.querySelectorAll('a').length === 0
         ) {
           const text = node.innerText.trim();
           if (text) buyLinksObj.push({text, href: null});
