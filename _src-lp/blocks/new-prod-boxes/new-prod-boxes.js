@@ -441,37 +441,35 @@ export default function decorate(block) {
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
               </div>`}
 
-            ${billed ? (() => {
-            /* eslint-disable indent */
-              const tempDiv = document.createElement('div');
-              tempDiv.innerHTML = billed.innerHTML;
-              const firstP = tempDiv.querySelector('p');
-              if (firstP) {
-                firstP.innerHTML = firstP.innerHTML
-                  .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                  .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-                  .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-                  .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-                  .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-                  .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-                  .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                  .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-                  .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-              } else {
-                tempDiv.innerHTML = tempDiv.innerHTML
-                  .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                  .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-                  .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-                  .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-                  .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-                  .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-                  .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                  .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-                  .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-              }
-              return `<div class="billed">${tempDiv.innerHTML}</div>`;
-            /* eslint-enable indent */  
-            })() : ''}
+  ${billed ? (() => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = billed.innerHTML;
+    const firstP = tempDiv.querySelector('p');
+    if (firstP) {
+      firstP.innerHTML = firstP.innerHTML
+        .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+    } else {
+      tempDiv.innerHTML = tempDiv.innerHTML
+        .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+    }
+    return `<div class="billed">${tempDiv.innerHTML}</div>`;
+  })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
               ${buyLinkObj && `<div class="buy-btn">
