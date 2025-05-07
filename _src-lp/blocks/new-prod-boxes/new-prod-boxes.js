@@ -168,13 +168,14 @@ export default function decorate(block) {
       block.parentNode.classList.add('slider-container');
       block.classList.add('slides-wrapper');
     }
-
+    
+    
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
-      const buyLinkAnchor = buyLink.querySelector('a')?.getAttribute('href')
+      const buyLinkAnchor = buyLink.querySelector('a')?.getAttribute('href');
 
       const buyLinksObj = [];
       buyLink.querySelectorAll('a').forEach((anchor) => {
@@ -196,6 +197,8 @@ export default function decorate(block) {
           }
         }
       });
+
+      console.log('buyLinksObj ', buyLinksObj);
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -337,9 +340,7 @@ export default function decorate(block) {
         percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
         percentOffFlag = true;
       }
-      if (!percentOff) {
-        percentOffFlag = false;
-      }
+      if (!percentOff) percentOffFlag = false;
 
       const optionList = subtitle.querySelector('ul');
       const combinedPricesBox = document.createElement('div');
@@ -416,7 +417,8 @@ export default function decorate(block) {
           newBlueTag.innerHTML += `<div class="blueTag">${child.innerHTML}</div>`;
         });
       }
-
+      const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
+      console.log('buyLinkObj ', buyLinkObj)
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
 
@@ -477,8 +479,8 @@ export default function decorate(block) {
               })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
-              ${buyLinkText && `<div class="buy-btn">
-                <a class="red-buy-button ${buyLinkAnchor ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkAnchor || '#'}" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+              ${buyLinkObj && `<div class="buy-btn">
+                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
               </div>`}
 
