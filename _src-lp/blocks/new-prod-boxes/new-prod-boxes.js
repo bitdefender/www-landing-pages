@@ -174,8 +174,6 @@ export default function decorate(block) {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const buyLinkText = buyLink.innerText.trim();
-      const buyLinkAnchor = buyLink.querySelector('a')?.getAttribute('href');
 
       const buyLinksObj = [];
       buyLink.querySelectorAll('a').forEach((anchor) => {
@@ -197,8 +195,6 @@ export default function decorate(block) {
           }
         }
       });
-
-      console.log('buyLinksObj ', buyLinksObj);
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
