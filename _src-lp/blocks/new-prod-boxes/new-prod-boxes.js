@@ -58,6 +58,58 @@ function initializeSlider(block) {
   updateSlider();
 }
 
+function extractBuyLinksComprehensive(tdElement) {
+  const result = [];
+  const paragraphs = tdElement.querySelectorAll('p');
+
+  if (paragraphs.length > 0) {
+    // Process p
+    paragraphs.forEach((p) => {
+      const link = p.querySelector('a');
+      if (link) {
+        result.push({
+          text: link.innerText.trim(),
+          href: link.getAttribute('href'),
+        });
+      } else {
+        const text = p.textContent.trim();
+        if (text) {
+          result.push({ text, href: null });
+        }
+      }
+    });
+  } else {
+    // process td
+    tdElement.childNodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent.trim();
+        if (text) result.push({ text, href: null });
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        if (node.tagName.toLowerCase() === 'a') {
+          result.push({
+            text: node.innerText.trim(),
+            href: node.getAttribute('href'),
+          });
+        } else {
+          node.childNodes.forEach((child) => {
+            if (child.nodeType === Node.TEXT_NODE) {
+              const text = child.textContent.trim();
+              if (text) result.push({ text, href: null });
+            } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName.toLowerCase() === 'a') {
+              result.push({
+                text: child.innerText.trim(),
+                href: child.getAttribute('href'),
+              });
+            }
+          });
+        }
+      }
+    });
+  }
+
+  return result;
+}
+
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
@@ -172,26 +224,10 @@ export default function decorate(block) {
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;           
+      const buyLinksObj = extractBuyLinksComprehensive(buyLink);
 
-      const buyLinksObj = [];
-      buyLink.querySelectorAll('a').forEach((anchor) => {
-        buyLinksObj.push({
-          text: anchor.innerText.trim(),
-          href: anchor.getAttribute('href'),
-        });
-      });
-
-      buyLink.childNodes.forEach((node) => {
-        if (
-          node.nodeType === Node.ELEMENT_NODE
-          && node.querySelectorAll
-          && node.querySelectorAll('a').length === 0
-        ) {
-          const text = node.innerText.trim();
-          if (text) buyLinksObj.push({ text, href: null });
-        }
-      });
+      console.log('buyLink ', buyLink, buyLinksObj);
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -388,7 +424,7 @@ export default function decorate(block) {
               </div>` : billed.innerText}
 
               ${buyLinkObj && `<div class="buy-btn">
-                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${selectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
               </div>`}
             </div>`;
