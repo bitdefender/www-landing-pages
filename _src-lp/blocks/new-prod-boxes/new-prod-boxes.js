@@ -227,8 +227,6 @@ export default function decorate(block) {
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;           
       const buyLinksObj = extractBuyLinksComprehensive(buyLink);
 
-      console.log('buyLink ', buyLink, buyLinksObj);
-
       [...block.children][key].innerHTML = '';
       // create procent - bulina
       let divBulina = '';
@@ -356,7 +354,7 @@ export default function decorate(block) {
       });
 
       if (title.innerHTML.indexOf('href') !== -1) {
-        title.innerHTML = `<a href="#" title="${title.innerText}" class="buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${title.querySelector('tr a').innerHTML}</a>`;
+        title.innerHTML = `<a href="${title.querySelector('tr a').getAttribute('href')}" title="${title.innerText}">${title.querySelector('tr a').innerHTML}</a>`;
       }
 
       let percentOffFlag = false;
@@ -450,7 +448,6 @@ export default function decorate(block) {
       const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
-
           <div class="inner_prod_box">
           ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
