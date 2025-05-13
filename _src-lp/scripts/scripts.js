@@ -36,6 +36,7 @@ import {
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
   formatPrice,
+  getInstance,
 } from './utils.js';
 
 const DEFAULT_LANGUAGE = getDefaultLanguage();
@@ -238,6 +239,16 @@ async function loadEager(doc) {
     detectModalButtons(main);
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
+  }
+
+  if (getInstance() === 'prod') {
+    (() => {
+      const script = document.createElement('script');
+      script.src = 'https://js.sentry-cdn.com/31155ca43cab4235b06e5da92992eef0.min.js';
+      script.crossOrigin = 'anonymous';
+      script.async = true;
+      document.head.appendChild(script);
+    })();
   }
 }
 
