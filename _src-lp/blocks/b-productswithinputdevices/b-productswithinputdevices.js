@@ -74,7 +74,7 @@ export default function decorate(block) {
     const campaignLogo = document.createElement('div');
     campaignLogo.id = 'campaign-logo';
     campaignLogo.innerHTML = `<img src="${campaignImage}" alt="Bitdefender">`;
-    block.appendChild(campaignLogo);
+    parentSelector.insertBefore(campaignLogo, parentSelector.firstChild);
     block.classList.add('has-campaign-logo');
   }
 
