@@ -82,8 +82,11 @@ function extractBuyLinks(tdElement) {
     // process td
     tdElement.childNodes.forEach((node) => {
       if (node.nodeType === Node.TEXT_NODE) {
-        const text = node.textContent.trim();
-        if (text) result.push({ text, href: null });
+        const text = node.textContent.trim() || tdElement.textContent;
+        if (text) {
+          console.log('text ', text)
+          result.push({ text, href: null });
+        }
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         if (node.tagName.toLowerCase() === 'a') {
           result.push({
