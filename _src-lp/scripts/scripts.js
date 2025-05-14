@@ -12,8 +12,9 @@ import {
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
-  waitForLCP,
-  loadBlocks,
+  waitForFirstImage,
+  loadSection,
+  loadSections,
   loadCSS,
   getMetadata,
   decorateTags,
@@ -145,7 +146,6 @@ function buildAutoBlocks(main) {
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
-  // decorateIcons2(main);
   decorateIcons(main);
   decorateTags(main);
   buildAutoBlocks(main);
@@ -185,7 +185,7 @@ export async function createModal(path, template) {
   modalContent.innerHTML = html;
 
   decorateMain(modalContent);
-  await loadBlocks(modalContent);
+  await loadSections(modalContent);
   modalContainer.append(modalContent);
 
   // add class to modal container for opportunity to add custom modal styling
@@ -238,7 +238,7 @@ async function loadEager(doc) {
     decorateMain(main);
     detectModalButtons(main);
     document.body.classList.add('appear');
-    await waitForLCP(LCP_BLOCKS);
+    await loadSection(main.querySelector('.section'), waitForFirstImage);
   }
 
   if (getInstance() === 'prod') {
@@ -285,7 +285,7 @@ export async function loadLazy(doc) {
   //     region: 'eu',
   //   }));
   const main = doc.querySelector('main');
-  await loadBlocks(main);
+  await loadSections(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
@@ -362,8 +362,6 @@ export async function loadLazy(doc) {
   };
 
   sampleRUM('lazy');
-  sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
-  sampleRUM.observe(main.querySelectorAll('picture > img'));
 }
 
 /**
@@ -397,7 +395,7 @@ export async function loadFragment(path) {
       const main = document.createElement('main');
       main.innerHTML = await resp.text();
       decorateMain(main);
-      await loadBlocks(main);
+      await loadSections(main);
       return main;
     }
   }
