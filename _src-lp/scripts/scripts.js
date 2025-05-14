@@ -1,5 +1,5 @@
 import Launch from '@repobit/dex-launch';
-import Target from '@repobit/dex-target';
+import { target, getDefaultLanguage } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
 import page from './page.js';
 import {
@@ -25,7 +25,6 @@ import {
 } from './adobeDataLayer.js';
 import {
   addScript,
-  getDefaultLanguage,
   getDefaultSection,
   isZuoraForNetherlandsLangMode,
   checkIfLocaleCanSupportInitSelector,
@@ -256,9 +255,9 @@ export async function loadTrackers() {
 
   if (isPageNotInDraftsFolder) {
     try {
-      await Launch.load((await page).environment);
+      await Launch.load(page.environment);
     } catch {
-      Target.abort();
+      target.abort();
     }
 
     onAdobeMcLoaded();
@@ -282,6 +281,7 @@ export async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
 
+  loadTrackers();
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     'gtm.start': new Date().getTime(),
@@ -296,7 +296,6 @@ export async function loadLazy(doc) {
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
 
   adobeMcAppendVisitorId('main');
-  loadTrackers();
   go2Anchor();
 
   if (getMetadata('free-product')) {
@@ -987,9 +986,8 @@ function addEventListenersOnVpnCheckboxes(pid) {
   if (document.querySelector('.checkboxVPN')) {
     document.querySelectorAll('.prod_box').forEach((item) => {
       item.addEventListener('click', (e) => {
-        const { target } = e;
-        if (target.tagName === 'INPUT' && target.classList.contains('checkboxVPN')) {
-          const checkboxId = target.getAttribute('id');
+        if (e.target.tagName === 'INPUT' && e.target.classList.contains('checkboxVPN')) {
+          const checkboxId = e.target.getAttribute('id');
 
           if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
             const prodxId = e.target.getAttribute('id').split('-')[1];
@@ -1050,7 +1048,7 @@ async function initializeProductsPriceLogic() {
   let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
 
   try {
-    const configMbox = await Target.configMbox;
+    const configMbox = await target.configMbox;
     targetBuyLinkMappings = configMbox?.products ?? {};
     if (configMbox) {
       targetPid = configMbox?.promotion;
@@ -1169,7 +1167,7 @@ async function loadPage() {
   // in the drafts folder adobe target is not loaded, so the price logic should be executed
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
   if (!isPageNotInDraftsFolder) {
-    Target.abort();
+    target.abort();
   }
   initializeProductsPriceLogic();
 

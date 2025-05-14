@@ -1,4 +1,4 @@
-import Target from '@repobit/dex-target';
+import { target, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
 
@@ -182,11 +182,6 @@ export function addScript(src, data = {}, loadStrategy = undefined, onLoadCallba
   document.body.appendChild(s);
 }
 
-export function getDefaultLanguage() {
-  const currentPathUrl = window.location.pathname;
-  return Object.keys(LOCALISATIONS).find((lang) => currentPathUrl.includes(`/${lang}/`)) || DEFAULT_LANGUAGE;
-}
-
 export function getLocale(lang) {
   return LOCALISATIONS[lang] || LOCALISATIONS[DEFAULT_LANGUAGE];
 }
@@ -206,7 +201,7 @@ export function appendAdobeMcLinks(selector) {
         return;
       }
 
-      const destinationURLWithVisitorIDs = await Target.appendVisitorIDsTo(link.href);
+      const destinationURLWithVisitorIDs = await target.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
   } catch (e) {
