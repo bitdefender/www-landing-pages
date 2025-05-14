@@ -84,7 +84,6 @@ function extractBuyLinks(tdElement) {
       if (node.nodeType === Node.TEXT_NODE) {
         const text = node.textContent.trim() || tdElement.textContent;
         if (text) {
-          console.log('text ', text)
           result.push({ text, href: null });
         }
       } else if (node.nodeType === Node.ELEMENT_NODE) {
