@@ -236,5 +236,7 @@ export default function decorate(block) {
 
   // activate radios
   if (!display) activateRadios(block, type);
+
+  matchHeights(block, 'h3');
   matchHeights(block, 'ul:first-of-type');
 }
