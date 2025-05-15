@@ -83,7 +83,7 @@ function extractBuyLinks(tdElement) {
       if (node.nodeType === Node.TEXT_NODE) {
         const text = node.textContent.trim() || tdElement.textContent;
         if (text) {
-          result.push({ text, href: tdElement.querySelector('a')?.getAttribute('href') || null});
+          result.push({ text, href: tdElement.querySelector('a')?.getAttribute('href') || null });
         }
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         if (node.tagName.toLowerCase() === 'a') {
