@@ -201,7 +201,7 @@ function extractFeatures(col) {
     li.appendChild(a);
 
     // all descendants of a that have class tag
-    a.querySelectorAll('.tag').forEach((tag) => {
+    a.querySelectorAll('.tag')?.forEach((tag) => {
       li.appendChild(tag);
     });
 
@@ -232,7 +232,7 @@ function renderRadioGroup(block) {
   const createRadioBox = (id, className, name, value, text, type, checked = false) => {
     const radioBox = document.createElement('div');
     radioBox.innerHTML = `<div class="${onlyLabel ? 'd-none' : 'd-radio'}">
-      <input type="radio" id="${id}" data-select="${type}" class="${className}" name="${name}" value="${value}" ${checked ? 'checked="checked"' : ''}>
+      <input type="radio" id="${id}" data-select="${type}" class="${className}" name="${name}" value="${value}" ${checked || value === state.blockDataset.defaultProduct?.split('/')[0] ? 'checked="checked"' : ''}>
       <label for="${id}">${text}</label>
     </div>`;
     return radioBox;
@@ -250,10 +250,10 @@ function renderRadioGroup(block) {
 }
 
 function renderPrice(block, ...price) {
-  const variant = 'vsbm51';
   const priceZone = document.createElement('div');
   priceZone.classList.add('price-element-wrapper');
-  const btnText = block.querySelector('a').textContent;
+  const firstButton = block.querySelector('a');
+  const btnText = firstButton?.textContent;
   // Function to create and append price boxes
   const createPriceBox = (className, product) => {
     const pricesBox = document.createElement('div');
@@ -267,7 +267,7 @@ function renderPrice(block, ...price) {
           <span class="prod-newprice newprice-${productCode}-${prodUsers}${prodYears}"></span>
         </div>
         <p class="button-container">
-          <a href='#' title='Bitdefender ${product.split('/')[0]}' class=' red-buy-button prodload prodload-${productCode}-${prodUsers}${prodYears} buylink-${productCode}-${prodUsers}${prodYears} referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>
+          <a href='#' title='Bitdefender ${product.split('/')[0]}' class=' red-buy-button prodload prodload-${productCode}-${prodUsers}${prodYears} buylink-${productCode}-${prodUsers}${prodYears} referrerpolicy='no-referrer-when-downgrade'>${btnText ?? ''}</a>
         </p>
       </div>`;
     updateProductsList(product.trim());
@@ -276,7 +276,7 @@ function renderPrice(block, ...price) {
 
   price.forEach((product) => {
     if (product && typeof product === 'string') {
-      priceZone.appendChild(createPriceBox(product.replaceAll('/', '') === variant ? 'show' : 'hide', product));
+      priceZone.appendChild(createPriceBox(product === state.blockDataset.defaultProduct ? 'show' : 'hide', product));
     }
   });
 
@@ -293,7 +293,7 @@ function getBlueTags(block) {
     benefitsListElements?.forEach((element) => {
       const blueTag = document.createElement('span');
       blueTag.classList.add('tag-blue');
-      element.insertAdjacentElement('beforeend', blueTag);
+      element.querySelector('a')?.insertAdjacentElement('beforeend', blueTag);
     });
     blueTags = block.querySelectorAll('.tag-blue');
   }
@@ -337,9 +337,9 @@ function renderSelector(block, ...options) {
   selectEl.addEventListener('change', (e) => {
     [...selectEl.options].forEach((option) => option.removeAttribute('selected'));
     [...selectEl.options].find((option) => option.value === e.target.value)?.setAttribute('selected', '');
-    updateBenefits(block, selectEl, metadata.benefits.split(',,'));
+    updateBenefits(block, selectEl, metadata.benefits?.split(',,'));
   });
-  updateBenefits(block, selectEl, metadata.benefits.split(',,'));
+  updateBenefits(block, selectEl, metadata.benefits?.split(',,'));
   return el;
 }
 
@@ -427,6 +427,6 @@ export default function decorate(block) {
   const col = block.children[0].children[1];
   col.appendChild(extractFeatures(col));
   initializeDynamicSelection(block);
-  matchHeights(block, '.block >div >div >p:first-of-type');
+  matchHeights(block, '.block > div > div > p:first-of-type:not(:has(img))');
   matchHeights(block, '.block >div >div >:first-child');
 }
