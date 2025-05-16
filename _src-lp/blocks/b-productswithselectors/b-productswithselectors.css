@@ -228,12 +228,12 @@
   line-height: 20px;
 }
 
-.b-productswithselectors-container.bf2024 #campaign-logo {
-  position: absolute;
-  top: -13em;
-  left: -14em;
+.b-productswithselectors-container #campaign-logo {
   width: 24em;
   background-color: transparent;
+  position: absolute;
+  z-index: 9;
+  margin-left: -7em;
 }
 
 .b-productswithselectors-container.bf2024 a.red-buy-button {
@@ -266,20 +266,10 @@
   margin-top: 16em;
 }
 
-.b-productswithselectors-container .b-productswithselectors-wrapper .b-productswithselectors.has-campaign-logo #campaign-logo {
-  top: -20em;
-}
-
-@media (width <= 1445px) {
-  .b-productswithselectors-container.bf2024 #campaign-logo {
-    top: -14em;
-    left: -11em;
-  }
-}
-@media (width <= 1360px) {
-  .b-productswithselectors-container.bf2024 #campaign-logo {
-    top: -15em;
-    left: -6em;
+@media (width <= 1400px) {
+  .b-productswithselectors-container #campaign-logo {
+    width: 21em;
+    margin-left: 0;
   }
 }
 @media (width <= 1100px) {
@@ -289,6 +279,16 @@
   }
   .b-productswithselectors-container.bf2024 .prod-percent-tag span {
     font-size: 21px;
+  }
+}
+@media (width <= 991px) {
+  .b-productswithselectors-container #campaign-logo {
+    width: 21em;
+    margin: 0 auto;
+    position: relative;
+  }
+  .b-productswithselectors-container .b-productswithselectors-wrapper .b-productswithselectors.has-campaign-logo {
+    margin-top: 1em;
   }
 }
 /* for mobile */
@@ -416,12 +416,5 @@
   }
   .b-productswithselectors-container.bf2024 .b-productswithselectors > div:not(:first-child) ul:first-of-type {
     min-height: 9em;
-  }
-  .b-productswithselectors-container.bf2024 #campaign-logo {
-    top: -11em;
-    left: 0;
-    right: 0;
-    width: 18em;
-    margin: auto;
   }
 }

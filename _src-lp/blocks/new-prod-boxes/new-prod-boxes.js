@@ -58,10 +58,63 @@ function initializeSlider(block) {
   updateSlider();
 }
 
+function extractBuyLinks(tdElement) {
+  const result = [];
+  const paragraphs = tdElement.querySelectorAll('p');
+  if (paragraphs.length > 0) {
+    // Process p
+    paragraphs.forEach((p) => {
+      const link = p.querySelector('a');
+      if (link) {
+        result.push({
+          text: link.innerText.trim(),
+          href: link.getAttribute('href'),
+        });
+      } else {
+        const text = p.textContent.trim();
+        if (text) {
+          result.push({ text, href: null });
+        }
+      }
+    });
+  } else {
+    // process td
+    tdElement.childNodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent.trim() || tdElement.textContent;
+        if (text) {
+          result.push({ text, href: tdElement.querySelector('a')?.getAttribute('href') || null });
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        if (node.tagName.toLowerCase() === 'a') {
+          result.push({
+            text: node.innerText.trim(),
+            href: node.getAttribute('href'),
+          });
+        } else {
+          node.childNodes.forEach((child) => {
+            if (child.nodeType === Node.TEXT_NODE) {
+              const text = child.textContent.trim();
+              if (text) result.push({ text, href: null });
+            } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName.toLowerCase() === 'a') {
+              result.push({
+                text: child.innerText.trim(),
+                href: child.getAttribute('href'),
+              });
+            }
+          });
+        }
+      }
+    });
+  }
+
+  return result;
+}
+
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -174,6 +227,7 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
+      const buyLinksObj = extractBuyLinks(buyLink);
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -302,7 +356,7 @@ export default function decorate(block) {
       });
 
       if (title.innerHTML.indexOf('href') !== -1) {
-        title.innerHTML = `<a href="#" title="${title.innerText}" class="buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}">${title.querySelector('tr a').innerHTML}</a>`;
+        title.innerHTML = `<a href="${title.querySelector('tr a').getAttribute('href')}" title="${title.innerText}">${title.querySelector('tr a').innerHTML}</a>`;
       }
 
       let percentOffFlag = false;
@@ -315,15 +369,14 @@ export default function decorate(block) {
         percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
         percentOffFlag = true;
       }
-      if (!percentOff) {
-        percentOffFlag = false;
-      }
+      if (!percentOff) percentOffFlag = false;
 
       const optionList = subtitle.querySelector('ul');
       const combinedPricesBox = document.createElement('div');
       if (optionList) {
         const optionSelector = document.createElement('select');
         optionList.querySelectorAll('li').forEach((li, idx) => {
+          const buyLinkObj = buyLinksObj[idx] || buyLinksObj[0];
           const [labelText, variationText] = li.textContent.trim().split('+');
           const [pname, pusers, pyears] = variationText.split('/');
           const selectorClass = `${pname.trim()}-${pusers}${pyears}`;
@@ -370,10 +423,15 @@ export default function decorate(block) {
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed.innerText}
 
-              ${buyLinkText && `<div class="buy-btn">
-                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+              ${replaceBuyLinks ? `<div class="buy-btn">
+                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${selectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}"  title="Bitdefender">
+                  ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
-              </div>`}
+              </div>` : `<div class="buy-btn">
+                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
+                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                </a>
+                </div>`}
             </div>`;
         });
 
@@ -394,9 +452,9 @@ export default function decorate(block) {
         });
       }
 
+      const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
-
           <div class="inner_prod_box">
           ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
@@ -423,7 +481,7 @@ export default function decorate(block) {
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
               </div>`}
 
-${billed ? (() => {
+  ${billed ? (() => {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = billed.innerHTML;
     const firstP = tempDiv.querySelector('p');
@@ -454,11 +512,15 @@ ${billed ? (() => {
   })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
-              ${buyLinkText && `<div class="buy-btn">
-                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+              ${replaceBuyLinks ? `<div class="buy-btn">
+                  <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
+                </div>` : `<div class="buy-btn">
+                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
+                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
-              </div>`}
-               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
+                </div>`}
+
+              ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
             ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}

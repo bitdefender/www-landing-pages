@@ -1,5 +1,5 @@
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { matchHeights, updateProductsList } from '../../scripts/utils.js';
 
 function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, radio1, radio2) {
   const radioBoxParent = document.createElement('div');
@@ -148,19 +148,42 @@ export default function decorate(block) {
 
   // if we have set products
   if (products) {
-    const productsAsList = products && products.split(',');
+    let manualProdFlag = false;
+    let productsAsList;
+    if (products.includes('[') || products.includes(']')) {
+      productsAsList = products.match(/\[([^\]]+)\]/g).map((group) => group.replace(/[[\]]/g, '').trim());
+      manualProdFlag = true;
+    } else {
+      productsAsList = products && products.split(',');
+    }
+
     const selectorBox = document.createElement('div');
     selectorBox.className = 'productSelector justify-content-start';
-
+    if (productsAsList.length > 1) {
+      block.classList.add('hasMoreThan1');
+    }
     productsAsList.forEach((prod, idx) => {
-      // eslint-disable-next-line prefer-const
-      let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      prodName = prodName.trim();
-      updateProductsList(prod);
-      updateProductsList(prod.replace(prodName, `${prodName}m`));
+      let onSelectorClass;
+      let onSelectorClassM;
+      let prodName;
+      let prodUsers;
+      let prodYears;
+      if (!manualProdFlag) {
+        [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
+        prodName = prodName.trim();
+        updateProductsList(prod);
+        updateProductsList(prod.replace(prodName, `${prodName}m`));
 
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const onSelectorClassM = `${productAliases(`${prodName}m`)}-${prodUsers}${prodYears}`;
+        onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+        onSelectorClassM = `${productAliases(`${prodName}m`)}-${prodUsers}${prodYears}`;
+      } else {
+        [prodName, prodUsers, prodYears] = productsAsList[idx].split(',')[1].split('/');
+        const [prodNameM, prodUsersM, prodYearsM] = productsAsList[idx].split(',')[0].split('/');
+        updateProductsList(productsAsList[idx].split(',')[1]);
+        updateProductsList(productsAsList[idx].split(',')[0]);
+        onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+        onSelectorClassM = `${productAliases(prodNameM)}-${prodUsersM}${prodYearsM}`;
+      }
 
       const contentRightItem = contentRightEl.children[idx];
       if (!contentRightItem) return;
@@ -213,4 +236,7 @@ export default function decorate(block) {
 
   // activate radios
   if (!display) activateRadios(block, type);
+
+  matchHeights(block, 'h3');
+  matchHeights(block, 'ul:first-of-type');
 }

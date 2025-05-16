@@ -1,3 +1,4 @@
+import Target from '@repobit/dex-target';
 import { getMetadata } from './lib-franklin.js';
 import {
   getDefaultLanguage, getInstance, GLOBAL_EVENTS, getCookie,
@@ -108,11 +109,10 @@ const currentGMTDate = (() => {
 /**
  * Sends the page load started event to the Adobe Data Layer
  */
-export const sendAnalyticsPageEvent = async () => {
+export const sendAnalyticsPageEvent = () => {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
   window.adobeDataLayer = window.adobeDataLayer || [];
-
-  const { pageName, sections, subSection } = getPageNameAndSections();
+  const { pageName, sections } = getPageNameAndSections();
 
   window.adobeDataLayer.push({
     event: 'page load started',
@@ -143,8 +143,17 @@ export const sendAnalyticsPageEvent = async () => {
       },
     },
   });
+};
 
-  if (subSection && subSection === '404') {
+/**
+ *
+ * @param {string} subSection
+ */
+export const sendAnalyticsErrorEvent = async () => {
+  const { subSection } = getPageNameAndSections();
+
+  if ((subSection && subSection === '404') || window.errorCode === '404') {
+    await Target.configMbox; // wait for CDP data to finalize
     window.adobeDataLayer.push({ event: 'page error' });
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
