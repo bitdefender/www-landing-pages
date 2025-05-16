@@ -114,7 +114,7 @@ function extractBuyLinks(tdElement) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, overrideBuyLinks
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -424,7 +424,7 @@ export default function decorate(block) {
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed.innerText}
 
-              ${overrideBuyLinks ? `<div class="buy-btn">
+              ${!replaceBuyLinks ? `<div class="buy-btn">
                 <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
                   ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
@@ -513,7 +513,7 @@ export default function decorate(block) {
   })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
-              ${!overrideBuyLinks ? `<div class="buy-btn">
+              ${!replaceBuyLinks ? `<div class="buy-btn">
                 <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
                   ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
