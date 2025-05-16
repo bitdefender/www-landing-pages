@@ -565,13 +565,13 @@ export default function decorate(block) {
         if (!storedPrices[product.ID]) {
           storedPrices[product.ID] = {
             discountValue: product.discountValue,
-            priceWithTax: product.priceWithTax,
+            grossPrice: product.grossPrice,
           };
         }
 
         product.discountRate = 0;
         product.discountValue = 0;
-        product.priceWithTax = product.basePrice;
+        product.grossPrice = product.basePrice;
       });
       localStorage.setItem('originalPrices', JSON.stringify(storedPrices));
     }
@@ -585,7 +585,7 @@ export default function decorate(block) {
       campaignEvent.product.info.forEach((product) => {
         if (storedPrices[product.ID]) {
           product.discountValue = storedPrices[product.ID].discountValue;
-          product.priceWithTax = storedPrices[product.ID].priceWithTax;
+          product.grossPrice = storedPrices[product.ID].grossPrice || storedPrices[product.ID].priceWithTax;
           product.discountRate = Math.floor((product.discountValue / product.basePrice) * 100);
         }
       });
