@@ -114,7 +114,7 @@ function extractBuyLinks(tdElement) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -227,7 +227,6 @@ export default function decorate(block) {
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
-      const buyLinkAnchor = buyLink.querySelector('a')?.getAttribute('href');
       const buyLinksObj = extractBuyLinks(buyLink);
 
       [...block.children][key].innerHTML = '';
