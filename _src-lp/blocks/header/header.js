@@ -1,4 +1,4 @@
-import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
+import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
 import {
   adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection, getLocale, getDefaultLanguage,
 } from '../../scripts/utils.js';
@@ -11,7 +11,7 @@ import {
 async function extractSpanSvgs(html) {
   const div = document.createElement('div');
   div.innerHTML = html;
-  await decorateIcons2(div);
+  decorateIcons(div);
   return div.querySelectorAll('span.icon');
 }
 

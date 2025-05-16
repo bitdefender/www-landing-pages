@@ -12,7 +12,7 @@
 }
 
 .new-prod-boxes-container .icon svg {
-    fill: #fff;
+    filter: brightness(0) invert(1);
 }
 
 .new-prod-boxes-container.black-theme {
@@ -188,11 +188,11 @@
 }
 
 .switchBox .switch input ~ .label.right .icon svg {
-    fill: #026DFF;
+    filter: brightness(0) saturate(100%) invert(31%) sepia(68%) saturate(6836%) hue-rotate(209deg) brightness(108%) contrast(103%);
 }
 
 .switchBox .switch input:checked ~ .label.right .icon svg {
-    fill: white;
+    filter: brightness(0) invert(1);
 }
 
 .switchBox .switch input:checked ~ .label.left {
@@ -205,7 +205,7 @@
 }
 
 .switchBox .switch input:checked ~ .label.left .icon svg {
-    fill: #026DFF;
+    filter: brightness(0) saturate(100%) invert(31%) sepia(68%) saturate(6836%) hue-rotate(209deg) brightness(108%) contrast(103%);
 }
 
 .prod-box.individual-box {
