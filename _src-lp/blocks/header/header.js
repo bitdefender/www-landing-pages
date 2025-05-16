@@ -1,7 +1,8 @@
 import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
 import {
-  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection, getLocale, getDefaultLanguage,
+  adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection, getLocale,
 } from '../../scripts/utils.js';
+import { getDefaultLanguage } from '../../scripts/target.js';
 
 /**
  * extracts the span svg's from the nav html

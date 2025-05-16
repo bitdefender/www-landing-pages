@@ -6,7 +6,7 @@ import {
 describe('utils.js', () => {
   describe('addScript function', () => {
     let scriptTag;
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
     const scriptUrl = 'https://example.com/script.js';
     const scriptData = { test: 'value' };
 

@@ -20,7 +20,7 @@ describe('adobeDatalayer.js', () => {
       window.location.hostname = 'www.bitdefender.com';
       window.location.pathname = '/pages/consumer/en/new/new-campaign';
 
-      sendAnalyticsPageEvent();
+      await sendAnalyticsPageEvent();
       const [pageLoadStartedEvent] = window.adobeDataLayer;
 
       expect(pageLoadStartedEvent.page.info.name).toBe('us:offers:consumer:new:new-campaign');
@@ -31,7 +31,7 @@ describe('adobeDatalayer.js', () => {
       window.location.hostname = 'pages.bitdefender.com';
       window.location.pathname = '/consumer/en/new/new-campaign';
 
-      sendAnalyticsPageEvent();
+      await sendAnalyticsPageEvent();
       const [pageLoadStartedEvent] = window.adobeDataLayer;
 
       expect(pageLoadStartedEvent.page.info.name).toBe('us:offers:consumer:new:new-campaign');
