@@ -77,6 +77,12 @@
   font-weight: normal;
 }
 
+.section.banner-with-cards-container .banner-with-cards .prodBox-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper .prod-box-green-tag p {
   background-color: #1C7928;
   color: #FFF;
@@ -109,8 +115,10 @@
   max-width: 410px;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox {
+.section.banner-with-cards-container .banner-with-cards .prodBox-wrapper .prodBox {
   flex: 1 !important;
+  display: flex;
+  flex-direction: column;
   background: #FFF;
   color: black;
   border-radius: 20px;
@@ -152,6 +160,7 @@
   margin-top: 10px;
   padding: 3px 8px;
   display: inline-block;
+  width: fit-content;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type td {
@@ -218,6 +227,10 @@
   padding: 1em 0;
   border-top: 1px solid #D1D1D1;
   border-bottom: 1px solid #D1D1D1;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox-wrapper .prodBox ul:last-of-type {
+  flex-grow: 1;
 }
 
 .section.banner-with-cards-container .banner-with-cards ul li {
