@@ -162,7 +162,7 @@
 }
 
 .c-top-comparative-with-text > div p:nth-of-type(4), .c-top-comparative-with-text > div p:nth-of-type(5), .c-top-comparative-with-text > div p:nth-of-type(5) a {
-  color: #999;
+  color: #000;
   font-size: 12px;
   margin: 0;
   line-height: 16px;

@@ -537,8 +537,8 @@ export default function decorate(block) {
     if (type === 'mobileSlider') {
       const arrowsSlider = document.createElement('div');
       arrowsSlider.className = 'arrowsSlider';
-      arrowsSlider.innerHTML = `<button class="arrow left"></button>
-        <button class="arrow right"></button>`;
+      arrowsSlider.innerHTML = `<button class="arrow left" aria-label="Previous Product"></button>
+        <button class="arrow right" aria-label="Next Product"></button>`;
       block.parentNode.appendChild(arrowsSlider);
 
       const bulletsSlider = document.createElement('div');

@@ -567,7 +567,7 @@
     margin: 0 5px;
   }
   .section.banner-with-dropdown-container .pricesBox .terms p a {
-    color: #006EFF;
+    color: #006DFF;
   }
 }
 @media screen and (width >= 991px) {
@@ -765,7 +765,7 @@
     font-size: var(--body-font-size-s);
   }
   .section.banner-with-dropdown-container .pricesBox .terms p a {
-    color: #006EFF;
+    color: #006DFF;
   }
   .section.banner-with-dropdown-container.new-2024.v2 .pricesBox .buy_box a {
     display: inline-block;
