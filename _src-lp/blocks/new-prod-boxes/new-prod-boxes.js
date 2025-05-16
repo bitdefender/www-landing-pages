@@ -114,7 +114,7 @@ function extractBuyLinks(tdElement) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, overrideBuyLinks
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -226,7 +226,7 @@ export default function decorate(block) {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const buyLinksObj = extractBuyLinks(buyLink);
+      const buyLinksObj = overrideBuyLinks ? extractBuyLinks(buyLink) : {};
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -446,7 +446,7 @@ export default function decorate(block) {
         });
       }
 
-      const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
+      const buyLinkObj = overrideBuyLinks ? buyLinksObj[key] || buyLinksObj[0] : {};
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box">
@@ -506,8 +506,11 @@ export default function decorate(block) {
   })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
-              ${buyLinkObj && `<div class="buy-btn">
+              ${buyLinkObj.length ? `<div class="buy-btn">
                 <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+                </a>
+              </div>` : `<div class="buy-btn">
+                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="'#'" title="Bitdefender">${buyLink.textContent.includes('0%') ? buyLink.textContent.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLink.textContent}
                 </a>
               </div>`}
 
