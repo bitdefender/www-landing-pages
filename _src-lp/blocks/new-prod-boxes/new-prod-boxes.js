@@ -402,16 +402,6 @@ export default function decorate(block) {
           li.setAttribute('data-selector-y', `y_${selectorClass}`);
           li.setAttribute('data-value-y', pyears);
 
-          const buyButtonHTML = `${overrideBuyLinks ? `<div class="buy-btn">
-            <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
-              ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
-            </a>
-            </div>` : `<div class="buy-btn">
-            <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${selectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}"  title="Bitdefender">
-              ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
-            </a>
-          </div>`}`;
-
           if (optionsType && optionsType === 'dropdown') {
             if (!optionSelector.id) optionSelector.id = `optionSelector_${pname.trim()}`;
             optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
@@ -434,7 +424,15 @@ export default function decorate(block) {
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed.innerText}
 
-              ${buyButtonHTML}
+              ${overrideBuyLinks ? `<div class="buy-btn">
+                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
+                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                </a>
+                </div>` : `<div class="buy-btn">
+                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${selectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}"  title="Bitdefender">
+                  ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+                </a>
+              </div>`}
             </div>`;
         });
 
@@ -515,10 +513,13 @@ export default function decorate(block) {
   })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
-              ${buyLinkObj && `<div class="buy-btn">
-                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+              ${!overrideBuyLinks ? `<div class="buy-btn">
+                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
+                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
-              </div>`}
+                </div>` : `<div class="buy-btn">
+                  <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
+                </div>`}
 
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
