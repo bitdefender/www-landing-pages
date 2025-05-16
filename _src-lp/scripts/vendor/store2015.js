@@ -2021,11 +2021,11 @@ window.StoreProducts.setDigitalData = function (product_id, variation) {
 
             if (typeof StorePrd.variations[dvcs][yrs].discount === 'undefined') {
               product.info.discountValue = 0;
-              product.info.priceWithTax = StorePrd.variations[dvcs][yrs].price;
+              product.info.grossPrice = StorePrd.variations[dvcs][yrs].price;
               product.info.discountRate = 0;
             } else {
               product.info.discountValue = StorePrd.variations[dvcs][yrs].price - StorePrd.variations[dvcs][yrs].discount.discounted_price;
-              product.info.priceWithTax = window.StoreProducts.price_format(StorePrd.variations[dvcs][yrs].discount.discounted_price, 2);
+              product.info.grossPrice = window.StoreProducts.price_format(StorePrd.variations[dvcs][yrs].discount.discounted_price, 2);
               const discount_var = ((StorePrd.variations[dvcs][yrs].price - StorePrd.variations[dvcs][yrs].discount.discounted_price) / productInfo.basePrice) * 100;
               product.info.discountValue = window.StoreProducts.price_format(product.info.discountValue.toString(), 2);
               product.info.discountRate = parseInt(discount_var, 10).toString();
