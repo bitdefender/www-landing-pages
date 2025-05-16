@@ -226,7 +226,9 @@ export default function decorate(block) {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const buyLinksObj = overrideBuyLinks ? extractBuyLinks(buyLink) : {};
+      const buyLinkText = buyLink.innerText.trim();
+      const buyLinkAnchor = buyLink.querySelector('a')?.getAttribute('href');
+      const buyLinksObj = extractBuyLinks(buyLink);
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -400,6 +402,16 @@ export default function decorate(block) {
           li.setAttribute('data-selector-y', `y_${selectorClass}`);
           li.setAttribute('data-value-y', pyears);
 
+          const buyButtonHTML = `${overrideBuyLinks ? `<div class="buy-btn">
+            <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
+              ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+            </a>
+            </div>` : `<div class="buy-btn">
+            <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${selectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}"  title="Bitdefender">
+              ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+            </a>
+          </div>`}`;
+
           if (optionsType && optionsType === 'dropdown') {
             if (!optionSelector.id) optionSelector.id = `optionSelector_${pname.trim()}`;
             optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
@@ -422,10 +434,7 @@ export default function decorate(block) {
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed.innerText}
 
-              ${buyLinkObj && `<div class="buy-btn">
-                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${selectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
-                </a>
-              </div>`}
+              ${buyButtonHTML}
             </div>`;
         });
 
@@ -446,7 +455,7 @@ export default function decorate(block) {
         });
       }
 
-      const buyLinkObj = overrideBuyLinks ? buyLinksObj[key] || buyLinksObj[0] : {};
+      const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box">
@@ -506,11 +515,8 @@ export default function decorate(block) {
   })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
-              ${buyLinkObj.length ? `<div class="buy-btn">
+              ${buyLinkObj && `<div class="buy-btn">
                 <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
-                </a>
-              </div>` : `<div class="buy-btn">
-                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="'#'" title="Bitdefender">${buyLink.textContent.includes('0%') ? buyLink.textContent.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLink.textContent}
                 </a>
               </div>`}
 
