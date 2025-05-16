@@ -11,7 +11,7 @@
 }
 
 .c-progress-section-container {
-  background: #f2f2f2;
+  background: #fafafa;
   padding: 30px 10px;
 
   .progress-bar {
@@ -28,7 +28,7 @@
   }
 
   .progress-bar--first {
-    background: linear-gradient(90deg, rgb(1 14 128) 0%, rgb(0 110 255) 100%);
+    background: linear-gradient(90deg, rgb(1 14 128) 0%, #006DFF 100%);
     color: white;
   }
 
@@ -38,7 +38,7 @@
 
   &.blue-bar {
     .progress-bar--first {
-      background: #006eff;
+      background: #006DFF;
       color: white;
     }
 
@@ -46,7 +46,7 @@
       text-align: left;
 
       .progress-bar--first {
-        background: transparent linear-gradient(180deg, #006EFF 0%, #005BD5 100%) 0% 0% no-repeat padding-box;
+        background: transparent linear-gradient(180deg, #006DFF 0%, #005BD5 100%) 0% 0% no-repeat padding-box;
         box-shadow: inset 0 0.5px 1px #FFFFFF80, 0 1px 4px #00000029;
         border-radius: 8px;
       }
@@ -78,7 +78,7 @@
 }
 
 .c-progress-section-container .footer {
-  color: #999;
+  color: #000;
   font-size: 11px;
   width: 94%;
   margin: 0 auto;
@@ -94,7 +94,7 @@
 .c-progress-section-container .heading {
   font-size: 13px;
   text-transform: uppercase;
-  color: #999;
+  color: #000;
   letter-spacing: 0.7px;
   margin-bottom: 30px;
 }
