@@ -76,17 +76,20 @@ export default function decorate(block) {
         const containerDiv = document.createElement('div'); // Create a div container
         containerDiv.id = 'prodSel';
 
-        const productSelectorBestValue = document.createElement('label');
-        productSelectorBestValue.className = 'bestValue';
-        productSelectorBestValue.setAttribute('for', 'productSelector');
-        productSelectorBestValue.innerHTML = `${bestValue}`;
+        if (bestValue) {
+          const productSelectorBestValue = document.createElement('label');
+          productSelectorBestValue.className = 'bestValue';
+          productSelectorBestValue.setAttribute('for', 'productSelector');
+          productSelectorBestValue.innerHTML = `${bestValue}`;
+          // Append the label to the container div
+          containerDiv.appendChild(productSelectorBestValue);
+        }
 
         const productSelector = document.createElement('select');
         productSelector.id = 'productSelector';
         productSelector.className = 'productSelector';
 
-        // Append the label and select to the container div
-        containerDiv.appendChild(productSelectorBestValue);
+        // Append the select to the container div
         containerDiv.appendChild(productSelector);
 
         table.innerHTML = '';
@@ -420,9 +423,9 @@ export default function decorate(block) {
         elementProdBox.style.display = 'none';
       });
       elementProduct.style.display = 'block';
-      console.log(selectedValue);
     });
   }
+  block.querySelector('.pricesBox').style.display = 'block';
 
   detectModalButtons(block);
 }
