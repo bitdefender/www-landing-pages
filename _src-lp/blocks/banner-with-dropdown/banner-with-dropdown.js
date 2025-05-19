@@ -346,6 +346,7 @@ export default function decorate(block) {
     }
   } else {
     let defaultSize = 'col-sm-5 col-md-5 col-lg-5';
+    blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
     if (contentSize === 'larger') {
       defaultSize = 'col-sm-7 col-md-7 col-lg-7';
     } else if (contentSize === 'half') {
@@ -356,13 +357,13 @@ export default function decorate(block) {
     <div class="container-fluid">
       <div class="row d-block d-sm-flex d-md-flex d-lg-flex position-relative">
         <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img">
-            ${pictureEl.innerHTML}
+
         </div>
 
         <div class="col-xs-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
 
         <div class="${defaultSize ? 'col-5' : 'col-7'} d-none d-sm-none d-md-block d-lg-block img-right bck-img">
-            ${pictureEl.innerHTML}
+
         </div>
       </div>
     </div>`;
