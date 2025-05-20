@@ -2,6 +2,12 @@
 .c-top-comparative-with-text-container {
   padding-top: 5em;
   clear: both;
+  margin-left: -1px;
+}
+
+.c-top-comparative-with-text-container:has(.c-top-comparative-with-text.reversed) {
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .c-top-comparative-with-text {
@@ -12,6 +18,9 @@
 
 .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text {
   gap: 30px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .c-top-comparative-with-text > div {
@@ -49,6 +58,22 @@
   border: 1px solid #21375E !important;
   border-bottom: none !important;
   border-radius: 20px 20px 0 0;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: 1/5;
+}
+
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div:not(:first-child) > div {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: 1/5;
+  gap: 5px;
+}
+
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text.reversed > div:not(:first-child) {
+  border: 1px solid #21375E !important;
+  border-top: none !important;
+  border-radius: 0 0 20px 20px;
 }
 
 .c-top-comparative-with-text > .active {
@@ -327,7 +352,8 @@
     flex-wrap: wrap;
   }
   .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text {
-    gap: 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
   .c-top-comparative-with-text > div {
     padding: 3% !important;
@@ -353,7 +379,6 @@
     display: none;
   }
   .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div:not(:nth-child(1)) {
-    width: calc(50% - 10px);
     flex: 0 1 auto;
     background-color: #F6F6F6;
     border: none !important;
@@ -381,6 +406,13 @@
   }
   .c-top-comparative-with-text-container {
     padding-top: 1em !important;
+  }
+  .c-top-comparative-with-text-container:has(.c-top-comparative-with-text.reversed) {
+    padding-top: 5px !important;
+    margin-top: 0;
+  }
+  .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text.reversed > div:not(:nth-child(1)) {
+    border: none !important;
   }
   .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text > div div.prices_box span.prod-oldprice {
     font-size: 14px;
