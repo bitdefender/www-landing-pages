@@ -756,6 +756,52 @@ export default function decorate(block) {
       }
     }
   }
+
+if (type === 'dropdown-benefits') {
+  const benefitsLists = block.querySelectorAll('.benefitsLists');
+
+  benefitsLists.forEach(list => {
+    const listItems = list.querySelectorAll('li');
+    if (listItems.length === 0) return;
+
+    const firstLi = listItems[0];
+
+    // Add dropdown icon
+    firstLi.innerHTML += `<svg style="height: 20px; margin-left: 0.5rem; transition: transform 0.3s;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>`;
+
+    // Hide all li except first
+    listItems.forEach((li, index) => {
+      if (index > 0) li.style.display = 'none';
+    });
+
+      const innerBoxes = block.querySelectorAll('.inner_prod_box');
+  innerBoxes.forEach(box => {
+    box.style.height = 'auto';
+  });
+
+    // Set expanded flag individually on the list element
+    list.dataset.expanded = 'false';
+
+    // Toggle this specific list only
+    firstLi.addEventListener('click', () => {
+      const isExpanded = list.dataset.expanded === 'true';
+      list.dataset.expanded = (!isExpanded).toString();
+
+      listItems.forEach((li, index) => {
+        if (index > 0) {
+          li.style.display = isExpanded ? 'none' : 'list-item';
+        }
+      });
+
+      // Optional: rotate icon
+      const icon = firstLi.querySelector('svg');
+      if (icon) {
+        icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+      }
+    });
+  });
+}
+
   const resizeObserver = new ResizeObserver(() => {
     updateMargin();
   });
