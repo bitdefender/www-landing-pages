@@ -76,17 +76,20 @@ export default function decorate(block) {
         const containerDiv = document.createElement('div'); // Create a div container
         containerDiv.id = 'prodSel';
 
-        const productSelectorBestValue = document.createElement('label');
-        productSelectorBestValue.className = 'bestValue';
-        productSelectorBestValue.setAttribute('for', 'productSelector');
-        productSelectorBestValue.innerHTML = `${bestValue}`;
+        if (bestValue) {
+          const productSelectorBestValue = document.createElement('label');
+          productSelectorBestValue.className = 'bestValue';
+          productSelectorBestValue.setAttribute('for', 'productSelector');
+          productSelectorBestValue.innerHTML = `${bestValue}`;
+          // Append the label to the container div
+          containerDiv.appendChild(productSelectorBestValue);
+        }
 
         const productSelector = document.createElement('select');
         productSelector.id = 'productSelector';
         productSelector.className = 'productSelector';
 
-        // Append the label and select to the container div
-        containerDiv.appendChild(productSelectorBestValue);
+        // Append the select to the container div
         containerDiv.appendChild(productSelector);
 
         table.innerHTML = '';
@@ -343,6 +346,7 @@ export default function decorate(block) {
     }
   } else {
     let defaultSize = 'col-sm-5 col-md-5 col-lg-5';
+    blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
     if (contentSize === 'larger') {
       defaultSize = 'col-sm-7 col-md-7 col-lg-7';
     } else if (contentSize === 'half') {
@@ -353,13 +357,13 @@ export default function decorate(block) {
     <div class="container-fluid">
       <div class="row d-block d-sm-flex d-md-flex d-lg-flex position-relative">
         <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img">
-            ${pictureEl.innerHTML}
+
         </div>
 
         <div class="col-xs-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
 
         <div class="${defaultSize ? 'col-5' : 'col-7'} d-none d-sm-none d-md-block d-lg-block img-right bck-img">
-            ${pictureEl.innerHTML}
+
         </div>
       </div>
     </div>`;
@@ -420,9 +424,9 @@ export default function decorate(block) {
         elementProdBox.style.display = 'none';
       });
       elementProduct.style.display = 'block';
-      console.log(selectedValue);
     });
   }
+  block.querySelector('.pricesBox').style.display = 'block';
 
   detectModalButtons(block);
 }
