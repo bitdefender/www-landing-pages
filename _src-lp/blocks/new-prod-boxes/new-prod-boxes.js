@@ -405,9 +405,25 @@ export default function decorate(block) {
             if (!optionSelector.id) optionSelector.id = `optionSelector_${pname.trim()}`;
             optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
-            li.innerHTML = `<input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
-            <label for="${value}">${labelText.trim()}</label>`;
+            const priceSpan = type === 'dropdown-benefits' 
+              ? `<span class="prod-newprice newprice-${selectorClass} radio-price"></span> ` 
+              : '';
+
+            if (type === 'dropdown-benefits') {
+              // 🔄 inversează ordinea: întâi labelul cu prețul, apoi inputul
+              li.innerHTML = `
+                <label for="${value}">${priceSpan}${labelText.trim()}</label>
+                <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+              `;
+            } else {
+              // 🆗 comportament clasic
+              li.innerHTML = `
+                <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+                <label for="${value}">${labelText.trim()}</label>
+              `;
+            }
           }
+  
 
           combinedPricesBox.innerHTML += `<div class="combinedPricesBox combinedPricesBox-${selectorClass}" ${idx !== 0 ? 'style="display: none;"' : ''}>
             <div class="save_price_box await-loader prodload prodload-${selectorClass}">
@@ -800,6 +816,7 @@ if (type === 'dropdown-benefits') {
       }
     });
   });
+
 }
 
   const resizeObserver = new ResizeObserver(() => {
