@@ -88,7 +88,7 @@ export default function decorate(block) {
 
         const priceBoxSelector = block.querySelector(`.c-top-comparative-with-text > div:nth-child(${key + 1})`);
         priceBoxSelector.classList.add(`${onSelectorClass}_box_comp`);
-        const prodDescription = block.querySelector(`.${onSelectorClass}_box_comp > div > p:nth-child(3)`);
+        const prodDescription = !block.classList.contains('reveresed') ? block.querySelector(`.${onSelectorClass}_box_comp > div > p:nth-child(3)`) : '';
         prodDescription?.classList.add(`${prodName}_description_comp`);
 
         if (userText) {
