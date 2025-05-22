@@ -998,6 +998,10 @@
   min-height: 5em;
 }
 
+.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .benefitsLists {
+  display: flex;
+}
+
 .new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
   min-height: auto;
 }
