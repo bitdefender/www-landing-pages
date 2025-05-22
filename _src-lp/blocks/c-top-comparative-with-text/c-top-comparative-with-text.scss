@@ -67,7 +67,7 @@
   display: grid;
   grid-template-rows: subgrid;
   grid-row: 1/6;
-  gap: 0px;
+  gap: 0;
 }
 
 .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text.reversed > div:not(:first-child) {
