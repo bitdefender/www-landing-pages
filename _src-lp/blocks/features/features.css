@@ -37,7 +37,7 @@
 }
 
 .features-container .features .feature-list .accordion {
-  color: #006eff;
+  color: #006DFF;
   position: relative;
   cursor: pointer;
   margin-bottom: 5px;
@@ -58,7 +58,7 @@
 }
 
 .features-container .features .feature-list .accordion span.improved {
-  background: #61af53;
+  background: #0E8532;
   color: white;
   padding: 0 4px;
   border-radius: 5px;
