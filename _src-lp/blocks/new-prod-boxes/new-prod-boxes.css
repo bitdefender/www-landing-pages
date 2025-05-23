@@ -405,6 +405,10 @@
   margin-bottom: 5px;
 }
 
+.new-prod-boxes-container.disable-product .prod_box.index0 .blueTag {
+  visibility: hidden;
+}
+
 .new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .blueTag {
   min-height: 40px;
   display: flex;
@@ -472,13 +476,6 @@
   padding-left: 0;
 }
 
-.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .subtitle ul {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: flex-start;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul {
   border-top: 1px solid #D1D1D1;
   border-bottom: 1px solid #D1D1D1;
@@ -498,6 +495,13 @@
   font-size: 12px;
   box-shadow: 4px 4px 7px -8px #000;
   display: none;
+}
+
+.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .subtitle ul {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .subtitle ul {
@@ -529,15 +533,6 @@
   font-weight: bold;
 }
 
-.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .subtitle ul li {
-  flex-direction: column;
-  border-radius: 20px;
-  background-color: white;
-  padding: 10px;
-  max-width: 33%;
-  text-align: center;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed ul li, .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box li {
   list-style-type: none;
   font-size: 14px;
@@ -546,6 +541,15 @@
 
 .new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists li {
   margin: 10px 0;
+}
+
+.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .subtitle ul li {
+  flex-direction: column;
+  border-radius: 20px;
+  background-color: white;
+  padding: 10px;
+  max-width: 33%;
+  text-align: center;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle ul li:hover {
@@ -568,6 +572,12 @@
   margin: 0;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div input {
+  width: 14px;
+  margin: 0;
+  margin-right: 10px;
+}
+
 .new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .subtitle ul li input {
   accent-color: #EC008C;
 }
@@ -579,16 +589,16 @@
   margin-bottom: 8px;
 }
 
-.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .save_price_box {
-  display: none;
-}
-
-.new-prod-boxes-container.disable-product .prod_box.index0 .blueTag {
-  visibility: hidden;
-}
-
 .new-prod-boxes-container.disable-product .prod_box.index0 .save_price_box {
   visibility: hidden;
+}
+
+.new-prod-boxes-container.business .block .prod_box .save_price_box {
+  justify-content: center;
+}
+
+.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .save_price_box {
+  display: none;
 }
 
 .new-prod-boxes-container.disable-product .prod_box.index0 .prices_box {
@@ -599,17 +609,13 @@
   visibility: hidden;
 }
 
-.new-prod-boxes-container.disable-product .prod_box.index0 a.red-buy-button {
-  pointer-events: none;
-  background: #C1C1C1 !important;
-}
-
 .new-prod-boxes-container.veepee .prod_box a.red-buy-button {
   background: #EC008C !important;
 }
 
-.new-prod-boxes-container.business .block .prod_box .save_price_box {
-  justify-content: center;
+.new-prod-boxes-container.disable-product .prod_box.index0 a.red-buy-button {
+  pointer-events: none;
+  background: #C1C1C1 !important;
 }
 
 .new-prod-boxes-container.new-2024 .block .prod_box .inner_prod_box .save_price_box {
@@ -807,12 +813,6 @@
   min-width: 100%;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div input {
-  width: 14px;
-  margin: 0;
-  margin-right: 10px;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed .vpn_box > div label {
   cursor: pointer;
 }
@@ -1002,12 +1002,12 @@
   display: flex;
 }
 
-.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
-  min-height: auto;
-}
-
 .new-prod-boxes-container .new-prod-boxes .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type):hover .white-pill-content, .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:hover ul {
   display: block;
+}
+
+.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .benefitsLists ul:nth-of-type(2) {
+  min-height: auto;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) u {
