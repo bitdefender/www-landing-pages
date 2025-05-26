@@ -50,7 +50,7 @@
 }
 
 .c-productswithvpn > div div.tag {
-  background-color: #22ac3b;
+  background-color: #0E8532;
   text-align: center;
   position: absolute;
   border-radius: 0;
@@ -151,7 +151,7 @@
 }
 
 .c-productswithvpn > div p:nth-of-type(4) {
-  color: #999;
+  color: #666;
   font-size: 12px;
   text-align: center;
   margin-top: 0;
@@ -168,7 +168,7 @@
 }
 
 .c-productswithvpn > div p:nth-of-type(7) {
-  color: #999;
+  color: #666;
   font-size: 12px;
   margin: 0 0 15px;
   text-align: center;
