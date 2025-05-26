@@ -586,7 +586,7 @@ main .section.small-image .default-content-wrapper p img {
 .topHeader .heading {
   font-size: 13px;
   text-transform: uppercase;
-  color: #999;
+  color: #000;
   letter-spacing: 0.7px;
   margin-bottom: 30px;
 }
@@ -801,7 +801,7 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
 }
 
 .greenTag {
-  background-color: #2fb43e;
+  background-color:  #0E8532;
   color: white !important;
   font-size: 11px;
   display: inline;
@@ -865,7 +865,7 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
 }
 
 .prod-percent.green_bck_pill {
-  background-color: #2fb43e;
+  background-color:#0E8532;
   font-size: 18px;
   display: inline-block;
   padding: 5px 20px;
@@ -876,7 +876,7 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
 
 .prod-percent.green_bck_circle {
   position: relative;
-  background: #2cb43d;
+  background:#0E8532;
   border-radius: 50%;
   width: 83px;
   height: 83px;
@@ -1085,7 +1085,7 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
 }
 
 .green-buy-button {
-  background: #21B53D !important;
+  background: #0E8532 !important;
 }
 
 .red-buy-button:hover {
