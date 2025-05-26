@@ -429,6 +429,10 @@
     font-size: 14px;
   }
 
+  .c-top-comparative-with-text.reversed > div:not(:first-child) p:nth-of-type(1) {
+    font-size: 12px;
+  }
+
   .c-top-comparative-with-text-container {
     padding-top: 1em !important;
   }
