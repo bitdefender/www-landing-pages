@@ -32,7 +32,7 @@
 
 .b-dropdownbox-container .block > div:nth-child(1) {
   color: #fff;
-  background-color: #006eff;
+  background-color: #006DFF;
   padding: 0;
 }
 
@@ -80,8 +80,14 @@
 }
 
 .b-dropdownbox-container .block > div > div strong em {
-  color: red;
-  font-style: normal;
+  color: #0B6A26;
+  background-color: #D1FADC;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 2px 8px;
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-left: 5px;
 }
 
 .b-dropdownbox-container .block:not(.selected-2) > div > div:nth-child(2), .b-dropdownbox-container .block.selected-1 > div > div:nth-child(2), .b-dropdownbox-container .block.selected-2 > div > div:nth-child(3), .b-dropdownbox-container .block.selected-3 > div > div:nth-child(4) {
@@ -127,16 +133,16 @@
   border-radius: 0 0 20px 20px;
 }
 
-.b-dropdownbox-container .block.baby-blue > div:not(:first-child) > div:first-child, .b-dropdownbox-container.baby-blue .block > div:not(:first-child) > div:first-child {
-  background-color: #e3f2ff;
-}
-
 .b-dropdownbox-container .block.closed.inactive > div:not(:first-child) > div, .b-dropdownbox-container.closed .block.inactive > div:not(:first-child) > div {
   display: inline-block;
 }
 
 .b-dropdownbox-container .block.has2divs > div > div:nth-child(2) img {
   width: 400px;
+}
+
+.b-dropdownbox-container .block.baby-blue > div:not(:first-child) > div:first-child, .b-dropdownbox-container.baby-blue .block > div:not(:first-child) > div:first-child {
+  background-color: #e3f2ff;
 }
 
 .b-dropdownbox-container.awards90 .block.has2divs > div > div:nth-child(2) img {
@@ -187,6 +193,11 @@
 .b-dropdownbox-container.netgear .block > div:nth-child(1) > div::before,
 .b-dropdownbox-container.netgear .block.closed.inactive > div:nth-child(1) > div::before {
   display: none;
+}
+
+.b-dropdownbox-container.netgear.no-bottom .block > div:last-child > div:not(:first-child) {
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
 }
 
 .b-dropdownbox-container.arrow-dark .block > div:nth-child(1) > div::before,
@@ -301,7 +312,7 @@
 }
 
 .b-dropdownbox-container .new > div:not(:first-child) > div:first-child a, .b-dropdownbox-container.new .block > div:not(:first-child) > div:first-child a {
-  color: #006eff;
+  color: #006DFF;
 }
 
 .b-dropdownbox-container.slider .new > div:not(:first-child) p, .b-dropdownbox-container.slider.new .block > div:not(:first-child) p {
@@ -368,7 +379,7 @@
   left: 0;
   width: 0;
   height: 4px;
-  background: #006eff;
+  background: #006DFF;
   font-size: 19px;
   line-height: 22px;
   margin-bottom: 1em;
@@ -383,7 +394,7 @@
   z-index: 2;
 }
 .b-dropdownbox-container.dropdownSlider .slider_box .active .title::after {
-  border-color: #006eff;
+  border-color: #006DFF;
   transform: rotate(225deg);
   top: 11px;
 }

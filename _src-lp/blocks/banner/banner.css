@@ -140,7 +140,7 @@
 }
 
 .section.banner-container.list-greenpill-tag .banner ul li em u {
-  background-color: #2CB43D;
+  background-color: #0E8532;
   border-radius: 16px;
   padding: 2px 7px;
   margin: 1px 0 0;
@@ -390,7 +390,7 @@
 }
 
 .section.banner-container #greenPillBox {
-  background-color: #2FB43E;
+  background-color: #0E8532;
   display: inline-block;
   color: #fff;
   border-radius: 15px;
@@ -451,7 +451,7 @@
 
 .section.banner-container #buyBtnGreenCircleBox span.green_circle_box {
   position: relative;
-  background: #2cb43d;
+  background: #0E8532;
   border-radius: 50%;
   width: 83px;
   height: 83px;
@@ -541,7 +541,7 @@
   justify-content: center;
   height: 40px;
   border-radius: 22px;
-  border: 2px solid #006EFF;
+  border: 2px solid #006DFF;
   background-color: #016DFF;
   color: white;
   font-family: Arial, sans-serif;
@@ -671,7 +671,7 @@
     margin: 0 5px;
   }
   .section.banner-container #pricesBox .terms p a {
-    color: #006EFF;
+    color: #006DFF;
   }
 }
 @media screen and (width >= 991px) {
@@ -877,7 +877,7 @@
     font-size: var(--body-font-size-s);
   }
   .section.banner-container #pricesBox .terms p a {
-    color: #006EFF;
+    color: #006DFF;
   }
   .section.banner-container.new-2024.v2 #pricesBox .buy_box a {
     display: inline-block;
