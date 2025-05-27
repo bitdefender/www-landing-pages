@@ -61,7 +61,6 @@ function initializeSlider(block) {
 function extractBuyLinks(tdElement) {
   const result = [];
   const paragraphs = tdElement.querySelectorAll('p');
-
   if (paragraphs.length > 0) {
     // Process p
     paragraphs.forEach((p) => {
@@ -84,7 +83,7 @@ function extractBuyLinks(tdElement) {
       if (node.nodeType === Node.TEXT_NODE) {
         const text = node.textContent.trim() || tdElement.textContent;
         if (text) {
-          result.push({ text, href: null });
+          result.push({ text, href: tdElement.querySelector('a')?.getAttribute('href') || null });
         }
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         if (node.tagName.toLowerCase() === 'a') {
@@ -115,7 +114,7 @@ function extractBuyLinks(tdElement) {
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks,
   } = metaData;
 
   const productsAsList = products && products.split(',');
@@ -227,6 +226,7 @@ export default function decorate(block) {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
 
       [...block.children][key].innerHTML = '';
@@ -405,8 +405,21 @@ export default function decorate(block) {
             if (!optionSelector.id) optionSelector.id = `optionSelector_${pname.trim()}`;
             optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
-            li.innerHTML = `<input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
-            <label for="${value}">${labelText.trim()}</label>`;
+            const priceSpan = type === 'dropdown-benefits'
+              ? `<span class="prod-newprice newprice-${selectorClass} radio-price"></span> `
+              : '';
+
+            if (type === 'dropdown-benefits') {
+              li.innerHTML = `
+                <label for="${value}">${priceSpan}${labelText.trim()}</label>
+                <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+              `;
+            } else {
+              li.innerHTML = `
+                <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+                <label for="${value}">${labelText.trim()}</label>
+              `;
+            }
           }
 
           combinedPricesBox.innerHTML += `<div class="combinedPricesBox combinedPricesBox-${selectorClass}" ${idx !== 0 ? 'style="display: none;"' : ''}>
@@ -423,10 +436,15 @@ export default function decorate(block) {
                 ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed.innerText}
 
-              ${buyLinkObj && `<div class="buy-btn">
-                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${selectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+              ${replaceBuyLinks ? `<div class="buy-btn">
+                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${selectorClass}`} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}"  title="Bitdefender">
+                  ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
-              </div>`}
+              </div>` : `<div class="buy-btn">
+                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
+                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                </a>
+                </div>`}
             </div>`;
         });
 
@@ -507,10 +525,13 @@ export default function decorate(block) {
   })() : ''}
 
               ${vpnInfoContent && vpnInfoContent}
-              ${buyLinkObj && `<div class="buy-btn">
-                <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+              ${replaceBuyLinks ? `<div class="buy-btn">
+                  <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
+                </div>` : `<div class="buy-btn">
+                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
+                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
-              </div>`}
+                </div>`}
 
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
@@ -529,8 +550,8 @@ export default function decorate(block) {
     if (type === 'mobileSlider') {
       const arrowsSlider = document.createElement('div');
       arrowsSlider.className = 'arrowsSlider';
-      arrowsSlider.innerHTML = `<button class="arrow left"></button>
-        <button class="arrow right"></button>`;
+      arrowsSlider.innerHTML = `<button class="arrow left" aria-label="Previous Product"></button>
+        <button class="arrow right" aria-label="Next Product"></button>`;
       block.parentNode.appendChild(arrowsSlider);
 
       const bulletsSlider = document.createElement('div');
@@ -566,13 +587,13 @@ export default function decorate(block) {
         if (!storedPrices[product.ID]) {
           storedPrices[product.ID] = {
             discountValue: product.discountValue,
-            priceWithTax: product.priceWithTax,
+            grossPrice: product.grossPrice,
           };
         }
 
         product.discountRate = 0;
         product.discountValue = 0;
-        product.priceWithTax = product.basePrice;
+        product.grossPrice = product.basePrice;
       });
       localStorage.setItem('originalPrices', JSON.stringify(storedPrices));
     }
@@ -586,7 +607,7 @@ export default function decorate(block) {
       campaignEvent.product.info.forEach((product) => {
         if (storedPrices[product.ID]) {
           product.discountValue = storedPrices[product.ID].discountValue;
-          product.priceWithTax = storedPrices[product.ID].priceWithTax;
+          product.grossPrice = storedPrices[product.ID].grossPrice || storedPrices[product.ID].priceWithTax;
           product.discountRate = Math.floor((product.discountValue / product.basePrice) * 100);
         }
       });
@@ -748,6 +769,55 @@ export default function decorate(block) {
       }
     }
   }
+
+  if (type === 'dropdown-benefits') {
+    const benefitsLists = block.querySelectorAll('.benefitsLists');
+
+    benefitsLists.forEach((list) => {
+      const listItems = list.querySelectorAll('li');
+      if (listItems.length === 0) return;
+
+      const firstLi = listItems[0];
+
+      // Add dropdown icon
+      firstLi.innerHTML += '<svg style="height: 20px; margin-left: 0.5rem; transition: transform 0.3s;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>';
+
+      // Hide all li except first
+      listItems.forEach((li, index) => {
+        if (index > 0) li.style.display = 'none';
+      });
+
+      const innerBoxes = block.querySelectorAll('.inner_prod_box');
+      innerBoxes.forEach((box) => {
+        box.style.height = 'auto';
+      });
+
+      // Set expanded flag individually on the list element
+      list.dataset.expanded = 'false';
+
+      // Toggle this specific list only
+      firstLi.addEventListener('click', () => {
+        const isExpanded = list.dataset.expanded === 'true';
+        list.dataset.expanded = (!isExpanded).toString();
+
+        listItems.forEach((li, index) => {
+          if (index > 0) {
+            li.style.display = isExpanded ? 'none' : 'list-item';
+          }
+        });
+
+        // 🔄 Comută display-ul pe containerul de ul-uri
+        list.style.display = isExpanded ? 'flex' : 'block';
+
+        // Optional: rotate icon
+        const icon = firstLi.querySelector('svg');
+        if (icon) {
+          icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+      });
+    });
+  }
+
   const resizeObserver = new ResizeObserver(() => {
     updateMargin();
   });
