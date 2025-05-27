@@ -11,7 +11,7 @@ import {
 import {
   loadBlocks,
 } from '../../scripts/lib-franklin.js';
-import { getDefaultLanguage } from '../../scripts/utils.js';
+import { getDefaultLanguage } from '../../scripts/target.js';
 
 /**
    * Loads a fragment.

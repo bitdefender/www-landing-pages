@@ -1,61 +1,66 @@
+// tests/lib-franklin.internalDecorateIcons.test.js
+import { describe, it, expect, beforeEach, beforeAll, vi } from 'vitest';
 // eslint-disable-next-line import/extensions
 import { data } from './mock-data.js';
 
-// mock everything that is not related to the actual main scope
-jest.mock('../../_src-lp/scripts/lib-franklin.js', () => ({
-  ...jest.requireActual('../../_src-lp/scripts/lib-franklin.js'),
-  loadHeader: jest.fn(),
-  loadFooter: jest.fn(),
-}));
+// 1️⃣ Mock lib-franklin.js: pull in the real module asynchronously, then override only loadHeader/loadFooter
+vi.mock('../../_src-lp/scripts/lib-franklin.js', () =>
+  // Return a promise; Vitest will await it under the hood
+  vi
+    .importActual('../../_src-lp/scripts/lib-franklin.js')
+    .then((actual) => ({
+      ...actual,
+      loadHeader: vi.fn(),
+      loadFooter: vi.fn(),
+    }))
+);
 
-describe('lib-franklin.js', () => {
-  describe('internalDecorateIcons function', () => {
-    global.fetch = jest.fn(() =>
+describe('lib-franklin.js → internalDecorateIcons', () => {
+  // Provide a global fetch stub once for all tests
+  beforeAll(() => {
+    global.fetch = vi.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({}),
       })
     );
+  });
 
-    beforeEach(() => {
-      jest.resetModules();
-      jest.clearAllMocks();
-      fetch.mockClear();
-    });
+  beforeEach(() => {
+    // Clear module registry so our script import picks up fresh mocks
+    vi.resetModules();
+    // Clear any previous calls to fetch or our mock functions
+    vi.clearAllMocks();
+  });
 
-    it('fetch should be called with /pages/ prefix under bitdefender.com/pages/', async () => {
-      window = Object.create(window);
-      Object.defineProperty(window, 'location', {
-        value: {
-          host: 'www.bitdefender.com',
-          hostname: 'www.bitdefender.com',
-          pathname: '/pages/consumer/en/new/new-campaign'
-        },
-        writable: true
-      });
+  it('fetches `/pages/icons/...` when on www.bitdefender.com/pages/... path', async () => {
+    // Simulate window.location at a /pages/ URL on bitdefender.com
+    delete window.location;
+    window.location = new URL(
+      'https://www.bitdefender.com/pages/consumer/en/new/new-campaign'
+    );
 
-      // init / bootstrap page()
-      document.body.innerHTML = data;
-      await import('../../_src-lp/scripts/scripts.js');
+    // Inject your HTML fixture
+    document.body.innerHTML = data;
+    // Import your runtime—this will trigger internalDecorateIcons()
+    await import('../../_src-lp/scripts/scripts.js');
 
-      expect(fetch).toHaveBeenCalledWith("/pages/icons/keeps-you-informed.svg");
-    });
+    expect(fetch).toHaveBeenCalledWith(
+      '/pages/icons/keeps-you-informed.svg'
+    );
+  });
 
-    it('fetch should be called without /pages/ prefix under pages.bitdefender.com', async () => {
-      window = Object.create(window);
-      Object.defineProperty(window, 'location', {
-        value: {
-          host: 'pages.bitdefender.com',
-          hostname: 'pages.bitdefender.com',
-          pathname: '/consumer/en/new/new-campaign'
-        },
-        writable: true
-      });
+  it('fetches `/icons/...` when on pages.bitdefender.com without the /pages/ prefix', async () => {
+    // Simulate window.location on pages.bitdefender.com
+    delete window.location;
+    window.location = new URL(
+      'https://pages.bitdefender.com/consumer/en/new/new-campaign'
+    );
 
-      // init / bootstrap page()
-      document.body.innerHTML = data;
-      await import('../../_src-lp/scripts/scripts.js');
+    document.body.innerHTML = data;
+    await import('../../_src-lp/scripts/scripts.js');
 
-      expect(fetch).toHaveBeenCalledWith("/icons/keeps-you-informed.svg");
-    });
+    expect(fetch).toHaveBeenCalledWith(
+      '/icons/keeps-you-informed.svg'
+    );
   });
 });

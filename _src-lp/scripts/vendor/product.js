@@ -1,11 +1,6 @@
-import Target from "@repobit/dex-target";
-const LOCALE_PARAMETER = 'locale';
-const API_BASE = 'https://www.bitdefender.com';
-const API_ROOT = '/p-api/v1';
-const GEOIP_ENDPOINT = 'https://www.bitdefender.com/geoip';
-const COUNTRY = 'bd:country';
-const TGT_GEO_OBJ = 'tgt:-424784351:h';
-const TGT_GEO_OBJ_KEY = 'x-geo-country-code';
+import { target } from '../target.js';
+import { Locale } from '../page.js';
+import Constants from '../constants.js';
 
 export default class ProductPrice {
 
@@ -78,7 +73,7 @@ export default class ProductPrice {
     this.#campaign = campaign;
     this.#targetBuyLinks = targetBuyLinks;
     const urlParams = new URLSearchParams(window.location.search);
-    let forceLocale = urlParams.get(LOCALE_PARAMETER);
+    let forceLocale = urlParams.get(Constants.LOCALE_PARAMETER);
 
     if (forceLocale)
       this.#locale = forceLocale;
@@ -102,7 +97,7 @@ export default class ProductPrice {
     if (!this.#locale)
       this.#locale = await Locale.get();
 
-    const endpoint = new URL(`${API_ROOT}/products/${this.#bundleId}/locale/${this.#locale}`, API_BASE);
+    const endpoint = new URL(`${Constants.API_ROOT}/products/${this.#bundleId}/locale/${this.#locale}`, Constants.API_BASE);
 
     if (this.#campaign) {
       endpoint.pathname += `/campaign/${this.#campaign}`;
@@ -340,7 +335,7 @@ export class Bundle {
   }
 
   async getBuyLink() {
-    const endpoint = new URL(`${API_ROOT}/buy-links/locale/${this.#locale}`, API_BASE);
+    const endpoint = new URL(`${Constants.API_ROOT}/buy-links/locale/${this.#locale}`, Constants.API_BASE);
     endpoint.searchParams.append('campaign', this.#campaign);
 
     const productMonths = this.#product.selected_years * 12;
@@ -382,73 +377,6 @@ export class Bundle {
   }
 
 }
-
-export class Locale {
-  constructor(async_param) {
-    if (typeof async_param === 'undefined') {
-      throw new Error('Cannot be called directly');
-    }
-  }
-
-  static getParamFromUrl(value) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(value);
-  }
-
-  static async get() {
-    try {
-      // Check locale in url param
-      const paramLocale = this.getParamFromUrl('locale');
-      if (paramLocale) return paramLocale;
-
-      // Check locale in localStorage
-      const cachedGeoData = localStorage.getItem(TGT_GEO_OBJ);
-      let country;
-      let locale = 'en-us'; // Default
-
-      if (cachedGeoData) {
-        const geoData = JSON.parse(cachedGeoData);
-        country = geoData[TGT_GEO_OBJ_KEY];
-      } else {
-        // Check if country is already cached in localStorage
-        const cachedCountry = localStorage.getItem(COUNTRY);
-
-        if (cachedCountry) {
-          country = cachedCountry;
-        } else {
-          // Fetch country information from the endpoint
-          const response = await fetch(GEOIP_ENDPOINT);
-          if (!response.ok) {
-            console.error(`Failed to fetch geo data: ${response.statusText}`);
-            return locale; // Return default locale in case of error
-          }
-          const data = await response.json();
-          country = data.country;
-
-          // Cache the country in localStorage
-          localStorage.setItem(COUNTRY, country);
-        }
-      }
-
-      // Fetch locale based on the country
-      const localeResponse = await fetch(`${API_BASE}${API_ROOT}/countries/${country}/locales`);
-      if (!localeResponse.ok) {
-        console.error(`Failed to fetch locales: ${localeResponse.statusText}`);
-        return locale; // Return default locale in case of error
-      }
-      const localeData = await localeResponse.json();
-      if (localeData.length && localeData[0]?.locale) {
-        locale = localeData[0].locale;
-      }
-
-      return locale;
-    } catch (error) {
-      console.error('Error fetching locale:', error);
-      return 'en-us'; // Return default locale in case of any other error
-    }
-  }
-}
-
 export class DecorateLink {
   #link;
   #urlObj;
@@ -514,7 +442,7 @@ export class DecorateLink {
         return link.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
       }
 
-      const destinationURLWithVisitorIDs = await Target.appendVisitorIDsTo(link);
+      const destinationURLWithVisitorIDs = await target.appendVisitorIDsTo(link);
       return destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     } catch (e) {
       console.error(e);

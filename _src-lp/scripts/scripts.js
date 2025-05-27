@@ -1,5 +1,5 @@
 import Launch from '@repobit/dex-launch';
-import Target from '@repobit/dex-target';
+import { target, getDefaultLanguage } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
 import page from './page.js';
 import {
@@ -25,7 +25,6 @@ import {
 } from './adobeDataLayer.js';
 import {
   addScript,
-  getDefaultLanguage,
   getDefaultSection,
   isZuoraForNetherlandsLangMode,
   checkIfLocaleCanSupportInitSelector,
@@ -241,14 +240,22 @@ async function loadEager(doc) {
     await waitForLCP(LCP_BLOCKS);
   }
 
-  if (getInstance() === 'prod') {
-    (() => {
-      const script = document.createElement('script');
-      script.src = 'https://js.sentry-cdn.com/31155ca43cab4235b06e5da92992eef0.min.js';
-      script.crossOrigin = 'anonymous';
-      script.async = true;
-      document.head.appendChild(script);
-    })();
+  if (getInstance() === 'prod' && Math.random() < 0.01) {
+    window.sentryOnLoad = () => {
+      /* eslint-disable-next-line no-undef */
+      Sentry.init({
+        tracesSampleRate: 1.0,
+        allowUrls: ['www.bitdefender.com'],
+        replaysSessionSampleRate: 0.1,
+        replaysOnErrorSampleRate: 1.0,
+      });
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://js.sentry-cdn.com/31155ca43cab4235b06e5da92992eef0.min.js';
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+    document.head.appendChild(script);
   }
 }
 
@@ -267,9 +274,9 @@ export async function loadTrackers() {
 
   if (isPageNotInDraftsFolder) {
     try {
-      await Launch.load((await page).environment);
+      await Launch.load(page.environment);
     } catch {
-      Target.abort();
+      target.abort();
     }
 
     onAdobeMcLoaded();
@@ -293,13 +300,14 @@ export async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
 
+  loadTrackers();
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     'gtm.start': new Date().getTime(),
     event: 'gtm.js',
   });
 
-  sendAnalyticsPageEvent();
+  await sendAnalyticsPageEvent();
   await sendAnalyticsUserInfo();
 
   loadFooter(doc.querySelector('footer'));
@@ -307,7 +315,6 @@ export async function loadLazy(doc) {
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
 
   adobeMcAppendVisitorId('main');
-  loadTrackers();
   go2Anchor();
 
   if (getMetadata('free-product')) {
@@ -327,35 +334,8 @@ export async function loadLazy(doc) {
   window.sentryOnLoad = () => {
     /* eslint-disable-next-line no-undef */
     Sentry.init({
-      dsn: 'https://31155ca43cab4235b06e5da92992eef0@o4504802466004992.ingest.us.sentry.io/4505244515958784',
-      // Adds request headers and IP for users, for more info visit:
-      // https://docs.sentry.io/platforms/javascript/configuration/options/#sendDefaultPii
-      sendDefaultPii: false,
-      // Alternatively, use `process.env.npm_package_version` for a dynamic release version
-      // if your build tool supports it.
-      // release: "my-project-name@2.3.12",
-      integrations: [
-        /* eslint-disable-next-line no-undef */
-        Sentry.browserTracingIntegration(),
-        /* eslint-disable-next-line no-undef */
-        Sentry.replayIntegration(),
-      ],
-      // Set tracesSampleRate to 1.0 to capture 100%
-      // of transactions for tracing.
-      // We recommend adjusting this value in production
-      // Learn more at
-      // https://docs.sentry.io/platforms/javascript/configuration/options/#traces-sample-rate
-      tracesSampleRate: 0.1,
-      allowUrls: [/https?:\/\/(www\.)?bitdefender\.com/],
-      // Set `tracePropagationTargets` to control for which URLs trace propagation should be enabled
-      // tracePropagationTargets: [
-      //   "localhost",
-      //   /^https:\/\/yourserver\.io\/api/,
-      // ],
-      // Capture Replay for 10% of all sessions,
-      // plus for 100% of sessions with an error
-      // Learn more at
-      // https://docs.sentry.io/platforms/javascript/session-replay/configuration/#general-integration-configuration
+      tracesSampleRate: 1.0,
+      allowUrls: ['www.bitdefender.com'],
       replaysSessionSampleRate: 0.1,
       replaysOnErrorSampleRate: 1.0,
     });
@@ -1035,9 +1015,8 @@ function addEventListenersOnVpnCheckboxes(pid) {
   if (document.querySelector('.checkboxVPN')) {
     document.querySelectorAll('.prod_box').forEach((item) => {
       item.addEventListener('click', (e) => {
-        const { target } = e;
-        if (target.tagName === 'INPUT' && target.classList.contains('checkboxVPN')) {
-          const checkboxId = target.getAttribute('id');
+        if (e.target.tagName === 'INPUT' && e.target.classList.contains('checkboxVPN')) {
+          const checkboxId = e.target.getAttribute('id');
 
           if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
             const prodxId = e.target.getAttribute('id').split('-')[1];
@@ -1098,7 +1077,7 @@ async function initializeProductsPriceLogic() {
   let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
 
   try {
-    const configMbox = await Target.configMbox;
+    const configMbox = await target.configMbox;
     targetBuyLinkMappings = configMbox?.products ?? {};
     if (configMbox) {
       targetPid = configMbox?.promotion;
@@ -1217,7 +1196,7 @@ async function loadPage() {
   // in the drafts folder adobe target is not loaded, so the price logic should be executed
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
   if (!isPageNotInDraftsFolder) {
-    Target.abort();
+    target.abort();
   }
   initializeProductsPriceLogic();
 
