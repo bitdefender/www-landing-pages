@@ -8,21 +8,12 @@ import {
 } from './utils.js';
 
 /**
- * Returns the value of a query parameter
- * @returns {String}
- */
-export function getParamValue(paramName) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(paramName);
-}
-
-/**
  * Sends the page load started event to the Adobe Data Layer
  */
 export const sendAnalyticsPageEvent = async () => {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
   window.adobeDataLayer = window.adobeDataLayer || [];
-  const { pageName, sections } = getPageNameAndSections();
+  const { pageName, sections } = await getPageNameAndSections();
   const pageLoadStartedEvent = new PageLoadStartedEvent(
     page,
     {
@@ -46,7 +37,7 @@ export const sendAnalyticsPageEvent = async () => {
  * @param {string} subSection
  */
 export const sendAnalyticsErrorEvent = async () => {
-  const { subSection } = getPageNameAndSections();
+  const { subSection } = await getPageNameAndSections();
 
   if ((subSection && subSection === '404') || window.errorCode === '404') {
     await target.configMbox; // wait for CDP data to finalize
@@ -63,14 +54,14 @@ export async function sendAnalyticsUserInfo() {
   window.adobeDataLayer = window.adobeDataLayer || [];
   const user = {};
   user.loggedIN = 'false';
-  user.emarsysID = getParamValue('ems-uid') || getParamValue('sc_uid') || undefined;
+  user.emarsysID = page.getParamValue('ems-uid') || page.getParamValue('sc_uid') || undefined;
 
   let userID;
   try {
-    userID = (typeof localStorage !== 'undefined' && localStorage.getItem('rhvID')) || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+    userID = (typeof localStorage !== 'undefined' && localStorage.getItem('rhvID')) || page.getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
   } catch (e) {
     if (e instanceof DOMException) {
-      userID = getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+      userID = page.getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
     } else {
       throw e;
     }

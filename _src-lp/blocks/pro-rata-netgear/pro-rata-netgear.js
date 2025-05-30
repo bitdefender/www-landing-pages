@@ -1,21 +1,16 @@
 import {
   sendAnalyticsPageLoadedEvent,
 } from '../../scripts/adobeDataLayer.js';
+import page from '../../scripts/page.js';
 
 import {
   GLOBAL_EVENTS,
 } from '../../scripts/utils.js';
 
-// get param value:
-const getParameterValue = (parameterName) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(parameterName);
-};
-
 // check eligibility
 const checkEligibility = async (block, optionCode, neeligibilText) => {
   try {
-    const serviceId = getParameterValue('service_id');
+    const serviceId = page.getParamValue('service_id');
     const url = `https://www.bitdefender.com/site/Main/proRataNetgear?service_id=${serviceId}&option_code=${optionCode}`;
     const options = {
       method: 'GET',
@@ -71,7 +66,7 @@ export default function decorate(block) {
   }
 
   // service_id must be set
-  if (!getParameterValue('service_id')) {
+  if (!page.getParamValue('service_id')) {
     block.innerHTML = `
       <div class="container">
         <div class="row">
