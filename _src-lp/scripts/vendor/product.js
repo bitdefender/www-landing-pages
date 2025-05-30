@@ -185,6 +185,10 @@ export default class ProductPrice {
       return null;
     }
 
+    if (payload.campaign) {
+      this.#campaign = payload.campaign;
+    }
+
     const allOptions = payload.product.options.map(async (option) => {
       // if the product is already added, skip
       // if (window.StoreProducts?.product?.[this.#alias]) return;
@@ -404,24 +408,18 @@ export class DecorateLink {
   }
 
   /**
-   * Adds the SRC parameter based on the current page URL or channel if specified.
+   * Adds the SRC parameter based on the current page URL
    */
   #addSRC() {
-    const urlParams = new URLSearchParams(window.location.search);
-    let channel = urlParams.get('channel');
-    if (this.#campaign)
-      channel = `${channel}_${this.#campaign}`;
-    const fullURL = window.location.href;
-    const urlWithoutQuery = fullURL.split('?')[0]; // Removing query parameters
-    const srcParam = channel || encodeURI(urlWithoutQuery);
+    this.#params.set('SRC', `${window.location.origin}${window.location.pathname}`);
+  }
 
-    if (!this.#params.has('SRC')) {
-      this.#params.append('SRC', srcParam);
-    }
+  #addREF() {
+    this.#params.set('REF', `LP_${this.#campaign}`);
   }
 
   #cleanSection() {
-    if (this.#params.has('section')) {
+    if (!this.#params.has('section')) {
       this.#params.set('section', this.#extractSection(window.adobeDataLayer));
     }
   }
@@ -456,6 +454,7 @@ export class DecorateLink {
   async getFullyDecoratedUrl() {
     this.#addSHOPURL();
     this.#addSRC();
+    this.#addREF();
     this.#cleanSection();
     this.#urlObj.search = this.#params.toString();
     return await this.#appendAdobeMc(this.#urlObj.toString());

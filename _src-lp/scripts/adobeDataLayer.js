@@ -22,7 +22,7 @@ export function getParamValue(paramName) {
 export const sendAnalyticsPageEvent = async () => {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
   window.adobeDataLayer = window.adobeDataLayer || [];
-  const { pageName, sections } = getPageNameAndSections();
+  const { pageName, sections } = await getPageNameAndSections();
   const pageLoadStartedEvent = new PageLoadStartedEvent(
     page,
     {
@@ -46,7 +46,7 @@ export const sendAnalyticsPageEvent = async () => {
  * @param {string} subSection
  */
 export const sendAnalyticsErrorEvent = async () => {
-  const { subSection } = getPageNameAndSections();
+  const { subSection } = await getPageNameAndSections();
 
   if ((subSection && subSection === '404') || window.errorCode === '404') {
     await target.configMbox; // wait for CDP data to finalize
