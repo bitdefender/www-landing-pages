@@ -100,10 +100,12 @@ main .columns-container.padding-0 .columns-wrapper{
       h3, p {
         color: #000000;
         margin: 0;
+        text-transform: none;
+        font-size: 18px;
       }
 
       p {
-        margin: 0 0 12px
+        margin: 0 0 12px;
       }
     }
 
@@ -125,6 +127,8 @@ main .columns-container.padding-0 .columns-wrapper{
       h3, p {
         color: #000000;
         margin: 0;
+        text-transform: none;
+        font-size: 16px;
       }
     }
 
@@ -133,7 +137,7 @@ main .columns-container.padding-0 .columns-wrapper{
       flex-direction: row;
       gap: 11px;
       align-items: center;
-      padding: 6px 14px;
+      padding: 14px 6px;
 
       .icon {
         margin: 0;
@@ -262,9 +266,10 @@ main .columns-container.padding-0 .columns-wrapper{
   }
 }
 
-@media (width >= 992px) {
+@media (width >= 1400px) {
   .columns-container {
     .columns.blue-cards, .columns.gray-cards {
+      width: 1320px;
       > div  > div {
         max-width: 300px;
       }

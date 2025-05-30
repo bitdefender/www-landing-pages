@@ -96,6 +96,8 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.blue-cards > div > div h3, .columns-container .columns.blue-cards > div > div p {
   color: #000000;
   margin: 0;
+  text-transform: none;
+  font-size: 18px;
 }
 .columns-container .columns.blue-cards > div > div p {
   margin: 0 0 12px;
@@ -114,13 +116,15 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.gray-cards > div > div h3, .columns-container .columns.gray-cards > div > div p {
   color: #000000;
   margin: 0;
+  text-transform: none;
+  font-size: 16px;
 }
 .columns-container .columns.gray-cards > div > div > div {
   display: flex;
   flex-direction: row;
   gap: 11px;
   align-items: center;
-  padding: 6px 14px;
+  padding: 14px 6px;
 }
 .columns-container .columns.gray-cards > div > div > div .icon {
   margin: 0;
@@ -222,7 +226,10 @@ main .columns-container.padding-0 .columns-wrapper {
     justify-content: center;
   }
 }
-@media (width >= 992px) {
+@media (width >= 1400px) {
+  .columns-container .columns.blue-cards, .columns-container .columns.gray-cards {
+    width: 1320px;
+  }
   .columns-container .columns.blue-cards > div > div, .columns-container .columns.gray-cards > div > div {
     max-width: 300px;
   }
