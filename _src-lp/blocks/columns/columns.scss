@@ -85,6 +85,63 @@ main .columns-container.padding-0 .columns-wrapper{
   margin-top: 20px;
 }
 
+.columns-container {
+  .columns.blue-cards {
+    > div {
+      gap: 30px;
+      justify-content: center;
+    }
+
+    > div > div {
+      background-color: #E4F2FF;
+      
+      border-radius: 10px;
+
+      h3, p {
+        color: #000000;
+        margin: 0;
+      }
+
+      p {
+        margin: 0 0 12px
+      }
+    }
+
+    > div > div > div {
+      padding: 20px 10px;
+    }
+  }
+
+  .columns.gray-cards {
+    > div {
+      gap: 30px;
+      justify-content: center;
+    }
+
+     > div > div {
+      background-color: #F5F5F7;
+      border-radius: 10px;
+
+      h3, p {
+        color: #000000;
+        margin: 0;
+      }
+    }
+
+    > div > div > div {
+      display: flex;
+      flex-direction: row;
+      gap: 11px;
+      align-items: center;
+      padding: 6px 14px;
+
+      .icon {
+        margin: 0;
+      }
+    }
+  }
+}
+
 .columns-container.new-v2{
  u {
   text-decoration: none;
@@ -202,5 +259,15 @@ main .columns-container.padding-0 .columns-wrapper{
   .columns-container.netgear .columns > div > .columns-img-col {
     display: flex;
     justify-content: center;
+  }
+}
+
+@media (width >= 992px) {
+  .columns-container {
+    .columns.blue-cards, .columns.gray-cards {
+      > div  > div {
+        max-width: 300px;
+      }
+    }
   }
 }

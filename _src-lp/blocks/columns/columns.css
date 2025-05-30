@@ -85,6 +85,47 @@ main .columns-container.padding-0 .columns-wrapper {
   margin-top: 20px;
 }
 
+.columns-container .columns.blue-cards > div {
+  gap: 30px;
+  justify-content: center;
+}
+.columns-container .columns.blue-cards > div > div {
+  background-color: #E4F2FF;
+  border-radius: 10px;
+}
+.columns-container .columns.blue-cards > div > div h3, .columns-container .columns.blue-cards > div > div p {
+  color: #000000;
+  margin: 0;
+}
+.columns-container .columns.blue-cards > div > div p {
+  margin: 0 0 12px;
+}
+.columns-container .columns.blue-cards > div > div > div {
+  padding: 20px 10px;
+}
+.columns-container .columns.gray-cards > div {
+  gap: 30px;
+  justify-content: center;
+}
+.columns-container .columns.gray-cards > div > div {
+  background-color: #F5F5F7;
+  border-radius: 10px;
+}
+.columns-container .columns.gray-cards > div > div h3, .columns-container .columns.gray-cards > div > div p {
+  color: #000000;
+  margin: 0;
+}
+.columns-container .columns.gray-cards > div > div > div {
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+  align-items: center;
+  padding: 6px 14px;
+}
+.columns-container .columns.gray-cards > div > div > div .icon {
+  margin: 0;
+}
+
 .columns-container.new-v2 u {
   text-decoration: none;
   font: normal normal normal 18px/21px Arial, sans-serif;
@@ -179,5 +220,10 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns-container.netgear .columns > div > .columns-img-col {
     display: flex;
     justify-content: center;
+  }
+}
+@media (width >= 992px) {
+  .columns-container .columns.blue-cards > div > div, .columns-container .columns.gray-cards > div > div {
+    max-width: 300px;
   }
 }

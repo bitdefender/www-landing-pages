@@ -1,10 +1,9 @@
-import { getDatasetFromSection } from '../../scripts/utils.js';
+import { getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
   // block.classList.add('container-sm');
-
   const metaData = getDatasetFromSection(block);
 
   const backgroundColor = metaData.backgroundcolor || undefined;
@@ -32,4 +31,5 @@ export default function decorate(block) {
       }
     });
   });
+  matchHeights(block, '.text-content');
 }
