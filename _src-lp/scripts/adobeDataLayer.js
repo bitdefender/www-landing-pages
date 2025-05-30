@@ -40,7 +40,7 @@ export const sendAnalyticsErrorEvent = async () => {
   const { subSection } = await getPageNameAndSections();
 
   if ((subSection && subSection === '404') || window.errorCode === '404') {
-    await target.configMbox; // wait for CDP data to finalize
+    await target.sendCdpData(); // wait for CDP data to finalize
     window.adobeDataLayer.push({ event: 'page error' });
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
@@ -170,6 +170,7 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
   }
 
   if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || getMetadata('free-product') || force) {
+    await target.sendCdpData();
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }

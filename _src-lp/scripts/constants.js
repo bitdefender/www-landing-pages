@@ -30,5 +30,9 @@ export default class Constants {
     'zh-tw': 'zh-tw',
   };
 
+  static MONTHLY_PRODUCTS = ['psm', 'pspm', 'vpn-monthly', 'passm', 'pass_spm', 'secpassm',
+    'dipm', 'us_i_m', 'us_f_m', 'us_pf_m', 'us_pi_m', 'us_pie_m', 'us_pfe_m', 'ultsecm',
+    'ultsecplusm', 'idtheftsm', 'idtheftpm', 'vsbm', 'scm'];
+
   static DEFAULT_LANGUAGE = 'en';
 }

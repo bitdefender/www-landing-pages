@@ -176,9 +176,6 @@ export default class ProductPrice {
 
   async #getProductVariationsPrice() {
     let payload = await this.#getProductVariations();
-    const monthlyProducts = ["psm", "pspm", "vpn-monthly", "passm", "pass_spm", "secpassm",
-      "dipm", "us_i_m", "us_f_m", "us_pf_m", "us_pi_m", "us_pie_m", "us_pfe_m", "ultsecm",
-      "ultsecplusm", "idtheftsm", "idtheftpm", "vsbm", "scm"];
 
     if (!payload || payload.length === 0) {
       return null;
@@ -197,9 +194,9 @@ export default class ProductPrice {
 
       if (this.#yearsNo != Math.ceil(option.months / 12)) return;
 
-      if (monthlyProducts.includes(this.#alias) && option.months > 1) return;
+      if (Constants.MONTHLY_PRODUCTS.includes(this.#alias) && option.months > 1) return;
 
-      if (!monthlyProducts.includes(this.#alias) && option.months < 12) return;
+      if (!Constants.MONTHLY_PRODUCTS.includes(this.#alias) && option.months < 12) return;
 
       const fakeDevicesSelector = document.getElementById(`u_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
       const fakeYearsSelector = document.getElementById(`y_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
