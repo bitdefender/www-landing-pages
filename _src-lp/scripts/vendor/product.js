@@ -414,7 +414,8 @@ export class DecorateLink {
   }
 
   #addREF() {
-    this.#params.set('REF', `LP_${this.#campaign}`);
+    const channel = page.getParamValue('channel') || 'LP';
+    this.#params.set('REF', `${channel}_${this.#campaign}`);
   }
 
   #cleanSection() {
