@@ -1,24 +1,19 @@
 import {
   sendAnalyticsPageLoadedEvent,
 } from '../../scripts/adobeDataLayer.js';
+import page from '../../scripts/page.js';
 
 import {
   GLOBAL_EVENTS,
 } from '../../scripts/utils.js';
 
-// get param value:
-const getParameterValue = (parameterName) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(parameterName);
-};
-
 // check eligibility
 const checkEligibility = async (block, optionCode, neeligibilText) => {
   try {
-    const serviceId = getParameterValue('service_id');
-    const upgradeBundle = getParameterValue('upgrade_bundle');
-    const productCode = getParameterValue('product_code');
-    const paramOptionCode = getParameterValue('option_code');
+    const serviceId = page.getParamValue('service_id');
+    const upgradeBundle = page.getParamValue('upgrade_bundle');
+    const productCode = page.getParamValue('product_code');
+    const paramOptionCode = page.getParamValue('option_code');
     let updatedOptionCode = optionCode;
     if (paramOptionCode) {
       updatedOptionCode = paramOptionCode;
@@ -78,7 +73,7 @@ export default function decorate(block) {
   }
 
   // service_id must be set
-  if (!getParameterValue('service_id')) {
+  if (!page.getParamValue('service_id')) {
     block.innerHTML = `
       <div class="container">
         <div class="row">

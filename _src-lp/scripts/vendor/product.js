@@ -1,6 +1,6 @@
 import { target } from '../target.js';
-import { Locale } from '../page.js';
 import Constants from '../constants.js';
+import page from '../page.js';
 
 export default class ProductPrice {
 
@@ -72,8 +72,7 @@ export default class ProductPrice {
     this.#bundleId = this.#productId[this.#alias];
     this.#campaign = campaign;
     this.#targetBuyLinks = targetBuyLinks;
-    const urlParams = new URLSearchParams(window.location.search);
-    let forceLocale = urlParams.get(Constants.LOCALE_PARAMETER);
+    let forceLocale = page.getParamValue(Constants.LOCALE_PARAMETER);
 
     if (forceLocale)
       this.#locale = forceLocale;
@@ -95,7 +94,7 @@ export default class ProductPrice {
   async #getProductVariations() {
 
     if (!this.#locale)
-      this.#locale = await Locale.get();
+      this.#locale = page.locale;
 
     const endpoint = new URL(`${Constants.API_ROOT}/products/${this.#bundleId}/locale/${this.#locale}`, Constants.API_BASE);
 
@@ -144,7 +143,7 @@ export default class ProductPrice {
       selected_years: this.#yearsNo,
       selected_variation: {
         product_id: this.#alias,
-        region_id: this.#locale === 'en-US' ? 8 : 22,
+        region_id: this.#locale === 'en-us' ? 8 : 22,
         variation_id: 0,
         platform_id: 16,
         price: option.price,
@@ -257,7 +256,7 @@ export default class ProductPrice {
         selected_years: this.#yearsNo,
         selected_variation: {
           product_id: this.#alias,
-          region_id: this.#locale === 'en-US' ? 8 : 22,
+          region_id: this.#locale === 'en-us' ? 8 : 22,
           variation_id: 0,
           platform_id: 16,
           price: pricing.total,

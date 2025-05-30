@@ -2,7 +2,7 @@ import Target from '@repobit/dex-target';
 import { User } from '@repobit/dex-utils';
 import { PageLoadStartedEvent } from '@repobit/dex-data-layer';
 import Constants from './constants.js';
-import page, { Locale } from './page.js';
+import page from './page.js';
 
 export function getDefaultLanguage() {
   const currentPathUrl = window.location.pathname;
@@ -14,13 +14,10 @@ export function getDefaultLanguage() {
  * @returns {Object}
  */
 export async function getPageNameAndSections() {
-  const defaultLanguage = getDefaultLanguage();
-
   const pageSectionParts = window.location.pathname.split('/').filter((subPath) => subPath !== '' && subPath !== 'pages');
   const subSubSection = pageSectionParts[0];
-  const localeParam = new URLSearchParams(window.location.search)?.get('locale');
 
-  pageSectionParts[0] = localeParam || await Locale.get() || (defaultLanguage === 'en' ? 'us' : defaultLanguage);
+  pageSectionParts[0] = page.locale;
 
   try {
     if (pageSectionParts[1].length === 2) pageSectionParts[1] = 'offers'; // landing pages

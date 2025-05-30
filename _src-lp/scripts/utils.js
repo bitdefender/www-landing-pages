@@ -1,6 +1,7 @@
 import { target, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
+import page from './page.js';
 
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
@@ -257,8 +258,7 @@ export function setDataOnBuyLinks(dataInfo) {
 }
 
 export function checkIfLocaleCanSupportInitSelector() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const forceLocale = urlParams.get('locale');
+  const forceLocale = page.getParamValue('locale');
 
   if (forceLocale && ['de-de', 'de-at', 'nl-nl', 'nl-be'].some((locale) => forceLocale.toLowerCase() === locale)) {
     return false;
