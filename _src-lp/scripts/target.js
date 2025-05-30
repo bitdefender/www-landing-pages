@@ -13,13 +13,10 @@ export function getDefaultLanguage() {
  * Returns the page name and sections based on the current URL
  * @returns {Object}
  */
-export function getPageNameAndSections() {
-  const defaultLanguage = getDefaultLanguage();
-
+export async function getPageNameAndSections() {
   const pageSectionParts = window.location.pathname.split('/').filter((subPath) => subPath !== '' && subPath !== 'pages');
   const subSubSection = pageSectionParts[0];
-
-  pageSectionParts[0] = defaultLanguage === 'en' ? 'us' : defaultLanguage;
+  pageSectionParts[0] = page.locale;
 
   try {
     if (pageSectionParts[1].length === 2) pageSectionParts[1] = 'offers'; // landing pages
@@ -41,7 +38,7 @@ export function getPageNameAndSections() {
   }
 }
 
-const { pageName, sections } = getPageNameAndSections();
+const { pageName, sections } = await getPageNameAndSections();
 export const target = new Target({
   pageLoadStartedEvent: new PageLoadStartedEvent(
     page,
@@ -57,3 +54,5 @@ export const target = new Target({
     },
   ),
 });
+
+window.BD.state.target = target;

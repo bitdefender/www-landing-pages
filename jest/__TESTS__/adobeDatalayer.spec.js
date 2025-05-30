@@ -1,4 +1,5 @@
 import {sendAnalyticsPageEvent} from "../../_src-lp/scripts/adobeDataLayer";
+import { User } from "@repobit/dex-utils";
 
 describe('adobeDatalayer.js', () => {
   describe('sendAnalyticsPageEvent function', () => {
@@ -23,7 +24,7 @@ describe('adobeDatalayer.js', () => {
       await sendAnalyticsPageEvent();
       const [pageLoadStartedEvent] = window.adobeDataLayer;
 
-      expect(pageLoadStartedEvent.page.info.name).toBe('us:offers:consumer:new:new-campaign');
+      expect(pageLoadStartedEvent.page.info.name).toBe(`${await User.locale}:offers:consumer:new:new-campaign`);
     });
 
     it('should create the correct page.info.name for pages.bitdefender.com environment', async () => {
@@ -34,7 +35,7 @@ describe('adobeDatalayer.js', () => {
       await sendAnalyticsPageEvent();
       const [pageLoadStartedEvent] = window.adobeDataLayer;
 
-      expect(pageLoadStartedEvent.page.info.name).toBe('us:offers:consumer:new:new-campaign');
+      expect(pageLoadStartedEvent.page.info.name).toBe(`${await User.locale}:offers:consumer:new:new-campaign`);
     });
   });
 });
