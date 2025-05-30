@@ -18,6 +18,7 @@ export async function getPageNameAndSections() {
   const subSubSection = pageSectionParts[0];
 
   pageSectionParts[0] = page.locale;
+  console.log(page.locale);
 
   try {
     if (pageSectionParts[1].length === 2) pageSectionParts[1] = 'offers'; // landing pages
@@ -55,3 +56,5 @@ export const target = new Target({
     },
   ),
 });
+
+window.BD.state.target = target;
