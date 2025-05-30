@@ -16,9 +16,7 @@ export function getDefaultLanguage() {
 export async function getPageNameAndSections() {
   const pageSectionParts = window.location.pathname.split('/').filter((subPath) => subPath !== '' && subPath !== 'pages');
   const subSubSection = pageSectionParts[0];
-
   pageSectionParts[0] = page.locale;
-  console.log(page.locale);
 
   try {
     if (pageSectionParts[1].length === 2) pageSectionParts[1] = 'offers'; // landing pages
