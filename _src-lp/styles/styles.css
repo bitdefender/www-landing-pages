@@ -230,6 +230,14 @@ a.button:any-link, button {
   cursor: pointer;
 }
 
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
+}
+
 .save-green-pill {
   background-color: #DAEFDA;
   color: #2DB43D !important;
