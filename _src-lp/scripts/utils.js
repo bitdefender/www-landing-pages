@@ -1,3 +1,4 @@
+import { User } from '@repobit/dex-utils';
 import { target, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
@@ -733,16 +734,9 @@ export function getCookie(name) {
  */
 export async function fetchGeoIP() {
   try {
-    const response = await fetch('/geoip');
+    window.geoip = await User.country;
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    window.geoip = data;
-
-    const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: data });
+    const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: window.geoip });
     window.dispatchEvent(event);
   } catch (error) {
     console.error('Failed to fetch geoip data:', error);
