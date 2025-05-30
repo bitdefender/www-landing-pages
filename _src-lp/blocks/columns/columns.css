@@ -97,13 +97,15 @@ main .columns-container.padding-0 .columns-wrapper {
   color: #000000;
   margin: 0;
   text-transform: none;
-  font-size: 18px;
+  font-size: 20px;
 }
 .columns-container .columns.blue-cards > div > div p {
   margin: 0 0 12px;
 }
 .columns-container .columns.blue-cards > div > div > div {
   padding: 20px 10px;
+  justify-items: flex-start;
+  text-align: left;
 }
 .columns-container .columns.gray-cards > div {
   gap: 30px;
