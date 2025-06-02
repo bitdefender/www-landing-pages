@@ -120,7 +120,6 @@ export async function sendAnalyticsUserInfo() {
 const productsInAdobe = [];
 
 export async function sendAnalyticsProducts(product, region) {
-  console.log(product);
   const productID = product.selected_variation.product_id;
   let initCount = StoreProducts.initCount;
   let productName = StoreProducts.product[productID].product_name;
