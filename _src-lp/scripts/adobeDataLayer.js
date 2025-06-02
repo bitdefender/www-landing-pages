@@ -120,6 +120,7 @@ export async function sendAnalyticsUserInfo() {
 const productsInAdobe = [];
 
 export async function sendAnalyticsProducts(product, region) {
+  console.log(product);
   const productID = product.selected_variation.product_id;
   let initCount = StoreProducts.initCount;
   let productName = StoreProducts.product[productID].product_name;
@@ -144,6 +145,9 @@ export async function sendAnalyticsProducts(product, region) {
     discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
     currency: product.selected_variation.currency_iso,
     grossPrice: discountVal,
+    discountCoupon: product.campaignType
+      ? `${product.campaignType}|${product.campaign}`
+      : (product.campaign || product?.config?.extra_params?.pid || ''),
   });
 
   if (productsInAdobe.length === initCount) {
