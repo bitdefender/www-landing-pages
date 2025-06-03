@@ -101,6 +101,48 @@ main .columns-container.padding-0 .columns-wrapper {
   margin-top: 16px;
 }
 
+.columns-container .columns.blue-cards > div {
+  gap: 30px;
+  justify-content: center;
+}
+.columns-container .columns.blue-cards > div > div {
+  background-color: #E4F2FF;
+  border-radius: 10px;
+}
+.columns-container .columns.blue-cards > div > div h3, .columns-container .columns.blue-cards > div > div p {
+  color: #000;
+  margin: 0;
+  text-transform: none;
+  font-size: 20px;
+}
+.columns-container .columns.blue-cards > div > div p {
+  margin: 0 0 12px;
+}
+.columns-container .columns.blue-cards > div > div > div {
+  padding: 30px 20px;
+  justify-items: flex-start;
+  text-align: left;
+}
+.columns-container .columns.gray-cards > div > div > div {
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+  align-items: center;
+  padding: 30px 20px;
+  text-align: left;
+  background-color: #F5F5F7;
+  border-radius: 10px;
+}
+.columns-container .columns.gray-cards > div > div > div h3, .columns-container .columns.gray-cards > div > div > div p {
+  color: #000;
+  margin: 0;
+  text-transform: none;
+  font-size: 16px;
+}
+.columns-container .columns.gray-cards > div > div > div .icon {
+  margin: 0;
+}
+
 @media (width >= 768px) {
   .columns > div {
     align-items: center;
@@ -179,5 +221,13 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns-container.netgear .columns > div > .columns-img-col {
     display: flex;
     justify-content: center;
+  }
+}
+@media (width >= 1400px) {
+  .columns-container .columns.blue-cards, .columns-container .columns.gray-cards {
+    width: 1320px;
+  }
+  .columns-container .columns.blue-cards > div > div, .columns-container .columns.gray-cards > div > div {
+    max-width: 300px;
   }
 }
