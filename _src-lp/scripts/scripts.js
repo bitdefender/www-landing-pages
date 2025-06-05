@@ -1053,8 +1053,8 @@ async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks 
               showPrices(vlaicuVariation);
               adobeMcAppendVisitorId('main');
               showLoaderSpinner(false, onSelectorClass);
-              sendAnalyticsProducts(vlaicuResult);
             }
+            sendAnalyticsProducts(vlaicuResult);
 
             return vlaicuResult;
           }),
