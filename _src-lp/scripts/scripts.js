@@ -1,4 +1,5 @@
 import Launch from '@repobit/dex-launch';
+import { AdobeDataLayerService, PageLoadedEvent } from '@repobit/dex-data-layer';
 import { target, getDefaultLanguage } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
 import page from './page.js';
@@ -1187,7 +1188,17 @@ function appendMetaReferrer() {
   head.appendChild(metaTag);
 }
 
+function setBFCacheListener() {
+  window.addEventListener('pageshow', (event) => {
+    // Send another page loaded if the page is restored from bfcache.
+    if (event.persisted) {
+      AdobeDataLayerService.push(new PageLoadedEvent());
+    }
+  });
+}
+
 async function loadPage() {
+  setBFCacheListener();
   await loadEager(document);
   await loadLazy(document);
 
