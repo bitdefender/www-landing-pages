@@ -1,3 +1,4 @@
+import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
 import { matchHeights, updateProductsList } from '../../scripts/utils.js';
 
@@ -172,17 +173,20 @@ export default function decorate(block) {
         [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
         prodName = prodName.trim();
         updateProductsList(prod);
-        updateProductsList(prod.replace(prodName, `${prodName}m`));
-
         onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-        onSelectorClassM = `${productAliases(`${prodName}m`)}-${prodUsers}${prodYears}`;
+        if (Constants.MONTHLY_PRODUCTS.includes(`${prodName}m`)) {
+          updateProductsList(prod.replace(prodName, `${prodName}m`));
+          onSelectorClassM = `${productAliases(`${prodName}m`)}-${prodUsers}${prodYears}`;
+        }
       } else {
         [prodName, prodUsers, prodYears] = productsAsList[idx].split(',')[1].split('/');
         const [prodNameM, prodUsersM, prodYearsM] = productsAsList[idx].split(',')[0].split('/');
         updateProductsList(productsAsList[idx].split(',')[1]);
-        updateProductsList(productsAsList[idx].split(',')[0]);
         onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-        onSelectorClassM = `${productAliases(prodNameM)}-${prodUsersM}${prodYearsM}`;
+        if (Constants.MONTHLY_PRODUCTS.includes(prodNameM)) {
+          updateProductsList(productsAsList[idx].split(',')[0]);
+          onSelectorClassM = `${productAliases(prodNameM)}-${prodUsersM}${prodYearsM}`;
+        }
       }
 
       const contentRightItem = contentRightEl.children[idx];
