@@ -369,6 +369,36 @@ function maxDiscount() {
   }
 }
 
+export async function fetchTrialLinks(value) {
+  // If cached data exists, return it directly
+  if (window.cachedTrialLInks) {
+    return window.cachedTrialLInks;
+  }
+
+  const defaultJsonFilePath = '/triallinks.json';
+  const jsonFilePath = window.location.hostname === 'www.bitdefender.com'
+    ? `https://${window.location.hostname}/pages/triallinks.json`
+    : defaultJsonFilePath;  
+
+  try {
+    const response = await fetch(jsonFilePath);
+
+    if (!response.ok) {
+      console.error(`Failed to fetch data. Status: ${response.status}`);
+      return {};
+    }
+
+    const { data = [] } = await response.json();
+    // Cache the fetched data
+    window.cachedZuoraConfig = data;
+
+    return data;
+  } catch (error) {
+    console.error(`Error fetching Zuora config: ${error.message}`);
+    return {};
+  }
+}
+
 // display prices
 export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
@@ -378,7 +408,43 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
-  console.log(getMetadata('trialbuylinks'))
+  // DEX-23043
+  const trialLinkValue = getMetadata('trialbuylinks');
+  let result = undefined;
+  if (trialLinkValue) {
+    const trialLinks = await fetchTrialLinks(trialLinkValue);
+    
+    let locale = getDefaultLanguage() || 'com';
+    if (locale === 'en') locale = 'com';
+
+    result = trialLinks.find((item) => item.locale.toLowerCase() === locale && item.product === productId && parseInt(item.devices) === parseInt(prodUsers) && parseInt(item.duration) === parseInt(trialLinkValue));
+  }
+
+  if (result) {
+    const oldUrl = storeObj.buy_link;
+    const newUrl = result.buy_link;
+
+    // get old URL params
+    const oldParams = new URL(oldUrl).searchParams;
+
+    // get params
+    const lang = oldParams.get('LANG');
+    const currency = oldParams.get('CURRENCY');
+    const dcurrency = oldParams.get('DCURRENCY');
+    const coupon = oldParams.get('COUPON');
+
+    // get new URL and update params
+    const updatedUrl = new URL(newUrl);
+    const newParams = updatedUrl.searchParams;
+
+    if (lang) newParams.set('LANG', lang);
+    if (currency) newParams.set('CURRENCY', currency);
+    if (dcurrency) newParams.set('DCURRENCY', dcurrency);
+    if (coupon) newParams.set('COUPON', coupon);
+
+    // updated URL
+    storeObj.buy_link = updatedUrl.toString();
+  }
 
   if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
