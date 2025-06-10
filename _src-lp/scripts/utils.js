@@ -416,12 +416,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     let locale = getDefaultLanguage() || 'com';
     if (locale === 'en') locale = 'com';
 
-    result = trialLinks.find((item) =>
-      item.locale.toLowerCase() === locale
-      && item.product === productId
-      && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-      && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
-    );
+    result = trialLinks.find((item) => item.locale.toLowerCase() === locale && item.product === productId && parseInt(item.devices, 10) === parseInt(prodUsers, 10) && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10));
   }
 
   if (result) {
