@@ -378,6 +378,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
+  console.log(getMetadata('trialbuylinks'))
+
   if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
   let parentDiv = '';
