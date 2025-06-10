@@ -378,7 +378,7 @@ async function fetchTrialLinks() {
   const defaultJsonFilePath = '/triallinks.json';
   const jsonFilePath = window.location.hostname === 'www.bitdefender.com'
     ? `https://${window.location.hostname}/pages/triallinks.json`
-    : defaultJsonFilePath;  
+    : defaultJsonFilePath;
 
   try {
     const response = await fetch(jsonFilePath);
@@ -410,14 +410,18 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
-  let result = undefined;
+  let result;
   if (trialLinkValue) {
     const trialLinks = await fetchTrialLinks(trialLinkValue);
-    
     let locale = getDefaultLanguage() || 'com';
     if (locale === 'en') locale = 'com';
 
-    result = trialLinks.find((item) => item.locale.toLowerCase() === locale && item.product === productId && parseInt(item.devices) === parseInt(prodUsers) && parseInt(item.duration) === parseInt(trialLinkValue));
+    result = trialLinks.find((item) =>
+      item.locale.toLowerCase() === locale &&
+      item.product === productId &&
+      parseInt(item.devices, 10) === parseInt(prodUsers, 10) &&
+      parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+    );
   }
 
   if (result) {
