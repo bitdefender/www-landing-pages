@@ -369,7 +369,7 @@ function maxDiscount() {
   }
 }
 
-export async function fetchTrialLinks(value) {
+async function fetchTrialLinks() {
   // If cached data exists, return it directly
   if (window.cachedTrialLInks) {
     return window.cachedTrialLInks;
