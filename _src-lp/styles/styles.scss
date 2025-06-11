@@ -244,6 +244,14 @@ a.button:any-link, button {
   cursor: pointer;
 }
 
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
+}
+
 .save-green-pill {
   background-color: #DAEFDA;
   color: #2DB43D!important;
@@ -716,6 +724,7 @@ main .single-blue-quote .default-content-wrapper p:nth-of-type(1) {
 main .blue-heading h2{
   color: #006dff;
 }
+
 .red-buy-button p em {
   font-weight: 300;
   font-size: 14px;

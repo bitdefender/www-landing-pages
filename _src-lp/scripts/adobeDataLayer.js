@@ -8,21 +8,12 @@ import {
 } from './utils.js';
 
 /**
- * Returns the value of a query parameter
- * @returns {String}
- */
-export function getParamValue(paramName) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(paramName);
-}
-
-/**
  * Sends the page load started event to the Adobe Data Layer
  */
 export const sendAnalyticsPageEvent = async () => {
   const DEFAULT_LANGUAGE = getDefaultLanguage();
   window.adobeDataLayer = window.adobeDataLayer || [];
-  const { pageName, sections } = getPageNameAndSections();
+  const { pageName, sections } = await getPageNameAndSections();
   const pageLoadStartedEvent = new PageLoadStartedEvent(
     page,
     {
@@ -46,10 +37,10 @@ export const sendAnalyticsPageEvent = async () => {
  * @param {string} subSection
  */
 export const sendAnalyticsErrorEvent = async () => {
-  const { subSection } = getPageNameAndSections();
+  const { subSection } = await getPageNameAndSections();
 
   if ((subSection && subSection === '404') || window.errorCode === '404') {
-    await target.configMbox; // wait for CDP data to finalize
+    await target.sendCdpData(); // wait for CDP data to finalize
     window.adobeDataLayer.push({ event: 'page error' });
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
@@ -63,14 +54,14 @@ export async function sendAnalyticsUserInfo() {
   window.adobeDataLayer = window.adobeDataLayer || [];
   const user = {};
   user.loggedIN = 'false';
-  user.emarsysID = getParamValue('ems-uid') || getParamValue('sc_uid') || undefined;
+  user.emarsysID = page.getParamValue('ems-uid') || page.getParamValue('sc_uid') || undefined;
 
   let userID;
   try {
-    userID = (typeof localStorage !== 'undefined' && localStorage.getItem('rhvID')) || getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+    userID = (typeof localStorage !== 'undefined' && localStorage.getItem('rhvID')) || page.getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
   } catch (e) {
     if (e instanceof DOMException) {
-      userID = getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
+      userID = page.getParamValue('sc_customer') || getCookie('bdcsufp') || undefined;
     } else {
       throw e;
     }
@@ -129,36 +120,40 @@ export async function sendAnalyticsUserInfo() {
 const productsInAdobe = [];
 
 export async function sendAnalyticsProducts(product, region) {
-  const productID = product.selected_variation.product_id;
   let initCount = StoreProducts.initCount;
-  let productName = StoreProducts.product[productID].product_name;
-  if (region && region === 'nl') {
-    initCount = window.productsListCount;
-    productName = product.config.name;
-  }
+  if (!product) {
+    productsInAdobe.push(product);
+  } else {
+    const productID = product.selected_variation.product_id;
+    let productName = StoreProducts.product[productID].product_name;
+    if (region && region === 'nl') {
+      initCount = window.productsListCount;
+      productName = product.config.name;
+    }
 
-  let discountVal = 0;
-  if (product.selected_variation.discount) {
-    discountVal = product.selected_variation.discount?.discounted_price;
-  }
+    let discountVal = 0;
+    if (product.selected_variation.discount) {
+      discountVal = product.selected_variation.discount?.discounted_price;
+    }
 
-  productsInAdobe.push({
-    ID: product.selected_variation.platform_product_id || product.platformProductID || product.product_id,
-    name: productName,
-    devices: product.selected_users,
-    subscription: product.selected_years * 12,
-    version: '',
-    basePrice: product.selected_variation.price,
-    discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
-    discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
-    currency: product.selected_variation.currency_iso,
-    grossPrice: discountVal,
-  });
+    productsInAdobe.push({
+      ID: product.selected_variation.platform_product_id || product.platformProductID || product.product_id,
+      name: productName,
+      devices: product.selected_users,
+      subscription: product.selected_years * 12,
+      version: '',
+      basePrice: product.selected_variation.price,
+      discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
+      discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
+      currency: product.selected_variation.currency_iso,
+      grossPrice: discountVal,
+    });
+  }
 
   if (productsInAdobe.length === initCount) {
     window.adobeDataLayer.push({
       event: 'campaign product',
-      product: { info: productsInAdobe },
+      product: { info: productsInAdobe.filter((value) => Boolean(value)) },
     });
 
     window.adobeDataLayer.push({
@@ -179,6 +174,7 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
   }
 
   if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || getMetadata('free-product') || force) {
+    await target.sendCdpData();
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }

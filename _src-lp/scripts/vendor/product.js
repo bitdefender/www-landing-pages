@@ -1,6 +1,6 @@
 import { target } from '../target.js';
-import { Locale } from '../page.js';
 import Constants from '../constants.js';
+import page from '../page.js';
 
 export default class ProductPrice {
 
@@ -72,8 +72,7 @@ export default class ProductPrice {
     this.#bundleId = this.#productId[this.#alias];
     this.#campaign = campaign;
     this.#targetBuyLinks = targetBuyLinks;
-    const urlParams = new URLSearchParams(window.location.search);
-    let forceLocale = urlParams.get(Constants.LOCALE_PARAMETER);
+    let forceLocale = page.getParamValue(Constants.LOCALE_PARAMETER);
 
     if (forceLocale)
       this.#locale = forceLocale;
@@ -95,7 +94,7 @@ export default class ProductPrice {
   async #getProductVariations() {
 
     if (!this.#locale)
-      this.#locale = await Locale.get();
+      this.#locale = page.locale;
 
     const endpoint = new URL(`${Constants.API_ROOT}/products/${this.#bundleId}/locale/${this.#locale}`, Constants.API_BASE);
 
@@ -144,7 +143,7 @@ export default class ProductPrice {
       selected_years: this.#yearsNo,
       selected_variation: {
         product_id: this.#alias,
-        region_id: this.#locale === 'en-US' ? 8 : 22,
+        region_id: this.#locale === 'en-us' ? 8 : 22,
         variation_id: 0,
         platform_id: 16,
         price: option.price,
@@ -177,12 +176,13 @@ export default class ProductPrice {
 
   async #getProductVariationsPrice() {
     let payload = await this.#getProductVariations();
-    const monthlyProducts = ["psm", "pspm", "vpn-monthly", "passm", "pass_spm", "secpassm",
-      "dipm", "us_i_m", "us_f_m", "us_pf_m", "us_pi_m", "us_pie_m", "us_pfe_m", "ultsecm",
-      "ultsecplusm", "idtheftsm", "idtheftpm", "vsbm", "scm"];
 
     if (!payload || payload.length === 0) {
       return null;
+    }
+
+    if (payload.campaign) {
+      this.#campaign = payload.campaign;
     }
 
     const allOptions = payload.product.options.map(async (option) => {
@@ -194,9 +194,9 @@ export default class ProductPrice {
 
       if (this.#yearsNo != Math.ceil(option.months / 12)) return;
 
-      if (monthlyProducts.includes(this.#alias) && option.months > 1) return;
+      if (Constants.MONTHLY_PRODUCTS.includes(this.#alias) && option.months > 1) return;
 
-      if (!monthlyProducts.includes(this.#alias) && option.months < 12) return;
+      if (!Constants.MONTHLY_PRODUCTS.includes(this.#alias) && option.months < 12) return;
 
       const fakeDevicesSelector = document.getElementById(`u_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
       const fakeYearsSelector = document.getElementById(`y_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
@@ -253,7 +253,7 @@ export default class ProductPrice {
         selected_years: this.#yearsNo,
         selected_variation: {
           product_id: this.#alias,
-          region_id: this.#locale === 'en-US' ? 8 : 22,
+          region_id: this.#locale === 'en-us' ? 8 : 22,
           variation_id: 0,
           platform_id: 16,
           price: pricing.total,
@@ -404,24 +404,19 @@ export class DecorateLink {
   }
 
   /**
-   * Adds the SRC parameter based on the current page URL or channel if specified.
+   * Adds the SRC parameter based on the current page URL
    */
   #addSRC() {
-    const urlParams = new URLSearchParams(window.location.search);
-    let channel = urlParams.get('channel');
-    if (this.#campaign)
-      channel = `${channel}_${this.#campaign}`;
-    const fullURL = window.location.href;
-    const urlWithoutQuery = fullURL.split('?')[0]; // Removing query parameters
-    const srcParam = channel || encodeURI(urlWithoutQuery);
+    this.#params.set('SRC', `${window.location.origin}${window.location.pathname}`);
+  }
 
-    if (!this.#params.has('SRC')) {
-      this.#params.append('SRC', srcParam);
-    }
+  #addREF() {
+    const channel = page.getParamValue('channel') || 'LP';
+    this.#params.set('REF', `${channel}_${this.#campaign}`);
   }
 
   #cleanSection() {
-    if (this.#params.has('section')) {
+    if (!this.#params.has('section')) {
       this.#params.set('section', this.#extractSection(window.adobeDataLayer));
     }
   }
@@ -456,6 +451,7 @@ export class DecorateLink {
   async getFullyDecoratedUrl() {
     this.#addSHOPURL();
     this.#addSRC();
+    this.#addREF();
     this.#cleanSection();
     this.#urlObj.search = this.#params.toString();
     return await this.#appendAdobeMc(this.#urlObj.toString());

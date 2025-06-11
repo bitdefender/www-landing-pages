@@ -668,7 +668,7 @@ export default function decorate(block) {
   const formular = block.querySelector('.free-trial-form');
 
   window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-    const countryDetect = event.detail.country;
+    const countryDetect = event.country;
     // const countryDetect = 'ES';
     const countrySelector = block.querySelector('.country');
     countrySelector.value = countryDetect;

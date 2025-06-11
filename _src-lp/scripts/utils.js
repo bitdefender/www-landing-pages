@@ -1,6 +1,8 @@
-import { Target, adobeMcAppendVisitorId, getDefaultLanguage } from './target.js';
+import { User } from '@repobit/dex-utils';
+import { target, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
+import page from './page.js';
 
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
@@ -257,8 +259,7 @@ export function setDataOnBuyLinks(dataInfo) {
 }
 
 export function checkIfLocaleCanSupportInitSelector() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const forceLocale = urlParams.get('locale');
+  const forceLocale = page.getParamValue('locale');
 
   if (forceLocale && ['de-de', 'de-at', 'nl-nl', 'nl-be'].some((locale) => forceLocale.toLowerCase() === locale)) {
     return false;
@@ -733,16 +734,9 @@ export function getCookie(name) {
  */
 export async function fetchGeoIP() {
   try {
-    const response = await fetch('/geoip');
+    window.geoip = await User.country;
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    window.geoip = data;
-
-    const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: data });
+    const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: window.geoip });
     window.dispatchEvent(event);
   } catch (error) {
     console.error('Failed to fetch geoip data:', error);
