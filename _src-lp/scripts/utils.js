@@ -199,13 +199,13 @@ export function appendAdobeMcLinks(selector) {
     const hrefSelector = '[href*=".bitdefender."]';
 
     wrapperSelector.querySelectorAll(hrefSelector).forEach(async (link) => {
-      console.log('link ', link)
+      if (link.href.includes('#')) return;
       const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
       if (isAdobeMcAlreadyAdded) {
         return;
       }
 
-      const destinationURLWithVisitorIDs = await Target.appendVisitorIDsTo(link.href);
+      const destinationURLWithVisitorIDs = await target.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
   } catch (e) {
