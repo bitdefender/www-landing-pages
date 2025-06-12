@@ -199,7 +199,6 @@ export function appendAdobeMcLinks(selector) {
     const hrefSelector = '[href*=".bitdefender."]';
 
     wrapperSelector.querySelectorAll(hrefSelector).forEach(async (link) => {
-      if (link.href.includes('#')) return;
       const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
       if (isAdobeMcAlreadyAdded) {
         return;
