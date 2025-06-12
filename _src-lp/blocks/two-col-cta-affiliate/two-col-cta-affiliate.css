@@ -66,6 +66,7 @@
   .two-col-cta-affiliate.typev2 > div:first-of-type {
     align-items: center;
     justify-content: space-between;
+    width: 100%;
   }
   .two-col-cta-affiliate .left-column {
     width: 50%;
