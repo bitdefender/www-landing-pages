@@ -10,8 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
-import page from './page.js';
+import pagePromise from './page.js';
 
+const page = await pagePromise;
 const ICON_ROOT = '/icons';
 
 /**

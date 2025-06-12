@@ -1,7 +1,9 @@
-import { target } from '../target.js';
+import { targetPromise } from '../target.js';
 import Constants from '../constants.js';
-import page from '../page.js';
+import pagePromise from '../page.js';
 
+const target = await targetPromise;
+const page = await pagePromise;
 export default class ProductPrice {
 
   #productId = {
