@@ -25,8 +25,10 @@ const getEnvironment = () => {
  */
 const getPageName = () => window.location.pathname.split('/').filter(Boolean).pop();
 
-export default new Page(
+const page = new Page(
   new URLSearchParams(window.location.search)?.get('locale')?.toLowerCase() || await User.locale,
   getPageName(),
   getEnvironment(),
 );
+
+export default page;

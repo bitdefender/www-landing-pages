@@ -39,7 +39,7 @@ export async function getPageNameAndSections() {
 }
 
 const { pageName, sections } = await getPageNameAndSections();
-export const target = new Target({
+const target = new Target({
   pageLoadStartedEvent: new PageLoadStartedEvent(
     page,
     {
@@ -55,4 +55,5 @@ export const target = new Target({
   ),
 });
 
+export { target };
 window.BD.state.target = target;
