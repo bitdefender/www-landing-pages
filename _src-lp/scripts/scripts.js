@@ -1,7 +1,7 @@
 import Launch from '@repobit/dex-launch';
-import { target, getDefaultLanguage } from './target.js';
+import { targetPromise, getDefaultLanguage } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
-import page from './page.js';
+import pagePromise from './page.js';
 import {
   sampleRUM,
   loadHeader,
@@ -37,6 +37,8 @@ import {
   getInstance,
 } from './utils.js';
 
+const page = await pagePromise;
+const target = await targetPromise;
 const DEFAULT_LANGUAGE = getDefaultLanguage();
 window.DEFAULT_LANGUAGE = DEFAULT_LANGUAGE;
 window.ADOBE_MC_EVENT_LOADED = false;
