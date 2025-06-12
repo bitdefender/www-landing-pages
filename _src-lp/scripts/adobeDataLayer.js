@@ -124,36 +124,40 @@ export async function sendAnalyticsUserInfo() {
 const productsInAdobe = [];
 
 export async function sendAnalyticsProducts(product, region) {
-  const productID = product.selected_variation.product_id;
   let initCount = StoreProducts.initCount;
-  let productName = StoreProducts.product[productID].product_name;
-  if (region && region === 'nl') {
-    initCount = window.productsListCount;
-    productName = product.config.name;
-  }
+  if (!product) {
+    productsInAdobe.push(product);
+  } else {
+    const productID = product.selected_variation.product_id;
+    let productName = StoreProducts.product[productID].product_name;
+    if (region && region === 'nl') {
+      initCount = window.productsListCount;
+      productName = product.config.name;
+    }
 
-  let discountVal = 0;
-  if (product.selected_variation.discount) {
-    discountVal = product.selected_variation.discount?.discounted_price;
-  }
+    let discountVal = 0;
+    if (product.selected_variation.discount) {
+      discountVal = product.selected_variation.discount?.discounted_price;
+    }
 
-  productsInAdobe.push({
-    ID: product.selected_variation.platform_product_id || product.platformProductID || product.product_id,
-    name: productName,
-    devices: product.selected_users,
-    subscription: product.selected_years * 12,
-    version: '',
-    basePrice: product.selected_variation.price,
-    discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
-    discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
-    currency: product.selected_variation.currency_iso,
-    grossPrice: discountVal,
-  });
+    productsInAdobe.push({
+      ID: product.selected_variation.platform_product_id || product.platformProductID || product.product_id,
+      name: productName,
+      devices: product.selected_users,
+      subscription: product.selected_years * 12,
+      version: '',
+      basePrice: product.selected_variation.price,
+      discountValue: Math.round((product.selected_variation.price - discountVal) * 100) / 100,
+      discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
+      currency: product.selected_variation.currency_iso,
+      grossPrice: discountVal,
+    });
+  }
 
   if (productsInAdobe.length === initCount) {
     window.adobeDataLayer.push({
       event: 'campaign product',
-      product: { info: productsInAdobe },
+      product: { info: productsInAdobe.filter((value) => Boolean(value)) },
     });
 
     window.adobeDataLayer.push({
