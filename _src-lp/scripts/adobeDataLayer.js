@@ -1,7 +1,11 @@
 import { AdobeDataLayerService, PageLoadStartedEvent } from '@repobit/dex-data-layer';
 import { User } from '@repobit/dex-utils';
-import { target, getPageNameAndSections, getDefaultLanguage } from './target.js';
-import page from './page.js';
+import {
+  target,
+  getPageNameAndSections,
+  getDefaultLanguage,
+  page,
+} from './packages.js';
 import { getMetadata } from './lib-franklin.js';
 import {
   GLOBAL_EVENTS, getCookie,

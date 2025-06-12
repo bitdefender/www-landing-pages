@@ -1,6 +1,5 @@
-import { target } from '../target.js';
+import { target, page } from '../packages.js';
 import Constants from '../constants.js';
-import page from '../page.js';
 
 export default class ProductPrice {
 

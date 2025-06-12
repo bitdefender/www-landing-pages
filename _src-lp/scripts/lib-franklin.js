@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import page from './page.js';
+import { page } from './packages.js';
 
 const ICON_ROOT = '/icons';
 

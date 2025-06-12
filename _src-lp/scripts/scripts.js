@@ -1,7 +1,6 @@
 import Launch from '@repobit/dex-launch';
-import { target, getDefaultLanguage } from './target.js';
+import { page, target, getDefaultLanguage } from './packages.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
-import page from './page.js';
 import {
   sampleRUM,
   buildBlock,

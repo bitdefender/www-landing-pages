@@ -1,7 +1,7 @@
 import {
   sendAnalyticsPageLoadedEvent,
 } from '../../scripts/adobeDataLayer.js';
-import page from '../../scripts/page.js';
+import { page } from '../../scripts/packages.js';
 
 import {
   GLOBAL_EVENTS,

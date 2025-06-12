@@ -1,8 +1,38 @@
 import Target from '@repobit/dex-target';
-import { User } from '@repobit/dex-utils';
+import { User, Page } from '@repobit/dex-utils';
 import { PageLoadStartedEvent } from '@repobit/dex-data-layer';
 import Constants from './constants.js';
-import page from './page.js';
+/* eslint-disable camelcase */
+
+/**
+ * Returns the environment based on the hostname
+ * @returns {String}
+ */
+const getEnvironment = () => {
+  const hostToInstance = {
+    'bitdefender.com': 'prod',
+    'hlx.page': 'dev',
+    'hlx.live': 'dev',
+  };
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [host, inst] of Object.entries(hostToInstance)) {
+    if (window.location.hostname.includes(host)) return inst;
+  }
+
+  return 'dev';
+};
+
+/**
+ * @returns {string} page name
+ */
+const getPageName = () => window.location.pathname.split('/').filter(Boolean).pop();
+
+export const page = new Page(
+  new URLSearchParams(window.location.search)?.get('locale')?.toLowerCase() || await User.locale,
+  getPageName(),
+  getEnvironment(),
+);
 
 export function getDefaultLanguage() {
   const currentPathUrl = window.location.pathname;

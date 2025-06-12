@@ -1,8 +1,7 @@
 import { User } from '@repobit/dex-utils';
-import { target, getDefaultLanguage } from './target.js';
+import { target, getDefaultLanguage, page } from './packages.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
-import page from './page.js';
 
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
