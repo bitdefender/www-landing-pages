@@ -34,6 +34,10 @@
   margin: 0 1em;
 }
 
+.section.banner-with-cards-container .banner-with-cards.edeka .hasProds > div {
+  flex: 0 0 400px;
+}
+
 .section.banner-with-cards-container.margin-0 .banner-with-cards .hasProds > div {
   margin: 0;
   padding: 0;
@@ -81,6 +85,11 @@
   display: flex;
   flex-direction: column;
   align-self: stretch;
+}
+
+.section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper .prod-box-green-tag p {
