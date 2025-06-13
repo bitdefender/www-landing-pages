@@ -87,11 +87,6 @@
   align-self: stretch;
 }
 
-.section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper {
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper .prod-box-green-tag p {
   background-color: #1C7928;
   color: #FFF;
@@ -122,6 +117,8 @@
 
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper {
   max-width: 410px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox-wrapper .prodBox {
