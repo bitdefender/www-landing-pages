@@ -37,20 +37,17 @@ jobs:
       - run: npm install
       - run: npm run test:unit
 
-  snapshots-tests:
+  detect-changes:
     runs-on: ubuntu-latest
+    outputs:
+      changed_files: ${{ steps.get-changes.outputs.result }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  
       - run: npm install
-
-      - name: Get Branch Name
-        id: extract_branch_name
-        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-      
       - name: Get changed files via GitHub API
-        id: gh_changed
+        id: get-changes
         uses: actions/github-script@v7
         with:
           script: |
@@ -69,6 +66,19 @@ jobs:
             console.log(files);
             return files;
 
+  snapshots-tests:
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  
+      - run: npm install
+
+      - name: Get Branch Name
+        id: extract_branch_name
+        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+
       # - name: List changed files
       #   run: |
       #     git diff --name-only \
@@ -80,7 +90,7 @@ jobs:
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
-          CHANGED_FILES: ${{ steps.gh_changed.outputs.result }}
+          CHANGED_FILES: ${{ needs.detect-changes.outputs.changed_files }}
 
       - name: Inform Developer About Snapshot Failures
         if: failure()
