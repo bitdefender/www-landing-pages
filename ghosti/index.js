@@ -22,7 +22,6 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
   }
 
   function showSnapshotTestsFullLogs(testResults) {
-    console.log(testResults);
     const mappedTests = testResults.map((test) => test.data).flat();
     const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
@@ -62,6 +61,7 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
     const snapshotsPromises = blockSnapshotsToTest.map((testName) => {
       const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
       if (testAlreadyExists) {
+        console.log("Exists: ", testAlreadyExists);
         return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
           signal: AbortSignal.timeout(FETCH_TIMEOUT)
         }).then((res) => res.json());
@@ -76,6 +76,7 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
     });
 
     // Await the completion of all promises in the current batch before proceeding to the next
+    console.log(snapshotsPromises);
     const batchResults = await Promise.all(snapshotsPromises);
     allTestResults.push(...batchResults);
 
