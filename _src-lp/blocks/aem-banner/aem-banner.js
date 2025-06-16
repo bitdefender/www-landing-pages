@@ -1,6 +1,7 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
+// test
 function createPricesElement(onSelectorClass, conditionText, saveText) {
   const priceElement = document.createElement('div');
   priceElement.classList.add('aem-banner__prices');
