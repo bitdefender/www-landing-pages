@@ -44,8 +44,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  
-      - run: npm install
+          fetch-depth: 0
+
       - name: Get changed files via GitHub API
         id: get-changes
         uses: actions/github-script@v7
@@ -56,13 +56,12 @@ jobs:
               github.rest.pulls.listFiles,
               { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
             );
-            const files = new Set(
+            const files = [...new Set(
               githubData
               .map(githubInfo => githubInfo.filename)
               .filter(filePath => filePath.includes('block'))
               .map(filePath => filePath.split(/[\/\.\\]+/).at(-2))
-            );
-            console.log(files);
+            )];
             return files;
 
   snapshots-tests:

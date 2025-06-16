@@ -9,11 +9,11 @@ exec(`git diff --name-only ${base} ${head}`, (err, stdout, stderr) => {
     console.error("Error running git diff:", stderr);
     process.exit(1);
   }
-  const files = new Set(stdout
+  const files = [...new Set(stdout
     .trim()
     .split("\n")
     .filter(filePath => filePath.includes('block'))
     .map(filePath => filePath.split(/[\/\.\\]+/).at(-2))
-  );
+  )];
   console.log("Changed files:", files);
 });
