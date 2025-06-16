@@ -75,7 +75,6 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
     });
 
     // Await the completion of all promises in the current batch before proceeding to the next
-    console.log(snapshotsPromises);
     const batchResults = await Promise.all(snapshotsPromises);
     allTestResults.push(...batchResults);
 
