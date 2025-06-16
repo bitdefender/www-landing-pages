@@ -52,14 +52,14 @@ jobs:
         with:
           script: |
             const pr = context.payload.pull_request;
-            const files = await github.paginate(
+            const githubFiles = await github.paginate(
               github.rest.pulls.listFiles,
               { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
             );
             // keep only .js files
-            const files = new Set(stdout
-              .trim()
-              .split("\n")
+            console.log(githubFiles);
+            const files = new Set(
+              githubFiles
               .filter(filePath => filePath.includes('block'))
               .map(filePath => filePath.split(/[\/\.\\]+/).at(-2))
             );
