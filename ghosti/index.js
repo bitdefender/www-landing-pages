@@ -17,6 +17,7 @@ const hlxEnv = {
   STAGE: 'page'
 };
 
+console.log(process.env.CHANGED_FILES);
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
 
 // todo add sidekick config for those

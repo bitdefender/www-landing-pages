@@ -40,18 +40,47 @@ jobs:
   snapshots-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  
       - run: npm install
 
       - name: Get Branch Name
         id: extract_branch_name
         run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+      
+      - name: Get changed files via GitHub API
+        id: gh_changed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
+            );
+            // keep only .js files
+            const files = new Set(stdout
+              .trim()
+              .split("\n")
+              .filter(filePath => filePath.includes('block'))
+              .map(filePath => filePath.split(/[\/\.\\]+/).at(-2))
+            );
+            console.log(files);
+            return files;
+
+      # - name: List changed files
+      #   run: |
+      #     git diff --name-only \
+      #       ${{ github.event.pull_request.base.sha }} \
+      #       ${{ github.event.pull_request.head.sha }}
 
       - name: Run Snapshot Tests
         run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
+          CHANGED_FILES: ${{ steps.gh_changed.outputs.result }}
 
       - name: Inform Developer About Snapshot Failures
         if: failure()
