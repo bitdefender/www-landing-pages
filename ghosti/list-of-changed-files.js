@@ -12,8 +12,8 @@ exec(`git diff --name-only ${base} ${head}`, (err, stdout, stderr) => {
   const files = [...new Set(stdout
     .trim()
     .split("\n")
-    .filter(filePath => filePath.includes('block'))
-    .map(filePath => filePath.split(/[\/\.\\]+/).at(-2))
+    .filter(filePath => filePath.includes('blocks'))
+    .map(filePath => filePath.split('/')[2])
   )];
   console.log("Changed files:", files);
 });

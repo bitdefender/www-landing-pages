@@ -17,7 +17,6 @@ const hlxEnv = {
   STAGE: 'page'
 };
 
-console.log(process.env.CHANGED_FILES);
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
 
 // todo add sidekick config for those
@@ -110,7 +109,7 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   // }
 
   try {
-    const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
+    const blockSnapshotsToTest = process.env.CHANGED_FILES;
 
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);

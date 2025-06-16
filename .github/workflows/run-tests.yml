@@ -60,7 +60,7 @@ jobs:
               githubData
               .map(githubInfo => githubInfo.filename)
               .filter(filePath => filePath.includes('block'))
-              .map(filePath => filePath.split(/[\/\.\\]+/).at(-2))
+              .map(filePath => filePath.split('/')[2])
             )];
             return files;
 
