@@ -109,8 +109,7 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   // }
 
   try {
-    const blockSnapshotsToTest = process.env.CHANGED_FILES;
-    console.log(typeof process.env.CHANGED_FILES);
+    const blockSnapshotsToTest = JSON.parse(process.env.CHANGED_FILES);
 
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
