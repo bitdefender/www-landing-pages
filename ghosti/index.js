@@ -61,7 +61,6 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
     const snapshotsPromises = blockSnapshotsToTest.map((testName) => {
       const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
       if (testAlreadyExists) {
-        console.log("Exists: ", testAlreadyExists);
         return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
           signal: AbortSignal.timeout(FETCH_TIMEOUT)
         }).then((res) => res.json());
