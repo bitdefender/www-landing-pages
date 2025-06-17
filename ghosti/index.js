@@ -15,7 +15,8 @@ const hlxEnv = {
   PROD: 'live',
   STAGE: 'page'
 };
-const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
+const featureBranchEnvironmentHostname = `${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
+const featureBranchEnvironmentBaseUrl = `https://${featureBranchEnvironmentHostname}`;
 
 (async () => {
   const snapshotIsPassing = ({ screenshotComparePassing }) => {
@@ -55,6 +56,10 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
     const blockSnapshotsToTest = JSON.parse(process.env.CHANGED_FILES)
       .filter(snapshotTest => !EXCLUDED_SNAPSHOT_BLOCKS.includes(snapshotTest));
 
+    if (!blockSnapshotsToTest.length) {
+      return [];
+    }
+
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
 
@@ -83,8 +88,9 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
     const allMandatoryTestCalls = [];
     mandatoryTests.forEach(test => {
       const url = new URL(test.startUrl);
-      url.hostname = featureBranchEnvironmentBaseUrl;
+      url.hostname = featureBranchEnvironmentHostname;
 
+      console.log(url.toString());
       const testCall = fetch(`https://api.ghostinspector.com/v1/tests/${test._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${url.toString()}`, {
           signal: AbortSignal.timeout(FETCH_TIMEOUT)
         }).then((res) => res.json())
