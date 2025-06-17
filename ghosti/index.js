@@ -15,8 +15,8 @@ const hlxEnv = {
   PROD: 'live',
   STAGE: 'page'
 };
-const featureBranchEnvironmentHostname = `${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
-const featureBranchEnvironmentBaseUrl = `https://${featureBranchEnvironmentHostname}`;
+const featureBranchEnvironmentHostname = `${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.STAGE}`
+const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
 
 (async () => {
   const snapshotIsPassing = ({ screenshotComparePassing }) => {
@@ -90,7 +90,6 @@ const featureBranchEnvironmentBaseUrl = `https://${featureBranchEnvironmentHostn
       const url = new URL(test.startUrl);
       url.hostname = featureBranchEnvironmentHostname;
 
-      console.log(url.toString());
       const testCall = fetch(`https://api.ghostinspector.com/v1/tests/${test._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${url.toString()}`, {
           signal: AbortSignal.timeout(FETCH_TIMEOUT)
         }).then((res) => res.json())
