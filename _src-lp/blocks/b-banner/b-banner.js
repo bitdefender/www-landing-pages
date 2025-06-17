@@ -18,7 +18,6 @@
  * - pill: https://www.bitdefender.com/media/html/business/RansomwareTrial/new.html
  */
 
-// test
 import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
