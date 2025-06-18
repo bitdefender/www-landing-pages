@@ -2,7 +2,7 @@ import Target from '@repobit/dex-target';
 import { User } from '@repobit/dex-utils';
 import { PageLoadStartedEvent } from '@repobit/dex-data-layer';
 import Constants from './constants.js';
-import page from './page.js';
+import pagePromise from './page.js';
 
 export function getDefaultLanguage() {
   const currentPathUrl = window.location.pathname;
@@ -16,7 +16,7 @@ export function getDefaultLanguage() {
 export async function getPageNameAndSections() {
   const pageSectionParts = window.location.pathname.split('/').filter((subPath) => subPath !== '' && subPath !== 'pages');
   const subSubSection = pageSectionParts[0];
-  pageSectionParts[0] = page.locale;
+  pageSectionParts[0] = (await pagePromise).locale;
 
   try {
     if (pageSectionParts[1].length === 2) pageSectionParts[1] = 'offers'; // landing pages
@@ -39,20 +39,26 @@ export async function getPageNameAndSections() {
 }
 
 const { pageName, sections } = await getPageNameAndSections();
-export const target = new Target({
-  pageLoadStartedEvent: new PageLoadStartedEvent(
-    page,
-    {
-      name: pageName,
-      section: sections[0] || '',
-      subSection: sections[1] || '',
-      subSubSection: sections[2] || '',
-      subSubSubSection: sections[3] || '',
-      geoRegion: await User.country,
-      serverName: 'hlx.live',
-      language: navigator.language || navigator.userLanguage || getDefaultLanguage(),
-    },
-  ),
-});
+const createTarget = async () => {
+  const target = new Target({
+    pageLoadStartedEvent: new PageLoadStartedEvent(
+      await pagePromise,
+      {
+        name: pageName,
+        section: sections[0] || '',
+        subSection: sections[1] || '',
+        subSubSection: sections[2] || '',
+        subSubSubSection: sections[3] || '',
+        geoRegion: await User.country,
+        serverName: 'hlx.live',
+        language: navigator.language || navigator.userLanguage || getDefaultLanguage(),
+      },
+    ),
+  });
 
-window.BD.state.target = target;
+  window.BD.state.target = target;
+  return target;
+};
+
+const targetPromise = createTarget();
+export { targetPromise };
