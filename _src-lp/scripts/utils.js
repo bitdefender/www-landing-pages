@@ -1,9 +1,11 @@
 import { User } from '@repobit/dex-utils';
-import { target, getDefaultLanguage } from './target.js';
+import { targetPromise, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
-import page from './page.js';
+import pagePromise from './page.js';
 
+const target = await targetPromise;
+const page = await pagePromise;
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
   [4, { locale: 'au-AU', label: 'australia' }],
@@ -197,15 +199,14 @@ export function appendAdobeMcLinks(selector) {
   try {
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*=".bitdefender."]';
+
     wrapperSelector.querySelectorAll(hrefSelector).forEach(async (link) => {
-      const [linkHref, linkTarget] = link.href.split('#');
-      const isAdobeMcAlreadyAdded = linkHref.includes('adobe_mc');
+      const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
       if (isAdobeMcAlreadyAdded) {
         return;
       }
 
-      let destinationURLWithVisitorIDs = await target.appendVisitorIDsTo(link.href);
-      if (linkTarget) destinationURLWithVisitorIDs = destinationURLWithVisitorIDs.replace('?', `#${linkTarget}?`);
+      const destinationURLWithVisitorIDs = await target.appendVisitorIDsTo(link.href);
       link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
     });
   } catch (e) {

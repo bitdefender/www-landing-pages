@@ -1,11 +1,10 @@
 import Launch from '@repobit/dex-launch';
 import { AdobeDataLayerService, PageLoadedEvent } from '@repobit/dex-data-layer';
-import { target, getDefaultLanguage } from './target.js';
+import { targetPromise, getDefaultLanguage } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
-import page from './page.js';
+import pagePromise from './page.js';
 import {
   sampleRUM,
-  buildBlock,
   loadHeader,
   loadFooter,
   decorateButtons,
@@ -39,6 +38,8 @@ import {
   getInstance,
 } from './utils.js';
 
+const page = await pagePromise;
+const target = await targetPromise;
 const DEFAULT_LANGUAGE = getDefaultLanguage();
 window.DEFAULT_LANGUAGE = DEFAULT_LANGUAGE;
 window.ADOBE_MC_EVENT_LOADED = false;
@@ -110,34 +111,6 @@ export function getParam(param) {
 const LCP_BLOCKS = ['banner', 'b-banner', 'c-banner']; // add your LCP blocks to the list
 
 /**
- * Builds hero block and prepends to main in a new section.
- * @param {Element} main The container element
- */
-function buildHeroBlock(main) {
-  const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
-    main.prepend(section);
-  }
-}
-
-/**
- * Builds all synthetic blocks in a container element.
- * @param {Element} main The container element
- */
-function buildAutoBlocks(main) {
-  try {
-    buildHeroBlock(main);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Auto Blocking failed', error);
-  }
-}
-
-/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -148,7 +121,6 @@ export function decorateMain(main) {
   // decorateIcons2(main);
   decorateIcons(main);
   decorateTags(main);
-  buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
 }
@@ -1054,8 +1026,8 @@ async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks 
               showPrices(vlaicuVariation);
               adobeMcAppendVisitorId('main');
               showLoaderSpinner(false, onSelectorClass);
-              sendAnalyticsProducts(vlaicuResult);
             }
+            sendAnalyticsProducts(vlaicuResult);
 
             return vlaicuResult;
           }),
