@@ -57,6 +57,7 @@ export default class ProductPrice {
 
   #locale;
   #campaign;
+  #campaignType;
   #prodString;
   #alias;
   #devicesNo;
@@ -187,6 +188,10 @@ export default class ProductPrice {
       this.#campaign = payload.campaign;
     }
 
+    if (payload.campaignType) {
+      this.#campaignType = payload.campaignType;
+    }
+
     const allOptions = payload.product.options.map(async (option) => {
       // if the product is already added, skip
       // if (window.StoreProducts?.product?.[this.#alias]) return;
@@ -244,6 +249,7 @@ export default class ProductPrice {
         product_id: this.#productId[this.#alias],
         product_name: payload.product.productName,
         campaign: this.#campaign,
+        campaignType: this.#campaignType,
         locale: this.#locale,
         platformProductID: payload.platformProductId,
         variations: {
