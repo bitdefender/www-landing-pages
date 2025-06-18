@@ -77,12 +77,6 @@ jobs:
         id: extract_branch_name
         run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
 
-      # - name: List changed files
-      #   run: |
-      #     git diff --name-only \
-      #       ${{ github.event.pull_request.base.sha }} \
-      #       ${{ github.event.pull_request.head.sha }}
-
       - name: Run Snapshot Tests
         run: npm run test:snapshots
         env:
