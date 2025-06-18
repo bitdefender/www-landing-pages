@@ -1,53 +1,29 @@
-const fs = require('fs');
 require('dotenv').config();
 const SnapshotBlockTest = require('./json-tests/snapshot-block');
 const {
   PATH_TO_BLOCKS,
-  LOCAL_BLOCKS_PATH,
   SNAPSHOTS_SUITE_ID,
   FETCH_TIMEOUT,
+  EXCLUDED_SNAPSHOT_BLOCKS,
+  MANDATORY_TESTS_SUITE_ID,
   logSuccess,
   logError
 } = require('./constants');
-const { fetchWithRetry } = require('./utils');
 const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
 
 const hlxEnv = {
   PROD: 'live',
   STAGE: 'page'
 };
-
+const featureBranchEnvironmentHostname = `${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.STAGE}`
 const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
 
-// todo add sidekick config for those
-const EXCLUDED_SNAPSHOT_BLOCKS = [
-  'aem-banner',
-  'aem-two-cards',
-  'b-industry-recognition',
-  'cards',
-  'columns-two',
-  'fragment',
-  'header',
-  'lp-custom',
-  'support',
-  'tos',
-  'video',
-];
-
 (async () => {
-  function snapshotIsPassing({ screenshotComparePassing }) {
+  const snapshotIsPassing = ({ screenshotComparePassing }) => {
     return screenshotComparePassing === true;
   }
 
-  function createBatches(arr, batchSize) {
-    let batches = [];
-    for (let i = 0; i < arr.length; i += batchSize) {
-      batches.push(arr.slice(i, i + batchSize));
-    }
-    return batches;
-  }
-
-  function showSnapshotTestsFullLogs(testResults) {
+  const showSnapshotTestsFullLogs = (testResults) => {
     const mappedTests = testResults.map((test) => test.data).flat();
     const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
@@ -76,75 +52,59 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
     }
   }
 
-  // try {
-  //   const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
-  //   // get snapshots tests
-  //   const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
-  //
-  //   const snapshotsPromises = blockSnapshotsToTest
-  //     .map((testName) => {
-  //       const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
-  //
-  //       if (testAlreadyExists) {
-  //         return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`).then((res) => res.json());
-  //       }
-  //
-  //       return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
-  //         name: testName,
-  //         startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
-  //       }).generate())
-  //         .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
-  //     });
-  //
-  //   const [
-  //     snapshotsResult,
-  //   ] = await Promise.all([
-  //     Promise.all(snapshotsPromises),
-  //   ]);
-  //
-  //   showSnapshotTestsFullLogs(snapshotsResult);
-  // } catch (err) {
-  //   console.error(err);
-  //   process.exit(1);
-  // }
+  const runComponentTests = async () => {
+    const blockSnapshotsToTest = JSON.parse(process.env.CHANGED_FILES)
+      .filter(snapshotTest => !EXCLUDED_SNAPSHOT_BLOCKS.includes(snapshotTest));
 
-  try {
-    const blockSnapshotsToTest = fs.readdirSync(LOCAL_BLOCKS_PATH).filter(blockName => !EXCLUDED_SNAPSHOT_BLOCKS.includes(blockName));
+    if (!blockSnapshotsToTest.length) {
+      return [];
+    }
 
     // get snapshots tests
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
 
-    const batches = createBatches(blockSnapshotsToTest, 5);
+    const snapshotsPromises = blockSnapshotsToTest.map((testName) => {
+      const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
+      if (testAlreadyExists) {
+        return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
+          signal: AbortSignal.timeout(FETCH_TIMEOUT)
+        }).then((res) => res.json());
+      }
 
-    let allTestResults = [];
+      console.log('New test was imported', testName);
+      return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
+        name: testName,
+        startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
+      }).generate())
+        .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
+    });
 
-    for (const batch of batches) {
-      const snapshotsPromises = batch.map((testName) => {
-        const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
-        if (testAlreadyExists) {
-          return fetchWithRetry(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
-            signal: AbortSignal.timeout(FETCH_TIMEOUT)
-          }).then((res) => res.json());
-        }
-        console.log('New test was imported', testName);
-        return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
-          name: testName,
-          startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
-        }).generate())
-          .then(({ _id }) => fetchWithRetry(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
-      });
+    // Await the completion of all promises in the current batch before proceeding to the next
+    return await Promise.all(snapshotsPromises);
+  };
 
-      // Await the completion of all promises in the current batch before proceeding to the next
-      const batchResults = await Promise.all(snapshotsPromises);
-      allTestResults.push(...batchResults);
-    }
+  const runMandatoryTests = async () => {
+    const mandatoryTests = await GhostInspector.getSuiteTests(MANDATORY_TESTS_SUITE_ID);
+    const allMandatoryTestCalls = [];
+    mandatoryTests.forEach(test => {
+      const url = new URL(test.startUrl);
+      url.hostname = featureBranchEnvironmentHostname;
 
+      const testCall = fetch(`https://api.ghostinspector.com/v1/tests/${test._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${url.toString()}`, {
+          signal: AbortSignal.timeout(FETCH_TIMEOUT)
+        }).then((res) => res.json())
+      allMandatoryTestCalls.push(testCall);
+    });
+
+    return await Promise.all(allMandatoryTestCalls);
+  };
+
+  try {    
+    const allTestResults = (await Promise.all([runComponentTests(), runMandatoryTests()])).flat(1);
     // Once all batches are processed, show the full logs of the snapshot tests
     showSnapshotTestsFullLogs(allTestResults);
   } catch (err) {
     console.error(err);
     process.exit(1);
   }
-
-  // await new Promise((res) => setTimeout(res, 1000))
 })();
