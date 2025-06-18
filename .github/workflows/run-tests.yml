@@ -40,7 +40,7 @@ jobs:
   detect-changes:
     runs-on: ubuntu-latest
     outputs:
-      changed_files: ${{ steps.get-changes.outputs.result }}
+      changed_components: ${{ steps.get-changes.outputs.result }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -88,7 +88,7 @@ jobs:
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
-          CHANGED_FILES: ${{ needs.detect-changes.outputs.changed_files }}
+          CHANGED_FILES: ${{ needs.detect-changes.outputs.changed_components }}
 
       - name: Inform Developer About Snapshot Failures
         if: failure()
