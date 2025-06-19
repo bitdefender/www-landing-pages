@@ -155,7 +155,9 @@
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox h3 {
   text-align: center;
   font-size: 28px;
-  line-height: 1.1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type {
