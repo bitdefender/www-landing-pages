@@ -34,6 +34,10 @@
   margin: 0 1em;
 }
 
+.section.banner-with-cards-container .banner-with-cards.edeka .hasProds > div {
+  flex: 0 0 400px;
+}
+
 .section.banner-with-cards-container.margin-0 .banner-with-cards .hasProds > div {
   margin: 0;
   padding: 0;
@@ -113,6 +117,8 @@
 
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper {
   max-width: 410px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox-wrapper .prodBox {
@@ -147,7 +153,9 @@
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox h3 {
   text-align: center;
   font-size: 28px;
-  line-height: 1.1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type {
