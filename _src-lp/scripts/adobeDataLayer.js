@@ -1,5 +1,5 @@
 import { AdobeDataLayerService, PageLoadStartedEvent } from '@repobit/dex-data-layer';
-import { User } from '@repobit/dex-utils';
+import user from './user.js';
 import { targetPromise, getPageNameAndSections, getDefaultLanguage } from './target.js';
 import pagePromise from './page.js';
 import { getMetadata } from './lib-franklin.js';
@@ -24,7 +24,7 @@ export const sendAnalyticsPageEvent = async () => {
       subSection: sections[1] || '',
       subSubSection: sections[2] || '',
       subSubSubSection: sections[3] || '',
-      geoRegion: await User.country,
+      geoRegion: await user.country,
       serverName: 'hlx.live',
       language: navigator.language || navigator.userLanguage || DEFAULT_LANGUAGE,
     },
@@ -54,9 +54,9 @@ export const sendAnalyticsErrorEvent = async () => {
 */
 export async function sendAnalyticsUserInfo() {
   window.adobeDataLayer = window.adobeDataLayer || [];
-  const user = {};
-  user.loggedIN = 'false';
-  user.emarsysID = page.getParamValue('ems-uid') || page.getParamValue('sc_uid') || undefined;
+  const userData = {};
+  userData.loggedIN = 'false';
+  userData.emarsysID = page.getParamValue('ems-uid') || page.getParamValue('sc_uid') || undefined;
 
   let userID;
   try {
@@ -69,11 +69,11 @@ export async function sendAnalyticsUserInfo() {
     }
   }
 
-  user.ID = userID;
-  user.productFinding = 'campaign page';
+  userData.ID = userID;
+  userData.productFinding = 'campaign page';
 
-  if (typeof user.ID !== 'undefined') {
-    user.loggedIN = 'true';
+  if (typeof userData.ID !== 'undefined') {
+    userData.loggedIN = 'true';
   } else {
     const headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -101,8 +101,8 @@ export async function sendAnalyticsUserInfo() {
         const rhv = response.headers.get('BDUSRH_8D053E77FD604F168345E0F77318E993');
         if (rhv !== null) {
           localStorage.setItem('rhvID', rhv);
-          user.ID = rhv;
-          user.loggedIN = 'true';
+          userData.ID = rhv;
+          userData.loggedIN = 'true';
         }
       }
     } catch (error) {
@@ -111,11 +111,11 @@ export async function sendAnalyticsUserInfo() {
   }
 
   // Remove properties that are undefined
-  Object.keys(user).forEach((key) => user[key] === undefined && delete user[key]);
+  Object.keys(userData).forEach((key) => userData[key] === undefined && delete userData[key]);
 
   window.adobeDataLayer.push({
     event: 'user detected',
-    user,
+    userData,
   });
 }
 

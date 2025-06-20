@@ -1,4 +1,4 @@
-import { User } from '@repobit/dex-utils';
+import user from './user.js';
 import { targetPromise, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
@@ -735,7 +735,7 @@ export function getCookie(name) {
  */
 export async function fetchGeoIP() {
   try {
-    window.geoip = await User.country;
+    window.geoip = await user.country;
 
     const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: window.geoip });
     window.dispatchEvent(event);
