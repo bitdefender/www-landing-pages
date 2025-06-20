@@ -99,7 +99,7 @@ export default class ProductPrice {
     if (!this.#locale)
       this.#locale = page.locale;
 
-    const endpoint = new URL(`${Constants.API_ROOT}/products/${this.#bundleId}/locale/${this.#locale}`, Constants.API_BASE);
+    const endpoint = new URL(`${Constants.API_ROOT}/products/${this.#bundleId}/locale/${this.#locale}`, 'https://pricing.service-delivery.nmbapp.net');
 
     if (this.#campaign) {
       endpoint.pathname += `/campaign/${this.#campaign}`;
@@ -144,6 +144,7 @@ export default class ProductPrice {
     return {
       selected_users: this.#devicesNo,
       selected_years: this.#yearsNo,
+      currencyLocale: payload.currencyLocale,
       selected_variation: {
         product_id: this.#alias,
         region_id: this.#locale === 'en-us' ? 8 : 22,
@@ -251,6 +252,7 @@ export default class ProductPrice {
         campaign: this.#campaign,
         campaignType: this.#campaignType,
         locale: this.#locale,
+        currencyLocale: payload.currencyLocale,
         platformProductID: payload.platformProductId,
         variations: {
           [this.#devicesNo]: {

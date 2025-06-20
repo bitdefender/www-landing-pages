@@ -334,8 +334,8 @@ export function updateVATinfo(countryCode, selector) {
   });
 }
 
-export function formatPrice(price, currency) {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(price);
+export function formatPrice(price, currency, currencyLocale = 'en-US') {
+  return new Intl.NumberFormat(currencyLocale, { style: 'currency', currency }).format(price);
 }
 
 // get max discount
@@ -412,9 +412,9 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     if (showVpnBox) showVpnBox.style.display = 'block';
   }
 
-  const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
-  const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
-  const fullPriceYearly = formatPrice((selectedVarPrice * 12).toFixed(2), currencyIso, regionId);
+  const fullPrice = formatPrice(selectedVarPrice, currencyIso, storeObj.currencyLocale);
+  const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, storeObj.currencyLocale);
+  const fullPriceYearly = formatPrice((selectedVarPrice * 12).toFixed(2), currencyIso, storeObj.currencyLocale);
 
   const oldPriceClass = `.oldprice-${onSelectorClass}`;
   if (document.querySelector(oldPriceClass)) {
@@ -445,11 +445,11 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
-    const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
-    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
-    const offerPriceYearly = formatPrice((selectedVarDiscount * 12).toFixed(2), currencyIso, regionId);
+    const offerPrice = formatPrice(selectedVarDiscount, currencyIso, storeObj.currencyLocale);
+    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, storeObj.currencyLocale);
+    const offerPriceYearly = formatPrice((selectedVarDiscount * 12).toFixed(2), currencyIso, storeObj.currencyLocale);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
-    const savings = formatPrice(savingsPrice.toFixed(0), currencyIso, regionId);
+    const savings = formatPrice(savingsPrice.toFixed(0), currencyIso, storeObj.currencyLocale);
     const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
 
     const onewPriceClass = `.newprice-${onSelectorClass}`;
@@ -569,7 +569,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         if (triggerVPN) {
           selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
         }
-        offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
+        offerPrice = formatPrice(selectedVarDiscount, currencyIso, storeObj.currencyLocale);
         percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
       }
     }

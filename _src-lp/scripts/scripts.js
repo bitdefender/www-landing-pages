@@ -791,10 +791,11 @@ function changeCheckboxVPN(checkboxId, pid) {
     buyLink = buyLinkDefault;
   }
 
+  const currencyLocale = StoreProducts.product[productId]?.currencyLocale;
   percentageVal = (((fullPrice - newPrice) / fullPrice) * 100).toFixed(0);
-  fullPrice = formatPrice(fullPrice, selectedVariation.currency_iso, selectedVariation.region_id);
-  save = formatPrice(save, selectedVariation.currency_iso, selectedVariation.region_id);
-  newPrice = formatPrice(newPrice, selectedVariation.currency_iso, selectedVariation.region_id);
+  fullPrice = formatPrice(fullPrice, selectedVariation.currency_iso, currencyLocale);
+  save = formatPrice(save, selectedVariation.currency_iso, currencyLocale);
+  newPrice = formatPrice(newPrice, selectedVariation.currency_iso, currencyLocale);
 
   if (parentDiv.querySelector(buyClass)) {
     parentDiv.querySelector(buyClass).setAttribute('href', buyLink);
