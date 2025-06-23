@@ -37,13 +37,13 @@
   font-size: 18px;
 }
 
-.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text div {
-  text-align: center;
-}
-
-.c-top-comparative-with-text.no-highlight > div:nth-child(3), .no-highlight .c-top-comparative-with-text > div {
+.no-highlight .c-top-comparative-with-text > div, .c-top-comparative-with-text.no-highlight > div:nth-child(3) {
   box-shadow: initial;
   border-top-color: transparent !important;
+}
+
+.c-top-comparative-with-text-container.netgear .c-top-comparative-with-text div {
+  text-align: center;
 }
 
 .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div {
