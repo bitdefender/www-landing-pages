@@ -83,6 +83,9 @@ jobs:
           GI_KEY: ${{ secrets.GI_KEY }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
           CHANGED_FILES: ${{ needs.detect-changes.outputs.changed_components }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
 
       - name: Inform Developer About Snapshot Failures
         if: failure()
