@@ -57,11 +57,11 @@ const featureBranchEnvironmentBaseUrl = `https://${BRANCH_NAME || 'main'}--www-l
         if (verdictMessage.includes('Final verdict: PASS')) {
           logWarning(title);
           console.log(verdictMessage);
-          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id}. You can approve the baseline`);
+          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id} . You can approve the baseline`);
         } else {
           logError(title);
           console.log(verdictMessage);
-          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id}. Please consult the QA team before approving the baseline`);
+          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id} . Please consult the QA team before approving the baseline`);
         }
       }
     });
