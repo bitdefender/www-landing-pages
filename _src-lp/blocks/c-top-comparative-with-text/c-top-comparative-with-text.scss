@@ -35,16 +35,15 @@
 .c-top-comparative-with-text > div:nth-child(1) {
   color: #666;
   font-size: 18px;
-  margin-top: 20px;
+}
+
+.no-highlight .c-top-comparative-with-text > div, .c-top-comparative-with-text.no-highlight > div:nth-child(3) {
+  box-shadow: initial;
+  border-top-color: transparent !important;
 }
 
 .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text div{
   text-align: center; 
-}
-
-.c-top-comparative-with-text.no-highlight > div:nth-child(3), .no-highlight .c-top-comparative-with-text > div:nth-child(3) {
-  box-shadow: initial;
-  border-top-color: transparent;
 }
 
 .c-top-comparative-with-text-container.has4boxes .c-top-comparative-with-text > div {
@@ -87,8 +86,7 @@
 
 .c-top-comparative-with-text > div img:first-of-type {
   width: 270px;
-  height: auto;
-  margin-top: -10em;
+  height: 220px;
 }
 
 .c-top-comparative-with-text > div h2 {
@@ -146,6 +144,7 @@
 
 .c-top-comparative-with-text > div div.prices_box {
   text-align: left;
+  align-content: end;
 }
 
 .c-top-comparative-with-text > div div.prices_box .prod-percent.green_bck_circle {
