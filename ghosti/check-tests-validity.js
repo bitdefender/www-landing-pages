@@ -85,7 +85,8 @@ const askWithImage = async (screenshotsInfo) => {
                 Here’s the approved baseline and the new screenshot, in this order.
                 baseline screenshot contains the differences between the 2 images as well.
                 Analyze whether any of these changes violate the Jira acceptance criteria.
-                At the end of your message, provide a string like this: "Final verdict: FAIL" if you think the changes are not justified or "Final verdict: PASS" if you think they are justified in accordance to the Jira ticket. 
+                If in your opinion the Jira ticket requirements are not met or if other things are affected, please provide a detailed report as to why you consider this to be happening.
+                At the end of your message, provide a string like this: "Final verdict: FAIL" if you think the changes are not justified or "Final verdict: PASS" if you think they are justified in accordance to the Jira ticket.
                 Here is the Jira ticket description: ${description}.
                 And here are all the ticket comments in order of publication on the ticket: ${comments}
               `,
