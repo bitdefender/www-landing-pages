@@ -111,4 +111,5 @@ export default function decorate(block) {
   }
   const targetNode = document.querySelector('.c-top-comparative-with-text');
   matchHeights(targetNode, 'h4');
+  matchHeights(block, '.prices_box');
 }
