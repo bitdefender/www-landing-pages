@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { askWithImage } = require('./check-tests-validity');
 const SnapshotBlockTest = require('./json-tests/snapshot-block');
 const {
   PATH_TO_BLOCKS,
@@ -7,45 +8,63 @@ const {
   EXCLUDED_SNAPSHOT_BLOCKS,
   MANDATORY_TESTS_SUITE_ID,
   logSuccess,
-  logError
+  logError,
+  logWarning
 } = require('./constants');
-const GhostInspector = require('ghost-inspector')(process.env.GI_KEY);
-
 const hlxEnv = {
   PROD: 'live',
   STAGE: 'page'
 };
-const featureBranchEnvironmentHostname = `${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.STAGE}`
-const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
+const BRANCH_NAME = process.env.BRANCH_NAME;
+const GI_KEY = process.env.GI_KEY;
+const CHANGED_FILES = process.env.CHANGED_FILES;
+const GhostInspector = require('ghost-inspector')(GI_KEY);
+
+const featureBranchEnvironmentHostname = `${BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.STAGE}`
+const featureBranchEnvironmentBaseUrl = `https://${BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
 
 (async () => {
   const snapshotIsPassing = ({ screenshotComparePassing }) => {
     return screenshotComparePassing === true;
   }
 
-  const showSnapshotTestsFullLogs = (testResults) => {
+  const showSnapshotTestsFullLogs = async (testResults) => {
     const mappedTests = testResults.map((test) => test.data).flat();
     const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
 
-    mappedTests.forEach((testResult, index) => {
+    const testLogs = mappedTests.map(async (testResult, index) => {
       const {
         name,
         test: { _id },
-        viewportSize: { width, height }
+        viewportSize: { width, height },
+        screenshotCompare: { compareOriginal }
       } = testResult;
 
       const isPassing = snapshotIsPassing(testResult);
 
-      const title = `${index + 1}.[${isPassing ? 'PASSED' : 'FAILED'}] ${name} on [${width}x${height}]`;
+      const title = `[${isPassing ? 'PASSED' : 'FAILED'}] ${name} on [${width}x${height}]`;
 
       if (isPassing) {
         logSuccess(title);
       } else {
-        logError(title);
-        console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id}`, testResult.variables);
+        const verdictMessage = await askWithImage({
+          baseScreenshotUrl: compareOriginal.defaultUrl,
+          dims: compareOriginal.dims,
+        });
+        if (verdictMessage.includes('Final verdict: PASS')) {
+          logWarning(title);
+          console.log(verdictMessage);
+          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id} . You can approve the baseline\n\n`);
+        } else {
+          logError(title);
+          console.log(verdictMessage);
+          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id} . Please consult the QA team before approving the baseline\n\n`);
+        }
       }
     });
+
+    await Promise.all(testLogs);
 
     if (!areAllTestsPassing) {
       process.exit(1);
@@ -53,7 +72,7 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
   }
 
   const runComponentTests = async () => {
-    const blockSnapshotsToTest = JSON.parse(process.env.CHANGED_FILES)
+    const blockSnapshotsToTest = JSON.parse(CHANGED_FILES)
       .filter(snapshotTest => !EXCLUDED_SNAPSHOT_BLOCKS.includes(snapshotTest));
 
     if (!blockSnapshotsToTest.length) {
@@ -66,7 +85,7 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
     const snapshotsPromises = blockSnapshotsToTest.map((testName) => {
       const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
       if (testAlreadyExists) {
-        return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
+        return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
           signal: AbortSignal.timeout(FETCH_TIMEOUT)
         }).then((res) => res.json());
       }
@@ -76,7 +95,7 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
         name: testName,
         startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
       }).generate())
-        .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${process.env.GI_KEY}`).then((res) => res.json()));
+        .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${GI_KEY}`).then((res) => res.json()));
     });
 
     // Await the completion of all promises in the current batch before proceeding to the next
@@ -90,7 +109,7 @@ const featureBranchEnvironmentBaseUrl = `https://${process.env.BRANCH_NAME || 'm
       const url = new URL(test.startUrl);
       url.hostname = featureBranchEnvironmentHostname;
 
-      const testCall = fetch(`https://api.ghostinspector.com/v1/tests/${test._id}/execute/?apiKey=${process.env.GI_KEY}&startUrl=${url.toString()}`, {
+      const testCall = fetch(`https://api.ghostinspector.com/v1/tests/${test._id}/execute/?apiKey=${GI_KEY}&startUrl=${url.toString()}`, {
           signal: AbortSignal.timeout(FETCH_TIMEOUT)
         }).then((res) => res.json())
       allMandatoryTestCalls.push(testCall);

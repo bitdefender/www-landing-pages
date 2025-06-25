@@ -17,12 +17,17 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   'video',
 ];
 const MANDATORY_TESTS_SUITE_ID = '68516672e5aac3e52897827d';
+const JIRA_BASE_URL = 'https://bitdefender.atlassian.net';
 
 function logError(message) {
   console.log('\x1b[31m%s\x1b[0m', message);
 }
 function logSuccess(message) {
   console.log('\x1b[32m%s\x1b[0m', message);
+}
+
+function logWarning(message) {
+  console.log('\x1b[33m%s\x1b[0m', message);
 }
 
 module.exports = {
@@ -32,6 +37,8 @@ module.exports = {
   FETCH_TIMEOUT,
   EXCLUDED_SNAPSHOT_BLOCKS,
   MANDATORY_TESTS_SUITE_ID,
+  JIRA_BASE_URL,
   logError,
-  logSuccess
+  logSuccess,
+  logWarning
 }
