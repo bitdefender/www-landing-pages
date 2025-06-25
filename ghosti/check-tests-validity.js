@@ -48,7 +48,6 @@ const ticketData = getJiraTicketInformation();
 /**
  * 
  * @param {object} screenshotsInfo
- * @param {string} screenshotsInfo.newScreenshotUrl
  * @param {string} screenshotsInfo.baseScreenshotUrl
  * @param {{w: number, h: number}} screenshotsInfo.dims
  * @returns {Promise<string>} -> feedback as to whether the test failing can be accepted or not
@@ -56,11 +55,10 @@ const ticketData = getJiraTicketInformation();
 const askWithImage = async (screenshotsInfo) => {
 
   if (!TASK_NAME) {
-    return 'Unable to identify Jira ticket with correct format from branch name. Verdict: FAIL';
+    return 'Unable to identify Jira ticket with correct format from branch name. Final verdict: FAIL';
   }
 
   const {
-    newScreenshotUrl,
     baseScreenshotUrl,
     dims
   } = screenshotsInfo;
@@ -68,7 +66,7 @@ const askWithImage = async (screenshotsInfo) => {
   try {
     const [description, comments] = await ticketData;
     if (!description) {
-      return 'Failed fetching Jira description. Verdict: FAIL';
+      return 'Failed fetching Jira description. Final verdict: FAIL';
     }
 
     const response = await openai.chat.completions.create({
@@ -82,11 +80,9 @@ const askWithImage = async (screenshotsInfo) => {
               type: 'text',
               text: `
                 Baseline dimensions: ${dims.w}×${dims.h}px.
-                Here’s the approved baseline and the new screenshot, in this order.
-                baseline screenshot contains the differences between the 2 images as well.
+                I attatched the image which contains the differences between the baseline and the new screenshot.
                 Analyze whether any of these changes violate the Jira acceptance criteria.
-                If in your opinion the Jira ticket requirements are not met or if other things are affected, please provide a detailed report as to why you consider this to be happening.
-                At the end of your message, provide a string like this: "Final verdict: FAIL" if you think the changes are not justified or "Final verdict: PASS" if you think they are justified in accordance to the Jira ticket.
+                At the end of your message, provide a string like this: "Final verdict: FAIL" if you think the changes are not justified or "Final verdict: PASS" if you think they are justified in accordance to the Jira ticket. 
                 Here is the Jira ticket description: ${description}.
                 And here are all the ticket comments in order of publication on the ticket: ${comments}
               `,
@@ -96,13 +92,7 @@ const askWithImage = async (screenshotsInfo) => {
               image_url: {
                 url: baseScreenshotUrl,
               }
-            },
-            {
-              type: 'image_url',
-              image_url: {
-                url: newScreenshotUrl,
-              }
-            },
+            }
           ]
         }
       ]
@@ -110,7 +100,7 @@ const askWithImage = async (screenshotsInfo) => {
 
     return response?.choices?.[0]?.message?.content;
   } catch (e) {
-    return `Failed due to this error: ${e}. Verdict: FAIL`
+    return `Failed due to this error: ${e}. Final verdict: FAIL`
   }
 }
 

@@ -33,12 +33,11 @@ const featureBranchEnvironmentBaseUrl = `https://${BRANCH_NAME || 'main'}--www-l
     const areAllTestsPassing = mappedTests.every(snapshotIsPassing);
     areAllTestsPassing ? logSuccess('All snapshots passed !') : logError('Some snapshots failed !');
 
-    const testLogs = mappedTests.map(async (testResult) => {
+    const testLogs = mappedTests.map(async (testResult, index) => {
       const {
         name,
         test: { _id },
         viewportSize: { width, height },
-        screenshot: { original },
         screenshotCompare: { compareOriginal }
       } = testResult;
 
@@ -50,18 +49,17 @@ const featureBranchEnvironmentBaseUrl = `https://${BRANCH_NAME || 'main'}--www-l
         logSuccess(title);
       } else {
         const verdictMessage = await askWithImage({
-          newScreenshotUrl: original.defaultUrl,
           baseScreenshotUrl: compareOriginal.defaultUrl,
           dims: compareOriginal.dims,
         });
         if (verdictMessage.includes('Final verdict: PASS')) {
           logWarning(title);
           console.log(verdictMessage);
-          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id} . You can approve the baseline`);
+          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id} . You can approve the baseline\n\n`);
         } else {
           logError(title);
           console.log(verdictMessage);
-          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id} . Please consult the QA team before approving the baseline`);
+          console.log(`Full test details on: https://app.ghostinspector.com/tests/${_id} . Please consult the QA team before approving the baseline\n\n`);
         }
       }
     });
