@@ -191,12 +191,22 @@ export default function decorate(block) {
 
       const contentRightItem = contentRightEl.children[idx];
       if (!contentRightItem) return;
-      const [, tableRadios, tablePrices] = contentRightItem.querySelectorAll('table');
+      const [bluePill, tableRadios, tablePrices] = contentRightItem.querySelectorAll('table');
+
+      bluePill.style.display = 'none';
+
+      bluePill.querySelectorAll('tr').forEach((row) => {
+        Array.from(row.cells).forEach((cell) => {
+          if (cell.textContent.trim() !== '' || cell.innerHTML) {
+            bluePill.style.display = '';
+          }
+        });
+      });
+
       if (tableRadios && tablePrices) {
         const [radio1, radio2] = tableRadios.querySelectorAll('td');
         const tablePricesText = tablePrices.textContent;
         const tableBuyBtn = contentRightItem.querySelector('table:last-of-type');
-
         // radios
         if (!display) {
           createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, `${idx}_${counter}`, radio1, radio2);
@@ -242,5 +252,7 @@ export default function decorate(block) {
   if (!display) activateRadios(block, type);
 
   matchHeights(block, 'h3');
+  matchHeights(block, '.prodBox p:first-of-type');
   matchHeights(block, 'ul:first-of-type');
+  matchHeights(block, '.prices_box > div > div:first-of-type');
 }

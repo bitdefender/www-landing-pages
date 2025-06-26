@@ -113,6 +113,10 @@
   margin-top: 30px;
 }
 
+.section.banner-with-cards-container .banner-with-cards img {
+  height: 71px;
+}
+
 .section.banner-with-cards-container .banner-with-cards.edeka > div td img {
   height: 32px;
 }
@@ -171,6 +175,7 @@
   padding: 3px 8px;
   display: inline-block;
   width: fit-content;
+  margin-bottom: 5px;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type td {
@@ -204,7 +209,6 @@
 .section.banner-with-cards-container .banner-with-cards .prodBox p a {
   color: #006EFF;
 }
-
 
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox p a {
   color: #FFF;
