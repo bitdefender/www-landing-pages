@@ -135,6 +135,7 @@
   padding: 1.5em;
   align-self: flex-start;
   box-shadow: 0 0 5px 0 #5d5c5c;
+  width: 100%;
 }
 
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox {
