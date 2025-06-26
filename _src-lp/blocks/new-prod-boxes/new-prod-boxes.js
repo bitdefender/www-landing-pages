@@ -150,8 +150,7 @@ export default function decorate(block) {
       if (titleBox.innerHTML.includes('0%')) {
         titleBox.innerHTML = titleBox.innerHTML.replace('0%', '<span class=\'max-discount\'></span>');
       }
-    }
-    if (titleText && subText) {
+
       block.parentNode.insertBefore(titleBox, block);
     }
 
