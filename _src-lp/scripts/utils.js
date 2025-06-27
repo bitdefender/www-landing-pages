@@ -199,6 +199,7 @@ export function appendAdobeMcLinks(selector) {
   try {
     const wrapperSelector = document.querySelector(selector);
     const hrefSelector = '[href*=".bitdefender."]';
+    const currentHostname = window.location.hostname;
 
     wrapperSelector.querySelectorAll(hrefSelector).forEach(async (link) => {
       const isAdobeMcAlreadyAdded = link.href.includes('adobe_mc');
@@ -206,8 +207,13 @@ export function appendAdobeMcLinks(selector) {
         return;
       }
 
-      const destinationURLWithVisitorIDs = await target.appendVisitorIDsTo(link.href);
-      link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
+      const linkHostname = new URL(link.href, window.location.origin).hostname;
+
+      // daca host-ul este diferit, add adobe_mc
+      if (linkHostname !== currentHostname) {
+        const destinationURLWithVisitorIDs = await target.appendVisitorIDsTo(link.href);
+        link.href = destinationURLWithVisitorIDs.replace(/MCAID%3D.*%7CMCORGID/, 'MCAID%3D%7CMCORGID');
+      }
     });
   } catch (e) {
     console.error(e);
