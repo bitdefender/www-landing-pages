@@ -144,7 +144,7 @@
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p {
-  text-align: inherit !important;
+  text-align: center;
   margin: 10px 0;
   line-height: 17px;
 }
@@ -406,6 +406,10 @@
   position: relative;
   top: -1px;
   fill: #61af53;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner li .icon {
+  margin-right: 10px;
 }
 
 @media (width <= 992px) {

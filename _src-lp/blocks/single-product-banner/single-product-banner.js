@@ -34,7 +34,7 @@ export default function decorate(block) {
 
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  let imgPosition = '0 0';
+  let imgPosition = 'top right';
   if (imageCover) {
     imgPosition = `top ${imageCover}`;
   }
@@ -168,8 +168,10 @@ export default function decorate(block) {
 
     // discount bulina:
     const percentCircle = boxEl.querySelector('strong');
-    percentCircle.className = `prod-percent green_bck_circle bigger await-loader prodload prodload-${onSelectorClass}`;
-    percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', `<span class='prod-percent percent-${onSelectorClass}'></span>`);
+    if (percentCircle) {
+      percentCircle.className = `prod-percent green_bck_circle bigger await-loader prodload prodload-${onSelectorClass}`;
+      percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', `<span class='prod-percent percent-${onSelectorClass}'></span>`);
+    }
   }
 
   if (boxEl) {
