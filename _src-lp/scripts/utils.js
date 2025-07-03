@@ -630,7 +630,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const percentBox = document.querySelector(`.percent-${onSelectorClass}`);
     if (percentBox) {
-      if (vpnHasDiscount) {
+      if (vpnHasDiscount && percentageSticker > 0) {
         if (triggerVPN) {
           const parentPercentBox = parentDiv.querySelector(`.percent-${onSelectorClass}`);
           parentPercentBox.innerHTML = `${percentageSticker}%`;
@@ -641,6 +641,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
             item.parentNode.style.visibility = 'visible';
           });
         }
+      } else {
+        // If no discount, hide the percentBox or its container
+        document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
+          const container = item.closest('p') || item.parentNode;
+          if (container) {
+            container.style.display = 'none';
+          }
+        });
       }
     }
 
