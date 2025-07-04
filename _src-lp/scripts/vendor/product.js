@@ -195,7 +195,7 @@ export default class ProductPrice {
     const allOptions = payload.product.options.map(async (option) => {
       // if the product is already added, skip
       // if (window.StoreProducts?.product?.[this.#alias]) return;
-      if (this.#alias == 'vpn') option.slots = 10;
+      if (this.#alias == 'vpn' || this.#alias == 'vpn-monthly') option.slots = 10;
 
       if (this.#devicesNo != option.slots) return;
 

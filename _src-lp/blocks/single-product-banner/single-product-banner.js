@@ -1,3 +1,4 @@
+import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -100,8 +101,8 @@ export default function decorate(block) {
           </div>`;
       }
 
-      if (prodName.endsWith('m')) {
-        billed = billedMonthly?.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
+      if (Constants.MONTHLY_PRODUCTS.includes(prodName)) {
+        billed = billedMonthly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
         priceFull = `
         <div class="d-flex justify-content-center priced">
         <span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month">  ${per ? `/${per}` : ''}</span>
