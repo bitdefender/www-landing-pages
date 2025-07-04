@@ -567,7 +567,42 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   } else {
     let vpnHasDiscount = false;
     let offerPrice = 0;
+    const offerPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
     let percentageSticker = 0;
+
+    const oldPriceMonthlyClass = `.oldprice-${onSelectorClass}-monthly`;
+    if (document.querySelector(oldPriceMonthlyClass)) {
+      const allOldPriceBox = document.querySelectorAll(oldPriceMonthlyClass);
+      if (triggerVPN) {
+        if (parentDiv) parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
+        if (comparativeTextBox) {
+          allOldPriceBox.forEach((item) => {
+            item.innerHTML = fullPriceMonthly;
+          });
+        }
+      } else {
+        allOldPriceBox.forEach((item) => {
+          item.innerHTML = fullPriceMonthly;
+        });
+      }
+    }
+
+    const onewPriceMonthlyClass = `.newprice-${onSelectorClass}-monthly`;
+    if (document.querySelector(onewPriceMonthlyClass)) {
+      const allNewPriceBox = document.querySelectorAll(onewPriceMonthlyClass);
+      if (triggerVPN) {
+        if (parentDiv) parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
+        if (comparativeTextBox) {
+          allNewPriceBox.forEach((item) => {
+            item.innerHTML = offerPriceMonthly;
+          });
+        }
+      } else {
+        allNewPriceBox.forEach((item) => {
+          item.innerHTML = offerPriceMonthly;
+        });
+      }
+    }
 
     if (productId === 'vpn' && storeObj.selected_variation.discount) {
       vpnHasDiscount = true;
@@ -630,7 +665,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const percentBox = document.querySelector(`.percent-${onSelectorClass}`);
     if (percentBox) {
-      if (vpnHasDiscount) {
+      if (vpnHasDiscount && percentageSticker > 0) {
         if (triggerVPN) {
           const parentPercentBox = parentDiv.querySelector(`.percent-${onSelectorClass}`);
           parentPercentBox.innerHTML = `${percentageSticker}%`;
@@ -641,6 +676,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
             item.parentNode.style.visibility = 'visible';
           });
         }
+      } else {
+        // If no discount, hide the percentBox or its container
+        document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
+          const container = item.closest('p') || item.parentNode;
+          if (container) {
+            container.style.display = 'none';
+          }
+        });
       }
     }
 

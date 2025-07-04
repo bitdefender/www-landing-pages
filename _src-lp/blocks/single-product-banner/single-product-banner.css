@@ -120,7 +120,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 32px;
+  padding: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-top: -24px;
@@ -144,7 +144,7 @@
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p {
-  text-align: inherit !important;
+  text-align: center !important;
   margin: 10px 0;
   line-height: 17px;
 }
@@ -238,6 +238,7 @@
   font-size: 16px;
   font-weight: bold;
   color: #000;
+  text-align: center;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide p:nth-child(3),
@@ -262,7 +263,8 @@
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .buy_box.show {
-  display: block;
+  display: flex;
+  justify-content: center;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .per-month {
@@ -404,6 +406,10 @@
   position: relative;
   top: -1px;
   fill: #61af53;
+}
+
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner li .icon {
+  margin-right: 10px;
 }
 
 @media (width <= 992px) {
