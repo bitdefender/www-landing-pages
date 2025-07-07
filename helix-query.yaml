@@ -4,6 +4,7 @@ indices:
     include:
       - /consumer/**
       - /business/**
+      - /fragment-collection/**
     exclude:
       - /**/nav
       - /**/footer
@@ -25,10 +26,16 @@ indices:
       blocks:
         select: main > div > div:not(.section-metadata)
         values: attribute(el, "className")
+      fragments:
+        select: main > div > div[class="fragment"] a
+        values: attribute(el, "href")
       robots:
         select: head > meta[name="robots"]
         value: attribute(el, "content")
-      lastModified:
+      lastModifiedTimestamp:
         select: none
         value: |
           parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      lastModified:
+        select: none
+        value: headers["last-modified"]
