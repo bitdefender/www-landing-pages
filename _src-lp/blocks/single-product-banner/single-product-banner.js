@@ -102,7 +102,7 @@ export default function decorate(block) {
       }
 
       if (Constants.MONTHLY_PRODUCTS.includes(prodName)) {
-        billed = billedMonthly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
+        billed = billedMonthly?.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
         priceFull = `
         <div class="d-flex justify-content-center priced">
         <span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month">  ${per ? `/${per}` : ''}</span>

@@ -371,7 +371,7 @@ function maxDiscount() {
   } else {
     document.querySelectorAll('.max-discount').forEach((item) => {
       const closestEm = item.closest('em');
-      if (closestEm) closestEm.style.display = 'none';
+      if (closestEm) closestEm.remove();
     });
   }
 }
@@ -396,7 +396,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const selectedVarDiscountValue = storeObj.selected_variation.discount?.discount_value;
 
   const showVpnBox = document.querySelector(`.show_vpn_${productId}`) || document.querySelector(`.show_vpn-${productId}`) || document.querySelector(`.show_vpn-${productId}-${prodUsers}${prodYears}`);
-  if (showVpnBox) showVpnBox.style.display = 'none';
+  if (showVpnBox) showVpnBox.remove();
 
   const storeObjVPN = StoreProducts.product.vpn;
   if (triggerVPN) {
@@ -640,25 +640,25 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
         const parent = item.parentNode;
         const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
-        if (item.closest('p') && !item.closest('label') && item.closest('p')) item.closest('p').style.display = 'none';
+        if (item.closest('p') && !item.closest('label') && item.closest('p')) item.closest('p').remove();
         if (sibling && !parent.classList.contains('billed')) {
-          item.style.display = 'none';
-          sibling.style.display = 'none';
-        } else if (!parent.classList.contains('billed')) parent.style.display = 'none';
+          item.remove();
+          sibling.remove();
+        } else if (!parent.classList.contains('billed')) parent.remove();
       });
     }
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
-      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p')) saveBox.closest('p').style.display = 'none';
+      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p')) saveBox.closest('p').remove();
       const siblingElements = saveBox.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
       });
       if (saveBox.closest('.prod-save')) {
-        saveBox.closest('.prod-save').style.setProperty('display', 'none', 'important');
+        saveBox.closest('.prod-save').remove();
         if (saveBox.parentNode.nodeName === 'P') {
-          saveBox.parentNode.style.display = 'none';
+          saveBox.parentNode.remove();
         }
       }
     }
@@ -681,7 +681,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           const container = item.closest('p') || item.parentNode;
           if (container) {
-            container.style.display = 'none';
+            container.remove();
           }
         });
       }
@@ -694,7 +694,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const bulinaBox = document.querySelector(`.bulina-${onSelectorClass}`);
     if (bulinaBox) {
-      bulinaBox.style.display = 'none';
+      bulinaBox.remove();
       // bulinaBox.parentNode.style.visibility = 'hidden';
     }
   }
