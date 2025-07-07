@@ -23,7 +23,7 @@ indices:
         select: main > div:first-child > div:first-child h1, main div > h1
         value: textContent(el)
       blocks:
-        select: main > div > div[class]
+        select: main > div > div
         values: |
           attribute(el, "class")
       robots:
