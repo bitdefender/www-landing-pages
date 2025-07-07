@@ -1,0 +1,30 @@
+@import "/_src-lp/styles/tokens.css";
+
+.section.banner-container .banner h1 {
+    font: normal normal bold 32px/32px IBM Plex Sans;
+}
+
+.section.banner-container .banner h1 em {
+    margin-top: 10px;
+    display: block;
+    font: normal normal 300 64px/32px IBM Plex Sans;
+    color: #006EFF;
+}
+
+.section.banner-container .banner h2 {
+    font: normal normal bold 40px/52px IBM Plex Sans;
+}
+
+.section.banner-container .banner p {
+    font: normal normal normal 18px/23px IBM Plex Sans;
+}
+
+.section.banner-container .banner p a {
+    width: 184px;
+    height: 50px;
+    padding: 0;
+    font: normal normal 600 18px/23px IBM Plex Sans;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

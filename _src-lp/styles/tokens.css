@@ -1,0 +1,410 @@
+:root {
+
+  /* =====================
+      COLORS
+  ====================== */
+  --color-blue-50: #F0F7FF;
+  --color-blue-100: #D6E8FF;
+  --color-blue-200: #9EC8FF;
+  --color-blue-300: #6BABFF;
+  --color-blue-400: #338BFF;
+  --color-blue-500: #006dff;
+  --color-blue-600: #0059D6;
+  --color-blue-700: #0045AD;
+  --color-blue-800: #003385;
+  --color-blue-900: #00225C;
+  --color-blue-950: #001947;
+
+  --color-red-50: #FFF0F0;
+  --color-red-100: #FFD6D6;
+  --color-red-200: #FF9E9E;
+  --color-red-300: #FF6B6B;
+  --color-red-400: #FF3333;
+  --color-red-500: #FF0000;
+  --color-red-600: #D60000;
+  --color-red-700: #AD0000;
+  --color-red-800: #850000;
+  --color-red-900: #5C0000;
+  --color-red-950: #470000;
+
+  --color-green-50: #EDFDF1;
+  --color-green-100: #D1FADC;
+  --color-green-200: #9AF4B4;
+  --color-green-300: #63EE8D;
+  --color-green-400: #2CE767;
+  --color-green-500: #15C14F;
+  --color-green-600: #12A641;
+  --color-green-700: #0E8532;
+  --color-green-800: #0B6A26;
+  --color-green-900: #084A1A;
+  --color-green-950: #063C14;
+
+  --color-yellow-50: #FFFBF0;
+  --color-yellow-100: #FFF5D6;
+  --color-yellow-200: #FFE89E;
+  --color-yellow-300: #FFDC6B;
+  --color-yellow-400: #FFCF33;
+  --color-yellow-500: #FFC400;
+  --color-yellow-600: #D6A000;
+  --color-yellow-700: #AD7F00;
+  --color-yellow-800: #855F00;
+  --color-yellow-900: #5C4000;
+  --color-yellow-950: #473100;
+
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-25: #FAFAFA;
+  --color-neutral-50: #f1f2f3;
+  --color-neutral-100: #e1e3e5;
+  --color-neutral-200: #c5c9ce;
+  --color-neutral-300: #a6adb4;
+  --color-neutral-400: #88909b;
+  --color-neutral-500: #6c7580;
+  --color-neutral-600: #565e66;
+  --color-neutral-700: #41474d;
+  --color-neutral-800: #2c3035;
+  --color-neutral-900: #151719;
+  --color-neutral-950: #0c0d0e;
+  --color-neutral-1000: #000000;
+
+  
+  /* =====================
+      DISPLAY FONT SIZES
+  ====================== */
+
+ /* Display default */
+--display-xxsmall: 44px; /* 58.652px = 3.666rem */
+--display-xsmall: 48px; /* 63.984px = 3.999rem */
+--display-small: 52px; /* 69.316px = 4.332rem */
+--display-medium: 56px; /* 74.648px = 4.666rem */
+--display-large: 60px; /* 79.98px = 5rem */
+--display-xlarge: 64px; /* 85.312px = 5.333rem */
+
+/* Display mobile */
+--display-xxsmall-mobile: 34px; /* 45.322px = 2.833rem */
+--display-xsmall-mobile: 36px; /* 47.988px = 2.999rem */
+--display-small-mobile: 38px; /* 50.654px = 3.167rem */
+--display-medium-mobile: 40px; /* 53.32px = 3.333rem */
+--display-large-mobile: 44px; /* 58.652px = 3.666rem */
+--display-xlarge-mobile: 48px; /* 63.984px = 3.999rem */
+
+/* Heading default */
+--heading-xxsmall: 18px; /* 23.994px = 1.5rem */
+--heading-xsmall: 20px; /* 26.66px = 1.667rem */
+--heading-small: 24px; /* 31.992px = 2rem */
+--heading-medium: 28px; /* 37.324px = 2.333rem */
+--heading-large: 32px; /* 42.656px = 2.667rem */
+--heading-xlarge: 36px; /* 47.988px = 2.999rem */
+--heading-xxlarge: 40px; /* 53.32px = 3.333rem */
+
+/* Body default */
+--body-small: 13px; /* 17.329px = 1.083rem */
+--body-medium: 14px; /* 18.662px = 1.167rem */
+--body-large: 16px; /* 21.328px = 1.333rem */
+--body-xlarge: 18px; /* 23.994px = 1.5rem */
+
+/* Caption default */
+--caption-small: 11px; /* 14.663px = 0.917rem */
+--caption-large: 12px; /* 15.996px = 1rem */
+
+    
+
+
+/* Display Default */
+--display-xlarge-line-height: 1.1;      /* For 60px */
+--display-medium-line-height: 1.15;     /* For 52px */
+
+/* Display Mobile */
+--display-xlarge-mobile-line-height: 1.15;  /* For 44px */
+--display-medium-mobile-line-height: 1.2;   /* For 38px */
+
+/* Heading */
+--heading-xlarge-line-height: 1.2;      /* For 36px */
+--heading-small-line-height: 1.3;       /* For 24px */
+
+/* Body */
+--body-large-line-height: 1.5;          /* For 16px */
+
+/* Caption */
+--caption-large-line-height: 1.35;      /* For 12px */
+  /* =====================
+      PADDING SIZES
+  ====================== */
+
+  /* PADDING VALUES */
+  --size-0: 0;
+  --size-1: 1px;
+  --size-2: 2px;
+  --size-4: 4px;
+  --size-6: 6px;
+  --size-8: 8px;
+  --size-10: 10px;
+  --size-12: 12px;
+  --size-14: 14px;
+  --size-16: 16px;
+  --size-18: 18px;
+  --size-20: 20px;
+  --size-22: 22px;
+  --size-24: 24px;
+  --size-32: 32px;
+  --size-36: 36px;
+  --size-40: 40px;
+  --size-44: 44px;
+  --size-52: 52px;
+  --size-64: 64px;
+  --size-full: 99999999999999999999;
+  
+ 
+  /* Spacing Tokens
+  -----------------------------------------------*/
+  /* Base spacing tokens - Based on 4px grid */
+  --space-none: 0;
+  --space-4xs: 0.125rem;  /* 2px */
+  --space-3xs: 0.25rem;   /* 4px */
+  --space-2xs: 0.5rem;    /* 8px */
+  --space-xs: 0.75rem;    /* 12px */
+  --space-sm: 1rem;       /* 16px */
+  --space-md: 1.5rem;     /* 24px */
+  --space-lg: 2rem;       /* 32px */
+  --space-xl: 2.5rem;     /* 40px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  --space-4xl: 6rem;      /* 96px */
+  --space-5xl: 8rem;      /* 128px */
+  
+  /* Semantic Padding Tokens */
+  --padding-button: var(--space-xs) var(--space-md);
+  --padding-input: var(--space-xs);
+  --padding-card: var(--space-md);
+  --padding-card-sm: var(--space-sm);
+  --padding-card-lg: var(--space-lg);
+  
+  --padding-section: var(--space-3xl) 0;
+  --padding-section-sm: var(--space-2xl) 0;
+  --padding-section-lg: var(--space-4xl) 0;
+  
+  /* Container and Layout Tokens */
+  --container-padding: var(--space-md);
+  --container-padding-sm: var(--space-sm);
+  --container-padding-lg: var(--space-lg);
+  
+  /* Inset (Padding All Sides) Tokens */
+  --inset-xs: var(--space-xs);
+  --inset-sm: var(--space-sm);
+  --inset-md: var(--space-md);
+  --inset-lg: var(--space-lg);
+  
+  /* Stack (Vertical Spacing) Tokens */
+  --stack-xs: var(--space-xs);
+  --stack-sm: var(--space-sm);
+  --stack-md: var(--space-md);
+  --stack-lg: var(--space-lg);
+  --stack-xl: var(--space-xl);
+  
+  /* Inline (Horizontal Spacing) Tokens */
+  --inline-xs: var(--space-xs);
+  --inline-sm: var(--space-sm);
+  --inline-md: var(--space-md);
+  --inline-lg: var(--space-lg);
+  
+  /* Accessibility Spacing Tokens
+  -----------------------------------------------*/
+  /* Touch Target Sizes - WCAG 2.1 Success Criterion 2.5.5 (AAA) and 2.5.8 (AA) */
+  --touch-target-size: 44px; /* Minimum touch target size (44px × 44px) */
+  --touch-target-spacing: 8px; /* Minimum space between touch targets */
+  
+  /* Readable Line Lengths - For optimal readability */
+  --content-width-readable: 70ch; /* Approximately 70 characters per line */
+  --content-width-max: 1200px; /* Maximum overall content width */
+
+
+  /** GRID TOKENS
+  */
+ /* Grid container max widths */
+  --grid-container-max-xs: 100%;       /* mobile full width */
+  --grid-container-max-sm: 540px;
+  --grid-container-max-md: 720px;
+  --grid-container-max-lg: 960px;
+  --grid-container-max-xl: 1140px;
+  --grid-container-max-xxl: 1320px;
+
+  /* Column count (usually 12) */
+  --grid-columns: 12;
+
+  /* Gutter spacing between columns */
+  --grid-gutter-xs: 16px;
+  --grid-gutter-sm: 24px;
+  --grid-gutter-md: 32px;
+  --grid-gutter-lg: 40px;
+
+  /* Container padding (horizontal spacing) */
+  --grid-padding-xs: 16px;
+  --grid-padding-sm: 24px;
+  --grid-padding-md: 32px;
+  --grid-padding-lg: 40px;
+
+  /* Breakpoints */
+  --breakpoint-xs: 0px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+      /* =====================
+      FONT-FACE DEFINITIONS
+  ====================== */
+
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 700; 
+    src: url('/styles/fonts/IBMPlexMono-Bold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 700; 
+    src: url('/styles/fonts/IBMPlexMono-BoldItalic.woff2') format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 300; 
+    src: url('/styles/fonts/IBMPlexMono-Italic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 300; 
+    src: url('/styles/fonts/IBMPlexMono-Light.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 300; 
+    src: url('/styles/fonts/IBMPlexMono-LightItalic.woff2') format('woff2');
+  }
+   
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 500; 
+    src: url('/styles/fonts/IBMPlexMono-Medium.woff2') format('woff2');
+  }   
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 500; 
+    src: url('/styles/fonts/IBMPlexMono-MediumItalic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 400; 
+    src: url('/styles/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 600; 
+    src: url('/styles/fonts/IBMPlexMono-SemiBold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 600; 
+    src: url('/styles/fonts/IBMPlexMono-SemiBoldItalic.woff2') format('woff2');
+  }
+ 
+/*
+IBM PLEX SANS
+*/
+
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: normal;
+    font-weight: 700; 
+    src: url('/styles/fonts/IBMPlexSans-Bold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: normal;
+    font-weight: 700; 
+    src: url('/styles/fonts/IBMPlexSans-BoldItalic.woff2') format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: italic;
+    font-weight: 300; 
+    src: url('/styles/fonts/IBMPlexSans-Italic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: normal;
+    font-weight: 300; 
+    src: url('/styles/fonts/IBMPlexSans-Light.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: italic;
+    font-weight: 300; 
+    src: url('/styles/fonts/IBMPlexSans-LightItalic.woff2') format('woff2');
+  }
+   
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: italic;
+    font-weight: 500; 
+    src: url('/styles/fonts/IBMPlexSans-Medium.woff2') format('woff2');
+  }   
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: italic;
+    font-weight: 500; 
+    src: url('/styles/fonts/IBMPlexSans-MediumItalic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: italic;
+    font-weight: 400; 
+    src: url('/styles/fonts/IBMPlexSans-Regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: italic;
+    font-weight: 600; 
+    src: url('/styles/fonts/IBMPlexSans-SemiBold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'IBMPlexSans';
+    font-style: italic;
+    font-weight: 600; 
+    src: url('/styles/fonts/IBMPlexSans-SemiBoldItalic.woff2') format('woff2');
+  }
+
+  /* =====================
+      FONT TOKENS
+  ====================== */
+  /* IBM Plex Mono */
+  --font-family-mono: 'IBM Plex Mono', monospace;
+  --font-weight-mono-light: 300;
+  --font-weight-mono-regular: 400;
+  --font-weight-mono-medium: 500;
+  --font-weight-mono-semibold: 600;
+  --font-weight-mono-bold: 700;
+
+  --font-style-mono-normal: normal;
+  --font-style-mono-italic: italic;
+
+  /* IBMPlexSans */
+  --font-family-sans: 'IBM Plex Sans', sans-serif;
+  --font-weight-sans-light: 300;
+  --font-weight-sans-regular: 400;
+  --font-weight-sans-medium: 500;
+  --font-weight-sans-semibold: 600;
+  --font-weight-sans-bold: 700;
+
+  --font-style-sans-normal: normal;
+  --font-style-sans-italic: italic;
+}
