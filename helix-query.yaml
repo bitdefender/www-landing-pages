@@ -23,9 +23,12 @@ indices:
         select: main > div:first-child > div:first-child h1, main div > h1
         value: textContent(el)
       blocks:
-        select: main > div > div
-        values: |
-          attribute(el, "class")
+        select: main > div > div:not(.section-metadata)
+        values: attribute(el, "className")
       robots:
         select: head > meta[name="robots"]
         value: attribute(el, "content")
+      lastModified:
+        select: none
+        value: |
+          parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
