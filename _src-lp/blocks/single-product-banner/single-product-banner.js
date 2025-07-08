@@ -1,3 +1,4 @@
+import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -34,7 +35,7 @@ export default function decorate(block) {
 
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  let imgPosition = '0 0';
+  let imgPosition = 'top right';
   if (imageCover) {
     imgPosition = `top ${imageCover}`;
   }
@@ -96,15 +97,15 @@ export default function decorate(block) {
       } else {
         priceFull = `
           <div class="d-flex justify-content-center priced">
-            <span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> /${per}</span>
+            <span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> ${per ? `/${per}` : ''}</span>
           </div>`;
       }
 
-      if (prodName.endsWith('m')) {
-        billed = billedMonthly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
+      if (Constants.MONTHLY_PRODUCTS.includes(prodName)) {
+        billed = billedMonthly?.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
         priceFull = `
         <div class="d-flex justify-content-center priced">
-        <span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month"> /${per}</span>
+        <span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month">  ${per ? `/${per}` : ''}</span>
         </div>`;
       }
 
@@ -168,8 +169,10 @@ export default function decorate(block) {
 
     // discount bulina:
     const percentCircle = boxEl.querySelector('strong');
-    percentCircle.className = `prod-percent green_bck_circle bigger await-loader prodload prodload-${onSelectorClass}`;
-    percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', `<span class='prod-percent percent-${onSelectorClass}'></span>`);
+    if (percentCircle) {
+      percentCircle.className = `prod-percent green_bck_circle bigger await-loader prodload prodload-${onSelectorClass}`;
+      percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', `<span class='prod-percent percent-${onSelectorClass}'></span>`);
+    }
   }
 
   if (boxEl) {
