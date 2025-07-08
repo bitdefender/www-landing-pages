@@ -3,54 +3,51 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable arrow-parens */
 /* eslint-disable no-restricted-syntax */
-const { JSDOM } = require('jsdom');
 const fs = require('fs');
 
-// Base URLs
-const hostname = 'https://main--www-landing-pages--bitdefender.aem.page';
-const jsonUrl = 'https://main--www-landing-pages--bitdefender.aem.page/query-index.json';
+/**
+ * @typedef {Object} QueryIndexItem
+ * @property {string} path
+ * @property {string} title
+ * @property {string} description
+ * @property {string} h1
+ * @property {string[][]} blocks
+ * @property {string[]} fragments
+ * @property {string[]} fragments
+ * @property {string} robots
+ * @property {number} lastModifiedTimestamp
+ * @property {string} lastModified
+ */
 
 /**
- * Function to get class names from HTML
- * @param {string} html
- * @param {string} path
- * @returns {[string[], string[]]}
+ * @typedef {Object} DiscoveredEntry
+ * @property {number} entries
+ * @property {string[]} paths
+ * @property {?QueryIndexItem} queryIndex
  */
-const extractClassNames = (html, path) => {
-  const dom = new JSDOM(html);
-  const document = dom.window.document;
-  const mainElements = document.querySelectorAll('main > div > div[class]');
-  const classNames = [];
-  const fragmentUrls = [];
 
-  mainElements.forEach(el => {
-    if (el.className === 'fragment') {
-      const language = path.split('/')[2];
-      const linkToFragment = el.querySelector('a').href.replace('lang', language);
-      fragmentUrls.push(linkToFragment);
-      return;
-    }
+/**
+ * @typedef {Record<string, DiscoveredEntry>} DiscoveredItem
+ */
 
-    classNames.push(el.className);
-  });
-
-  return [classNames, fragmentUrls];
-};
+// Base URLs
+const jsonUrl = 'https://main--www-landing-pages--bitdefender.aem.page/query-index.json?limit=9999';
+const KNOWN_USED_COMPONENTS = ['footer', 'nav', 'header'];
 
 // Function to fetch page and extract class names
-const fetchPageClassNames = async (path) => {
-  try {
-    const url = `${hostname}${path}`;
-    console.log('Get: ', url);
-    const response = await fetch(url);
-    return extractClassNames(await response.text(), path);
-  } catch (error) {
-    console.error(`Error fetching ${path}:`, error.message);
-    return [];
-  }
-};
+/**
+ * Function to get page block names
+ * @param {string[][]} pageClassesArray
+ * @return {string[]}
+ */
+const getPageBlockNames = (pageClassesArray) => pageClassesArray
+  .map(pageClasses => pageClasses?.[0])
+  .filter(Boolean);
 
-// Function to fetch the data array from the JSON URL
+/**
+ * Function to fetch the data array from the JSON URL
+ * @returns {Promise<QueryIndexItem[]>}
+ */
 const fetchDataArray = async () => {
   try {
     const response = await fetch(jsonUrl);
@@ -64,63 +61,121 @@ const fetchDataArray = async () => {
 
 /**
  * Fetch the Page from URL and make notes of the classes and components
- * @param {string} url
- * @param {object} classCountMap
+ * @param {QueryIndexItem} queryIndexItem
+ * @param {DiscoveredItem} blocksCountMap
+ * @param {DiscoveredItem} fragmentCountMap
  */
-const fetchPage = async (url, classCountMap) => {
-  const [classNames, fragmentUrls] = await fetchPageClassNames(url);
+const processBlocksAndFragments = (queryIndexItem, blocksCountMap, fragmentCountMap) => {
+  if (!queryIndexItem) {
+    return;
+  }
 
-  classNames.forEach((className) => {
-    const componentName = className.split(' ')[0];
-    if (componentName in classCountMap) {
-      classCountMap[componentName].encounters += 1;
-      classCountMap[componentName].paths.push(url);
+  const blockNames = getPageBlockNames(queryIndexItem.blocks);
+  blockNames.forEach((blockName) => {
+    if (blockName in blocksCountMap) {
+      blocksCountMap[blockName].entries += 1;
+      blocksCountMap[blockName].paths.push(queryIndexItem.path);
     } else {
-      classCountMap[componentName] = {
-        encounters: 1,
-        paths: [url],
+      blocksCountMap[blockName] = {
+        entries: 1,
+        paths: [queryIndexItem.path],
       };
     }
   });
 
-  for (const fragmentUrl of fragmentUrls) {
-    await fetchPage(fragmentUrl, classCountMap);
-  }
+  queryIndexItem.fragments.forEach((fragmentPath) => {
+    const completeFragmentPath = fragmentPath.replace('lang', queryIndexItem.path.split('/')?.[2]);
+
+    if (fragmentCountMap[completeFragmentPath]) {
+      fragmentCountMap[completeFragmentPath].entries += 1;
+      fragmentCountMap[completeFragmentPath].paths.push(queryIndexItem.path);
+      processBlocksAndFragments(fragmentCountMap[completeFragmentPath]?.queryIndex, blocksCountMap, fragmentCountMap);
+    }
+  });
 };
 
-// Main function to process all paths
-const processPaths = async () => {
-  const classCountMap = {};
+/**
+ * Main function to process all paths
+ * @param {string[]} components
+ */
+const processPaths = async (components) => {
+  /** @type {DiscoveredItem} */
+  const blocksCountMap = {};
+  /** @type {DiscoveredItem} */
+  const fragmentCountMap = {};
 
   // Fetch data array from the JSON file
   const dataArray = await fetchDataArray();
 
-  // Process each path in the data array
-  const pageCalls = dataArray.map(async item => {
-    if (item.path.includes('sidekick')) {
-      return;
-    }
+  dataArray.forEach(item => {
+    try {
+      item.blocks = JSON.parse(item.blocks);
+      item.fragments = JSON.parse(item.fragments);
+      item.lastModifiedTimestamp = Number(item.lastModifiedTimestamp);
 
-    await fetchPage(item.path, classCountMap);
+      if (item.path.includes('fragment-collection')) {
+        fragmentCountMap[item.path] = {
+          entries: 0,
+          paths: [],
+          queryIndex: item,
+        };
+      }
+    } catch (e) {
+      console.warn(e);
+    }
   });
 
-  await Promise.all(pageCalls);
+  // Process each path in the data array
+  dataArray.forEach(item => processBlocksAndFragments(item, blocksCountMap, fragmentCountMap));
 
-  const allComponents = fs.readdirSync('./_src-lp/blocks', { withFileTypes: true })
-    .filter(item => item.isDirectory())
-    .map(item => item.name);
+  /** components to be searched passed as arguments */
+  let componentsToSearch;
+  try {
+    componentsToSearch = components.length
+      ? components
+      : fs.readdirSync('./_src-lp/blocks', { withFileTypes: true })
+        .filter(item => item.isDirectory())
+        .map(item => item.name);
+  } catch (e) {
+    componentsToSearch = Object.keys(blocksCountMap);
+  }
 
-  allComponents.forEach(componentName => {
-    if (!classCountMap[componentName]) {
-      console.log("Component ", componentName, " is not used");
-      return;
-    }
+  // Check all components and see which ones are worth noting
+  componentsToSearch
+    .forEach(componentName => {
+      if (KNOWN_USED_COMPONENTS.includes(componentName)) {
+        return;
+      }
 
-    if (classCountMap[componentName].encounters <= 5) {
-      console.log("Component ", componentName, " data: ", classCountMap[componentName]);
+      if (!blocksCountMap[componentName]) {
+        console.log("Component ", componentName, " is not used\n");
+        return;
+      }
+
+      console.log(
+        `Component ${componentName} was found `,
+        blocksCountMap[componentName].entries,
+        ` times.`,
+        `Example paths:`,
+        blocksCountMap[componentName].paths
+          // eslint-disable-next-line no-unused-vars
+          .sort((a, _) => (a.includes('/en/') ? -1 : 1))
+          .slice(0, 10),
+        '\n',
+      );
+    });
+
+  // Check all fragments and see which ones are not used
+  console.log('\nUnused Fragments:');
+  Object.entries(fragmentCountMap).forEach(([key, value]) => {
+    if (value.entries === 0) {
+      console.log(key);
     }
   });
 };
 
+// Get all the components that you wish to search for from the command line
+const componentsToSearch = process.argv.slice(2);
+
 // Run the main function
-processPaths();
+processPaths(componentsToSearch);
