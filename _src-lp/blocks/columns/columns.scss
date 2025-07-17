@@ -6,6 +6,10 @@
   margin-top: 0;
 }
 
+.columns-container.narrow-columns .columns-wrapper {
+  max-width: 800px;
+}
+
 .columns-container.new .columns h2 {
   font-size: var(--heading-font-size-s);
   line-height: var(--heading-font-size-s);

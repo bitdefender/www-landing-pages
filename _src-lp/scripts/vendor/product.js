@@ -1,7 +1,9 @@
-import { target } from '../target.js';
+import { targetPromise } from '../target.js';
 import Constants from '../constants.js';
-import page from '../page.js';
+import pagePromise from '../page.js';
 
+const target = await targetPromise;
+const page = await pagePromise;
 export default class ProductPrice {
 
   #productId = {
@@ -55,6 +57,7 @@ export default class ProductPrice {
 
   #locale;
   #campaign;
+  #campaignType;
   #prodString;
   #alias;
   #devicesNo;
@@ -185,10 +188,14 @@ export default class ProductPrice {
       this.#campaign = payload.campaign;
     }
 
+    if (payload.campaignType) {
+      this.#campaignType = payload.campaignType;
+    }
+
     const allOptions = payload.product.options.map(async (option) => {
       // if the product is already added, skip
       // if (window.StoreProducts?.product?.[this.#alias]) return;
-      if (this.#alias == 'vpn') option.slots = 10;
+      if (this.#alias == 'vpn' || this.#alias == 'vpn-monthly') option.slots = 10;
 
       if (this.#devicesNo != option.slots) return;
 
@@ -242,6 +249,7 @@ export default class ProductPrice {
         product_id: this.#productId[this.#alias],
         product_name: payload.product.productName,
         campaign: this.#campaign,
+        campaignType: this.#campaignType,
         locale: this.#locale,
         platformProductID: payload.platformProductId,
         variations: {

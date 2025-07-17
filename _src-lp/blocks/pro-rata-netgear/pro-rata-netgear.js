@@ -1,12 +1,13 @@
 import {
   sendAnalyticsPageLoadedEvent,
 } from '../../scripts/adobeDataLayer.js';
-import page from '../../scripts/page.js';
+import pagePromise from '../../scripts/page.js';
 
 import {
   GLOBAL_EVENTS,
 } from '../../scripts/utils.js';
 
+const page = await pagePromise;
 // check eligibility
 const checkEligibility = async (block, optionCode, neeligibilText) => {
   try {

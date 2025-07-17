@@ -37,10 +37,40 @@ jobs:
       - run: npm install
       - run: npm run test:unit
 
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changed_components: ${{ steps.get-changes.outputs.result }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files via GitHub API
+        id: get-changes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const githubData = await github.paginate(
+              github.rest.pulls.listFiles,
+              { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
+            );
+            const files = [...new Set(
+              githubData
+              .map(githubInfo => githubInfo.filename)
+              .filter(filePath => filePath.includes('block'))
+              .map(filePath => filePath.split('/')[2])
+            )];
+            return files;
+
   snapshots-tests:
+    needs: detect-changes
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  
       - run: npm install
 
       - name: Get Branch Name
@@ -52,6 +82,10 @@ jobs:
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
+          CHANGED_FILES: ${{ needs.detect-changes.outputs.changed_components }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
 
       - name: Inform Developer About Snapshot Failures
         if: failure()

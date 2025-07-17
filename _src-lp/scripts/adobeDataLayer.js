@@ -1,12 +1,14 @@
 import { AdobeDataLayerService, PageLoadStartedEvent } from '@repobit/dex-data-layer';
 import { User } from '@repobit/dex-utils';
-import { target, getPageNameAndSections, getDefaultLanguage } from './target.js';
-import page from './page.js';
+import { targetPromise, getPageNameAndSections, getDefaultLanguage } from './target.js';
+import pagePromise from './page.js';
 import { getMetadata } from './lib-franklin.js';
 import {
   GLOBAL_EVENTS, getCookie,
 } from './utils.js';
 
+const page = await pagePromise;
+const target = await targetPromise;
 /**
  * Sends the page load started event to the Adobe Data Layer
  */
@@ -147,6 +149,9 @@ export async function sendAnalyticsProducts(product, region) {
       discountRate: Math.round(((product.selected_variation.price - discountVal) * 100) / product.selected_variation.price).toString(),
       currency: product.selected_variation.currency_iso,
       grossPrice: discountVal,
+      discountCoupon: product.campaignType
+        ? `${product.campaignType}|${product.campaign}`
+        : (product.campaign || product?.config?.extra_params?.pid || ''),
     });
   }
 
