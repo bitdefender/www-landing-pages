@@ -406,13 +406,12 @@ async function fetchTrialLinks() {
   }
 }
 
-function getParamByName(name, link) {
+export function getParamByName(name, link) {
   name = name.replace(/[\[\]]/g, "\\$&");
   const regex = new RegExp("[?&]" + name + "=([^&#]*)");
   const results = regex.exec(link);
   return results ? decodeURIComponent(results[1].replace(/\+/g, " ")) : null;
 }
-
 
 async function fetchCampaignName() {
   try {
@@ -421,7 +420,7 @@ async function fetchCampaignName() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    
+
     if (data && data.product) return getParamByName('COUPON', data.product.options[0].buyLink);
     return false;
   } catch (error) {
@@ -468,8 +467,6 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     const currency = locale === 'de' ? 'EUR' : oldParams.get('CURRENCY');
     const dcurrency = locale === 'de' ? 'EUR' : oldParams.get('DCURRENCY');
     const coupon = campaign;
-
-    console.log('dcurrency ', coupon, locale, dcurrency)
 
     // get new URL and update params
     const updatedUrl = new URL(newUrl);
