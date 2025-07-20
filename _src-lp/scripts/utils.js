@@ -406,6 +406,29 @@ async function fetchTrialLinks() {
   }
 }
 
+function getParamByName(name, link) {
+  name = name.replace(/[\[\]]/g, "\\$&");
+  const regex = new RegExp("[?&]" + name + "=([^&#]*)");
+  const results = regex.exec(link);
+  return results ? decodeURIComponent(results[1].replace(/\+/g, " ")) : null;
+}
+
+
+async function fetchCampaignName() {
+  try {
+    const response = await fetch('https://www.bitdefender.com/p-api/v1/products/com.bitdefender.premiumsecurity.v2/locale/en-us');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    
+    if (data && data.product) return getParamByName('COUPON', data.product.options[0].buyLink);
+    return false;
+  } catch (error) {
+    throw new Error(`Fetch error! ${error.message}`);
+  }
+}
+
 // display prices
 export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
@@ -418,13 +441,16 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
   let result;
+  let locale = (page.getParamValue('locale')?.split('-')[0] || getDefaultLanguage()) || 'com';
+
+  // page.locale
   if (trialLinkValue) {
     const trialLinks = await fetchTrialLinks(trialLinkValue);
-    let locale = getDefaultLanguage() || 'com';
-    if (locale === 'en') locale = 'com';
+    const localeTrial = (locale === 'en' || locale === 'de') ? 'com' : locale;
 
-    result = trialLinks.find((item) => item.locale.toLowerCase() === locale && item.product === productId && parseInt(item.devices, 10) === parseInt(prodUsers, 10) && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10));
+    result = trialLinks.find((item) => item.locale.toLowerCase() === localeTrial && item.product === productId && parseInt(item.devices, 10) === parseInt(prodUsers, 10) && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10));
   }
+
 
   if (result) {
     const oldUrl = storeObj.buy_link;
@@ -432,12 +458,18 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     // get old URL params
     const oldParams = new URL(oldUrl).searchParams;
+    let campaign = oldParams.get('COUPON');
+
+    // IF DE, GET THE COUPON FROM COM
+    if (locale === 'de') campaign = await fetchCampaignName();
 
     // get params
-    const lang = oldParams.get('LANG');
-    const currency = oldParams.get('CURRENCY');
-    const dcurrency = oldParams.get('DCURRENCY');
-    const coupon = oldParams.get('COUPON');
+    const lang = locale === 'de' ? 'de' : oldParams.get('LANG');
+    const currency = locale === 'de' ? 'EUR' : oldParams.get('CURRENCY');
+    const dcurrency = locale === 'de' ? 'EUR' : oldParams.get('DCURRENCY');
+    const coupon = campaign;
+
+    console.log('dcurrency ', coupon, locale, dcurrency)
 
     // get new URL and update params
     const updatedUrl = new URL(newUrl);
