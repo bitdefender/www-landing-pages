@@ -440,7 +440,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
   let result;
-  let locale = (page.getParamValue('locale')?.split('-')[0] || getDefaultLanguage()) || 'com';
+  let locale = (page.getParamValue('locale')?.split('-')[0] || page.language || getDefaultLanguage()) || 'com';
 
   // page.locale
   if (trialLinkValue) {
