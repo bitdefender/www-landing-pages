@@ -3,6 +3,7 @@ import { targetPromise, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
 import pagePromise from './page.js';
+import { getParam } from './scripts.js';
 
 const target = await targetPromise;
 const page = await pagePromise;
@@ -457,10 +458,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     // get old URL params
     const oldParams = new URL(oldUrl).searchParams;
-    let campaign = oldParams.get('COUPON');
+    const paramCampaign = getParam('vcampaign');
+    let campaign = paramCampaign || oldParams.get('COUPON');
 
     // IF DE, GET THE COUPON FROM COM
-    if (locale === 'de') campaign = await fetchCampaignName();
+    if (locale === 'de' && !paramCampaign) campaign = await fetchCampaignName();
+
+    // if is set param
+    if (getParam('vcampaign')) campaign = getParam('vcampaign');
 
     // get params
     const lang = locale === 'de' ? 'de' : oldParams.get('LANG');
