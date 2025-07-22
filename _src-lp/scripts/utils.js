@@ -417,7 +417,7 @@ export function getParamByName(name, link) {
 async function fetchCampaignName() {
   try {
     const campaignParam = `/campaign/${getParam('vcampaign')}` || '';
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/com.bitdefender.premiumsecurity.v2/locale/en-us${campaignParam}`);
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/com.bitdefender.premiumsecurity.v2/locale/en-mt${campaignParam}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
