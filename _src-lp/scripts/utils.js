@@ -459,14 +459,10 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     // get old URL params
     const oldParams = new URL(oldUrl).searchParams;
-    const paramCampaign = getParam('vcampaign');
-    let campaign = paramCampaign || oldParams.get('COUPON');
+    let campaign = oldParams.get('COUPON');
 
     // IF DE, GET THE COUPON FROM COM
-    if (locale === 'de' && !paramCampaign) campaign = await fetchCampaignName();
-
-    // if is set param
-    if (getParam('vcampaign')) campaign = getParam('vcampaign');
+    if (locale === 'de') campaign = await fetchCampaignName();
 
     // get params
     const lang = locale === 'de' ? 'de' : oldParams.get('LANG');
