@@ -468,7 +468,7 @@ async function fetchCampaignName(productId, prodUsers, prodYears) {
     const prodName = VALICU_PRODS[productId];
     if (!prodName) return;
 
-    const campaignParam = `/campaign/${getParam('vcampaign')}` || '';
+    const campaignParam = getParam('vcampaign') ? `/campaign/${getParam('vcampaign')}` : '';
     const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/en-mt${campaignParam}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -504,16 +504,15 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
   let result;
-  let locale = (page.getParamValue('locale')?.split('-')[0] || page.language || getDefaultLanguage()) || 'com';
+  let locale = (page.getParamValue('locale')?.split('-')[0] || page.country || getDefaultLanguage()) || 'com';
 
   // page.locale
   if (trialLinkValue) {
     const trialLinks = await fetchTrialLinks(trialLinkValue);
-    const localeTrial = (locale === 'en' || locale === 'de') ? 'com' : locale;
+    const localeTrial = locale === 'gb' ? 'uk' : (['en', 'de', 'nl'].includes(locale) ? 'com' : locale);
 
     result = trialLinks.find((item) => item.locale.toLowerCase() === localeTrial && item.product === productId && parseInt(item.devices, 10) === parseInt(prodUsers, 10) && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10));
   }
-
 
   if (result) {
     const oldUrl = storeObj.buy_link;
@@ -524,7 +523,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
     let campaign = oldParams.get('COUPON');
 
     // IF DE, GET THE COUPON FROM COM
-    if (locale === 'de') campaign = await fetchCampaignName(productId, prodUsers, prodYears);
+    if (['de', 'nl'].includes(locale)) campaign = await fetchCampaignName(productId, prodUsers, prodYears);
 
     // get params
     const lang = locale === 'de' ? 'de' : oldParams.get('LANG');
