@@ -492,6 +492,111 @@ async function fetchCampaignName(productId, prodUsers, prodYears) {
   }
 }
 
+async function fetchOldBuyLink(productId, prodUsers, prodYears) {
+  try {
+    const prodName = VALICU_PRODS[productId];
+    if (!prodName) return;
+
+    const campaignParam = getParam('vcampaign') ? `/campaign/${getParam('vcampaign')}` : '';
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${page.locale}${campaignParam}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    if (prodYears >= 1 && prodYears <= 3) prodYears *= 12;
+
+    for (const item of data.product.options) {
+      return item.buyLink;
+    }
+
+    return false;
+  } catch (error) {
+    throw new Error(`Fetch error! ${error.message}`);
+  }
+}
+
+// DEX-23043
+export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined) {
+  const trialLinkValue = getMetadata('trialbuylinks');
+  if (!trialLinkValue) return;
+
+  const trialLinks = await fetchTrialLinks(trialLinkValue);
+  if (!trialLinks) return;
+
+  const getLocale = () => {
+    const raw = (page.getParamValue('locale')?.split('-')[0] || page.country || getDefaultLanguage() || 'com').toLowerCase();
+    return raw === 'gb' ? 'uk' : ['en', 'de', 'nl'].includes(raw) ? 'com' : raw;
+  };
+
+  const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears, locale) => {
+    const oldParams = new URL(oldUrl).searchParams;
+    let campaign = oldParams.get('COUPON');
+
+    if (['de', 'nl'].includes(locale)) {
+      campaign = await fetchCampaignName(productId, prodUsers, prodYears);
+    }
+
+    const updatedUrl = new URL(newUrl);
+    const newParams = updatedUrl.searchParams;
+
+    const lang = locale === 'de' ? 'de' : oldParams.get('LANG');
+    const currency = locale === 'de' ? 'EUR' : oldParams.get('CURRENCY');
+    const dcurrency = locale === 'de' ? 'EUR' : oldParams.get('DCURRENCY');
+
+    if (lang) newParams.set('LANG', lang);
+    if (currency) newParams.set('CURRENCY', currency);
+    if (dcurrency) newParams.set('DCURRENCY', dcurrency);
+    if (campaign) newParams.set('COUPON', campaign);
+
+    return updatedUrl.toString();
+  };
+
+  const locale = getLocale();
+
+  if (!onSelector) {
+    const sections = document.querySelectorAll('[data-trial-link-prod]');
+    for (const section of sections) {
+      const { trialLinkProd } = section.dataset;
+      const [productId, prodUsers, prodYears] = trialLinkProd.split('/');
+
+      const match = trialLinks.find(item =>
+        item.locale.toLowerCase() === locale &&
+        item.product === productId &&
+        parseInt(item.devices) === parseInt(prodUsers) &&
+        parseInt(item.duration) === parseInt(trialLinkValue)
+      );
+
+      if (match) {
+        const oldUrl = await fetchOldBuyLink(productId, prodUsers, prodYears);
+        const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears, locale);
+
+        section.querySelector('p.button-container a')?.setAttribute('href', updatedUrl);
+        section.querySelector('a.button.primary')?.setAttribute('href', updatedUrl);
+      }
+    }
+  } else {
+    const [productId, prodUsers, prodYears] = onSelector.split('/');
+    const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
+
+    const match = trialLinks.find(item =>
+      item.locale.toLowerCase() === locale &&
+      item.product === productId &&
+      parseInt(item.devices) === parseInt(prodUsers) &&
+      parseInt(item.duration) === parseInt(trialLinkValue)
+    );
+
+    if (match) {
+      const oldUrl = storeObjBuyLink;
+      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears, locale);
+
+      document.querySelectorAll(`.buylink-${onSelectorClass}`).forEach(link =>
+        link.setAttribute('href', updatedUrl)
+      );
+    }
+  }
+}
+
 // display prices
 export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
@@ -503,47 +608,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
-  let result;
-  let locale = (page.getParamValue('locale')?.split('-')[0] || page.country || getDefaultLanguage()) || 'com';
-
-  // page.locale
-  if (trialLinkValue) {
-    const trialLinks = await fetchTrialLinks(trialLinkValue);
-    const localeTrial = locale === 'gb' ? 'uk' : (['en', 'de', 'nl'].includes(locale) ? 'com' : locale);
-
-    result = trialLinks.find((item) => item.locale.toLowerCase() === localeTrial && item.product === productId && parseInt(item.devices, 10) === parseInt(prodUsers, 10) && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10));
-  }
-
-  if (result) {
-    const oldUrl = storeObj.buy_link;
-    const newUrl = result.buy_link;
-
-    // get old URL params
-    const oldParams = new URL(oldUrl).searchParams;
-    let campaign = oldParams.get('COUPON');
-
-    // IF DE, GET THE COUPON FROM COM
-    if (['de', 'nl'].includes(locale)) campaign = await fetchCampaignName(productId, prodUsers, prodYears);
-
-    // get params
-    const lang = locale === 'de' ? 'de' : oldParams.get('LANG');
-    const currency = locale === 'de' ? 'EUR' : oldParams.get('CURRENCY');
-    const dcurrency = locale === 'de' ? 'EUR' : oldParams.get('DCURRENCY');
-    const coupon = campaign;
-
-    // get new URL and update params
-    const updatedUrl = new URL(newUrl);
-    const newParams = updatedUrl.searchParams;
-
-    if (lang) newParams.set('LANG', lang);
-    if (currency) newParams.set('CURRENCY', currency);
-    if (dcurrency) newParams.set('DCURRENCY', dcurrency);
-    if (coupon) newParams.set('COUPON', coupon);
-
-    // updated URL
-    storeObj.buy_link = updatedUrl.toString();
-  }
-
+  if (trialLinkValue) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link);
+  
   if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
   let parentDiv = '';
