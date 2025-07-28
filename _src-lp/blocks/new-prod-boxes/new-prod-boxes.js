@@ -720,6 +720,7 @@ export default function decorate(block) {
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
+  matchHeights(targetNode, '.benefitsLists ul:first-of-type');
 
   // set max height for benefits
   if (set && set === 'height') {
