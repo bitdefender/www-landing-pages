@@ -526,7 +526,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
   const getLocale = () => {
     const raw = (page.getParamValue('locale')?.split('-')[0] || page.country || getDefaultLanguage() || 'com').toLowerCase();
-    return raw === 'gb' ? 'uk' : ['en', 'de', 'nl'].includes(raw) ? 'com' : raw;
+    return raw === 'gb' ? 'uk' : ['en', 'de', 'nl', 'mx'].includes(raw) ? 'com' : raw;
   };
 
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears, locale) => {
