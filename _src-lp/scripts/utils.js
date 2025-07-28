@@ -526,14 +526,14 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
   const getLocale = () => {
     const raw = (page.getParamValue('locale')?.split('-')[0] || page.country || getDefaultLanguage() || 'com').toLowerCase();
-    return raw === 'gb' ? 'uk' : ['en', 'de', 'nl', 'mx'].includes(raw) ? 'com' : raw;
+    return raw === 'gb' ? 'uk' : ['en', 'de', 'nl'].includes(raw) ? 'com' : raw;
   };
 
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears, locale) => {
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = oldParams.get('COUPON');
 
-    if (['de', 'nl'].includes(locale)) {
+    if (['de', 'nl', 'mx'].includes(locale)) {
       campaign = await fetchCampaignName(productId, prodUsers, prodYears);
     }
 
@@ -552,7 +552,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     return updatedUrl.toString();
   };
 
-  const locale = getLocale();
+  let locale = getLocale();
+  // if in the file there is no match for locale, than we use com
+  locale = trialLinks.find(item => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
 
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
