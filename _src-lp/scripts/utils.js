@@ -603,6 +603,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
   const { product_id: productId } = storeObj.config;
+  console.log('storeObj ', storeObj)
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
@@ -676,7 +677,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
-    const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
+    let offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
     const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
     const offerPriceYearly = formatPrice((selectedVarDiscount * 12).toFixed(2), currencyIso, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
@@ -704,7 +705,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           } else if (item.classList.contains('calculate_yearly')) {
             item.innerHTML = offerPriceYearly;
           } else {
-            item.innerHTML = offerPrice;
+            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/\d+(\.\d+)?/, '0') : offerPrice;
           }
         });
       }
@@ -849,7 +850,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         });
       } else {
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = fullPrice;
+          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/\d+(\.\d+)?/, '0') : fullPrice;
         });
       }
     }
