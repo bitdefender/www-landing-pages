@@ -411,7 +411,7 @@ export default function decorate(block) {
             if (type === 'dropdown-benefits') {
               li.innerHTML = `
                 <label for="${value}">${priceSpan}${labelText.trim()} ${bluePill ? `<span class="blue-pill-tag">+${bluePill}</span>` : ''}</label>
-                <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+                <input type="radio" name="card-radio-${key}" id="${value}" value="${selectorClass}" ${isChecked}>
               `;
             } else {
               li.innerHTML = `
