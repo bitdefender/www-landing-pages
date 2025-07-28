@@ -79,13 +79,16 @@ export default async function decorate(block) {
 
       block.innerHTML = html;
       const logoEl = block.querySelector('p');
-      const imgEl = block.querySelector('p:first-child img');
+      const imgEl = block.querySelectorAll('img');
 
-      const anchorEl = `<a title="Bitdefender" href="${linklessNav ? '#' : homeUrl}">${imgEl.cloneNode(true).outerHTML}</a>`;
+      const anchorEl = `<a title="Bitdefender" href="${linklessNav ? '#' : homeUrl}">${imgEl[0].cloneNode(true).outerHTML}</a>`;
+      const secondImg = imgEl[1];
+      secondImg.style.marginLeft = '5px';
       // clear first paragraf
       logoEl.innerHTML = '';
       // add the new content logo with anchor
       logoEl.innerHTML = anchorEl;
+      if (secondImg) logoEl.innerHTML += secondImg.outerHTML;
 
       block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('custom_nav') !== -1 || html.indexOf('custom_nav_white') !== -1) {

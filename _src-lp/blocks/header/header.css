@@ -20,6 +20,7 @@ header.customNav .block div p {
 header.customNav .block div p img {
   max-height: 40px;
   width: auto;
+  margin-left: 5px;
 }
 header.customNav .block div a img {
   max-height: 25px;

@@ -566,6 +566,29 @@
   display: inline-block;
 }
 
+.section.banner-container.new-green-pill p {
+  color: #000;
+  font-size: 20px;
+}
+
+.section.banner-container.new-green-pill h1 strong{
+  color: #000;
+  text-align: left;
+  font-size: 53px;
+}
+
+.section.banner-container.new-green-pill #greenPillBox {
+  background-color: #D1FADC;
+  color: #1F7536;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.section.banner-container.new-green-pill #greenPillBox span{
+  font-weight: 700;
+} 
+
 .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(1)::before {
   background: url('../../icons/individual_white.png') no-repeat 0 0 transparent;
 }
@@ -771,6 +794,10 @@
 
   .section.lp-brand .banner h1 {
     text-align: center;
+  }
+
+  .section.banner-container.new-green-pill h1 {
+    text-align: left;
   }
 
   .section.banner-container.new-2024.v2 .banner h1 {

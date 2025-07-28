@@ -133,11 +133,13 @@ export default function decorate(block) {
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
         const link = text.querySelector('a');
-        (link || text).innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+        (link || text).innerHTML = text.innerText.replace(
+          /0\s*%/g,
+          '<span class="max-discount"></span>',
+        );
       }
 
       greenPillBox.id = 'greenPillBox';
-      greenPillBox.className = `green_pill_box await-loader prodload prodload-${onSelectorClass}`;
       greenPillBox.innerHTML += `<span>${text.innerHTML}</span>`;
 
       // replace the table with greenPillBox in the exact same position

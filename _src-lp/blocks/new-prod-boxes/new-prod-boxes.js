@@ -376,7 +376,7 @@ export default function decorate(block) {
         const optionSelector = document.createElement('select');
         optionList.querySelectorAll('li').forEach((li, idx) => {
           const buyLinkObj = buyLinksObj[idx] || buyLinksObj[0];
-          const [labelText, variationText] = li.textContent.trim().split('+');
+          const [labelText, variationText, bluePill] = li.textContent.trim().split('+');
           const [pname, pusers, pyears] = variationText.split('/');
           const selectorClass = `${pname.trim()}-${pusers}${pyears}`;
           const value = variationText.trim();
@@ -410,7 +410,7 @@ export default function decorate(block) {
 
             if (type === 'dropdown-benefits') {
               li.innerHTML = `
-                <label for="${value}">${priceSpan}${labelText.trim()}</label>
+                <label for="${value}">${priceSpan}${labelText.trim()} ${bluePill ? `<span class="blue-pill-tag">+${bluePill}</span>` : ''}</label>
                 <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
               `;
             } else {
@@ -775,15 +775,15 @@ export default function decorate(block) {
     benefitsLists.forEach((list) => {
       const listItems = list.querySelectorAll('li');
       if (listItems.length === 0) return;
-
       const firstLi = listItems[0];
-
+      const secondLi = listItems[4];
       // Add dropdown icon
-      firstLi.innerHTML += '<svg style="height: 20px; margin-left: 0.5rem; transition: transform 0.3s;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>';
-
+      if (!block.closest('.section').classList.contains('show-more-show-less')) {
+        firstLi.innerHTML += '<svg style="height: 20px; margin-left: 0.5rem; transition: transform 0.3s;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>';
+      }
       // Hide all li except first
       listItems.forEach((li, index) => {
-        if (index > 0) li.style.display = 'none';
+        if (block.closest('.section').classList.contains('show-more-show-less') ? index > 4 : index > 0) li.style.display = 'none';
       });
 
       const innerBoxes = block.querySelectorAll('.inner_prod_box');
@@ -795,21 +795,24 @@ export default function decorate(block) {
       list.dataset.expanded = 'false';
 
       // Toggle this specific list only
-      firstLi.addEventListener('click', () => {
+      const toggleList = block.closest('.section').classList.contains('show-more-show-less') ? secondLi : firstLi;
+      toggleList.classList.add('list-toggle');
+      toggleList.addEventListener('click', () => {
         const isExpanded = list.dataset.expanded === 'true';
         list.dataset.expanded = (!isExpanded).toString();
 
         listItems.forEach((li, index) => {
-          if (index > 0) {
-            li.style.display = isExpanded ? 'none' : 'list-item';
+          if (block.closest('.section').classList.contains('show-more-show-less') ? index > 4 : index > 0) {
+            li.style.display = isExpanded ? 'none' : 'flex';
           }
         });
 
         // 🔄 Comută display-ul pe containerul de ul-uri
         list.style.display = isExpanded ? 'flex' : 'block';
+        list.style.flexDirection = isExpanded ? 'column' : '';
 
         // Optional: rotate icon
-        const icon = firstLi.querySelector('svg');
+        const icon = toggleList.querySelector('svg');
         if (icon) {
           icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
         }

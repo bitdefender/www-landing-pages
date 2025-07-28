@@ -347,8 +347,8 @@ export function formatPrice(price, currency) {
 // get max discount
 function maxDiscount() {
   const discountAmounts = [];
-  if (document.querySelector('.percent')) {
-    document.querySelectorAll('.percent').forEach((item) => {
+  if (document.querySelector('.prod-percent')) {
+    document.querySelectorAll('.prod-percent').forEach((item) => {
       const discountAmount = parseInt(item.textContent, 10);
       if (!Number.isNaN(discountAmount)) {
         discountAmounts.push(discountAmount);
