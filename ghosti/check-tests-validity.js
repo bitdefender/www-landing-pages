@@ -72,17 +72,18 @@ const askWithImage = async (screenshotsInfo) => {
     const response = await openai.chat.completions.create({
       model: "o4-mini",  
       messages: [
-        { role: "system", content: "You’re a UI-diff assistant." },
+        { role: "role", content: `
+          I want you to act as a Senior QA Engineer who is tasked with determinining whether the snapshot test changes are justified or not using ticket information from Jira.
+          I want you to respond with only one string message like this: "Final verdict: FAIL" if you think the changes are not justified or "Final verdict: PASS" if you think they are justified in accordance to the Jira ticket.` },
         { 
           role: "user", 
           content: [
             { 
               type: 'text',
               text: `
-                Baseline dimensions: ${dims.w}×${dims.h}px.
-                I attatched the image which contains the differences between the baseline and the new screenshot.
+                Context: A snapshot test has just failed and an image containing the differences between the baseline and the new screenshot was attatched to this message. Baseline dimensions are ${dims.w}×${dims.h}px.
+
                 Analyze whether any of these changes violate the Jira acceptance criteria.
-                At the end of your message, provide a string like this: "Final verdict: FAIL" if you think the changes are not justified or "Final verdict: PASS" if you think they are justified in accordance to the Jira ticket. 
                 Here is the Jira ticket description: ${description}.
                 And here are all the ticket comments in order of publication on the ticket: ${comments}
               `,
