@@ -797,26 +797,6 @@ export default function decorate(block) {
       // Toggle this specific list only
       const toggleList = block.closest('.section').classList.contains('show-more-show-less') ? secondLi : firstLi;
       toggleList.classList.add('list-toggle');
-      toggleList.addEventListener('click', () => {
-        const isExpanded = list.dataset.expanded === 'true';
-        list.dataset.expanded = (!isExpanded).toString();
-
-        listItems.forEach((li, index) => {
-          if (block.closest('.section').classList.contains('show-more-show-less') ? index > 4 : index > 0) {
-            li.style.display = isExpanded ? 'none' : 'flex';
-          }
-        });
-
-        // 🔄 Comută display-ul pe containerul de ul-uri
-        list.style.display = isExpanded ? 'flex' : 'block';
-        list.style.flexDirection = isExpanded ? 'column' : '';
-
-        // Optional: rotate icon
-        const icon = toggleList.querySelector('svg');
-        if (icon) {
-          icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
-        }
-      });
     });
   }
 
@@ -830,4 +810,24 @@ export default function decorate(block) {
 
   window.addEventListener('resize', updateMargin());
   setTimeout(() => updateMargin(), 0);
+
+  block.addEventListener('click', (e) => {
+    const toggleListItem = e.target.closest('.list-toggle');
+    if (!toggleListItem) return;
+
+    const list = toggleListItem.closest('.benefitsLists');
+    const listItems = list.querySelectorAll('li');
+
+    const isExpanded = list.dataset.expanded === 'true';
+    list.dataset.expanded = (!isExpanded).toString();
+
+    listItems.forEach((li, index) => {
+      if (block.closest('.section').classList.contains('show-more-show-less') ? index > 4 : index > 0) {
+        li.style.display = isExpanded ? 'none' : 'flex';
+      }
+    });
+
+    const icon = toggleListItem.querySelector('svg');
+    if (icon) icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+  });
 }
