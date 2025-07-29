@@ -1,3 +1,4 @@
+import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { detectModalButtons, productAliases, isView } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -493,4 +494,5 @@ export default function decorate(block) {
   }
 
   detectModalButtons(block);
+  decorateIcons(block);
 }
