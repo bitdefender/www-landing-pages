@@ -468,8 +468,11 @@ async function fetchCampaignName(productId, prodUsers, prodYears) {
     const prodName = VALICU_PRODS[productId];
     if (!prodName) return;
 
+    let getSegment = 'en-mt';
+    if (["au", 'gb'].includes(page.country)) getSegment = page.locale;
+
     const campaignParam = getParam('vcampaign') ? `/campaign/${getParam('vcampaign')}` : '';
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/en-mt${campaignParam}`);
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${getSegment}${campaignParam}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -529,20 +532,25 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     return raw === 'gb' ? 'uk' : ['en', 'de', 'nl'].includes(raw) ? 'com' : raw;
   };
 
-  const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears, locale) => {
+  const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
+    const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = oldParams.get('COUPON');
 
-    if (['de', 'nl', 'mx'].includes(locale)) {
+    if (['de', 'nl', "au", 'gb'].includes(page.country)) {
       campaign = await fetchCampaignName(productId, prodUsers, prodYears);
     }
 
     const updatedUrl = new URL(newUrl);
     const newParams = updatedUrl.searchParams;
 
-    const lang = locale === 'de' ? 'de' : oldParams.get('LANG');
-    const currency = locale === 'de' ? 'EUR' : oldParams.get('CURRENCY');
-    const dcurrency = locale === 'de' ? 'EUR' : oldParams.get('DCURRENCY');
+    const exceptionsCountry = ['de', 'nl'].includes(page.country);
+    const getParamOrDefault = (param, fallback) => oldParams.get(param) || fallback;
+
+    // if: de || nl || noParam - we set locale / EUR
+    const lang = exceptionsCountry ? locale : getParamOrDefault('LANG', locale);
+    const currency = exceptionsCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
+    const dcurrency = exceptionsCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
 
     if (lang) newParams.set('LANG', lang);
     if (currency) newParams.set('CURRENCY', currency);
@@ -571,8 +579,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
       if (match) {
         const oldUrl = await fetchOldBuyLink(productId, prodUsers, prodYears);
-        const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears, locale);
-
+        const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
         section.querySelector('p.button-container a')?.setAttribute('href', updatedUrl);
         section.querySelector('a.button.primary')?.setAttribute('href', updatedUrl);
       }
@@ -590,7 +597,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
     if (match) {
       const oldUrl = storeObjBuyLink;
-      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears, locale);
+      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
 
       document.querySelectorAll(`.buylink-${onSelectorClass}`).forEach(link =>
         link.setAttribute('href', updatedUrl)
@@ -605,7 +612,6 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
   const { product_id: productId } = storeObj.config;
-  console.log('storeObj ', storeObj)
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
