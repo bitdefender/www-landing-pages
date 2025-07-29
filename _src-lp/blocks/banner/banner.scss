@@ -571,10 +571,9 @@
   font-size: 20px;
 }
 
-.section.banner-container.new-green-pill h1 strong{
+.section.banner-container.new-green-pill h1 strong {
   color: #000;
   text-align: left;
-  font-size: 53px;
 }
 
 .section.banner-container.new-green-pill #greenPillBox {
@@ -587,7 +586,16 @@
 
 .section.banner-container.new-green-pill #greenPillBox span{
   font-weight: 700;
+  align-items: center;
+  display: flex;
+  gap: 5px;
 } 
+
+.section.banner-container.new-green-pill #greenPillBox .icon {
+  width: 25px;
+  height: 25px;
+  margin-bottom: 2px;
+}
 
 .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(1)::before {
   background: url('../../icons/individual_white.png') no-repeat 0 0 transparent;
@@ -639,6 +647,10 @@
   .section.banner-container.full-width-headings .banner h1 {
     margin-right: -40vw;
     border-bottom: 0;
+  }
+
+  .section.banner-container.new-green-pill h1 strong {
+    font-size: 53px;
   }
 
   .section.lp-brand .banner p {
@@ -712,6 +724,10 @@
 
   .section.banner-container #pricesBox .terms p a {
     color: #006DFF;
+  }
+  
+  .section.banner-container.new-green-pill .col-md-7 {
+    width: 80%;
   }
 }
 

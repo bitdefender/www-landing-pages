@@ -52,14 +52,23 @@ header#headerBlue p {
   padding: 0;
   margin: 0;
 }
+header#headerBlue p > img {
+  height: 50px;
+  width: auto;
+  margin-left: 20px;
+  position: relative;
+  top: -10px;
+}
 header#headerBlue a {
   text-align: center;
   color: #006eff;
 }
-header#headerBlue img {
+header#headerBlue a img {
   height: 26px;
   display: inline-block;
   width: auto;
+  position: relative;
+  top: -12px;
 }
 header#headerBlue .section-metadata {
   display: none;

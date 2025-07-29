@@ -133,7 +133,7 @@ export default function decorate(block) {
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
         const link = text.querySelector('a');
-        (link || text).innerHTML = text.innerText.replace(
+        (link || text).innerHTML = text.innerHTML.replace(
           /0\s*%/g,
           '<span class="max-discount"></span>',
         );
@@ -384,7 +384,7 @@ export default function decorate(block) {
         parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
       }
     } else {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / cover ${backgroundColor || '#000'}`;
     }
 
     const imageCoverVar = imageCover.split('-')[1];

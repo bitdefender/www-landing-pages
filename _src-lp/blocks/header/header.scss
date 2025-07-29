@@ -66,17 +66,27 @@ header#headerBlue {
   p {
     padding: 0;
     margin: 0;
+
+    > img {
+      height: 50px;
+      width: auto;
+      margin-left: 20px;
+      position: relative;
+      top: -10px;
+    }
   }
 
   a {
     text-align: center;
     color: #006eff;
-  }
 
-  img {
-    height: 26px;
-    display: inline-block;
-    width: auto;
+    img {
+      height: 26px;
+      display: inline-block;
+      width: auto;
+      position: relative;
+      top: -12px;
+    }
   }
 
   .section-metadata {

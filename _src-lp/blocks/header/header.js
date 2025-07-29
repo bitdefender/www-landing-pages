@@ -83,7 +83,6 @@ export default async function decorate(block) {
 
       const anchorEl = `<a title="Bitdefender" href="${linklessNav ? '#' : homeUrl}">${imgEl[0].cloneNode(true).outerHTML}</a>`;
       const secondImg = imgEl[1];
-      secondImg.style.marginLeft = '5px';
       // clear first paragraf
       logoEl.innerHTML = '';
       // add the new content logo with anchor

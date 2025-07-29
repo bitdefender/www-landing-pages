@@ -721,6 +721,7 @@ export default function decorate(block) {
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');
+  matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
 
   // set max height for benefits
   if (set && set === 'height') {
@@ -772,19 +773,19 @@ export default function decorate(block) {
 
   if (type === 'dropdown-benefits') {
     const benefitsLists = block.querySelectorAll('.benefitsLists');
-
+    const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
     benefitsLists.forEach((list) => {
       const listItems = list.querySelectorAll('li');
       if (listItems.length === 0) return;
       const firstLi = listItems[0];
       const secondLi = listItems[4];
       // Add dropdown icon
-      if (!block.closest('.section').classList.contains('show-more-show-less')) {
+      if (!isShowMoreShowLess) {
         firstLi.innerHTML += '<svg style="height: 20px; margin-left: 0.5rem; transition: transform 0.3s;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>';
       }
       // Hide all li except first
       listItems.forEach((li, index) => {
-        if (block.closest('.section').classList.contains('show-more-show-less') ? index > 4 : index > 0) li.style.display = 'none';
+        if (isShowMoreShowLess ? index > 4 : index > 0) li.style.display = 'none';
       });
 
       const innerBoxes = block.querySelectorAll('.inner_prod_box');
@@ -796,8 +797,9 @@ export default function decorate(block) {
       list.dataset.expanded = 'false';
 
       // Toggle this specific list only
-      const toggleList = block.closest('.section').classList.contains('show-more-show-less') ? secondLi : firstLi;
+      const toggleList = isShowMoreShowLess ? secondLi : firstLi;
       toggleList.classList.add('list-toggle');
+      if (isShowMoreShowLess) toggleList.nextElementSibling.classList.add('list-toggle');
     });
   }
 
@@ -813,22 +815,33 @@ export default function decorate(block) {
   setTimeout(() => updateMargin(), 0);
 
   block.addEventListener('click', (e) => {
-    const toggleListItem = e.target.closest('.list-toggle');
-    if (!toggleListItem) return;
+    const clickedButton = e.target.closest('.list-toggle');
+    if (!clickedButton) return;
 
-    const list = toggleListItem.closest('.benefitsLists');
+    const list = clickedButton.closest('.benefitsLists');
     const listItems = list.querySelectorAll('li');
 
+    const section = block.closest('.section');
+    const hasShowMoreLogic = section.classList.contains('show-more-show-less');
+    const threshold = hasShowMoreLogic ? 4 : 0;
+
     const isExpanded = list.dataset.expanded === 'true';
-    list.dataset.expanded = (!isExpanded).toString();
+    const newExpanded = !isExpanded;
+    list.dataset.expanded = newExpanded.toString();
 
     listItems.forEach((li, index) => {
-      if (block.closest('.section').classList.contains('show-more-show-less') ? index > 4 : index > 0) {
-        li.style.display = isExpanded ? 'none' : 'flex';
-      }
+      const shouldBeVisible = newExpanded || index <= threshold;
+      li.style.display = shouldBeVisible ? 'flex' : 'none';
     });
 
-    const icon = toggleListItem.querySelector('svg');
-    if (icon) icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+    // Handle toggle visibility: show one .list-toggle and hide the other
+    const toggleButtons = list.querySelectorAll('.list-toggle');
+    toggleButtons.forEach((btn) => {
+      btn.style.display = btn === clickedButton ? 'none' : 'flex';
+    });
+
+    // Rotate the icon inside the clicked button, if present
+    const icon = clickedButton.querySelector('svg');
+    if (icon) icon.style.transform = newExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
   });
 }
