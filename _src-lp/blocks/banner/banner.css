@@ -569,6 +569,10 @@
   font-size: 20px;
 }
 
+.section.banner-container.new-green-pill h1:first-of-type {
+  margin-bottom: 28px;
+}
+
 .section.banner-container.new-green-pill h1 strong {
   color: #000;
   text-align: left;

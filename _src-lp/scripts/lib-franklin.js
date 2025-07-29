@@ -159,17 +159,11 @@ export async function decorateIcons2(element = document) {
 }
 
 const ICONS_CACHE = {};
-
+/**
+ * Replace icons with inline SVG and prefix with codeBasePath.
+ * @param {Element} [element] Element containing icons
+ */
 async function internalDecorateIcons(element) {
-  // Prepare the inline sprite
-  let svgSprite = document.getElementById('franklin-svg-sprite');
-  if (!svgSprite) {
-    const div = document.createElement('div');
-    div.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" id="franklin-svg-sprite" style="display: none"></svg>';
-    svgSprite = div.firstElementChild;
-    document.body.append(div.firstElementChild);
-  }
-
   // Download all new icons
   const icons = [...element.querySelectorAll('span.icon')];
   await Promise.all(icons.map(async (span) => {
@@ -177,26 +171,15 @@ async function internalDecorateIcons(element) {
     if (!ICONS_CACHE[iconName]) {
       ICONS_CACHE[iconName] = true;
       try {
-        const hasPagesPrefix = window.location.pathname.split('/').filter((path) => path)[0] === 'pages';
-        const dynamicIconsSharepointPath = `${hasPagesPrefix ? '/pages' : ''}/icons/`;
+        const dynamicIconsSharepointPath = '/icons/';
         const response = await fetch(`${dynamicIconsSharepointPath}${iconName}.svg`);
         if (!response.ok) {
           ICONS_CACHE[iconName] = false;
           return;
         }
-        // Styled icons don't play nice with the sprite approach because of shadow dom isolation
+
         const svg = await response.text();
-        if (svg.match(/(<style | class=)/)) {
-          ICONS_CACHE[iconName] = { styled: true, html: svg };
-        } else {
-          ICONS_CACHE[iconName] = {
-            html: svg
-              .replace('<svg', `<symbol id="icons-sprite-${iconName}"`)
-              .replace(/ width=".*?"/, '')
-              .replace(/ height=".*?"/, '')
-              .replace('</svg>', '</symbol>'),
-          };
-        }
+        ICONS_CACHE[iconName] = { html: svg };
       } catch (error) {
         ICONS_CACHE[iconName] = false;
         // eslint-disable-next-line no-console
@@ -205,24 +188,22 @@ async function internalDecorateIcons(element) {
     }
   }));
 
-  const symbols = Object.values(ICONS_CACHE).filter((v) => !v.styled).map((v) => v.html).join('\n');
-  svgSprite.innerHTML += symbols;
-
   icons.forEach((span) => {
     const iconName = Array.from(span.classList).find((c) => c.startsWith('icon-')).substring(5);
     const parent = span.firstElementChild?.tagName === 'A' ? span.firstElementChild : span;
 
     // Set aria-label if the parent is an anchor tag
-    const spanParent = span.parentElement;
-    if (spanParent.tagName === 'A' && !spanParent.hasAttribute('aria-label')) {
-      spanParent.setAttribute('aria-label', iconName);
+    try {
+      const spanParent = span.parentElement;
+      if (spanParent?.tagName === 'A' && !spanParent?.hasAttribute('aria-label')) {
+        spanParent.setAttribute('aria-label', iconName);
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(`Error setting aria-label for icon ${iconName}:`, error);
     }
-    // Styled icons need to be inlined as-is, while unstyled ones can leverage the sprite
-    if (ICONS_CACHE[iconName] && ICONS_CACHE[iconName].styled) {
-      parent.innerHTML = ICONS_CACHE[iconName].html;
-    } else {
-      parent.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-${iconName}"/></svg>`;
-    }
+
+    parent.innerHTML = ICONS_CACHE[iconName].html;
   });
 }
 
