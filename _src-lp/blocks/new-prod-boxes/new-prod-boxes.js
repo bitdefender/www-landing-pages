@@ -831,7 +831,7 @@ export default function decorate(block) {
 
     listItems.forEach((li, index) => {
       const shouldBeVisible = newExpanded || index <= threshold;
-      li.style.display = shouldBeVisible ? 'flex' : 'none';
+      li.style.display = shouldBeVisible ? 'block' : 'none';
     });
 
     // Handle toggle visibility: show one .list-toggle and hide the other
