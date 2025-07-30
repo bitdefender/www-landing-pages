@@ -263,6 +263,11 @@
   margin: 0 auto 15px;
 }
 
+.section.banner-container.new-green-pill p {
+  color: #000;
+  font-size: 20px;
+}
+
 .section.banner-container.new-2024.v2 p {
   font-size: 13px;
   line-height: 15px;
@@ -299,6 +304,11 @@
   align-items: center;
   margin: 0;
   line-height: 17px;
+}
+
+.section.banner-container.new-green-pill h1 strong {
+  color: #000;
+  text-align: left;
 }
 
 .section.banner-container .banner .blue-box tr td p strong {
@@ -562,16 +572,6 @@
   margin-right: 5px;
   background-size: auto 100% !important;
   display: inline-block;
-}
-
-.section.banner-container.new-green-pill p {
-  color: #000;
-  font-size: 20px;
-}
-
-.section.banner-container.new-green-pill h1 strong {
-  color: #000;
-  text-align: left;
 }
 
 .section.banner-container.new-green-pill #greenPillBox {
