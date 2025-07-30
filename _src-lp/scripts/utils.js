@@ -528,8 +528,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   if (!trialLinks) return;
 
   const getLocale = () => {
-    const raw = (page.getParamValue('locale')?.split('-')[0] || page.country || getDefaultLanguage() || 'com').toLowerCase();
-    return raw === 'gb' ? 'uk' : ['en', 'de', 'nl'].includes(raw) ? 'com' : raw;
+    let raw = (page.getParamValue('locale')?.split('-')[0] || page.country || getDefaultLanguage() || 'com').toLowerCase();
+    if (raw === 'gb') raw = 'uk';
+    if (['en', 'de', 'nl'].includes(raw)) raw = 'com';
+
+    return raw;
   };
 
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
@@ -560,6 +563,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     return updatedUrl.toString();
   };
 
+  // let locale = getLocale();
   let locale = getLocale();
   // if in the file there is no match for locale, than we use com
   locale = trialLinks.find(item => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
