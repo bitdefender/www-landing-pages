@@ -474,9 +474,7 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? page.locale
       : 'en-mt';
 
-    const response = await fetch(
-      `https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`
-    );
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -493,9 +491,9 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       if (mode === 'coupon') {
         const coupon = getParamByName('COUPON', item.buyLink);
         if (
-          item.slots === Number(prodUsers) &&
-          item.months === durationInMonths &&
-          coupon
+          item.slots === Number(prodUsers) 
+          && item.months === durationInMonths 
+          && coupon
         ) {
           return coupon;
         }
@@ -617,11 +615,12 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const [productId, prodUsers, prodYears] = onSelector.split('/');
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
-    const match = trialLinks.find((item) =>
+    const match = trialLinks.find((item) => (
       item.locale.toLowerCase() === locale
-      && item.product === productId
-      && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-      && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10));
+        && item.product === productId
+        && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+        && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+    ));
 
     if (match) {
       const oldUrl = storeObjBuyLink;
