@@ -112,17 +112,21 @@ function extractBuyLinks(tdElement) {
 }
 
 export default function decorate(block) {
-  const metaData = block.closest('.section').dataset;
+  const parentSection = block.closest('.section');
+  const metaData = parentSection.dataset;
   const {
     products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks,
   } = metaData;
   const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
 
+  let trialLinks = false;
+  if (parentSection.classList.contains('trial-links')) trialLinks = true;
+
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
-    const defaultContentWrapperElements = block.closest('.section').querySelector('.default-content-wrapper')?.children;
+    const defaultContentWrapperElements = parentSection.querySelector('.default-content-wrapper')?.children;
     let individualSwitchText;
     let familySwitchText;
     if (defaultContentWrapperElements) {
@@ -223,7 +227,7 @@ export default function decorate(block) {
 
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
-      const [prodName, prodUsers, prodYears] = productsAsList[key].split('/');
+      const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
@@ -491,7 +495,7 @@ export default function decorate(block) {
                 <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
               </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                <span class="prod-newprice newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
+                <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
                 <sup>${price.innerText.trim().replace('0', '')}</sup>
               </div>`}
 

@@ -717,6 +717,11 @@
   line-height: var(--heading-font-size-s);
 }
 
+.new-prod-boxes-container.trial-links .block .prod_box .inner_prod_box .billed span[class^=newprice-] {
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
   font-size: 12px;
   font-family: Arial, sans-serif;
