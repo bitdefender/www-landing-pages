@@ -487,19 +487,20 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? prodYears * 12
       : prodYears;
 
-    for (const item of data.product.options) {
-      if (mode === 'coupon') {
+    if (mode === 'coupon') {
+      const match = data.product.options.find(item => {
         const coupon = getParamByName('COUPON', item.buyLink);
-        if (
-          item.slots === Number(prodUsers) 
-          && item.months === durationInMonths 
+        return (
+          item.slots === Number(prodUsers)
+          && item.months === durationInMonths
           && coupon
-        ) {
-          return coupon;
-        }
-      } else if (mode === 'buyLink') {
-        return item.buyLink;
-      }
+        );
+      });
+
+      if (match) return getParamByName('COUPON', match.buyLink);
+    } else if (mode === 'buyLink') {
+      const match = data.product.options[0]; 
+      return match?.buyLink;
     }
 
     return null;
