@@ -561,11 +561,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     return updatedUrl.toString();
   };
 
-  // let locale = getLocale();
   let locale = getLocale();
-  console.log('locale ', locale)
   // if in the file there is no match for locale, than we use com
-  locale = trialLinks.find(item => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
+  locale = trialLinks.find((item) => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
 
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
@@ -573,11 +571,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
       const { trialLinkProd } = section.dataset;
       const [productId, prodUsers, prodYears] = trialLinkProd.split('/');
 
-      const match = trialLinks.find(item =>
-        item.locale.toLowerCase() === locale &&
-        item.product === productId &&
-        parseInt(item.devices) === parseInt(prodUsers) &&
-        parseInt(item.duration) === parseInt(trialLinkValue)
+      const match = trialLinks.find((item) =>
+        item.locale.toLowerCase() === locale
+        && item.product === productId
+        && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+        && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
       );
 
       if (match) {
@@ -592,19 +590,16 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
     const match = trialLinks.find(item =>
-      item.locale.toLowerCase() === locale &&
-      item.product === productId &&
-      parseInt(item.devices) === parseInt(prodUsers) &&
-      parseInt(item.duration) === parseInt(trialLinkValue)
-    );
+      item.locale.toLowerCase() === locale 
+      && item.product === productId 
+      && parseInt(item.devices, 10) === parseInt(prodUsers, 10) 
+      && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10));
 
     if (match) {
       const oldUrl = storeObjBuyLink;
       const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
 
-      document.querySelectorAll(`.buylink-${onSelectorClass}`).forEach(link =>
-        link.setAttribute('href', updatedUrl)
-      );
+      document.querySelectorAll(`.buylink-${onSelectorClass}`).forEach(link => link.setAttribute('href', updatedUrl));
     }
   }
 }
@@ -621,7 +616,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
   if (trialLinkValue) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link);
-  
+
   if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
   let parentDiv = '';
@@ -688,7 +683,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       selectedVarDiscount = selectedVarDiscount.toFixed(2);
     }
 
-    let offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
+    const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
     const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
     const offerPriceYearly = formatPrice((selectedVarDiscount * 12).toFixed(2), currencyIso, regionId);
     const savingsPrice = selectedVarPrice - selectedVarDiscount;
