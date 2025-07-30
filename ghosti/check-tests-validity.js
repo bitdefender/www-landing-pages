@@ -72,21 +72,26 @@ const askWithImage = async (screenshotsInfo) => {
     const response = await openai.chat.completions.create({
       model: "o4-mini",  
       messages: [
-        { role: "role", content: `
-          I want you to act as a Senior QA Engineer who is tasked with determinining whether the snapshot test changes are justified or not using ticket information from Jira.
-          I want you to respond with only one string message like this: "Final verdict: FAIL" if you think the changes are not justified or "Final verdict: PASS" if you think they are justified in accordance to the Jira ticket.` },
+        { 
+          role: "system",
+          content: `
+            Act as a Senior QA Engineer. Decide whether the snapshot test changes are justified per the Jira ticket.
+            Reply in exactly one line: either "Final verdict: FAIL" or "Final verdict: PASS"
+          `.trim()
+        },
         { 
           role: "user", 
           content: [
             { 
               type: 'text',
               text: `
-                Context: A snapshot test has just failed and an image containing the differences between the baseline and the new screenshot was attatched to this message. Baseline dimensions are ${dims.w}×${dims.h}px.
-
+                Context: A snapshot test has just failed. Baseline dimensions: ${dims.w}×${dims.h}px.
                 Analyze whether any of these changes violate the Jira acceptance criteria.
-                Here is the Jira ticket description: ${description}.
-                And here are all the ticket comments in order of publication on the ticket: ${comments}
-              `,
+                The image difference has been attatched to the message.
+                Ticket description: ${description}
+                Comments (chronological):
+                ${comments.join("\n")}
+              `.trim(),
             },
             {
               type: 'image_url',
