@@ -70,38 +70,30 @@ const askWithImage = async (screenshotsInfo) => {
     }
 
     const response = await openai.chat.completions.create({
-      model: "o4-mini",  
+      model: "o4-mini",
       messages: [
-        { 
+        {
           role: "system",
           content: `
             Act as a Senior QA Engineer. Decide whether the snapshot test changes are justified per the Jira ticket.
             Reply in exactly one line: either "Final verdict: FAIL" or "Final verdict: PASS"
           `.trim()
         },
-        { 
-          role: "user", 
-          content: [
-            { 
-              type: 'text',
-              text: `
-                Context: A snapshot test has just failed. Baseline dimensions: ${dims.w}×${dims.h}px.
-                Analyze whether any of these changes violate the Jira acceptance criteria.
-                The image difference has been attatched to the message.
-                Ticket description: ${description}
-                Comments (chronological):
-                ${comments.join("\n")}
-              `.trim(),
-            },
-            {
-              type: 'image_url',
-              image_url: {
-                url: baseScreenshotUrl,
-              }
-            }
-          ]
+        {
+          role: "user",
+          content: `
+            Context: A snapshot test has just failed. Baseline dimensions: ${dims.w}×${dims.h}px.
+            Compare the image diff here: ${baseScreenshotUrl}
+            
+            Analyze whether any of these changes violate the Jira acceptance criteria.
+            Ticket description: ${description}
+            Comments (chronological):
+            ${comments.join("\n")}
+          `.trim()
         }
-      ]
+      ],
+      temperature: 0.1,
+      top_p: 0.9
     });
 
     return response?.choices?.[0]?.message?.content;
