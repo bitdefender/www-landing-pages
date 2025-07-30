@@ -456,6 +456,7 @@ async function fetchTrialLinks() {
   }
 }
 
+// DEX-23043
 export function getParamByName(name, link) {
   const escapedName = name.replace(/[[\]]/g, '\\$&');
   const regex = new RegExp(`[?&]${escapedName}=([^&#]*)`);
@@ -463,61 +464,52 @@ export function getParamByName(name, link) {
   return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
 }
 
-async function fetchCampaignName(productId, prodUsers, prodYears) {
+async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink') {
   try {
     const prodName = VALICU_PRODS[productId];
-    if (!prodName) return;
-
-    let getSegment = 'en-mt';
-    if (['au', 'gb'].includes(page.country)) getSegment = page.locale;
+    if (!prodName) return null;
 
     const campaignParam = getParam('vcampaign') ? `/campaign/${getParam('vcampaign')}` : '';
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${getSegment}${campaignParam}`);
+    const localeSegment = (mode === 'coupon' && ['au', 'gb'].includes(page.country))
+      ? page.locale
+      : 'en-mt';
+
+    const response = await fetch(
+      `https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`
+    );
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
+
     const data = await response.json();
 
-    if (prodYears >= 1 && prodYears <= 3) prodYears *= 12;
+    // years to months if between 1 and 3
+    const durationInMonths = (prodYears >= 1 && prodYears <= 3)
+      ? prodYears * 12
+      : prodYears;
 
     for (const item of data.product.options) {
-      const coupon = getParamByName('COUPON', item.buyLink);
-      if (item.slots === Number(prodUsers) && item.months === prodYears && coupon) {
-        return coupon;
+      if (mode === 'coupon') {
+        const coupon = getParamByName('COUPON', item.buyLink);
+        if (
+          item.slots === Number(prodUsers) &&
+          item.months === durationInMonths &&
+          coupon
+        ) {
+          return coupon;
+        }
+      } else if (mode === 'buyLink') {
+        return item.buyLink;
       }
     }
 
-    return false;
+    return null;
   } catch (error) {
     throw new Error(`Fetch error! ${error.message}`);
   }
 }
 
-async function fetchOldBuyLink(productId, prodUsers, prodYears) {
-  try {
-    const prodName = VALICU_PRODS[productId];
-    if (!prodName) return;
-
-    const campaignParam = getParam('vcampaign') ? `/campaign/${getParam('vcampaign')}` : '';
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${page.locale}${campaignParam}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-
-    if (prodYears >= 1 && prodYears <= 3) prodYears *= 12;
-
-    for (const item of data.product.options) {
-      return item.buyLink;
-    }
-
-    return false;
-  } catch (error) {
-    throw new Error(`Fetch error! ${error.message}`);
-  }
-}
-
-// DEX-23043
 export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined) {
   const trialLinkValue = getMetadata('trialbuylinks');
   if (!trialLinkValue) return;
@@ -525,7 +517,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   const trialLinks = await fetchTrialLinks(trialLinkValue);
   if (!trialLinks) return;
 
-  const getLocale = () => {
+  const setLocale = () => {
     let raw = (page.getParamValue('locale')?.split('-')[1] || page.country || getDefaultLanguage() || 'com').toLowerCase();
     if (raw === 'gb') raw = 'uk';
     if (['en', 'de', 'nl'].includes(raw)) raw = 'com';
@@ -538,8 +530,8 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = oldParams.get('COUPON');
 
-    if (['de', 'nl', "au", 'gb'].includes(page.country)) {
-      campaign = await fetchCampaignName(productId, prodUsers, prodYears);
+    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
+      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
     }
 
     const updatedUrl = new URL(newUrl);
@@ -561,7 +553,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     return updatedUrl.toString();
   };
 
-  let locale = getLocale();
+  let locale = setLocale();
   // if in the file there is no match for locale, than we use com
   locale = trialLinks.find((item) => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
 
@@ -590,15 +582,15 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           ? prodYearsInt * 12
           : prodYearsInt;
 
-        const match = trialLinks.find((item) =>
-          item.locale.toLowerCase() === locale &&
-          item.product === productId &&
-          parseInt(item.devices, 10) === parseInt(prodUsers, 10) &&
-          parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
-        );
+        const match = trialLinks.find((item) => (
+          item.locale.toLowerCase() === locale
+            && item.product === productId
+            && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+            && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+        ));
 
         if (match) {
-          const oldUrl = await fetchOldBuyLink(productId, prodUsers, prodYears);
+          const oldUrl = await fetchProductInfo(productId, prodUsers, prodYears, 'buyLink');
           const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
 
           // Update hrefs and restore button state
@@ -612,9 +604,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           });
         }
       } catch (error) {
-        console.error('Error updating section:', section, error);
-
-        // Optionally restore state even on failure
         [buttonContainerLink, primaryButtonLink].forEach((btn) => {
           if (btn) {
             btn.style.opacity = '1';
