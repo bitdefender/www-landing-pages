@@ -571,10 +571,6 @@
   font-size: 20px;
 }
 
-.section.banner-container.new-green-pill h1:first-of-type {
-  margin-bottom: 28px;
-}
-
 .section.banner-container.new-green-pill h1 strong {
   color: #000;
   text-align: left;
@@ -585,7 +581,7 @@
   color: #1F7536;
   border-radius: 8px;
   padding: 10px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .section.banner-container.new-green-pill #greenPillBox span{
@@ -733,6 +729,15 @@
   .section.banner-container.new-green-pill .col-md-7 {
     width: 80%;
   }
+
+  .section.banner-container.new-green-pill #greenPillBox {
+    font-size: 20px;
+  }
+
+  .section.banner-container.new-green-pill h1:first-of-type {
+    margin-bottom: 28px;
+  }
+
 }
 
 @media screen and (width >= 991px) {

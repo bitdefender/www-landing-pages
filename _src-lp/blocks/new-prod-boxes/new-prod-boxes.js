@@ -116,7 +116,7 @@ export default function decorate(block) {
   const {
     products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks,
   } = metaData;
-
+  const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
 
   if (productsAsList.length) {
@@ -460,7 +460,9 @@ export default function decorate(block) {
         blueTagChildren = Array.from(blueTagChildren);
         blueTagChildren?.forEach((child) => {
           // create a different blueTag element
-          newBlueTag.innerHTML += `<div class="blueTag">${child.innerHTML}</div>`;
+          child.innerHTML.split('||').forEach((tag, idx) => {
+            newBlueTag.innerHTML += `<div class="blueTag" ${(isShowMoreShowLess && idx !== 0) ? 'style="display:none"' : ''}>${tag}</div>`;
+          });
         });
       }
 
@@ -744,6 +746,20 @@ export default function decorate(block) {
         item.style.display = 'none';
       });
 
+      if (isShowMoreShowLess) {
+        const tagSubtitle = target.closest('.tag-subtitle');
+        if (tagSubtitle) {
+          const blueTags = [...tagSubtitle.querySelectorAll('.blueTag')];
+
+          const visibleTag = blueTags.find((tag) => window.getComputedStyle(tag).display !== 'none');
+          const hiddenTag = blueTags.find((tag) => window.getComputedStyle(tag).display === 'none');
+
+          if (visibleTag && hiddenTag) {
+            visibleTag.style.display = 'none';
+            hiddenTag.style.display = 'flex';
+          }
+        }
+      }
       target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';
 
       if (selectorU && selectorY) {
@@ -773,7 +789,6 @@ export default function decorate(block) {
 
   if (type === 'dropdown-benefits') {
     const benefitsLists = block.querySelectorAll('.benefitsLists');
-    const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
     benefitsLists.forEach((list) => {
       const listItems = list.querySelectorAll('li');
       if (listItems.length === 0) return;
