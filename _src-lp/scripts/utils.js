@@ -98,31 +98,31 @@ const VALICU_PRODS = {
   mobileios: 'com.bitdefender.iosprotection',
   dip: 'com.bitdefender.dataprivacy',
   dipm: 'com.bitdefender.dataprivacy',
-  ts_i: "com.bitdefender.tsmd.v2",
-  ts_f: "com.bitdefender.tsmd.v2",
-  ps_i: "com.bitdefender.premiumsecurity.v2",
-  ps_f: "com.bitdefender.premiumsecurity.v2",
-  us_i: "com.bitdefender.ultimatesecurityeu.v2",
-  us_i_m: "com.bitdefender.ultimatesecurityeu.v2",
-  us_f: "com.bitdefender.ultimatesecurityeu.v2",
-  us_f_m: "com.bitdefender.ultimatesecurityeu.v2",
-  us_pi: "com.bitdefender.ultimatesecurityus.v2",
-  us_pi_m: "com.bitdefender.ultimatesecurityus.v2",
-  us_pf: "com.bitdefender.ultimatesecurityus.v2",
-  us_pf_m: "com.bitdefender.ultimatesecurityus.v2",
-  us_pie: "com.bitdefender.ultimatesecurityplusus.v2",
-  us_pie_m: "com.bitdefender.ultimatesecurityplusus.v2",
-  us_pfe: "com.bitdefender.ultimatesecurityplusus.v2",
-  us_pfe_m: "com.bitdefender.ultimatesecurityplusus.v2",
-  avpm: "com.bitdefender.cl.avplus.v2",
-  ultsec: "com.bitdefender.ultimatesecurityus",
-  secpass: "com.bitdefender.securepass",
-  secpassm: "com.bitdefender.securepass",
-  vsb: "com.bitdefender.vsb",
-  vsbm: "com.bitdefender.vsb",
-  sc: "com.bitdefender.ccp",
-  scm: "com.bitdefender.ccp",
-}
+  ts_i: 'com.bitdefender.tsmd.v2',
+  ts_f: 'com.bitdefender.tsmd.v2',
+  ps_i: 'com.bitdefender.premiumsecurity.v2',
+  ps_f: 'com.bitdefender.premiumsecurity.v2',
+  us_i: 'com.bitdefender.ultimatesecurityeu.v2',
+  us_i_m: 'com.bitdefender.ultimatesecurityeu.v2',
+  us_f: 'com.bitdefender.ultimatesecurityeu.v2',
+  us_f_m: 'com.bitdefender.ultimatesecurityeu.v2',
+  us_pi: 'com.bitdefender.ultimatesecurityus.v2',
+  us_pi_m: 'com.bitdefender.ultimatesecurityus.v2',
+  us_pf: 'com.bitdefender.ultimatesecurityus.v2',
+  us_pf_m: 'com.bitdefender.ultimatesecurityus.v2',
+  us_pie: 'com.bitdefender.ultimatesecurityplusus.v2',
+  us_pie_m: 'com.bitdefender.ultimatesecurityplusus.v2',
+  us_pfe: 'com.bitdefender.ultimatesecurityplusus.v2',
+  us_pfe_m: 'com.bitdefender.ultimatesecurityplusus.v2',
+  avpm: 'com.bitdefender.cl.avplus.v2',
+  ultsec: 'com.bitdefender.ultimatesecurityus',
+  secpass: 'com.bitdefender.securepass',
+  secpassm: 'com.bitdefender.securepass',
+  vsb: 'com.bitdefender.vsb',
+  vsbm: 'com.bitdefender.vsb',
+  sc: 'com.bitdefender.ccp',
+  scm: 'com.bitdefender.ccp',
+};
 
 /**
  * Returns the instance name based on the hostname
@@ -457,10 +457,10 @@ async function fetchTrialLinks() {
 }
 
 export function getParamByName(name, link) {
-  name = name.replace(/[\[\]]/g, "\\$&");
-  const regex = new RegExp("[?&]" + name + "=([^&#]*)");
+  const escapedName = name.replace(/[[\]]/g, '\\$&');
+  const regex = new RegExp(`[?&]${escapedName}=([^&#]*)`);
   const results = regex.exec(link);
-  return results ? decodeURIComponent(results[1].replace(/\+/g, " ")) : null;
+  return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
 }
 
 async function fetchCampaignName(productId, prodUsers, prodYears) {
@@ -469,7 +469,7 @@ async function fetchCampaignName(productId, prodUsers, prodYears) {
     if (!prodName) return;
 
     let getSegment = 'en-mt';
-    if (["au", 'gb'].includes(page.country)) getSegment = page.locale;
+    if (['au', 'gb'].includes(page.country)) getSegment = page.locale;
 
     const campaignParam = getParam('vcampaign') ? `/campaign/${getParam('vcampaign')}` : '';
     const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${getSegment}${campaignParam}`);
@@ -485,8 +485,6 @@ async function fetchCampaignName(productId, prodUsers, prodYears) {
       if (item.slots === Number(prodUsers) && item.months === prodYears && coupon) {
         return coupon;
       }
-
-      // if (coupon) return coupon;
     }
 
     return false;
@@ -568,10 +566,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   console.log('locale ', locale)
   // if in the file there is no match for locale, than we use com
   locale = trialLinks.find(item => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
-
-  /*trialLinks.forEach(item => {
-    console.log('item.locale.toLowerCase() ', item.locale.toLowerCase(), locale)
-  })*/
 
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
