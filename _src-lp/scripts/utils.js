@@ -3,7 +3,6 @@ import { targetPromise, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import { Bundle } from './vendor/product.js';
 import pagePromise from './page.js';
-import { getParam } from './scripts.js';
 
 const target = await targetPromise;
 const page = await pagePromise;
@@ -457,7 +456,7 @@ async function fetchTrialLinks() {
 }
 
 // DEX-23043
-export function getParamByName(name, link) {
+export function getParamByName(name, link = window.location.href) {
   const escapedName = name.replace(/[[\]]/g, '\\$&');
   const regex = new RegExp(`[?&]${escapedName}=([^&#]*)`);
   const results = regex.exec(link);
@@ -469,7 +468,7 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     const prodName = VALICU_PRODS[productId];
     if (!prodName) return null;
 
-    const campaignParam = getParam('vcampaign') ? `/campaign/${getParam('vcampaign')}` : '';
+    const campaignParam = getParamByName('vcampaign') ? `/campaign/${getParamByName('vcampaign')}` : '';
     const localeSegment = (mode === 'coupon' && ['au', 'gb'].includes(page.country))
       ? page.locale
       : 'en-mt';
@@ -488,7 +487,7 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       : prodYears;
 
     if (mode === 'coupon') {
-      const match = data.product.options.find(item => {
+      const match = data.product.options.find((item) => {
         const coupon = getParamByName('COUPON', item.buyLink);
         return (
           item.slots === Number(prodUsers)
@@ -499,7 +498,7 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
 
       if (match) return getParamByName('COUPON', match.buyLink);
     } else if (mode === 'buyLink') {
-      const match = data.product.options[0]; 
+      const match = data.product.options[0];
       return match?.buyLink;
     }
 
