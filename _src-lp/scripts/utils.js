@@ -528,7 +528,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   if (!trialLinks) return;
 
   const getLocale = () => {
-    let raw = (page.getParamValue('locale')?.split('-')[0] || page.country || getDefaultLanguage() || 'com').toLowerCase();
+    let raw = (page.getParamValue('locale')?.split('-')[1] || page.country || getDefaultLanguage() || 'com').toLowerCase();
     if (raw === 'gb') raw = 'uk';
     if (['en', 'de', 'nl'].includes(raw)) raw = 'com';
 
@@ -565,8 +565,13 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
   // let locale = getLocale();
   let locale = getLocale();
+  console.log('locale ', locale)
   // if in the file there is no match for locale, than we use com
   locale = trialLinks.find(item => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
+
+  /*trialLinks.forEach(item => {
+    console.log('item.locale.toLowerCase() ', item.locale.toLowerCase(), locale)
+  })*/
 
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
