@@ -117,7 +117,7 @@ export default function decorate(block) {
   const {
     products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks,
   } = metaData;
-
+  const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
 
   let trialLinks = false;
@@ -380,7 +380,7 @@ export default function decorate(block) {
         const optionSelector = document.createElement('select');
         optionList.querySelectorAll('li').forEach((li, idx) => {
           const buyLinkObj = buyLinksObj[idx] || buyLinksObj[0];
-          const [labelText, variationText] = li.textContent.trim().split('+');
+          const [labelText, variationText, bluePill] = li.textContent.trim().split('+');
           const [pname, pusers, pyears] = variationText.split('/');
           const selectorClass = `${pname.trim()}-${pusers}${pyears}`;
           const value = variationText.trim();
@@ -414,8 +414,8 @@ export default function decorate(block) {
 
             if (type === 'dropdown-benefits') {
               li.innerHTML = `
-                <label for="${value}">${priceSpan}${labelText.trim()}</label>
-                <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+                <label for="${value}">${priceSpan}${labelText.trim()} ${bluePill ? `<span class="blue-pill-tag">+${bluePill}</span>` : ''}</label>
+                <input type="radio" name="card-radio-${key}" id="${value}" value="${selectorClass}" ${isChecked}>
               `;
             } else {
               li.innerHTML = `
@@ -464,7 +464,9 @@ export default function decorate(block) {
         blueTagChildren = Array.from(blueTagChildren);
         blueTagChildren?.forEach((child) => {
           // create a different blueTag element
-          newBlueTag.innerHTML += `<div class="blueTag">${child.innerHTML}</div>`;
+          child.innerHTML.split('||').forEach((tag, idx) => {
+            newBlueTag.innerHTML += `<div class="blueTag" ${(isShowMoreShowLess && idx !== 0) ? 'style="display:none"' : ''}>${tag}</div>`;
+          });
         });
       }
 
@@ -724,6 +726,8 @@ export default function decorate(block) {
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
+  matchHeights(targetNode, '.benefitsLists ul:first-of-type');
+  matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
 
   // set max height for benefits
   if (set && set === 'height') {
@@ -746,6 +750,20 @@ export default function decorate(block) {
         item.style.display = 'none';
       });
 
+      if (isShowMoreShowLess) {
+        const tagSubtitle = target.closest('.tag-subtitle');
+        if (tagSubtitle) {
+          const blueTags = [...tagSubtitle.querySelectorAll('.blueTag')];
+
+          const visibleTag = blueTags.find((tag) => window.getComputedStyle(tag).display !== 'none');
+          const hiddenTag = blueTags.find((tag) => window.getComputedStyle(tag).display === 'none');
+
+          if (visibleTag && hiddenTag) {
+            visibleTag.style.display = 'none';
+            hiddenTag.style.display = 'flex';
+          }
+        }
+      }
       target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';
 
       if (selectorU && selectorY) {
@@ -775,19 +793,18 @@ export default function decorate(block) {
 
   if (type === 'dropdown-benefits') {
     const benefitsLists = block.querySelectorAll('.benefitsLists');
-
     benefitsLists.forEach((list) => {
       const listItems = list.querySelectorAll('li');
       if (listItems.length === 0) return;
-
       const firstLi = listItems[0];
-
+      const secondLi = listItems[4];
       // Add dropdown icon
-      firstLi.innerHTML += '<svg style="height: 20px; margin-left: 0.5rem; transition: transform 0.3s;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>';
-
+      if (!isShowMoreShowLess) {
+        firstLi.innerHTML += '<svg style="height: 20px; margin-left: 0.5rem; transition: transform 0.3s;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>';
+      }
       // Hide all li except first
       listItems.forEach((li, index) => {
-        if (index > 0) li.style.display = 'none';
+        if (isShowMoreShowLess ? index > 4 : index > 0) li.style.display = 'none';
       });
 
       const innerBoxes = block.querySelectorAll('.inner_prod_box');
@@ -799,25 +816,9 @@ export default function decorate(block) {
       list.dataset.expanded = 'false';
 
       // Toggle this specific list only
-      firstLi.addEventListener('click', () => {
-        const isExpanded = list.dataset.expanded === 'true';
-        list.dataset.expanded = (!isExpanded).toString();
-
-        listItems.forEach((li, index) => {
-          if (index > 0) {
-            li.style.display = isExpanded ? 'none' : 'list-item';
-          }
-        });
-
-        // 🔄 Comută display-ul pe containerul de ul-uri
-        list.style.display = isExpanded ? 'flex' : 'block';
-
-        // Optional: rotate icon
-        const icon = firstLi.querySelector('svg');
-        if (icon) {
-          icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
-        }
-      });
+      const toggleList = isShowMoreShowLess ? secondLi : firstLi;
+      toggleList.classList.add('list-toggle');
+      if (isShowMoreShowLess) toggleList.nextElementSibling.classList.add('list-toggle');
     });
   }
 
@@ -831,4 +832,35 @@ export default function decorate(block) {
 
   window.addEventListener('resize', updateMargin());
   setTimeout(() => updateMargin(), 0);
+
+  block.addEventListener('click', (e) => {
+    const clickedButton = e.target.closest('.list-toggle');
+    if (!clickedButton) return;
+
+    const list = clickedButton.closest('.benefitsLists');
+    const listItems = list.querySelectorAll('li');
+
+    const section = block.closest('.section');
+    const hasShowMoreLogic = section.classList.contains('show-more-show-less');
+    const threshold = hasShowMoreLogic ? 4 : 0;
+
+    const isExpanded = list.dataset.expanded === 'true';
+    const newExpanded = !isExpanded;
+    list.dataset.expanded = newExpanded.toString();
+
+    listItems.forEach((li, index) => {
+      const shouldBeVisible = newExpanded || index <= threshold;
+      li.style.display = shouldBeVisible ? 'block' : 'none';
+    });
+
+    // Handle toggle visibility: show one .list-toggle and hide the other
+    const toggleButtons = list.querySelectorAll('.list-toggle');
+    toggleButtons.forEach((btn) => {
+      btn.style.display = btn === clickedButton ? 'none' : 'flex';
+    });
+
+    // Rotate the icon inside the clicked button, if present
+    const icon = clickedButton.querySelector('svg');
+    if (icon) icon.style.transform = newExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+  });
 }
