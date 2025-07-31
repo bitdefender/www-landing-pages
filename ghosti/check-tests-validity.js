@@ -91,9 +91,7 @@ const askWithImage = async (screenshotsInfo) => {
             ${comments.join("\n")}
           `.trim()
         }
-      ],
-      temperature: 0.1,
-      top_p: 0.9
+      ]
     });
 
     return response?.choices?.[0]?.message?.content;
