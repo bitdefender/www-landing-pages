@@ -74,6 +74,55 @@ export const IANA_BY_REGION_MAP = new Map([
   [72, { locale: 'en-JP', label: 'en Japan' }],
 ]);
 
+const VALICU_PRODS = {
+  av: 'com.bitdefender.cl.av',
+  is: 'com.bitdefender.cl.is',
+  tsmd: 'com.bitdefender.cl.tsmd',
+  fp: 'com.bitdefender.fp',
+  ps: 'com.bitdefender.premiumsecurity',
+  psm: 'com.bitdefender.premiumsecurity',
+  psp: 'com.bitdefender.premiumsecurityplus',
+  pspm: 'com.bitdefender.premiumsecurityplus',
+  soho: 'com.bitdefender.soho',
+  mac: 'com.bitdefender.avformac',
+  vpn: 'com.bitdefender.vpn',
+  'vpn-monthly': 'com.bitdefender.vpn',
+  pass: 'com.bitdefender.passwordmanager',
+  passm: 'com.bitdefender.passwordmanager',
+  pass_sp: 'com.bitdefender.passwordmanager',
+  pass_spm: 'com.bitdefender.passwordmanager',
+  bms: 'com.bitdefender.bms',
+  mobile: 'com.bitdefender.bms',
+  ios: 'com.bitdefender.iosprotection',
+  mobileios: 'com.bitdefender.iosprotection',
+  dip: 'com.bitdefender.dataprivacy',
+  dipm: 'com.bitdefender.dataprivacy',
+  ts_i: 'com.bitdefender.tsmd.v2',
+  ts_f: 'com.bitdefender.tsmd.v2',
+  ps_i: 'com.bitdefender.premiumsecurity.v2',
+  ps_f: 'com.bitdefender.premiumsecurity.v2',
+  us_i: 'com.bitdefender.ultimatesecurityeu.v2',
+  us_i_m: 'com.bitdefender.ultimatesecurityeu.v2',
+  us_f: 'com.bitdefender.ultimatesecurityeu.v2',
+  us_f_m: 'com.bitdefender.ultimatesecurityeu.v2',
+  us_pi: 'com.bitdefender.ultimatesecurityus.v2',
+  us_pi_m: 'com.bitdefender.ultimatesecurityus.v2',
+  us_pf: 'com.bitdefender.ultimatesecurityus.v2',
+  us_pf_m: 'com.bitdefender.ultimatesecurityus.v2',
+  us_pie: 'com.bitdefender.ultimatesecurityplusus.v2',
+  us_pie_m: 'com.bitdefender.ultimatesecurityplusus.v2',
+  us_pfe: 'com.bitdefender.ultimatesecurityplusus.v2',
+  us_pfe_m: 'com.bitdefender.ultimatesecurityplusus.v2',
+  avpm: 'com.bitdefender.cl.avplus.v2',
+  ultsec: 'com.bitdefender.ultimatesecurityus',
+  secpass: 'com.bitdefender.securepass',
+  secpassm: 'com.bitdefender.securepass',
+  vsb: 'com.bitdefender.vsb',
+  vsbm: 'com.bitdefender.vsb',
+  sc: 'com.bitdefender.ccp',
+  scm: 'com.bitdefender.ccp',
+};
+
 /**
  * Returns the instance name based on the hostname
  * @returns {String}
@@ -347,8 +396,8 @@ export function formatPrice(price, currency) {
 // get max discount
 function maxDiscount() {
   const discountAmounts = [];
-  if (document.querySelector('.percent')) {
-    document.querySelectorAll('.percent').forEach((item) => {
+  if (document.querySelector('.prod-percent')) {
+    document.querySelectorAll('.prod-percent').forEach((item) => {
       const discountAmount = parseInt(item.textContent, 10);
       if (!Number.isNaN(discountAmount)) {
         discountAmounts.push(discountAmount);
@@ -376,6 +425,212 @@ function maxDiscount() {
   }
 }
 
+async function fetchTrialLinks() {
+  // If cached data exists, return it directly
+  if (window.cachedTrialLInks) {
+    return window.cachedTrialLInks;
+  }
+
+  const defaultJsonFilePath = '/triallinks.json';
+  const jsonFilePath = window.location.hostname === 'www.bitdefender.com'
+    ? `https://${window.location.hostname}/pages/triallinks.json`
+    : defaultJsonFilePath;
+
+  try {
+    const response = await fetch(jsonFilePath);
+
+    if (!response.ok) {
+      console.error(`Failed to fetch data. Status: ${response.status}`);
+      return {};
+    }
+
+    const { data = [] } = await response.json();
+    // Cache the fetched data
+    window.cachedZuoraConfig = data;
+
+    return data;
+  } catch (error) {
+    console.error(`Error fetching Zuora config: ${error.message}`);
+    return {};
+  }
+}
+
+// DEX-23043
+export function getParamByName(name, link = window.location.href) {
+  const escapedName = name.replace(/[[\]]/g, '\\$&');
+  const regex = new RegExp(`[?&]${escapedName}=([^&#]*)`);
+  const results = regex.exec(link);
+  return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
+}
+
+async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink') {
+  try {
+    const prodName = VALICU_PRODS[productId];
+    if (!prodName) return null;
+
+    const campaignParam = getParamByName('vcampaign') ? `/campaign/${getParamByName('vcampaign')}` : '';
+    const localeSegment = (mode === 'coupon' && ['au', 'gb'].includes(page.country))
+      ? page.locale
+      : 'en-mt';
+
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // years to months if between 1 and 3
+    const durationInMonths = (prodYears >= 1 && prodYears <= 3)
+      ? prodYears * 12
+      : prodYears;
+
+    if (mode === 'coupon') {
+      const match = data.product.options.find((item) => {
+        const coupon = getParamByName('COUPON', item.buyLink);
+        return (
+          item.slots === Number(prodUsers)
+          && item.months === durationInMonths
+          && coupon
+        );
+      });
+
+      if (match) return getParamByName('COUPON', match.buyLink);
+    } else if (mode === 'buyLink') {
+      const match = data.product.options[0];
+      return match?.buyLink;
+    }
+
+    return null;
+  } catch (error) {
+    throw new Error(`Fetch error! ${error.message}`);
+  }
+}
+
+export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined) {
+  const trialLinkValue = getMetadata('trialbuylinks');
+  if (!trialLinkValue) return;
+
+  const trialLinks = await fetchTrialLinks(trialLinkValue);
+  if (!trialLinks) return;
+
+  const setLocale = () => {
+    let raw = (page.getParamValue('locale')?.split('-')[1] || page.country || getDefaultLanguage() || 'com').toLowerCase();
+    if (raw === 'gb') raw = 'uk';
+    if (['en', 'de', 'nl'].includes(raw)) raw = 'com';
+
+    return raw;
+  };
+
+  const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
+    const locale = page.country;
+    const oldParams = new URL(oldUrl).searchParams;
+    let campaign = oldParams.get('COUPON');
+
+    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
+      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
+    }
+
+    const updatedUrl = new URL(newUrl);
+    const newParams = updatedUrl.searchParams;
+
+    const exceptionsCountry = ['de', 'nl'].includes(page.country);
+    const getParamOrDefault = (param, fallback) => oldParams.get(param) || fallback;
+
+    // if: de || nl || noParam - we set locale / EUR
+    const lang = exceptionsCountry ? locale : getParamOrDefault('LANG', locale);
+    const currency = exceptionsCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
+    const dcurrency = exceptionsCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
+
+    if (lang) newParams.set('LANG', lang);
+    if (currency) newParams.set('CURRENCY', currency);
+    if (dcurrency) newParams.set('DCURRENCY', dcurrency);
+    if (campaign) newParams.set('COUPON', campaign);
+
+    return updatedUrl.toString();
+  };
+
+  let locale = setLocale();
+  // if in the file there is no match for locale, than we use com
+  locale = trialLinks.find((item) => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
+
+  // if using normal buttons in the content
+  if (!onSelector) {
+    const sections = document.querySelectorAll('[data-trial-link-prod]');
+    await Promise.all([...sections].map(async (section) => {
+      const buttonContainerLink = section.querySelector('p.button-container a');
+      const primaryButtonLink = section.querySelector('a.button.primary');
+
+      // Apply loading effect (reduced opacity + wait cursor + freeze click)
+      [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+        if (btn) {
+          btn.style.opacity = '0.5';
+          btn.style.cursor = 'wait';
+          btn.style.pointerEvents = 'none';
+        }
+      });
+
+      try {
+        const { trialLinkProd } = section.dataset;
+        const [productId, prodUsers, prodYearsRaw] = trialLinkProd.split('/');
+
+        const prodYearsInt = parseInt(prodYearsRaw, 10);
+        const prodYears = (prodYearsInt >= 1 && prodYearsInt <= 3)
+          ? prodYearsInt * 12
+          : prodYearsInt;
+
+        const match = trialLinks.find((item) => (
+          item.locale.toLowerCase() === locale
+            && item.product === productId
+            && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+            && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+        ));
+
+        if (match) {
+          const oldUrl = await fetchProductInfo(productId, prodUsers, prodYears, 'buyLink');
+          const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
+
+          // Update hrefs and restore button state
+          [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+            if (btn) {
+              btn.setAttribute('href', updatedUrl);
+              btn.style.opacity = '1';
+              btn.style.cursor = 'pointer';
+              btn.style.pointerEvents = 'auto';
+            }
+          });
+        }
+      } catch (error) {
+        [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+          if (btn) {
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+            btn.style.pointerEvents = 'auto';
+          }
+        });
+      }
+    }));
+  } else {
+    const [productId, prodUsers, prodYears] = onSelector.split('/');
+    const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
+
+    const match = trialLinks.find((item) => (
+      item.locale.toLowerCase() === locale
+        && item.product === productId
+        && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+        && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+    ));
+
+    if (match) {
+      const oldUrl = storeObjBuyLink;
+      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
+
+      document.querySelectorAll(`.buylink-${onSelectorClass}`).forEach((link) => link.setAttribute('href', updatedUrl));
+    }
+  }
+}
+
 // display prices
 export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
@@ -384,6 +639,10 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
   const { product_id: productId } = storeObj.config;
   const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
   const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
+
+  // DEX-23043
+  const trialLinkValue = getMetadata('trialbuylinks');
+  if (trialLinkValue) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link);
 
   if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
@@ -479,7 +738,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           } else if (item.classList.contains('calculate_yearly')) {
             item.innerHTML = offerPriceYearly;
           } else {
-            item.innerHTML = offerPrice;
+            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/\d+(\.\d+)?/, '0') : offerPrice;
           }
         });
       }
@@ -624,7 +883,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         });
       } else {
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = fullPrice;
+          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/\d+(\.\d+)?/, '0') : fullPrice;
         });
       }
     }
