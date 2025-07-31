@@ -75,8 +75,7 @@ const askWithImage = async (screenshotsInfo) => {
         {
           role: "system",
           content: `
-            Act as a Senior QA Engineer. Decide whether the snapshot test changes are justified per the Jira ticket.
-            Reply in exactly one line: either "Final verdict: FAIL" or "Final verdict: PASS"
+            You are a Senior QA Engineer reviewing snapshot test changes. Given the Jira ticket context, determine if these snapshot changes are justified. Respond strictly with one of these phrases: "Final verdict: PASS" or "Final verdict: FAIL".
           `.trim()
         },
         {
