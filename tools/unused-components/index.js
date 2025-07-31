@@ -173,7 +173,7 @@ const processPaths = async (components) => {
   unusedComponents.forEach((componentName) => {
     console.log(componentName);
   });
-  
+
   // Check all fragments and see which ones are not used
   console.log('\nUnused Fragments:');
   Object.entries(fragmentCountMap).forEach(([key, value]) => {
