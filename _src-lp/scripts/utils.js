@@ -746,7 +746,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           } else if (item.classList.contains('calculate_yearly')) {
             item.innerHTML = offerPriceYearly;
           } else {
-            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/\d+(\.\d+)?/, '0') : offerPrice;
+            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/[\d,]+(\.\d+)?/, '0') : offerPrice;
           }
         });
       }
@@ -891,7 +891,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         });
       } else {
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/\d+(\.\d+)?/, '0') : fullPrice;
+          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/[\d,]+(\.\d+)?/, '0') : fullPrice;
         });
       }
     }
