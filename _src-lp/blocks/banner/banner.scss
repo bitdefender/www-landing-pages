@@ -264,6 +264,11 @@
   margin: 0 auto 15px;
 }
 
+.section.banner-container.new-green-pill p {
+  color: #000;
+  font-size: 20px;
+}
+
 .section.banner-container.new-2024.v2 p {
   font-size: 13px;
   line-height: 15px;
@@ -300,6 +305,11 @@
   align-items: center;
   margin: 0;
   line-height: 17px;
+}
+
+.section.banner-container.new-green-pill h1 strong {
+  color: #000;
+  text-align: left;
 }
 
 .section.banner-container .banner .blue-box tr td p strong {
@@ -566,6 +576,27 @@
   display: inline-block;
 }
 
+.section.banner-container.new-green-pill #greenPillBox {
+  background-color: #D1FADC;
+  color: #1F7536;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.section.banner-container.new-green-pill #greenPillBox span{
+  font-weight: 700;
+  align-items: center;
+  display: flex;
+  gap: 5px;
+} 
+
+.section.banner-container.new-green-pill #greenPillBox .icon {
+  width: 25px;
+  height: 25px;
+  margin-bottom: 2px;
+}
+
 .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(1)::before {
   background: url('../../icons/individual_white.png') no-repeat 0 0 transparent;
 }
@@ -616,6 +647,10 @@
   .section.banner-container.full-width-headings .banner h1 {
     margin-right: -40vw;
     border-bottom: 0;
+  }
+
+  .section.banner-container.new-green-pill h1 strong {
+    font-size: 53px;
   }
 
   .section.lp-brand .banner p {
@@ -690,6 +725,19 @@
   .section.banner-container #pricesBox .terms p a {
     color: #006DFF;
   }
+  
+  .section.banner-container.new-green-pill .col-md-7 {
+    width: 80%;
+  }
+
+  .section.banner-container.new-green-pill #greenPillBox {
+    font-size: 20px;
+  }
+
+  .section.banner-container.new-green-pill h1:first-of-type {
+    margin-bottom: 28px;
+  }
+
 }
 
 @media screen and (width >= 991px) {
@@ -773,6 +821,10 @@
     text-align: center;
   }
 
+  .section.banner-container.new-green-pill h1 {
+    text-align: left;
+  }
+
   .section.banner-container.new-2024.v2 .banner h1 {
     font-size: 22px;
     line-height: 30px;
@@ -789,6 +841,10 @@
   .section.banner-container .banner p {
     font-size: 14px;
     line-height: 19px;
+  }
+
+  .section.banner-container.new-green-pill .banner p {
+    font-size: 18px;
   }
 
   .section.banner-container.hasslide .block p {

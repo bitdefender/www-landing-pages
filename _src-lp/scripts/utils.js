@@ -395,30 +395,38 @@ export function formatPrice(price, currency) {
 
 // get max discount
 function maxDiscount() {
+  const selectors = ['.prod-percent', '.percent'];
   const discountAmounts = [];
-  if (document.querySelector('.percent')) {
-    document.querySelectorAll('.percent').forEach((item) => {
-      const discountAmount = parseInt(item.textContent, 10);
-      if (!Number.isNaN(discountAmount)) {
-        discountAmounts.push(discountAmount);
-      }
-    });
-  }
+
+  // Collect all discount values
+  selectors.forEach((selector) => {
+    if (document.querySelector(selector)) {
+      document.querySelectorAll(selector).forEach((item) => {
+        const discount = parseInt(item.textContent, 10);
+        if (!Number.isNaN(discount)) {
+          discountAmounts.push(discount);
+        }
+      });
+    }
+  });
 
   const maxDiscountValue = Math.max(...discountAmounts);
-  const maxDiscountBox = document.querySelector('.max-discount');
-  if (maxDiscountBox && maxDiscountValue) {
-    const discountText = `${maxDiscountValue.toString()}%`;
-    document.querySelectorAll('.max-discount').forEach((item) => {
+  const maxDiscountElements = document.querySelectorAll('.max-discount');
+
+  if (maxDiscountElements.length && maxDiscountValue) {
+    const discountText = `${maxDiscountValue}%`;
+    maxDiscountElements.forEach((item) => {
       item.textContent = discountText;
+
       const closestEm = item.closest('em');
       if (closestEm) closestEm.style.display = 'inline-block';
-    });
 
-    const closestDiv = maxDiscountBox.closest('div');
-    if (closestDiv) closestDiv.style.visibility = 'visible';
+      const closestDiv = item.closest('div');
+      if (closestDiv) closestDiv.style.visibility = 'visible';
+    });
   } else {
-    document.querySelectorAll('.max-discount').forEach((item) => {
+    // Remove surrounding element if no discounts found
+    maxDiscountElements.forEach((item) => {
       const closestEm = item.closest('em');
       if (closestEm) closestEm.remove();
     });
