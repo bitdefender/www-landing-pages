@@ -78,7 +78,7 @@ header#headerBlue .header {
 header#headerBlue.employee-benefits .block div {
   justify-content: unset;
 }
-header#headerBlue.bigger-logo a img {
+header#headerBlue.biggerLogo a img {
   height: 35px;
 }
 

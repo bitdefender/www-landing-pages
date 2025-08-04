@@ -81,10 +81,6 @@ export default async function decorate(block) {
         headerWrapper.classList.add('employee-benefits');
       }
 
-      if (html.indexOf('bigger-logo') !== -1) {
-        headerWrapper.classList.add('bigger-logo');
-      }
-
       block.innerHTML = html;
       const logoEl = block.querySelector('p');
       const imgEl = block.querySelectorAll('img');
