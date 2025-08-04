@@ -48,16 +48,6 @@ header#headerBlue .block div {
   justify-content: space-between;
   align-items: center;
 }
-header#headerBlue p {
-  padding: 0;
-  margin: 0;
-}
-header#headerBlue p picture img {
-  height: 35px;
-  width: auto;
-  margin-left: 20px;
-  position: relative;
-}
 header#headerBlue a {
   text-align: center;
   color: #006eff;
@@ -66,6 +56,16 @@ header#headerBlue a img {
   height: 26px;
   display: inline-block;
   width: auto;
+  position: relative;
+}
+header#headerBlue p {
+  padding: 0;
+  margin: 0;
+}
+header#headerBlue p picture img {
+  height: 35px;
+  width: auto;
+  margin-left: 20px;
   position: relative;
 }
 header#headerBlue .section-metadata {

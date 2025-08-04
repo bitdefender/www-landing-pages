@@ -63,6 +63,18 @@ header#headerBlue {
     align-items: center;
   }
 
+  a {
+    text-align: center;
+    color: #006eff;
+
+    img {
+      height: 26px;
+      display: inline-block;
+      width: auto;
+      position: relative;
+    }
+  }
+
   p {
     padding: 0;
     margin: 0;
@@ -74,18 +86,6 @@ header#headerBlue {
         margin-left: 20px;
         position: relative;
       }
-    }
-  }
-
-  a {
-    text-align: center;
-    color: #006eff;
-
-    img {
-      height: 26px;
-      display: inline-block;
-      width: auto;
-      position: relative;
     }
   }
 
