@@ -101,6 +101,14 @@ header#headerBlue {
       justify-content: unset;
     }
   }
+
+  &.bigger-logo {
+    a {
+      img {
+        height: 35px;
+      }
+    }
+  }
 }
 
 @media screen and (width >= 768px) {
