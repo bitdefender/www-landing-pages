@@ -95,6 +95,12 @@ header#headerBlue {
     padding-top: 10px;
     padding-bottom: 10px;
   }
+
+  &.employee-benefits {
+    .block div {
+      justify-content: unset;
+    }
+  }
 }
 
 @media screen and (width >= 768px) {

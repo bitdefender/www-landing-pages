@@ -77,17 +77,19 @@ export default async function decorate(block) {
         headerWrapper.classList.add('affiliate');
       }
 
+      if (html.indexOf('employee-benefits') !== -1) {
+        headerWrapper.classList.add('employee-benefits');
+      }
+
       block.innerHTML = html;
       const logoEl = block.querySelector('p');
       const imgEl = block.querySelectorAll('img');
 
       const anchorEl = `<a title="Bitdefender" href="${linklessNav ? '#' : homeUrl}">${imgEl[0].cloneNode(true).outerHTML}</a>`;
-      const secondImg = imgEl[1];
       // clear first paragraf
       logoEl.innerHTML = '';
       // add the new content logo with anchor
       logoEl.innerHTML = anchorEl;
-      if (secondImg) logoEl.innerHTML += secondImg.outerHTML;
 
       block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('custom_nav') !== -1 || html.indexOf('custom_nav_white') !== -1) {
