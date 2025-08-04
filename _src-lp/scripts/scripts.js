@@ -36,6 +36,7 @@ import {
   adobeMcAppendVisitorId,
   formatPrice,
   getInstance,
+  setTrialLinks,
 } from './utils.js';
 
 const page = await pagePromise;
@@ -290,9 +291,9 @@ export async function loadLazy(doc) {
   adobeMcAppendVisitorId('main');
   go2Anchor();
 
-  if (getMetadata('free-product')) {
-    sendTrialDownloadedEvent();
-  }
+  if (getMetadata('free-product')) sendTrialDownloadedEvent();
+  if (getMetadata('trialbuylinks')) setTrialLinks();
+
   // Get the visitorId when you need it.
   // await fpPromise
   //   .then((fp) => fp.get())
