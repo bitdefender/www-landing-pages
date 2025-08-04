@@ -52,7 +52,7 @@ header#headerBlue p {
   padding: 0;
   margin: 0;
 }
-header#headerBlue p > img {
+header#headerBlue p img {
   height: 35px;
   width: auto;
   margin-left: 20px;
