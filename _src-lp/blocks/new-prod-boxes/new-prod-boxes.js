@@ -844,6 +844,7 @@ export default function decorate(block) {
     const hasShowMoreLogic = section.classList.contains('show-more-show-less');
     const threshold = hasShowMoreLogic ? 4 : 0;
 
+    list.style.flexDirection = list.style.flexDirection === 'column' ? '' : 'column';
     const isExpanded = list.dataset.expanded === 'true';
     const newExpanded = !isExpanded;
     list.dataset.expanded = newExpanded.toString();
@@ -855,9 +856,11 @@ export default function decorate(block) {
 
     // Handle toggle visibility: show one .list-toggle and hide the other
     const toggleButtons = list.querySelectorAll('.list-toggle');
-    toggleButtons.forEach((btn) => {
+    if(isShowMoreShowLess){toggleButtons.forEach((btn) => {
       btn.style.display = btn === clickedButton ? 'none' : 'flex';
-    });
+    }
+  );
+}
 
     // Rotate the icon inside the clicked button, if present
     const icon = clickedButton.querySelector('svg');

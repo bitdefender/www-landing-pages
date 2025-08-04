@@ -620,6 +620,10 @@
     accent-color: #EC008C;
 }
 
+.new-prod-boxes-container.hide-radio .block .prod_box .inner_prod_box .subtitle ul li input {
+    display: none;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box {
     display: flex;
     justify-content: left;

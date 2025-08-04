@@ -10,12 +10,16 @@ export default function decorate(block) {
   const metaData = section?.dataset;
   if (!metaData?.product) return;
 
-  const [rawName, prodUsers, prodYears] = metaData.product.split('/');
-  const prodName = rawName.trim();
+  const {
+    product, buttontext,
+  } = metaData;
+
+  const [productName, prodUsers, prodYears] = product.split('/');
+  const prodName = productName.trim();
   const selectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
   // 2) Înregistrăm produsul pentru încărcare dinamică (prețuri/link)
-  updateProductsList(metaData.product);
+  updateProductsList(product);
 
   // 3) Transformăm blocul din content în modal (NU creăm altul)
   const popupModal = block;
@@ -50,7 +54,7 @@ export default function decorate(block) {
         </div>
       </div>
       <div class="buy_box">
-        <a class="red-buy-button buylink-${selectorClass}" href="#">Get it now</a>
+        <a class="red-buy-button buylink-${selectorClass}" href="#">${buttontext}</a>
       </div>
     `;
     popupModal.appendChild(priceBox);
