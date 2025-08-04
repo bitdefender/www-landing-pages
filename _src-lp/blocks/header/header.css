@@ -48,16 +48,6 @@ header#headerBlue .block div {
   justify-content: space-between;
   align-items: center;
 }
-header#headerBlue p {
-  padding: 0;
-  margin: 0;
-}
-header#headerBlue p > img {
-  height: 35px;
-  width: auto;
-  margin-left: 20px;
-  position: relative;
-}
 header#headerBlue a {
   text-align: center;
   color: #006eff;
@@ -68,12 +58,28 @@ header#headerBlue a img {
   width: auto;
   position: relative;
 }
+header#headerBlue p {
+  padding: 0;
+  margin: 0;
+}
+header#headerBlue p picture img {
+  height: 35px;
+  width: auto;
+  margin-left: 20px;
+  position: relative;
+}
 header#headerBlue .section-metadata {
   display: none;
 }
 header#headerBlue .header {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+header#headerBlue.employee-benefits .block div {
+  justify-content: unset;
+}
+header#headerBlue.biggerLogo a img {
+  height: 35px;
 }
 
 @media screen and (width >= 768px) {
