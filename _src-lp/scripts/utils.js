@@ -477,9 +477,13 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     if (!prodName) return null;
 
     const campaignParam = getParamByName('vcampaign') ? `/campaign/${getParamByName('vcampaign')}` : '';
-    const localeSegment = (mode === 'coupon' && ['au', 'gb', 'de', 'nl'].includes(page.country))
+    let localeSegment = (mode === 'coupon' && ['de', 'nl'].includes(page.country))
       ? 'en-mt'
       : page.locale;
+
+    localeSegment = (mode === 'coupon' && ['au', 'gb'].includes(page.country))
+      ? page.locale
+      : 'en-mt';
 
       console.log('localeSegment ', localeSegment)
 
