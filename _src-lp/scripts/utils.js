@@ -477,15 +477,11 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     if (!prodName) return null;
 
     const campaignParam = getParamByName('vcampaign') ? `/campaign/${getParamByName('vcampaign')}` : '';
-    let localeSegment = (mode === 'coupon' && ['de', 'nl'].includes(page.country))
-      ? 'en-mt'
-      : page.locale;
-
-    localeSegment = (mode === 'coupon' && ['au', 'gb'].includes(page.country))
-      ? page.locale
-      : 'en-mt';
-
-      console.log('localeSegment ', localeSegment)
+    
+    let localeSegment = page.locale;
+    if (mode === 'coupon' && !['au', 'gb'].includes(page.country)) {
+      localeSegment = 'en-mt';
+    }
 
     const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`);
 
