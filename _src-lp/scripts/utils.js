@@ -476,7 +476,8 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     const prodName = VALICU_PRODS[productId];
     if (!prodName) return null;
 
-    const campaignParam = getParamByName('vcampaign') ? `/campaign/${getParamByName('vcampaign')}` : '';
+    const coupon = getMetadata('vcampaign') || getParamByName('vcampaign');
+    const campaignParam = coupon ? `/campaign/${coupon}` : '';
 
     let localeSegment = page.locale;
     if (mode === 'coupon' && !['au', 'gb'].includes(page.country)) localeSegment = 'en-mt';
@@ -532,6 +533,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   };
 
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
+    console.log('oldUrl ', oldUrl)
     const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = oldParams.get('COUPON');

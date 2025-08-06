@@ -847,6 +847,7 @@ const createFakeSelectors = () => {
   const fakeSelectorsBottom = document.createElement('div');
   fakeSelectorsBottom.id = 'fakeSelectors_bottom';
   document.querySelector('footer').before(fakeSelectorsBottom);
+  if (!productsList.length) return;
   productsList.forEach((prod) => {
     const prodSplit = prod.split('/');
     const prodAlias = productAliases(prodSplit[0].trim());
@@ -1048,7 +1049,7 @@ async function initializeProductsPriceLogic() {
   const parameterPid = getParam('pid');
   let targetPid;
   let campaign = getParam('campaign');
-  let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
+  let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign') || getMetadata('pid');
 
   try {
     const configMbox = await target.configMbox;
