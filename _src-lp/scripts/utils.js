@@ -476,13 +476,13 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     const prodName = VALICU_PRODS[productId];
     if (!prodName) return null;
 
-    const coupon = getMetadata('vcampaign') || getParamByName('vcampaign');
-    const campaignParam = coupon ? `/campaign/${coupon}` : '';
+    const couponParam = getMetadata('vcampaign') || getParamByName('vcampaign');
+    const campaignSegment = couponParam ? `/campaign/${couponParam}` : '';
 
     let localeSegment = page.locale;
     if (mode === 'coupon' && !['au', 'gb'].includes(page.country)) localeSegment = 'en-mt';
 
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`);
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignSegment}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
