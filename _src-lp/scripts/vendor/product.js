@@ -5,7 +5,6 @@ import pagePromise from '../page.js';
 const target = await targetPromise;
 const page = await pagePromise;
 export default class ProductPrice {
-
   #productId = {
     av: 'com.bitdefender.cl.av',
     is: 'com.bitdefender.cl.is',
