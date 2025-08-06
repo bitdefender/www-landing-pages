@@ -1049,7 +1049,7 @@ async function initializeProductsPriceLogic() {
   const parameterPid = getParam('pid');
   let targetPid;
   let campaign = getParam('campaign');
-  let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign') || getMetadata('pid');
+  let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
 
   try {
     const configMbox = await target.configMbox;
