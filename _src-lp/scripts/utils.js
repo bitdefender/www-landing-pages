@@ -680,7 +680,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         // If no discount, hide the percentBox or its container
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           const container = item.closest('p') || item.parentNode;
-          if (container) {
+          if (container && !item.classList.contains('parent-no-hide')) {
             container.remove();
           }
         });

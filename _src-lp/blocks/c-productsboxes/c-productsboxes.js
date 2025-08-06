@@ -111,6 +111,13 @@ export default function decorate(block) {
         divTag.className = 'tag';
         // prodBox.parentNode.querySelector(`p:nth-child(1)`).before(divTag);
         prodBox?.querySelector('div').before(divTag);
+      } else {
+        // if no tagText is set, add default tag
+        const divTag = document.createElement('div');
+        divTag.className = 'tag';
+        // set vizibility to hidden
+        divTag.style.visibility = 'hidden';
+        prodBox?.querySelector('div').before(divTag);
       }
 
       /// ////////////////////////////////////////////////////////////////////////
@@ -118,8 +125,8 @@ export default function decorate(block) {
       const tableBuybtn = prodBox?.querySelector('table:last-of-type');
 
       const aBuybtn = document.createElement('a');
-
-      aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
+      aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass} parent-no-hide"></span>`);
+      console.log(tableBuybtn, onSelectorClass);
       aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
       aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');

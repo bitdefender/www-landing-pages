@@ -37,6 +37,13 @@
   text-decoration: none;
   font-size: 14px;
   line-height: 14px;
+  margin-left: 0;
+  display: block;
+  width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
 }
 
 .c-productsboxes.border-green > div {
@@ -204,6 +211,10 @@
     text-align: left;
 }
 
+.c-productsboxes-container .top_title.p_right h1, .c-productsboxes-container .top_title.p_right h2 {
+  text-align: right;
+}
+
 .c-productsboxes-container.has4boxes .c-productsboxes > div h2 {
   font-size: 30px;
   line-height: 27px;
@@ -216,6 +227,10 @@
 
 .c-productsboxes-container .top_title.p_left {
     text-align: left;
+}
+
+.c-productsboxes-container .top_title.p_right {
+  text-align: right;
 }
 
 .c-productsboxes-container .top_title .prod-percent.green_bck_circle.bigger {
@@ -252,6 +267,52 @@
   }
 }
 
+@media (width >= 989px) {
+  .c-productsboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 384px));
+    grid-auto-flow: column;
+    gap: 0 2rem;
+    justify-content: center;
+    align-items: start;
+    padding: 0 2rem;
+  }
+
+  .c-productsboxes > div {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 7;
+    margin: 0 2%;
+    width: 100%;
+    min-height: 100%;
+    align-self: start;
+  }
+
+  .c-productsboxes > div > div {
+    height: 100%;
+  }
+
+  .c-productsboxes > div > div:not(.tag) {
+    border: 9px solid transparent;
+    border-top: 0;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 7;
+    justify-content: center;
+    align-self: start;
+    height: 100%;
+    align-items: start;
+  }
+
+  .c-productsboxes > div:nth-child(3) > div:not(.tag), .c-productsboxes.border-green-1 > div:nth-child(1) > div:not(.tag), .c-productsboxes.border-green-2 > div:nth-child(2) > div:not(.tag), .border-green-1 .c-productsboxes > div:nth-child(1) > div:not(.tag), .border-green-2 .c-productsboxes > div:nth-child(2) > div:not(.tag), .border-green-3 .c-productsboxes > div:nth-child(3) > div:not(.tag) {
+    border: 0;
+  }
+
+  .c-productsboxes > div .buybtn_box {
+    align-self: end;
+  }
+}
+
 @media (width <= 989px) {
     .c-productsboxes {
         display: block;
@@ -261,9 +322,7 @@
 
     .c-productsboxes > div {
         width: 100%!important;
-        padding: 15px!important;
         margin-bottom: 1em!important;
-        padding-bottom: 10px!important;
     }
 
     .c-productsboxes > div h2 {
@@ -287,6 +346,12 @@
         min-height: auto;
     }
 
+    .c-productsboxes > div > div:not(.tag) {
+      border: 15px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-top: 0;
+    }
+
     .c-productsboxes-container.has4boxes .c-productsboxes > div {
         width: 100%!important;
         padding: 3%!important;
@@ -300,7 +365,15 @@
 
     .c-productsboxes-container .top_title.p_left h1, .c-productsboxes-container .top_title.p_left h2 {
         width: 100%;
-        margin: 0 auto;
+        margin: 1em auto;
+        padding: 0 10px;
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .c-productsboxes-container .top_title.p_right h1, .c-productsboxes-container .top_title.p_right h2 {
+        width: 100%;
+        margin: 1em auto;
         padding: 0 10px;
         text-align: center;
         font-size: 24px;
