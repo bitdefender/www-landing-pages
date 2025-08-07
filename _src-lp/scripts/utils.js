@@ -476,12 +476,13 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     const prodName = VALICU_PRODS[productId];
     if (!prodName) return null;
 
-    const campaignParam = getParamByName('vcampaign') ? `/campaign/${getParamByName('vcampaign')}` : '';
+    const campaignParam = getMetadata('vcampaign') || getParamByName('vcampaign');
+    const campaignSegment = campaignParam ? `/campaign/${campaignParam}` : '';
 
     let localeSegment = page.locale;
     if (mode === 'coupon' && !['au', 'gb'].includes(page.country)) localeSegment = 'en-mt';
 
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`);
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignSegment}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -494,21 +495,11 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? prodYears * 12
       : prodYears;
 
-    if (mode === 'coupon') {
-      const match = data.product.options.find((item) => {
-        const coupon = getParamByName('COUPON', item.buyLink);
-        return (
-          item.slots === Number(prodUsers)
-          && item.months === durationInMonths
-          && coupon
-        );
-      });
+    const match = data.product.options.find((item) => item.slots === Number(prodUsers)
+      && item.months === durationInMonths
+      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)));
 
-      if (match) return getParamByName('COUPON', match.buyLink);
-    } else if (mode === 'buyLink') {
-      const match = data.product.options[0];
-      return match?.buyLink;
-    }
+    if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
 
     return null;
   } catch (error) {
