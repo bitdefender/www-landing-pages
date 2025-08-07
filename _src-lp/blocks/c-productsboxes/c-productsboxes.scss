@@ -282,7 +282,7 @@
     display: grid;
     grid-template-rows: subgrid;
     grid-row: span 10;
-    margin: 0 2%;
+    margin: 0;
     width: 100%;
     min-height: 100%;
     align-self: start;
@@ -321,8 +321,9 @@
     }
 
     .c-productsboxes > div {
-        width: 100%!important;
-        margin-bottom: 1em!important;
+        width: 100% !important;
+        margin: 0;
+        margin-bottom: 1em !important;
     }
 
     .c-productsboxes > div h2 {
