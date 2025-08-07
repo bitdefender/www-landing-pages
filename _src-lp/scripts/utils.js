@@ -495,10 +495,10 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? prodYears * 12
       : prodYears;
 
-    const match = data.product.options.find(item => 
-      item.slots === Number(prodUsers) &&
-      item.months === durationInMonths &&
-      (mode !== 'coupon' || getParamByName('COUPON', item.buyLink))
+    const match = data.product.options.find((item) =>
+      item.slots === Number(prodUsers)
+      && item.months === durationInMonths
+      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)),
     );
 
     if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
@@ -523,7 +523,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
     return raw;
   };
-  
 
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
     const locale = page.country;
