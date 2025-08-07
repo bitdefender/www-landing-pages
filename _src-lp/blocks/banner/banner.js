@@ -385,7 +385,7 @@ export default function decorate(block) {
         parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
       }
     } else {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / cover ${backgroundColor || '#000'}`;
+      parentBlockStyle.background = `url(${pictureEl?.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / cover ${backgroundColor || '#000'}`;
     }
 
     const imageCoverVar = imageCover.split('-')[1];
@@ -401,7 +401,7 @@ export default function decorate(block) {
           parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
         }
       } else {
-        parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+        parentBlockStyle.background = `url(${pictureEl?.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
       }
     }
 
