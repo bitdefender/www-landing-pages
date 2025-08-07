@@ -42,7 +42,6 @@
   width: 100%;
   white-space: normal;
   overflow-wrap: break-word;
-  overflow-wrap: break-word;
   box-sizing: border-box;
 }
 
@@ -177,6 +176,7 @@
 
 .c-productsboxes > div ul {
   padding-left: 0;
+  margin-top: 0;
 }
 
 .c-productsboxes > div table:nth-of-type(2) input {
@@ -281,7 +281,7 @@
   .c-productsboxes > div {
     display: grid;
     grid-template-rows: subgrid;
-    grid-row: span 7;
+    grid-row: span 10;
     margin: 0 2%;
     width: 100%;
     min-height: 100%;
@@ -297,7 +297,7 @@
     border-top: 0;
     display: grid;
     grid-template-rows: subgrid;
-    grid-row: span 7;
+    grid-row: span 10;
     justify-content: center;
     align-self: start;
     height: 100%;

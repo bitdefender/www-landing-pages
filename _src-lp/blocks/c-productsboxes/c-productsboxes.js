@@ -76,6 +76,7 @@ export default function decorate(block) {
       const pricesDiv = document.createElement('div');
       const saveText = prodBox?.querySelector('table:nth-of-type(2)').innerText.trim();
       const firstYearText = prodBox?.querySelector('table:nth-of-type(3)').innerText.trim();
+      // const h2Element = prodBox?.querySelector('h2');
 
       if (isCampaign === 'jamestowntribe') {
         pricesDiv.classList = 'prices_box';
@@ -98,6 +99,52 @@ export default function decorate(block) {
 
       prodBox.querySelector('table:nth-of-type(3)').innerHTML = '';
       prodBox.querySelector('table').after(pricesDiv);
+
+      /// ///////////////////////////////////////////////////////////////////////
+      // adding the elements between h2 and pricesDiv in a new div
+      const divTable = document.createElement('div');
+      divTable.className = 'div_table';
+
+      const divP = document.createElement('div');
+      divP.className = 'p_table';
+
+      const firstContainer = prodBox.children[0];
+      let foundH2 = false;
+      [...firstContainer.children].some((el) => {
+        console.log(el, el.tagName);
+
+        if (el.tagName === 'H2' || el.tagName === 'HR') {
+          foundH2 = true;
+          return false; // continue iteration after h2
+        }
+
+        if (!foundH2) {
+          divP.appendChild(el);
+          return false; // skip nodes before H2
+        }
+
+        // Stop after first TABLE
+        if (el.tagName === 'TABLE') {
+          return true; // break .some loop
+        }
+
+        // After H2 is found, append current element
+        divTable.appendChild(el);
+
+        return false; // continue loop
+      });
+
+      // Insert divTable after the H2 element
+      const h2Element = firstContainer.querySelector('h2:nth-of-type(1)');
+      console.log('h2Element', h2Element);
+      const hrElement = firstContainer.querySelector('hr:nth-of-type(1)');
+      if (h2Element) {
+        h2Element.after(divTable);
+        h2Element.before(divP);
+      } else if (hrElement) {
+        hrElement.after(divTable);
+        hrElement.before(divP);
+      }
 
       /// ///////////////////////////////////////////////////////////////////////
       // adding top tag to each box
@@ -126,7 +173,6 @@ export default function decorate(block) {
 
       const aBuybtn = document.createElement('a');
       aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass} parent-no-hide"></span>`);
-      console.log(tableBuybtn, onSelectorClass);
       aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
       aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
@@ -185,6 +231,56 @@ export default function decorate(block) {
       // add prod class on block
       prodBox?.classList.add(`${onSelectorClass}_box`, 'prod_box');
       prodBox?.setAttribute('data-testid', 'prod_box');
+
+      /// ///////////////////////////////////////////////////////////////////////
+      // add the elements after the buy button in a new div
+      const divAfterBuy = document.createElement('div');
+      divAfterBuy.className = 'after_buy';
+
+      if (isCampaign !== 'jamestowntribe') {
+        const children = [...firstContainer.children];
+        const buyBtnIndex = children.findIndex((child) => child.classList.contains('buybtn_box'));
+
+        if (buyBtnIndex !== -1 && buyBtnIndex < children.length - 1) {
+          // Collect all elements after the buy button
+          const elementsAfterBuy = children.slice(buyBtnIndex + 1);
+
+          // Move them into the new div
+          elementsAfterBuy.forEach((el) => {
+            divAfterBuy.appendChild(el);
+          });
+        }
+        // Insert the after_buy div after the buy button
+        const buyBtnElement = children[buyBtnIndex];
+        buyBtnElement.after(divAfterBuy);
+      }
+      // add case for jamestowntribe
+      if (isCampaign === 'jamestowntribe') {
+        const tables = firstContainer.querySelectorAll('table');
+        if (tables.length >= 4) {
+          const fourthTable = tables[3]; // index starts from 0
+
+          // Get all siblings after the 4th table
+          let current = fourthTable.nextElementSibling;
+          while (current) {
+            const next = current.nextElementSibling;
+            divAfterBuy.appendChild(current);
+            current = next;
+          }
+
+          fourthTable.after(divAfterBuy);
+        }
+      }
+
+      /// ///////////////////////////////////////////////////////////////////////
+      // get all the li elements and give them text-align left
+      const ulElements = prodBox.querySelectorAll('ul');
+      ulElements.forEach((ul) => {
+        const liElements = ul.querySelectorAll('li');
+        liElements.forEach((li) => {
+          li.style.setProperty('text-align', 'left', 'important');
+        });
+      });
     });
   }
   // Event listener for form submission
