@@ -477,7 +477,7 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     if (!prodName) return null;
 
     const campaignParam = getMetadata('vcampaign') || getParamByName('vcampaign');
-    const campaignSegment = couponParam ? `/campaign/${campaignParam}` : '';
+    const campaignSegment = campaignParam ? `/campaign/${campaignParam}` : '';
 
     let localeSegment = page.locale;
     if (mode === 'coupon' && !['au', 'gb'].includes(page.country)) localeSegment = 'en-mt';
