@@ -495,21 +495,13 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? prodYears * 12
       : prodYears;
 
-    if (mode === 'coupon') {
-      const match = data.product.options.find((item) => {
-        const coupon = getParamByName('COUPON', item.buyLink);
-        return (
-          item.slots === Number(prodUsers)
-          && item.months === durationInMonths
-          && coupon
-        );
-      });
+    const match = data.product.options.find(item => 
+      item.slots === Number(prodUsers) &&
+      item.months === durationInMonths &&
+      (mode !== 'coupon' || getParamByName('COUPON', item.buyLink))
+    );
 
-      if (match) return getParamByName('COUPON', match.buyLink);
-    } else if (mode === 'buyLink') {
-      const match = data.product.options[0];
-      return match?.buyLink;
-    }
+    if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
 
     return null;
   } catch (error) {
@@ -531,6 +523,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
     return raw;
   };
+  
 
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
     const locale = page.country;
