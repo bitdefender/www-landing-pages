@@ -495,11 +495,9 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? prodYears * 12
       : prodYears;
 
-    const match = data.product.options.find((item) =>
-      item.slots === Number(prodUsers)
+    const match = data.product.options.find((item) => item.slots === Number(prodUsers)
       && item.months === durationInMonths
-      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)),
-    );
+      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)),);
 
     if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
 
