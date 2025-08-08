@@ -847,6 +847,7 @@ const createFakeSelectors = () => {
   const fakeSelectorsBottom = document.createElement('div');
   fakeSelectorsBottom.id = 'fakeSelectors_bottom';
   document.querySelector('footer').before(fakeSelectorsBottom);
+  if (!productsList.length) return;
   productsList.forEach((prod) => {
     const prodSplit = prod.split('/');
     const prodAlias = productAliases(prodSplit[0].trim());
