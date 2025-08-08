@@ -23,6 +23,7 @@ function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, r
 }
 
 function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display) {
+  const trialText = tablePrices.closest('.section').dataset.trialText;
   // Clear existing content
   tablePrices.innerHTML = '';
 
@@ -37,10 +38,19 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
         <span class="d-none percent percent-${selectorClass}">0%</span>
       </div>
       <div class="display-flex">
-        <span class="prod-newprice newprice-${selectorClass}"></span>
+        <span class="prod-newprice${trialText ? ' newprice-0' : ''} newprice-${selectorClass}"></span>
       </div>
-    </div>`;
+    </div>
+    `;
+
     tablePrices.appendChild(pricesBox);
+
+    if (trialText) {
+      const pricesTrial = document.createElement('p');
+      pricesTrial.className = 'pricesTrial';
+      pricesTrial.innerHTML = trialText.replace('0', `<strong class="prod-newprice newprice-${selectorClass}"></strong>`);
+      tablePrices.appendChild(pricesTrial);
+    }
   };
 
   // Create yearly and monthly price boxes
