@@ -11,7 +11,7 @@ export default function decorate(block) {
   } = metaData;
   const productsAsList = products && products.split(',');
 
-  if (productsAsList.length) {
+  if (productsAsList?.length) {
     /// ///////////////////////////////////////////////////////////////////////
     // set the background-color
     if (backgroundColor) parentSelector.style.backgroundColor = backgroundColor;
@@ -111,8 +111,6 @@ export default function decorate(block) {
       const firstContainer = prodBox.children[0];
       let foundH2 = false;
       [...firstContainer.children].some((el) => {
-        console.log(el, el.tagName);
-
         if (el.tagName === 'H2' || el.tagName === 'HR') {
           foundH2 = true;
           return false; // continue iteration after h2
@@ -136,7 +134,6 @@ export default function decorate(block) {
 
       // Insert divTable after the H2 element
       const h2Element = firstContainer.querySelector('h2:nth-of-type(1)');
-      console.log('h2Element', h2Element);
       const hrElement = firstContainer.querySelector('hr:nth-of-type(1)');
       if (h2Element) {
         h2Element.after(divTable);
@@ -284,7 +281,7 @@ export default function decorate(block) {
     });
   }
   // Event listener for form submission
-  block.querySelector('#formBox button').addEventListener('click', async (event) => {
+  block.querySelector('#formBox button')?.addEventListener('click', async (event) => {
     const { target } = event;
 
     const allowedDomain = 'jamestowntribe.org';
