@@ -34,7 +34,7 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
     pricesBox.innerHTML = `<div>
       <div class="display-flex">
         <span class="prod-oldprice oldprice-${selectorClass}"></span>
-        <span class="prod-save"> ${tablePricesText} <span class="save-${selectorClass}"></span></span>
+        <span class="prod-save" ${trialText ? 'style="display: none;"' : ''}> ${tablePricesText} <span class="save-${selectorClass}"></span></span>
         <span class="d-none percent percent-${selectorClass}">0%</span>
       </div>
       <div class="display-flex">
