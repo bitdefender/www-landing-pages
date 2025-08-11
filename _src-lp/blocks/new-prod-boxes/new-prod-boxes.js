@@ -409,7 +409,7 @@ export default function decorate(block) {
             optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
             const priceSpan = type === 'dropdown-benefits'
-              ? `<span class="prod-newprice newprice-${selectorClass} radio-price"></span> `
+              ? `<span class="prod-oldprice oldprice-${selectorClass}"></span><span class="prod-newprice newprice-${selectorClass} radio-price"></span>`
               : '';
 
             if (type === 'dropdown-benefits') {
