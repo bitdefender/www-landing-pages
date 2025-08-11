@@ -79,12 +79,14 @@ body [data-desktop-detector] {
 .phishing .heading-content {
   margin-top: 40px;
 }
+
 .phishing .heading-content u {
   color: #006DFF;
   text-decoration: none;
   font-weight: 600;
   margin-bottom: 10px;
 }
+
 .phishing .heading-content h2, .phishing .heading-content h3 {
   margin-top: 10px;
 }
@@ -248,6 +250,7 @@ a.button:any-link, button {
   display: inline-block;
   padding: 3px 6px;
 }
+
 .save-green-pill span {
   color: #2DB43D;
   font-weight: bold;
@@ -359,13 +362,16 @@ main img {
 .affiliate .block div p {
   font-size: 13px;
 }
+
 .affiliate .block div p:nth-of-type(2) {
   margin-left: 12px !important;
   display: none;
 }
+
 .affiliate .block div p:nth-of-type(2) picture {
   margin-left: 12px;
 }
+
 .affiliate .block div p:nth-of-type(3) {
   padding-left: 12px !important;
 }
@@ -923,6 +929,7 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
   font-weight: bold;
   line-height: 1.2;
 }
+
 .prod-percent.green_bck_circle.bigger span.bulina_text1 .max-discount {
   display: inline-block;
 }
@@ -1460,20 +1467,24 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
 .green-arrow-and-title {
   position: relative;
 }
+
 .green-arrow-and-title .default-content-wrapper h1 {
   color: #0E8532;
   font-size: 24px;
   margin-bottom: 0px !important;
 }
+
 .green-arrow-and-title .default-content-wrapper h2 {
   font-size: 24px;
   font-weight: normal;
   margin-bottom: 0 !important;
 }
+
 .green-arrow-and-title .default-content-wrapper h2 em {
   font-style: normal;
   position: relative;
 }
+
 .green-arrow-and-title .default-content-wrapper h2 em::before {
   content: "";
   display: block;
@@ -1485,9 +1496,11 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
   top: 30px;
   left: -20px;
 }
+
 .green-arrow-and-title .default-content-wrapper p {
   font-size: 14px;
 }
+
 .green-arrow-and-title .default-content-wrapper img {
   width: 84px;
   height: 69px;
