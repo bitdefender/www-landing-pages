@@ -1286,7 +1286,14 @@
   .new-prod-boxes-container .block .prod_box .inner_prod_box {
     width: 92%;
   }
+  .new-prod-boxes-container.show-more-show-less .block .prod_box {
+    flex: 0;
+  }
+  .new-prod-boxes-container.show-more-show-less .block .prod_box:not(:last-of-type) {
+    margin-right: 25px;
+  }
   .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box {
+    margin: 0;
     width: 330px;
   }
   .new-prod-boxes-container.width-small .block .prod_box .inner_prod_box {
@@ -1327,5 +1334,6 @@
   }
   .new-prod-boxes-container.show-more-show-less .block {
     width: 1400px;
+    justify-content: center;
   }
 }

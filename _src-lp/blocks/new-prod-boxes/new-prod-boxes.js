@@ -111,6 +111,30 @@ function extractBuyLinks(tdElement) {
   return result;
 }
 
+function replacePill(content, regExp, pillClass) {
+  const pillText = content.match(regExp);
+
+  const icon = content.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
+  let updatedContent = content;
+
+  if (pillText) {
+    // Remove original icon if found
+    if (icon) {
+      updatedContent = updatedContent.replace(icon[0], '');
+    }
+
+    // Create the pill element
+    const pillElement = document.createElement('span');
+    pillElement.classList.add(pillClass);
+    pillElement.innerHTML = `${pillText[1]}${icon ? icon[0] : ''}`;
+
+    // Replace the ?pill or ?green-pill directive with the new pill HTML
+    updatedContent = updatedContent.replace(pillText[0], pillElement.outerHTML);
+  }
+
+  return updatedContent;
+}
+
 export default function decorate(block) {
   const parentSection = block.closest('.section');
   const metaData = parentSection.dataset;
@@ -311,41 +335,15 @@ export default function decorate(block) {
           }
 
           if (firstTdContent.indexOf('?pill') !== -1) {
-            const pillText = firstTdContent.match(/\?pill (\w+)/);
-            const iconElement = firstTdContent.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
-            if (pillText) {
-              const icon = tdList[0].querySelector('span');
-              const pillElement = document.createElement('span');
-              pillElement.classList.add('blue-pill');
-              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
-              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
-              if (icon) {
-                let count = 0;
-                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
-                  count += 1;
-                  return (count === 2) ? '' : match;
-                });
-              }
-            }
+            const pillRegExp = /\?pill (\w+)/;
+            firstTdContent = replacePill(firstTdContent, pillRegExp, 'blue-pill');
           }
+
           if (firstTdContent.indexOf('?green-pill') !== -1) {
-            const pillText = firstTdContent.match(/\?green-pill (\w+)/);
-            const iconElement = firstTdContent.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
-            if (pillText) {
-              const icon = tdList[0].querySelector('span');
-              const pillElement = document.createElement('span');
-              pillElement.classList.add('green-pill');
-              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
-              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
-              if (icon) {
-                let count = 0;
-                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
-                  count += 1;
-                  return (count === 2) ? '' : match;
-                });
-              }
-            }
+            const greenPillRegExp = /\?green-pill (\w+)/;
+            firstTdContent = replacePill(firstTdContent, greenPillRegExp, 'green-pill');
           }
+
           if (firstTdContent.indexOf('-x-') !== -1) {
             liClass += ' nocheck';
             firstTdContent = firstTdContent.replace('-x-', '');

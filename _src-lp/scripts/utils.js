@@ -476,12 +476,13 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     const prodName = VALICU_PRODS[productId];
     if (!prodName) return null;
 
-    const campaignParam = getParamByName('vcampaign') ? `/campaign/${getParamByName('vcampaign')}` : '';
-    const localeSegment = (mode === 'coupon' && ['au', 'gb'].includes(page.country))
-      ? page.locale
-      : 'en-mt';
+    const campaignParam = getMetadata('vcampaign') || getParamByName('vcampaign');
+    const campaignSegment = campaignParam ? `/campaign/${campaignParam}` : '';
 
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`);
+    let localeSegment = page.locale;
+    if (mode === 'coupon' && !['au', 'gb'].includes(page.country)) localeSegment = 'en-mt';
+
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignSegment}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -494,21 +495,11 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? prodYears * 12
       : prodYears;
 
-    if (mode === 'coupon') {
-      const match = data.product.options.find((item) => {
-        const coupon = getParamByName('COUPON', item.buyLink);
-        return (
-          item.slots === Number(prodUsers)
-          && item.months === durationInMonths
-          && coupon
-        );
-      });
+    const match = data.product.options.find((item) => item.slots === Number(prodUsers)
+      && item.months === durationInMonths
+      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)));
 
-      if (match) return getParamByName('COUPON', match.buyLink);
-    } else if (mode === 'buyLink') {
-      const match = data.product.options[0];
-      return match?.buyLink;
-    }
+    if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
 
     return null;
   } catch (error) {
@@ -746,7 +737,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           } else if (item.classList.contains('calculate_yearly')) {
             item.innerHTML = offerPriceYearly;
           } else {
-            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/\d+(\.\d+)?/, '0') : offerPrice;
+            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/[\d,]+(\.\d+)?/, '0') : offerPrice;
           }
         });
       }
@@ -891,7 +882,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         });
       } else {
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/\d+(\.\d+)?/, '0') : fullPrice;
+          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/[\d,]+(\.\d+)?/, '0') : fullPrice;
         });
       }
     }
@@ -947,7 +938,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         // If no discount, hide the percentBox or its container
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           const container = item.closest('p') || item.parentNode;
-          if (container) {
+          if (container && !item.classList.contains('parent-no-hide')) {
             container.remove();
           }
         });

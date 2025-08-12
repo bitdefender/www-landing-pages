@@ -63,19 +63,6 @@ header#headerBlue {
     align-items: center;
   }
 
-  p {
-    padding: 0;
-    margin: 0;
-
-    > img {
-      height: 50px;
-      width: auto;
-      margin-left: 20px;
-      position: relative;
-      top: -10px;
-    }
-  }
-
   a {
     text-align: center;
     color: #006eff;
@@ -85,7 +72,20 @@ header#headerBlue {
       display: inline-block;
       width: auto;
       position: relative;
-      top: -12px;
+    }
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
+
+    picture {
+      img {
+        height: 35px;
+        width: auto;
+        margin-left: 20px;
+        position: relative;
+      }
     }
   }
 
@@ -96,6 +96,20 @@ header#headerBlue {
   .header {
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+
+  &.employee-benefits {
+    .block div {
+      justify-content: unset;
+    }
+  }
+
+  &.biggerLogo {
+    a {
+      img {
+        height: 35px;
+      }
+    }
   }
 }
 
