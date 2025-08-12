@@ -1,24 +1,19 @@
-@charset "UTF-8";
-/* Ascunde secțiunea la load (conținutul din editor) */
 .exit-popup-container {
   display: none;
 }
 
-/* Overlay pe tot ecranul (transparent) */
 .exit-popup-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.25); /* ajustează opacitatea aici */
+  background: rgba(0, 0, 0, 0.25);
   z-index: 9998;
-  backdrop-filter: blur(2px); /* opțional, efect elegant */
+  backdrop-filter: blur(2px);
 }
 
-/* Modalul -> transformăm .exit-popup.block în modal */
 .exit-popup-modal {
-  display: none; /* ascuns inițial */
-  position: fixed; /* plutește peste pagină */
-  top: 50%;
+  display: none;
+  position: fixed;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
@@ -30,13 +25,11 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
-/* Afișare activă */
 .exit-popup-overlay.show,
 .exit-popup-modal.show {
   display: block;
 }
 
-/* Buton ✕ – mic, rotund, elegant */
 .exit-popup-close {
   position: absolute;
   top: 10px;
@@ -55,14 +48,13 @@
   line-height: 1;
   padding: 0;
   transition: background 0.2s ease;
-  font-family: Arial, sans-serif; /* pentru semnul × corect */
+  font-family: Arial, sans-serif;
 }
 
 .exit-popup-close:hover {
   background: #ddd;
 }
 
-/* Spațiere internă opțională pentru boxul de preț */
 .exit-popup-modal .prices_box {
   margin-top: 1rem;
 }
@@ -73,7 +65,7 @@
 }
 
 .exit-popup-modal .red-buy-button {
-  background: #cc0000;
+  background: #c00;
   color: #fff;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
