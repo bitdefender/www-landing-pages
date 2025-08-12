@@ -417,6 +417,18 @@
   font-size: 32px;
 }
 
+.b-banner-container .b-banner-wrapper #productBoxDiv h3 {
+  margin-top: 0.5em;
+  font-size: 22px;
+}
+
+.b-banner-container .b-banner-wrapper #productBoxDiv hr {
+  border: 0;
+  border-bottom: 2px solid black;
+  width: 66px;
+  margin: 0.5em auto 1em;
+}
+
 @media screen and (width >= 768px) {
   .b-banner-container {
     padding: 2em 0;
