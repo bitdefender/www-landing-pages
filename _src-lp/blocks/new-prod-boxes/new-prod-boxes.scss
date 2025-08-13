@@ -807,6 +807,10 @@
     display: none;
 }
 
+.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .subtitle ul li .prod-oldprice {
+    display: none;
+}
+
 .new-prod-boxes-container.business.disable-first .block .prod_box.index0 .inner_prod_box .prices_box .prod-newprice {
 	font-size: var(--heading-font-size-xs);
 	line-height: var(--heading-font-size-xl);
