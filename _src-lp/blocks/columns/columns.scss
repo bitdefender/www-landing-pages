@@ -161,8 +161,58 @@ main .columns-container.padding-0 .columns-wrapper{
         margin: 0;
       }
     }
+
+    &.v2 {
+      > div  > div {
+        max-width: unset;
+        padding: 20px;
+      }
+
+      >div >div >div {
+        flex-direction: column;
+        text-align: left;
+        align-items: flex-start;
+
+        h3 {
+          font-size: 20px;
+        }
+      }
+    }
   }
 }
+
+.columns-container.blue-buttons {
+  .columns-wrapper {
+    .columns {
+      padding: 30px;
+
+      img {
+        border-radius: 0;
+        margin: auto;
+      }
+
+      .text-content {
+        h2 {
+          font: normal normal bold 32px/42px IBM Plex Sans;
+          margin-bottom: 20px;
+          margin-top: 20px;
+        }
+
+        .button-container {
+          a {
+            background-color: #016FFF;
+            margin-top: 24px;
+
+            &:hover {
+              filter: brightness(95%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 
 @media (width >= 768px) {
   .columns > div {
@@ -205,6 +255,10 @@ main .columns-container.padding-0 .columns-wrapper{
   .columns > div > .columns-img-col--right img {
     max-width: 100%;
     margin-right: auto;
+  }
+
+  .columns-container.round-corners .columns{
+    border-radius: 20px;
   }
 
   .columns-container.new .columns > div {
@@ -267,8 +321,6 @@ main .columns-container.padding-0 .columns-wrapper{
 @media (width >= 1400px) {
   .columns-container {
     .columns.blue-cards, .columns.gray-cards {
-      width: 1320px;
-
       > div  > div {
         max-width: 300px;
       }

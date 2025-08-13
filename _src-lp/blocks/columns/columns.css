@@ -146,6 +146,38 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.gray-cards > div > div > div .icon {
   margin: 0;
 }
+.columns-container .columns.gray-cards.v2 > div > div {
+  max-width: unset;
+  padding: 20px;
+}
+.columns-container .columns.gray-cards.v2 > div > div > div {
+  flex-direction: column;
+  text-align: left;
+  align-items: flex-start;
+}
+.columns-container .columns.gray-cards.v2 > div > div > div h3 {
+  font-size: 20px;
+}
+
+.columns-container.blue-buttons .columns-wrapper .columns {
+  padding: 30px;
+}
+.columns-container.blue-buttons .columns-wrapper .columns img {
+  border-radius: 0;
+  margin: auto;
+}
+.columns-container.blue-buttons .columns-wrapper .columns .text-content h2 {
+  font: normal normal bold 32px/42px IBM Plex Sans;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.columns-container.blue-buttons .columns-wrapper .columns .text-content .button-container a {
+  background-color: #016FFF;
+  margin-top: 24px;
+}
+.columns-container.blue-buttons .columns-wrapper .columns .text-content .button-container a:hover {
+  filter: brightness(95%);
+}
 
 @media (width >= 768px) {
   .columns > div {
@@ -180,6 +212,9 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns > div > .columns-img-col--right img {
     max-width: 100%;
     margin-right: auto;
+  }
+  .columns-container.round-corners .columns {
+    border-radius: 20px;
   }
   .columns-container.new .columns > div {
     padding: 15px 0;
@@ -228,9 +263,6 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 }
 @media (width >= 1400px) {
-  .columns-container .columns.blue-cards, .columns-container .columns.gray-cards {
-    width: 1320px;
-  }
   .columns-container .columns.blue-cards > div > div, .columns-container .columns.gray-cards > div > div {
     max-width: 300px;
   }

@@ -116,7 +116,7 @@ export default function decorate(block) {
     products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
     marginBottom, imageCover, imageHeight, contentSize, greenTag,
   } = metaData;
-  const [contentEl, pictureEl, contentRightEl] = [...block.children];
+  const [contentEl, pictureEl, contentRightEl, tosButton] = [...block.children];
   const prodBoxesParent = document.createElement('div');
 
   // config based on Metadatas
@@ -192,16 +192,17 @@ export default function decorate(block) {
       const contentRightItem = contentRightEl.children[idx];
       if (!contentRightItem) return;
       const [bluePill, tableRadios, tablePrices] = contentRightItem.querySelectorAll('table');
+      if (bluePill) {
+        bluePill.style.display = 'none';
 
-      bluePill.style.display = 'none';
-
-      bluePill.querySelectorAll('tr').forEach((row) => {
-        Array.from(row.cells).forEach((cell) => {
-          if (cell.textContent.trim() !== '' || cell.innerHTML) {
-            bluePill.style.display = '';
-          }
+        bluePill.querySelectorAll('tr').forEach((row) => {
+          Array.from(row.cells).forEach((cell) => {
+            if (cell.textContent.trim() !== '' || cell.innerHTML) {
+              bluePill.style.display = '';
+            }
+          });
         });
-      });
+      }
 
       if (tableRadios && tablePrices) {
         const [radio1, radio2] = tableRadios.querySelectorAll('td');
@@ -236,6 +237,11 @@ export default function decorate(block) {
         prodBox.innerHTML = greenTagEl + prodBox.innerHTML;
       }
 
+      if (tosButton) {
+        tosButton.classList.add('tos-button');
+        prodBox.insertAdjacentElement('beforeend', tosButton);
+      }
+
       prodBoxesParent.appendChild(prodBox);
     });
   }
@@ -253,6 +259,6 @@ export default function decorate(block) {
 
   matchHeights(block, 'h3');
   matchHeights(block, '.prodBox p:first-of-type');
-  matchHeights(block, 'ul:first-of-type');
+  matchHeights(block, '.prodBox ul:first-of-type');
   matchHeights(block, '.prices_box > div > div:first-of-type');
 }
