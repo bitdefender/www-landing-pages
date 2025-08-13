@@ -705,6 +705,10 @@ main .blue-heading h2 {
   color: #006dff;
 }
 
+main .blue-paragraph p:first-of-type {
+  color: #006DFF;
+}
+
 .red-buy-button p em {
   font-weight: 300;
   font-size: 14px;

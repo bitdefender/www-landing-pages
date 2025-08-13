@@ -538,6 +538,14 @@
   .section.banner-with-cards-container .banner-with-cards .prodBox-wrapper:last-of-type {
     margin-bottom: 0 !important;
   }
+
+  .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds > div:first-child  {
+    width: unset;
+  }
+
+  .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds > div:first-child p:last-of-type{
+    width: unset;
+  }
 }
 
 @media (width <= 768px) {
