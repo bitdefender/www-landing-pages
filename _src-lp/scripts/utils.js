@@ -395,30 +395,38 @@ export function formatPrice(price, currency) {
 
 // get max discount
 function maxDiscount() {
+  const selectors = ['.prod-percent', '.percent'];
   const discountAmounts = [];
-  if (document.querySelector('.prod-percent')) {
-    document.querySelectorAll('.prod-percent').forEach((item) => {
-      const discountAmount = parseInt(item.textContent, 10);
-      if (!Number.isNaN(discountAmount)) {
-        discountAmounts.push(discountAmount);
-      }
-    });
-  }
+
+  // Collect all discount values
+  selectors.forEach((selector) => {
+    if (document.querySelector(selector)) {
+      document.querySelectorAll(selector).forEach((item) => {
+        const discount = parseInt(item.textContent, 10);
+        if (!Number.isNaN(discount)) {
+          discountAmounts.push(discount);
+        }
+      });
+    }
+  });
 
   const maxDiscountValue = Math.max(...discountAmounts);
-  const maxDiscountBox = document.querySelector('.max-discount');
-  if (maxDiscountBox && maxDiscountValue) {
-    const discountText = `${maxDiscountValue.toString()}%`;
-    document.querySelectorAll('.max-discount').forEach((item) => {
+  const maxDiscountElements = document.querySelectorAll('.max-discount');
+
+  if (maxDiscountElements.length && maxDiscountValue) {
+    const discountText = `${maxDiscountValue}%`;
+    maxDiscountElements.forEach((item) => {
       item.textContent = discountText;
+
       const closestEm = item.closest('em');
       if (closestEm) closestEm.style.display = 'inline-block';
-    });
 
-    const closestDiv = maxDiscountBox.closest('div');
-    if (closestDiv) closestDiv.style.visibility = 'visible';
+      const closestDiv = item.closest('div');
+      if (closestDiv) closestDiv.style.visibility = 'visible';
+    });
   } else {
-    document.querySelectorAll('.max-discount').forEach((item) => {
+    // Remove surrounding element if no discounts found
+    maxDiscountElements.forEach((item) => {
       const closestEm = item.closest('em');
       if (closestEm) closestEm.remove();
     });
@@ -468,12 +476,13 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
     const prodName = VALICU_PRODS[productId];
     if (!prodName) return null;
 
-    const campaignParam = getParamByName('vcampaign') ? `/campaign/${getParamByName('vcampaign')}` : '';
-    const localeSegment = (mode === 'coupon' && ['au', 'gb'].includes(page.country))
-      ? page.locale
-      : 'en-mt';
+    const campaignParam = getMetadata('vcampaign') || getParamByName('vcampaign');
+    const campaignSegment = campaignParam ? `/campaign/${campaignParam}` : '';
 
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignParam}`);
+    let localeSegment = page.locale;
+    if (mode === 'coupon' && !['au', 'gb'].includes(page.country)) localeSegment = 'en-mt';
+
+    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignSegment}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -486,21 +495,11 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? prodYears * 12
       : prodYears;
 
-    if (mode === 'coupon') {
-      const match = data.product.options.find((item) => {
-        const coupon = getParamByName('COUPON', item.buyLink);
-        return (
-          item.slots === Number(prodUsers)
-          && item.months === durationInMonths
-          && coupon
-        );
-      });
+    const match = data.product.options.find((item) => item.slots === Number(prodUsers)
+      && item.months === durationInMonths
+      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)));
 
-      if (match) return getParamByName('COUPON', match.buyLink);
-    } else if (mode === 'buyLink') {
-      const match = data.product.options[0];
-      return match?.buyLink;
-    }
+    if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
 
     return null;
   } catch (error) {
@@ -738,7 +737,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           } else if (item.classList.contains('calculate_yearly')) {
             item.innerHTML = offerPriceYearly;
           } else {
-            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/\d+(\.\d+)?/, '0') : offerPrice;
+            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/[\d,]+(\.\d+)?/, '0') : offerPrice;
           }
         });
       }
@@ -883,7 +882,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         });
       } else {
         document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/\d+(\.\d+)?/, '0') : fullPrice;
+          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/[\d,]+(\.\d+)?/, '0') : fullPrice;
         });
       }
     }
@@ -939,7 +938,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         // If no discount, hide the percentBox or its container
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           const container = item.closest('p') || item.parentNode;
-          if (container) {
+          if (container && !item.classList.contains('parent-no-hide')) {
             container.remove();
           }
         });

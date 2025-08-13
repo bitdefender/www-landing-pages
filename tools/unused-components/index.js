@@ -141,6 +141,7 @@ const processPaths = async (components) => {
   }
 
   // Check all components and see which ones are worth noting
+  const unusedComponents = [];
   componentsToSearch
     .forEach(componentName => {
       if (KNOWN_USED_COMPONENTS.includes(componentName)) {
@@ -148,10 +149,11 @@ const processPaths = async (components) => {
       }
 
       if (!blocksCountMap[componentName]) {
-        console.log("Component ", componentName, " is not used\n");
+        unusedComponents.push(componentName);
         return;
       }
 
+      const includedPaths = ['/consumer/en', 'business/en'];
       console.log(
         `Component ${componentName} was found `,
         blocksCountMap[componentName].entries,
@@ -159,11 +161,18 @@ const processPaths = async (components) => {
         `Example paths:`,
         blocksCountMap[componentName].paths
           // eslint-disable-next-line no-unused-vars
-          .sort((a, _) => (a.includes('/en/') ? -1 : 1))
+          .sort((a, _) => (
+            includedPaths.some((includedValue) => a.includes(includedValue)) ? -1 : 1))
+          .filter((path, index, self) => index === self.indexOf(path))
           .slice(0, 10),
         '\n',
       );
     });
+
+  console.log('\nUnused Components:');
+  unusedComponents.forEach((componentName) => {
+    console.log(componentName);
+  });
 
   // Check all fragments and see which ones are not used
   console.log('\nUnused Fragments:');

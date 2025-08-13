@@ -111,6 +111,30 @@ function extractBuyLinks(tdElement) {
   return result;
 }
 
+function replacePill(content, regExp, pillClass) {
+  const pillText = content.match(regExp);
+
+  const icon = content.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
+  let updatedContent = content;
+
+  if (pillText) {
+    // Remove original icon if found
+    if (icon) {
+      updatedContent = updatedContent.replace(icon[0], '');
+    }
+
+    // Create the pill element
+    const pillElement = document.createElement('span');
+    pillElement.classList.add(pillClass);
+    pillElement.innerHTML = `${pillText[1]}${icon ? icon[0] : ''}`;
+
+    // Replace the ?pill or ?green-pill directive with the new pill HTML
+    updatedContent = updatedContent.replace(pillText[0], pillElement.outerHTML);
+  }
+
+  return updatedContent;
+}
+
 export default function decorate(block) {
   const parentSection = block.closest('.section');
   const metaData = parentSection.dataset;
@@ -311,41 +335,15 @@ export default function decorate(block) {
           }
 
           if (firstTdContent.indexOf('?pill') !== -1) {
-            const pillText = firstTdContent.match(/\?pill (\w+)/);
-            const iconElement = firstTdContent.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
-            if (pillText) {
-              const icon = tdList[0].querySelector('span');
-              const pillElement = document.createElement('span');
-              pillElement.classList.add('blue-pill');
-              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
-              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
-              if (icon) {
-                let count = 0;
-                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
-                  count += 1;
-                  return (count === 2) ? '' : match;
-                });
-              }
-            }
+            const pillRegExp = /\?pill (\w+)/;
+            firstTdContent = replacePill(firstTdContent, pillRegExp, 'blue-pill');
           }
+
           if (firstTdContent.indexOf('?green-pill') !== -1) {
-            const pillText = firstTdContent.match(/\?green-pill (\w+)/);
-            const iconElement = firstTdContent.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
-            if (pillText) {
-              const icon = tdList[0].querySelector('span');
-              const pillElement = document.createElement('span');
-              pillElement.classList.add('green-pill');
-              pillElement.innerHTML = `${pillText[1]}${iconElement ? iconElement[0] : ''}`;
-              firstTdContent = firstTdContent.replace(pillText[0], `${pillElement.outerHTML}`);
-              if (icon) {
-                let count = 0;
-                firstTdContent = firstTdContent.replace(new RegExp(icon.outerHTML, 'g'), (match) => {
-                  count += 1;
-                  return (count === 2) ? '' : match;
-                });
-              }
-            }
+            const greenPillRegExp = /\?green-pill (\w+)/;
+            firstTdContent = replacePill(firstTdContent, greenPillRegExp, 'green-pill');
           }
+
           if (firstTdContent.indexOf('-x-') !== -1) {
             liClass += ' nocheck';
             firstTdContent = firstTdContent.replace('-x-', '');
@@ -409,7 +407,7 @@ export default function decorate(block) {
             optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
             const priceSpan = type === 'dropdown-benefits'
-              ? `<span class="prod-newprice newprice-${selectorClass} radio-price"></span> `
+              ? `<span class="prod-oldprice oldprice-${selectorClass}"></span><span class="prod-newprice newprice-${selectorClass} radio-price"></span>`
               : '';
 
             if (type === 'dropdown-benefits') {
@@ -844,6 +842,7 @@ export default function decorate(block) {
     const hasShowMoreLogic = section.classList.contains('show-more-show-less');
     const threshold = hasShowMoreLogic ? 4 : 0;
 
+    list.style.flexDirection = list.style.flexDirection === 'column' ? '' : 'column';
     const isExpanded = list.dataset.expanded === 'true';
     const newExpanded = !isExpanded;
     list.dataset.expanded = newExpanded.toString();
@@ -855,9 +854,11 @@ export default function decorate(block) {
 
     // Handle toggle visibility: show one .list-toggle and hide the other
     const toggleButtons = list.querySelectorAll('.list-toggle');
-    toggleButtons.forEach((btn) => {
-      btn.style.display = btn === clickedButton ? 'none' : 'flex';
-    });
+    if (isShowMoreShowLess) {
+      toggleButtons.forEach((btn) => {
+        btn.style.display = btn === clickedButton ? 'none' : 'flex';
+      });
+    }
 
     // Rotate the icon inside the clicked button, if present
     const icon = clickedButton.querySelector('svg');

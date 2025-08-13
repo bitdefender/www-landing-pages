@@ -70,30 +70,25 @@ const askWithImage = async (screenshotsInfo) => {
     }
 
     const response = await openai.chat.completions.create({
-      model: "o4-mini",  
+      model: "o4-mini",
       messages: [
-        { role: "system", content: "You’re a UI-diff assistant." },
-        { 
-          role: "user", 
-          content: [
-            { 
-              type: 'text',
-              text: `
-                Baseline dimensions: ${dims.w}×${dims.h}px.
-                I attatched the image which contains the differences between the baseline and the new screenshot.
-                Analyze whether any of these changes violate the Jira acceptance criteria.
-                At the end of your message, provide a string like this: "Final verdict: FAIL" if you think the changes are not justified or "Final verdict: PASS" if you think they are justified in accordance to the Jira ticket. 
-                Here is the Jira ticket description: ${description}.
-                And here are all the ticket comments in order of publication on the ticket: ${comments}
-              `,
-            },
-            {
-              type: 'image_url',
-              image_url: {
-                url: baseScreenshotUrl,
-              }
-            }
-          ]
+        {
+          role: "system",
+          content: `
+            You are a Senior QA Engineer reviewing snapshot test changes. Given the Jira ticket context, determine if these snapshot changes are justified. Respond strictly with one of these phrases: "Final verdict: PASS" or "Final verdict: FAIL".
+          `.trim()
+        },
+        {
+          role: "user",
+          content: `
+            Context: A snapshot test has just failed. Baseline dimensions: ${dims.w}×${dims.h}px.
+            Compare the image diff here: ${baseScreenshotUrl}
+            
+            Analyze whether any of these changes violate the Jira acceptance criteria.
+            Ticket description: ${description}
+            Comments (chronological):
+            ${comments.join("\n")}
+          `.trim()
         }
       ]
     });
