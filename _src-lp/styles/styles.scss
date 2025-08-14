@@ -1963,6 +1963,10 @@ main .section[data-textcolor=grey] .default-content-wrapper * {
   .overflow-top {
     margin-top: -2rem;
   }
+   main .section.width-smaller3 .block, main .section.width-smaller3 .default-content-wrapper {
+    width: 991px;
+    margin: 0 auto;
+  }
 }
 @media (width >= 768px) {
   .w95 .block {
