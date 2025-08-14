@@ -95,6 +95,13 @@
     margin: 10px 0;
 }
 
+.new-prod-boxes-container .switchBox .label hr {
+    margin: 0 auto 8px;
+    width: 90%;
+    border: 0.5px solid;
+    opacity: 0.65;
+}
+
 .new-prod-boxes-container .prod_box .inner_prod_box .save-trial-text hr {
     margin: 0 0 10px;
 }
@@ -119,13 +126,6 @@
     margin-top: 0;
     margin-bottom: 3px;
     font: normal normal normal 10px/11px Arial, sans-serif;
-}
-
-.new-prod-boxes-container .switchBox .label hr {
-    margin: 0 auto 8px;
-    width: 90%;
-    border: 0.5px solid;
-    opacity: 0.65;
 }
 
 .new-prod-boxes-container .switchBox .label .icon {
@@ -415,6 +415,15 @@
     color: #005ED9;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    line-height: 13px;
+    margin: 7px 0;
+    color: #000;
+    text-align: center;
+}
+
 .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .underBuyLink {
     text-align: left;
     font: italic normal normal 14px/18px Arial;
@@ -534,6 +543,15 @@
     min-height: auto;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li em {
+    background-color: #026DFF;
+    color: #FFFFFF;
+    padding: 4px 7px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-style: normal;
+}
+
 .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .billed em {
     display: block;
     width: 100%;
@@ -582,15 +600,6 @@
 
 .new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box > hr:last-of-type {
     display: none;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
-    font-size: 12px;
-    font-family: Arial, sans-serif;
-    line-height: 13px;
-    margin: 7px 0;
-    color: #000;
-    text-align: center;
 }
 
 .new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .underBuyLink {
@@ -797,8 +806,8 @@
 	min-height: 25px;
 }
 
-.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .billed p:last-of-type {
-
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type p {
+    display: block;
 }
 
 .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .billed {
@@ -1018,15 +1027,6 @@ margin: 20px 0 0 5px;
     text-decoration: none;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li em {
-    background-color: #026DFF;
-    color: white;
-    padding: 4px 7px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-style: normal;
-}
-
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed em  {
 	font-size: 14px;
 	line-height: 20px;
@@ -1052,12 +1052,28 @@ margin: 20px 0 0 5px;
     margin-bottom: 1em;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
-
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul li:first-of-type {
+    font-size: 12px;
+    font-weight: normal;
+    padding-bottom: 0;
+    margin: 0;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type p {
-    display: block;
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:last-of-type {
+    margin-bottom: 0;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    min-height: 19px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 8px;
+    list-style-type: none;
+    background: url('../../icons/circle-check-sharp-solid.png') top 2px left no-repeat transparent;
+    padding-left: 22px;
+    background-size: 13px;
+    position: relative;
+    cursor: pointer;
 }
 
 .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
@@ -1124,17 +1140,25 @@ margin: 20px 0 0 5px;
     display: inline-flex;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-    min-height: 19px;
-    font-size: 14px;
-    line-height: 17px;
-    margin-bottom: 8px;
-    list-style-type: none;
-    background: url("../../icons/circle-check-sharp-solid.png") top 2px left no-repeat transparent;
-    padding-left: 22px;
-    background-size: 13px;
-    position: relative;
-    cursor: pointer;
+.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
+    background-size: auto 15px;
+    min-height: 21px;
+    align-content: center;
+}
+
+.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
+    margin-top: 22px;
+}
+
+.new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    padding-left: 28px;
+    background-size: 18px;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
+    background-size: 18px;
 }
 
 .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box:not(.blue-header) .benefitsLists ul li:not(:first-of-type) {
@@ -1154,13 +1178,22 @@ margin: 20px 0 0 5px;
     top: -2px;
 }
 
-.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box:not(.blue-header) .benefitsLists ul li .blue-pill {
-    background-color: black;
+.new-prod-boxes-container .blue-pill {
+    background-color: #026DFF;
+    padding: 1px 6.7px;
+    border-radius: 20px;
+    color: white;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0;
+    font-weight: bold;
+    display: inline-flex;
+    justify-content: center;
+    height: fit-content;
 }
 
-.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-    background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
-    background-size: 18px;
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box:not(.blue-header) .benefitsLists ul li .blue-pill {
+    background-color: black;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.nocheck {
@@ -1218,7 +1251,7 @@ margin: 20px 0 0 5px;
     min-height: 5em;
 }
 
-.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .benefitsLists{
+.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .benefitsLists {
     display: flex;
 }
 
@@ -1256,37 +1289,10 @@ margin: 20px 0 0 5px;
     border-radius: 0 0 20px 20px;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:last-of-type {
-    margin-bottom: 0;
-}
-
 .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul:has(.list-toggle) {
     display: flex;
     justify-content: center;
     min-height: unset;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul li:first-of-type {
-    font-size: 12px;
-    font-weight: normal;
-    padding-bottom: 0;
-    margin: 0;
-}
-
-.new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-    padding-left: 28px;
-    background-size: 18px;
-}
-
-.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type{
-    margin-top: 22px;
-}
-
-.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-    background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
-    background-size: auto 15px;
-    min-height: 21px;
-    align-content: center;
 }
 
 .new-prod-boxes-container.show-more-show-less .block  .prod_box .inner_prod_box .benefitsLists ul:first-of-type li:first-of-type {
@@ -1302,21 +1308,6 @@ margin: 20px 0 0 5px;
 .new-prod-boxes-container.show-more-show-less .block .index0 .inner_prod_box .benefitsLists ul:first-of-type li:first-of-type {
     background: none !important;
     padding-left: 0;
-}
-
-
-.new-prod-boxes-container .blue-pill {
-    background-color: #026DFF;
-    padding: 1px 6.7px;
-    border-radius: 20px;
-    color: white;
-    font-style: normal;
-    font-size: 11px;
-    letter-spacing: 0;
-    font-weight: bold;
-    display: inline-flex;
-    justify-content: center;
-    height: fit-content;
 }
 
 .new-prod-boxes-container .green-pill {
