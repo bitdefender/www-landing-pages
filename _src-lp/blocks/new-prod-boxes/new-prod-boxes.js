@@ -114,7 +114,7 @@ function extractBuyLinks(tdElement) {
 function replacePill(content, regExp, pillClass) {
   const pillText = content.match(regExp);
 
-  const icon = content.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
+  const icon = content.match(/(?<!<span[^>]*\b(?:blue-pill|green-pill)\b[^>]*>[^<]*?)<span class="[^"]*\bicon\b[^"]*">.*?<\/span>/g);
   let updatedContent = content;
 
   if (pillText) {
@@ -139,7 +139,7 @@ export default function decorate(block) {
   const parentSection = block.closest('.section');
   const metaData = parentSection.dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, subText, set, openModalButton, switchText, replaceBuyLinks,
+    products, priceType, optionsType, type, textBulina, individual, titleText, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks,
   } = metaData;
   const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
@@ -471,39 +471,41 @@ export default function decorate(block) {
       const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
-          <div class="inner_prod_box">
+          <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
           ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
-            ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
-            <div class="tag-subtitle">
-              ${newBlueTag.innerText.trim() ? `<div class="blueTagsWrapper">${newBlueTag.innerHTML.trim()}</div>` : ''}
-              ${subtitle.innerText.trim() ? `<div class="subtitle">${subtitle.innerHTML.trim()}</div>` : ''}
-            </div>
-            <hr />
+            <div class="header-box">
+              ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
+              <div class="tag-subtitle">
+                ${newBlueTag.innerText.trim() ? `<div class="blueTagsWrapper">${newBlueTag.innerHTML.trim()}</div>` : ''}
+                ${subtitle.innerText.trim() ? `<div class="subtitle">${subtitle.innerHTML.trim()}</div>` : ''}
+              </div>
+              <hr />
 
-            ${combinedPricesBox && combinedPricesBox.innerText ? combinedPricesBox.innerHTML : `
-              ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
-                <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-                <strong class="percent prod-percent">
-                  ${percentOff}
-                </strong>
-              </div>`}
+              ${combinedPricesBox && combinedPricesBox.innerText ? combinedPricesBox.innerHTML : `
+                ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
+                  <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+                  <strong class="percent prod-percent">
+                    ${percentOff}
+                  </strong>
+                </div>`}
 
-              ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
-                <sup>${price.innerText.trim().replace('0', '')}</sup>
-              </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-                <sup>${price.innerText.trim().replace('0', '')}</sup>
-              </div>`}
+                ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+                  <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
+                  <sup>${price.innerText.trim().replace('0', '')}</sup>
+                </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
+                  <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
+                  <sup>${price.innerText.trim().replace('0', '')}</sup>
+                </div>`}
 
   ${billed ? (() => {
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = billed.innerHTML;
+    tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`);
     const firstP = tempDiv.querySelector('p');
     if (firstP) {
       firstP.innerHTML = firstP.innerHTML
-        .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+        .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
+        .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
         .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
         .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
         .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
@@ -514,7 +516,8 @@ export default function decorate(block) {
         .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
     } else {
       tempDiv.innerHTML = tempDiv.innerHTML
-        .replace(/0/g, `<span class="newprice-${onSelectorClass}"></span>`)
+        .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
+        .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
         .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
         .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
         .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
@@ -526,7 +529,9 @@ export default function decorate(block) {
     }
     return `<div class="billed">${tempDiv.innerHTML}</div>`;
   })() : ''}
+  </div><!-- end header-box --> 
 
+              ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
               ${replaceBuyLinks ? `<div class="buy-btn">
                   <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
@@ -724,6 +729,7 @@ export default function decorate(block) {
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
+  matchHeights(targetNode, '.save-trial-text');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
 
