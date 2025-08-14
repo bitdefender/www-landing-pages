@@ -407,7 +407,7 @@ export default function decorate(block) {
             optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
             const priceSpan = type === 'dropdown-benefits'
-              ? `<span class="prod-newprice newprice-${selectorClass} radio-price"></span> `
+              ? `<span class="prod-oldprice oldprice-${selectorClass}"></span><span class="prod-newprice newprice-${selectorClass} radio-price"></span>`
               : '';
 
             if (type === 'dropdown-benefits') {
@@ -848,6 +848,7 @@ export default function decorate(block) {
     const hasShowMoreLogic = section.classList.contains('show-more-show-less');
     const threshold = hasShowMoreLogic ? 4 : 0;
 
+    list.style.flexDirection = list.style.flexDirection === 'column' ? '' : 'column';
     const isExpanded = list.dataset.expanded === 'true';
     const newExpanded = !isExpanded;
     list.dataset.expanded = newExpanded.toString();
@@ -859,9 +860,11 @@ export default function decorate(block) {
 
     // Handle toggle visibility: show one .list-toggle and hide the other
     const toggleButtons = list.querySelectorAll('.list-toggle');
-    toggleButtons.forEach((btn) => {
-      btn.style.display = btn === clickedButton ? 'none' : 'flex';
-    });
+    if (isShowMoreShowLess) {
+      toggleButtons.forEach((btn) => {
+        btn.style.display = btn === clickedButton ? 'none' : 'flex';
+      });
+    }
 
     // Rotate the icon inside the clicked button, if present
     const icon = clickedButton.querySelector('svg');
