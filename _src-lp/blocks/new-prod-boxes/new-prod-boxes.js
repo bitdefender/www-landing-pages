@@ -471,7 +471,7 @@ export default function decorate(block) {
       const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
-          <div class="inner_prod_box">
+          <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
           ${divBulina}
             ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             <div class="header-box">
@@ -531,7 +531,7 @@ export default function decorate(block) {
   })() : ''}
   </div><!-- end header-box --> 
 
-              ${trialSaveText ? `<div class="save-trial-text"><hr>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div>` : ''}
+              ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
               ${replaceBuyLinks ? `<div class="buy-btn">
                   <a class="red-buy-button ${buyLinkObj.href ? '' : `buylink-${onSelectorClass}`} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
@@ -729,6 +729,7 @@ export default function decorate(block) {
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, 'h2');
+  matchHeights(targetNode, '.save-trial-text');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
 
