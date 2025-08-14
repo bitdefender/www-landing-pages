@@ -114,7 +114,7 @@ function extractBuyLinks(tdElement) {
 function replacePill(content, regExp, pillClass) {
   const pillText = content.match(regExp);
 
-  const icon = content.match(/<span class="[^"]*\bicon\b[^"]*">(.*?)<\/span>/);
+  const icon = content.match(/(?<!<span[^>]*\b(?:blue-pill|green-pill)\b[^>]*>[^<]*?)<span class="[^"]*\bicon\b[^"]*">.*?<\/span>/g);
   let updatedContent = content;
 
   if (pillText) {
