@@ -507,8 +507,8 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
   }
 }
 
-export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined) {
-  const trialLinkValue = getMetadata('trialbuylinks');
+export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined, trialPeriod = undefined) {
+  const trialLinkValue = trialPeriod || getMetadata('trialbuylinks');
   if (!trialLinkValue) return;
 
   const trialLinks = await fetchTrialLinks(trialLinkValue);
@@ -631,7 +631,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 }
 
 // display prices
-export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
+export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '', trialPeriod = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
@@ -641,7 +641,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
-  if (trialLinkValue) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link);
+  if (trialLinkValue || trialPeriod) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link, trialPeriod);
 
   if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
