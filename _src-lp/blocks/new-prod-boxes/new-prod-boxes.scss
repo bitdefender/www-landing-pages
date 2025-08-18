@@ -430,6 +430,10 @@
     margin: 1em 0;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed a {
+    text-decoration: underline;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box h2 a:hover {
     text-decoration: none;
     transition: all 0.5s ease;
@@ -803,10 +807,6 @@
     line-height: 16px;
     margin: 7px 0;
 	min-height: 25px;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed a {
-    text-decoration: underline;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag p {
