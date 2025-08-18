@@ -22,6 +22,7 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html - http://localhost:3000/consumer/en/new/ultimate-flv1
 */
 
+import { debounce } from '@repobit/dex-utils';
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
@@ -109,7 +110,6 @@ export default function decorate(block) {
 
     // create affiliate recommendations div
     if (affiliateText && affiliateImage) {
-      console.log(block.parentNode.querySelector('.top_title'));
       const affiliateDiv = document.createElement('div');
       affiliateDiv.classList.add('affiliate-div');
 
@@ -160,24 +160,25 @@ export default function decorate(block) {
         const divTag = document.createElement('div');
         divTag.innerText = metaData[tagTextKey];
         divTag.className = 'tag';
-        block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) p:nth-child(1)`).before(divTag);
+        // block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) p:nth-child(1)`).before(divTag);
+        block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1})`).prepend(divTag);
       }
 
       /// ///////////////////////////////////////////////////////////////////////
       // add buybtn div & anchor
       const tableVpn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(2)`);
-      const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:nth-of-type(3) td`);
+      const tableBuybtn = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table:last-of-type td`);
       const tableBuybtnHref = tableBuybtn?.querySelector('a');
       const aBuybtn = document.createElement('a');
 
       // if already has a link attached
       if (tableBuybtnHref) {
-        aBuybtn.innerHTML = tableBuybtnHref.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        aBuybtn.innerHTML = tableBuybtnHref?.innerHTML.replace(/0%/g, `<span class="parent-no-hide percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
         aBuybtn.className = 'red-buy-button buylink-custom';
         aBuybtn.href = tableBuybtnHref.href;
       } else {
         aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
-        aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="parent-no-hide percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
       }
 
       aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
@@ -264,11 +265,15 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // change the border color of the main box
     if (borderColor) {
-      const primaryBox = block.querySelector('.c-productswithvpn > div:nth-child(1)');
+      const primaryBox = block.querySelector('.c-productswithvpn > div:nth-child(1) > div:last-of-type');
       primaryBox.style.borderColor = borderColor;
 
-      const tag = primaryBox.querySelector('.tag');
-      tag.style.backgroundColor = borderColor;
+      const gridItem = block.querySelector('.c-productswithvpn > div:nth-child(1)');
+      gridItem.style.setProperty('--tag-bg', borderColor);
+      const tag = gridItem.querySelector('.tag');
+      if (tag) {
+        tag.style.backgroundColor = borderColor;
+      }
     }
 
     /// ///////////////////////////////////////////////////////////////////////
@@ -287,4 +292,55 @@ export default function decorate(block) {
       primaryBox.classList.add('no-border');
     }
   }
+
+  const updateTagHeights = debounce(() => {
+    let maxHeight = 0;
+    const divBoxes = block.querySelectorAll('.c-productswithvpn > div');
+
+    divBoxes.forEach((item) => {
+      const tagg = item.querySelector('.tag');
+      if (tagg) {
+        const tagHeight = tagg.offsetHeight;
+        maxHeight = Math.max(maxHeight, tagHeight);
+        item.style.setProperty('--tag-div-height', `${tagHeight}px`);
+      }
+    });
+
+    if (maxHeight > 0) {
+      parentSelector.style.setProperty('--tag-height', `${maxHeight}px`);
+    }
+  }, 100);
+
+  // --- ResizeObserver for size changes ---
+  const ro = new ResizeObserver(updateTagHeights);
+
+  // Observe all existing tags
+  block.querySelectorAll('.c-productswithvpn > div .tag').forEach((tag) => {
+    ro.observe(tag);
+  });
+
+  // --- MutationObserver for new tags being added ---
+  const mo = new MutationObserver((mutationsList) => {
+    mutationsList.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node.nodeType === 1) {
+          if (node.matches?.('.tag')) {
+            ro.observe(node);
+            updateTagHeights();
+          } else if (node.querySelectorAll) {
+            // If the added node contains multiple tags
+            node.querySelectorAll('.tag').forEach((tag) => {
+              ro.observe(tag);
+              updateTagHeights();
+            });
+          }
+        }
+      });
+    });
+  });
+
+  mo.observe(block, { childList: true, subtree: true });
+
+  // Initial calculation
+  updateTagHeights();
 }
