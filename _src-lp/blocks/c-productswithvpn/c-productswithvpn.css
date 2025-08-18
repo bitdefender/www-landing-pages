@@ -50,7 +50,6 @@
 }
 
 .c-productswithvpn > div div.tag {
-  content: attr(data-tag);
   background-color: var(--tag-bg, #0E8532);
   text-align: center;
   border-radius: 0;
@@ -62,7 +61,7 @@
   min-height: 38px;
   height: auto;
   position: absolute;
-  bottom: 99%;
+  bottom: 98.5%;
   left: 0;
   font-weight: 600;
   font-size: 14px;
@@ -396,13 +395,13 @@
   overflow-wrap: anywhere;
 }
 
-.c-productswithvpn-container.has4boxes .c-productswithvpn > div p:nth-of-type(1) {
-  margin-top: 40px;
+.c-productswithvpn-container.has4boxes .c-productswithvpn > div p:nth-of-type(7) {
+  margin-top: 5px;
 }
 
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div div.tag {
   padding: 10px 0;
-  top: 0;
+  bottom: 99.5%;
 }
 
 .c-productswithvpn-container .top_title h1, .c-productswithvpn-container .top_title h2 {
@@ -447,6 +446,10 @@
 }
 .prod-percent.green_bck_circle.bigger {
   top: 60%;
+}
+
+.c-productswithvpn div p.empty-p {
+  margin-top: 15px;
 }
 
 /* for mobile */

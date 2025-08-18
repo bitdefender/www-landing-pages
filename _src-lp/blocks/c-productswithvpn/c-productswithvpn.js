@@ -173,12 +173,12 @@ export default function decorate(block) {
 
       // if already has a link attached
       if (tableBuybtnHref) {
-        aBuybtn.innerHTML = tableBuybtnHref?.innerHTML.replace(/0%/g, `<span class="parent-no-hide percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        aBuybtn.innerHTML = tableBuybtnHref?.innerHTML.replace(/0%/g, `<span class="parent-no-hide no-price-show percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
         aBuybtn.className = 'red-buy-button buylink-custom';
         aBuybtn.href = tableBuybtnHref.href;
       } else {
         aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
-        aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="parent-no-hide percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="parent-no-hide no-price-show percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
       }
 
       aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
@@ -291,6 +291,34 @@ export default function decorate(block) {
       const primaryBox = block.querySelector('.c-productswithvpn > div:nth-child(1)');
       primaryBox.classList.add('no-border');
     }
+
+    /// ///////////////////////////////////////////////////////////////////////
+    // add empty <p> before h2 elements if it is not here
+    const h2Elements = document.querySelectorAll('.c-productswithvpn .prod_box h2');
+    h2Elements.forEach((h2) => {
+      if (h2.parentElement.firstElementChild === h2) {
+        const emptyP = document.createElement('p');
+        emptyP.textContent = '';
+        emptyP.classList.add('empty-p');
+        h2.parentElement.insertBefore(emptyP, h2);
+      }
+    });
+
+    /// ///////////////////////////////////////////////////////////////////////
+    // add empty <p> as placeholder for photo
+    document.querySelectorAll('.prod_box').forEach((box) => {
+      const paragraphs = box.querySelectorAll('p');
+      if (paragraphs.length >= 5) {
+        const fifthP = paragraphs[4];
+        const nextElem = fifthP.nextElementSibling;
+        if (!nextElem || nextElem.tagName.toLowerCase() !== 'p') {
+          const emptyP = document.createElement('p');
+          emptyP.classList.add('empty-p');
+          emptyP.textContent = '';
+          fifthP.insertAdjacentElement('afterend', emptyP);
+        }
+      }
+    });
   }
 
   const updateTagHeights = debounce(() => {
