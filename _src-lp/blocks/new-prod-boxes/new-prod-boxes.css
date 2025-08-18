@@ -1156,7 +1156,7 @@
 }
 
 .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-  background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
+  background: url("../../icons/checkmark_empty-circle.svg") top 0 left no-repeat transparent;
   background-size: 18px;
 }
 
