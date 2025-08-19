@@ -576,6 +576,29 @@
   display: inline-block;
 }
 
+
+
+.section.banner-container.hasslide .block table tr td .icon {
+  width: 18px;
+  height: 18px;
+  fill: #fff;
+  align-self: center;
+  margin-right: 8px;
+}
+
+.section.banner-container.hasslide .block table tr td:has(.icon)::before {
+  display: none;
+}
+
+.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1) .icon svg {
+  fill: #006DFF;
+}
+
+.section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2) .icon svg {
+  fill: #006DFF;
+}
+
+
 .section.banner-container.new-green-pill #greenPillBox {
   background-color: #D1FADC;
   color: #1F7536;
