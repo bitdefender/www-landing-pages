@@ -430,6 +430,10 @@
     margin: 1em 0;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed a {
+    text-decoration: underline;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box h2 a:hover {
     text-decoration: none;
     transition: all 0.5s ease;
@@ -800,7 +804,7 @@
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
     font-size: 12px;
     font-family: Arial, sans-serif;
-    line-height: 13px;
+    line-height: 16px;
     margin: 7px 0;
 	min-height: 25px;
 }
@@ -1156,7 +1160,7 @@ margin: 20px 0 0 5px;
 }
 
 .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-    background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
+    background: url("../../icons/checkmark_empty-circle.svg") top 0 left no-repeat transparent;
     background-size: 18px;
 }
 
