@@ -305,8 +305,11 @@ export default function decorate(block) {
 
     /// ///////////////////////////////////////////////////////////////////////
     // check if we have 8 <p> elements inside a .prod_box and if not, do the following:
-    document.querySelectorAll('.c-productswithvpn .prod_box').forEach((box1) => {
+    document.querySelectorAll('.c-productswithvpn .prod_box').every((box1) => {
       const pElements = box1.querySelectorAll('p');
+      if (pElements.length >= 8) {
+        return false;
+      }
       if (pElements.length < 8) {
         // add 3x empty <p> after h2 if they are not there
         h2Elements.forEach((h2) => {
@@ -361,6 +364,7 @@ export default function decorate(block) {
           }
         });
       }
+      return true;
     });
   }
 
