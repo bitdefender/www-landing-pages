@@ -883,7 +883,7 @@ function initSelectors(pid) {
       const prodAlias = productAliases(prodSplit[0].trim());
       const prodUsers = prodSplit[1].trim();
       const prodYears = prodSplit[2].trim();
-      const prodTrialPeriod = prodSplit[3].trim();
+      const prodTrialPeriod = prodSplit[3]?.trim();
       const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
       ['u', 'y'].forEach((prefix) => {
@@ -1020,7 +1020,7 @@ async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks 
             const prodAlias = prodSplit[0].trim();
             const prodUsers = prodSplit[1].trim();
             const prodYears = prodSplit[2].trim();
-            const prodTrialPeriod = prodSplit[3].trim();
+            const prodTrialPeriod = prodSplit[3]?.trim();
             const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
             const productPrice = new ProductPrice(item, campaign, targetBuylinks);
