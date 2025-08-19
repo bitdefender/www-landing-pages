@@ -12,9 +12,7 @@
   flex: 1 1 0;
   position: relative;
   padding-bottom: 0 !important;
-  /* border: 9px solid transparent; */
   border-top: 0 none;
-  /* margin: 0 10px; */
   margin-bottom: 0 !important;
   border-radius: 10px;
   background-color: #fff;
@@ -72,6 +70,20 @@
   padding: 5px 0;
   box-sizing: border-box;
   margin-left: 0;
+}
+
+.c-productswithvpn .vpn_box div {
+  width: 100%;
+  padding: 10px;
+  background: #eaf5ec;
+  display: flex;
+  font-size: 14px;
+  text-align: left;
+  border-radius: 5px;
+  margin: 1em 0;
+  line-height: 14px;
+  align-items: center;
+  cursor: pointer;
 }
 
 .c-productswithvpn > div > div:last-of-type {
@@ -331,20 +343,6 @@
   cursor: pointer;
 }
 
-.c-productswithvpn .vpn_box div {
-  width: 100%;
-  padding: 10px;
-  background: #eaf5ec;
-  display: flex;
-  font-size: 14px;
-  text-align: left;
-  border-radius: 5px;
-  margin: 1em 0;
-  line-height: 14px;
-  align-items: center;
-  cursor: pointer;
-}
-
 .c-productswithvpn .vpn_box label {
   width: 100%;
   cursor: pointer;
@@ -417,7 +415,7 @@
 }
 
 .c-productswithvpn-container .top_title.p_right h1, .c-productswithvpn-container .top_title.p_right h2 {
-  text-align: left;
+  text-align: right;
 }
 
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div h2 {
@@ -436,16 +434,17 @@
 }
 
 .c-productswithvpn-container .top_title.p_right {
-  text-align: left;
+  text-align: right;
+}
+
+.prod-percent.green_bck_circle.bigger {
+  top: 60%;
 }
 
 .c-productswithvpn-container .top_title .prod-percent.green_bck_circle.bigger {
   position: relative;
   right: 0;
   top: 0;
-}
-.prod-percent.green_bck_circle.bigger {
-  top: 60%;
 }
 
 .c-productswithvpn div p.empty-p {
@@ -467,7 +466,7 @@
   }
 }
 
- @media (min-width: 989px) and (max-width: 1240px) {
+@media (min-width: 989px) and (max-width: 1240px) {
   .c-productswithvpn-container.has4boxes .c-productswithvpn > div .prices_box .prod-newprice {
     font-size: clamp(26px, calc(26px + (34 - 26) * ((100vw - 989px)/251)), 34px);
   }
@@ -536,6 +535,16 @@
     width: 100% !important;
     margin-bottom: 1em !important;
   }
+  .c-productswithvpn > div > div:last-of-type {
+    padding: 15px;
+    padding-bottom: 10px !important;
+  }
+  .c-productswithvpn-container.has4boxes .c-productswithvpn > div {
+    padding: 3% !important;
+    margin-bottom: 1em !important;
+    padding-bottom: 10px !important;
+    margin-top: 1em !important;
+  }
   .c-productswithvpn > div:has(div.tag):not(:first-of-type) {
     margin-top: calc(var(--tag-div-height, 0) + 10px) !important;
   }
@@ -544,10 +553,6 @@
   }
   .c-productswithvpn > div div.tag {
     bottom: 99%;
-  }
-  .c-productswithvpn > div > div:last-of-type {
-    padding: 15px;
-    padding-bottom: 10px !important;
   }
 
   .c-productswithvpn > div h2 {
@@ -566,12 +571,6 @@
   }
   .c-productswithvpn-container.table_fixed_h .c-productswithvpn > div table:nth-of-type(2) {
     min-height: auto;
-  }
-  .c-productswithvpn-container.has4boxes .c-productswithvpn > div {
-    padding: 3% !important;
-    margin-bottom: 1em !important;
-    padding-bottom: 10px !important;
-    margin-top: 1em !important;
   }
   .c-productswithvpn-container .top_title h1, .c-productswithvpn-container .top_title h2 {
     width: 100%;

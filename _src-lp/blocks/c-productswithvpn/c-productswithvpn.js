@@ -160,7 +160,6 @@ export default function decorate(block) {
         const divTag = document.createElement('div');
         divTag.innerText = metaData[tagTextKey];
         divTag.className = 'tag';
-        // block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) p:nth-child(1)`).before(divTag);
         block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1})`).prepend(divTag);
       }
 
@@ -303,27 +302,27 @@ export default function decorate(block) {
         h2.parentElement.insertBefore(emptyP, h2);
       }
     });
-    // right after h2 element should be 3 <p> elements
-    // if not, add them
+    // add 3x empty <p> after h2 if they are not there
     h2Elements.forEach((h2) => {
-      // manually check the next element if it is <p> element and add it if not
       const nextElement = h2.nextElementSibling;
       const nextElementAfter = h2.nextElementSibling.nextElementSibling;
       const nextElementAfter2 = h2.nextElementSibling.nextElementSibling.nextElementSibling;
+
+      // check the first <p>
       if (nextElement && nextElement.tagName !== 'P') {
         const emptyP = document.createElement('p');
         emptyP.textContent = '';
         emptyP.classList.add('empty-zero-p');
         h2.insertAdjacentElement('afterend', emptyP);
       }
-      // check the next element again
+      // check the second <p>
       if (nextElementAfter && nextElementAfter.tagName !== 'P') {
         const emptyP = document.createElement('p');
         emptyP.textContent = '';
         emptyP.classList.add('empty-zero-p');
         nextElement.insertAdjacentElement('afterend', emptyP);
       }
-      // check the next element again
+      // check the 3rd <p>
       if (nextElementAfter2 && nextElementAfter2.tagName !== 'P') {
         const emptyP = document.createElement('p');
         emptyP.textContent = '';
@@ -331,22 +330,22 @@ export default function decorate(block) {
         nextElementAfter.insertAdjacentElement('afterend', emptyP);
       }
     });
+
     /// ///////////////////////////////////////////////////////////////////////
     // add empty <p> as placeholder for photo if it is not here
     document.querySelectorAll('.prod_box').forEach((box) => {
-      // check if after the prices_box div there are 2 <p> elements
       const pricesBox = box.querySelector('.prices_box');
-      // manually check the next element if it is <p> element and add it if not
       if (pricesBox) {
         const nextElement = pricesBox.nextElementSibling;
         const nextElementAfter = pricesBox.nextElementSibling.nextElementSibling;
+
         if (nextElement && nextElement.tagName !== 'P') {
           const emptyP = document.createElement('p');
           emptyP.textContent = '';
           emptyP.classList.add('empty-p');
           pricesBox.insertAdjacentElement('afterend', emptyP);
         }
-        // check the next element again
+
         if (nextElementAfter && nextElementAfter.tagName !== 'P') {
           const emptyP = document.createElement('p');
           emptyP.textContent = '';
@@ -375,7 +374,7 @@ export default function decorate(block) {
     }
   }, 100);
 
-  // --- ResizeObserver for size changes ---
+  // ResizeObserver for size changes
   const ro = new ResizeObserver(updateTagHeights);
 
   // Observe all existing tags
@@ -383,7 +382,7 @@ export default function decorate(block) {
     ro.observe(tag);
   });
 
-  // --- MutationObserver for new tags being added ---
+  // MutationObserver for new tags being added
   const mo = new MutationObserver((mutationsList) => {
     mutationsList.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
