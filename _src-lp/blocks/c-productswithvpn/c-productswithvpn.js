@@ -302,56 +302,64 @@ export default function decorate(block) {
         h2.parentElement.insertBefore(emptyP, h2);
       }
     });
-    // add 3x empty <p> after h2 if they are not there
-    h2Elements.forEach((h2) => {
-      const nextElement = h2.nextElementSibling;
-      const nextElementAfter = h2.nextElementSibling.nextElementSibling;
-      const nextElementAfter2 = h2.nextElementSibling.nextElementSibling.nextElementSibling;
-
-      // check the first <p>
-      if (nextElement && nextElement.tagName !== 'P') {
-        const emptyP = document.createElement('p');
-        emptyP.textContent = '';
-        emptyP.classList.add('empty-zero-p');
-        h2.insertAdjacentElement('afterend', emptyP);
-      }
-      // check the second <p>
-      if (nextElementAfter && nextElementAfter.tagName !== 'P') {
-        const emptyP = document.createElement('p');
-        emptyP.textContent = '';
-        emptyP.classList.add('empty-zero-p');
-        nextElement.insertAdjacentElement('afterend', emptyP);
-      }
-      // check the 3rd <p>
-      if (nextElementAfter2 && nextElementAfter2.tagName !== 'P') {
-        const emptyP = document.createElement('p');
-        emptyP.textContent = '';
-        emptyP.classList.add('empty-zero-p');
-        nextElementAfter.insertAdjacentElement('afterend', emptyP);
-      }
-    });
 
     /// ///////////////////////////////////////////////////////////////////////
-    // add empty <p> as placeholder for photo if it is not here
-    document.querySelectorAll('.prod_box').forEach((box) => {
-      const pricesBox = box.querySelector('.prices_box');
-      if (pricesBox) {
-        const nextElement = pricesBox.nextElementSibling;
-        const nextElementAfter = pricesBox.nextElementSibling.nextElementSibling;
+    // check if we have 8 <p> elements inside a .prod_box and if not, do the following:
+    document.querySelectorAll('.c-productswithvpn .prod_box').forEach((box1) => {
+      const pElements = box1.querySelectorAll('p');
+      if (pElements.length < 8) {
+        // add 3x empty <p> after h2 if they are not there
+        h2Elements.forEach((h2) => {
+          const nextElement = h2.nextElementSibling;
+          const nextElementAfter = h2.nextElementSibling.nextElementSibling;
+          const nextElementAfter2 = h2.nextElementSibling.nextElementSibling.nextElementSibling;
 
-        if (nextElement && nextElement.tagName !== 'P') {
-          const emptyP = document.createElement('p');
-          emptyP.textContent = '';
-          emptyP.classList.add('empty-p');
-          pricesBox.insertAdjacentElement('afterend', emptyP);
-        }
+          // check the first <p>
+          if (nextElement && nextElement.tagName !== 'P') {
+            const emptyP = document.createElement('p');
+            emptyP.textContent = '';
+            emptyP.classList.add('empty-zero-p');
+            h2.insertAdjacentElement('afterend', emptyP);
+          }
+          // check the second <p>
+          if (nextElementAfter && nextElementAfter.tagName !== 'P') {
+            const emptyP = document.createElement('p');
+            emptyP.textContent = '';
+            emptyP.classList.add('empty-zero-p');
+            nextElement.insertAdjacentElement('afterend', emptyP);
+          }
+          // check the 3rd <p>
+          if (nextElementAfter2 && nextElementAfter2.tagName !== 'P') {
+            const emptyP = document.createElement('p');
+            emptyP.textContent = '';
+            emptyP.classList.add('empty-zero-p');
+            nextElementAfter.insertAdjacentElement('afterend', emptyP);
+          }
+        });
 
-        if (nextElementAfter && nextElementAfter.tagName !== 'P') {
-          const emptyP = document.createElement('p');
-          emptyP.textContent = '';
-          emptyP.classList.add('empty-p');
-          nextElement.insertAdjacentElement('afterend', emptyP);
-        }
+        /// ///////////////////////////////////////////////////////////////////////
+        // add empty <p> as placeholder for photo if it is not here
+        document.querySelectorAll('.prod_box').forEach((box) => {
+          const pricesBox = box.querySelector('.prices_box');
+          if (pricesBox) {
+            const nextElement = pricesBox.nextElementSibling;
+            const nextElementAfter = pricesBox.nextElementSibling.nextElementSibling;
+
+            if (nextElement && nextElement.tagName !== 'P') {
+              const emptyP = document.createElement('p');
+              emptyP.textContent = '';
+              emptyP.classList.add('empty-p');
+              pricesBox.insertAdjacentElement('afterend', emptyP);
+            }
+
+            if (nextElementAfter && nextElementAfter.tagName !== 'P') {
+              const emptyP = document.createElement('p');
+              emptyP.textContent = '';
+              emptyP.classList.add('empty-p');
+              nextElement.insertAdjacentElement('afterend', emptyP);
+            }
+          }
+        });
       }
     });
   }
