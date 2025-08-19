@@ -485,13 +485,13 @@
   }
 }
 
-@media (min-width: 989px) and (max-width: 1240px) {
+@media (989px <= width <= 1240px) {
   .c-productswithvpn-container.has4boxes .c-productswithvpn > div .prices_box .prod-newprice {
-    font-size: clamp(26px, calc(26px + (34 - 26) * ((100vw - 989px)/251)), 34px);
+    font-size: clamp(26px, calc(26px + (34 - 26) * ((100vw - 989px) / 251)), 34px);
   }
 
   .c-productswithvpn-container.has4boxes .c-productswithvpn > div .prices_box .prod-oldprice {
-    font-size: clamp(20px, calc(20px + (24 - 20) * ((100vw - 989px)/251)), 24px);
+    font-size: clamp(20px, calc(20px + (24 - 20) * ((100vw - 989px) / 251)), 24px);
   }
 }
 
