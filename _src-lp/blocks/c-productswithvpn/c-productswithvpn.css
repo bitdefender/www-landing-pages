@@ -452,6 +452,14 @@
   margin-top: 15px;
 }
 
+.c-productswithvpn div p.empty-zero-p {
+  margin-top: 0;
+  margin-bottom: 0;
+  min-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 /* for mobile */
 @media (width >= 1450px) {
   .c-productswithvpn-container.has4boxes .c-productswithvpn-wrapper {

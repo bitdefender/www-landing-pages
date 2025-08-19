@@ -303,19 +303,55 @@ export default function decorate(block) {
         h2.parentElement.insertBefore(emptyP, h2);
       }
     });
-
+    // right after h2 element should be 3 <p> elements
+    // if not, add them
+    h2Elements.forEach((h2) => {
+      // manually check the next element if it is <p> element and add it if not
+      const nextElement = h2.nextElementSibling;
+      const nextElementAfter = h2.nextElementSibling.nextElementSibling;
+      const nextElementAfter2 = h2.nextElementSibling.nextElementSibling.nextElementSibling;
+      if (nextElement && nextElement.tagName !== 'P') {
+        const emptyP = document.createElement('p');
+        emptyP.textContent = '';
+        emptyP.classList.add('empty-zero-p');
+        h2.insertAdjacentElement('afterend', emptyP);
+      }
+      // check the next element again
+      if (nextElementAfter && nextElementAfter.tagName !== 'P') {
+        const emptyP = document.createElement('p');
+        emptyP.textContent = '';
+        emptyP.classList.add('empty-zero-p');
+        nextElement.insertAdjacentElement('afterend', emptyP);
+      }
+      // check the next element again
+      if (nextElementAfter2 && nextElementAfter2.tagName !== 'P') {
+        const emptyP = document.createElement('p');
+        emptyP.textContent = '';
+        emptyP.classList.add('empty-zero-p');
+        nextElementAfter.insertAdjacentElement('afterend', emptyP);
+      }
+    });
     /// ///////////////////////////////////////////////////////////////////////
-    // add empty <p> as placeholder for photo
+    // add empty <p> as placeholder for photo if it is not here
     document.querySelectorAll('.prod_box').forEach((box) => {
-      const paragraphs = box.querySelectorAll('p');
-      if (paragraphs.length >= 5) {
-        const fifthP = paragraphs[4];
-        const nextElem = fifthP.nextElementSibling;
-        if (!nextElem || nextElem.tagName.toLowerCase() !== 'p') {
+      // check if after the prices_box div there are 2 <p> elements
+      const pricesBox = box.querySelector('.prices_box');
+      // manually check the next element if it is <p> element and add it if not
+      if (pricesBox) {
+        const nextElement = pricesBox.nextElementSibling;
+        const nextElementAfter = pricesBox.nextElementSibling.nextElementSibling;
+        if (nextElement && nextElement.tagName !== 'P') {
           const emptyP = document.createElement('p');
-          emptyP.classList.add('empty-p');
           emptyP.textContent = '';
-          fifthP.insertAdjacentElement('afterend', emptyP);
+          emptyP.classList.add('empty-p');
+          pricesBox.insertAdjacentElement('afterend', emptyP);
+        }
+        // check the next element again
+        if (nextElementAfter && nextElementAfter.tagName !== 'P') {
+          const emptyP = document.createElement('p');
+          emptyP.textContent = '';
+          emptyP.classList.add('empty-p');
+          nextElement.insertAdjacentElement('afterend', emptyP);
         }
       }
     });
