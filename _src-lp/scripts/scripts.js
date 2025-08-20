@@ -847,6 +847,7 @@ const createFakeSelectors = () => {
   const fakeSelectorsBottom = document.createElement('div');
   fakeSelectorsBottom.id = 'fakeSelectors_bottom';
   document.querySelector('footer').before(fakeSelectorsBottom);
+  if (!productsList.length) return;
   productsList.forEach((prod) => {
     const prodSplit = prod.split('/');
     const prodAlias = productAliases(prodSplit[0].trim());
@@ -882,6 +883,7 @@ function initSelectors(pid) {
       const prodAlias = productAliases(prodSplit[0].trim());
       const prodUsers = prodSplit[1].trim();
       const prodYears = prodSplit[2].trim();
+      const prodTrialPeriod = prodSplit[3]?.trim();
       const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
       ['u', 'y'].forEach((prefix) => {
@@ -938,7 +940,7 @@ function initSelectors(pid) {
             const paramCoupon = getParam('coupon');
 
             // DEX-17703 - replacing VAT INFO text for en regions
-            showPrices(fp, false, null, onSelectorClass, paramCoupon);
+            showPrices(fp, false, null, onSelectorClass, paramCoupon, prodTrialPeriod);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }
@@ -947,7 +949,7 @@ function initSelectors(pid) {
           sendAnalyticsProducts(this);
           try {
             const fp = this;
-            showPrices(fp, false, null, onSelectorClass);
+            showPrices(fp, false, null, onSelectorClass, undefined, prodTrialPeriod);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }
@@ -956,7 +958,7 @@ function initSelectors(pid) {
           sendAnalyticsProducts(this);
           try {
             const fp = this;
-            showPrices(fp, false, null, onSelectorClass);
+            showPrices(fp, false, null, onSelectorClass, undefined, prodTrialPeriod);
             adobeMcAppendVisitorId('main');
             showLoaderSpinner(false, onSelectorClass);
           } catch (ex) { console.log(ex); }
@@ -1018,13 +1020,14 @@ async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks 
             const prodAlias = prodSplit[0].trim();
             const prodUsers = prodSplit[1].trim();
             const prodYears = prodSplit[2].trim();
+            const prodTrialPeriod = prodSplit[3]?.trim();
             const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
 
             const productPrice = new ProductPrice(item, campaign, targetBuylinks);
             const vlaicuResult = await productPrice.getPrices();
             const vlaicuVariation = productPrice.getVariation();
             if (vlaicuVariation) {
-              showPrices(vlaicuVariation);
+              showPrices(vlaicuVariation, false, null, onSelectorClass, undefined, prodTrialPeriod);
               adobeMcAppendVisitorId('main');
               showLoaderSpinner(false, onSelectorClass);
             }
