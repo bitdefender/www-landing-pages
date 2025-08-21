@@ -586,8 +586,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
             && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
         ));
 
-        console.log('match ', sections, match)
-
         if (match) {
           const oldUrl = await fetchProductInfo(productId, prodUsers, prodYears, 'buyLink');
           const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
@@ -596,6 +594,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
               btn.setAttribute('href', updatedUrl);
+              console.log('match ', sections, updatedUrl)
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
               btn.style.pointerEvents = 'auto';
