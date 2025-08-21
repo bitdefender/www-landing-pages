@@ -555,17 +555,14 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   locale = trialLinks.find((item) => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
 
   // if using normal buttons in the content
-  console.log('onSelector 1', onSelector)
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
-    console.log('sections ', sections)
     await Promise.all([...sections].map(async (section) => {
-      console.log('here ')
       const buttonContainerLink = section.querySelector('p.button-container a');
       const primaryButtonLink = section.querySelector('a.button.primary');
 
       // Apply loading effect (reduced opacity + wait cursor + freeze click)
-      [primaryButtonLink].forEach((btn) => {
+      [buttonContainerLink, primaryButtonLink].forEach((btn) => {
         if (btn) {
           btn.style.opacity = '0.5';
           btn.style.cursor = 'wait';
@@ -588,6 +585,8 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
             && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
             && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
         ));
+
+        console.log('match ', match)
 
         if (match) {
           const oldUrl = await fetchProductInfo(productId, prodUsers, prodYears, 'buyLink');
