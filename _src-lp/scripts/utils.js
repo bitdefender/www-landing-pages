@@ -557,6 +557,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   // if using normal buttons in the content
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
+    sections.classList.add('seen');
     await Promise.all([...sections].map(async (section) => {
       const buttonContainerLink = section.querySelector('p.button-container a');
       const primaryButtonLink = section.querySelector('a.button.primary');
