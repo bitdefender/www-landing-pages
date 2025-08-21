@@ -595,6 +595,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
             if (btn) {
               btn.setAttribute('href', updatedUrl);
               console.log('href ', sections, updatedUrl)
+              btn.classList.add('hrefAdded');
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
               btn.style.pointerEvents = 'auto';
