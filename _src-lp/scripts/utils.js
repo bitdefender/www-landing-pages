@@ -555,6 +555,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   locale = trialLinks.find((item) => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
 
   // if using normal buttons in the content
+  console.log('onSelector ', onSelector)
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
     await Promise.all([...sections].map(async (section) => {
