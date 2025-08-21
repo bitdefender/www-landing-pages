@@ -641,6 +641,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
+  if (trialPeriod) window.trialLinksExist = true;
   if (trialLinkValue || trialPeriod) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link, trialPeriod);
 
   if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
