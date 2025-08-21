@@ -558,8 +558,10 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
     await Promise.all([...sections].map(async (section) => {
-      const buttonContainerLink = section.querySelector('p.button-container a');
-      const primaryButtonLink = section.querySelector('a.button.primary');
+      const buttonContainerLinks = section.querySelectorAll(':scope p.button-container a');
+      const primaryButtonLinks = section.querySelectorAll(':scope a.button.primary');
+      const buttonContainerLink = [...buttonContainerLinks].find(el => el.offsetParent !== null);
+      const primaryButtonLink = [...primaryButtonLinks].find(el => el.offsetParent !== null);
 
       // Apply loading effect (reduced opacity + wait cursor + freeze click)
       [buttonContainerLink, primaryButtonLink].forEach((btn) => {
