@@ -593,6 +593,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           // Update hrefs and restore button state
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
+              section.querySelector('p.button-container a').setAttribute('data-href', updatedUrl);
               btn.setAttribute('href', updatedUrl);
               btn.setAttribute('data-href', updatedUrl);
               console.log('href ', sections, updatedUrl);
