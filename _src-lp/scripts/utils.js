@@ -558,7 +558,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
     await Promise.all([...sections].map(async (section) => {
-      section.classList.add('seen');
       const buttonContainerLink = section.querySelector('p.button-container a');
       const primaryButtonLink = section.querySelector('a.button.primary');
 
@@ -595,8 +594,8 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
               btn.setAttribute('href', updatedUrl);
+              btn.setAttribute('data-href', updatedUrl);
               console.log('href ', sections, updatedUrl);
-              alert('btn');
               btn.classList.add('hrefAdded');
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
