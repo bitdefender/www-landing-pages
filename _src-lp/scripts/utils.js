@@ -586,7 +586,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
             && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
         ));
 
-        console.log('match ', match)
+        console.log('match ', sections, match)
 
         if (match) {
           const oldUrl = await fetchProductInfo(productId, prodUsers, prodYears, 'buyLink');
