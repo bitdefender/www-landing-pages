@@ -1,6 +1,6 @@
-import { decorateIcons } from '../../scripts/lib-franklin.js';
+import { decorateIcons, getMetadata } from '../../scripts/lib-franklin.js';
 import { detectModalButtons, productAliases, isView } from '../../scripts/scripts.js';
-import { updateProductsList, getMetadata } from '../../scripts/utils.js';
+import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
