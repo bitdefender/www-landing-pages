@@ -498,7 +498,7 @@ export default function decorate(block) {
 
   if (getMetadata('trialbuylinks') && getMetadata('trialbuylinks') !== '') {
     document.addEventListener("bannerLoaded", (e) => {
-      console.log('banner block')
+      block.querySelector('p.button-container a').href = e.detail.updatedUrl;
     });
   }
 }

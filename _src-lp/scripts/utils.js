@@ -593,25 +593,20 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           // Update hrefs and restore button state
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
-              btn.classList.add('added');
-              if (!btn.classList.contains('added')) {
-                btn.setAttribute('href', updatedUrl);
-                btn.classList.add('added');
+              if (section.id === 'banner') {
+                document.dispatchEvent(new CustomEvent("bannerLoaded", {
+                  detail: { updatedUrl }
+                }));
               }
-
-              /*if (section.classList.contains('custom-banner')) {
-                //document.dispatchEvent(new Event("bannerLoaded"));
-                console.log('bannerLoaded 1')
-              }
-             document.addEventListener("bannerLoaded", (e) => {
+             /*document.addEventListener("bannerLoaded", (e) => {
                 console.log('bannerLoaded 2')
                 btn.setAttribute('href', updatedUrl);
                 document.querySelector('#banner p.button-container a').href = 'sadfdasgsfdgsdgfsd';
                 document.querySelector('#banner p.button-container').setAttribute('data-hrefp', 'asdfadgdf');
                 document.querySelector('#banner p.button-container a').setAttribute('data-hrefa', 'asdfadgdf');
-              });
+              });*/
 
-              btn.setAttribute('href', updatedUrl);*/
+              btn.setAttribute('href', updatedUrl);
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
               btn.style.pointerEvents = 'auto';
