@@ -178,7 +178,11 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
     return;
   }
 
-  if ((typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0) || getMetadata('free-product') || force) {
+  if (
+    (typeof StoreProducts === 'undefined' && (getMetadata('trialbuylinks') || window.trialLinksExist))
+    || (typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0)
+    || getMetadata('free-product')
+    || force) {
     await target.sendCdpData();
     window.adobeDataLayer.push({ event: 'page loaded' });
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));

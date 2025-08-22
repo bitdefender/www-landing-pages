@@ -11,15 +11,13 @@
 .c-productswithvpn > div {
   flex: 1 1 0;
   position: relative;
-  padding: 10px;
-  margin: 0 10px;
   padding-bottom: 0 !important;
+  border-top: 0 none;
   margin-bottom: 0 !important;
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
-  border: 9px solid transparent;
-  border-top: 0 none;
+
 }
 
 .c-productswithvpn > div h2 {
@@ -50,31 +48,50 @@
 }
 
 .c-productswithvpn > div div.tag {
-  background-color: #0E8532;
+  background-color: var(--tag-bg, #0E8532);
   text-align: center;
-  position: absolute;
   border-radius: 0;
   color: #fff;
-  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(20px + 100%);
-  height: 38px;
-  top: -30px;
-  left: -10px;
-  right: -10px;
+  width: 100%;
+  min-height: 38px;
+  height: auto;
+  position: absolute;
+  bottom: 98.5%;
+  left: 0;
   font-weight: 600;
-  text-decoration: none;
   font-size: 14px;
   line-height: 14px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-left: 0;
   white-space: normal;
-  min-height: fit-content;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 0;
+  box-sizing: border-box;
+  margin-left: 0;
+}
+
+.c-productswithvpn .vpn_box div {
+  width: 100%;
+  padding: 10px;
+  background: #eaf5ec;
+  display: flex;
+  font-size: 14px;
+  text-align: left;
+  border-radius: 5px;
+  margin: 1em 0;
+  line-height: 14px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.c-productswithvpn > div > div:last-of-type {
+  padding: 10px;
+  padding-bottom: 0 !important;
+  border: 9px solid transparent;
+  border-top: 0 none;
+  border-radius: 10px;
 }
 
 .c-productswithvpn > div .prices_box .oldprice_percent {
@@ -326,20 +343,6 @@
   cursor: pointer;
 }
 
-.c-productswithvpn .vpn_box div {
-  width: 100%;
-  padding: 10px;
-  background: #eaf5ec;
-  display: flex;
-  font-size: 14px;
-  text-align: left;
-  border-radius: 5px;
-  margin: 1em 0;
-  line-height: 14px;
-  align-items: center;
-  cursor: pointer;
-}
-
 .c-productswithvpn .vpn_box label {
   width: 100%;
   cursor: pointer;
@@ -386,16 +389,17 @@
   padding: 1%;
   margin-top: 0;
   border: 0 none;
-  overflow: hidden;
+  overflow: visible;
+  overflow-wrap: anywhere;
 }
 
-.c-productswithvpn-container.has4boxes .c-productswithvpn > div p:nth-of-type(1) {
-  margin-top: 40px;
+.c-productswithvpn-container.has4boxes .c-productswithvpn > div p:nth-of-type(7) {
+  margin-top: 5px;
 }
 
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div div.tag {
   padding: 10px 0;
-  top: 0;
+  bottom: 99.5%;
 }
 
 .c-productswithvpn-container .top_title h1, .c-productswithvpn-container .top_title h2 {
@@ -410,9 +414,14 @@
   text-align: left;
 }
 
+.c-productswithvpn-container .top_title.p_right h1, .c-productswithvpn-container .top_title.p_right h2 {
+  text-align: right;
+}
+
 .c-productswithvpn-container.has4boxes .c-productswithvpn > div h2 {
   font-size: 30px;
   line-height: 27px;
+  overflow-wrap: break-word;
 }
 
 .c-productswithvpn-container .top_title {
@@ -424,10 +433,26 @@
   text-align: left;
 }
 
+.c-productswithvpn-container .top_title.p_right {
+  text-align: right;
+}
+
 .c-productswithvpn-container .top_title .prod-percent.green_bck_circle.bigger {
   position: relative;
   right: 0;
   top: 0;
+}
+
+.c-productswithvpn div p.empty-p {
+  margin-top: 15px;
+}
+
+.c-productswithvpn div p.empty-zero-p {
+  margin-top: 0;
+  margin-bottom: 0;
+  min-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 /* for mobile */
@@ -436,6 +461,63 @@
     max-width: 1450px;
   }
 }
+
+@media (min-width: 989px) and (max-width: 1240px) {
+  .c-productswithvpn-container.has4boxes .c-productswithvpn > div .prices_box .prod-newprice {
+    font-size: clamp(26px, calc(26px + (34 - 26) * ((100vw - 989px)/251)), 34px);
+  }
+
+  .c-productswithvpn-container.has4boxes .c-productswithvpn > div .prices_box .prod-oldprice {
+    font-size: clamp(20px, calc(20px + (24 - 20) * ((100vw - 989px)/251)), 24px);
+  }
+}
+
+@media(width >= 989px) {
+  .c-productswithvpn {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(180px, 1fr);
+    gap: 0 20px;
+    justify-content: center;
+    align-items: start;
+    padding-top: calc(var(--tag-height, 0) - 38px);
+    margin: 0 10px;
+  }
+  .c-productswithvpn-container.has4boxes .c-productswithvpn {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: repeat(4, minmax(180px, 380px));
+    gap: 0 20px;
+    justify-content: center;
+    align-items: start;
+    padding-top: calc(var(--tag-height, 0));
+    margin: 0 10px;
+  }
+  
+  .c-productswithvpn > div {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 15;
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    align-items: start;
+  }
+
+  .c-productswithvpn > div > div:not(.tag) {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 15;
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .c-productswithvpn-container.has4boxes .c-productswithvpn > div div.buybtn_box {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
 @media (width <= 989px) {
   .c-productswithvpn {
     display: block;
@@ -447,10 +529,28 @@
   }
   .c-productswithvpn > div {
     width: 100% !important;
-    padding: 15px !important;
     margin-bottom: 1em !important;
+  }
+  .c-productswithvpn > div > div:last-of-type {
+    padding: 15px;
     padding-bottom: 10px !important;
   }
+  .c-productswithvpn-container.has4boxes .c-productswithvpn > div {
+    padding: 3% !important;
+    margin-bottom: 1em !important;
+    padding-bottom: 10px !important;
+    margin-top: 1em !important;
+  }
+  .c-productswithvpn > div:has(div.tag):not(:first-of-type) {
+    margin-top: calc(var(--tag-div-height, 0) + 10px) !important;
+  }
+  .c-productswithvpn > div:has(div.tag):first-of-type{
+    margin-top: var(--tag-div-height, 0) !important;
+  }
+  .c-productswithvpn > div div.tag {
+    bottom: 99%;
+  }
+
   .c-productswithvpn > div h2 {
     font-size: 24px;
     line-height: 23px;
@@ -468,16 +568,18 @@
   .c-productswithvpn-container.table_fixed_h .c-productswithvpn > div table:nth-of-type(2) {
     min-height: auto;
   }
-  .c-productswithvpn-container.has4boxes .c-productswithvpn > div {
-    padding: 3% !important;
-    margin-bottom: 1em !important;
-    padding-bottom: 10px !important;
-    margin-top: 1em;
-  }
   .c-productswithvpn-container .top_title h1, .c-productswithvpn-container .top_title h2 {
     width: 100%;
   }
   .c-productswithvpn-container .top_title.p_left h1, .c-productswithvpn-container .top_title.p_left h2 {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  .c-productswithvpn-container .top_title.p_right h1, .c-productswithvpn-container .top_title.p_right h2 {
     width: 100%;
     margin: 0 auto;
     padding: 0 10px;
@@ -509,8 +611,10 @@
   }
   .c-productswithvpn > div {
     width: auto !important;
+    margin-left: 10px;
+    margin-right: 10px;
   }
-  .c-productswithvpn > div:nth-child(1) {
+  .c-productswithvpn > div:nth-child(1) > div:last-of-type{
     padding-top: 50px !important;
   }
   .c-productswithvpn-container .top_title {
