@@ -4,8 +4,9 @@ import { fetchGeoIP } from './utils.js';
 
 fetchGeoIP();
 
-document.getElementById('banner').href = 'sadfdasgsfdgsdgfsd';
-document.getElementById('banner').setAttribute('data-href', 'asdfadgdf')
+document.querySelector('#banner p.button-container a').href = 'sadfdasgsfdgsdgfsd';
+document.querySelector('#banner p.button-container').setAttribute('data-hrefp', 'asdfadgdf');
+document.querySelector('#banner p.button-container a').setAttribute('data-hrefa', 'asdfadgdf');
 
 // Core Web Vitals RUM collection
 sampleRUM('cwv');
