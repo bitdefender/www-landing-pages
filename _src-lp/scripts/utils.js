@@ -595,11 +595,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           // Update hrefs and restore button state
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
+              const delay = section.id === 'banner' ? 500 : 0;
               setTimeout(() => {
                 btn.setAttribute('href', updatedUrl);
-                btn.href = updatedUrl;
-              }, 1000);
-              
+              }, delay);
+  
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
               btn.style.pointerEvents = 'auto';
