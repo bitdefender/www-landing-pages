@@ -4,5 +4,7 @@ import { fetchGeoIP } from './utils.js';
 
 fetchGeoIP();
 
+document.getElementById('banner').href = 'sadfdasgsfdgsdgfsd';
+
 // Core Web Vitals RUM collection
 sampleRUM('cwv');
