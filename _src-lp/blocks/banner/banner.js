@@ -498,6 +498,8 @@ export default function decorate(block) {
 
   if (getMetadata('trialbuylinks') && getMetadata('trialbuylinks') !== '') {
     document.addEventListener("bannerLoaded", (e) => {
+      alert('sdfadsf')
+      console.log('e.detail.updatedUrl ', e.detail.updatedUrl)
       block.querySelector('p.button-container a').href = e.detail.updatedUrl;
     });
   }
