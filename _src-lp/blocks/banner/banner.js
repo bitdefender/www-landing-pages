@@ -1,14 +1,8 @@
-import { decorateIcons, getMetadata } from '../../scripts/lib-franklin.js';
+import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { detectModalButtons, productAliases, isView } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
-  console.log('block')
-  if (getMetadata('trialbuylinks') && getMetadata('trialbuylinks') !== '') {
-    document.addEventListener("bannerLoaded", (e) => {
-      console.log('event')
-    })
-  }
   const parentBlock = block.closest('.section');
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
