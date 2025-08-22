@@ -558,11 +558,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
     await Promise.all([...sections].map(async (section) => {
-      const buttonContainerLink = section.querySelector('p.button-container a');
-      const primaryButtonLink = section.querySelector('a.button.primary');
+      const buttonContainerLinks = section.querySelectorAll('p.button-container a');
+      const primaryButtonLinks = section.querySelectorAll('a.button.primary');
 
       // Apply loading effect (reduced opacity + wait cursor + freeze click)
-      [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+      [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
         if (btn) {
           btn.style.opacity = '0.5';
           btn.style.cursor = 'wait';
@@ -591,7 +591,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
 
           // Update hrefs and restore button state
-          [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+          [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
             if (btn) {
               btn.setAttribute('href', updatedUrl);
               btn.style.opacity = '1';
@@ -601,7 +601,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           });
         }
       } catch (error) {
-        [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+        [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
           if (btn) {
             btn.style.opacity = '1';
             btn.style.cursor = 'pointer';
