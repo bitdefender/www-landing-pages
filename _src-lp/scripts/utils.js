@@ -601,8 +601,12 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
               if (section.id === 'banner') {
-                setHref(btn, updatedUrl);
-                console.log('dsfdsg')
+                btn.addEventListener("bannerLoaded", (e) => {
+                  btn.setAttribute('href', updatedUrl);
+                  document.querySelector('#banner p.button-container a').href = 'sadfdasgsfdgsdgfsd';
+                  document.querySelector('#banner p.button-container').setAttribute('data-hrefp', 'asdfadgdf');
+                  document.querySelector('#banner p.button-container a').setAttribute('data-hrefa', 'asdfadgdf');
+                });
               } else {
                 btn.setAttribute('href', updatedUrl);
               }
