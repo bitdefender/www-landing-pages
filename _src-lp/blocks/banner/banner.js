@@ -3,6 +3,12 @@ import { detectModalButtons, productAliases, isView } from '../../scripts/script
 import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
+  console.log('block')
+  if (getMetadata('trialbuylinks') && getMetadata('trialbuylinks') !== '') {
+    document.addEventListener("bannerLoaded", (e) => {
+      console.log('event')
+    })
+  }
   const parentBlock = block.closest('.section');
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
@@ -495,12 +501,4 @@ export default function decorate(block) {
 
   detectModalButtons(block);
   decorateIcons(block);
-
-  if (getMetadata('trialbuylinks') && getMetadata('trialbuylinks') !== '') {
-    document.addEventListener("bannerLoaded", (e) => {
-      alert('sdfadsf')
-      console.log('e.detail.updatedUrl ', e.detail.updatedUrl)
-      block.querySelector('p.button-container a').href = e.detail.updatedUrl;
-    });
-  }
 }
