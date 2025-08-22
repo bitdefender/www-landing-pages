@@ -597,7 +597,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
               setTimeout(() => {
                 btn.setAttribute('href', updatedUrl);
               }, delay);
-  
+
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
               btn.style.pointerEvents = 'auto';
