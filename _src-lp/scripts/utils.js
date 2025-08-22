@@ -507,6 +507,13 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
   }
 }
 
+function setHref(el, url) {
+  el.setAttribute('href', url);
+  el.dispatchEvent(new CustomEvent('hrefChanged', {
+    detail: { newHref: url }
+  }));
+}
+
 export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined, trialPeriod = undefined) {
   const trialLinkValue = trialPeriod || getMetadata('trialbuylinks');
   if (!trialLinkValue) return;
@@ -593,10 +600,12 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           // Update hrefs and restore button state
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
-              const delay = section.id === 'banner' ? 500 : 0;
-              setTimeout(() => {
+              if (section.id === 'banner') {
+                setHref(btn, updatedUrl);
+                console.log('dsfdsg')
+              } else {
                 btn.setAttribute('href', updatedUrl);
-              }, delay);
+              }
 
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
