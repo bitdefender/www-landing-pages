@@ -593,7 +593,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           // Update hrefs and restore button state
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
-              
+              btn.classList.add('added');
               if (!btn.classList.contains('added')) {
                 btn.setAttribute('href', updatedUrl);
                 btn.classList.add('added');
