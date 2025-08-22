@@ -7,6 +7,7 @@ fetchGeoIP();
 document.querySelector('#banner p.button-container a').href = 'sadfdasgsfdgsdgfsd';
 document.querySelector('#banner p.button-container').setAttribute('data-hrefp', 'asdfadgdf');
 document.querySelector('#banner p.button-container a').setAttribute('data-hrefa', 'asdfadgdf');
+alert('sadgfad')
 
 // Core Web Vitals RUM collection
 sampleRUM('cwv');
