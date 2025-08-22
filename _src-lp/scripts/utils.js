@@ -508,10 +508,8 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
 }
 
 function setHref(el, url) {
+  console.log('el ', el)
   el.setAttribute('href', url);
-  el.dispatchEvent(new CustomEvent('hrefChanged', {
-    detail: { newHref: url }
-  }));
 }
 
 export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined, trialPeriod = undefined) {
@@ -600,17 +598,17 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           // Update hrefs and restore button state
           [buttonContainerLink, primaryButtonLink].forEach((btn) => {
             if (btn) {
-              if (section.id === 'banner') {
-                btn.addEventListener("bannerLoaded", (e) => {
-                  btn.setAttribute('href', updatedUrl);
-                  document.querySelector('#banner p.button-container a').href = 'sadfdasgsfdgsdgfsd';
-                  document.querySelector('#banner p.button-container').setAttribute('data-hrefp', 'asdfadgdf');
-                  document.querySelector('#banner p.button-container a').setAttribute('data-hrefa', 'asdfadgdf');
-                });
-              } else {
-                btn.setAttribute('href', updatedUrl);
-              }
 
+              setHref(btn, updatedUrl);
+             document.addEventListener("bannerLoaded", (e) => {
+                alert('sdafad')
+                btn.setAttribute('href', updatedUrl);
+                document.querySelector('#banner p.button-container a').href = 'sadfdasgsfdgsdgfsd';
+                document.querySelector('#banner p.button-container').setAttribute('data-hrefp', 'asdfadgdf');
+                document.querySelector('#banner p.button-container a').setAttribute('data-hrefa', 'asdfadgdf');
+              });
+
+              btn.setAttribute('href', updatedUrl);
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
               btn.style.pointerEvents = 'auto';

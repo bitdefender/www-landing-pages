@@ -496,5 +496,5 @@ export default function decorate(block) {
   detectModalButtons(block);
   decorateIcons(block);
 
-  if (getMetadata('trialbuylinks'))  document.dispatchEvent(new Event('bannerLoaded'));
+  if (getMetadata('trialbuylinks')) document.dispatchEvent(new Event('bannerLoaded'));
 }
