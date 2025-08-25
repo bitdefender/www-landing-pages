@@ -438,7 +438,7 @@ export default function decorate(block) {
               </div>` : billed.innerText}
 
               ${replaceBuyLinks ? `<div class="buy-btn">
-                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="${buyLinkObj.href || '#'}"  title="Bitdefender">
+                <a class="red-buy-button buylink2-${selectorClass}" href="${buyLinkObj.href || '#'}"  title="Bitdefender">
                   ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
               </div>` : `<div class="buy-btn">
@@ -534,7 +534,7 @@ export default function decorate(block) {
               ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
               ${replaceBuyLinks ? `<div class="buy-btn">
-                  <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
+                  <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
                 </div>` : `<div class="buy-btn">
                 <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
                   ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
