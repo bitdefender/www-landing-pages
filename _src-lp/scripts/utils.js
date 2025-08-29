@@ -904,7 +904,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
         const parent = item.parentNode;
         const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
-        if (item.closest('p') && !item.closest('label') && item.closest('p')) item.closest('p').remove();
+        if (item.closest('p') && !item.closest('label') && item.closest('p') && !item.classList.contains('newprod-hide')) item.closest('p').remove();
+        if (item.closest('p') && !item.closest('label') && item.closest('p') && item.classList.contains('newprod-hide')) item.closest('p').style.visibility = 'hidden';
         if (sibling && !parent.classList.contains('billed')) {
           item.remove();
           sibling.remove();
@@ -914,10 +915,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const saveBox = document.querySelector(`.save-${onSelectorClass}`);
     if (saveBox) {
-      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p')) saveBox.closest('p').remove();
+      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p') && !saveBox.classList.contains('newprod-hide')) saveBox.closest('p').remove();
+      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p') && saveBox.classList.contains('newprod-hide')) saveBox.closest('p').style.visibility = 'hidden';
       const siblingElements = saveBox.parentNode.querySelectorAll('div');
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
+      });
+      document.querySelectorAll(`.save-${onSelectorClass}`).forEach((item) => {
+        if (item.closest('p') && !item.closest('label') && item.closest('p') && item.classList.contains('newprod-hide')) item.closest('p').style.visibility = 'hidden';
       });
       if (saveBox.closest('.prod-save')) {
         saveBox.closest('.prod-save').remove();

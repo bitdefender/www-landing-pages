@@ -71,33 +71,19 @@ export default function decorate(block) {
         item.classList = `await-loader prodload prodload-${onSelectorClass}`;
       });
       // old price:
-      pricesSections[0].innerHTML += `<span class='prod-oldprice oldprice-${onSelectorClass}'></span>`;
+      pricesSections[0].innerHTML += `<span class='prod-oldprice oldprice-${onSelectorClass} newprod-hide'></span>`;
       // vpn:
       pricesSections[1].className = `show_vpn_box show_vpn-${onSelectorClass}`;
       pricesSections[1].style.display = 'none';
       pricesSections[1].innerHTML += '<i><span class="prod-oldprice oldprice-vpn-101"></span><span class="prod-newprice newprice-vpn-101"></span>';
       // new price:
-      pricesSections[2].innerHTML += `<span class='prod-save save-${onSelectorClass}'></span>`;
+      pricesSections[2].innerHTML += `<span class='prod-save save-${onSelectorClass} newprod-hide'></span>`;
       // total:
       pricesSections[3].innerHTML += `<span class='prod-newprice newprice-${onSelectorClass}'></span>`;
 
       // create procent - bulina
       if (typeof bulinaText !== 'undefined') {
         const bulinaSplitted = bulinaText.split(',');
-        // let divBulina = `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass} bulina_visible has${bulinaSplitted.length}txt">`;
-        // bulinaSplitted.forEach((item, key) => {
-        //   let newItem = item;
-        //   if (item.indexOf('0%') !== -1) {
-        //     newItem = item.replace(/0%/g, `<b class='percent percent-${onSelectorClass}'></b>`);
-        //   }
-        //   divBulina += `<span class="bulina_text${key + 1}">${newItem}</span>`;
-        // });
-        // divBulina += '</div>';
-        // console.log(divBulina);
-        // // add to the previous element
-        // const element = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) p:nth-child(1)`);
-        // element.innerHTML += divBulina;
-
         const divBulina = document.createElement('div');
         divBulina.className = `prod-percent green_bck_circle medium bulina-${onSelectorClass} bulina_visible has${bulinaSplitted.length}txt`;
 
