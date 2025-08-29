@@ -515,6 +515,9 @@
   .c-productswithvpn2-container .c-productswithvpn2 .prod-percent.green_bck_circle {
     position: absolute;
     left: -1px;
+  }  
+  .c-productswithvpn2.smaller-images > div {
+    margin-top: 4em;
   }
   .c-productswithvpn2-container.has4boxes .c-productswithvpn2 > div:not(:first-of-type) {
     margin-top: 4em;
@@ -552,9 +555,6 @@
   }
   .c-productswithvpn2 > div img:first-of-type {
     margin-top: 0;
-  }
-  .c-productswithvpn2.smaller-images > div {
-    margin-top: 4em;
   }
   .c-productswithvpn2.smaller-images > div img:first-of-type {
     width: 130px;
