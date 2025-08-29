@@ -40,6 +40,24 @@ export default function decorate(block) {
     parentSelector.classList.add(`has${productsAsList.length}boxes`);
 
     /// ///////////////////////////////////////////////////////////////////////
+    // ensure every product box starts with a <p> (image container)
+    productsAsList.forEach((product, idx) => {
+      const productDiv = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) > div`);
+      if (productDiv) {
+        const firstP = productDiv.querySelector('p:first-child');
+
+        // check if first <p> exists and has an <img>
+        if (!firstP || !firstP.querySelector('picture')) {
+          const emptyP = document.createElement('p');
+          // optional: add a class for styling/debugging
+          emptyP.className = 'empty-picture';
+          // insert at the start of the product div
+          productDiv.insertBefore(emptyP, productDiv.firstChild);
+        }
+      }
+    });
+
+    /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((product, idx) => {
       // eslint-disable-next-line prefer-const
@@ -66,18 +84,51 @@ export default function decorate(block) {
       // create procent - bulina
       if (typeof bulinaText !== 'undefined') {
         const bulinaSplitted = bulinaText.split(',');
-        let divBulina = `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass} has${bulinaSplitted.length}txt">`;
-        bulinaSplitted.forEach((item, key) => {
-          let newItem = item;
-          if (item.indexOf('0%') !== -1) {
-            newItem = item.replace(/0%/g, `<b class='percent percent-${onSelectorClass}'></b>`);
-          }
-          divBulina += `<span class="bulina_text${key + 1}">${newItem}</span>`;
-        });
-        divBulina += '</div>';
+        // let divBulina = `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass} bulina_visible has${bulinaSplitted.length}txt">`;
+        // bulinaSplitted.forEach((item, key) => {
+        //   let newItem = item;
+        //   if (item.indexOf('0%') !== -1) {
+        //     newItem = item.replace(/0%/g, `<b class='percent percent-${onSelectorClass}'></b>`);
+        //   }
+        //   divBulina += `<span class="bulina_text${key + 1}">${newItem}</span>`;
+        // });
+        // divBulina += '</div>';
+        // console.log(divBulina);
+        // // add to the previous element
+        // const element = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) p:nth-child(1)`);
+        // element.innerHTML += divBulina;
 
-        // add to the previous element
-        block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) p:nth-child(1)`).innerHTML += divBulina;
+        const divBulina = document.createElement('div');
+        divBulina.className = `prod-percent green_bck_circle medium bulina-${onSelectorClass} bulina_visible has${bulinaSplitted.length}txt`;
+
+        bulinaSplitted.forEach((item, key) => {
+          const newItem = item;
+          if (item.indexOf('0%') !== -1) {
+            const span = document.createElement('span');
+            span.className = `bulina_text${key + 1}`;
+
+            // split text around 0% and insert a <b>
+            const parts = item.split('0%');
+            span.append(document.createTextNode(parts[0]));
+            const bold = document.createElement('b');
+            bold.className = `percent percent-${onSelectorClass}`;
+            span.append(bold);
+            if (parts[1]) span.append(document.createTextNode(parts[1]));
+
+            divBulina.appendChild(span);
+          } else {
+            const span = document.createElement('span');
+            span.className = `bulina_text${key + 1}`;
+            span.textContent = newItem;
+            divBulina.appendChild(span);
+          }
+        });
+
+        const element = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) p:nth-child(1)`);
+
+        if (element) {
+          element.appendChild(divBulina); // safer than innerHTML
+        }
       }
 
       /// ///////////////////////////////////////////////////////////////////////

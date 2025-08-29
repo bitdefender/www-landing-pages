@@ -809,6 +809,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           item.innerHTML = `${percentageSticker}%`;
           item.style.visibility = 'visible';
           item.parentNode.style.visibility = 'visible';
+          // item.parentNode.parentNode.style.visibility = 'visible';
         });
       }
     }
@@ -817,6 +818,11 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       const bulinaElement = document.querySelector(`.bulina-${onSelectorClass}`);
       bulinaElement.closest('div').style.visibility = 'visible';
     }
+
+    // DEX-24183
+    document.querySelectorAll(`.bulina-${onSelectorClass}.bulina_visible`).forEach((bul) => {
+      bul.closest('div').style.visibility = 'visible';
+    });
 
     const showSaveBox = document.querySelector(`.show_save_${onSelectorClass}`);
     if (showSaveBox) {
