@@ -1,11 +1,13 @@
-import { User } from '@repobit/dex-utils';
 import { targetPromise, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
+import userPromise from './user.js';
 import { Bundle } from './vendor/product.js';
 import pagePromise from './page.js';
 
 const target = await targetPromise;
 const page = await pagePromise;
+const user = await userPromise;
+
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
   [4, { locale: 'au-AU', label: 'australia' }],
@@ -1047,7 +1049,7 @@ export function getCookie(name) {
  */
 export async function fetchGeoIP() {
   try {
-    window.geoip = await User.country;
+    window.geoip = await user.country;
 
     const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: window.geoip });
     window.dispatchEvent(event);
