@@ -803,6 +803,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         const parentPercentBox = parentDiv?.querySelector(`.percent-${onSelectorClass}`);
         if (parentPercentBox) {
           parentPercentBox.innerHTML = `${percentageSticker}%`;
+          parentPercentBox.style.visibility = 'visible';
           parentPercentBox.parentNode.style.visibility = 'visible';
         }
       } else {
@@ -810,6 +811,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           item.innerHTML = `${percentageSticker}%`;
           item.style.visibility = 'visible';
           item.parentNode.style.visibility = 'visible';
+          item.parentNode.parentNode.style.visibility = 'visible';
         });
       }
     }
@@ -916,7 +918,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       });
       if (saveBox.closest('.prod-save')) {
         saveBox.closest('.prod-save').remove();
-        if (saveBox.parentNode.nodeName === 'P') {
+        if (saveBox.parentNode?.nodeName === 'P') {
           saveBox.parentNode.remove();
         }
       }
@@ -939,8 +941,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         // If no discount, hide the percentBox or its container
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           const container = item.closest('p') || item.parentNode;
-          if (container && !item.classList.contains('parent-no-hide')) {
-            container.remove();
+          if (container && !item.classList.contains('parent-no-hide') && container?.classList?.contains('.prod-percent')) {
+            container.style.visibility = 'hidden';
           }
           // if we have parent-no-hide and no-price-show, we only show BUY NOW instead of BUY NOW FOR + price + OFF
           if (item.classList.contains('parent-no-hide') && item.classList.contains('no-price-show')) {
@@ -957,8 +959,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const bulinaBox = document.querySelector(`.bulina-${onSelectorClass}`);
     if (bulinaBox) {
-      bulinaBox.remove();
-      // bulinaBox.parentNode.style.visibility = 'hidden';
+      bulinaBox.style.visibility = 'hidden';
     }
   }
 

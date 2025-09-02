@@ -5,12 +5,39 @@
 
 .c-productswithvpn2-container.no-boxes {
   padding-top: 3.5em !important;
+  padding-bottom: 0;
 }
 
 .c-productswithvpn2 {
-  display: flex;
+  display: grid;
   justify-content: center;
   font-size: 18px;
+  column-gap: 20px;
+  row-gap: 0px;
+  grid-template-columns: repeat(auto-fit, minmax(370px, min-content));
+  padding: 20px;
+}
+
+.c-productswithvpn2-container.has4boxes .c-productswithvpn2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, min-content));
+}
+
+.c-productswithvpn2 .prod_box {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 20;
+  gap: 0;
+  row-gap: 0;
+  width: auto;
+  padding-bottom: 20px;
+  margin-bottom: 120px; /* simulate row-gap without polluting subgrid */
+}
+
+.c-productswithvpn2 .prod_box > div {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: 1/-1;
+  gap: 0;
 }
 
 .c-productswithvpn2 hr {
@@ -196,6 +223,12 @@
 .c-productswithvpn2 > div table tbody tr td {
   width: 100%;
   display: block;
+}
+
+.c-productswithvpn2 > div table.prodload tbody {
+  width: 100%;
+  display: block;
+  align-content: end;
 }
 
 .c-productswithvpn2 > div .vpn_box p {
@@ -387,10 +420,6 @@
   align-items: center;
 }
 
-.c-productswithvpn2 > div table:last-of-type td {
-  width: auto;
-}
-
 .c-productswithvpn2 > div table:last-of-type tr img {
   width: 56px;
   margin: 0;
@@ -420,10 +449,8 @@
 }
 
 .c-productswithvpn2-container.has4boxes .c-productswithvpn2 > div {
-  width: 24%;
   padding: 5px;
   border: 0 none;
-  overflow: hidden;
 }
 
 .c-productswithvpn2-container.has4boxes .c-productswithvpn2 > div p:nth-of-type(1) {
@@ -474,6 +501,12 @@
     padding: 10px;
     margin: 0 auto 4em;
     padding-bottom: 10px;
+  }
+  .c-productswithvpn2 .prod_box {
+    display: block;
+  }
+  .c-productswithvpn2 .prod_box > div {
+    display: block;
   }
   .c-productswithvpn2-container .c-productswithvpn2 .prod-percent {
     margin-top: -4em;
