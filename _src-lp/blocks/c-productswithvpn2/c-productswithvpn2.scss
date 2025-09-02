@@ -437,6 +437,10 @@
   display: none;
 }
 
+.c-productswithvpn2-container.no-boxes .c-productswithvpn2 > div > div table:last-of-type tr td:has(img) {
+  display: none;
+}
+
 /* 2st box */
 
 /* 3st box */
@@ -452,12 +456,8 @@
 }
 
 .c-productswithvpn2-container.has4boxes .c-productswithvpn2 > div {
-    padding: 5px;
-    border: 0 none;
-}
-
-.c-productswithvpn2-container.has4boxes .c-productswithvpn2 > div p:nth-of-type(1) {
-  margin-top: 40px;
+  padding: 5px;
+  border: 0 none;
 }
 
 .c-productswithvpn2-container.has4boxes .c-productswithvpn2 > div div.green_tag {
