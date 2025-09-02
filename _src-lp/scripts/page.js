@@ -1,5 +1,8 @@
 /* eslint-disable camelcase */
-import { Page, User } from '@repobit/dex-utils';
+import { Page } from '@repobit/dex-utils';
+import userPromise from './user.js';
+
+const user = await userPromise;
 
 /**
  * Returns the environment based on the hostname
@@ -26,7 +29,7 @@ const getEnvironment = () => {
 const getPageName = () => window.location.pathname.split('/').filter(Boolean).pop();
 
 const createPage = async () => new Page(
-  new URLSearchParams(window.location.search)?.get('locale')?.toLowerCase() || await User.locale,
+  new URLSearchParams(window.location.search)?.get('locale')?.toLowerCase() || await user.locale,
   getPageName(),
   getEnvironment(),
 );

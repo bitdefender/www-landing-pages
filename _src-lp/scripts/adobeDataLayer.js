@@ -1,5 +1,5 @@
 import { AdobeDataLayerService, PageLoadStartedEvent } from '@repobit/dex-data-layer';
-import { User } from '@repobit/dex-utils';
+import userPromise from './user.js';
 import { targetPromise, getPageNameAndSections, getDefaultLanguage } from './target.js';
 import pagePromise from './page.js';
 import { getMetadata } from './lib-franklin.js';
@@ -9,6 +9,7 @@ import {
 
 const page = await pagePromise;
 const target = await targetPromise;
+const userObject = await userPromise;
 /**
  * Sends the page load started event to the Adobe Data Layer
  */
@@ -24,7 +25,7 @@ export const sendAnalyticsPageEvent = async () => {
       subSection: sections[1] || '',
       subSubSection: sections[2] || '',
       subSubSubSection: sections[3] || '',
-      geoRegion: await User.country,
+      geoRegion: await userObject.country,
       serverName: 'hlx.live',
       language: navigator.language || navigator.userLanguage || DEFAULT_LANGUAGE,
     },
