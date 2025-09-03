@@ -1,7 +1,7 @@
 // blocks/popup-form/popup-form.js
 import { updateProductsList } from '../../scripts/utils.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { renderTurnstile, submitWithTurnstile } from '../../scripts/utils.js';
+import { renderTurnstile, submitWithTurnstile } from '../../scripts/utils/utils.js';
 
 let exitPopupShown = false;
 let exitListenerAttached = false;
@@ -9,45 +9,42 @@ let widgetId = null;
 let token = null;
 let isRenderingTurnstile = false;
 
-function slugifyLabel(label) {
-  return label
-    .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/gi, '-')
-    .replace(/^-|-$/g, '');
-}
-
-function buildFormFromTable(popupModal, buttonText = 'Submit') {
+function buildEmailForm(popupModal, buttonText = 'Submit') {
   const table = popupModal.querySelector('table');
-  if (!table) return null;
-
-  const labels = Array.from(table.querySelectorAll('td'))
-    .map((td) => td.textContent.trim())
-    .filter((txt) => txt.length > 0);
-
-  if (!labels.length) return null;
-
+  
   const form = document.createElement('form');
   form.className = 'popup-simple-form';
   form.setAttribute('novalidate', 'novalidate');
 
-  labels.forEach((label, idx) => {
-    const name = slugifyLabel(label) || `field-${idx + 1}`;
-    const row = document.createElement('div');
-    row.className = 'input-row input-row2';
+  // Titlu din primul rând al tabelului (dacă există)
+  let titleText = 'Subscribe';
+  if (table) {
+    const firstRow = table.querySelector('tr:first-child');
+    if (firstRow) {
+      titleText = firstRow.textContent.trim();
+    }
+  }
 
-    const box = document.createElement('div');
-    box.className = 'input-box';
-    box.innerHTML = `
-      <label for="input-${name}">${label}</label>
-      <input id="input-${name}" name="${name}" type="text" required>
-      <em class="input-err" style="display: none;">This field is required</em>
-    `;
-    row.appendChild(box);
-    form.appendChild(row);
-  });
+  // Titlu
+  const titleRow = document.createElement('div');
+  titleRow.className = 'input-row';
+  titleRow.innerHTML = `<h3 style="text-align: center; margin-bottom: 20px;">${titleText}</h3>`;
+  form.appendChild(titleRow);
 
-  // Container pentru Turnstile
+  // Email Field
+  const emailRow = document.createElement('div');
+  emailRow.className = 'input-row input-row2';
+  const emailBox = document.createElement('div');
+  emailBox.className = 'input-box';
+  emailBox.innerHTML = `
+    <label for="input-email">Email address</label>
+    <input id="input-email" name="email" type="email" required placeholder="Enter your email">
+    <em class="input-err" style="display: none;">Please enter a valid email address</em>
+  `;
+  emailRow.appendChild(emailBox);
+  form.appendChild(emailRow);
+
+  // Turnstile
   const turnstileRow = document.createElement('div');
   turnstileRow.className = 'input-row input-row2';
   const turnstileBox = document.createElement('div');
@@ -56,39 +53,45 @@ function buildFormFromTable(popupModal, buttonText = 'Submit') {
   turnstileRow.appendChild(turnstileBox);
   form.appendChild(turnstileRow);
 
+  // Submit button
   const actionsRow = document.createElement('div');
   actionsRow.className = 'input-row input-row2';
   const actionsBox = document.createElement('div');
   actionsBox.className = 'input-box';
-  actionsBox.innerHTML = `<button type="submit" class="submit-btn">${buttonText}</button>`;
+  actionsBox.innerHTML = `<button type="submit" class="submit-btn" disabled>${buttonText}</button>`;
   actionsRow.appendChild(actionsBox);
   form.appendChild(actionsRow);
 
-  table.replaceWith(form);
+  // Înlocuiește tabelul (dacă există)
+  if (table) {
+    table.replaceWith(form);
+  } else {
+    popupModal.appendChild(form);
+  }
+  
   return form;
 }
 
 function handlePopupSubmit(form, fileName) {
   const validateFields = () => {
     let isValid = true;
-    const inputs = form.querySelectorAll('input');
+    const emailInput = form.querySelector('#input-email');
+    const errorEl = emailInput.closest('.input-box').querySelector('.input-err');
+    
+    const email = emailInput.value.trim();
+    
+    if (!email) {
+      errorEl.textContent = 'Email is required';
+      errorEl.style.display = 'block';
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorEl.textContent = 'Please enter a valid email address';
+      errorEl.style.display = 'block';
+      isValid = false;
+    } else {
+      errorEl.style.display = 'none';
+    }
 
-    inputs.forEach((input) => {
-      const container = input.closest('.input-box');
-      const errorEl = container.querySelector('.input-err');
-      
-      let showError = false;
-      const value = input.value?.trim();
-
-      if (input.hasAttribute('required') && !value) {
-        showError = true;
-      }
-
-      errorEl.style.display = showError ? 'block' : 'none';
-      if (showError) isValid = false;
-    });
-
-    // Verifică dacă Turnstile este completat
     if (!token) {
       alert('Please complete the security challenge.');
       isValid = false;
@@ -104,49 +107,36 @@ function handlePopupSubmit(form, fileName) {
 
     form.classList.add('loading');
     
-    const data = new Map();
-    const date = new Date().toISOString().replace('T', ' ').slice(0, 19);
-    data.set('DATE', date);
+    // Date automate + Email
+    const data = {
+      DATE: new Date().toISOString().replace('T', ' ').slice(0, 19),
+      LOCALE: window.location.pathname.split('/')[1] || 'en',
+      EMAIL: form.querySelector('#input-email').value.trim()
+    };
 
-    form.querySelectorAll('.input-box input').forEach((input) => {
-      if (!input.name) return;
-      const key = input.name.toUpperCase().replace(/-/g, '_');
-      data.set(key, input.value?.trim() || '');
-    });
-
-    // Convert Map to object
-    const dataObject = Object.fromEntries(data);
+    console.log('📤 Sending data:', data);
 
     try {
-      // FOR DEVELOPMENT - simulăm success
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.log('🏗️ DEVELOPMENT MODE: Simulating form submission');
-        console.log('📁 File:', fileName);
-        console.log('📊 Data:', dataObject);
-        console.log('🔑 Token:', token);
-        
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        form.reset();
-        form.classList.remove('loading');
-        alert('Form submitted successfully! (Simulated in development)');
-        
-        if (window.turnstile && widgetId) {
-          window.turnstile.reset(widgetId);
-        }
-        return;
-      }
-
-      // Pentru producție - folosește funcția reală
       await submitWithTurnstile({
         widgetId,
         token,
-        data: dataObject,
+        data: data,
         fileName,
         successCallback: () => {
           form.reset();
           form.classList.remove('loading');
-          alert('Form submitted successfully!');
+          alert('Thank you for subscribing!');
+          
+          // Resetează Turnstile după submit
+          if (window.turnstile && widgetId) {
+            window.turnstile.reset(widgetId);
+          }
+          
+          // Dezactivează butonul din nou
+          const submitBtn = form.querySelector('.submit-btn');
+          if (submitBtn) {
+            submitBtn.disabled = true;
+          }
         },
         errorCallback: (err) => {
           form.classList.remove('loading');
@@ -163,45 +153,49 @@ function handlePopupSubmit(form, fileName) {
 
 async function renderTurnstileInPopup() {
   const container = document.getElementById('turnstile-container-popup');
-  if (!container) {
-    console.error('❌ Turnstile container not found');
-    return;
-  }
+  const submitBtn = document.querySelector('.submit-btn');
+  
+  if (!container) return;
 
-  // Verifică dacă se renderează deja
-  if (isRenderingTurnstile) {
-    console.log('⏳ Turnstile is already rendering, skipping...');
-    return;
-  }
-
-  // Verifică dacă widget-ul există deja
-  if (container.querySelector('.cf-turnstile')) {
-    console.log('✅ Turnstile already rendered, skipping...');
-    return;
-  }
-
+  if (isRenderingTurnstile) return;
   isRenderingTurnstile = true;
 
   try {
-    console.log('🔄 Rendering Turnstile...');
-    
-    // Resetează containerul înainte de render
     container.innerHTML = '';
     
     const result = await renderTurnstile('turnstile-container-popup', { 
-      invisible: false 
+      invisible: false,
+      callback: (newToken) => {
+        // Activează butonul când Turnstile e gata
+        token = newToken;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '1';
+          submitBtn.style.cursor = 'pointer';
+        }
+        console.log('✅ Turnstile completed');
+      },
+      'error-callback': () => {
+        console.error('❌ Turnstile error');
+      },
+      'expired-callback': () => {
+        token = null;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = '0.6';
+          submitBtn.style.cursor = 'not-allowed';
+        }
+        console.log('🔄 Turnstile token expired');
+      }
     });
     
     widgetId = result.widgetId;
-    token = result.token;
     console.log('✅ Turnstile rendered with widgetId:', widgetId);
   } catch (error) {
-    console.error('❌ Turnstile render failed:', error);
-    
-    // Fallback pentru development
+    console.error('Turnstile error:', error);
     container.innerHTML = `
       <div style="color: #666; text-align: center; padding: 20px; border: 2px dashed #ccc; border-radius: 8px;">
-        <div>🔒 Security Check</div>
+        <div>🔒 Security check</div>
         <small style="color: #999;">Cloudflare Turnstile widget</small>
       </div>
     `;
@@ -216,11 +210,8 @@ export default async function decorate(block) {
   const { product, buttontext, triggermode, savedata } = metaData;
   const triggerMode = (triggermode || 'exit').toLowerCase();
 
-  let form = null;
-  
-  if (savedata) {
-    form = buildFormFromTable(block, buttontext || 'Submit');
-  }
+  // Creează formularul simplu (doar email)
+  const form = buildEmailForm(block, buttontext || 'Subscribe');
 
   const popupModal = block;
   popupModal.classList.add('popup-form-modal');
@@ -243,8 +234,7 @@ export default async function decorate(block) {
     document.body.style.overflow = 'hidden';
 
     // Render Turnstile după ce popup este afișat
-    if (form && savedata) {
-      // Așteaptă ca DOM-ul să se actualizeze
+    if (savedata) {
       setTimeout(() => {
         renderTurnstileInPopup();
       }, 100);
@@ -268,6 +258,14 @@ export default async function decorate(block) {
     widgetId = null;
     token = null;
     
+    // Dezactivează butonul
+    const submitBtn = document.querySelector('.submit-btn');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.6';
+      submitBtn.style.cursor = 'not-allowed';
+    }
+    
     if (section && section.classList.contains('popup-form-container')) {
       section.style.display = 'none';
     }
@@ -283,11 +281,11 @@ export default async function decorate(block) {
   }
 
   // Setup form submission
-  if (form && savedata) {
+  if (savedata) {
     handlePopupSubmit(form, savedata);
   }
 
-  // prețuri/selectorClass
+  // prețuri/selectorClass doar dacă există product
   if (product) {
     try {
       const [productName = '', prodUsers = '', prodYears = ''] = String(product).split('/');
@@ -320,7 +318,7 @@ export default async function decorate(block) {
     }
   }
 
-  // overlay
+  // overlay (creat o singură dată)
   let overlay = document.querySelector('.popup-form-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
