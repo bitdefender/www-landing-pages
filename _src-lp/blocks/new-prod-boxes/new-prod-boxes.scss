@@ -11,6 +11,11 @@
     margin-right: 10px;
 }
 
+.new-prod-boxes-container.trial-links-2 .icon {
+    height: 8px;
+    width: 9px;
+}
+
 .new-prod-boxes-container .icon svg {
     fill: #fff;
 }
@@ -90,6 +95,17 @@
     margin: 10px 0;
 }
 
+.new-prod-boxes-container .switchBox .label hr {
+    margin: 0 auto 8px;
+    width: 90%;
+    border: 0.5px solid;
+    opacity: 0.65;
+}
+
+.new-prod-boxes-container .prod_box .inner_prod_box .save-trial-text hr {
+    margin: 0 0 10px;
+}
+
 .new-prod-boxes-container .switchBox .label {
     font-family: Arial, Helvetica, sans-serif;
     width: 50%;
@@ -110,13 +126,6 @@
     margin-top: 0;
     margin-bottom: 3px;
     font: normal normal normal 10px/11px Arial, sans-serif;
-}
-
-.new-prod-boxes-container .switchBox .label hr {
-    margin: 0 auto 8px;
-    width: 90%;
-    border: 0.5px solid;
-    opacity: 0.65;
 }
 
 .new-prod-boxes-container .switchBox .label .icon {
@@ -282,6 +291,24 @@
     margin: 1em 0;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box.blue-header {
+    overflow: hidden;
+}
+
+.new-prod-boxes-container .block .prod_box .blue-header .header-box {
+    width: 114%;
+    background-color: #026DFF;
+    color: white;
+    margin: 0;
+    margin-top: -25px;
+    padding: 25px 25px 4px;
+    margin-left: -25px;
+}
+
+.new-prod-boxes-container .block .prod_box .blue-header .header-box * {
+    color: white;
+}
+
 .new-prod-boxes-container.width-medium .block {
     justify-content: center;
 }
@@ -386,6 +413,25 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink a {
     color: #005ED9;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    line-height: 13px;
+    margin: 7px 0;
+    color: #000;
+    text-align: center;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .underBuyLink {
+    text-align: left;
+    font: italic normal normal 14px/18px Arial, sans-serif;
+    margin: 1em 0;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed a {
+    text-decoration: underline;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box h2 a:hover {
@@ -501,7 +547,32 @@
     min-height: auto;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li em {
+    background-color: #026DFF;
+    color: #FFF;
+    padding: 4px 7px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-style: normal;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .billed em {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .save-trial-text {
+    text-decoration: none;
+    text-align: center;
+    font: normal normal bold 16px/18px Arial, sans-serif;
+    letter-spacing: 0;
+    color: #7CB871;
+    margin-bottom: 15px;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul {
+    min-height: auto!important;
     position: absolute;
     background-color: white;
     padding: 10px;
@@ -513,6 +584,10 @@
     font-size: 12px;
     box-shadow: 4px 4px 7px -8px #000;
     display: none;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul * {
+    min-height: auto!important;
 }
 
 .new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .subtitle ul {
@@ -528,15 +603,6 @@
 
 .new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box > hr:last-of-type {
     display: none;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
-    font-size: 12px;
-    font-family: Arial, sans-serif;
-    line-height: 13px;
-    margin: 7px 0;
-    color: #000;
-    text-align: center;
 }
 
 .new-prod-boxes-container .block.optionsDropdown .prod_box .inner_prod_box .underBuyLink {
@@ -678,6 +744,10 @@
     font-size: calc(14px + 2 * (100vw - 768px) / 680);
 }
 
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .save_price_box .prod-percent {
+    display: none;
+}
+
 .new-prod-boxes-container.green-pill .block .prod_box .inner_prod_box .save_price_box .prod-percent {
     line-height: 15px;
     color: #EDF9FF;
@@ -734,9 +804,23 @@
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
     font-size: 12px;
     font-family: Arial, sans-serif;
-    line-height: 13px;
+    line-height: 16px;
     margin: 7px 0;
 	min-height: 25px;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists p {
+    margin: 0;
+    display: inline-block;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type p {
+    display: block;
 }
 
 .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .billed {
@@ -909,6 +993,14 @@ margin: 20px 0 0 5px;
     padding: 10px 1% !important;
 }
 
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: normal normal bold 18px/21px Arial, sans-serif;
+}
+
 .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
     padding: 15px !important;
 }
@@ -933,28 +1025,9 @@ margin: 20px 0 0 5px;
     color: transparent;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists p {
-    margin: 0;
-    display: inline-block;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists u {
     font-size: var(--body-font-size-xs);
     text-decoration: none;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li em {
-    background-color: #026DFF;
-    color: white;
-    padding: 4px 7px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-style: normal;
 }
 
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed em  {
@@ -980,6 +1053,38 @@ margin: 20px 0 0 5px;
     font-weight: bold;
     font-family: Arial, sans-serif;
     margin-bottom: 1em;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    min-height: 19px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 8px;
+    list-style-type: none;
+    background: url('../../icons/circle-check-sharp-solid.png') top 2px left no-repeat transparent;
+    padding-left: 22px;
+    background-size: 13px;
+    position: relative;
+    cursor: pointer;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:last-of-type {
+    margin-bottom: 0;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul li:first-of-type {
+    font-size: 12px;
+    font-weight: normal;
+    padding-bottom: 0;
+    margin: 0;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
+    margin-bottom: 10px;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type p:first-of-type {
+    margin-bottom: 15px;
 }
 
 .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists {
@@ -1038,16 +1143,60 @@ margin: 20px 0 0 5px;
     display: inline-flex;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-    font-size: 14px;
-    line-height: 17px;
-    margin-bottom: 8px;
-    list-style-type: none;
-    background: url("../../icons/circle-check-sharp-solid.png") top 2px left no-repeat transparent;
-    padding-left: 22px;
-    background-size: 13px;
-    position: relative;
-    cursor: pointer;
+.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
+    background-size: auto 15px;
+    min-height: 21px;
+    align-content: center;
+}
+
+.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
+    margin-top: 22px;
+}
+
+.new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    padding-left: 28px;
+    background-size: 18px;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    background: url("../../icons/checkmark_empty-circle.svg") top 0 left no-repeat transparent;
+    background-size: 18px;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box:not(.blue-header) .benefitsLists ul li:not(:first-of-type) {
+    background: none!important;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box:not(.blue-header) .benefitsLists ul li:not(:first-of-type)::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
+    background-size: 18px;
+    filter: grayscale(100%);
+    display: block;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+.new-prod-boxes-container .blue-pill {
+    background-color: #026DFF;
+    padding: 1px 6.7px;
+    border-radius: 20px;
+    color: white;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0;
+    font-weight: bold;
+    display: inline-flex;
+    justify-content: center;
+    height: fit-content;
+}
+
+.new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box:not(.blue-header) .benefitsLists ul li .blue-pill {
+    background-color: black;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.nocheck {
@@ -1105,7 +1254,7 @@ margin: 20px 0 0 5px;
     min-height: 5em;
 }
 
-.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .benefitsLists{
+.new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .benefitsLists {
     display: flex;
 }
 
@@ -1143,37 +1292,10 @@ margin: 20px 0 0 5px;
     border-radius: 0 0 20px 20px;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:last-of-type {
-    margin-bottom: 0;
-}
-
 .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul:has(.list-toggle) {
     display: flex;
     justify-content: center;
     min-height: unset;
-}
-
-.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul ul li:first-of-type {
-    font-size: 12px;
-    font-weight: normal;
-    padding-bottom: 0;
-    margin: 0;
-}
-
-.new-prod-boxes-container.bigger-buttons .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-    padding-left: 28px;
-    background-size: 18px;
-}
-
-.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type{
-    margin-top: 22px;
-}
-
-.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
-    background: url("../../icons/checkmark_empty-circle.svg") top 2px left no-repeat transparent;
-    background-size: auto 15px;
-    min-height: 21px;
-    align-content: center;
 }
 
 .new-prod-boxes-container.show-more-show-less .block  .prod_box .inner_prod_box .benefitsLists ul:first-of-type li:first-of-type {
@@ -1191,24 +1313,9 @@ margin: 20px 0 0 5px;
     padding-left: 0;
 }
 
-
-.new-prod-boxes-container .blue-pill {
-    background-color: #026DFF;
-    padding: 2.5px 6.7px;
-    border-radius: 20px;
-    color: white;
-    font-style: normal;
-    font-size: 11px;
-    letter-spacing: 0;
-    font-weight: bold;
-    display: inline-flex;
-    justify-content: center;
-    height: fit-content;
-}
-
 .new-prod-boxes-container .green-pill {
     background-color: #68ba68;
-    padding: 2.5px 6.7px;
+    padding: 1px 6.7px;
     border-radius: 20px;
     color: white;
     font-style: normal;
@@ -1267,7 +1374,11 @@ margin: 20px 0 0 5px;
     }
 
     .new-prod-boxes-container .block .prod_box {
-    margin-bottom: 4em!important;
+        margin-bottom: 4em!important;
+    }
+
+    .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .save-trial-text {
+        min-height: auto!important;
     }
 }
 

@@ -507,8 +507,8 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
   }
 }
 
-export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined) {
-  const trialLinkValue = getMetadata('trialbuylinks');
+export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined, trialPeriod = undefined) {
+  const trialLinkValue = trialPeriod || getMetadata('trialbuylinks');
   if (!trialLinkValue) return;
 
   const trialLinks = await fetchTrialLinks(trialLinkValue);
@@ -558,11 +558,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   if (!onSelector) {
     const sections = document.querySelectorAll('[data-trial-link-prod]');
     await Promise.all([...sections].map(async (section) => {
-      const buttonContainerLink = section.querySelector('p.button-container a');
-      const primaryButtonLink = section.querySelector('a.button.primary');
+      const buttonContainerLinks = section.querySelectorAll('p.button-container a');
+      const primaryButtonLinks = section.querySelectorAll('a.button.primary');
 
       // Apply loading effect (reduced opacity + wait cursor + freeze click)
-      [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+      [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
         if (btn) {
           btn.style.opacity = '0.5';
           btn.style.cursor = 'wait';
@@ -591,7 +591,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
 
           // Update hrefs and restore button state
-          [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+          [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
             if (btn) {
               btn.setAttribute('href', updatedUrl);
               btn.style.opacity = '1';
@@ -601,7 +601,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           });
         }
       } catch (error) {
-        [buttonContainerLink, primaryButtonLink].forEach((btn) => {
+        [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
           if (btn) {
             btn.style.opacity = '1';
             btn.style.cursor = 'pointer';
@@ -631,7 +631,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 }
 
 // display prices
-export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '') {
+export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '', trialPeriod = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
   const { region_id: regionId } = storeObj.selected_variation;
   const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
@@ -641,7 +641,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
   // DEX-23043
   const trialLinkValue = getMetadata('trialbuylinks');
-  if (trialLinkValue) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link);
+  if (trialPeriod) window.trialLinksExist = true;
+  if (trialLinkValue || trialPeriod) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link, trialPeriod);
 
   if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
 
@@ -940,6 +941,10 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           const container = item.closest('p') || item.parentNode;
           if (container && !item.classList.contains('parent-no-hide')) {
             container.remove();
+          }
+          // if we have parent-no-hide and no-price-show, we only show BUY NOW instead of BUY NOW FOR + price + OFF
+          if (item.classList.contains('parent-no-hide') && item.classList.contains('no-price-show')) {
+            item.parentElement.innerHTML = 'BUY NOW';
           }
         });
       }
