@@ -117,6 +117,31 @@ function handlePopupSubmit(form, fileName) {
     console.log('📤 Sending data:', data);
 
     try {
+      // FOR DEVELOPMENT - simulăm success
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log('🏗️ DEVELOPMENT MODE: Simulating form submission');
+        console.log('📁 File:', fileName);
+        console.log('📊 Data:', data);
+        
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        form.reset();
+        form.classList.remove('loading');
+        alert('Thank you for subscribing! (Simulated in development)');
+        
+        if (window.turnstile && widgetId) {
+          window.turnstile.reset(widgetId);
+        }
+        
+        // Dezactivează butonul din nou
+        const submitBtn = form.querySelector('.submit-btn');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+        }
+        return;
+      }
+
+      // Pentru producție - folosește funcția reală
       await submitWithTurnstile({
         widgetId,
         token,
