@@ -1,13 +1,22 @@
 // blocks/popup-form/popup-form.js
 import { updateProductsList } from '../../scripts/utils.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { renderTurnstile, submitWithTurnstile } from '../../scripts/utils.js';
 
 let exitPopupShown = false;
 let exitListenerAttached = false;
-let widgetId = null;
-let token = null;
-let isRenderingTurnstile = false;
+
+function ensureTurnstileScript() {
+  const SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+  if (window.turnstile) return;
+  const already = [...document.scripts].some(s => (s.src || '').startsWith(SRC));
+  if (already) return;
+
+  const script = document.createElement('script');
+  script.src = SRC;
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
+}
 
 function buildEmailForm(popupModal, buttonText = 'Submit') {
   const table = popupModal.querySelector('table');
@@ -44,21 +53,26 @@ function buildEmailForm(popupModal, buttonText = 'Submit') {
   emailRow.appendChild(emailBox);
   form.appendChild(emailRow);
 
-  // Turnstile
+  // Turnstile (auto-render) — vizibil
   const turnstileRow = document.createElement('div');
   turnstileRow.className = 'input-row input-row2';
   const turnstileBox = document.createElement('div');
   turnstileBox.className = 'input-box';
-  turnstileBox.innerHTML = `<div id="turnstile-container-popup" class="turnstile-box"></div>`;
+  turnstileBox.innerHTML = `
+    <div class="cf-turnstile"
+         data-sitekey="0x4AAAAAABkTzSd63P7J-Tl_"
+         data-theme="light"
+         data-size="normal">
+    </div>`;
   turnstileRow.appendChild(turnstileBox);
   form.appendChild(turnstileRow);
 
-  // Submit button
+  // Submit button (fără disabled)
   const actionsRow = document.createElement('div');
   actionsRow.className = 'input-row input-row2';
   const actionsBox = document.createElement('div');
   actionsBox.className = 'input-box';
-  actionsBox.innerHTML = `<button type="submit" class="submit-btn" disabled>${buttonText}</button>`;
+  actionsBox.innerHTML = `<button type="submit" class="submit-btn">${buttonText}</button>`;
   actionsRow.appendChild(actionsBox);
   form.appendChild(actionsRow);
 
@@ -73,11 +87,14 @@ function buildEmailForm(popupModal, buttonText = 'Submit') {
 }
 
 function handlePopupSubmit(form, fileName) {
+  const ENDPOINT = (window.location.hostname.startsWith('www.'))
+    ? 'https://www.bitdefender.com/form'
+    : 'https://stage.bitdefender.com/form';
+
   const validateFields = () => {
     let isValid = true;
     const emailInput = form.querySelector('#input-email');
     const errorEl = emailInput.closest('.input-box').querySelector('.input-err');
-    
     const email = emailInput.value.trim();
     
     if (!email) {
@@ -92,7 +109,9 @@ function handlePopupSubmit(form, fileName) {
       errorEl.style.display = 'none';
     }
 
-    if (!token) {
+    // Tokenul Turnstile este inserat automat ca input hidden
+    const token = form.querySelector('input[name="cf-turnstile-response"]')?.value || '';
+    if (!token || token.length < 10) {
       alert('Please complete the security challenge.');
       isValid = false;
     }
@@ -106,126 +125,87 @@ function handlePopupSubmit(form, fileName) {
     if (!validateFields()) return;
 
     form.classList.add('loading');
-    
-    // Date automate + Email
+
+    const token = form.querySelector('input[name="cf-turnstile-response"]')?.value || '';
     const data = {
       DATE: new Date().toISOString().replace('T', ' ').slice(0, 19),
       LOCALE: window.location.pathname.split('/')[1] || 'en',
-      EMAIL: form.querySelector('#input-email').value.trim()
+      EMAIL: form.querySelector('#input-email').value.trim(),
     };
 
-    console.log('📤 Sending data:', data);
+    const payload = {
+      file: `/sites/common/formdata/${fileName}.xlsx`,
+      table: 'Table1',
+      row: data,
+      token,
+    };
 
     try {
-      // FOR DEVELOPMENT - simulăm success
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.log('🏗️ DEVELOPMENT MODE: Simulating form submission');
-        console.log('📁 File:', fileName);
-        console.log('📊 Data:', data);
-        
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        form.reset();
+      // Dev helper: dacă ești pe localhost, simulăm succes (poți elimina asta)
+      if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+        console.log('DEV MODE: Simulated submit', { ENDPOINT, payload });
+        await new Promise(r => setTimeout(r, 800));
+        alert('Simulated: entry written.');
         form.classList.remove('loading');
-        alert('Thank you for subscribing! (Simulated in development)');
-        
-        if (window.turnstile && widgetId) {
-          window.turnstile.reset(widgetId);
-        }
-        
-        // Dezactivează butonul din nou
-        const submitBtn = form.querySelector('.submit-btn');
-        if (submitBtn) {
-          submitBtn.disabled = true;
-        }
+        form.reset();
+        try { window.turnstile?.reset(); } catch(_) {}
         return;
       }
 
-      // Pentru producție - folosește funcția reală
-      await submitWithTurnstile({
-        widgetId,
-        token,
-        data: data,
-        fileName,
-        successCallback: () => {
-          form.reset();
-          form.classList.remove('loading');
-          alert('Thank you for subscribing!');
-          
-          // Resetează Turnstile după submit
-          if (window.turnstile && widgetId) {
-            window.turnstile.reset(widgetId);
-          }
-          
-          // Dezactivează butonul din nou
-          const submitBtn = form.querySelector('.submit-btn');
-          if (submitBtn) {
-            submitBtn.disabled = true;
-          }
-        },
-        errorCallback: (err) => {
-          form.classList.remove('loading');
-          alert(`Error: ${err.message}`);
-        }
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
-    } catch (error) {
+
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(`Server returned ${res.status}${text ? `: ${text}` : ''}`);
+      }
+
+      alert('Thank you! Entry written.');
       form.classList.remove('loading');
-      console.error('Error:', error);
-      alert('Error submitting form. Please try again.');
+      form.reset();
+      try { window.turnstile?.reset(); } catch(_) {}
+
+    } catch (err) {
+      console.error('Submit error:', err);
+      form.classList.remove('loading');
+      alert(`Error submitting form. ${err.message || err}`);
     }
   });
 }
 
-async function renderTurnstileInPopup() {
-  const container = document.getElementById('turnstile-container-popup');
-  const submitBtn = document.querySelector('.submit-btn');
-  
-  if (!container) return;
-
-  if (isRenderingTurnstile) return;
-  isRenderingTurnstile = true;
-
+function setupPrices(popupModal, product, buttontext) {
+  if (!product) return;
   try {
-    container.innerHTML = '';
-    
-    const result = await renderTurnstile('turnstile-container-popup', { 
-      invisible: false,
-      callback: (newToken) => {
-        // Activează butonul când Turnstile e gata
-        token = newToken;
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.style.opacity = '1';
-          submitBtn.style.cursor = 'pointer';
-        }
-        console.log('✅ Turnstile completed');
-      },
-      'error-callback': () => {
-        console.error('❌ Turnstile error');
-      },
-      'expired-callback': () => {
-        token = null;
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.style.opacity = '0.6';
-          submitBtn.style.cursor = 'not-allowed';
-        }
-        console.log('🔄 Turnstile token expired');
-      }
-    });
-    
-    widgetId = result.widgetId;
-    console.log('✅ Turnstile rendered with widgetId:', widgetId);
-  } catch (error) {
-    console.error('Turnstile error:', error);
-    container.innerHTML = `
-      <div style="color: #666; text-align: center; padding: 20px; border: 2px dashed #ccc; border-radius: 8px;">
-        <div>🔒 Security check</div>
-        <small style="color: #999;">Cloudflare Turnstile widget</small>
-      </div>
-    `;
-  } finally {
-    isRenderingTurnstile = false;
+    const [productName = '', prodUsers = '', prodYears = ''] = String(product).split('/');
+    const prodName = productName.trim();
+    const selectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    try { updateProductsList(product); } catch (e) { /* noop */ }
+
+    if (!popupModal.querySelector('.prices_box')) {
+      const priceBox = document.createElement('div');
+      priceBox.className = `prices_box await-loader prodload prodload-${selectorClass}`;
+      priceBox.innerHTML = `
+        <div class="d-flex">
+          <div>
+            <div class="d-flex">
+              <span class="prod-oldprice oldprice-${selectorClass} mr-2"></span>
+            </div>
+            <div class="d-flex">
+              <span class="prod-newprice newprice-${selectorClass}"></span>
+            </div>
+          </div>
+        </div>
+        <div class="buy_box">
+          <a class="red-buy-button buylink-${selectorClass}" href="#">${buttontext || 'Buy now'}</a>
+        </div>
+      `;
+      popupModal.appendChild(priceBox);
+    }
+  } catch (e) {
+    console.warn('Product setup failed:', e);
   }
 }
 
@@ -235,16 +215,17 @@ export default async function decorate(block) {
   const { product, buttontext, triggermode, savedata } = metaData;
   const triggerMode = (triggermode || 'exit').toLowerCase();
 
-  // Creează formularul simplu (doar email)
+  // Construiește formularul
   const form = buildEmailForm(block, buttontext || 'Subscribe');
 
+  // Modal setup
   const popupModal = block;
   popupModal.classList.add('popup-form-modal');
   popupModal.setAttribute('role', 'dialog');
   popupModal.setAttribute('aria-modal', 'true');
   popupModal.style.display = 'none';
 
-  const originalShowModal = (evt) => {
+  const showModal = (evt) => {
     if (evt) evt.preventDefault();
     if (section && section.classList.contains('popup-form-container')) {
       section.style.display = 'block';
@@ -258,12 +239,8 @@ export default async function decorate(block) {
     }
     document.body.style.overflow = 'hidden';
 
-    // Render Turnstile după ce popup este afișat
-    if (savedata) {
-      setTimeout(() => {
-        renderTurnstileInPopup();
-      }, 100);
-    }
+    // Încarcă scriptul Turnstile (dacă nu e deja)
+    ensureTurnstileScript();
   };
 
   const hideModal = () => {
@@ -275,22 +252,10 @@ export default async function decorate(block) {
       overlay.style.display = 'none';
     }
     document.body.style.overflow = '';
-    
-    // Resetează Turnstile la închidere
-    if (widgetId && window.turnstile) {
-      window.turnstile.reset(widgetId);
-    }
-    widgetId = null;
-    token = null;
-    
-    // Dezactivează butonul
-    const submitBtn = document.querySelector('.submit-btn');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.style.opacity = '0.6';
-      submitBtn.style.cursor = 'not-allowed';
-    }
-    
+
+    // Resetăm widgetul pentru următoarea deschidere
+    try { window.turnstile?.reset(); } catch(_) {}
+
     if (section && section.classList.contains('popup-form-container')) {
       section.style.display = 'none';
     }
@@ -305,45 +270,15 @@ export default async function decorate(block) {
     popupModal.appendChild(closeBtn);
   }
 
-  // Setup form submission
+  // Submit handler (scriere în fișier)
   if (savedata) {
     handlePopupSubmit(form, savedata);
   }
 
-  // prețuri/selectorClass doar dacă există product
-  if (product) {
-    try {
-      const [productName = '', prodUsers = '', prodYears = ''] = String(product).split('/');
-      const prodName = productName.trim();
-      const selectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      try { updateProductsList(product); } catch (e) { /* noop */ }
+  // Prețuri (dacă există product)
+  setupPrices(popupModal, product, buttontext);
 
-      if (!popupModal.querySelector('.prices_box')) {
-        const priceBox = document.createElement('div');
-        priceBox.className = `prices_box await-loader prodload prodload-${selectorClass}`;
-        priceBox.innerHTML = `
-          <div class="d-flex">
-            <div>
-              <div class="d-flex">
-                <span class="prod-oldprice oldprice-${selectorClass} mr-2"></span>
-              </div>
-              <div class="d-flex">
-                <span class="prod-newprice newprice-${selectorClass}"></span>
-              </div>
-            </div>
-          </div>
-          <div class="buy_box">
-            <a class="red-buy-button buylink-${selectorClass}" href="#">${buttontext || 'Buy now'}</a>
-          </div>
-        `;
-        popupModal.appendChild(priceBox);
-      }
-    } catch (e) {
-      console.warn('Product setup failed:', e);
-    }
-  }
-
-  // overlay (creat o singură dată)
+  // overlay (o singură dată)
   let overlay = document.querySelector('.popup-form-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
@@ -356,19 +291,19 @@ export default async function decorate(block) {
     if (e.key === 'Escape') hideModal();
   });
 
-  // trigger mode
+  // trigger
   if (triggerMode === 'link') {
     const triggerLinks = document.querySelectorAll('a[href*="open-modal"]');
     triggerLinks.forEach((a) => {
       if (!a.dataset.popupListenerAttached) {
-        a.addEventListener('click', originalShowModal);
+        a.addEventListener('click', showModal);
         a.dataset.popupListenerAttached = 'true';
       }
     });
     if (!document.body.dataset.popupDelegationAttached) {
       document.body.addEventListener('click', (e) => {
         const link = e.target.closest('a[href*="open-modal"]');
-        if (link) originalShowModal(e);
+        if (link) showModal(e);
       });
       document.body.dataset.popupDelegationAttached = 'true';
     }
@@ -377,7 +312,7 @@ export default async function decorate(block) {
       document.addEventListener('mouseout', (e) => {
         const nearTop = e.clientY < 50 && !e.relatedTarget;
         if (!exitPopupShown && nearTop) {
-          originalShowModal();
+          showModal();
           exitPopupShown = true;
         }
       });
