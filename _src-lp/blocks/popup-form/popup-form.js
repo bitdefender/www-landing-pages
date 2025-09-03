@@ -1,7 +1,7 @@
 // blocks/popup-form/popup-form.js
 import { updateProductsList } from '../../scripts/utils.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { renderTurnstile, submitWithTurnstile } from '../../scripts/utils/utils.js';
+import { renderTurnstile, submitWithTurnstile } from '../../scripts/utils.js';
 
 let exitPopupShown = false;
 let exitListenerAttached = false;
