@@ -16,7 +16,7 @@
 */
 
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { updateProductsList, GLOBAL_EVENTS, matchHeights } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
@@ -98,12 +98,14 @@ export default function decorate(block) {
           labelId = `${labelId}-1`;
         }
 
-        let vpnContent = `<input id='${labelId}' class='${labelId} checkboxVPN' type='checkbox' value=''>`;
-        vpnContent += `<label for='${labelId}'>${tableVpn.querySelector('td').innerHTML.replace(/0/g, vpnPrices)}</label>`;
+        if (tableVpn.querySelector('td')?.innerText) {
+          let vpnContent = `<input id='${labelId}' class='${labelId} checkboxVPN' type='checkbox' value=''>`;
+          vpnContent += `<label for='${labelId}'>${tableVpn.querySelector('td').innerHTML.replace(/0/g, vpnPrices)}</label>`;
 
-        vpnDiv.innerHTML = vpnContent;
+          vpnDiv.innerHTML = vpnContent;
 
-        tableVpn.before(vpnDiv);
+          tableVpn.before(vpnDiv);
+        }
       } else {
         tableVpn.before(document.createElement('hr'));
       }
@@ -120,8 +122,8 @@ export default function decorate(block) {
 
       if (userText && yearText) {
         document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
-          const users = StoreProducts.product[prodName].selected_users;
-          const years = StoreProducts.product[prodName].selected_years;
+          const users = StoreProducts?.product[prodName]?.selected_users;
+          const years = StoreProducts?.product[prodName]?.selected_years;
           const textUser = userText.split(',');
           const textYear = yearText.split(',');
           let upText = '';
@@ -144,4 +146,6 @@ export default function decorate(block) {
       }
     });
   }
+
+  matchHeights(block, 'table.prodload tbody');
 }
