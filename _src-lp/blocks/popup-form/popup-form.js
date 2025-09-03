@@ -10,7 +10,6 @@ function ensureTurnstileScript() {
   if (window.turnstile) return;
   const already = [...document.scripts].some(s => (s.src || '').startsWith(SRC));
   if (already) return;
-
   const script = document.createElement('script');
   script.src = SRC;
   script.async = true;
@@ -20,18 +19,14 @@ function ensureTurnstileScript() {
 
 function buildEmailForm(popupModal, buttonText = 'Submit') {
   const table = popupModal.querySelector('table');
-  
   const form = document.createElement('form');
   form.className = 'popup-simple-form';
   form.setAttribute('novalidate', 'novalidate');
 
-  // Titlu din primul rând al tabelului (dacă există)
   let titleText = 'Subscribe';
   if (table) {
     const firstRow = table.querySelector('tr:first-child');
-    if (firstRow) {
-      titleText = firstRow.textContent.trim();
-    }
+    if (firstRow) titleText = firstRow.textContent.trim();
   }
 
   // Titlu
@@ -40,7 +35,7 @@ function buildEmailForm(popupModal, buttonText = 'Submit') {
   titleRow.innerHTML = `<h3 style="text-align: center; margin-bottom: 20px;">${titleText}</h3>`;
   form.appendChild(titleRow);
 
-  // Email Field
+  // Email
   const emailRow = document.createElement('div');
   emailRow.className = 'input-row input-row2';
   const emailBox = document.createElement('div');
@@ -53,7 +48,7 @@ function buildEmailForm(popupModal, buttonText = 'Submit') {
   emailRow.appendChild(emailBox);
   form.appendChild(emailRow);
 
-  // Turnstile (auto-render) — vizibil
+  // Turnstile (auto-render, vizibil)
   const turnstileRow = document.createElement('div');
   turnstileRow.className = 'input-row input-row2';
   const turnstileBox = document.createElement('div');
@@ -62,12 +57,11 @@ function buildEmailForm(popupModal, buttonText = 'Submit') {
     <div class="cf-turnstile"
          data-sitekey="0x4AAAAAABkTzSd63P7J-Tl_"
          data-theme="light"
-         data-size="normal">
-    </div>`;
+         data-size="normal"></div>`;
   turnstileRow.appendChild(turnstileBox);
   form.appendChild(turnstileRow);
 
-  // Submit button (fără disabled)
+  // Submit (fără disabled)
   const actionsRow = document.createElement('div');
   actionsRow.className = 'input-row input-row2';
   const actionsBox = document.createElement('div');
@@ -76,17 +70,13 @@ function buildEmailForm(popupModal, buttonText = 'Submit') {
   actionsRow.appendChild(actionsBox);
   form.appendChild(actionsRow);
 
-  // Înlocuiește tabelul (dacă există)
-  if (table) {
-    table.replaceWith(form);
-  } else {
-    popupModal.appendChild(form);
-  }
-  
+  if (table) table.replaceWith(form);
+  else popupModal.appendChild(form);
   return form;
 }
 
 function handlePopupSubmit(form, fileName) {
+  // Endpoint dinamic stage/www
   const ENDPOINT = (window.location.hostname.startsWith('www.'))
     ? 'https://www.bitdefender.com/form'
     : 'https://stage.bitdefender.com/form';
@@ -96,7 +86,7 @@ function handlePopupSubmit(form, fileName) {
     const emailInput = form.querySelector('#input-email');
     const errorEl = emailInput.closest('.input-box').querySelector('.input-err');
     const email = emailInput.value.trim();
-    
+
     if (!email) {
       errorEl.textContent = 'Email is required';
       errorEl.style.display = 'block';
@@ -109,42 +99,40 @@ function handlePopupSubmit(form, fileName) {
       errorEl.style.display = 'none';
     }
 
-    // Tokenul Turnstile este inserat automat ca input hidden
+    // Token Turnstile din inputul hidden inserat automat
     const token = form.querySelector('input[name="cf-turnstile-response"]')?.value || '';
     if (!token || token.length < 10) {
       alert('Please complete the security challenge.');
       isValid = false;
     }
-
     return isValid;
   };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     if (!validateFields()) return;
 
     form.classList.add('loading');
 
     const token = form.querySelector('input[name="cf-turnstile-response"]')?.value || '';
-    const data = {
+    const row = {
       DATE: new Date().toISOString().replace('T', ' ').slice(0, 19),
-      LOCALE: window.location.pathname.split('/')[1] || 'en',
+      LOCALE: (window.location.pathname.split('/')[1] || 'en'),
       EMAIL: form.querySelector('#input-email').value.trim(),
     };
 
-    const payload = {
-      file: `/sites/common/formdata/${fileName}.xlsx`,
-      table: 'Table1',
-      row: data,
-      token,
-    };
+    // IMPORTANT: folosim x-www-form-urlencoded ca să evităm preflight CORS
+    const body = new URLSearchParams();
+    body.set('file', `/sites/common/formdata/${fileName}.xlsx`);
+    body.set('table', 'Table1');
+    body.set('token', token);
+    body.set('row', JSON.stringify(row));
 
     try {
-      // Dev helper: dacă ești pe localhost, simulăm succes (poți elimina asta)
+      // Dev helper
       if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
-        console.log('DEV MODE: Simulated submit', { ENDPOINT, payload });
-        await new Promise(r => setTimeout(r, 800));
+        console.log('DEV MODE: Simulated submit', { ENDPOINT, body: Object.fromEntries(body) });
+        await new Promise(r => setTimeout(r, 600));
         alert('Simulated: entry written.');
         form.classList.remove('loading');
         form.reset();
@@ -154,8 +142,9 @@ function handlePopupSubmit(form, fileName) {
 
       const res = await fetch(ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: body.toString(),
       });
 
       if (!res.ok) {
@@ -169,9 +158,15 @@ function handlePopupSubmit(form, fileName) {
       try { window.turnstile?.reset(); } catch(_) {}
 
     } catch (err) {
-      console.error('Submit error:', err);
+      console.error('Submit error:', err, { endpoint: ENDPOINT, payload: Object.fromEntries(body) });
       form.classList.remove('loading');
-      alert(`Error submitting form. ${err.message || err}`);
+
+      // Mesaj mai clar pentru cazurile CORS
+      if ((err?.message || '').includes('Failed to fetch')) {
+        alert('Error submitting form. Failed to fetch.\nCel mai probabil CORS/preflight blocat de server.\nAm trecut pe application/x-www-form-urlencoded ca să evităm preflight. Dacă tot nu merge, trebuie fie:\n1) să permiteți CORS pe server (OPTIONS + Access-Control-Allow-Origin), sau\n2) să folosiți un proxy server-side pe același domeniu.');
+      } else {
+        alert(`Error submitting form. ${err.message || err}`);
+      }
     }
   });
 }
@@ -215,10 +210,8 @@ export default async function decorate(block) {
   const { product, buttontext, triggermode, savedata } = metaData;
   const triggerMode = (triggermode || 'exit').toLowerCase();
 
-  // Construiește formularul
   const form = buildEmailForm(block, buttontext || 'Subscribe');
 
-  // Modal setup
   const popupModal = block;
   popupModal.classList.add('popup-form-modal');
   popupModal.setAttribute('role', 'dialog');
@@ -239,7 +232,7 @@ export default async function decorate(block) {
     }
     document.body.style.overflow = 'hidden';
 
-    // Încarcă scriptul Turnstile (dacă nu e deja)
+    // Asigură scriptul Turnstile
     ensureTurnstileScript();
   };
 
@@ -252,10 +245,7 @@ export default async function decorate(block) {
       overlay.style.display = 'none';
     }
     document.body.style.overflow = '';
-
-    // Resetăm widgetul pentru următoarea deschidere
     try { window.turnstile?.reset(); } catch(_) {}
-
     if (section && section.classList.contains('popup-form-container')) {
       section.style.display = 'none';
     }
@@ -270,12 +260,9 @@ export default async function decorate(block) {
     popupModal.appendChild(closeBtn);
   }
 
-  // Submit handler (scriere în fișier)
   if (savedata) {
     handlePopupSubmit(form, savedata);
   }
-
-  // Prețuri (dacă există product)
   setupPrices(popupModal, product, buttontext);
 
   // overlay (o singură dată)
