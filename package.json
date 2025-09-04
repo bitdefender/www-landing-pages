@@ -47,9 +47,9 @@
     "happy-dom": "^17.6.3",
     "husky": "^9.1.7",
     "jsdom": "^23.2.0",
-    "openai": "^5.16.0",
+    "openai": "^5.19.1",
     "purgecss": "^5.0.0",
-    "sass": "^1.91.0",
+    "sass": "^1.92.0",
     "sinon": "15.0.1",
     "stylelint": "^15.11.0",
     "stylelint-config-standard": "30.0.1",
@@ -60,7 +60,7 @@
   "dependencies": {
     "@repobit/dex-data-layer": "^1.8.1",
     "@repobit/dex-launch": "^2.0.3",
-    "@repobit/dex-target": "^2.5.1",
+    "@repobit/dex-target": "^2.5.3",
     "@repobit/dex-utils": "^2.0.1"
   },
   "volta": {
