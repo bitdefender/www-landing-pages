@@ -420,8 +420,24 @@
   width: 70%;
 }
 
-.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds ul li {
-  font-size: 18px;
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds > div:first-of-type p:has(.icon) {
+  padding-left: 35px;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds > div:first-of-type p .icon {
+  height: 0;
+  width: 0;
+  fill: unset;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds > div:first-of-type p .icon svg {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: -35px;
+  align-self: center;
+  justify-self: center;
+  top: -14px;
 }
 
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox h4 {
