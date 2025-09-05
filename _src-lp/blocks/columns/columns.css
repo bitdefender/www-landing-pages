@@ -153,12 +153,12 @@ main .columns-container.padding-0 .columns-wrapper {
   flex-wrap: wrap;
 }
 .columns-container .columns.feature-cards > div {
-  display: grid;
   gap: 30px;
   padding: 0;
 }
 @media (width > 992px) {
   .columns-container .columns.feature-cards > div {
+    display: grid;
     padding: 0;
     grid-auto-flow: column;
     grid-template-columns: repeat(2, 1fr);
@@ -168,6 +168,8 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.feature-cards > div > div {
   display: flex;
   flex-direction: column;
+  grid-row: 1/5;
+  align-items: center;
   border: 2px solid #F5F5F7;
   border-radius: 20px;
   height: 100%;
@@ -178,14 +180,17 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.feature-cards > div > div > *:not(p:has(img)) {
   padding: 0 24px 0 32px;
   margin: 12px 0;
+  width: 100%;
 }
 .columns-container .columns.feature-cards > div > div img {
-  width: 100%;
-  height: 300px;
+  min-height: 300px;
   border-radius: 0;
 }
 .columns-container .columns.feature-cards > div > div p:has(img) {
   margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .columns-container .columns.feature-cards > div > div p:nth-last-of-type(3) {
   flex-grow: 1;
@@ -195,6 +200,9 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container .columns.feature-cards > div > div .button-container a {
   min-width: 270px;
+}
+.columns-container .columns.feature-cards > div > div:first-of-type p:has(img) * {
+  width: 100%;
 }
 @media (width > 992px) {
   .columns-container .columns.feature-cards.blue-border > div {
@@ -217,11 +225,25 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.blue-buttons .columns-wrapper .columns {
-  padding: 30px;
+  padding: 0;
 }
 .columns-container.blue-buttons .columns-wrapper .columns img {
   border-radius: 0;
   margin: auto;
+}
+.columns-container.blue-buttons .columns-wrapper .columns div {
+  padding: 0;
+  min-height: 100%;
+}
+@media (min-width: 767px) {
+  .columns-container.blue-buttons .columns-wrapper .columns div.text-content {
+    padding: 0 60px;
+  }
+  .columns-container.blue-buttons .columns-wrapper .columns div .columns-img-col {
+    width: 50%;
+    flex: 1;
+    flex-grow: 1;
+  }
 }
 .columns-container.blue-buttons .columns-wrapper .columns .text-content h2 {
   font: normal normal bold 32px/42px IBM Plex Sans;
@@ -272,6 +294,15 @@ main .columns-container.padding-0 .columns-wrapper {
   }
   .columns-container.round-corners .columns {
     border-radius: 20px;
+  }
+  .columns-container.round-corners .columns img {
+    min-height: 100%;
+  }
+  .columns-container.round-corners .columns div {
+    padding: 0;
+  }
+  .columns-container.round-corners .columns div.text-content {
+    padding: 0 60px;
   }
   .columns-container.new .columns > div {
     padding: 15px 0;
