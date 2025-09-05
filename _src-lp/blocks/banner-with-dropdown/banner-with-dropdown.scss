@@ -67,6 +67,12 @@
   line-height: 26px;
 }
 
+.section.banner-with-dropdown-container.dropdown .pricesBox .terms p {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 18px;
+}
+
 .section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 > div > p:last-of-type {
   font-size: 13px;
   line-height: 15px;
@@ -82,13 +88,11 @@
   font-weight: bold;
 }
 
-.section.banner-with-dropdown-container.dropdown .pricesBox .terms p {
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 18px;
+.section.banner-with-dropdown-container.new-2024.v2 p a {
+  text-decoration: underline;
 }
 
-.section.banner-with-dropdown-container.new-2024.v2 p a {
+.section.banner-with-dropdown-container.dropdown.v2 p a {
   text-decoration: underline;
 }
 
@@ -99,7 +103,7 @@
   padding: 13px 1em !important;
 }
 
-.section.banner-with-dropdown-container.dropdown.v2 p a, .section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 > div > p:last-of-type a {
+.section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 > div > p:last-of-type a {
   text-decoration: underline;
 }
 
