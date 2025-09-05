@@ -70,6 +70,7 @@
 .section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 > div > p:last-of-type {
   font-size: 13px;
   line-height: 15px;
+  margin-top: 0;
 }
 
 .section.banner-with-dropdown-container .banner-with-dropdown h1 a:hover {
@@ -538,6 +539,16 @@
   line-height: 17px;
   font-size: 16px;
   font-weight: 600;
+}
+
+.section.banner-with-dropdown-container.free-trial .pricesBox .pay_after_trial {
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.section.banner-with-dropdown-container.free-trial .pricesBox .pay_after_trial span {
+  display: inline-block;
+  font-size: 14px;
 }
 
 @media (width >= 768px) {

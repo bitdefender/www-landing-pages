@@ -67,7 +67,7 @@ export default function decorate(block) {
     // PRICE_BOX
     if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
-      const [alias, save, prices, terms, buybtn, prodstext] = [...table.querySelectorAll('tr')];
+      const [alias, save, prices, terms, buybtn, prodstext, afterTrial] = [...table.querySelectorAll('tr')];
 
       if (products) {
         const productsAsList = products.split(',');
@@ -140,6 +140,13 @@ export default function decorate(block) {
           pricesBox.innerHTML += `<div class="buy_box">
             <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
           </div>`;
+
+          console.log('afterTrial ', afterTrial)
+          if (afterTrial) {
+            pricesBox.innerHTML += `<div class="pay_after_trial">
+              ${afterTrial.innerHTML.replace('0', `<span class="prod-newprice newprice-${onSelectorClass}"></span>`)}
+            </div>`;
+          }
 
           table.appendChild(pricesBox);
         });
