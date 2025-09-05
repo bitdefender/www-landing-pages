@@ -431,7 +431,9 @@ export default function decorate(block) {
   const productSelector = block.querySelector('.productSelector');
   if (productSelector) {
     const showProduct = (value) => {
-      block.querySelectorAll('.pricesBox').forEach((box) => box.style.display = 'none');
+      block.querySelectorAll('.pricesBox').forEach((box) => {
+        box.style.display = 'none';
+      });
       const productBox = block.querySelector(`.prodload-${value}`);
       if (productBox) productBox.style.display = 'block';
     };
@@ -443,11 +445,11 @@ export default function decorate(block) {
         firstInput.dispatchEvent(new Event('change', { bubbles: true }));
       }
       productSelector.querySelectorAll('label.prodsel-radio-label').forEach((label) => {
-        label.addEventListener('click', () => showProduct(label.getAttribute('value')))
+        label.addEventListener('click', () => showProduct(label.getAttribute('value')));
       });
     } else {
       productSelector.addEventListener('change', () => {
-        showProduct(productSelector.value || productSelector.getAttribute('value'))
+        showProduct(productSelector.value || productSelector.getAttribute('value'));
       });
     }
   }
