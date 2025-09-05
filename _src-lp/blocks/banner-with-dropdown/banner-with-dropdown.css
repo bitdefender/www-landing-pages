@@ -40,6 +40,15 @@
   margin-right: 10px;
 }
 
+.section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 > div > p:last-of-type {
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 > div > p:last-of-type a {
+  text-decoration: underline;
+}
+
 .section.banner-with-dropdown-container.dropdown .banner-with-dropdown p a {
   color: rgb(0, 110, 255);
   font-weight: bold;
@@ -217,10 +226,17 @@
   content: "•";
   color: #4CA154;
   font-weight: bold;
-  display: inline-block;
+  float: left;
   margin-left: 0;
   margin-right: 10px;
   font-size: 35px;
+}
+
+.section.banner-with-dropdown-container.free-trial .banner-with-dropdown ul li::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: url(../../icons/checkmark_solid-circle_2.svg) no-repeat left center transparent;
 }
 
 .section.banner-with-dropdown-container.list-svg .banner-with-dropdown ul li::before {
@@ -449,6 +465,43 @@
   display: table-caption;
 }
 
+.section.banner-with-dropdown-container #prodSel.prodsel-radio {
+  display: block;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label {
+  display: flex;
+  align-items: center;
+  justify-self: self-start;
+  cursor: pointer;
+}
+
+#productSelector input[type=radio] {
+  appearance: auto !important;
+  -webkit-appearance: radio !important;
+  opacity: 1 !important;
+  position: static !important;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio .productSelector {
+  display: flex;
+  flex-direction: column;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label input {
+  width: 12px;
+  margin: 0 8px 0 0;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label em {
+  background-color: #E6F2FF;
+  color: #4870ff;
+  border-radius: 10px;
+  font-size: 13px;
+  font-style: normal;
+  padding: 4px 10px;
+}
+
 .section.banner-with-dropdown-container #prodSel label.bestValue {
   font-size: 14px;
   padding: 1px 20px;
@@ -548,6 +601,9 @@
     margin: 2em 0 1em;
     min-height: auto;
   }
+  .section.banner-with-dropdown-container.free-trial .pricesBox .buy_box {
+    margin: 1em 0;
+  }
   .section.banner-with-dropdown-container .animated_text span {
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
@@ -575,6 +631,12 @@
     font-size: var(--heading-font-size-xl);
     line-height: 45px;
     text-align: left;
+  }
+  .section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 {
+    width: 75%;
+  }
+  .section.banner-with-dropdown-container.free-trial .banner-with-dropdown h1 {
+    font: normal normal normal 32px/42px "IBM Plex Sans", sans-serif;
   }
   .section.lp-brand .banner-with-dropdown h1 {
     font-weight: lighter;
