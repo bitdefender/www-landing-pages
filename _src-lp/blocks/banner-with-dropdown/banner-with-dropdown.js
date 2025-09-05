@@ -141,7 +141,6 @@ export default function decorate(block) {
             <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
           </div>`;
 
-          console.log('afterTrial ', afterTrial)
           if (afterTrial) {
             pricesBox.innerHTML += `<div class="pay_after_trial">
               ${afterTrial.innerHTML.replace('0', `<span class="prod-newprice newprice-${onSelectorClass}"></span>`)}
