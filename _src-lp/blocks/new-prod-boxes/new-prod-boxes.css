@@ -835,10 +835,6 @@
   font-size: 17px;
 }
 
-.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .billed h6 u {
-  color: #1E9D54;
-}
-
 .new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .billed {
   display: none;
 }
@@ -1035,6 +1031,10 @@
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists u {
   font-size: var(--body-font-size-xs);
   text-decoration: none;
+}
+
+.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .billed h6 u {
+  color: #1E9D54;
 }
 
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed em {
