@@ -44,11 +44,10 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
     `;
 
     tablePrices.appendChild(pricesBox);
-
     if (trialText) {
       const pricesTrial = document.createElement('p');
       pricesTrial.className = 'pricesTrial';
-      pricesTrial.innerHTML = trialText.replace('0', `<strong class="prod-newprice newprice-${selectorClass}"></strong>`);
+      pricesTrial.innerHTML = trialText.includes('no-trial-text') ? '' : trialText.replace('0', `<strong class="prod-newprice newprice-${selectorClass}"></strong>`);
       tablePrices.appendChild(pricesTrial);
     }
   };
@@ -63,8 +62,8 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
 }
 
 function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display) {
-  const btnText = tableBuyBtn.textContent;
-
+  const trialText = tableBuyBtn.closest('.section').dataset.trialText;
+  const btnText = trialText.includes('no-trial-text') ? tableBuyBtn.textContent.replace('0%', '') : tableBuyBtn.textContent;
   const createButton = (className, selectorClass) => {
     const button = document.createElement('div');
     button.innerHTML = `<a href='#' title='Bitdefender ${prodName}' class='${className} red-buy-button await-loader prodload prodload-${selectorClass} buylink-${selectorClass}' referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
