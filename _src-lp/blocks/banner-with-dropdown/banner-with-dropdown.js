@@ -105,10 +105,10 @@ export default function decorate(block) {
             buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
           }
 
-          const isTrial = type && type === 'radio-buttons' ? true : false;
+          const isTrial = !!type && type === 'radio-buttons';
           if (isTrial) {
             productSelector.setAttribute('value', onSelectorClass);
-            containerDiv.classList.add('prodsel-radio')
+            containerDiv.classList.add('prodsel-radio');
             const optionsText = prodstext.querySelectorAll('li');
             productSelector.innerHTML += `
               <label class="prodsel-radio-label" value="${onSelectorClass}">
@@ -119,7 +119,7 @@ export default function decorate(block) {
           } else {
             productSelector.innerHTML += `<option value="${onSelectorClass}">${productAliasesNames(prodName)}</option>`;
           }
-            
+
           pricesBox.className = `pricesBox prices_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} await-loader prodload prodload-${onSelectorClass}`;
           pricesBox.innerHTML += `<div class="d-flex">
             <p>
@@ -430,8 +430,8 @@ export default function decorate(block) {
 
   const productSelector = block.querySelector('.productSelector');
   if (productSelector) {
-    const showProduct = value => {
-      block.querySelectorAll('.pricesBox').forEach(box => box.style.display = 'none');
+    const showProduct = (value) => {
+      block.querySelectorAll('.pricesBox').forEach((box) => box.style.display = 'none');
       const productBox = block.querySelector(`.prodload-${value}`);
       if (productBox) productBox.style.display = 'block';
     };
@@ -442,13 +442,13 @@ export default function decorate(block) {
         firstInput.checked = true;
         firstInput.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      productSelector.querySelectorAll('label.prodsel-radio-label').forEach(label =>
+      productSelector.querySelectorAll('label.prodsel-radio-label').forEach((label) => {
         label.addEventListener('click', () => showProduct(label.getAttribute('value')))
-      );
+      });
     } else {
-      productSelector.addEventListener('change', () =>
+      productSelector.addEventListener('change', () => {
         showProduct(productSelector.value || productSelector.getAttribute('value'))
-      );
+      });
     }
   }
 
