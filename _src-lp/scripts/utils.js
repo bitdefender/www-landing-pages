@@ -1222,7 +1222,6 @@ export async function getCdpData(mcID) {
   return {};
 }
 
-
 let isRendering = false;
 let widgetExecuting = false;
 export function renderTurnstile(containerId, { invisible = false } = {}) {
