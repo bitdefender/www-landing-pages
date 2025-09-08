@@ -971,12 +971,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
       if (comparativeTextBox) {
         allBuyLinkBox.forEach((item) => {
-          item.href = buyLink;
+          item.href = item.getAttribute('data-href') || buyLink;
+          item.removeAttribute('data-href');
         });
       }
     } else {
       allBuyLinkBox.forEach((item) => {
-        item.href = buyLink;
+        item.href = item.getAttribute('data-href') || buyLink;
+        item.removeAttribute('data-href');
       });
     }
   }
