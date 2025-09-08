@@ -438,7 +438,7 @@ export default function decorate(block) {
               </div>` : billed.innerText}
 
               ${replaceBuyLinks ? `<div class="buy-btn">
-                <a class="red-buy-button buylink2-${selectorClass}" href="${buyLinkObj.href || '#'}"  title="Bitdefender">
+                <a class="red-buy-button buylink-${selectorClass}" href="#" data-href="${buyLinkObj.href}"  title="Bitdefender">
                   ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
               </div>` : `<div class="buy-btn">
