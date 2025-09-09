@@ -943,9 +943,8 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         // If no discount, hide the percentBox or its container
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           const container = item.closest('p') || item.parentNode;
-          if (container && !item.classList.contains('parent-no-hide') && (container?.classList?.contains('.prod-percent') || container.querySelector('.prod-save'))) {
-            if (container.querySelector('.prod-save')) container.style.display = 'none';
-            else container.style.visibility = 'hidden';
+          if (container && !item.classList.contains('parent-no-hide')) {
+            container.style.visibility = 'hidden';
           }
           // if we have parent-no-hide and no-price-show, we only show BUY NOW instead of BUY NOW FOR + price + OFF
           if (item.classList.contains('parent-no-hide') && item.classList.contains('no-price-show')) {
