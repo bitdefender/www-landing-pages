@@ -40,13 +40,70 @@
   margin-right: 10px;
 }
 
+.section.lp-brand .banner-with-dropdown p {
+  width: 235px;
+  font-size: 12px;
+  line-height: 14px;
+  font-family: Arial, sans-serif;
+  margin: 0 auto 15px;
+}
+
+.section.banner-with-dropdown-container.new-2024.v2 p, .section.banner-with-dropdown-container.dropdown.v2 p {
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.section.banner-with-dropdown-container .banner-with-dropdown .blue-box tr td p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  line-height: 17px;
+}
+
+.section.banner-with-dropdown-container.dropdown .banner-with-dropdown p:first-of-type {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.section.banner-with-dropdown-container.dropdown .pricesBox .terms p {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 18px;
+}
+
+.section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 > div > p:last-of-type {
+  font-size: 13px;
+  line-height: 15px;
+  margin-top: 0;
+}
+
+.section.banner-with-dropdown-container .banner-with-dropdown h1 a:hover {
+  text-decoration-color: #cee2fe;
+}
+
 .section.banner-with-dropdown-container.dropdown .banner-with-dropdown p a {
   color: rgb(0, 110, 255);
   font-weight: bold;
 }
 
-.section.banner-with-dropdown-container .banner-with-dropdown h1 a:hover {
-  text-decoration-color: #cee2fe;
+.section.banner-with-dropdown-container.new-2024.v2 p a {
+  text-decoration: underline;
+}
+
+.section.banner-with-dropdown-container.dropdown.v2 p a {
+  text-decoration: underline;
+}
+
+.section.banner-with-dropdown-container .pricesBox .buy_box a:nth-of-type(2) {
+  color: #006DFF;
+  border: 2px solid #006DFF;
+  border-radius: 10px;
+  padding: 13px 1em !important;
+}
+
+.section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 > div > p:last-of-type a {
+  text-decoration: underline;
 }
 
 .section.banner-with-dropdown-container .banner-with-dropdown img {
@@ -133,37 +190,6 @@
   font: normal normal normal 32px/42px "IBM Plex Sans", sans-serif;
 }
 
-.section.lp-brand .banner-with-dropdown p {
-  width: 235px;
-  font-size: 12px;
-  line-height: 14px;
-  font-family: Arial, sans-serif;
-  margin: 0 auto 15px;
-}
-
-.section.banner-with-dropdown-container.new-2024.v2 p {
-  font-size: 13px;
-  line-height: 15px;
-}
-
-.section.banner-with-dropdown-container.dropdown.v2 p {
-  font-size: 13px;
-  line-height: 15px;
-}
-
-.section.banner-with-dropdown-container .banner-with-dropdown .blue-box tr td p {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  line-height: 17px;
-}
-
-.section.banner-with-dropdown-container.dropdown .banner-with-dropdown p:first-of-type {
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 26px;
-}
-
 .section.banner-with-dropdown-container.dropdown.v2 .banner-with-dropdown h1 {
   font: normal normal normal 32px/42px "IBM Plex Sans", sans-serif;
 }
@@ -217,10 +243,17 @@
   content: "•";
   color: #4CA154;
   font-weight: bold;
-  display: inline-block;
+  float: left;
   margin-left: 0;
   margin-right: 10px;
   font-size: 35px;
+}
+
+.section.banner-with-dropdown-container.free-trial .banner-with-dropdown ul li::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: url("../../icons/checkmark_solid-circle_2.svg") no-repeat left center transparent;
 }
 
 .section.banner-with-dropdown-container.list-svg .banner-with-dropdown ul li::before {
@@ -402,21 +435,6 @@
   align-items: center;
 }
 
-.section.banner-with-dropdown-container.new-2024.v2 p a {
-  text-decoration: underline;
-}
-
-.section.banner-with-dropdown-container.dropdown.v2 p a {
-  text-decoration: underline;
-}
-
-.section.banner-with-dropdown-container .pricesBox .buy_box a:nth-of-type(2) {
-  color: #006DFF;
-  border: 2px solid #006DFF;
-  border-radius: 10px;
-  padding: 13px 1em !important;
-}
-
 .section.banner-with-dropdown-container #buyBtnGreenCircleBox a {
   margin-right: 10px;
 }
@@ -447,6 +465,36 @@
 .section.banner-with-dropdown-container #prodSel {
   padding: 0 0 10px;
   display: table-caption;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio {
+  display: block;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label {
+  display: flex;
+  align-items: center;
+  justify-self: self-start;
+  cursor: pointer;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio .productSelector {
+  display: flex;
+  flex-direction: column;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label input {
+  width: 12px;
+  margin: 0 8px 0 0;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label em {
+  background-color: #E6F2FF;
+  color: #4870ff;
+  border-radius: 10px;
+  font-size: 13px;
+  font-style: normal;
+  padding: 4px 10px;
 }
 
 .section.banner-with-dropdown-container #prodSel label.bestValue {
@@ -480,16 +528,14 @@
   margin-left: 10px;
 }
 
+.section.banner-with-dropdown-container.hide-prices .pricesBox .d-flex {
+  display: none !important;
+}
+
 .section.banner-with-dropdown-container.divider .pricesBox .terms {
   padding-bottom: 20px;
   border-bottom: 1px solid #E7E7E7;
   align-items: center;
-}
-
-.section.banner-with-dropdown-container.dropdown .pricesBox .terms p {
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 18px;
 }
 
 .section.banner-with-dropdown-container .pricesBox .prod-save {
@@ -499,6 +545,16 @@
   line-height: 17px;
   font-size: 16px;
   font-weight: 600;
+}
+
+.section.banner-with-dropdown-container.free-trial .pricesBox .pay_after_trial {
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.section.banner-with-dropdown-container.free-trial .pricesBox .pay_after_trial span {
+  display: inline-block;
+  font-size: 14px;
 }
 
 @media (width >= 768px) {
@@ -548,6 +604,9 @@
     margin: 2em 0 1em;
     min-height: auto;
   }
+  .section.banner-with-dropdown-container.free-trial .pricesBox .buy_box {
+    margin: 1em 0;
+  }
   .section.banner-with-dropdown-container .animated_text span {
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
@@ -576,10 +635,16 @@
     line-height: 45px;
     text-align: left;
   }
+  .section.banner-with-dropdown-container.free-trial .banner-with-dropdown .col-lg-6 {
+    width: 75%;
+  }
   .section.lp-brand .banner-with-dropdown h1 {
     font-weight: lighter;
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-font-size-xl);
+  }
+  .section.banner-with-dropdown-container.free-trial .banner-with-dropdown h1 {
+    font: normal normal normal 32px/42px "IBM Plex Sans", sans-serif;
   }
   .section.banner-with-dropdown-container .banner-with-dropdown.smaller-title h1 {
     font-size: var(--heading-font-size-l);
