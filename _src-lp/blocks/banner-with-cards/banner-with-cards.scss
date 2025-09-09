@@ -103,6 +103,10 @@
   text-align: center;
 }
 
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox p {
+  font-size: 14px;
+}
+
 .section.banner-with-cards-container.free-size .banner-with-cards .hasProds > div:first-of-type p {
   font-size: 14px;
   line-height: 1.6;
@@ -437,8 +441,7 @@
   height: 32px;
   position: absolute;
   left: -35px;
-  align-self: center;
-  justify-self: center;
+  place-self: center center;
   top: -14px;
 }
 
@@ -461,10 +464,6 @@
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox hr{
   border: 1px solid;
   margin: 12px 0;
-}
-
-.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox p {
-  font-size: 14px;
 }
 
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox ul {
@@ -495,8 +494,7 @@
   background-color: transparent;
   text-align: center;
   text-decoration: underline;
-  justify-self: center;
-  align-self: center;
+  place-self: center center;
 }
 
 @media (width <= 1225px) {

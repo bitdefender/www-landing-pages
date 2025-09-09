@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 .columns h2 {
   color: #000;
   font-size: 30px;
@@ -174,7 +175,6 @@ main .columns-container.padding-0 .columns-wrapper{
 
   .columns.feature-cards {
     >div {
-      
       gap: 30px;
       padding: 0;
 
@@ -195,7 +195,7 @@ main .columns-container.padding-0 .columns-wrapper{
         border-radius: 20px;
         height: 100%;
         gap: 0;
-        padding: 30px 0 0 0;
+        padding: 30px 0 0;
         overflow: hidden;
         
         >*:not(p:has(img)) {
@@ -280,8 +280,8 @@ main .columns-container.padding-0 .columns-wrapper{
       div {
         padding: 0;
         min-height: 100%;
-        @media (min-width:767px) {
-          
+
+        @media (width >=767px) {
           &.text-content {
             padding:0 60px;
           }
@@ -294,9 +294,10 @@ main .columns-container.padding-0 .columns-wrapper{
         }
         
       }
+
       .text-content {
         h2 {
-          font: normal normal bold 32px/42px IBM Plex Sans;
+          font: normal normal bold 32px/42px "IBM Plex Sans", sans-serif;
           margin-bottom: 20px;
           margin-top: 20px;
         }
@@ -404,6 +405,7 @@ main .columns-container.padding-0 .columns-wrapper{
       >div {
         flex-wrap: wrap;
         justify-content: center;
+
         >div {
           min-width: 300px;
           max-width: 300px;
