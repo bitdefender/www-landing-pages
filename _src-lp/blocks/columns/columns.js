@@ -32,4 +32,5 @@ export default function decorate(block) {
     });
   });
   matchHeights(block, '.text-content');
+  matchHeights(block, '.feature-cards img');
 }

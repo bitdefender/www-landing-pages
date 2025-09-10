@@ -1,8 +1,10 @@
-import Target from '@repobit/dex-target';
-import { User } from '@repobit/dex-utils';
 import { PageLoadStartedEvent } from '@repobit/dex-data-layer';
+import Target from '@repobit/dex-target';
+import userPromise from './user.js';
 import Constants from './constants.js';
 import pagePromise from './page.js';
+
+const user = await userPromise;
 
 export function getDefaultLanguage() {
   const currentPathUrl = window.location.pathname;
@@ -49,7 +51,7 @@ const createTarget = async () => {
         subSection: sections[1] || '',
         subSubSection: sections[2] || '',
         subSubSubSection: sections[3] || '',
-        geoRegion: await User.country,
+        geoRegion: await user.country,
         serverName: 'hlx.live',
         language: navigator.language || navigator.userLanguage || getDefaultLanguage(),
       },

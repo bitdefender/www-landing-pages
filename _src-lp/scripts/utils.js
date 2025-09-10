@@ -1,11 +1,13 @@
-import { User } from '@repobit/dex-utils';
 import { targetPromise, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
+import userPromise from './user.js';
 import { Bundle } from './vendor/product.js';
 import pagePromise from './page.js';
 
 const target = await targetPromise;
 const page = await pagePromise;
+const user = await userPromise;
+
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
   [4, { locale: 'au-AU', label: 'australia' }],
@@ -803,6 +805,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         const parentPercentBox = parentDiv?.querySelector(`.percent-${onSelectorClass}`);
         if (parentPercentBox) {
           parentPercentBox.innerHTML = `${percentageSticker}%`;
+          parentPercentBox.style.visibility = 'visible';
           parentPercentBox.parentNode.style.visibility = 'visible';
         }
       } else {
@@ -810,6 +813,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           item.innerHTML = `${percentageSticker}%`;
           item.style.visibility = 'visible';
           item.parentNode.style.visibility = 'visible';
+          item.parentNode.parentNode.style.visibility = 'visible';
         });
       }
     }
@@ -916,7 +920,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       });
       if (saveBox.closest('.prod-save')) {
         saveBox.closest('.prod-save').remove();
-        if (saveBox.parentNode.nodeName === 'P') {
+        if (saveBox.parentNode?.nodeName === 'P') {
           saveBox.parentNode.remove();
         }
       }
@@ -940,7 +944,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           const container = item.closest('p') || item.parentNode;
           if (container && !item.classList.contains('parent-no-hide')) {
-            container.remove();
+            container.style.visibility = 'hidden';
           }
           // if we have parent-no-hide and no-price-show, we only show BUY NOW instead of BUY NOW FOR + price + OFF
           if (item.classList.contains('parent-no-hide') && item.classList.contains('no-price-show')) {
@@ -957,8 +961,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const bulinaBox = document.querySelector(`.bulina-${onSelectorClass}`);
     if (bulinaBox) {
-      bulinaBox.remove();
-      // bulinaBox.parentNode.style.visibility = 'hidden';
+      bulinaBox.style.visibility = 'hidden';
     }
   }
 
@@ -968,12 +971,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
       if (comparativeTextBox) {
         allBuyLinkBox.forEach((item) => {
-          item.href = buyLink;
+          item.href = item.getAttribute('data-href') || buyLink;
+          item.removeAttribute('data-href');
         });
       }
     } else {
       allBuyLinkBox.forEach((item) => {
-        item.href = buyLink;
+        item.href = item.getAttribute('data-href') || buyLink;
+        item.removeAttribute('data-href');
       });
     }
   }
@@ -1047,7 +1052,7 @@ export function getCookie(name) {
  */
 export async function fetchGeoIP() {
   try {
-    window.geoip = await User.country;
+    window.geoip = await user.country;
 
     const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: window.geoip });
     window.dispatchEvent(event);
