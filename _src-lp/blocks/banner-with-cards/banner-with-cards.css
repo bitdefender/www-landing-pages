@@ -101,6 +101,10 @@
   text-align: center;
 }
 
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox p {
+  font-size: 14px;
+}
+
 .section.banner-with-cards-container.free-size .banner-with-cards .hasProds > div:first-of-type p {
   font-size: 14px;
   line-height: 1.6;
@@ -392,6 +396,105 @@
   margin-right: 30px;
 }
 
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper {
+  background-color: #EDF9FF;
+  border-radius: 20px;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds {
+  justify-content: flex-start;
+  gap: 50px;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds > div:first-child {
+  width: 50%;
+  flex: unset;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds h1 {
+  color: #016DFF;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds > div:first-of-type p {
+  font-size: 18px;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds > div:first-of-type p:last-of-type {
+  font-size: 18px;
+  width: 70%;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds > div:first-of-type p:has(.icon) {
+  padding-left: 35px;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds > div:first-of-type p .icon {
+  height: 0;
+  width: 0;
+  fill: unset;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds > div:first-of-type p .icon svg {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: -35px;
+  place-self: center center;
+  top: -14px;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox h4 {
+  color: #016DFF;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 12px;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .prodBox-wrapper {
+  justify-content: space-around;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .prodBox-wrapper .prodBox {
+  box-shadow: none;
+  flex: 0 !important;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox hr {
+  border: 1px solid;
+  margin: 12px 0;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox ul {
+  border: none;
+  margin-top: 0;
+  padding: 0;
+  font-size: 14px;
+  flex-grow: 0;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox ul li {
+  font-size: 14px;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox .button-container a {
+  color: #FFF;
+  width: 100%;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox-wrapper .tos-button {
+  text-align: center;
+  justify-self: center;
+}
+
+.section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox-wrapper .tos-button a {
+  color: #000;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  text-decoration: underline;
+  place-self: center center;
+}
+
 @media (width <= 1225px) {
   .section.banner-with-cards-container.margin-0 .banner-with-cards .customWrapper {
     padding: 0 15px;
@@ -436,6 +539,12 @@
   }
   .section.banner-with-cards-container .banner-with-cards .prodBox-wrapper:last-of-type {
     margin-bottom: 0 !important;
+  }
+  .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds > div:first-child {
+    width: unset;
+  }
+  .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds > div:first-child p:last-of-type {
+    width: unset;
   }
 }
 @media (width <= 768px) {
