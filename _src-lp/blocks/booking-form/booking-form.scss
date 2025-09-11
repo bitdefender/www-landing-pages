@@ -1,5 +1,5 @@
 .booking-form-container {
-  background-color: rgba(0, 0, 0, 0.5019607843);
+  background-color: #00000080;
   position: fixed !important;
   z-index: 999;
   top: 0;
@@ -7,7 +7,7 @@
   height: 100vh !important;
   min-height: 100vw !important;
   max-height: 100vh !important;
-  padding: 0 !important;
+  padding: 0!important;
   display: none;
 }
 
@@ -22,12 +22,12 @@
   overflow-y: hidden;
   overflow-y: scroll;
   text-align: left;
-  border-radius: 0.75rem;
+  border-radius: .75rem;
   position: relative;
 }
 
 .booking-form-container .booking-form-wrapper span.modal-close-btn {
-  content: "x";
+  content: 'x';
   position: absolute;
   top: 10px;
   right: 10px;
@@ -59,6 +59,7 @@
   display: none;
 }
 
+
 .booking-form-container form.loading > div {
   pointer-events: none;
   opacity: 0.6;
@@ -66,7 +67,7 @@
 }
 
 .booking-form-container form.loading::before {
-  content: "";
+  content: '';
   display: inline-block;
   width: 32px;
   height: 32px;
@@ -86,6 +87,7 @@
     transform: rotate(360deg);
   }
 }
+
 .booking-form-container form.form-submitted .input-row2 {
   display: none;
 }
@@ -144,7 +146,7 @@
   gap: 5px;
 }
 
-.booking-form-container .input-row label.input-checkbox input[type=checkbox] {
+.booking-form-container .input-row label.input-checkbox input[type="checkbox"] {
   width: 16px;
   height: 16px;
   min-height: 22px;
@@ -152,7 +154,7 @@
   margin-right: 7px;
 }
 
-.booking-form-container .input-row input[type=submit] {
+.booking-form-container .input-row input[type="submit"] {
   float: left;
   margin-right: 8px;
   background: #ff7a59;
@@ -197,13 +199,16 @@
     width: 90vw;
     height: 90vh;
   }
+
   .booking-form-container .input-row {
     display: block;
   }
+
   .booking-form-container .input-row .input-box {
     margin-bottom: 1em;
   }
 }
+
 @media screen and (width <= 525px) {
   .booking-form-container .input-row .checkboxes .all-checks {
     gap: 0;
