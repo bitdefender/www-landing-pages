@@ -149,7 +149,6 @@ p, dl, ol, ul, pre, blockquote {
 hr {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  border: 0;
   border-bottom: 1px solid var(--overlay-background-color);
 }
 

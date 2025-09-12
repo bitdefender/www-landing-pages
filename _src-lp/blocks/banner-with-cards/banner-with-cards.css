@@ -495,6 +495,11 @@
   place-self: center center;
 }
 
+.section.banner-with-cards-container.rounded .banner-with-cards {
+  border-radius: 20px;
+  background-color: #F6F6F6 !important;
+}
+
 @media (width <= 1225px) {
   .section.banner-with-cards-container.margin-0 .banner-with-cards .customWrapper {
     padding: 0 15px;
@@ -599,5 +604,8 @@
   }
   .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper {
     margin-top: 25px;
+  }
+  .section.banner-with-cards-container.rounded .banner-with-cards {
+    background: none !important;
   }
 }

@@ -252,8 +252,11 @@ function renderRadioGroup(block) {
 function renderPrice(block, ...price) {
   const priceZone = document.createElement('div');
   priceZone.classList.add('price-element-wrapper');
-  const firstButton = block.querySelector('a');
-  const btnText = firstButton?.textContent;
+  const buyButton = block.querySelector('a');
+  const trialButton = block.querySelector('[href="#trial-link"]');
+  const btnText = buyButton?.textContent;
+  const trialText = trialButton?.textContent;
+  const billed = document.querySelector('h6');
   // Function to create and append price boxes
   const createPriceBox = (className, product) => {
     const pricesBox = document.createElement('div');
@@ -266,9 +269,13 @@ function renderPrice(block, ...price) {
         <div class="display-flex">
           <span class="prod-newprice newprice-${productCode}-${prodUsers}${prodYears}"></span>
         </div>
+        ${billed ? `<p class='billed'>${billed.innerHTML}</p>` : ''}
         <p class="button-container">
-          <a href='#' title='Bitdefender ${product.split('/')[0]}' class=' red-buy-button prodload prodload-${productCode}-${prodUsers}${prodYears} buylink-${productCode}-${prodUsers}${prodYears} referrerpolicy='no-referrer-when-downgrade'>${btnText ?? ''}</a>
+          <a href='#' title='Bitdefender ${product.split('/')[0]}' class=' red-buy-button prodload prodload-${productCode}-${prodUsers}${prodYears} buylink-${productCode}-${prodUsers}${prodYears} ${trialButton ? 'no-trial' : ''} referrerpolicy='no-referrer-when-downgrade'>${btnText ?? ''}</a>
         </p>
+        ${trialButton ? `<p class="button-container trial-button">
+            <a href='#' title='Bitdefender ${product.split('/')[0]}' class='prodload prodload-${state.firstProduct}-${prodUsers}${prodYears} buylink-${state.firstProduct}-${prodUsers}${prodYears} referrerpolicy='no-referrer-when-downgrade'>${trialText ?? ''}</a>
+          </p>` : ''}
       </div>`;
     updateProductsList(product.trim());
     return pricesBox;
@@ -280,7 +287,9 @@ function renderPrice(block, ...price) {
     }
   });
 
-  block.querySelector('a').remove();
+  buyButton.remove();
+  trialButton.remove();
+  billed.remove();
   return priceZone;
 }
 
@@ -455,13 +464,33 @@ export default function decorate(block) {
   state.secondProduct = state.blockDataset.blockProducts.split(',')[1].trim();
   initMembersMap();
   block.firstElementChild.classList.add('d-flex');
-  block.firstElementChild.firstElementChild.classList.add('pricing-wrapper');
+  const fetaureWrapper = block.firstElementChild.firstElementChild;
+  fetaureWrapper?.classList.add('pricing-wrapper');
   block.firstElementChild.lastElementChild.classList.add('features-wrapper');
   renderNanoBlocks(block.firstElementChild, block);
   const cols = [...block.firstElementChild.children];
   block.classList.add(`features-${cols.length}-cols`);
   const col = block.children[0].children[1];
   col.appendChild(extractFeatures(col));
+
+  if (block.classList.contains('trial') && fetaureWrapper) {
+    block.firstElementChild.lastElementChild.querySelectorAll('li').forEach((li) => {
+      const iconEl = li.querySelector('.icon');
+      if (!iconEl) return;
+
+      // Extract the icon class
+      const iconClass = Array.from(iconEl.classList).find((cls) => cls.startsWith('icon-'));
+      if (!iconClass) return;
+
+      const iconName = iconClass.replace('icon-', '');
+
+      // Set a CSS variable for use in ::before
+      li.style.setProperty('--icon-url', `url(${window.location.origin}/icons/${iconName}.svg)`);
+      li.classList.add('has-icon');
+
+      iconEl.remove();
+    });
+  }
   initializeDynamicSelection(block);
   matchHeights(block, '.block > div > div > p:first-of-type:not(:has(img))');
   matchHeights(block, '.block >div >div >:first-child');
