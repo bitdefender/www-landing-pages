@@ -36,6 +36,26 @@
   text-align: center;
 }
 
+.c-icon-box-grid-container.phishing-v2 h2 {
+  font-size: 60px;
+}
+
+.c-icon-box-grid-container.phishing-v2 h2 strong {
+  display: flex;
+  align-items: baseline;
+}
+
+.c-icon-box-grid-container.phishing-v2 h2 em {
+  font-size: 40px;
+  font-style: normal;
+}
+
+.c-icon-box-grid-container.phishing-v2 .icon-box-grid-column {
+  flex-direction: row !important;
+  gap: 15px;
+  align-items: center;
+}
+
 .c-icon-box-grid-container.usbs-brand .default-content-wrapper h2 {
   font-size: var(--heading-font-size-xl);
   line-height: var(--heading-font-size-xl);
@@ -332,6 +352,12 @@
   box-shadow: 0 0 2rem 0 rgba(0 0 0 / 10%);
 }
 
+.c-icon-box-grid-container.phishing-v2 .quotebox {
+    padding: 1em;
+    background-color: transparent;
+    box-shadow: unset;
+}
+
 .c-icon-box-grid-container.phishing div.subtitle {
   font-size: 16px;
   display: flex;
@@ -339,7 +365,12 @@
   justify-content: center;
 }
 
-.c-icon-box-grid-container .c-icon-box-grid.blue-cards .row{
+.c-icon-box-grid-container.phishing-v2 div.subtitle {
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.c-icon-box-grid-container .c-icon-box-grid.blue-cards .row {
   gap: 30px;
 }
 

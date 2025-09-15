@@ -6,6 +6,10 @@
 }
 .awards-affiliate div {
   font-size: 16px;
+  line-height: 21px;
+}
+.awards-affiliate > div:last-child {
+  margin-top: 1em;
 }
 .awards-affiliate h5 {
   font-weight: 400;
@@ -78,6 +82,8 @@
   }
   .awards-affiliate h3 {
     max-width: 726px;
+    margin-top: 10px;
+    line-height: 35px;
   }
   .awards-affiliate .columns-class div {
     padding: 34px;
