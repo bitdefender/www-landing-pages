@@ -56,7 +56,10 @@
   width: max-content;
   white-space: nowrap;
   list-style: none;
-  font: normal normal bold 16px/24px IBM Plex Sans;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "IBM Plex Sans", sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;

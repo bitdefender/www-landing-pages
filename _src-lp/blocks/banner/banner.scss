@@ -49,7 +49,10 @@
 .section.banner-container.csam-design .block .row > div p:last-of-type a {
   background: #E72325 0% 0% no-repeat padding-box;
   border-radius: 30px;
-  font: normal normal bold 18px / 21px Arial;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  font-family: "Arial", sans-serif;
   height: 44px;
   display: inline-flex;
   align-items: center;
@@ -1224,6 +1227,7 @@
     margin-left: 2.5em;
     margin-top: 3em;
   }
+
   .section.banner-container.csam-design .banner img {
     margin-bottom: -1em;
     margin-top: 4em;
