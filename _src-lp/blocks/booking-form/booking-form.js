@@ -39,19 +39,16 @@ function createForm(block) {
         inputBox.innerHTML = fieldNameEl?.innerHTML;
         break;
       }
-
       case 'success_message': {
         inputBox.id = 'success-message';
         inputBox.innerHTML = fieldNameEl?.innerHTML;
         break;
       }
-
       case 'normal_text': {
         inputBox.classList.add('normal_text');
         inputBox.innerHTML = fieldNameEl?.innerHTML;
         break;
       }
-
       case 'textarea': {
         inputBox.classList.add('input-textarea');
         inputBox.innerHTML = `
@@ -63,7 +60,6 @@ function createForm(block) {
         `;
         break;
       }
-
       case 'button': {
         const turnstileDiv = document.createElement('div');
         turnstileDiv.id = 'turnstile-container';
@@ -75,7 +71,6 @@ function createForm(block) {
         `;
         break;
       }
-
       case 'checkbox': {
         inputBox.innerHTML = `
           <label class="input-checkbox">
@@ -86,7 +81,6 @@ function createForm(block) {
         `;
         break;
       }
-
       case 'checkboxes': {
         inputBox.classList.add('checkboxes');
         const labelNameEl = fieldNameEl?.querySelector('p');
@@ -110,7 +104,6 @@ function createForm(block) {
         `;
         break;
       }
-
       case 'select': {
         inputBox.classList.add('selectors');
         const labelEl = fieldNameEl?.querySelector('p');
@@ -126,13 +119,11 @@ function createForm(block) {
         `;
         break;
       }
-
       case 'fake_input': {
         inputBox.classList.add('fake_input');
         inputBox.innerHTML = '<label for="input-fake"></label>';
         break;
       }
-
       default: {
         inputBox.innerHTML = `
           <label for="input-${name}" placeholder="${fieldValidation}">
@@ -186,15 +177,71 @@ function sanitizeDataMap(dataMap) {
   );
 }
 
-function handleSubmit(formBox, widgetId, token) {
+// --- Helpers pentru download ---
+function addDownloadParam(rawUrl) {
+  try {
+    const url = new URL(rawUrl, window.location.href);
+    if (!url.searchParams.has('download')) {
+      url.searchParams.set('download', '1');
+    }
+    return url.toString();
+  } catch {
+    return rawUrl;
+  }
+}
+
+function extractFileName(url) {
+  try {
+    const u = new URL(url, window.location.href);
+    const last = u.pathname.split('/').pop() || 'download';
+    return last.split('?')[0] || 'download';
+  } catch {
+    return 'download';
+  }
+}
+
+async function triggerFileDownload(url) {
+  const fileName = extractFileName(url);
+
+  try {
+    const res = await fetch(url, { mode: 'cors', credentials: 'omit' });
+    if (!res.ok) throw new Error(`Bad status: ${res.status}`);
+    const blob = await res.blob();
+
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = objectUrl;
+    a.setAttribute('download', fileName);
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
+    return;
+  } catch {
+    // dacă e blocat CORS, trecem la iframe
+  }
+
+  try {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = addDownloadParam(url);
+    document.body.appendChild(iframe);
+    setTimeout(() => iframe.remove(), 60000);
+  } catch {
+    // dacă chiar nu putem
+  }
+}
+
+function handleSubmit(formBox, widgetId, token, downloadlink) {
   const locale = window.location.pathname.split('/')[1] || 'en';
+
   const validateFields = () => {
     let isValid = true;
     const inputs = formBox.querySelectorAll('input, textarea, select');
 
     inputs.forEach((input) => {
       const container = input.closest('.input-box') || input.closest('.checkboxes') || input.closest('.selectors');
-
       const errorEl = container?.querySelector('.input-err');
       if (!errorEl) return;
 
@@ -215,7 +262,7 @@ function handleSubmit(formBox, widgetId, token) {
         showError = true;
       }
 
-      errorEl.style.display = showError ? 'block' : 'none';
+      if (errorEl) errorEl.style.display = showError ? 'block' : 'none';
       if (showError) isValid = false;
     });
 
@@ -223,7 +270,6 @@ function handleSubmit(formBox, widgetId, token) {
     formBox.querySelectorAll('.checkboxes').forEach((group) => {
       const checkboxes = group.querySelectorAll('input[type="checkbox"]');
       const errorEl = group.querySelector('.input-err');
-
       const isRequired = Array.from(checkboxes).some((cb) => cb.required);
       const isChecked = Array.from(checkboxes).some((cb) => cb.checked);
 
@@ -242,14 +288,13 @@ function handleSubmit(formBox, widgetId, token) {
 
   formBox.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     if (!validateFields()) return;
 
     formBox.classList.add('loading');
     const date = new Date().toISOString().replace('T', ' ').slice(0, 19);
     const data = new Map();
 
-    // set date and locale
+    // set date și locale
     data.set('DATE', date);
     data.set('LOCALE', locale);
 
@@ -262,9 +307,7 @@ function handleSubmit(formBox, widgetId, token) {
 
       if (field.type === 'checkbox') {
         const group = formBox.querySelectorAll(`input[type="checkbox"][name="${name}"]`);
-        const values = Array.from(group)
-          .filter((cb) => cb.checked)
-          .map((cb) => cb.value.trim());
+        const values = Array.from(group).filter((cb) => cb.checked).map((cb) => cb.value.trim());
         data.set(key, values.length ? values.join(', ') : 'No');
       } else if (field.type === 'radio') {
         const selected = formBox.querySelector(`input[type="radio"][name="${name}"]:checked`);
@@ -283,7 +326,11 @@ function handleSubmit(formBox, widgetId, token) {
       token,
       data: orderedData,
       fileName,
-      successCallback: () => {
+      successCallback: async () => {
+        if (downloadlink) {
+          triggerFileDownload(downloadlink);
+        }
+
         formBox.reset();
         const successMsg = formBox.querySelector('#success-message');
         if (successMsg) {
@@ -291,9 +338,37 @@ function handleSubmit(formBox, widgetId, token) {
           formBox.classList.add('form-submitted');
           formBox.querySelector('h4').innerHTML = `<strong>${successMsg.innerText}</strong>`;
           successMsg.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          formBox.classList.remove('loading');
         }
       },
     });
+  });
+}
+
+function setupModalOpeners(block, formBox) {
+  const section = block.closest('.section');
+
+  const openModal = (e) => {
+    if (e) e.preventDefault();
+    if (!section) return;
+    section.style.display = 'block';
+    const firstInput = formBox.querySelector('input, textarea, select');
+    if (firstInput) setTimeout(() => firstInput.focus(), 0);
+  };
+
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest(
+      'a[href="https://open-modal"], a[href="#open-modal"], a[href$="#open-modal"]',
+    );
+    if (!a) return;
+    openModal(e);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && section && section.style.display !== 'none') {
+      section.style.display = 'none';
+    }
   });
 }
 
@@ -302,9 +377,17 @@ export default function decorate(block) {
   block.innerHTML = '';
   block.appendChild(formBox);
 
+  const parentSelector = block.closest('.section');
+  const metaData = parentSelector.dataset;
+
+  const {
+    downloadlink,
+  } = metaData;
+  setupModalOpeners(block, formBox);
+
   renderTurnstile('turnstile-container', { invisible: false })
     .then(({ widgetId, token }) => {
-      handleSubmit(formBox, widgetId, token);
+      handleSubmit(formBox, widgetId, token, downloadlink);
     })
     .catch((error) => {
       throw new Error(`Turnstile render failed: ${error.message}`);

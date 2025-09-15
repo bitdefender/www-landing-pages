@@ -1196,6 +1196,9 @@ async function loadPage() {
   loadDelayed();
 
   go2Anchor();
+
+  document.dispatchEvent(new Event('bd_page_ready'));
+  window.bd_page_ready = true;
 }
 
 /*

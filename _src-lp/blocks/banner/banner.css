@@ -176,6 +176,28 @@
   text-align: left;
 }
 
+.section.banner-container.v2.rounded-image .banner > div > div::after {
+  display: none;
+}
+
+.section.banner-container.v2.rounded-image .banner .img-right {
+  width: 50%;
+}
+
+.section.banner-container.v2.rounded-image .banner .img-right div::after {
+  display: none;
+}
+
+.section.banner-container.v2.rounded-image .banner h2 {
+  color: #006EFF;
+  font-size: 32px;
+}
+
+.section.banner-container.v2.rounded-image .banner h1 em {
+  color: #D70000;
+  font-style: normal;
+}
+
 .section.banner-container .banner ul {
   padding-left: 0;
 }
@@ -360,6 +382,21 @@
   align-items: center;
   margin: 0;
   line-height: 17px;
+}
+
+.section.banner-container.v2.rounded-image .banner > div > div > div img {
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.section.banner-container.v2.rounded-image .banner h1 {
+  font: normal normal bold 40px/46px "IBM Plex Sans", sans-serif;
+  text-align: left;
+}
+
+.section.banner-container.v2.rounded-image .banner p {
+  font: normal normal normal 18px/24px "IBM Plex Sans", sans-serif;
 }
 
 .section.banner-container.new-green-pill h1 strong {
@@ -717,6 +754,10 @@
   font-size: 18px;
   line-height: 23px;
   font-weight: normal;
+}
+
+.section.banner-container.v2.rounded-image .banner > div > div {
+  justify-content: space-between;
 }
 
 @media (width >= 768px) {
