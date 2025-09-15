@@ -287,9 +287,9 @@ function renderPrice(block, ...price) {
     }
   });
 
-  buyButton.remove();
-  trialButton.remove();
-  billed.remove();
+  buyButton?.remove();
+  trialButton?.remove();
+  billed?.remove();
   return priceZone;
 }
 

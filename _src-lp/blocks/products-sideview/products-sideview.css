@@ -335,7 +335,7 @@
   border-radius: 8px;
   width: 100%;
   font-weight: bold;
-  border: 2px solid #000000;
+  border: 2px solid #000;
 }
 .products-sideview.trial p.trial-button a:hover {
   text-decoration: none;

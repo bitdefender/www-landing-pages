@@ -249,6 +249,7 @@
       padding-left: 40px;
       font-size: 18px;
     }
+
     li.has-icon::before {
       left: 25px;
       position: absolute;
@@ -339,7 +340,8 @@
     border-radius: 8px;
     width: 100%;
     font-weight: bold;
-    border: 2px solid #000000;
+    border: 2px solid #000;
+
     &:hover {
       text-decoration: none;
       filter: brightness(80%);
