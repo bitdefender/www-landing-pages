@@ -8,7 +8,7 @@ export default function decorate(block) {
     type, backgroundColor, textColor,
   } = metaData;
 
-  // set the back
+  // set the background
   if (backgroundEl) {
     const backgroundImgEl = backgroundEl.querySelector('img');
     const backgroundImgSrc = backgroundImgEl?.getAttribute('src');
@@ -32,32 +32,22 @@ export default function decorate(block) {
     const ribbon = block.querySelector('ul');
     if (!ribbon) return;
 
-    const SPEED = 60; // px per second (tweak to match Aura-like pace)
-
-    // measure original width BEFORE cloning
+    const SPEED = 60;
     const items = [...ribbon.children];
     if (!items.length) return;
 
-    // compute width of one full set (items + gaps)
+    // width - one full set (items + gaps)
     const gap = parseFloat(getComputedStyle(ribbon).gap) || 0;
     const setWidth = items.reduce((w, li, idx) => w + li.offsetWidth + (idx ? gap : 0), 0);
 
-    // clone one full set to create a seamless loop
+    // clone
     const frag = document.createDocumentFragment();
-    items.forEach(n => frag.appendChild(n.cloneNode(true)));
+    items.forEach((n) => frag.appendChild(n.cloneNode(true)));
     ribbon.appendChild(frag);
 
-    // set the distance and duration based on real pixels
-    ribbon.style.setProperty('--loop', setWidth + 'px');
-    ribbon.style.setProperty('--dur', (setWidth / SPEED) + 's');
-
-    // if fonts change widths after load, recalc once fonts are ready
-    (document.fonts?.ready || Promise.resolve()).then(() => {
-      const newSetWidth = [...ribbon.children].slice(0, items.length)
-        .reduce((w, li, idx) => w + li.offsetWidth + (idx ? gap : 0), 0);
-      ribbon.style.setProperty('--loop', newSetWidth + 'px');
-      ribbon.style.setProperty('--dur', (newSetWidth / SPEED) + 's');
-    });
+    // set the distance and duration
+    ribbon.style.setProperty('--loop', `${setWidth}px`);
+    ribbon.style.setProperty('--dur', `${setWidth / SPEED}s`);
   } else {
     setTimeout(() => {
       const elementLink = block.querySelector('a');
