@@ -244,6 +244,11 @@
   padding: 1em;
 }
 
+.c-icon-box-grid-container h3 {
+  font-size: 32px;
+  font-weight: 500;
+}
+
 .c-icon-box-grid-container.box-shadow .col-lg {
   box-shadow: 0 4px 7px #ccc;
   border-radius: 10px;
