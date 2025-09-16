@@ -550,4 +550,8 @@
   .c-icon-box-grid-container .slider-container .arrow {
     position: relative;
   }
+  .c-icon-box-grid-container h3, .c-icon-box-grid-container h3 strong {
+    font-size: var(--heading-font-size-m);
+    font-weight: 600;
+  }
 }
