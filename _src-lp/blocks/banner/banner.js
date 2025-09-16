@@ -331,7 +331,7 @@ export default function decorate(block) {
         blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
       }
     } else {
-      blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
+      blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]} ) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
     }
 
     const imageCoverVar = imageCover.split('-')[1];
@@ -401,7 +401,8 @@ export default function decorate(block) {
           parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
         }
       } else {
-        parentBlockStyle.background = `url(${pictureEl?.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+        const backgroundSrc = pictureEl?.querySelector('img')?.getAttribute('src').split('?')[0];
+        parentBlockStyle.background = `${backgroundSrc ? `url(${backgroundSrc})` : ''} no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
       }
     }
 
