@@ -121,7 +121,7 @@
     content: "";
     background: url("/_src-lp/icons/tabs_arrow.svg") no-repeat;
     position: absolute;
-    top: 50%;
+    top: 45%;
     right: 10px;
     transform: rotate(180deg) translateY(50%);
     pointer-events: none;
@@ -244,10 +244,108 @@
     display: none;
   }
 
+  .products-sideview.trial {
+    li.has-icon {
+      padding-left: 40px;
+      font-size: 18px;
+    }
+
+    li.has-icon::before {
+      left: 25px;
+      position: absolute;
+      align-self: baseline;
+      content: '';
+      display: inline-block;
+      width: 32px;   /* adjust size */
+      height: 32px;
+      margin-right: 8px;
+      background: var(--icon-url) no-repeat center / contain;
+      vertical-align: middle; /* keep aligned with text */
+    }
+  }
+
   .products-sideview .features-wrapper h2 {
     font-size: var(--heading-font-size);
     line-height: 1.25;
     font-weight: 700;
+  }
+
+  .products-sideview .billed {
+    text-align: left;
+    font-size: 12px;
+  }
+
+  .products-sideview .billed a{
+    color: #006DFF;
+  }
+
+  .products-sideview.trial >div {
+    border:2px solid #F6F6F6;
+    border-radius: 20px;
+  }
+
+  .products-sideview.trial hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid var(--overlay-background-color);
+  }
+
+  .products-sideview.trial .d-radio label {
+    font-weight: bold;
+  }
+
+  .products-sideview.trial .d-radio input {
+    border: 2px solid #006DFF;
+  }
+
+  .products-sideview.trial .products-sideview-selector select {
+    border: 2px solid #006EFF;
+    border-radius: 6px;
+    padding: 5px 20px;
+
+    &:focus, &:focus-visible, &:focus-within {
+      border: 2px solid #006EFF;
+      outline: none !important;
+    }
+  }
+
+  .products-sideview.trial .button-container {
+    margin-bottom: 6px;
+    margin-top: 6px;
+
+    a {
+      font-size: 16px;
+    }
+  }
+
+  .products-sideview.trial .features-wrapper {
+    background-color: #fff;
+  }
+
+  .products-sideview.trial .features-wrapper h3{
+    color: #006DFF;
+    font-size: 24px;
+  }
+
+  .products-sideview.trial .features-wrapper h2{
+    font-size: 32px;
+    margin-top: 20px;
+  }
+
+  .products-sideview.trial p.trial-button a{
+    display: flex;
+    background-color: #fff;
+    color: #000 !important;
+    padding: 13px 3%;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: bold;
+    border: 2px solid #000;
+
+    &:hover {
+      text-decoration: none;
+      filter: brightness(80%);
+    }
   }
   
   @media (width >= 480px) {
