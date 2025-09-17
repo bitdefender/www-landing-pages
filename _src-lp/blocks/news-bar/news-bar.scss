@@ -37,15 +37,8 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    animation: ribbon var(--dur, 30s) linear infinite;
     will-change: transform;
-}
-
-.ribbonCarousel .news-bar-wrapper:hover > ul { animation-play-state: paused; }
-
-@keyframes ribbon {
-  from { transform: translateX(0); }
-  to   { transform: translateX(calc(-1 * var(--loop, 100%))); }
+    transform: translateX(0);
 }
 
 .ribbonCarousel .news-bar-wrapper ul li {
@@ -68,6 +61,11 @@
     margin-right: 17px;
     margin-top: -11px;
     display: inline-block;
+}
+
+.ribbonCarousel .news-bar-wrapper ul li a {
+    color: inherit!important;
+    text-decoration: none!important;
 }
 
 .topRibbon {

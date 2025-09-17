@@ -32,22 +32,30 @@ export default function decorate(block) {
     const ribbon = block.querySelector('ul');
     if (!ribbon) return;
 
-    const SPEED = 60;
-    const items = [...ribbon.children];
-    if (!items.length) return;
-
-    // width - one full set (items + gaps)
+    const SPEED = 1;
+    let offset = 0;
     const gap = parseFloat(getComputedStyle(ribbon).gap) || 0;
-    const setWidth = items.reduce((w, li, idx) => w + li.offsetWidth + (idx ? gap : 0), 0);
+    const tick = () => {
+      offset -= SPEED;
 
-    // clone
-    const frag = document.createDocumentFragment();
-    items.forEach((n) => frag.appendChild(n.cloneNode(true)));
-    ribbon.appendChild(frag);
+      const first = ribbon.firstElementChild;
+      if (first) {
+        const containerLeft = ribbon.parentElement.getBoundingClientRect().left;
+        const firstBox = first.getBoundingClientRect();
 
-    // set the distance and duration
-    ribbon.style.setProperty('--loop', `${setWidth}px`);
-    ribbon.style.setProperty('--dur', `${setWidth / SPEED}s`);
+        if (firstBox.right <= containerLeft) {
+          offset += first.offsetWidth + gap;
+          ribbon.appendChild(first);
+          ribbon.style.transform = `translateX(${offset}px)`;
+        } else {
+          ribbon.style.transform = `translateX(${offset}px)`;
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    tick();
   } else {
     setTimeout(() => {
       const elementLink = block.querySelector('a');
