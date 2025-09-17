@@ -38,7 +38,7 @@
 }
 
 .c-icon-box-grid-container.phishing-v2 h2 {
-  font-size: 60px;
+  font-size: 46px;
 }
 
 .c-icon-box-grid-container.phishing-v2 h2 strong {
@@ -359,9 +359,11 @@
 }
 
 .c-icon-box-grid-container.phishing-v2 .quotebox {
-    padding: 1em 0;
-    background-color: transparent;
-    box-shadow: unset;
+  padding: 1em;
+  background-color: transparent;
+  box-shadow: unset;
+  border: 1px solid #E4F2FF;
+  border-radius: 20px;
 }
 
 .c-icon-box-grid-container.phishing div.subtitle {
