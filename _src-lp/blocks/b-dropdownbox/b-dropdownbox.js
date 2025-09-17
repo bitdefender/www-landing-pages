@@ -82,6 +82,7 @@ export default function decorate(block) {
 
     if (!heights.length) return;
 
+    // Check if all the images already have the same height
     const uniqueHeights = [...new Set(heights)];
     if (uniqueHeights.length === 1) {
       return;
