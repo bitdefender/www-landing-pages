@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 20px;
+  padding: 1em 20px;
 }
 
 .awards-affiliate div {
@@ -12,6 +12,12 @@
 
 .awards-affiliate h5 {
   font-weight: 400;
+}
+
+.smaller-imgs .awards-affiliate > div:last-of-type img {
+  max-width: 95%;
+  height: auto;
+  margin-top: 1em;
 }
 
 .awards-affiliate img {
@@ -70,6 +76,13 @@
 }
 
 @media screen and (width >= 768px) {
+  .smaller-imgs .awards-affiliate > div:last-of-type img {
+    height: 100px;
+    margin-top: 1em;
+  }
+  .smaller-imgs .awards-affiliate > div:last-of-type img:first-of-type {
+    margin-right: 2em;
+  }
   .awards-affiliate img {
     max-width: none;
   }
