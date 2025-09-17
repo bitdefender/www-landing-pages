@@ -28,7 +28,7 @@ export default function decorate(block) {
     const getFirstTabs = block.querySelectorAll('.b-dropdownbox-container .block > div:first-child');
     getFirstTabs.forEach((tab) => {
       tab.parentNode.classList.remove('inactive');
-      tab.addEventListener('click', () => {
+      tab.parentNode.addEventListener('click', () => {
         tab.parentNode.classList.toggle('inactive');
       });
     });
@@ -68,6 +68,51 @@ export default function decorate(block) {
     `;
 
     block.closest('.b-dropdownbox-container').appendChild(sliderBox);
+  }
+
+  if (type === 'slider') {
+    // Get all images from all slider boxes
+    const pictures = parentSelector.querySelectorAll('.slider_box img');
+
+    if (!pictures.length) return;
+
+    // Wait until all images are loaded
+    const loadedImages = Array.from(pictures).map((img) => new Promise((resolve) => {
+      if (img.complete) {
+        resolve(img);
+      } else {
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(img);
+      }
+    }));
+
+    Promise.all(loadedImages).then((imgs) => {
+      // Find the smallest image height globally
+      const heights = imgs.map((img) => img.naturalHeight);
+
+      // Check if all heights are the same
+      const uniqueHeights = [...new Set(heights)];
+
+      if (uniqueHeights.length === 1) {
+        // All images are the same height → do nothing
+        return;
+      }
+
+      // Otherwise normalize to the smallest height
+      const minHeight = Math.min(...heights);
+
+      // Apply it as max-height to all
+      imgs.forEach((img) => {
+        img.style.maxHeight = `${minHeight}px`;
+        img.style.minHeight = `${minHeight}px`;
+        img.style.objectFit = 'contain';
+        img.style.height = 'auto';
+      });
+    });
+  }
+
+  if (parentSelector.classList.contains('closed')) {
+    block.classList.add('inactive');
   }
 
   if (parentSelector.classList.contains('inactive')) block.classList.add('inactive');

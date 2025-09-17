@@ -1133,24 +1133,47 @@ function eventOnDropdownSlider() {
       clearInterval(interval); // Clear the interval
     }
 
-    // Set the initial active item
-    moveToNextItem();
-
-    // Start automatic movement after the loading is complete
-    setTimeout(() => {
-      startAutomaticMovement();
-    }, 1000);
-
-    // Click event listener on titles
-    titles.forEach((title, index) => {
-      title.addEventListener('click', () => {
-        stopAutomaticMovement();
-        activeIndex = index;
-        showLoadingBar(index);
-        moveToNextItem();
-        startAutomaticMovement();
+    function moveToNextItemNoLoader() {
+      titles.forEach((title, index) => {
+        if (index === activeIndex) {
+          title.parentNode.classList.add('active');
+          title.closest('.dropdownSlider').setAttribute('style', `min-height: ${title.parentNode.querySelector('.description').offsetHeight + 50}px`);
+        } else {
+          title.parentNode.classList.remove('active');
+        }
       });
-    });
+    }
+
+    if (slider.classList.contains('no-loader')) {
+      moveToNextItemNoLoader();
+      titles.forEach((title, index) => {
+        title.addEventListener('click', () => {
+          activeIndex = index;
+          moveToNextItemNoLoader();
+        });
+      });
+    }
+
+    if (!slider.classList.contains('no-loader')) {
+      // Set the initial active item
+      moveToNextItem();
+
+      // Start automatic movement after the loading is complete
+      setTimeout(() => {
+        startAutomaticMovement();
+      }, 1000);
+
+      // Click event listener on titles
+      titles.forEach((title, index) => {
+        title.addEventListener('click', () => {
+          stopAutomaticMovement();
+          activeIndex = index;
+          showLoadingBar(index);
+          moveToNextItem();
+          startAutomaticMovement();
+        });
+      });
+    }
   });
 }
 
