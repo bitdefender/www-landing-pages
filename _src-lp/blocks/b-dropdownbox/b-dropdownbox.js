@@ -76,38 +76,24 @@ export default function decorate(block) {
 
     if (!pictures.length) return;
 
-    // Wait until all images are loaded
-    const loadedImages = Array.from(pictures).map((img) => new Promise((resolve) => {
-      if (img.complete) {
-        resolve(img);
-      } else {
-        img.onload = () => resolve(img);
-        img.onerror = () => resolve(img);
-      }
-    }));
+    const heights = Array.from(pictures)
+      .map((img) => parseInt(img.getAttribute('height'), 10))
+      .filter((h) => !Number.isNaN(h));
 
-    Promise.all(loadedImages).then((imgs) => {
-      // Find the smallest image height globally
-      const heights = imgs.map((img) => img.naturalHeight);
+    if (!heights.length) return;
 
-      // Check if all heights are the same
-      const uniqueHeights = [...new Set(heights)];
+    const uniqueHeights = [...new Set(heights)];
+    if (uniqueHeights.length === 1) {
+      return;
+    }
 
-      if (uniqueHeights.length === 1) {
-        // All images are the same height → do nothing
-        return;
-      }
+    const minHeight = Math.min(...heights);
 
-      // Otherwise normalize to the smallest height
-      const minHeight = Math.min(...heights);
-
-      // Apply it as max-height to all
-      imgs.forEach((img) => {
-        img.style.maxHeight = `${minHeight}px`;
-        img.style.minHeight = `${minHeight}px`;
-        img.style.objectFit = 'contain';
-        img.style.height = 'auto';
-      });
+    pictures.forEach((img) => {
+      img.style.minHeight = `${minHeight}px`;
+      img.style.maxHeight = `${minHeight}px`;
+      img.style.objectFit = 'contain';
+      img.style.height = 'auto';
     });
   }
 

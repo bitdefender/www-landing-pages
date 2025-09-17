@@ -1152,6 +1152,10 @@ function eventOnDropdownSlider() {
           moveToNextItemNoLoader();
         });
       });
+
+      window.addEventListener('resize', () => {
+        moveToNextItemNoLoader();
+      });
     }
 
     if (!slider.classList.contains('no-loader')) {
