@@ -27,6 +27,7 @@
 
 .ribbonCarousel {
   --reveal-delay: 2.5s;
+
   opacity: 0;
   animation: ribbonshow 500ms ease-out var(--reveal-delay) forwards;
   transform: translateY(4px);
@@ -45,7 +46,7 @@
 
 .ribbonCarousel .news-bar-wrapper ul {
   display: flex;
-  gap: 23px;
+  gap: 24px;
   margin: 0;
   padding: 0;
   list-style: none;
