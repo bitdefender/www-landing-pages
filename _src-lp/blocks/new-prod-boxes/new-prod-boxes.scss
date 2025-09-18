@@ -1059,7 +1059,7 @@ margin: 20px 0 0 5px;
     line-height: var(--heading-font-size-s);
     text-decoration: none;
     list-style-type: none;
-    font-weight: bold;
+    font-weight: 500;
     font-family: Arial, sans-serif;
     margin-bottom: 1em;
 }
@@ -1383,7 +1383,8 @@ margin: 20px 0 0 5px;
     }
 
     .new-prod-boxes-container .block .prod_box {
-        margin-bottom: 4em!important;
+        margin-bottom: 0!important;
+        margin-top: 2em;
     }
 
     .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .save-trial-text {

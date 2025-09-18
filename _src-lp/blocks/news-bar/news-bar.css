@@ -3,6 +3,7 @@
   padding: 5px;
   transition: all 1s ease;
 }
+
 .section.news-bar-container .news-bar {
   text-align: center;
   justify-content: center;
@@ -13,12 +14,85 @@
   align-items: center;
   transition: all 1s ease;
 }
+
 .section.news-bar-container .news-bar a {
   color: white;
   transition: all 1s ease;
   text-decoration: underline;
 }
 
+.section.news-bar-container .news-bar img {
+  height: 25px;
+}
+
+.ribbonCarousel {
+  --reveal-delay: 2.5s;
+  opacity: 0;
+  animation: ribbonshow 500ms ease-out var(--reveal-delay) forwards;
+  transform: translateY(4px);
+  will-change: opacity, transform;
+}
+
+.ribbonCarousel .news-bar-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.ribbonCarousel .news-bar-wrapper .block, .ribbonCarousel .news-bar-wrapper .block div {
+  max-width: 100%;
+  width: 100%;
+}
+
+.ribbonCarousel .news-bar-wrapper ul {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+  transform: translateX(0);
+}
+
+.ribbonCarousel .news-bar-wrapper ul li {
+  flex: 0 0 auto;
+  width: max-content;
+  white-space: nowrap;
+  list-style: none;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "IBM Plex Sans", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ribbonCarousel .news-bar-wrapper ul li::before {
+  content: ".";
+  font-size: 23px;
+  margin-right: 17px;
+  margin-top: -11px;
+  display: inline-block;
+}
+
+.ribbonCarousel .news-bar-wrapper ul li a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+@keyframes ribbonshow {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ribbonCarousel {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
 .topRibbon {
   text-align: center;
   background-position: 0 -18px;
