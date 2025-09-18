@@ -3,6 +3,7 @@
   padding: 5px;
   transition: all 1s ease;
 }
+
 .section.news-bar-container .news-bar {
   text-align: center;
   justify-content: center;
@@ -13,10 +14,15 @@
   align-items: center;
   transition: all 1s ease;
 }
+
 .section.news-bar-container .news-bar a {
   color: white;
   transition: all 1s ease;
   text-decoration: underline;
+}
+
+.section.news-bar-container .news-bar img {
+  height: 25px;
 }
 
 .ribbonCarousel {
