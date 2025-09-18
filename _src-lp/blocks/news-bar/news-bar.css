@@ -28,7 +28,7 @@
 .ribbonCarousel {
   --reveal-delay: 2.5s;
   opacity: 0;
-  animation: ribbonReveal 500ms ease-out var(--reveal-delay) forwards;
+  animation: ribbonshow 500ms ease-out var(--reveal-delay) forwards;
   transform: translateY(4px);
   will-change: opacity, transform;
 }
@@ -80,7 +80,7 @@
   text-decoration: none !important;
 }
 
-@keyframes ribbonReveal {
+@keyframes ribbonshow {
   to {
     opacity: 1;
     transform: translateY(0);
