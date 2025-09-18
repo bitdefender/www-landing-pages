@@ -133,7 +133,7 @@
   border-radius: 0 0 20px 20px;
 }
 
-.b-dropdownbox-container .block.closed.inactive > div:not(:first-child) > div, .b-dropdownbox-container.closed .block.inactive > div:not(:first-child) > div {
+.b-dropdownbox-container .block.closed.inactive > div:not(:first-child) > div, .b-dropdownbox-container.closed .block:not(.inactive) > div:not(:first-child) > div {
   display: inline-block;
 }
 
@@ -228,7 +228,7 @@
 }
 
 .b-dropdownbox-container .new, .b-dropdownbox-container.new .block {
-  padding: 0 2em 2em 2em;
+  padding: 0 2em 2em;
   cursor: pointer;
   box-shadow: 0 3px 8px 0 #E5E5E5;
   position: relative;
