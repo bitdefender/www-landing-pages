@@ -3,6 +3,7 @@
   padding: 5px;
   transition: all 1s ease;
 }
+
 .section.news-bar-container .news-bar {
   text-align: center;
   justify-content: center;
@@ -13,11 +14,13 @@
   align-items: center;
   transition: all 1s ease;
 }
+
 .section.news-bar-container .news-bar a {
   color: white;
   transition: all 1s ease;
   text-decoration: underline;
 }
+
 .section.news-bar-container .news-bar img {
     height: 25px;
 }
@@ -42,7 +45,7 @@
 
 .ribbonCarousel .news-bar-wrapper ul {
   display: flex;
-  gap: 24px;
+  gap: 23px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -83,6 +86,7 @@
     transform: translateY(0);
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .ribbonCarousel {
     animation: none;
@@ -90,6 +94,7 @@
     transform: none;
   }
 }
+
 .topRibbon {
   text-align: center;
   background-position: 0 -18px;

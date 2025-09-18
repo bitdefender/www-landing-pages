@@ -342,7 +342,7 @@ main .columns-container.padding-0 .columns-wrapper {
     padding-left: 6em;
   }
   .columns-container.round-corners .columns {
-    border-radius: 20px;
+    border-radius: 21px;
   }
   .columns-container.round-corners .columns img {
     min-height: 100%;
