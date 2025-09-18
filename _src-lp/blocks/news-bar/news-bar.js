@@ -47,8 +47,10 @@ export default function decorate(block) {
           offset += first.offsetWidth + gap;
           ribbon.appendChild(first);
           ribbon.style.transform = `translateX(${offset}px)`;
+          parentBlock.style.visibility = 'visible';
         } else {
           ribbon.style.transform = `translateX(${offset}px)`;
+          parentBlock.style.visibility = 'visible';
         }
       }
 
@@ -56,6 +58,8 @@ export default function decorate(block) {
     }
 
     tick();
+
+    parentBlockStyle.setProperty('--reveal-delay', '1s');
   } else {
     setTimeout(() => {
       const elementLink = block.querySelector('a');
