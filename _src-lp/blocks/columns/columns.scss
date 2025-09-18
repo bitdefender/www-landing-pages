@@ -37,6 +37,8 @@
   padding-right: 1em;
   max-width: 300px;
   height: 100%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .columns-container.new .columns h2 {
@@ -123,7 +125,7 @@ main .columns-container.padding-0 .columns-wrapper{
 
 .columns > div > .columns-img-col img {
   display: block;
-  max-width: calc(100% + 24px);
+  max-width: 100%;
   margin-left: -12px;
 }
 
@@ -412,7 +414,7 @@ main .columns-container.padding-0 .columns-wrapper{
   }
 
   .columns-container.round-corners .columns {
-    border-radius: 21px;
+    border-radius: 20px;
   }
 
   .columns-container.round-corners .columns img{
