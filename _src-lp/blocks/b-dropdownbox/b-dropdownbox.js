@@ -70,6 +70,29 @@ export default function decorate(block) {
     block.closest('.b-dropdownbox-container').appendChild(sliderBox);
   }
 
+  const container = block.closest('.section.b-dropdownbox-container');
+  if (!container.classList.contains('default-checked') && !container.classList.contains('dropdownSlider')) {
+    const hasNew = container.classList.contains('new') || container.querySelector('.b-dropdownbox.new');
+
+    if (hasNew && container.children.length > 1) {
+      const firstChild = container.firstElementChild;
+      if (!firstChild || !firstChild.classList.contains('default-content-wrapper')) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'default-content-wrapper';
+        container.insertBefore(wrapper, container.firstChild);
+      }
+    }
+
+    // Mark as checked so we don’t repeat
+    container.classList.add('default-checked');
+  }
+
+  if (parentSelector.classList.contains('closed')) {
+    block.classList.add('inactive');
+  }
+
+  if (parentSelector.classList.contains('inactive')) block.classList.add('inactive');
+
   if (type === 'slider') {
     // Get all images from all slider boxes
     const pictures = parentSelector.querySelectorAll('.slider_box img');
@@ -97,10 +120,4 @@ export default function decorate(block) {
       img.style.height = 'auto';
     });
   }
-
-  if (parentSelector.classList.contains('closed')) {
-    block.classList.add('inactive');
-  }
-
-  if (parentSelector.classList.contains('inactive')) block.classList.add('inactive');
 }
