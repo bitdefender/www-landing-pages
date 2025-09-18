@@ -153,6 +153,21 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.gray-cards.v2 {
   flex-wrap: wrap;
 }
+.columns-container .columns.gray-cards.v3 > div > div > div {
+  flex-direction: column;
+  text-align: center;
+  border-radius: 20px;
+}
+.columns-container .columns.gray-cards.v3 > div > div > div h3 {
+  font-size: 18px;
+}
+.columns-container .columns.gray-cards.v3 > div > div > div .button-container a {
+  background: none;
+  color: #006DFF;
+  font-size: 16px;
+  text-decoration: underline;
+  font-weight: 600;
+}
 .columns-container .columns.feature-cards > div {
   gap: 30px;
   padding: 0;

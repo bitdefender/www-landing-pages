@@ -168,8 +168,27 @@ main .columns-container.padding-0 .columns-wrapper{
     }
 
     &.v2 {
-        flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
 
+    &.v3 {
+      > div > div > div {
+        flex-direction: column;
+        text-align: center;
+        border-radius: 20px;
+
+        h3 {
+          font-size: 18px;
+        }
+
+        .button-container a {
+          background: none;
+          color: #006DFF;
+          font-size: 16px;
+          text-decoration: underline;
+          font-weight: 600;
+        }
+      }
     }
   }
 
