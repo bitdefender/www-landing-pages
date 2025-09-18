@@ -15,7 +15,6 @@ export default function decorate(block) {
 
     if (backgroundImgSrc) {
       parentBlockStyle.backgroundImage = `url("${backgroundImgSrc}")`;
-      // Remove the row after setting background
       backgroundEl.remove();
     }
   }
@@ -55,10 +54,9 @@ export default function decorate(block) {
       }
 
       requestAnimationFrame(tick);
-    }
+    };
 
     tick();
-
     parentBlockStyle.setProperty('--reveal-delay', '1s');
   } else {
     setTimeout(() => {
