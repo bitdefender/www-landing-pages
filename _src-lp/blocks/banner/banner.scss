@@ -1244,7 +1244,10 @@
 
 @media screen and (width <= 500px) {
   .section.banner-container.csam-design .block .row > div em {
-    display: none;
+    margin-bottom: -4em;
+    margin-left: 0;
+    margin-top: 1em;
+    padding: 5px 9px;
   }
 
   .section.banner-container.csam-design .banner img {
