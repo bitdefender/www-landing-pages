@@ -538,17 +538,18 @@
   }
   .b-dropdownbox-container .new, .b-dropdownbox-container.new .b-dropdownbox {
     padding: 15px;
+    padding-right: 0;
   }
   .b-dropdownbox-container .new p, .b-dropdownbox-container.new .b-dropdownbox p {
     font-size: 15px;
   }
   .b-dropdownbox-container .new div:nth-child(1), .b-dropdownbox-container.new .b-dropdownbox div:nth-child(1) {
     padding-top: 0;
-    padding-right: 0;
+    padding-right: 15px;
   }
   .b-dropdownbox-container .new > div:not(:first-child), .b-dropdownbox-container.new .b-dropdownbox > div:not(:first-child) {
   display: block;
-  padding-right: 0;
+  padding-right: 15px;
   }
   .b-dropdownbox-container .new div:nth-child(1) > div, .b-dropdownbox-container.new .b-dropdownbox div:nth-child(1) > div {
     font-size: 18px;
