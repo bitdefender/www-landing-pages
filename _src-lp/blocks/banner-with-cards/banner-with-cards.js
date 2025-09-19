@@ -123,7 +123,7 @@ export default function decorate(block) {
   // get Metadatas:
   const {
     products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, imageCover, imageHeight, contentSize, greenTag,
+    marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, tosButton] = [...block.children];
   const prodBoxesParent = document.createElement('div');
@@ -147,10 +147,14 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
   if (pictureEl && pictureEl.querySelector('img')) {
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+    if (blockBackground) {
+      block.style.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
+    } else {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
-    if (imageCover === 'full-right') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
+      if (imageCover === 'full-right') {
+        parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
+      }
     }
   }
 
