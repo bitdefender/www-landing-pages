@@ -484,7 +484,11 @@ export default function decorate(block) {
       const iconName = iconClass.replace('icon-', '');
 
       // Set a CSS variable for use in ::before
-      li.style.setProperty('--icon-url', `url(${window.location.origin.includes('www.bitdefender.com') ? 'www.bitdefender.com/pages/' : ''}/icons/${iconName}.svg)`);
+      li.style.setProperty(
+        '--icon-url',
+        `url(${window.location.origin.includes('www.bitdefender.com')
+          ? 'https://www.bitdefender.com/pages' : ''}/icons/${iconName}.svg)`,
+      );
       li.classList.add('has-icon');
 
       iconEl.remove();
