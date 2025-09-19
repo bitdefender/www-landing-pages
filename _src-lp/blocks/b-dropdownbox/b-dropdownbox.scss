@@ -230,7 +230,7 @@
 }
 
 .b-dropdownbox-container .new, .b-dropdownbox-container.new .b-dropdownbox {
-  padding: 0 2em 2em;
+  padding: 0 0 2em 2em;
   cursor: pointer;
   box-shadow: 0 3px 8px 0 #E5E5E5;
   position: relative;
@@ -262,6 +262,7 @@
 
 .b-dropdownbox-container .new > div:not(:first-child), .b-dropdownbox-container.new .b-dropdownbox > div:not(:first-child) {
   display: block;
+  padding-right: 2em;
 }
 
 .b-dropdownbox-container .new.inactive > div:not(:first-child), .b-dropdownbox-container.new .b-dropdownbox.inactive > div:not(:first-child) {
@@ -611,5 +612,10 @@
     ul {
       text-align: left;
     }
+  }
+
+  .b-dropdownbox-container .new > div:not(:first-child), .b-dropdownbox-container.new .b-dropdownbox > div:not(:first-child) {
+  display: block;
+  padding-right: 0;
   }
 }
