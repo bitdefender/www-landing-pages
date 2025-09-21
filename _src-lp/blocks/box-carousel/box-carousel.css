@@ -1,0 +1,109 @@
+.box-carousel-container {
+  background: white;
+}
+.box-carousel-container .arrow {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #006DFF;
+  border-radius: 50%;
+}
+.box-carousel-container .arrow svg {
+  width: 10px;
+  height: 10px;
+  fill: white;
+}
+.box-carousel-container .arrow svg path {
+  fill: white;
+}
+.box-carousel-container .left-arrow.disabled,
+.box-carousel-container .right-arrow.disabled {
+  opacity: 0.3;
+  fill: white;
+  background: #a5a5a5;
+  pointer-events: none;
+}
+.box-carousel-container .carousel-container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+}
+.box-carousel-container .carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+}
+.box-carousel-container .carousel::-webkit-scrollbar {
+  display: none;
+}
+.box-carousel-container .block.scrollable .carousel {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+.box-carousel-container .block.scrollable .carousel::-webkit-scrollbar {
+  display: none;
+}
+.box-carousel-container .carousel-item {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  height: 100%;
+  margin: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 15px;
+  color: black;
+  font-size: 1em;
+  background: #eaf2ff;
+  flex-shrink: 0;
+  border: solid 1px black;
+}
+.box-carousel-container .carousel-item:first-child {
+  margin-left: 0;
+}
+.box-carousel-container .carousel-item .title {
+  letter-spacing: 0;
+  overflow: hidden;
+  margin: 12px 0;
+}
+.box-carousel-container .carousel-item .subtitle {
+  font: normal normal normal 12px/15px "IBM Plex Sans", sans-serif;
+  letter-spacing: 0;
+  overflow: hidden;
+  margin-top: auto;
+  color: #242424;
+}
+.box-carousel-container .carousel-item .icon {
+  width: 35px;
+  height: 35px;
+  margin: 0;
+}
+.box-carousel-container ul {
+  padding-left: 0;
+  display: grid;
+  grid-auto-flow: column;
+}
+@media screen and (min-width: 768px) {
+  .box-carousel-container .carousel-header {
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .box-carousel-container .default-content-wrapper {
+    overflow: hidden;
+  }
+}

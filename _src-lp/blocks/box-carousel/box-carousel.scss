@@ -1,0 +1,145 @@
+$carousel-bg: white;
+$text-color: black;
+$disabled-opacity: 0.3;
+$border-radius: 15px;
+$item-bg: #eaf2ff;
+$subtitle-color: #242424;
+$disabled-fill: #a5a5a5;
+$font-family: "IBM Plex Sans", sans-serif;
+$arrow-bg: #006DFF;
+
+// Breakpoints
+$tablet: 768px;
+$desktop: 992px;
+
+.box-carousel-container {
+    background: $carousel-bg;
+
+    .arrow {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $arrow-bg;
+        border-radius: 50%;
+
+        svg {
+            width: 10px;
+            height: 10px;
+            fill: white;
+
+            path {
+                fill: white;
+            }
+        }
+    }
+
+    .left-arrow,
+    .right-arrow {
+
+        &.disabled {
+            opacity: $disabled-opacity;
+            fill: white;
+            background: $disabled-fill;
+            pointer-events: none;
+        }
+    }
+
+    .carousel-container {
+        width: 100%;
+        position: relative;
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+    }
+
+    .carousel {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+
+        // Hide scrollbar for WebKit browsers
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .block.scrollable .carousel {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+
+        // Hide scrollbar for WebKit browsers
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .carousel-item {
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        width: 220px;
+        height: 100%;
+        margin: 10px;
+        box-sizing: border-box;
+        padding: 20px;
+        border-radius: $border-radius;
+        color: $text-color;
+        font-size: 1em;
+        background: $item-bg;
+        flex-shrink: 0;
+        border: solid 1px $text-color;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        .title {
+            letter-spacing: 0;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .subtitle {
+            font: normal normal normal 12px/15px $font-family;
+            letter-spacing: 0;
+            overflow: hidden;
+            margin-top: auto;
+            color: $subtitle-color;
+        }
+
+        .icon {
+            width: 35px;
+            height: 35px;
+            margin: 0;
+        }
+    }
+
+    ul {
+        padding-left: 0;
+        display: grid;
+        grid-auto-flow: column;
+    }
+
+    @media screen and (min-width: $tablet) {
+        .carousel-header {
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media screen and (min-width: $desktop) {
+        .default-content-wrapper {
+            overflow: hidden;
+        }
+    }
+}

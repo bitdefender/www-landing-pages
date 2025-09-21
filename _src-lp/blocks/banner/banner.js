@@ -1,6 +1,47 @@
-import { decorateIcons } from '../../scripts/lib-franklin.js';
+import { decorateButtons, decorateIcons } from '../../scripts/lib-franklin.js';
 import { detectModalButtons, productAliases, isView } from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
+
+// Helper function to get image source safely
+const getImageSrc = (pictureEl) => pictureEl?.querySelector('img')?.getAttribute('src')?.split('?')[0];
+
+// Helper function to get content size CSS classes
+const getContentSizeClasses = (size) => {
+  const sizeMap = {
+    full: 'col-sm-12 col-md-12 col-lg-12',
+    larger: 'col-sm-7 col-md-7 col-lg-7',
+    half: 'col-sm-6 col-md-6 col-lg-6',
+    fourth: '', // Special case handled separately
+    'they-wear-our-faces': 'col-sm-12 col-md-6 col-lg-6',
+  };
+  return sizeMap[size] || 'col-sm-5 col-md-5 col-lg-5';
+};
+
+// Helper function to apply background styles
+const applyBackgroundStyles = (target, imageSrc, position = 'top center', size = 'cover', options = {}) => {
+  const {
+    backgroundColorGradient,
+    isDesktop,
+    backgroundColor,
+    innerBackgroundColor,
+    blockStyle,
+  } = options;
+
+  if (backgroundColorGradient) {
+    if (isDesktop) {
+      target.background = `url(${imageSrc}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+      target.backgroundSize = size;
+      target.backgroundPosition = position;
+      target.backgroundRepeat = 'no-repeat';
+      target.backgroundBlendMode = 'unset';
+    } else {
+      target.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})${size === 'cover' ? '' : ' !important'}`;
+    }
+  } else {
+    const bgColor = target === blockStyle ? (innerBackgroundColor || '#000') : (backgroundColor || '#000');
+    target.background = `url(${imageSrc}) no-repeat ${position} / ${size} ${bgColor}`;
+  }
+};
 
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
@@ -320,44 +361,28 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
-    if (backgroundColorGradient) {
-      if (isDesktop) {
-        blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
-        blockStyle.backgroundSize = 'cover';
-        blockStyle.backgroundPosition = '0 0';
-        blockStyle.backgroundRepeat = 'no-repeat';
-        blockStyle.backgroundBlendMode = 'unset';
-      } else {
-        blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
-      }
-    } else {
-      blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]} ) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
-    }
-
+    const imageSrc = getImageSrc(pictureEl);
     const imageCoverVar = imageCover.split('-')[1];
+
+    const styleOptions = {
+      backgroundColorGradient,
+      isDesktop,
+      backgroundColor,
+      innerBackgroundColor,
+      blockStyle,
+    };
+
+    // Apply background styles for small image cover
     if (imageCoverVar) {
-      if (backgroundColorGradient) {
-        if (isDesktop) {
-          blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
-          blockStyle.backgroundSize = 'auto 100%';
-          blockStyle.backgroundPosition = `top ${imageCoverVar}`;
-          blockStyle.backgroundRepeat = 'no-repeat';
-          blockStyle.backgroundBlendMode = 'unset';
-        } else {
-          blockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')}) !important`;
-        }
-      } else {
-        blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
-      }
+      applyBackgroundStyles(blockStyle, imageSrc, `top ${imageCoverVar}`, 'auto 100%', styleOptions);
+    } else {
+      applyBackgroundStyles(blockStyle, imageSrc, '0 0', 'cover', styleOptions);
     }
 
-    let defaultSize = 'col-sm-6 col-md-6 col-lg-5';
+    const defaultSize = getContentSizeClasses(contentSize);
+    console.log('here');
     if (contentSize === 'full') {
-      defaultSize = 'col-sm-12 col-md-12 col-lg-12';
-    } else if (contentSize === 'larger') {
-      defaultSize = 'col-sm-7 col-md-7 col-lg-7';
-    } else if (contentSize === 'half') {
-      defaultSize = 'col-sm-6 col-md-6 col-lg-6';
+      console.log('full');
     }
 
     block.innerHTML = `
@@ -374,38 +399,25 @@ export default function decorate(block) {
       </div>
     `;
   } else if (imageCover) {
-    if (backgroundColorGradient) {
-      if (isDesktop) {
-        parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
-        parentBlockStyle.backgroundSize = 'cover';
-        parentBlockStyle.backgroundPosition = 'top right';
-        parentBlockStyle.backgroundRepeat = 'no-repeat';
-        parentBlockStyle.backgroundBlendMode = 'unset';
-      } else {
-        parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
-      }
-    } else {
-      parentBlockStyle.background = `url(${pictureEl?.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top center / cover ${backgroundColor || '#000'}`;
-    }
-
+    const imageSrc = getImageSrc(pictureEl);
     const imageCoverVar = imageCover.split('-')[1];
+
+    const styleOptions = {
+      backgroundColorGradient,
+      isDesktop,
+      backgroundColor,
+      innerBackgroundColor,
+      blockStyle,
+    };
+
+    // Apply background styles for regular image cover
     if (imageCoverVar) {
-      if (backgroundColorGradient) {
-        if (isDesktop) {
-          parentBlockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
-          parentBlockStyle.backgroundSize = 'auto 100%';
-          parentBlockStyle.backgroundPosition = `top ${imageCoverVar}`;
-          parentBlockStyle.backgroundRepeat = 'no-repeat';
-          parentBlockStyle.backgroundBlendMode = 'unset';
-        } else {
-          parentBlockStyle.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
-        }
-      } else {
-        const backgroundSrc = pictureEl?.querySelector('img')?.getAttribute('src').split('?')[0];
-        parentBlockStyle.background = `${backgroundSrc ? `url(${backgroundSrc})` : ''} no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
-      }
+      applyBackgroundStyles(parentBlockStyle, imageSrc, `top ${imageCoverVar}`, 'auto 100%', styleOptions);
+    } else {
+      applyBackgroundStyles(parentBlockStyle, imageSrc, 'top right', 'cover', styleOptions);
     }
 
+    // Generate HTML based on content size
     if (contentSize === 'fourth') {
       block.innerHTML = `
     <div class="container-fluid">
@@ -416,37 +428,44 @@ export default function decorate(block) {
       </div>
     `;
     } else {
+      const colSize = contentSize === 'half' ? '6' : '7';
       block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
-        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
-        ${contentRightEl ? `<div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentRightEl.innerHTML}</div>` : ''}
+        <div class="col-12 col-md-${colSize}">${contentEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-md-${colSize}">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
     `;
     }
   } else {
-    let defaultSize = 'col-sm-5 col-md-5 col-lg-5';
-    if (contentSize === 'larger') {
-      defaultSize = 'col-sm-7 col-md-7 col-lg-7';
-    } else if (contentSize === 'half') {
-      defaultSize = 'col-sm-6 col-md-6 col-lg-6';
-    }
+    const defaultSize = getContentSizeClasses(contentSize);
+    let imageComponent = `
+        <div class="${defaultSize ? 'col-5' : 'col-7'} d-none d-sm-none d-md-block d-lg-block img-right bck-img">
+            ${pictureEl.innerHTML}
+        </div>`;
 
+    if (contentSize === 'they-wear-our-faces') {
+      pictureEl.querySelector('.icon.icon-play-button')?.closest('a')?.classList.add('button', 'button--modal');
+      imageComponent = `
+        <div class="col-6 d-none d-sm-none d-md-flex d-lg-block img-right bck-img">
+            ${pictureEl.innerHTML}
+        </div>`;
+    }
+    console.log(pictureEl.querySelector('picture'));
     block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-block d-sm-flex d-md-flex d-lg-flex position-relative">
-        <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img">
+        <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img position-relative">
             ${pictureEl.innerHTML}
         </div>
 
-        <div class="col-xs-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
+        <div class="col-xs-12 ${defaultSize} ps-4 content-column">${contentEl.innerHTML}</div>
 
-        <div class="${defaultSize ? 'col-5' : 'col-7'} d-none d-sm-none d-md-block d-lg-block img-right bck-img">
-            ${pictureEl.innerHTML}
-        </div>
+        ${imageComponent}
       </div>
     </div>`;
+    decorateButtons(block);
   }
 
   if (textAlignVertical) {

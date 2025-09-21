@@ -58,6 +58,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@glidejs/glide": "^3.7.1",
     "@repobit/dex-data-layer": "^1.8.4",
     "@repobit/dex-launch": "^2.0.6",
     "@repobit/dex-target": "^2.5.6",
