@@ -91,11 +91,12 @@ const ARROW_SVG_RIGHT = `
  */
 function generateSlidesHTML(slides) {
     const slidesHTML = [];
-    slidesHTML.push(...slides.map((slide) => {
+    slidesHTML.push(...slides.map((slide, idx) => {
         console.log('slide:', slide);
-        slide.querySelectorAll('picture').forEach((picture, idx) => {
+        const isEven = (idx + 1) % 2 === 0;
+        slide.querySelectorAll('picture').forEach((picture, idx2) => {
             picture.classList.add('images');
-            picture.classList.add(`image-${idx + 1}`);
+            picture.classList.add(`image-${idx2 + 1}`);
         });
         slide.querySelector('.images').closest('div').classList.add('images-container');
         const mobileImagesContainer = slide.querySelector('.images-container').cloneNode(true);
@@ -103,7 +104,7 @@ function generateSlidesHTML(slides) {
         slide.querySelector('h3').insertAdjacentElement('afterend', mobileImagesContainer);
         slide.querySelector('p').classList.add('text-element');
         return `
-    <li class="carousel-item glide__slide">
+    <li class="carousel-item glide__slide ${isEven ? 'even' : 'odd'}">
       ${slide.innerHTML}
     </li>
   `;
@@ -160,7 +161,9 @@ function buildCarouselHTML(slides) {
       </div>
 
       <div class="carousel-nav">
-        ${navDotsHTML}
+        <div class="carousel-nav-wrapper">
+          ${navDotsHTML}
+        </div>
       </div>
     </div>
   `;
@@ -245,44 +248,119 @@ function setupArrowHandlers(block, glide) {
 }
 
 /**
- * Initializes the Glide carousel
+ * Checks if carousel should be active based on screen width
+ * @returns {boolean} True if screen width is below 768px
+ */
+function shouldUseCarousel() {
+    return window.innerWidth < 768;
+}
+
+/**
+ * Shows or hides navigation elements based on carousel state
+ * @param {HTMLElement} block - The carousel block element
+ * @param {boolean} show - Whether to show navigation elements
+ */
+function toggleNavigationVisibility(block, show) {
+    const navContainer = block.querySelector('.carousel-nav');
+    const arrowsContainer = block.querySelector('.carousel-header');
+
+    if (navContainer) {
+        navContainer.style.display = show ? 'inline-flex' : 'none';
+    }
+    if (arrowsContainer) {
+        arrowsContainer.style.display = show ? 'block' : 'none';
+    }
+}
+
+/**
+ * Manages carousel lifecycle based on screen size
  * @param {HTMLElement} block - The carousel block element
  * @param {Array} slides - Array of slide elements
- * @returns {Object} Glide instance
+ * @returns {Object} Object containing glide instance and management functions
  */
-function initializeCarousel(block, slides) {
-    const glide = new Glide(block.querySelector('.glide'), {
-        type: 'carousel',
-        gap: 20,
-        perView: 1,
-        breakpoints: {
-            991: { perView: 1 },
-            767: { perView: 1 },
-        },
-    });
+function manageCarousel(block, slides) {
+    let glide = null;
+    let isCarouselActive = false;
 
-    glide.mount();
+    const initCarousel = () => {
+        if (!shouldUseCarousel() || isCarouselActive) return;
 
-    // Initial state
-    updateNav(block, glide);
-    updateArrows(block, glide, slides.length);
+        glide = new Glide(block.querySelector('.glide'), {
+            type: 'carousel',
+            gap: 20,
+            perView: 1,
+        });
 
-    // Update on slide change
-    glide.on('run', () => {
+        glide.mount();
+        isCarouselActive = true;
+
+        // Initial state
         updateNav(block, glide);
         updateArrows(block, glide, slides.length);
-    });
 
-    // Setup event handlers
-    setupNavDotHandlers(block, glide);
-    setupArrowHandlers(block, glide);
+        // Update on slide change
+        glide.on('run', () => {
+            updateNav(block, glide);
+            updateArrows(block, glide, slides.length);
+        });
 
-    // Handle window resize
-    window.addEventListener('resize', debounce(() => {
-        glide.update();
-    }, 250));
+        // Setup event handlers
+        setupNavDotHandlers(block, glide);
+        setupArrowHandlers(block, glide);
 
-    return glide;
+        // Show navigation
+        toggleNavigationVisibility(block, true);
+    };
+
+    const destroyCarousel = () => {
+        if (!isCarouselActive || !glide) return;
+
+        glide.destroy();
+        glide = null;
+        isCarouselActive = false;
+
+        // Hide navigation
+        toggleNavigationVisibility(block, false);
+
+        // Reset any inline styles that might have been added by Glide
+        const glideTrack = block.querySelector('.glide__track');
+        const glideSlides = block.querySelector('.glide__slides');
+        if (glideTrack) {
+            glideTrack.style.transform = '';
+        }
+        if (glideSlides) {
+            glideSlides.style.transform = '';
+            glideSlides.style.width = '';
+        }
+    };
+
+    const handleResize = debounce(() => {
+        if (shouldUseCarousel()) {
+            if (!isCarouselActive) {
+                initCarousel();
+            } else if (glide) {
+                glide.update();
+            }
+        } else {
+            destroyCarousel();
+        }
+    }, 250);
+
+    // Initial setup
+    if (shouldUseCarousel()) {
+        initCarousel();
+    } else {
+        toggleNavigationVisibility(block, false);
+    }
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
+
+    return {
+        glide,
+        destroy: destroyCarousel,
+        handleResize,
+    };
 }
 
 function next(phrases, fx, counter) {
@@ -300,7 +378,8 @@ function next(phrases, fx, counter) {
  */
 function initializeTextScramble(block) {
     const phrases = [];
-    const counter = 0;
+    // eslint-disable-next-line prefer-const
+    let counter = 0;
     const ems = block.querySelectorAll('h3 em');
 
     console.log('ems:', ems);
@@ -326,12 +405,9 @@ export default async function decorate(block) {
     decorateIcons(block);
     block.innerHTML = block.innerHTML.replaceAll('---', '<hr />');
 
-    // Initialize carousel
-    initializeCarousel(block, slides);
-
-    // Trigger initial resize to set proper view
-    window.dispatchEvent(new Event('resize'));
+    // Manage carousel based on screen size
+    manageCarousel(block, slides);
 
     // Initialize text scramble effect
-    initializeTextScramble(block);
+    // initializeTextScramble(block);
 }

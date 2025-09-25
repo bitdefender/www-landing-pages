@@ -90,8 +90,9 @@ $desktop: 991px;
         display: flex;
         flex-direction: column;
         width: 220px;
-        height: 100%;
+        // height: 100%;
         margin: 10px;
+        margin-bottom: 0;
         box-sizing: border-box;
         padding: 0 30px;
         border-radius: $border-radius;
@@ -151,6 +152,12 @@ $desktop: 991px;
             position: relative;
             display: none;
 
+            .image-1 {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
             .image-2 {
                 position: absolute;
                 top: 55%;
@@ -189,22 +196,136 @@ $desktop: 991px;
         grid-auto-flow: column;
     }
 
+    // Navigation elements - visible only on mobile
+    .carousel-nav {
+        display: inline-flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 0 20px 0;
+
+        .carousel-nav-wrapper {
+            display: inline-flex;
+            justify-content: center;
+            padding: 8px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            gap: 8px;
+        }
+
+        .navigation-item {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &.active {
+                width: 36px;
+                border-radius: 20px;
+                background: $arrow-bg;
+            }
+        }
+    }
+
+    @media screen and (min-width: 576px) and (max-width: 767px) {
+        .carousel-item {
+            p.text-element {
+                max-width: 445px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            p.button-container {
+                max-width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .images-container {
+
+                .image-2 {
+                    width: 60%;
+                    max-width: 400px;
+                    transform: translate(-50%, 70%);
+                }
+            }
+        }
+    }
+
     @media screen and (min-width: $tablet) {
         .carousel-header {
             justify-content: space-between;
             margin-bottom: 20px;
         }
-    }
 
-    @media screen and (min-width: $desktop) {
+        ul.glide__slides {
+            display: grid !important;
+            grid-auto-flow: row;
+            gap: 20px;
+            width: 100% !important;
+            transform: none !important;
+            padding: 0 20px;
+        }
+
         .carousel-item {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+            &.odd {
+                flex-direction: row-reverse;
+
+                .images-container {
+                    .image-2 {
+                        transform: translate(-75%, 30%);
+                    }
+                }
+            }
+
+            &>:first-child {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                max-width: 410px;
+
+                h3 {
+                    em {
+                        justify-content: flex-start;
+                    }
+                }
+
+                p.text-element {
+                    text-align: left;
+                    line-height: normal;
+                }
+            }
+
             .images-container {
                 display: block;
+                width: 100%;
+                max-width: 610px;
+
+                .image-2 {
+                    transform: translate(-25%, 30%);
+                }
 
                 &.mobile-images-container {
                     display: none;
                 }
             }
         }
+
+        // Hide navigation elements on desktop
+        .carousel-header,
+        .carousel-nav {
+            display: none !important;
+        }
     }
+
+    @media screen and (min-width: $desktop) {}
 }
