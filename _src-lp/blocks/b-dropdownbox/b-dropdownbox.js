@@ -74,7 +74,7 @@ export default function decorate(block) {
   if (!container.classList.contains('default-checked') && !container.classList.contains('dropdownSlider')) {
     const hasNew = container.classList.contains('new') || container.querySelector('.b-dropdownbox.new');
 
-    if (hasNew && container.children.length > 1) {
+    if (hasNew && container.children.length >= 1) {
       const firstChild = container.firstElementChild;
       if (!firstChild || !firstChild.classList.contains('default-content-wrapper')) {
         const wrapper = document.createElement('div');
