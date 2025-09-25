@@ -59,7 +59,7 @@ $desktop: 991px;
     .carousel {
         display: flex;
         flex-wrap: nowrap;
-        overflow-x: auto;
+        // overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
@@ -73,24 +73,13 @@ $desktop: 991px;
         }
     }
 
-    .block.scrollable .carousel {
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
 
-        // Hide scrollbar for WebKit browsers
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
 
     .carousel-item {
         justify-content: space-between;
         display: flex;
         flex-direction: column;
         width: 220px;
-        // height: 100%;
         margin: 10px;
         margin-bottom: 0;
         box-sizing: border-box;
@@ -266,6 +255,7 @@ $desktop: 991px;
             width: 100% !important;
             transform: none !important;
             padding: 0 20px;
+            overflow: hidden;
         }
 
         .carousel-item {
