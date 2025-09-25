@@ -123,7 +123,7 @@ export default function decorate(block) {
   // get Metadatas:
   const {
     products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground,
+    marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground, wrapperBackground,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, tosButton] = [...block.children];
   const prodBoxesParent = document.createElement('div');
@@ -145,6 +145,7 @@ export default function decorate(block) {
   if (marginBottom) blockStyle.marginBottom = `${marginBottom}rem`;
 
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
+  if (wrapperBackground) block.parentElement.style.backgroundColor = wrapperBackground;
 
   if (pictureEl && pictureEl.querySelector('img')) {
     if (blockBackground) {
