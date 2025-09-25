@@ -289,6 +289,15 @@ function manageCarousel(block, slides) {
             type: 'carousel',
             gap: 20,
             perView: 1,
+            focusAt: 'center',
+            touchRatio: 0.5,
+            touchAngle: 45,
+            dragThreshold: 120,
+            swipeThreshold: 80,
+            animationDuration: 400,
+            animationTimingFunc: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)',
+            peek: 0,
+            bound: true,
         });
 
         glide.mount();

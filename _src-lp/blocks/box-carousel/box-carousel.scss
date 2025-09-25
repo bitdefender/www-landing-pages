@@ -59,10 +59,8 @@ $desktop: 991px;
     .carousel {
         display: flex;
         flex-wrap: nowrap;
-        // overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
         scrollbar-width: none;
         /* Firefox */
         -ms-overflow-style: none;
@@ -89,7 +87,6 @@ $desktop: 991px;
         font-size: 1em;
         background: $carousel-bg;
         flex-shrink: 0;
-        scroll-snap-align: center;
 
         &:first-child {
             margin-left: 0;
@@ -314,6 +311,24 @@ $desktop: 991px;
         .carousel-header,
         .carousel-nav {
             display: none !important;
+        }
+    }
+
+    // Mobile-specific styles to ensure smooth carousel behavior
+    @media screen and (max-width: #{$desktop - 1px}) {
+        .glide__track {
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .glide__slides {
+            will-change: transform;
+            transition: transform 0ms; // Let Glide handle the animation
+        }
+
+        // Ensure carousel items don't interfere with swipe
+        .carousel-item {
+            user-select: none;
+            -webkit-user-drag: none;
         }
     }
 

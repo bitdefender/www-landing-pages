@@ -38,7 +38,6 @@
   flex-wrap: nowrap;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
   scrollbar-width: none;
   /* Firefox */
   -ms-overflow-style: none;
@@ -60,7 +59,6 @@
   font-size: 1em;
   background: black;
   flex-shrink: 0;
-  scroll-snap-align: center;
 }
 .box-carousel-container .carousel-item:first-child {
   margin-left: 0;
@@ -241,5 +239,18 @@
   .box-carousel-container .carousel-header,
   .box-carousel-container .carousel-nav {
     display: none !important;
+  }
+}
+@media screen and (max-width: 990px) {
+  .box-carousel-container .glide__track {
+    touch-action: pan-y pinch-zoom;
+  }
+  .box-carousel-container .glide__slides {
+    will-change: transform;
+    transition: transform 0ms;
+  }
+  .box-carousel-container .carousel-item {
+    user-select: none;
+    -webkit-user-drag: none;
   }
 }
