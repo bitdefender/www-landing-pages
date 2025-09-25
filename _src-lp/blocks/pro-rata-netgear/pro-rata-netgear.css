@@ -42,8 +42,8 @@
   border-radius: 20px;
   animation: loading-animation 2s ease-out forwards;
 }
-.pro-rata-netgear-container img {
-  max-width: 400px;
+.pro-rata-netgear-container .pro-rata-netgear-container img {
+  max-width: 600px;
 }
 @keyframes loading-animation {
   0% {
