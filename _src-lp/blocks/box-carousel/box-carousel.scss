@@ -1,5 +1,5 @@
-$carousel-bg: white;
-$text-color: black;
+$carousel-bg: black;
+$text-color: white;
 $disabled-opacity: 0.3;
 $border-radius: 15px;
 $item-bg: #eaf2ff;
@@ -7,13 +7,15 @@ $subtitle-color: #242424;
 $disabled-fill: #a5a5a5;
 $font-family: "IBM Plex Sans", sans-serif;
 $arrow-bg: #006DFF;
+$grey-text: #828282;
 
 // Breakpoints
 $tablet: 768px;
-$desktop: 992px;
+$desktop: 991px;
 
 .box-carousel-container {
     background: $carousel-bg;
+    padding: 0 !important;
 
     .arrow {
         width: 40px;
@@ -91,36 +93,93 @@ $desktop: 992px;
         height: 100%;
         margin: 10px;
         box-sizing: border-box;
-        padding: 20px;
+        padding: 0 30px;
         border-radius: $border-radius;
         color: $text-color;
         font-size: 1em;
-        background: $item-bg;
+        background: $carousel-bg;
         flex-shrink: 0;
-        border: solid 1px $text-color;
+        scroll-snap-align: center;
 
         &:first-child {
             margin-left: 0;
         }
 
-        .title {
-            letter-spacing: 0;
-            overflow: hidden;
-            margin: 12px 0;
+        h3 {
+            font-family: IBM Plex Sans;
+            font-weight: 700;
+            font-style: Bold;
+            font-size: 1.5rem;
+            line-height: 100%;
+            text-align: center;
+
+            em {
+                font-size: 0.875rem;
+                font-family: IBM Plex Mono;
+                line-height: 100%;
+                text-align: center;
+                color: $grey-text;
+                display: flex;
+                justify-content: center;
+            }
         }
 
-        .subtitle {
-            font: normal normal normal 12px/15px $font-family;
-            letter-spacing: 0;
-            overflow: hidden;
-            margin-top: auto;
-            color: $subtitle-color;
+        p.text-element {
+            font-family: IBM Plex Sans;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        p.button-container {
+            border-radius: 8px;
+
+            a {
+                font-family: IBM Plex Sans;
+                font-weight: 500;
+                font-style: Medium;
+                font-size: 16px;
+                line-height: 100%;
+                padding: 12px 20px;
+                width: 100%;
+            }
+        }
+
+        .images-container {
+            position: relative;
+            display: none;
+
+            .image-2 {
+                position: absolute;
+                top: 55%;
+                left: 50%;
+                width: 90%;
+                transform: translate(-50%, 30%);
+            }
+
+            &.mobile-images-container {
+                display: block;
+            }
         }
 
         .icon {
             width: 35px;
             height: 35px;
             margin: 0;
+        }
+    }
+
+    .carousel-header {
+        position: absolute;
+        z-index: 10;
+        top: 40%;
+        width: 100%;
+
+        .arrows {
+            justify-content: space-between;
+            padding: 0 20px;
         }
     }
 
@@ -138,8 +197,14 @@ $desktop: 992px;
     }
 
     @media screen and (min-width: $desktop) {
-        .default-content-wrapper {
-            overflow: hidden;
+        .carousel-item {
+            .images-container {
+                display: block;
+
+                &.mobile-images-container {
+                    display: none;
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 .box-carousel-container {
-  background: white;
+  background: black;
+  padding: 0 !important;
 }
 .box-carousel-container .arrow {
   width: 40px;
@@ -63,33 +64,82 @@
   height: 100%;
   margin: 10px;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 0 30px;
   border-radius: 15px;
-  color: black;
+  color: white;
   font-size: 1em;
-  background: #eaf2ff;
+  background: black;
   flex-shrink: 0;
-  border: solid 1px black;
+  scroll-snap-align: center;
 }
 .box-carousel-container .carousel-item:first-child {
   margin-left: 0;
 }
-.box-carousel-container .carousel-item .title {
-  letter-spacing: 0;
-  overflow: hidden;
-  margin: 12px 0;
+.box-carousel-container .carousel-item h3 {
+  font-family: IBM Plex Sans;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 1.5rem;
+  line-height: 100%;
+  text-align: center;
 }
-.box-carousel-container .carousel-item .subtitle {
-  font: normal normal normal 12px/15px "IBM Plex Sans", sans-serif;
-  letter-spacing: 0;
-  overflow: hidden;
-  margin-top: auto;
-  color: #242424;
+.box-carousel-container .carousel-item h3 em {
+  font-size: 0.875rem;
+  font-family: IBM Plex Mono;
+  line-height: 100%;
+  text-align: center;
+  color: #828282;
+  display: flex;
+  justify-content: center;
+}
+.box-carousel-container .carousel-item p.text-element {
+  font-family: IBM Plex Sans;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+.box-carousel-container .carousel-item p.button-container {
+  border-radius: 8px;
+}
+.box-carousel-container .carousel-item p.button-container a {
+  font-family: IBM Plex Sans;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 100%;
+  padding: 12px 20px;
+  width: 100%;
+}
+.box-carousel-container .carousel-item .images-container {
+  position: relative;
+  display: none;
+}
+.box-carousel-container .carousel-item .images-container .image-2 {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 90%;
+  transform: translate(-50%, 30%);
+}
+.box-carousel-container .carousel-item .images-container.mobile-images-container {
+  display: block;
 }
 .box-carousel-container .carousel-item .icon {
   width: 35px;
   height: 35px;
   margin: 0;
+}
+.box-carousel-container .carousel-header {
+  position: absolute;
+  z-index: 10;
+  top: 40%;
+  width: 100%;
+}
+.box-carousel-container .carousel-header .arrows {
+  justify-content: space-between;
+  padding: 0 20px;
 }
 .box-carousel-container ul {
   padding-left: 0;
@@ -102,8 +152,11 @@
     margin-bottom: 20px;
   }
 }
-@media screen and (min-width: 992px) {
-  .box-carousel-container .default-content-wrapper {
-    overflow: hidden;
+@media screen and (min-width: 991px) {
+  .box-carousel-container .carousel-item .images-container {
+    display: block;
+  }
+  .box-carousel-container .carousel-item .images-container.mobile-images-container {
+    display: none;
   }
 }

@@ -3,6 +3,76 @@ import Glide from '@glidejs/glide';
 import { debounce } from '@repobit/dex-utils';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
+// ——————————————————————————————————————————————————
+// TextScramble
+// ——————————————————————————————————————————————————
+
+class TextScramble {
+    constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+    }
+
+    setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        // eslint-disable-next-line no-return-assign, no-promise-executor-return
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        for (let i = 0; i < length; i++) {
+            const from = oldText[i] || '';
+            const to = newText[i] || '';
+            const start = Math.floor(Math.random() * 40);
+            const end = start + Math.floor(Math.random() * 40);
+            this.queue.push({
+                from, to, start, end,
+            });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+    }
+
+    update() {
+        let output = '';
+        let complete = 0;
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+            let {
+                // eslint-disable-next-line prefer-const
+                from, to, start, end, char,
+            } = this.queue[i];
+            if (this.frame >= end) {
+                // eslint-disable-next-line no-plusplus
+                complete++;
+                output += to;
+            } else if (this.frame >= start) {
+                if (!char || Math.random() < 0.28) {
+                    char = this.randomChar();
+                    this.queue[i].char = char;
+                }
+                output += `<span class="dud">${char}</span>`;
+            } else {
+                output += from;
+            }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+            this.resolve();
+        } else {
+            this.frameRequest = requestAnimationFrame(this.update);
+            // eslint-disable-next-line no-plusplus
+            this.frame++;
+        }
+    }
+
+    randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+}
+
 const ARROW_SVG_LEFT = `
 <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9.34315 1.41419L7.92893 -2.2769e-05L0.857865 7.07104L2.27208 8.48526L9.34315 1.41419Z" fill="#A6ADB4"/>
@@ -17,6 +87,15 @@ const ARROW_SVG_RIGHT = `
 </svg>
 `;
 
+function next(phrases, fx, counter) {
+    fx.setText(phrases[counter]).then(() => {
+        console.log('set text done');
+        setTimeout(() => next(phrases, fx, counter), 800);
+    });
+    // eslint-disable-next-line no-param-reassign
+    counter = (counter + 1) % phrases.length;
+}
+
 /**
  * Generates HTML for carousel slides
  * @param {Array} slides - Array of slide elements
@@ -25,7 +104,16 @@ const ARROW_SVG_RIGHT = `
 function generateSlidesHTML(slides) {
     const slidesHTML = [];
     slidesHTML.push(...slides.map((slide) => {
-        slide.querySelector('picture').classList.add('hey-it-works');
+        console.log('slide:', slide);
+        slide.querySelectorAll('picture').forEach((picture, idx) => {
+            picture.classList.add('images');
+            picture.classList.add(`image-${idx + 1}`);
+        });
+        slide.querySelector('.images').closest('div').classList.add('images-container');
+        const mobileImagesContainer = slide.querySelector('.images-container').cloneNode(true);
+        mobileImagesContainer.classList.add('mobile-images-container');
+        slide.querySelector('h3').insertAdjacentElement('afterend', mobileImagesContainer);
+        slide.querySelector('p').classList.add('text-element');
         return `
     <li class="carousel-item glide__slide">
       ${slide.innerHTML}
@@ -52,7 +140,6 @@ export default async function decorate(block) {
       </a>
   `;
 
-    block.classList.add('default-content-wrapper');
     block.innerHTML = `
     <div class="carousel-header">
       <div class="arrows d-flex">${arrowsHTML}</div>
@@ -153,4 +240,18 @@ export default async function decorate(block) {
     }, 250));
 
     window.dispatchEvent(new Event('resize'));
+
+    const phrases = [];
+    // eslint-disable-next-line prefer-const
+    let counter = 0;
+    const ems = block.querySelectorAll('h3 em');
+    console.log('ems:', ems);
+    ems.forEach((em) => {
+        phrases.push(em.innerText);
+    });
+
+    ems.forEach((em) => {
+        const fx = new TextScramble(em);
+        next(phrases, fx, counter);
+    });
 }
