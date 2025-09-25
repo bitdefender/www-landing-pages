@@ -3,10 +3,6 @@ import Glide from '@glidejs/glide';
 import { debounce } from '@repobit/dex-utils';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
-// ——————————————————————————————————————————————————
-// TextScramble
-// ——————————————————————————————————————————————————
-
 class TextScramble {
     constructor(el) {
         this.el = el;
@@ -20,6 +16,7 @@ class TextScramble {
         // eslint-disable-next-line no-return-assign, no-promise-executor-return
         const promise = new Promise((resolve) => this.resolve = resolve);
         this.queue = [];
+        // eslint-disable-next-line no-plusplus
         for (let i = 0; i < length; i++) {
             const from = oldText[i] || '';
             const to = newText[i] || '';
@@ -87,15 +84,6 @@ const ARROW_SVG_RIGHT = `
 </svg>
 `;
 
-function next(phrases, fx, counter) {
-    fx.setText(phrases[counter]).then(() => {
-        console.log('set text done');
-        setTimeout(() => next(phrases, fx, counter), 800);
-    });
-    // eslint-disable-next-line no-param-reassign
-    counter = (counter + 1) % phrases.length;
-}
-
 /**
  * Generates HTML for carousel slides
  * @param {Array} slides - Array of slide elements
@@ -123,15 +111,23 @@ function generateSlidesHTML(slides) {
     return slidesHTML.join('');
 }
 
-export default async function decorate(block) {
-    const [...slides] = [...block.children];
-    const slidesHTML = generateSlidesHTML(slides);
-    // Only one carousel-nav block: your original one with div.navigation-item
-    const navDotsHTML = slides.map((_, i) => `
+/**
+ * Generates HTML for navigation dots
+ * @param {Array} slides - Array of slide elements
+ * @returns {string} HTML string for navigation dots
+ */
+function generateNavDotsHTML(slides) {
+    return slides.map((_, i) => `
     <div class="navigation-item ${i === 0 ? 'active' : ''}" data-index="${i}"></div>
   `).join('');
+}
 
-    const arrowsHTML = `
+/**
+ * Generates HTML for arrow navigation
+ * @returns {string} HTML string for arrows
+ */
+function generateArrowsHTML() {
+    return `
       <a href class="arrow disabled left-arrow">
         ${ARROW_SVG_LEFT}
       </a>
@@ -139,8 +135,19 @@ export default async function decorate(block) {
         ${ARROW_SVG_RIGHT}
       </a>
   `;
+}
 
-    block.innerHTML = `
+/**
+ * Builds the carousel HTML structure
+ * @param {Array} slides - Array of slide elements
+ * @returns {string} Complete carousel HTML
+ */
+function buildCarouselHTML(slides) {
+    const slidesHTML = generateSlidesHTML(slides);
+    const navDotsHTML = generateNavDotsHTML(slides);
+    const arrowsHTML = generateArrowsHTML();
+
+    return `
     <div class="carousel-header">
       <div class="arrows d-flex">${arrowsHTML}</div>
     </div>
@@ -157,63 +164,54 @@ export default async function decorate(block) {
       </div>
     </div>
   `;
+}
 
-    decorateIcons(block);
-
-    block.innerHTML = block.innerHTML.replaceAll('---', '<hr />');
-
-    const glide = new Glide(block.querySelector('.glide'), {
-        type: 'carousel',
-        gap: 20,
-        perView: 4,
-        breakpoints: {
-            991: { perView: 2 },
-            767: { perView: 1 },
-        },
+/**
+ * Updates navigation dots to reflect current slide
+ * @param {HTMLElement} block - The carousel block element
+ * @param {Object} glide - Glide instance
+ */
+function updateNav(block, glide) {
+    const navDots = block.querySelectorAll('.navigation-item');
+    navDots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === glide.index);
     });
+}
 
-    glide.mount();
-
-    function updateNav() {
-        const navDots = block.querySelectorAll('.navigation-item');
-        navDots.forEach((dot, idx) => {
-            dot.classList.toggle('active', idx === glide.index);
-        });
-    }
-
-    // Arrow click handlers to update glide
+/**
+ * Updates arrow states based on current position
+ * @param {HTMLElement} block - The carousel block element
+ * @param {Object} glide - Glide instance
+ * @param {number} totalSlides - Total number of slides
+ */
+function updateArrows(block, glide, totalSlides) {
     const leftArrow = block.querySelector('.left-arrow');
     const rightArrow = block.querySelector('.right-arrow');
 
-    function updateArrows() {
-        if (!leftArrow || !rightArrow) return;
+    if (!leftArrow || !rightArrow) return;
 
-        const currentIndex = glide.index;
-        const perView = glide.settings.perView || 1;
-        const totalSlides = slides.length;
+    const currentIndex = glide.index;
+    const perView = glide.settings.perView || 1;
 
-        if (currentIndex === 0) {
-            leftArrow.classList.add('disabled');
-        } else {
-            leftArrow.classList.remove('disabled');
-        }
-
-        if (currentIndex >= totalSlides - perView) {
-            rightArrow.classList.add('disabled');
-        } else {
-            rightArrow.classList.remove('disabled');
-        }
+    if (currentIndex === 0) {
+        leftArrow.classList.add('disabled');
+    } else {
+        leftArrow.classList.remove('disabled');
     }
 
-    updateNav();
-    updateArrows();
+    if (currentIndex >= totalSlides - perView) {
+        rightArrow.classList.add('disabled');
+    } else {
+        rightArrow.classList.remove('disabled');
+    }
+}
 
-    glide.on('run', () => {
-        updateNav();
-        updateArrows();
-    });
-
-    // Add click handlers for your nav dots to control glide
+/**
+ * Sets up navigation dot click handlers
+ * @param {HTMLElement} block - The carousel block element
+ * @param {Object} glide - Glide instance
+ */
+function setupNavDotHandlers(block, glide) {
     const navDots = block.querySelectorAll('.navigation-item');
     navDots.forEach((dot) => {
         dot.addEventListener('click', () => {
@@ -221,6 +219,16 @@ export default async function decorate(block) {
             glide.go(`=${idx}`);
         });
     });
+}
+
+/**
+ * Sets up arrow navigation handlers
+ * @param {HTMLElement} block - The carousel block element
+ * @param {Object} glide - Glide instance
+ */
+function setupArrowHandlers(block, glide) {
+    const leftArrow = block.querySelector('.left-arrow');
+    const rightArrow = block.querySelector('.right-arrow');
 
     if (leftArrow) {
         leftArrow.addEventListener('click', (e) => {
@@ -234,18 +242,69 @@ export default async function decorate(block) {
             glide.go('>');
         });
     }
+}
 
+/**
+ * Initializes the Glide carousel
+ * @param {HTMLElement} block - The carousel block element
+ * @param {Array} slides - Array of slide elements
+ * @returns {Object} Glide instance
+ */
+function initializeCarousel(block, slides) {
+    const glide = new Glide(block.querySelector('.glide'), {
+        type: 'carousel',
+        gap: 20,
+        perView: 1,
+        breakpoints: {
+            991: { perView: 1 },
+            767: { perView: 1 },
+        },
+    });
+
+    glide.mount();
+
+    // Initial state
+    updateNav(block, glide);
+    updateArrows(block, glide, slides.length);
+
+    // Update on slide change
+    glide.on('run', () => {
+        updateNav(block, glide);
+        updateArrows(block, glide, slides.length);
+    });
+
+    // Setup event handlers
+    setupNavDotHandlers(block, glide);
+    setupArrowHandlers(block, glide);
+
+    // Handle window resize
     window.addEventListener('resize', debounce(() => {
         glide.update();
     }, 250));
 
-    window.dispatchEvent(new Event('resize'));
+    return glide;
+}
 
+function next(phrases, fx, counter) {
+    fx.setText(phrases[counter]).then(() => {
+        console.log('set text done');
+        setTimeout(() => next(phrases, fx, counter), 800);
+    });
+    // eslint-disable-next-line no-param-reassign
+    counter = (counter + 1) % phrases.length;
+}
+
+/**
+ * Initializes text scramble effect for emphasized text
+ * @param {HTMLElement} block - The carousel block element
+ */
+function initializeTextScramble(block) {
     const phrases = [];
-    // eslint-disable-next-line prefer-const
-    let counter = 0;
+    const counter = 0;
     const ems = block.querySelectorAll('h3 em');
+
     console.log('ems:', ems);
+
     ems.forEach((em) => {
         phrases.push(em.innerText);
     });
@@ -254,4 +313,25 @@ export default async function decorate(block) {
         const fx = new TextScramble(em);
         next(phrases, fx, counter);
     });
+}
+
+export default async function decorate(block) {
+    // Extract slides from block children
+    const [...slides] = [...block.children];
+
+    // Build and inject carousel HTML
+    block.innerHTML = buildCarouselHTML(slides);
+
+    // Decorate icons and replace dividers
+    decorateIcons(block);
+    block.innerHTML = block.innerHTML.replaceAll('---', '<hr />');
+
+    // Initialize carousel
+    initializeCarousel(block, slides);
+
+    // Trigger initial resize to set proper view
+    window.dispatchEvent(new Event('resize'));
+
+    // Initialize text scramble effect
+    initializeTextScramble(block);
 }
