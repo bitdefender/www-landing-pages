@@ -39,8 +39,8 @@
 
 .section.banner-container.csam-design .block .row > div p:last-of-type {
   text-align: center;
-  width: 20em;
-  margin-left: 5em;
+  width: 500px;
+  margin-left: 1em;
   font-size: 19px;
   line-height: 25px;
   margin-top: -11em;
@@ -788,7 +788,7 @@
   }
 
   .section.banner-container.csam-design .block .row > div p:last-of-type {
-    margin-left: 3em;
+    margin-left: 0;
     margin-top: -7em;
   }
 }
@@ -871,8 +871,9 @@
   }
 
   .section.banner-container.csam-design .block .row > div p:last-of-type {
-    margin-left: 1em;
+    margin-left: 0em;
     margin-top: -7em;
+    width: 400px;
   }
 }
 
