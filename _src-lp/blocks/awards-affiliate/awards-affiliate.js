@@ -21,6 +21,6 @@ export default function decorate(block) {
     columnTitle?.classList.add('columns-title');
     columnSubtitle?.classList.add('columns-subtitle');
     if (iconSubtitle?.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
-    block.appendChild(buybtn);
+    columns.insertAdjacentElement('afterend', buybtn);
   }
 }

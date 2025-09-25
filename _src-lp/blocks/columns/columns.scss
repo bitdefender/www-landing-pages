@@ -192,6 +192,71 @@ main .columns-container.padding-0 .columns-wrapper{
     }
   }
 
+  .columns.white-cards {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+
+    >div {
+      gap: 20px;
+      justify-content: center;
+
+      >div {
+        flex: 0;
+        padding: 0;
+
+        >div {
+          display: flex;
+          text-align: left;
+          background-color: #FFF;
+          flex-direction: column;
+          padding: 24px;
+          border-radius: 20px;
+
+          h3 {
+            text-transform: none;
+            color: #000;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 8px;
+          }
+
+          p {
+            font-size: 16px;
+            margin: 0;
+          }
+
+          .icon {
+            height: 48px;
+            width: 48px;
+          }
+
+          @media (min-width: 768px) and (max-width: 992px) {
+            flex-direction: row;
+            gap: 10px;
+            width: 446px;
+          }
+
+          @media (width > 992px) {
+            width: 410px;
+          }
+
+        }
+
+        @media (min-width: 768px) and (max-width: 992px) {
+          flex-direction: column;
+          display: flex;
+          gap: 20px;
+        }
+      }
+      @media (min-width: 768px) and (max-width: 992px) {
+        flex-direction: column;
+        display: flex;
+        gap: 20px;
+      }
+    }
+  }
+
   .columns.feature-cards {
     >div {
       gap: 30px;
@@ -280,7 +345,7 @@ main .columns-container.padding-0 .columns-wrapper{
   }
 
   @media (width > 1400px) {
-    .columns-wrapper:has(.feature-cards), .columns-wrapper:has(.gray-cards) {
+    .columns-wrapper:has(.feature-cards), .columns-wrapper:has(.gray-cards), .columns-wrapper:has(.white-cards) {
       max-width: 1320px; 
     }
   }
