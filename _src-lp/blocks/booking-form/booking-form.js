@@ -346,12 +346,6 @@ function handleSubmit(formBox, widgetId, token, downloadlink) {
   });
 }
 
-function isTruthyDataAttr(val) {
-  if (val === undefined) return false;
-  const s = String(val).toLowerCase();
-  return !(s === 'false' || s === '0' || s === 'no' || s === 'off' || s === '');
-}
-
 function setupModalOpeners(block, formBox, { downloadlink, skipform }) {
   const section = block.closest('.section');
 
@@ -394,8 +388,7 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
 
-  const { downloadlink, skipform: skipformAttr } = metaData;
-  const skipform = isTruthyDataAttr(skipformAttr);
+  const { downloadlink, skipform } = metaData;
 
   setupModalOpeners(block, formBox, { downloadlink, skipform });
 
