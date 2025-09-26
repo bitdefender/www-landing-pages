@@ -240,6 +240,10 @@ main .columns-container.padding-0 .columns-wrapper {
           }
 
           @media (width > 992px) {
+            width: 300px;
+          }
+
+          @media (width > 1400px) {
             width: 410px;
           }
 

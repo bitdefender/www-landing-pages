@@ -215,6 +215,11 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 @media (width > 992px) {
   .columns-container .columns.white-cards > div > div > div {
+    width: 300px;
+  }
+}
+@media (width > 1400px) {
+  .columns-container .columns.white-cards > div > div > div {
     width: 410px;
   }
 }
