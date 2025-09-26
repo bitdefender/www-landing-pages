@@ -34,6 +34,27 @@
   color: #006DFF;
   font-size: 5rem;
   text-align: center;
+  font-weight: 500;
+}
+
+.c-icon-box-grid-container.phishing-v2 h2 {
+  font-size: 46px;
+}
+
+.c-icon-box-grid-container.phishing-v2 h2 strong {
+  display: flex;
+  align-items: baseline;
+}
+
+.c-icon-box-grid-container.phishing-v2 h2 em {
+  font-size: 40px;
+  font-style: normal;
+}
+
+.c-icon-box-grid-container.phishing-v2 .icon-box-grid-column {
+  flex-direction: row !important;
+  gap: 15px;
+  align-items: center;
 }
 
 .c-icon-box-grid-container.usbs-brand .default-content-wrapper h2 {
@@ -224,6 +245,11 @@
   padding: 1em;
 }
 
+.c-icon-box-grid-container h3 {
+  font-size: 32px;
+  font-weight: 500;
+}
+
 .c-icon-box-grid-container.box-shadow .col-lg {
   box-shadow: 0 4px 7px #ccc;
   border-radius: 10px;
@@ -332,6 +358,14 @@
   box-shadow: 0 0 2rem 0 rgba(0 0 0 / 10%);
 }
 
+.c-icon-box-grid-container.phishing-v2 .quotebox {
+  padding: 1em;
+  background-color: transparent;
+  box-shadow: unset;
+  border: 1px solid #E4F2FF;
+  border-radius: 20px;
+}
+
 .c-icon-box-grid-container.phishing div.subtitle {
   font-size: 16px;
   display: flex;
@@ -339,7 +373,12 @@
   justify-content: center;
 }
 
-.c-icon-box-grid-container .c-icon-box-grid.blue-cards .row{
+.c-icon-box-grid-container.phishing-v2 div.subtitle {
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.c-icon-box-grid-container .c-icon-box-grid.blue-cards .row {
   gap: 30px;
 }
 
@@ -563,5 +602,10 @@
 
   .c-icon-box-grid-container .slider-container .arrow {
     position: relative;
+  }
+
+  .c-icon-box-grid-container h3 , .c-icon-box-grid-container h3 strong {
+    font-size: var(--heading-font-size-m);
+    font-weight: 600;
   }
 }

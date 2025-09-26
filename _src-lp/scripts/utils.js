@@ -615,7 +615,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   } else {
     const [productId, prodUsers, prodYears] = onSelector.split('/');
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
-
     const match = trialLinks.find((item) => (
       item.locale.toLowerCase() === locale
         && item.product === productId
@@ -626,8 +625,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     if (match) {
       const oldUrl = storeObjBuyLink;
       const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
-
-      document.querySelectorAll(`.buylink-${onSelectorClass}`).forEach((link) => link.setAttribute('href', updatedUrl));
+      document.querySelectorAll(`.buylink-${onSelectorClass}:not(.no-trial)`).forEach((link) => link.setAttribute('href', updatedUrl));
     }
   }
 }

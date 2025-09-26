@@ -495,6 +495,11 @@
   place-self: center center;
 }
 
+.section.banner-with-cards-container.rounded .banner-with-cards {
+  border-radius: 20px;
+  background-color: #F6F6F6 !important;
+}
+
 @media (width <= 1225px) {
   .section.banner-with-cards-container.margin-0 .banner-with-cards .customWrapper {
     padding: 0 15px;
@@ -545,6 +550,13 @@
   }
   .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds > div:first-child p:last-of-type {
     width: unset;
+  }
+  .section.banner-with-cards-container.rounded .banner-with-cards {
+    background: none !important;
+    margin-left: 0;
+  }
+  .section.banner-with-cards-container.rounded .banner-with-cards .hasProds > div:first-of-type {
+    margin-left: 0;
   }
 }
 @media (width <= 768px) {

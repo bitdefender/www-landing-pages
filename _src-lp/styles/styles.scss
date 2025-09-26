@@ -64,7 +64,7 @@ body.appear {
   text-align: center !important;
 }
 
-body [data-mobile-detector] {
+body [data-mobile-detector], body [data-only-mobile] {
   display: block;
 }
 
@@ -89,16 +89,22 @@ body [data-desktop-detector] {
   margin-top: 10px;
 }
 
+@media (width >= 500px) {
+  body [data-only-mobile] {
+    display: none;
+  }
+}
+
 @media (width >= 768px) {
   body [data-mobile-detector] {
     display: none;
   }
-}
-@media (width >= 768px) {
+
   body [data-tablet-detector] {
     display: block;
   }
 }
+
 @media (width >= 992px) {
   body [data-desktop-detector] {
     display: block;
@@ -147,7 +153,6 @@ p, dl, ol, ul, pre, blockquote {
 hr {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  border: 0;
   border-bottom: 1px solid var(--overlay-background-color);
 }
 
@@ -304,7 +309,7 @@ main input:hover {
 }
 
 main .blue-box-rounded > div {
-  background-color: #E4F2FF;
+  background-color: #d9eeff;
   border-radius: 20px;
   padding: 2em 0;
 }
@@ -435,6 +440,10 @@ main .default-content-wrapper {
   padding-top: 0;
 }
 
+.size-12-normal {
+  font-size: 12px;
+}
+
 main .default-content-wrapper h1, main .default-content-wrapper h2, main .default-content-wrapper h3 {
   font-size: 32px;
   color: #111;
@@ -443,7 +452,7 @@ main .default-content-wrapper h1, main .default-content-wrapper h2, main .defaul
 }
 
 main .default-content-wrapper h2 {
-  font-size: 30px;
+  font-size: 32px;
 }
 
 main .default-content-wrapper h3 {
@@ -1073,6 +1082,14 @@ main .section.light-sky-blue > * { /* apply to all children wrapper */
   cursor: pointer;
   margin: 5px 0;
   text-decoration: none !important;
+}
+
+.default-btn2 a.button:any-link {
+  background: #E72325 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  transition: 0.4s all ease-in-out;
+  padding: 10px 3em;
+  margin: 0;
 }
 
 .green-buy-button {
@@ -1961,6 +1978,9 @@ main .section[data-textcolor=grey] .default-content-wrapper * {
   }
   .slider-container .block .prod_box {
     margin: 0;
+  }
+  main .blue-box-rounded > div {
+    padding: 0;
   }
 }
 @media (width >= 991px) {
