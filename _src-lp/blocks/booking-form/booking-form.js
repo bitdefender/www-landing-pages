@@ -346,7 +346,7 @@ function handleSubmit(formBox, widgetId, token, downloadlink) {
   });
 }
 
-function setupModalOpeners(block, formBox) {
+function setupModalOpeners(block, formBox, { downloadlink, skipform }) {
   const section = block.closest('.section');
 
   const openModal = (e) => {
@@ -362,6 +362,14 @@ function setupModalOpeners(block, formBox) {
       'a[href="https://open-modal"], a[href="#open-modal"], a[href$="#open-modal"]',
     );
     if (!a) return;
+
+    if (skipform && downloadlink) {
+      e.preventDefault();
+      if (section) section.style.display = 'none';
+      triggerFileDownload(downloadlink);
+      return;
+    }
+
     openModal(e);
   });
 
@@ -380,10 +388,15 @@ export default function decorate(block) {
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
 
-  const {
-    downloadlink,
-  } = metaData;
-  setupModalOpeners(block, formBox);
+  const { downloadlink, skipform } = metaData;
+
+  setupModalOpeners(block, formBox, { downloadlink, skipform });
+
+  if (skipform && downloadlink) {
+    const section = block.closest('.section');
+    if (section) section.style.display = 'none';
+    return;
+  }
 
   renderTurnstile('turnstile-container', { invisible: false })
     .then(({ widgetId, token }) => {
