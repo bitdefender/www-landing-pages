@@ -114,7 +114,8 @@ main .columns-container.padding-0 .columns-wrapper {
   background-color: #E4F2FF;
   border-radius: 10px;
 }
-.columns-container .columns.blue-cards > div > div h3, .columns-container .columns.blue-cards > div > div p {
+.columns-container .columns.blue-cards > div > div h3,
+.columns-container .columns.blue-cards > div > div p {
   color: #000;
   margin: 0;
   text-transform: none;
@@ -141,7 +142,8 @@ main .columns-container.padding-0 .columns-wrapper {
   background-color: #F5F5F7;
   border-radius: 10px;
 }
-.columns-container .columns.gray-cards > div > div > div h3, .columns-container .columns.gray-cards > div > div > div p {
+.columns-container .columns.gray-cards > div > div > div h3,
+.columns-container .columns.gray-cards > div > div > div p {
   color: #000;
   margin: 0;
   text-transform: none;
@@ -346,7 +348,9 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 }
 @media (width > 1400px) {
-  .columns-container .columns-wrapper:has(.feature-cards), .columns-container .columns-wrapper:has(.gray-cards), .columns-container .columns-wrapper:has(.white-cards) {
+  .columns-container .columns-wrapper:has(.feature-cards),
+  .columns-container .columns-wrapper:has(.gray-cards),
+  .columns-container .columns-wrapper:has(.white-cards) {
     max-width: 1320px;
   }
 }
@@ -383,6 +387,11 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container.blue-buttons .columns-wrapper .columns .text-content .button-container a:hover {
   filter: brightness(95%);
+}
+
+.columns-container.they-wear-our-faces {
+  background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(0, 42, 96) 50%);
+  border: none !important;
 }
 
 @media (width >= 768px) {
