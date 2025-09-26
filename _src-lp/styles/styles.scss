@@ -1544,6 +1544,41 @@ main .section.they-wear-our-faces {
   }
 }
 
+.section.they-wear-our-faces-sticky-section {
+  position: fixed;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 101;
+  background: white;
+  font-family: IBM Plex Sans;
+
+  .default-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+  }
+
+  .button-container {
+    margin: 10px 0;
+  }
+
+  em {
+    font-style: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0px;
+    text-align: center;
+  }
+
+
+  @media screen and (min-width: 576px) {
+    display: none;
+  }
+}
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;

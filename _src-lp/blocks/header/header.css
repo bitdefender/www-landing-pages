@@ -8,6 +8,58 @@ header.dark {
 header.rev-header {
   background-color: #fff;
 }
+header.customNav.blue {
+  background-color: #0059d6;
+}
+header.customNav.they-wear-our-faces {
+  font-family: "IBM Plex Sans";
+  border: none;
+}
+header.customNav.they-wear-our-faces .block {
+  padding: 9.5px 30px;
+}
+header.customNav.they-wear-our-faces .block div {
+  justify-content: center;
+}
+header.customNav.they-wear-our-faces .button-container {
+  display: none;
+}
+header.customNav.they-wear-our-faces em {
+  display: none;
+}
+@media screen and (min-width: 576px) {
+  header.customNav.they-wear-our-faces.blue {
+    background-color: #006DFF;
+  }
+  header.customNav.they-wear-our-faces .block div {
+    justify-content: space-between;
+  }
+  header.customNav.they-wear-our-faces .block div img {
+    max-height: 24px;
+    width: auto;
+    margin: 0;
+  }
+  header.customNav.they-wear-our-faces .block div > p {
+    width: 100%;
+  }
+  header.customNav.they-wear-our-faces .button-container {
+    display: block;
+  }
+  header.customNav.they-wear-our-faces em {
+    color: rgb(255, 255, 255);
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 5px;
+  }
+}
 header.customNav .block div {
   display: flex;
   justify-content: space-between;
