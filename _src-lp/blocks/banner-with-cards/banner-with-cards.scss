@@ -524,6 +524,10 @@
   color: #fff;
 }
 
+main:has(.section.banner-with-cards-container.they-wear-our-faces) {
+  overflow: hidden;
+}
+
 .section.banner-with-cards-container.they-wear-our-faces {
   background: linear-gradient(180deg, #000000 0%, #006DFF 100%);
   border: none !important;
@@ -532,9 +536,9 @@
     content: "";
     position: absolute;
     width: 200%;
-    height: 35%;
+    height: 45%;
     left: -50%;
-    bottom: -30%;
+    bottom: -40%;
     z-index: 1;
     background: #fff;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
