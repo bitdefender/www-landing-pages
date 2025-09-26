@@ -1,22 +1,30 @@
-.awards-affiliate{ 
+.awards-affiliate {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 20px;
+  padding: 1em 20px;
+}
 
-  div{
-    font-size:16px;
-  }
+.awards-affiliate div {
+  font-size: 18px;
+  line-height: 23px;
+}
 
-  h5{
-    font-weight: 400;
-  }
+.awards-affiliate h5 {
+  font-weight: 400;
+}
 
-  img {
-    max-width: 80px;
-  }
+.smaller-imgs .awards-affiliate > div:last-of-type img {
+  max-width: 95%;
+  height: auto;
+  margin-top: 1em;
+}
 
-  .columns-class{
+.awards-affiliate img {
+  max-width: 80px;
+}
+
+.awards-affiliate .columns-class {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,31 +33,28 @@
   justify-content: center;
   margin-top: 40px;
   margin-bottom: 40px;
-
-  img {
-    width: 38px;
-  }
-
-  >div {
-    background-color:white;
-    border-radius: 20px;
-    padding: 20px;
-    max-width: 410px;
-  }
-
-  p {
-    font-size:16px;
-  }
-
-  h4 {
-    color: #005EFF;
-  }
-
 }
 
+.awards-affiliate .columns-class img {
+  width: 38px;
 }
 
-.awards-affiliate .button-container{
+.awards-affiliate .columns-class > div {
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 410px;
+}
+
+.awards-affiliate .columns-class p {
+  font-size: 16px;
+}
+
+.awards-affiliate .columns-class h4 {
+  color: #005EFF;
+}
+
+.awards-affiliate .button-container {
   margin-bottom: 30px;
 }
 
@@ -57,63 +62,65 @@
   color: #005EFF;
 }
 
-.icon-subtitle{
+.icon-subtitle {
   color: #005EFF;
   margin-top: 20px;
 }
 
-.awards-affiliate.no-button {
-  .button {
-    display: none;
-  }
-
-  .subtitle img {
-    width: 125px;
-  }
+.awards-affiliate.no-button .button {
+  display: none;
 }
 
-@media screen and (width >= 768px){
-  .awards-affiliate {
-    img {
-      max-width: none;
-    }
-
-    div{
-      font-size:18px;
-    }
-
-    .columns-class{
-      flex-direction: row;
-      align-items: stretch;
-    }
-
-    .subtitle{
-      max-width: 620px;
-    }
-
-   .columns-subtitle{
-      max-width:629px;
-    }
-
-    h3{
-      max-width: 726px;
-    }
-
-    .columns-class div {
-      padding: 34px;
-    }
-  }
-
-  .awards-affiliate.no-button {
-    .subtitle > div {
-      display: flex;
-      gap: 60px;
-      margin-top: 20px;
-    }
-
-    img {
-      max-width: 90px;
-    }
-  }
+.awards-affiliate.no-button .subtitle img {
+  width: 125px;
 }
 
+@media screen and (width >= 768px) {
+  .smaller-imgs .awards-affiliate > div:last-of-type img {
+    height: 100px;
+    margin-top: 1em;
+  }
+
+  .smaller-imgs .awards-affiliate > div:last-of-type img:first-of-type {
+    margin-right: 2em;
+  }
+
+  .awards-affiliate img {
+    max-width: none;
+  }
+
+  .awards-affiliate div {
+    font-size: 18px;
+  }
+
+  .awards-affiliate .columns-class {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .awards-affiliate .subtitle {
+    max-width: 620px;
+  }
+
+  .awards-affiliate .columns-subtitle {
+    max-width: 628px;
+  }
+
+  .awards-affiliate h3 {
+    max-width: 726px;
+  }
+
+  .awards-affiliate .columns-class div {
+    padding: 34px;
+  }
+
+  .awards-affiliate.no-button .subtitle > div {
+    display: flex;
+    gap: 60px;
+    margin-top: 20px;
+  }
+
+  .awards-affiliate.no-button img {
+    max-width: 90px;
+  }
+}

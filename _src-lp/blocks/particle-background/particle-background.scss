@@ -51,6 +51,14 @@
 }
 
 @media screen and (width <= 767px) {
+    .we-container {
+        padding: 0;
+    }
+
+    .particle-background-container {
+        padding: 0 15px;
+    }
+
     .particle-background {
         min-height: 300px;
     }
