@@ -28,7 +28,7 @@ export default function decorate(block) {
     const getFirstTabs = block.querySelectorAll('.b-dropdownbox-container .block > div:first-child');
     getFirstTabs.forEach((tab) => {
       tab.parentNode.classList.remove('inactive');
-      tab.addEventListener('click', () => {
+      tab.parentNode.addEventListener('click', () => {
         tab.parentNode.classList.toggle('inactive');
       });
     });
@@ -70,5 +70,54 @@ export default function decorate(block) {
     block.closest('.b-dropdownbox-container').appendChild(sliderBox);
   }
 
+  const container = block.closest('.section.b-dropdownbox-container');
+  if (!container.classList.contains('default-checked') && !container.classList.contains('dropdownSlider')) {
+    const hasNew = container.classList.contains('new') || container.querySelector('.b-dropdownbox.new');
+
+    if (hasNew && container.children.length >= 1) {
+      const firstChild = container.firstElementChild;
+      if (!firstChild || !firstChild.classList.contains('default-content-wrapper')) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'default-content-wrapper';
+        container.insertBefore(wrapper, container.firstChild);
+      }
+    }
+
+    // Mark as checked so we don’t repeat
+    container.classList.add('default-checked');
+  }
+
+  if (parentSelector.classList.contains('closed')) {
+    block.classList.add('inactive');
+  }
+
   if (parentSelector.classList.contains('inactive')) block.classList.add('inactive');
+
+  if (type === 'slider') {
+    // Get all images from all slider boxes
+    const pictures = parentSelector.querySelectorAll('.slider_box img');
+
+    if (!pictures.length) return;
+
+    const heights = Array.from(pictures)
+      .map((img) => parseInt(img.getAttribute('height'), 10))
+      .filter((h) => !Number.isNaN(h));
+
+    if (!heights.length) return;
+
+    // Check if all the images already have the same height
+    const uniqueHeights = [...new Set(heights)];
+    if (uniqueHeights.length === 1) {
+      return;
+    }
+
+    const minHeight = Math.min(...heights);
+
+    pictures.forEach((img) => {
+      img.style.minHeight = `${minHeight}px`;
+      img.style.maxHeight = `${minHeight}px`;
+      img.style.objectFit = 'contain';
+      img.style.height = 'auto';
+    });
+  }
 }
