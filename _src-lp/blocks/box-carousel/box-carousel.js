@@ -364,7 +364,7 @@ function manageCarousel(block, slides) {
 
     // Listen for resize events
     window.addEventListener('resize', handleResize);
-
+    window.dispatchEvent(new Event('resize'));
     return {
         glide,
         destroy: destroyCarousel,
