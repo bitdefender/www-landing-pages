@@ -296,6 +296,55 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.feature-cards.blue-border > div > div p {
   font-size: 16px;
 }
+.columns-container .columns.dynamic-image h2 {
+  color: unset;
+  font-size: 24px;
+}
+.columns-container .columns.dynamic-image p {
+  font-size: 18px;
+}
+.columns-container .columns.dynamic-image .button-container a {
+  width: 100%;
+  font-size: 18px;
+  line-height: 14px;
+  font-weight: 600;
+  padding: 20px;
+}
+.columns-container .columns.dynamic-image p:last-of-type {
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+}
+.columns-container .columns.dynamic-image picture:last-of-type {
+  display: none;
+}
+@media (min-width: 768px) {
+  .columns-container .columns.dynamic-image > div {
+    flex-direction: column;
+    text-align: center;
+  }
+  .columns-container .columns.dynamic-image h2 {
+    font-size: 32px;
+  }
+  .columns-container .columns.dynamic-image p:last-of-type {
+    width: fit-content;
+  }
+  .columns-container .columns.dynamic-image picture:first-of-type {
+    display: none;
+  }
+  .columns-container .columns.dynamic-image picture:last-of-type {
+    display: block;
+  }
+  .columns-container .columns.dynamic-image .button-container a {
+    width: unset;
+  }
+}
+@media (min-width: 993px) {
+  .columns-container .columns.dynamic-image > div {
+    flex-direction: unset;
+    text-align: left;
+  }
+}
 @media (width > 1400px) {
   .columns-container .columns-wrapper:has(.feature-cards), .columns-container .columns-wrapper:has(.gray-cards), .columns-container .columns-wrapper:has(.white-cards) {
     max-width: 1320px;

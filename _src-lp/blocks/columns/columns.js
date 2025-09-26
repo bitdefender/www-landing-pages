@@ -7,9 +7,14 @@ export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
 
   const backgroundColor = metaData.backgroundcolor || undefined;
+  const textColor = metaData.textColor || undefined;
 
   if (backgroundColor) {
     block.style.backgroundColor = backgroundColor;
+  }
+
+  if (textColor) {
+    block.style.color = textColor;
   }
 
   // setup image columns

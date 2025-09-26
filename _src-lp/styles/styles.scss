@@ -1519,6 +1519,31 @@ main .section[data-textcolor=grey] .default-content-wrapper * {
   color: #6F6F6F;
 }
 
+main .section.they-wear-our-faces {
+  font-family: "IBM Plex Sans";
+  border: 1px solid black;
+  
+  .default-content-wrapper {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  h2 {
+    font-family: "IBM Plex Sans";
+  }
+
+  p {
+    font-size: 18px;
+    em {
+      font-size: 13px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    text-align: center;
+  }
+}
+
 @media (width <= 1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
