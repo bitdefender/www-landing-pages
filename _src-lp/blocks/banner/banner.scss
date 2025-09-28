@@ -736,9 +736,25 @@
       }
     }
 
+    .bck-img>div {
+      &::before {
+        content: '';
+        width: 160%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        left: -25%;
+        bottom: -1%;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+        z-index: 19;
+      }
+    }
+
     picture img {
       height: 100%;
+      overflow: visible;
       object-fit: cover;
+      z-index: 18;
     }
 
     a:has(.icon-play-button) {
@@ -763,6 +779,7 @@
     .banner {
       .content-column {
         margin: 64px 0;
+        z-index: 20;
 
         >div {
           display: flex;
@@ -805,6 +822,14 @@
         }
       }
 
+      .img-right>div {
+        height: 100%;
+
+        &::before {
+          bottom: -10%;
+        }
+      }
+
       .icon-play-button {
         width: 96px;
         height: 96px;
@@ -816,10 +841,6 @@
     .banner {
       height: 480px;
       max-height: 480px;
-
-      div {
-        height: 100%;
-      }
 
       .content-column {
         margin: 0;
@@ -840,11 +861,13 @@
         }
       }
 
-
+      div {
+        height: 100%;
+      }
 
       picture img {
-        overflow: visible;
         position: relative;
+        object-fit: none;
         z-index: 0;
       }
     }

@@ -214,7 +214,7 @@ $desktop: 991px;
         }
     }
 
-    @media screen and (min-width: 576px) and (max-width: 767px) {
+    @media screen and (min-width: 576px) and (max-width: 991px) {
         .carousel-item {
             p.text-element {
                 max-width: 445px;
@@ -230,10 +230,19 @@ $desktop: 991px;
 
             .images-container {
 
+                &.mobile-images-container {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .image-1 {
+                    max-width: 600px;
+                }
+
                 .image-2 {
                     width: 60%;
                     max-width: 400px;
-                    transform: translate(-50%, 70%);
+                    transform: translate(-50%, 65%);
                 }
             }
         }
@@ -245,14 +254,38 @@ $desktop: 991px;
             margin-bottom: 20px;
         }
 
+
+    }
+
+    // Mobile-specific styles to ensure smooth carousel behavior
+    @media screen and (max-width: #{$desktop - 1px}) {
+        .glide__track {
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .glide__slides {
+            will-change: transform;
+            transition: transform 0ms; // Let Glide handle the animation
+        }
+
+        // Ensure carousel items don't interfere with swipe
+        .carousel-item {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+    }
+
+    @media screen and (min-width: $desktop) {
         ul.glide__slides {
             display: grid !important;
             grid-auto-flow: row;
-            gap: 20px;
+            gap: 40px;
             width: 100% !important;
             transform: none !important;
             padding: 0 20px;
-            overflow: hidden;
+            padding-bottom: 50px;
+            // overflow: hidden;
+            // overflow-y: visible;
         }
 
         .carousel-item {
@@ -313,24 +346,4 @@ $desktop: 991px;
             display: none !important;
         }
     }
-
-    // Mobile-specific styles to ensure smooth carousel behavior
-    @media screen and (max-width: #{$desktop - 1px}) {
-        .glide__track {
-            touch-action: pan-y pinch-zoom;
-        }
-
-        .glide__slides {
-            will-change: transform;
-            transition: transform 0ms; // Let Glide handle the animation
-        }
-
-        // Ensure carousel items don't interfere with swipe
-        .carousel-item {
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-    }
-
-    @media screen and (min-width: $desktop) {}
 }

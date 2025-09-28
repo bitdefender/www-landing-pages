@@ -12,7 +12,7 @@ const getContentSizeClasses = (size) => {
     larger: 'col-sm-7 col-md-7 col-lg-7',
     half: 'col-sm-6 col-md-6 col-lg-6',
     fourth: '', // Special case handled separately
-    'they-wear-our-faces': 'col-sm-12 col-md-6 col-lg-6',
+    'they-wear-our-faces': 'col-sm-12 col-md-6 col-lg-6 col-xl-7',
   };
   return sizeMap[size] || 'col-sm-5 col-md-5 col-lg-5';
 };
@@ -448,7 +448,7 @@ export default function decorate(block) {
     if (contentSize === 'they-wear-our-faces') {
       pictureEl.querySelector('.icon.icon-play-button')?.closest('a')?.classList.add('button', 'button--modal');
       imageComponent = `
-        <div class="col-6 d-none d-sm-none d-md-flex d-lg-block img-right bck-img">
+        <div class="col-6 col-xl-5 d-none d-sm-none d-md-flex d-lg-block img-right bck-img">
             ${pictureEl.innerHTML}
         </div>`;
     }

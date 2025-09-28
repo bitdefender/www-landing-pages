@@ -16,7 +16,7 @@ header.customNav.they-wear-our-faces {
   border: none;
 }
 header.customNav.they-wear-our-faces .block {
-  padding: 9.5px 30px;
+  padding: 9.5px 30px !important;
 }
 header.customNav.they-wear-our-faces .block div {
   justify-content: center;
@@ -34,7 +34,11 @@ header.customNav.they-wear-our-faces em {
   header.customNav.they-wear-our-faces .block div {
     justify-content: space-between;
   }
-  header.customNav.they-wear-our-faces .block div img {
+  header.customNav.they-wear-our-faces .block div picture {
+    display: flex;
+    align-items: center;
+  }
+  header.customNav.they-wear-our-faces .block div picture img {
     max-height: 24px;
     width: auto;
     margin: 0;
@@ -57,7 +61,7 @@ header.customNav.they-wear-our-faces em {
     display: flex;
     align-items: center;
     margin-left: auto;
-    margin-right: 5px;
+    margin-right: 16px;
   }
 }
 header.customNav .block div {

@@ -105,7 +105,11 @@
 }
 
 .awards-affiliate-container.they-wear-our-faces {
-  background: linear-gradient(180deg, rgba(0, 109, 255, 1) 25%, rgba(255, 255, 255, 1) 25%);
+
+  &.blue-gradient {
+    background: linear-gradient(180deg, rgba(0, 109, 255, 1) 25%, rgba(255, 255, 255, 1) 25%);
+  }
+
   border: none !important;
 
   .awards-affiliate-wrapper {

@@ -1,4 +1,4 @@
-import { getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
+import { getDatasetFromSection, matchHeights, matchWidths } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
@@ -36,6 +36,19 @@ export default function decorate(block) {
       }
     });
   });
+
+  // special handling for dynamic image block, present in the
+  // they-wear-our-faces campaign
+  // this is a bit hacky, please do not extend this pattern
+  if (block.classList.contains('dynamic-image')) {
+    const buttonContainerLink = block.querySelector('.button-container a');
+    const buttonContainerSibling = buttonContainerLink.parentElement.nextElementSibling;
+    if (buttonContainerLink && buttonContainerSibling) {
+      buttonContainerLink.classList.add('same-width');
+      buttonContainerSibling.classList.add('same-width');
+      matchWidths(block, '.same-width');
+    }
+  }
   matchHeights(block, '.text-content');
   matchHeights(block, '.feature-cards img');
 }

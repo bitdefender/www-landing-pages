@@ -252,7 +252,7 @@ function setupArrowHandlers(block, glide) {
  * @returns {boolean} True if screen width is below 768px
  */
 function shouldUseCarousel() {
-    return window.innerWidth < 768;
+    return window.innerWidth < 991;
 }
 
 /**
@@ -418,5 +418,5 @@ export default async function decorate(block) {
     manageCarousel(block, slides);
 
     // Initialize text scramble effect
-    // initializeTextScramble(block);
+    initializeTextScramble(block);
 }

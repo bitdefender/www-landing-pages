@@ -166,7 +166,7 @@
   border-radius: 20px;
   background: #006DFF;
 }
-@media screen and (min-width: 576px) and (max-width: 767px) {
+@media screen and (min-width: 576px) and (max-width: 991px) {
   .box-carousel-container .carousel-item p.text-element {
     max-width: 445px;
     margin-left: auto;
@@ -177,10 +177,17 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .box-carousel-container .carousel-item .images-container.mobile-images-container {
+    display: flex;
+    justify-content: center;
+  }
+  .box-carousel-container .carousel-item .images-container .image-1 {
+    max-width: 600px;
+  }
   .box-carousel-container .carousel-item .images-container .image-2 {
     width: 60%;
     max-width: 400px;
-    transform: translate(-50%, 70%);
+    transform: translate(-50%, 65%);
   }
 }
 @media screen and (min-width: 768px) {
@@ -188,14 +195,29 @@
     justify-content: space-between;
     margin-bottom: 20px;
   }
+}
+@media screen and (max-width: 990px) {
+  .box-carousel-container .glide__track {
+    touch-action: pan-y pinch-zoom;
+  }
+  .box-carousel-container .glide__slides {
+    will-change: transform;
+    transition: transform 0ms;
+  }
+  .box-carousel-container .carousel-item {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+@media screen and (min-width: 991px) {
   .box-carousel-container ul.glide__slides {
     display: grid !important;
     grid-auto-flow: row;
-    gap: 20px;
+    gap: 40px;
     width: 100% !important;
     transform: none !important;
     padding: 0 20px;
-    overflow: hidden;
+    padding-bottom: 50px;
   }
   .box-carousel-container .carousel-item {
     display: flex;
@@ -239,18 +261,5 @@
   .box-carousel-container .carousel-header,
   .box-carousel-container .carousel-nav {
     display: none !important;
-  }
-}
-@media screen and (max-width: 990px) {
-  .box-carousel-container .glide__track {
-    touch-action: pan-y pinch-zoom;
-  }
-  .box-carousel-container .glide__slides {
-    will-change: transform;
-    transition: transform 0ms;
-  }
-  .box-carousel-container .carousel-item {
-    user-select: none;
-    -webkit-user-drag: none;
   }
 }

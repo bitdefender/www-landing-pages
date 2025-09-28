@@ -544,6 +544,22 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
     transform: rotate(165deg);
   }
+
+  h4 {
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .banner-with-cards-wrapper {
+    .banner-with-cards {
+      display: flex;
+      justify-content: center;
+
+      >div.hasProds {
+        justify-content: center;
+      }
+    }
+  }
 }
 
 @media (width <=1225px) {
