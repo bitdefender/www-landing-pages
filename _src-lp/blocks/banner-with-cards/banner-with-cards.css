@@ -534,13 +534,13 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   content: "";
   position: absolute;
   width: 200%;
-  height: 45%;
+  height: 55%;
   left: -50%;
-  bottom: -40%;
+  bottom: -51%;
   z-index: 1;
   background: #fff;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-  transform: rotate(165deg);
+  transform: rotate(170deg);
 }
 .section.banner-with-cards-container.they-wear-our-faces h4 {
   font-style: normal;
