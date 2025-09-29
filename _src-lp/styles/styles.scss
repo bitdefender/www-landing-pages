@@ -1677,6 +1677,12 @@ main .section.they-wear-our-faces {
   }
 }
 
+.section.ibm-plex-sans {
+  * {
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+}
+
 @media (width <=1387px) {
   .prod-percent.green_bck_circle.bigger {
     right: 10%;
