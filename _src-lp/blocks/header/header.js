@@ -92,8 +92,13 @@ export default async function decorate(block) {
       block.innerHTML = html;
       const logoEl = block.querySelector('p');
       const imgEl = block.querySelectorAll('img');
+      let anchorEl = `<a title="Bitdefender" href="${linklessNav ? '#' : homeUrl}">${imgEl[0].cloneNode(true).outerHTML}</a>`;
 
-      const anchorEl = `<a title="Bitdefender" href="${linklessNav ? '#' : homeUrl}">${imgEl[0].cloneNode(true).outerHTML}</a>`;
+      if (html.indexOf('no-link') !== -1) {
+        headerWrapper.classList.add('no-link');
+        anchorEl = imgEl[0].cloneNode(true).outerHTML;
+      }
+
       // clear first paragraf
       logoEl.innerHTML = '';
       // add the new content logo with anchor

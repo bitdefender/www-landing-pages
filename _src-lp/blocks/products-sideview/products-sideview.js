@@ -478,14 +478,17 @@ export default function decorate(block) {
       const iconEl = li.querySelector('.icon');
       if (!iconEl) return;
 
-      // Extract the icon class
+      // Extract the icon class and name
       const iconClass = Array.from(iconEl.classList).find((cls) => cls.startsWith('icon-'));
       if (!iconClass) return;
-
       const iconName = iconClass.replace('icon-', '');
 
       // Set a CSS variable for use in ::before
-      li.style.setProperty('--icon-url', `url(${window.location.origin}/icons/${iconName}.svg)`);
+      li.style.setProperty(
+        '--icon-url',
+        `url(${window.location.origin.includes('www.bitdefender.com')
+          ? 'https://www.bitdefender.com/pages' : ''}/icons/${iconName}.svg)`,
+      );
       li.classList.add('has-icon');
 
       iconEl.remove();

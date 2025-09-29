@@ -67,7 +67,8 @@ body.appear {
   text-align: center !important;
 }
 
-body [data-mobile-detector] {
+body [data-mobile-detector],
+body [data-only-mobile] {
   display: block;
 }
 
@@ -95,12 +96,15 @@ body [data-desktop-detector] {
   margin-top: 10px;
 }
 
-@media (width >= 768px) {
-  body [data-mobile-detector] {
+@media (width >= 500px) {
+  body [data-only-mobile] {
     display: none;
   }
 }
 @media (width >= 768px) {
+  body [data-mobile-detector] {
+    display: none;
+  }
   body [data-tablet-detector] {
     display: block;
   }
@@ -331,7 +335,7 @@ main input:hover {
 }
 
 main .blue-box-rounded > div {
-  background-color: #E4F2FF;
+  background-color: #d9eeff;
   border-radius: 20px;
   padding: 2em 0;
 }
@@ -465,6 +469,10 @@ main .default-content-wrapper {
   padding-top: 0;
 }
 
+.size-12-normal {
+  font-size: 12px;
+}
+
 main .default-content-wrapper h1,
 main .default-content-wrapper h2,
 main .default-content-wrapper h3 {
@@ -475,7 +483,7 @@ main .default-content-wrapper h3 {
 }
 
 main .default-content-wrapper h2 {
-  font-size: 30px;
+  font-size: 32px;
 }
 
 main .default-content-wrapper h3 {
@@ -1116,6 +1124,14 @@ main .section.light-sky-blue > * {
   cursor: pointer;
   margin: 5px 0;
   text-decoration: none !important;
+}
+
+.default-btn2 a.button:any-link {
+  background: #E72325 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  transition: 0.4s all ease-in-out;
+  padding: 10px 3em;
+  margin: 0;
 }
 
 .green-buy-button {
@@ -2077,6 +2093,9 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   }
   .slider-container .block .prod_box {
     margin: 0;
+  }
+  main .blue-box-rounded > div {
+    padding: 0;
   }
 }
 @media (width >= 991px) {

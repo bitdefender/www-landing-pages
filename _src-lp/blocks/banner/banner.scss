@@ -21,7 +21,7 @@
 }
 
 .section.banner-container.borders-rounded .banner {
-  border-radius: 10px;
+  border-radius: 11px;
 }
 
 .section.banner-container .banner h1 {
@@ -716,6 +716,226 @@
   justify-content: space-between;
 }
 
+@media screen and (width >=1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+
+@media screen and (width >=1800px) {
+  .section.banner-container .custom-justify-content-xxxl-center {
+    justify-content: center !important;
+  }
+}
+
+@media screen and (width <=1110px) {
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -3em;
+  }
+
+  .section.banner-container.csam-design .block .row>div p:last-of-type {
+    margin-left: 3em;
+    margin-top: -7em;
+  }
+}
+
+@media screen and (width >=991px) {
+  .section.banner-container .banner h1 {
+    font-size: var(--heading-font-size-xl);
+    line-height: 45px;
+    text-align: left;
+  }
+
+  .section.lp-brand .banner h1 {
+    font-weight: lighter;
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+  }
+
+  .section.banner-container .banner.smaller-title h1,
+  .section.banner-container.smaller-title .banner h1 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container.smaller-title-2 .banner h1 {
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container .banner h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-xl);
+    text-align: left;
+  }
+
+  .section.banner-container .banner img {
+    width: initial;
+  }
+
+  .section.lp-brand .banner {
+    padding-bottom: 9rem;
+  }
+}
+
+@media screen and (width <=991px) {
+
+  .section.banner-container.hide-tablet,
+  .section.banner-container.hide-tablet .block {
+    background-image: unset !important;
+  }
+
+  .section.lp-brand .banner {
+    padding-bottom: 1rem !important;
+    background: none !important;
+  }
+
+  .banner-container.bckimg-full-right {
+    background-position: right -19rem top !important;
+  }
+
+  .banner-container h1 {
+    font-size: 30px;
+  }
+
+  .banner-container h2 {
+    font-size: 26px;
+  }
+
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
+
+  .section.banner-container.csam-design .block .row>div em {
+    margin-bottom: -5em;
+    margin-left: 2.5em;
+  }
+
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -3em;
+    width: 900px;
+    max-width: 900px;
+    min-width: 900px;
+  }
+
+  .section.banner-container.csam-design .block .row>div p:last-of-type {
+    margin-left: 1em;
+    margin-top: -7em;
+  }
+}
+
+@media screen and (width >=1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+
+@media screen and (width >=1800px) {
+  .section.banner-container .custom-justify-content-xxxl-center {
+    justify-content: center !important;
+  }
+}
+
+@media screen and (width <=1110px) {
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -3em;
+  }
+
+  .section.banner-container.csam-design .block .row>div p:last-of-type {
+    margin-left: 3em;
+    margin-top: -7em;
+  }
+}
+
+@media screen and (width >=991px) {
+  .section.banner-container .banner h1 {
+    font-size: var(--heading-font-size-xl);
+    line-height: 45px;
+    text-align: left;
+  }
+
+  .section.lp-brand .banner h1 {
+    font-weight: lighter;
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+  }
+
+  .section.banner-container .banner.smaller-title h1,
+  .section.banner-container.smaller-title .banner h1 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container.smaller-title-2 .banner h1 {
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container .banner h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-xl);
+    text-align: left;
+  }
+
+  .section.banner-container .banner img {
+    width: initial;
+  }
+
+  .section.lp-brand .banner {
+    padding-bottom: 9rem;
+  }
+}
+
+@media screen and (width <=991px) {
+
+  .section.banner-container.hide-tablet,
+  .section.banner-container.hide-tablet .block {
+    background-image: unset !important;
+  }
+
+  .section.lp-brand .banner {
+    padding-bottom: 1rem !important;
+    background: none !important;
+  }
+
+  .banner-container.bckimg-full-right {
+    background-position: right -19rem top !important;
+  }
+
+  .banner-container h1 {
+    font-size: 30px;
+  }
+
+  .banner-container h2 {
+    font-size: 26px;
+  }
+
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
+
+  .section.banner-container.csam-design .block .row>div em {
+    margin-bottom: -5em;
+    margin-left: 2.5em;
+  }
+
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -3em;
+    width: 900px;
+    max-width: 900px;
+    min-width: 900px;
+  }
+
+  .section.banner-container.csam-design .block .row>div p:last-of-type {
+    margin-left: 1em;
+    margin-top: -7em;
+  }
+}
+
 .section.banner-container.they-wear-our-faces {
   font-family: "IBM Plex Sans";
 
@@ -1294,6 +1514,22 @@
   }
 }
 
+@media screen and (width <=600px) {
+  .section.banner-container.csam-design .block .row>div em {
+    margin-bottom: -9em;
+    margin-left: 2.5em;
+    margin-top: 3em;
+  }
+
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -1em;
+    margin-top: 4em;
+    width: 850px;
+    max-width: 850px;
+    min-width: 850px;
+  }
+}
+
 @media screen and (width >=1400px) {
   .section.banner-container .custom-col-xl-4 {
     flex: 0 0 auto;
@@ -1301,8 +1537,46 @@
   }
 }
 
+@media screen and (width <=500px) {
+  .section.banner-container.csam-design .block .row>div em {
+    margin-bottom: -4.3em;
+    margin-left: 1.5em;
+    margin-top: 1em;
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -1em;
+    margin-top: 1em;
+    width: 121%;
+    max-width: 121%;
+    min-width: 121%;
+  }
+
+  .section.banner-container.csam-design .block .row>div p:last-of-type {
+    display: none;
+  }
+}
+
 @media screen and (width >=1800px) {
   .section.banner-container .custom-justify-content-xxxl-center {
     justify-content: center !important;
+  }
+}
+
+@media screen and (width <=400px) {
+  .section.banner-container.csam-design .block .row>div em {
+    font-size: 10px;
+    margin-bottom: -5em;
+  }
+}
+
+@media screen and (width <=350px) {
+  .section.banner-container.csam-design .block .row>div em {
+    font-size: 10px;
+    margin-left: 1em;
+    margin-bottom: -4.5em;
+    padding: 2px 9px;
   }
 }

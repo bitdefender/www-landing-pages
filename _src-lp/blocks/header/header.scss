@@ -135,6 +135,13 @@ header#headerBlue {
     align-items: center;
   }
 
+  &.no-link img {
+    height: 26px;
+    display: inline-block;
+    width: auto;
+    position: relative;
+  }
+
   a {
     text-align: center;
     color: #006eff;

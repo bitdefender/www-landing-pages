@@ -104,6 +104,12 @@ header#headerBlue .block div {
   justify-content: space-between;
   align-items: center;
 }
+header#headerBlue.no-link img {
+  height: 26px;
+  display: inline-block;
+  width: auto;
+  position: relative;
+}
 header#headerBlue a {
   text-align: center;
   color: #006eff;
