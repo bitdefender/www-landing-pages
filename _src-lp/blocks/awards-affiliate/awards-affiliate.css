@@ -103,12 +103,41 @@
 .awards-affiliate-container.they-wear-our-faces.blue-gradient {
   background: linear-gradient(180deg, rgb(0, 109, 255) 25%, rgb(255, 255, 255) 25%);
 }
+.awards-affiliate-container.they-wear-our-faces.they-wear-our-faces-awards-affiliate span:has(.button.primary) .button.primary {
+  width: 324px;
+}
+.awards-affiliate-container.they-wear-our-faces.they-wear-our-faces-awards-affiliate span:has(.button.primary) .button.primary strong {
+  font-weight: 500;
+}
+@media screen and (width <= 375px) {
+  .awards-affiliate-container.they-wear-our-faces.they-wear-our-faces-awards-affiliate span:has(.button.primary) .button.primary {
+    max-width: fit-content;
+  }
+}
+.awards-affiliate-container.they-wear-our-faces.they-wear-our-faces-awards-affiliate > div > div > div:last-child > div {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0px;
+  text-align: center;
+}
+.awards-affiliate-container.they-wear-our-faces h3, .awards-affiliate-container.they-wear-our-faces h4 {
+  font-family: "IBM Plex Sans", sans-serif;
+}
 .awards-affiliate-container.they-wear-our-faces .columns-title > div picture {
   margin-left: 10px;
   margin-right: 10px;
 }
 .awards-affiliate-container.they-wear-our-faces .subtitle > div {
   display: block !important;
+}
+.awards-affiliate-container.they-wear-our-faces .columns-class p:has(img) {
+  margin-bottom: 0;
+}
+.awards-affiliate-container.they-wear-our-faces .columns-class img {
+  width: 48px;
 }
 .awards-affiliate-container.they-wear-our-faces {
   border: none !important;

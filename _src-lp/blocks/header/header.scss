@@ -19,7 +19,7 @@ header {
     &.they-wear-our-faces {
       font-family: 'IBM Plex Sans', sans-serif;
       border: none;
-
+      height: 54px;
 
       .block {
         padding: 9.5px 30px !important;
@@ -47,6 +47,8 @@ header {
       }
 
       @media screen and (width >= 576px) {
+        height: var(--nav-height);
+
         &.blue {
           background-color: #006DFF;
         }

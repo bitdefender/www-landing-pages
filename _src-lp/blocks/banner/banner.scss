@@ -949,7 +949,18 @@
       &:has(.icon) {
         .icon {
           height: auto;
-          width: auto;
+          width: 243px;
+        }
+      }
+
+      &.button-container {
+        padding-top: 20px;
+
+        a {
+          font-size: 18px;
+          font-weight: 500;
+          padding-top: 16px;
+          padding-bottom: 16px;
         }
       }
     }
@@ -1019,8 +1030,9 @@
             }
 
             &.button-container {
+              padding-top: 0;
+
               a {
-                font-size: 18px;
                 padding: 16px 24px;
               }
             }

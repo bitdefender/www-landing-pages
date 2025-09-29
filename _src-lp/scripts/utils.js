@@ -583,9 +583,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
         const match = trialLinks.find((item) => (
           item.locale.toLowerCase() === locale
-            && item.product === productId
-            && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-            && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+          && item.product === productId
+          && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+          && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
         ));
 
         if (match) {
@@ -617,9 +617,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
     const match = trialLinks.find((item) => (
       item.locale.toLowerCase() === locale
-        && item.product === productId
-        && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-        && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+      && item.product === productId
+      && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+      && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
     ));
 
     if (match) {
@@ -1183,7 +1183,7 @@ export async function matchHeights(targetNode, selector) {
 }
 
 // General function to match the width of elements based on a selector
-export async function matchWidths(targetNode, selector) {
+export async function matchWidths(targetNode, selector, windowMaxInnerWidth = 768) {
   const resetWidths = () => {
     const elements = targetNode.querySelectorAll(selector);
     elements.forEach((element) => {
@@ -1192,7 +1192,7 @@ export async function matchWidths(targetNode, selector) {
   };
 
   const adjustWidths = () => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= windowMaxInnerWidth) {
       resetWidths();
       const elements = targetNode.querySelectorAll(selector);
       const elementsWidth = Array.from(elements).map((element) => element.offsetWidth);

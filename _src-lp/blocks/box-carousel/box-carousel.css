@@ -70,6 +70,7 @@
   font-size: 1.5rem;
   line-height: 100%;
   text-align: center;
+  margin-bottom: 16px;
 }
 .box-carousel-container .carousel-item h3 em {
   font-size: 0.875rem;
@@ -90,8 +91,10 @@
 }
 .box-carousel-container .carousel-item p.button-container {
   border-radius: 8px;
+  margin-bottom: 0;
 }
 .box-carousel-container .carousel-item p.button-container a {
+  background-color: rgb(214, 0, 0);
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 500;
   font-style: medium;

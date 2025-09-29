@@ -46,7 +46,7 @@ export default function decorate(block) {
     if (buttonContainerLink && buttonContainerSibling) {
       buttonContainerLink.classList.add('same-width');
       buttonContainerSibling.classList.add('same-width');
-      matchWidths(block, '.same-width');
+      matchWidths(block, '.same-width', 991);
     }
   }
   matchHeights(block, '.text-content');

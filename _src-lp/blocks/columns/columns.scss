@@ -274,6 +274,7 @@ main .columns-container.padding-0 .columns-wrapper {
           .icon {
             height: 48px;
             width: 48px;
+            margin-bottom: 9px;
           }
 
           @media (width >= 768px) and (width <= 992px) {
@@ -304,6 +305,21 @@ main .columns-container.padding-0 .columns-wrapper {
         display: flex;
         gap: 20px;
       }
+    }
+  }
+
+  .columns.ibm-plex-sans {
+    font-family: "IBM Plex Sans", sans-serif;
+
+    h3 {
+      font-family: "IBM Plex Sans", sans-serif;
+    }
+  }
+
+  .columns.icons-48 {
+    .icon {
+      width: 48px !important;
+      height: 48px !important;
     }
   }
 
@@ -403,11 +419,15 @@ main .columns-container.padding-0 .columns-wrapper {
       font-size: 18px;
     }
 
+    .text-content {
+      text-align: left;
+    }
+
     .button-container a {
       width: 100%;
       font-size: 18px;
       line-height: 14px;
-      font-weight: 600;
+      font-weight: 500;
       padding: 20px;
     }
 
@@ -427,12 +447,12 @@ main .columns-container.padding-0 .columns-wrapper {
         text-align: center;
       }
 
-      h2 {
-        font-size: 32px;
+      .text-content {
+        text-align: center;
       }
 
-      p:last-of-type {
-        width: fit-content;
+      h2 {
+        font-size: 32px;
       }
 
       picture:first-of-type {
@@ -443,14 +463,24 @@ main .columns-container.padding-0 .columns-wrapper {
         display: block;
       }
 
-      .button-container a {
-        width: unset;
-      }
+      .button-container {
+        a {
+          width: fit-content;
+        }
+      } 
     }
 
     @media (width >= 993px) {
       >div {
         flex-direction: unset;
+        text-align: left;
+      }
+
+      p:last-of-type {
+        width: fit-content;
+      }
+
+      .text-content {
         text-align: left;
       }
     }

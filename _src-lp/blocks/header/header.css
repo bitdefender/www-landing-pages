@@ -14,6 +14,7 @@ header.customNav.blue {
 header.customNav.they-wear-our-faces {
   font-family: "IBM Plex Sans", sans-serif;
   border: none;
+  height: 54px;
 }
 header.customNav.they-wear-our-faces .block {
   padding: 9.5px 30px !important;
@@ -34,6 +35,9 @@ header.customNav.they-wear-our-faces em {
   display: none;
 }
 @media screen and (width >= 576px) {
+  header.customNav.they-wear-our-faces {
+    height: var(--nav-height);
+  }
   header.customNav.they-wear-our-faces.blue {
     background-color: #006DFF;
   }

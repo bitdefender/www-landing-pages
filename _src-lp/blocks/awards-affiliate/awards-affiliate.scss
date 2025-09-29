@@ -113,6 +113,36 @@
     background: linear-gradient(180deg, rgb(0 109 255 / 100%) 25%, rgb(255 255 255 / 100%) 25%);
   }
 
+  &.they-wear-our-faces-awards-affiliate {
+    span:has(.button.primary) {
+      .button.primary {
+        width: 324px;
+
+        strong {
+          font-weight: 500;
+        }
+
+        @media screen and (width <=375px) {
+          max-width: fit-content;
+        }
+      }
+    }
+
+    > div > div > div:last-child > div {
+      font-family: "IBM Plex Sans", sans-serif;
+      font-weight: 400;
+      font-style: regular;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: 0;
+      text-align: center;
+    }
+  }
+
+  h3,h4 {
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+
   .columns-title>div picture {
     margin-left: 10px;
     margin-right: 10px;
@@ -120,6 +150,16 @@
 
   .subtitle>div {
     display: block !important;
+  }
+
+  .columns-class {
+    p:has(img) {
+      margin-bottom: 0;
+    }
+
+    img {
+      width: 48px;
+    }
   }
 
   border: none !important;

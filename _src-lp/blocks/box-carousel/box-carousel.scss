@@ -99,6 +99,7 @@ $desktop: 991px;
             font-size: 1.5rem;
             line-height: 100%;
             text-align: center;
+            margin-bottom: 16px;
 
             em {
                 font-size: 0.875rem;
@@ -122,8 +123,10 @@ $desktop: 991px;
 
         p.button-container {
             border-radius: 8px;
+            margin-bottom: 0;
 
             a {
+                background-color: rgb(214 0 0 / 100%);
                 font-family: "IBM Plex Sans", sans-serif;
                 font-weight: 500;
                 font-style: medium;
