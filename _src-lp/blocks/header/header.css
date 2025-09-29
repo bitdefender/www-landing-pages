@@ -12,7 +12,7 @@ header.customNav.blue {
   background-color: #0059d6;
 }
 header.customNav.they-wear-our-faces {
-  font-family: "IBM Plex Sans";
+  font-family: "IBM Plex Sans", sans-serif;
   border: none;
 }
 header.customNav.they-wear-our-faces .block {
@@ -27,7 +27,7 @@ header.customNav.they-wear-our-faces .button-container {
 header.customNav.they-wear-our-faces em {
   display: none;
 }
-@media screen and (min-width: 576px) {
+@media screen and (width >= 576px) {
   header.customNav.they-wear-our-faces.blue {
     background-color: #006DFF;
   }
@@ -51,12 +51,12 @@ header.customNav.they-wear-our-faces em {
   }
   header.customNav.they-wear-our-faces em {
     color: rgb(255, 255, 255);
-    font-family: IBM Plex Sans;
+    font-family: "IBM Plex Sans", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 12px;
     line-height: 14px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     text-align: center;
     display: flex;
     align-items: center;

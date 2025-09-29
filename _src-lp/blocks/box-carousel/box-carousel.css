@@ -64,16 +64,16 @@
   margin-left: 0;
 }
 .box-carousel-container .carousel-item h3 {
-  font-family: IBM Plex Sans;
+  font-family: "IBM Plex Sans", sans-serif;
   font-weight: 700;
-  font-style: Bold;
+  font-style: bold;
   font-size: 1.5rem;
   line-height: 100%;
   text-align: center;
 }
 .box-carousel-container .carousel-item h3 em {
   font-size: 0.875rem;
-  font-family: IBM Plex Mono;
+  font-family: "IBM Plex Mono", sans-serif;
   line-height: 100%;
   text-align: center;
   color: #828282;
@@ -81,7 +81,7 @@
   justify-content: center;
 }
 .box-carousel-container .carousel-item p.text-element {
-  font-family: IBM Plex Sans;
+  font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 100%;
@@ -92,9 +92,9 @@
   border-radius: 8px;
 }
 .box-carousel-container .carousel-item p.button-container a {
-  font-family: IBM Plex Sans;
+  font-family: "IBM Plex Sans", sans-serif;
   font-weight: 500;
-  font-style: Medium;
+  font-style: medium;
   font-size: 16px;
   line-height: 100%;
   padding: 12px 20px;
@@ -143,7 +143,7 @@
   display: inline-flex;
   justify-content: center;
   gap: 8px;
-  padding: 0 0 20px 0;
+  padding: 0 0 20px;
 }
 .box-carousel-container .carousel-nav .carousel-nav-wrapper {
   display: inline-flex;
@@ -166,7 +166,7 @@
   border-radius: 20px;
   background: #006DFF;
 }
-@media screen and (min-width: 576px) and (max-width: 991px) {
+@media screen and (width >= 576px) and (width <= 991px) {
   .box-carousel-container .carousel-item p.text-element {
     max-width: 445px;
     margin-left: auto;

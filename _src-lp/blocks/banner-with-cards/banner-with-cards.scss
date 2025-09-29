@@ -504,7 +504,7 @@
 }
 
 .section.banner-with-cards-container.trial-banner.v2 .banner-with-cards-wrapper .hasProds .prodBox {
-  box-shadow: 0px 4px 10px 0px #00000040;
+  box-shadow: 0 4px 10px 0 #00000040;
   z-index: 2;
 }
 
@@ -529,7 +529,7 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 }
 
 .section.banner-with-cards-container.they-wear-our-faces {
-  background: linear-gradient(180deg, #000000 0%, #006DFF 100%);
+  background: linear-gradient(180deg, #000 0%, #006DFF 100%);
   border: none !important;
 
   &::after {

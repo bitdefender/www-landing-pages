@@ -780,7 +780,6 @@
 }
 
 @media screen and (width <=991px) {
-
   .section.banner-container.hide-tablet,
   .section.banner-container.hide-tablet .block {
     background-image: unset !important;
@@ -890,7 +889,6 @@
 }
 
 @media screen and (width <=991px) {
-
   .section.banner-container.hide-tablet,
   .section.banner-container.hide-tablet .block {
     background-image: unset !important;
@@ -937,10 +935,10 @@
 }
 
 .section.banner-container.they-wear-our-faces {
-  font-family: "IBM Plex Sans";
+  font-family: "IBM Plex Sans", sans-serif;
 
   .banner {
-    padding: 0 0 1rem 0 !important;
+    padding: 0 0 1rem !important;
     margin-bottom: 0 !important;
 
     p {
@@ -965,7 +963,7 @@
         position: absolute;
         left: -25%;
         bottom: -1%;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+        background: linear-gradient(180deg, rgb(0 0 0 / 0%) 0%, #000 100%);
         z-index: 19;
       }
     }
@@ -995,7 +993,7 @@
     }
   }
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     .banner {
       .content-column {
         margin: 64px 0;
@@ -1057,7 +1055,7 @@
     }
   }
 
-  @media (min-width: 1200px) {
+  @media (width >= 1200px) {
     .banner {
       height: 480px;
       max-height: 480px;
@@ -1239,7 +1237,6 @@
 }
 
 @media screen and (width <=991px) {
-
   .section.banner-container.hide-tablet,
   .section.banner-container.hide-tablet .block {
     background-image: unset !important;

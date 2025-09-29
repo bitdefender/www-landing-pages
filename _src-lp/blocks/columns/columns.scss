@@ -276,7 +276,7 @@ main .columns-container.padding-0 .columns-wrapper {
             width: 48px;
           }
 
-          @media (min-width: 768px) and (max-width: 992px) {
+          @media (width >= 768px) and (width <= 992px) {
             flex-direction: row;
             gap: 10px;
             width: 446px;
@@ -292,14 +292,14 @@ main .columns-container.padding-0 .columns-wrapper {
 
         }
 
-        @media (min-width: 768px) and (max-width: 992px) {
+        @media (width >= 768px) and (width <= 992px) {
           flex-direction: column;
           display: flex;
           gap: 20px;
         }
       }
 
-      @media (min-width: 768px) and (max-width: 992px) {
+      @media (width >= 768px) and (width <= 992px) {
         flex-direction: column;
         display: flex;
         gap: 20px;
@@ -421,7 +421,7 @@ main .columns-container.padding-0 .columns-wrapper {
       display: none;
     }
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       >div {
         flex-direction: column;
         text-align: center;
@@ -448,7 +448,7 @@ main .columns-container.padding-0 .columns-wrapper {
       }
     }
 
-    @media (min-width: 993px) {
+    @media (width >= 993px) {
       >div {
         flex-direction: unset;
         text-align: left;
@@ -457,7 +457,6 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 
   @media (width > 1400px) {
-
     .columns-wrapper:has(.feature-cards),
     .columns-wrapper:has(.gray-cards),
     .columns-wrapper:has(.white-cards) {
@@ -517,7 +516,7 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.they-wear-our-faces {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 42, 96, 1) 50%);
+  background: linear-gradient(180deg, rgb(0 0 0 / 100%) 0%, rgb(0 42 96 / 100%) 50%);
   border: none !important;
 }
 

@@ -39,7 +39,6 @@ $desktop: 991px;
 
     .left-arrow,
     .right-arrow {
-
         &.disabled {
             opacity: $disabled-opacity;
             fill: white;
@@ -62,6 +61,7 @@ $desktop: 991px;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+
         /* Firefox */
         -ms-overflow-style: none;
 
@@ -93,16 +93,16 @@ $desktop: 991px;
         }
 
         h3 {
-            font-family: IBM Plex Sans;
+            font-family: "IBM Plex Sans", sans-serif;
             font-weight: 700;
-            font-style: Bold;
+            font-style: bold;
             font-size: 1.5rem;
             line-height: 100%;
             text-align: center;
 
             em {
                 font-size: 0.875rem;
-                font-family: IBM Plex Mono;
+                font-family: "IBM Plex Mono", sans-serif;
                 line-height: 100%;
                 text-align: center;
                 color: $grey-text;
@@ -112,7 +112,7 @@ $desktop: 991px;
         }
 
         p.text-element {
-            font-family: IBM Plex Sans;
+            font-family: "IBM Plex Sans", sans-serif;
             font-weight: 400;
             font-size: 18px;
             line-height: 100%;
@@ -124,9 +124,9 @@ $desktop: 991px;
             border-radius: 8px;
 
             a {
-                font-family: IBM Plex Sans;
+                font-family: "IBM Plex Sans", sans-serif;
                 font-weight: 500;
-                font-style: Medium;
+                font-style: medium;
                 font-size: 16px;
                 line-height: 100%;
                 padding: 12px 20px;
@@ -187,13 +187,13 @@ $desktop: 991px;
         display: inline-flex;
         justify-content: center;
         gap: 8px;
-        padding: 0 0 20px 0;
+        padding: 0 0 20px;
 
         .carousel-nav-wrapper {
             display: inline-flex;
             justify-content: center;
             padding: 8px 10px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgb(255 255 255 / 10%);
             border-radius: 20px;
             gap: 8px;
         }
@@ -202,7 +202,7 @@ $desktop: 991px;
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgb(255 255 255 / 30%);
             cursor: pointer;
             transition: all 0.3s ease;
 
@@ -214,7 +214,7 @@ $desktop: 991px;
         }
     }
 
-    @media screen and (min-width: 576px) and (max-width: 991px) {
+    @media screen and (width >= 576px) and (width <= 991px) {
         .carousel-item {
             p.text-element {
                 max-width: 445px;
@@ -229,7 +229,6 @@ $desktop: 991px;
             }
 
             .images-container {
-
                 &.mobile-images-container {
                     display: flex;
                     justify-content: center;
@@ -284,6 +283,7 @@ $desktop: 991px;
             transform: none !important;
             padding: 0 20px;
             padding-bottom: 50px;
+
             // overflow: hidden;
             // overflow-y: visible;
         }

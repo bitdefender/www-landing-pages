@@ -17,7 +17,7 @@ header {
     }
 
     &.they-wear-our-faces {
-      font-family: 'IBM Plex Sans';
+      font-family: 'IBM Plex Sans', sans-serif;
       border: none;
 
 
@@ -37,7 +37,7 @@ header {
         display: none;
       }
 
-      @media screen and (min-width: 576px) {
+      @media screen and (width >= 576px) {
         &.blue {
           background-color: #006DFF;
         }
@@ -66,13 +66,13 @@ header {
         }
 
         em {
-          color: rgba(255, 255, 255, 1);
-          font-family: IBM Plex Sans;
+          color: rgb(255 255 255 / 100%);
+          font-family: "IBM Plex Sans", sans-serif;
           font-weight: 400;
           font-style: normal;
           font-size: 12px;
           line-height: 14px;
-          letter-spacing: 0px;
+          letter-spacing: 0;
           text-align: center;
           display: flex;
           align-items: center;
