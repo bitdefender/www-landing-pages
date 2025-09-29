@@ -26,6 +26,15 @@ header {
 
         div {
           justify-content: center;
+
+          picture {
+            img {
+              max-height: 24px;
+              width: auto;
+              margin-left: 5px;
+              margin-top: 10px;
+            }
+          }
         }
       }
 

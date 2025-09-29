@@ -21,6 +21,12 @@ header.customNav.they-wear-our-faces .block {
 header.customNav.they-wear-our-faces .block div {
   justify-content: center;
 }
+header.customNav.they-wear-our-faces .block div picture img {
+  max-height: 24px;
+  width: auto;
+  margin-left: 5px;
+  margin-top: 10px;
+}
 header.customNav.they-wear-our-faces .button-container {
   display: none;
 }
