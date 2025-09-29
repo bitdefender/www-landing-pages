@@ -936,6 +936,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: transparent;
+  z-index: 50;
 }
 .section.banner-container.they-wear-our-faces .banner a:has(.icon-play-button) .icon-play-button {
   position: absolute;

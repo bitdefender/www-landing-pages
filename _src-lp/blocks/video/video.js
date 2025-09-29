@@ -4,6 +4,7 @@
  * https://www.aem.live/developer/block-collection/video
  */
 
+import { AdobeDataLayerService } from '@repobit/dex-data-layer';
 import { getDatasetFromSection } from '../../scripts/utils.js';
 
 function embedYoutube(url, autoplay) {
@@ -79,8 +80,23 @@ function positionVideoContainer(block, desktopAlign) {
   block.classList.add(DESKTOP_ALIGN_ENUM[desktopAlign] || DESKTOP_ALIGN_ENUM.LEFT);
 }
 
+function trackYoutubeVideo(link, url, videoTitle, videoDuration) {
+  const usp = new URLSearchParams(url.search);
+  console.log(usp.get('v'));
+  AdobeDataLayerService.push({
+    event: 'youtube.play',
+    video: {
+      title: videoTitle || 'no title metadata provided',
+      id: usp.get('v') || link,
+      playhead: 0,
+      duration: videoDuration || 0,
+      milestone: 0,
+    },
+  });
+}
+
 export default async function decorate(block) {
-  const { desktopAlign } = getDatasetFromSection(block); // left / middle / right
+  const { desktopAlign, videoTitle, videoDuration } = getDatasetFromSection(block); // left / middle / right
   const placeholder = block.querySelector('picture');
   const link = block.querySelector('a').href;
   block.textContent = '';
@@ -106,5 +122,11 @@ export default async function decorate(block) {
       }
     });
     observer.observe(block);
+  }
+
+  const url = new URL(link);
+  const isYoutube = link.includes('youtube') || link.includes('youtu.be');
+  if (isYoutube) {
+    trackYoutubeVideo(link, url, videoTitle, videoDuration);
   }
 }
