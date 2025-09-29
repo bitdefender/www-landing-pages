@@ -217,21 +217,36 @@ main .columns-container.padding-0 .columns-wrapper {
     }
 
     &.v3 {
-      >div>div>div {
+      >div {
         flex-direction: column;
-        text-align: center;
-        border-radius: 20px;
+        >div {
+          min-width: 100%;
+          >div {
+            flex-direction: column;
+            text-align: center;
+            border-radius: 20px;
 
-        h3 {
-          font-size: 18px;
+            h3 {
+              font-size: 18px;
+            }
+
+            .button-container a {
+              background: none;
+              color: #006DFF;
+              font-size: 16px;
+              text-decoration: underline;
+              font-weight: 600;
+            }
+          }
         }
+      }
 
-        .button-container a {
-          background: none;
-          color: #006DFF;
-          font-size: 16px;
-          text-decoration: underline;
-          font-weight: 600;
+      @media (width >= 992px) {
+        >div {
+          flex-direction: unset;
+          >div {
+            min-width: unset;
+          }
         }
       }
     }

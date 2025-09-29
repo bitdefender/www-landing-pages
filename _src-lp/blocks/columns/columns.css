@@ -198,6 +198,12 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.gray-cards.v2 {
   flex-wrap: wrap;
 }
+.columns-container .columns.gray-cards.v3 > div {
+  flex-direction: column;
+}
+.columns-container .columns.gray-cards.v3 > div > div {
+  min-width: 100%;
+}
 .columns-container .columns.gray-cards.v3 > div > div > div {
   flex-direction: column;
   text-align: center;
@@ -212,6 +218,14 @@ main .columns-container.padding-0 .columns-wrapper {
   font-size: 16px;
   text-decoration: underline;
   font-weight: 600;
+}
+@media (width >= 992px) {
+  .columns-container .columns.gray-cards.v3 > div {
+    flex-direction: unset;
+  }
+  .columns-container .columns.gray-cards.v3 > div > div {
+    min-width: unset;
+  }
 }
 .columns-container .columns.white-cards {
   gap: 20px;

@@ -513,6 +513,7 @@
 }
 
 .section.banner-with-cards-container.trial-banner.v2 .banner-with-cards .prodBox ul li {
+  background-position: left;
   background-image: url("../../icons/checkmark_solid-circle_2.svg");
 }
 
@@ -567,6 +568,10 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p .icon svg {
   left: -48px;
   top: 0;
+}
+.section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds .prodBox {
+  margin: 0 auto;
+  max-width: 446px;
 }
 @media (width < 768px) {
   .section.banner-with-cards-container.they-wear-our-faces .default-content-wrapper {

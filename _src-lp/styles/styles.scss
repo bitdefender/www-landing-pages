@@ -1626,10 +1626,10 @@ main .section.they-wear-our-faces {
 
   p {
     font-size: 18px;
-
-    em {
+    
+    &:has(em) {
+      line-height: 1.3;
       font-size: 13px;
-      line-height: 100%;
     }
   }
 
@@ -1639,6 +1639,7 @@ main .section.they-wear-our-faces {
 
   @media screen and (min-width: 768px) {
     text-align: center;
+    padding: 30px;
   }
 }
 

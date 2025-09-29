@@ -515,6 +515,7 @@
 }
 
 .section.banner-with-cards-container.trial-banner.v2 .banner-with-cards .prodBox ul li {
+  background-position: left;
   background-image: url('../../icons/checkmark_solid-circle_2.svg');
 }
 
@@ -577,6 +578,11 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
               }
             }
           }
+        }
+
+        .prodBox {
+          margin: 0 auto;
+          max-width: 446px;
         }
       }
     }
