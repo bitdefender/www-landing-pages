@@ -217,10 +217,13 @@ main .columns-container.padding-0 .columns-wrapper {
   gap: 20px;
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 .columns-container .columns.white-cards > div {
   gap: 20px;
   justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .columns-container .columns.white-cards > div > div {
   flex: 0;
@@ -366,6 +369,8 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container .columns.dynamic-image .text-content {
   text-align: left;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .columns-container .columns.dynamic-image .button-container a {
   width: 100%;

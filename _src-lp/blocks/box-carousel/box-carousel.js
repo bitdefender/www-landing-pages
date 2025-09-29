@@ -92,7 +92,6 @@ const ARROW_SVG_RIGHT = `
 function generateSlidesHTML(slides) {
     const slidesHTML = [];
     slidesHTML.push(...slides.map((slide, idx) => {
-        console.log('slide:', slide);
         const isEven = (idx + 1) % 2 === 0;
         slide.querySelectorAll('picture').forEach((picture, idx2) => {
             picture.classList.add('images');
@@ -374,7 +373,6 @@ function manageCarousel(block, slides) {
 
 function next(phrases, fx, counter) {
     fx.setText(phrases[counter]).then(() => {
-        console.log('set text done');
         setTimeout(() => next(phrases, fx, counter), 800);
     });
     // eslint-disable-next-line no-param-reassign
@@ -390,8 +388,6 @@ function initializeTextScramble(block) {
     // eslint-disable-next-line prefer-const
     let counter = 0;
     const ems = block.querySelectorAll('h3 em');
-
-    console.log('ems:', ems);
 
     ems.forEach((em) => {
         phrases.push(em.innerText);

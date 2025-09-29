@@ -117,10 +117,10 @@
 .awards-affiliate-container.they-wear-our-faces.they-wear-our-faces-awards-affiliate > div > div > div:last-child > div {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
-  font-style: Regular;
+  font-style: regular;
   font-size: 12px;
   line-height: 14px;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   text-align: center;
 }
 .awards-affiliate-container.they-wear-our-faces h3, .awards-affiliate-container.they-wear-our-faces h4 {
@@ -145,6 +145,35 @@
 .awards-affiliate-container.they-wear-our-faces .awards-affiliate-wrapper {
   z-index: 2;
   position: relative;
+}
+@media (width < 768px) {
+  .awards-affiliate-container.they-wear-our-faces {
+    padding: 30px;
+  }
+  .awards-affiliate-container.they-wear-our-faces .awards-affiliate {
+    padding: 30px 24px;
+  }
+  .awards-affiliate-container.they-wear-our-faces .awards-affiliate h3 {
+    font-size: 18px;
+  }
+  .awards-affiliate-container.they-wear-our-faces .awards-affiliate p {
+    font-size: 16px;
+  }
+  .awards-affiliate-container.they-wear-our-faces .awards-affiliate img {
+    max-width: 64px;
+  }
+  .awards-affiliate-container.they-wear-our-faces .awards-affiliate .columns-title img {
+    max-width: 40px;
+  }
+  .awards-affiliate-container.they-wear-our-faces:has(.awards-affiliate.black-heading) {
+    padding: 0;
+  }
+  .awards-affiliate-container.they-wear-our-faces:has(.awards-affiliate.black-heading) .awards-affiliate-wrapper {
+    border-radius: 0;
+  }
+  .awards-affiliate-container.they-wear-our-faces:has(.awards-affiliate.black-heading) .awards-affiliate-wrapper .awards-affiliate {
+    padding: 30px;
+  }
 }
 
 @media screen and (width >= 768px) {

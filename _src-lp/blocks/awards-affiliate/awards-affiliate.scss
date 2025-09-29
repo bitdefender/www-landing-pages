@@ -168,6 +168,42 @@
     z-index: 2;
     position: relative;
   }
+
+  @media (width < 768px) {
+    padding: 30px;
+
+    .awards-affiliate {
+      padding: 30px 24px;
+
+      h3 {
+        font-size: 18px;
+      }
+
+      p{
+        font-size: 16px;
+      }
+
+      img {
+        max-width: 64px;
+      }
+
+      .columns-title img {
+        max-width: 40px;
+      }
+    }
+
+    &:has(.awards-affiliate.black-heading) {
+      padding: 0;
+
+      .awards-affiliate-wrapper {
+        border-radius: 0;
+
+        .awards-affiliate {
+          padding: 30px;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (width >=768px) {

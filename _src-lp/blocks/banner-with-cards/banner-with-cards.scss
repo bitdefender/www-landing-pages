@@ -104,7 +104,8 @@
 }
 
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox p {
-  font-size: 14px;
+  font-size: 14px !important;
+  line-height: 16px !important;
 }
 
 .section.banner-with-cards-container.free-size .banner-with-cards .hasProds>div:first-of-type p {
@@ -581,12 +582,30 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     }
   }
 
-  @media (width <=768px) {
+  @media (width < 768px) {
     .default-content-wrapper {
       text-align: left;
-      padding-left: 16px;
+      padding-left: 30px;
       padding-bottom: 0;
       gap: 0;
+    }
+    .banner-with-cards-wrapper {
+      .banner-with-cards >div.hasProds {
+        padding: 0 30px;
+        
+
+        >div:first-child p:has(.icon) {
+          padding-left: 37px;
+
+          .icon svg {
+            left: -35px;
+          }
+        }
+      }
+
+      .prodBox-wrapper {
+        margin: 0;
+      }
     }
   }
 

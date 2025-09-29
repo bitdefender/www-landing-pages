@@ -241,10 +241,13 @@ main .columns-container.padding-0 .columns-wrapper {
     gap: 20px;
     display: flex;
     flex-direction: column;
+    padding: 10px;
 
     >div {
       gap: 20px;
       justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
 
       >div {
         flex: 0;
@@ -421,6 +424,8 @@ main .columns-container.padding-0 .columns-wrapper {
 
     .text-content {
       text-align: left;
+      padding-left: 15px;
+      padding-right: 15px;
     }
 
     .button-container a {

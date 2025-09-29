@@ -22,7 +22,7 @@ export default function decorate(block) {
     columnTitle?.classList.add('columns-title');
     columnSubtitle?.classList.add('columns-subtitle');
     if (iconSubtitle?.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
-    columns.insertAdjacentElement('afterend', buybtn);
+    columns?.insertAdjacentElement('afterend', buybtn);
   }
 
   matchHeights(block, 'h4');

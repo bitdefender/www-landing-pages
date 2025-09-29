@@ -108,7 +108,7 @@ footer:has(.new-design) .image-section .default-content-wrapper p {
 }
 @media (width < 768px) {
   footer:has(.new-design) .image-section .default-content-wrapper p {
-    padding: 0px 10px;
+    padding: 0 10px;
   }
   footer:has(.new-design) .image-section .default-content-wrapper p img {
     width: 125px;
@@ -116,7 +116,7 @@ footer:has(.new-design) .image-section .default-content-wrapper p {
 }
 @media (width < 992px) {
   footer:has(.new-design) .image-section .default-content-wrapper p {
-    padding: 0px 15px;
+    padding: 0 15px;
   }
   footer:has(.new-design) .image-section .default-content-wrapper p img {
     width: 125px;
