@@ -14,7 +14,7 @@
   font-weight: 400;
 }
 
-.smaller-imgs .awards-affiliate > div:last-of-type img {
+.smaller-imgs .awards-affiliate>div:last-of-type img {
   max-width: 95%;
   height: auto;
   margin-top: 1em;
@@ -39,7 +39,7 @@
   width: 38px;
 }
 
-.awards-affiliate .columns-class > div {
+.awards-affiliate .columns-class>div {
   background-color: white;
   border-radius: 20px;
   padding: 20px;
@@ -63,164 +63,159 @@
 }
 
 .icon-subtitle {
-.icon-subtitle {
-  color: #005EFF;
-  margin-top: 20px;
-}
-
-.awards-affiliate.no-button .button {
-  display: none;
-}
-
-.awards-affiliate.no-button .subtitle img {
-  width: 125px;
-}
-
-.awards-affiliate.black-heading {
-  .columns-class {
-    margin-top: 5px;
-    text-align: center;
-  }
-
-  div {
-    font-size: 16px;
-
-    h3 {
-      color: #000;
-      margin: 0;
-    }
-
-    h4 {
-      color: #000;
-      font-size: 18px;
-    }
-
-    p {
-      font-size: 16px;
-    }
-  }
-
-  a.button {
-    margin-bottom: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 15px;
-  }
-}
-
-.awards-affiliate-container.they-wear-our-faces {
-
-  &.blue-gradient {
-    background: linear-gradient(180deg, rgba(0, 109, 255, 1) 25%, rgba(255, 255, 255, 1) 25%);
-  }
-
-  .columns-title>div picture {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  .subtitle>div {
-    display: block !important;
-  }
-
-  border: none !important;
-
-  .awards-affiliate-wrapper {
-    z-index: 2;
-    position: relative;
-  }
-}
-
-@media screen and (width >=768px) {
-  .awards-affiliate {
-    img {
-      max-width: none;
-    }
-@media screen and (width >= 768px) {
-  .smaller-imgs .awards-affiliate > div:last-of-type img {
-    height: 100px;
-    margin-top: 1em;
-  }
-
-  .smaller-imgs .awards-affiliate > div:last-of-type img:first-of-type {
-    margin-right: 2em;
-  }
-
-  .awards-affiliate img {
-    max-width: none;
-  }
-
-  .awards-affiliate div {
-    font-size: 18px;
-  }
-
-  .awards-affiliate .columns-class {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  .awards-affiliate .subtitle {
-    max-width: 620px;
-  }
-
-  .awards-affiliate .columns-subtitle {
-    max-width: 628px;
-  }
-
-  .awards-affiliate h3 {
-    max-width: 726px;
-  }
-
-  .awards-affiliate .columns-class div {
-    padding: 34px;
-  }
-
-  .awards-affiliate.no-button .subtitle > div {
-    display: flex;
-    gap: 60px;
+  .icon-subtitle {
+    color: #005EFF;
     margin-top: 20px;
   }
 
-  .awards-affiliate.no-button img {
-    max-width: 90px;
+  .awards-affiliate.no-button .button {
+    display: none;
+  }
+
+  .awards-affiliate.no-button .subtitle img {
+    width: 125px;
   }
 
   .awards-affiliate.black-heading {
     .columns-class {
-      >div {
-        img {
-          margin: 0;
-        }
+      margin-top: 5px;
+      text-align: center;
+    }
 
-        h4 {
-          margin: 0;
-        }
+    div {
+      font-size: 16px;
+
+      h3 {
+        color: #000;
+        margin: 0;
       }
+
+      h4 {
+        color: #000;
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    a.button {
+      margin-bottom: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 15px;
     }
   }
 
-  @media (width < 992px) {
+  .awards-affiliate-container.they-wear-our-faces {
+
+    &.blue-gradient {
+      background: linear-gradient(180deg, rgba(0, 109, 255, 1) 25%, rgba(255, 255, 255, 1) 25%);
+    }
+
+    .columns-title>div picture {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .subtitle>div {
+      display: block !important;
+    }
+
+    border: none !important;
+
+    .awards-affiliate-wrapper {
+      z-index: 2;
+      position: relative;
+    }
+  }
+
+  @media screen and (width >=768px) {
+    .smaller-imgs .awards-affiliate>div:last-of-type img {
+      height: 100px;
+      margin-top: 1em;
+    }
+
+    .smaller-imgs .awards-affiliate>div:last-of-type img:first-of-type {
+      margin-right: 2em;
+    }
+
+    .awards-affiliate img {
+      max-width: none;
+    }
+
+    .awards-affiliate div {
+      font-size: 18px;
+    }
+
+    .awards-affiliate .columns-class {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .awards-affiliate .subtitle {
+      max-width: 620px;
+    }
+
+    .awards-affiliate .columns-subtitle {
+      max-width: 628px;
+    }
+
+    .awards-affiliate h3 {
+      max-width: 726px;
+    }
+
+    .awards-affiliate .columns-class div {
+      padding: 34px;
+    }
+
+    .awards-affiliate.no-button .subtitle>div {
+      display: flex;
+      gap: 60px;
+      margin-top: 20px;
+    }
+
+    .awards-affiliate.no-button img {
+      max-width: 90px;
+    }
+
     .awards-affiliate.black-heading {
       .columns-class {
-        flex-direction: column;
-        margin-top: 5px;
-        text-align: left;
-        width: 100%;
-
         >div {
-          min-width: 100%;
-          display: flex;
-          gap: 20px;
-
-          img,
-          svg {
-            height: 48px;
-            width: 48px;
+          img {
             margin: 0;
-            margin-top: 20px;
+          }
+
+          h4 {
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    @media (width < 992px) {
+      .awards-affiliate.black-heading {
+        .columns-class {
+          flex-direction: column;
+          margin-top: 5px;
+          text-align: left;
+          width: 100%;
+
+          >div {
+            min-width: 100%;
+            display: flex;
+            gap: 20px;
+
+            img,
+            svg {
+              height: 48px;
+              width: 48px;
+              margin: 0;
+              margin-top: 20px;
+            }
           }
         }
       }
     }
   }
-}
