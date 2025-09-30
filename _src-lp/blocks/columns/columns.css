@@ -385,6 +385,7 @@ main .columns-container.padding-0 .columns-wrapper {
   text-align: left;
   padding-left: 15px;
   padding-right: 15px;
+  padding-bottom: 0;
 }
 .columns-container .columns.dynamic-image .button-container a {
   width: 100%;
@@ -400,6 +401,9 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container .columns.dynamic-image picture:last-of-type {
   display: none;
+}
+.columns-container .columns.dynamic-image > div {
+  gap: 16px;
 }
 @media (width >= 768px) {
   .columns-container .columns.dynamic-image > div {

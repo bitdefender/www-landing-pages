@@ -441,6 +441,7 @@ main .columns-container.padding-0 .columns-wrapper {
       text-align: left;
       padding-left: 15px;
       padding-right: 15px;
+      padding-bottom: 0;
     }
 
     .button-container a {
@@ -459,6 +460,10 @@ main .columns-container.padding-0 .columns-wrapper {
 
     picture:last-of-type {
       display: none;
+    }
+
+    >div {
+      gap: 16px;
     }
 
     @media (width >= 768px) {

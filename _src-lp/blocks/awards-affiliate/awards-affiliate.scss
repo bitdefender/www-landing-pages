@@ -176,7 +176,7 @@
       padding: 30px 24px;
 
       h3 {
-        font-size: 18px;
+        font-size: 24px;
       }
 
       p{
@@ -271,6 +271,8 @@
 
   @media (width < 992px) {
     .awards-affiliate.black-heading {
+      padding-left: 32px;
+      padding-right: 32px;
       .columns-class {
         flex-direction: column;
         margin-top: 5px;
@@ -282,12 +284,15 @@
           display: flex;
           gap: 20px;
 
+          p {
+            margin: 0;
+          }
+
           img,
           svg {
             height: 48px;
             width: 48px;
             margin: 0;
-            margin-top: 20px;
           }
         }
       }
