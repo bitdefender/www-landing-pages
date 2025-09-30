@@ -579,6 +579,10 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
               }
             }
           }
+
+          @media (width < 992px) {
+            max-width: 446px;
+          }
         }
 
         .prodBox {

@@ -399,6 +399,10 @@ main .columns-container.padding-0 .columns-wrapper {
   line-height: 14px;
   text-align: center;
 }
+.columns-container .columns.dynamic-image img {
+  max-width: 90%;
+  margin: auto;
+}
 .columns-container .columns.dynamic-image picture:last-of-type {
   display: none;
 }

@@ -570,6 +570,11 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   left: -48px;
   top: 0;
 }
+@media (width < 992px) {
+  .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child {
+    max-width: 446px;
+  }
+}
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds .prodBox {
   margin: 0 auto;
   max-width: 446px;
