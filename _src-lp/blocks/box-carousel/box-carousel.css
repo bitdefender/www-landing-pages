@@ -88,7 +88,7 @@
   font-size: 18px;
   line-height: 100%;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 45px;
 }
 .box-carousel-container .carousel-item p.button-container {
   border-radius: 8px;
@@ -100,7 +100,7 @@
   font-weight: 500;
   font-style: medium;
   font-size: 16px;
-  line-height: 100%;
+  line-height: normal;
   padding: 12px 20px;
   width: 100%;
 }
@@ -250,6 +250,7 @@
   .box-carousel-container .carousel-item > :first-child p.text-element {
     text-align: left;
     line-height: normal;
+    margin-top: 30px;
   }
   .box-carousel-container .carousel-item .images-container {
     display: block;

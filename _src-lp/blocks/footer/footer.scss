@@ -100,45 +100,55 @@ footer:has(.new-design) {
     padding: 20px 0 5px;
     background-color: #006DFF;
 
-    .default-content-wrapper p{
-      display: flex;
-      min-width: 100%;
-      justify-content: space-between;
-      align-items: center;
-
-      @media (width < 768px) {
-        padding: 0 10px;
-
-        img {
-          width: 125px;
-        }
-      };
-
-      @media (width < 992px) {
-        padding: 0 15px;
+    .default-content-wrapper {
+      max-width: 1350px;
+      p {
+        display: flex;
+        min-width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px; // Mobile-first: start with mobile padding
 
         img {
-          width: 125px;
+          width: 125px; // Mobile-first: start with smaller image
         }
-      };
-    }
+
+        // Tablet and up (768px+)
+        @media (width >= 768px) {
+          padding: 0 10px; // Increase padding for tablet
+          // img stays 125px for tablet
+        }
+
+        // Desktop and up (992px+)
+        @media (width >= 992px) {
+          padding: 0 30px;
+          img {
+            width: 160px; // Increase image size for desktop
+          }
+        }
+      }
+    } 
   }
 }
 
-footer .new-design .default-content-wrapper{
+footer .new-design .default-content-wrapper {
   display: flex;
   flex-direction: column;
   padding: 24px 0 0;
+  max-width: 1350px;
 
   p {
     font-size: 14px;
+    padding: 0 5px; // Mobile-first: apply mobile padding by default
   }
 
   p:nth-of-type(1) {
     display: flex;
     padding-bottom: 25px;
-    max-width: 740px;
+    max-width: 700px; // Mobile-first: smaller max-width by default
     justify-content: space-between;
+    flex-direction: column; // Mobile-first: column layout by default
+    color: #0059D6; // Mobile-first: apply mobile color by default
   }
 
   p:last-of-type {
@@ -146,17 +156,23 @@ footer .new-design .default-content-wrapper{
     border-top: 1px solid #FFF;
   }
 
-  @media (width < 768px) {
+  // Tablet and up (768px+)
+  @media (width >= 768px) {
     p:first-of-type {
-      flex-direction: column;
-      color: #0059D6;
-      max-width: 700px;
+      flex-direction: row; // Override mobile column layout
+      color: inherit; // Reset color back to default
+      max-width: 740px; // Increase max-width for larger screens
+    }
+
+    p {
+      padding: 0 10px;
     }
   }
 
-  @media (width < 992px) {
+  // Desktop and up (992px+)
+  @media (width >= 992px) {
     p {
-      padding: 0 15px;
+      padding: 0 30px;
     }
   }
 }

@@ -119,7 +119,7 @@ $desktop: 991px;
             font-size: 18px;
             line-height: 100%;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 45px;
         }
 
         p.button-container {
@@ -132,7 +132,7 @@ $desktop: 991px;
                 font-weight: 500;
                 font-style: medium;
                 font-size: 16px;
-                line-height: 100%;
+                line-height: normal;
                 padding: 12px 20px;
                 width: 100%;
             }
@@ -256,8 +256,6 @@ $desktop: 991px;
             justify-content: space-between;
             margin-bottom: 20px;
         }
-
-
     }
 
     // Mobile-specific styles to ensure smooth carousel behavior
@@ -326,6 +324,7 @@ $desktop: 991px;
                 p.text-element {
                     text-align: left;
                     line-height: normal;
+                    margin-top: 30px;
                 }
             }
 

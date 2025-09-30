@@ -34,7 +34,7 @@ header.customNav.they-wear-our-faces .button-container {
 header.customNav.they-wear-our-faces em {
   display: none;
 }
-@media screen and (width >= 576px) {
+@media screen and (width >= 590px) {
   header.customNav.they-wear-our-faces {
     height: var(--nav-height);
   }
