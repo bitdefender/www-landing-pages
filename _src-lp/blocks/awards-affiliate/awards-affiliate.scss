@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   text-align: left;
   justify-content: center;
   margin-top: 40px;
@@ -106,11 +106,36 @@
     font-weight: 600;
     padding: 15px;
   }
+
+  @media (width > 992px) {
+    padding: 16px 32px;
+
+    .columns-class {
+      gap: 32px;
+
+      >div {
+        padding: 24px;
+
+        img {
+          margin-bottom: 8px !important;
+        }
+
+        p:last-of-type {
+          margin-top: 0.5em;
+          line-height: normal;
+        }
+      }
+    }
+  }
 }
 
 .awards-affiliate-container.they-wear-our-faces {
   &.blue-gradient {
     background: linear-gradient(180deg, rgb(0 109 255 / 100%) 25%, rgb(255 255 255 / 100%) 25%);
+  }
+
+  .awards-affiliate-wrapper {
+    background-color: #EDF9FF;
   }
 
   &.they-wear-our-faces-awards-affiliate {
@@ -173,14 +198,16 @@
     padding: 30px;
 
     .awards-affiliate {
-      padding: 30px 24px;
+      padding: 30px;
 
       h3 {
-        font-size: 24px;
+        font-size: 18px;
+        line-height: normal;
       }
 
       p{
         font-size: 16px;
+        line-height: normal;
       }
 
       img {

@@ -912,6 +912,7 @@
   font-weight: 500;
   padding-top: 16px;
   padding-bottom: 16px;
+  background-color: #D60000;
 }
 .section.banner-container.they-wear-our-faces .banner .bck-img > div::before {
   content: "";

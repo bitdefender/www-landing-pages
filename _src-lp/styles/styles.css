@@ -510,6 +510,10 @@ main .default-content-wrapper h6 {
   font-size: 22px;
 }
 
+main .section.opaque {
+  z-index: 2;
+}
+
 main .default-content-wrapper h1:last-of-type,
 main .default-content-wrapper h2:last-of-type {
   margin-bottom: 15px;
@@ -1600,6 +1604,7 @@ main .section[data-textcolor=grey] .default-content-wrapper * {
 
 main .section.they-wear-our-faces {
   font-family: "IBM Plex Sans";
+  box-sizing: unset;
 }
 main .section.they-wear-our-faces .default-content-wrapper {
   padding-left: 30px;

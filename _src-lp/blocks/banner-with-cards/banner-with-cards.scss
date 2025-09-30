@@ -464,7 +464,7 @@
 }
 
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox hr {
-  border: 0.5px solid;
+  border-top: 0.5px solid;
   margin: 12px 0;
 }
 
@@ -546,6 +546,7 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     background: #fff;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
     transform: rotate(170deg);
+
   }
 
   h4 {

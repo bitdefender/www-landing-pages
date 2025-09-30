@@ -462,7 +462,7 @@
 }
 
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox hr {
-  border: 0.5px solid;
+  border-top: 0.5px solid;
   margin: 12px 0;
 }
 

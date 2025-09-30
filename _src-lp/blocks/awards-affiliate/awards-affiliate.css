@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   text-align: left;
   justify-content: center;
   margin-top: 40px;
@@ -99,9 +99,30 @@
   font-weight: 600;
   padding: 15px;
 }
+@media (width > 992px) {
+  .awards-affiliate.black-heading {
+    padding: 16px 32px;
+  }
+  .awards-affiliate.black-heading .columns-class {
+    gap: 32px;
+  }
+  .awards-affiliate.black-heading .columns-class > div {
+    padding: 24px;
+  }
+  .awards-affiliate.black-heading .columns-class > div img {
+    margin-bottom: 8px !important;
+  }
+  .awards-affiliate.black-heading .columns-class > div p:last-of-type {
+    margin-top: 0.5em;
+    line-height: normal;
+  }
+}
 
 .awards-affiliate-container.they-wear-our-faces.blue-gradient {
   background: linear-gradient(180deg, rgb(0, 109, 255) 25%, rgb(255, 255, 255) 25%);
+}
+.awards-affiliate-container.they-wear-our-faces .awards-affiliate-wrapper {
+  background-color: #EDF9FF;
 }
 .awards-affiliate-container.they-wear-our-faces.they-wear-our-faces-awards-affiliate span:has(.button.primary) .button.primary {
   width: 324px;
@@ -151,13 +172,15 @@
     padding: 30px;
   }
   .awards-affiliate-container.they-wear-our-faces .awards-affiliate {
-    padding: 30px 24px;
+    padding: 30px;
   }
   .awards-affiliate-container.they-wear-our-faces .awards-affiliate h3 {
-    font-size: 24px;
+    font-size: 18px;
+    line-height: normal;
   }
   .awards-affiliate-container.they-wear-our-faces .awards-affiliate p {
     font-size: 16px;
+    line-height: normal;
   }
   .awards-affiliate-container.they-wear-our-faces .awards-affiliate img {
     max-width: 64px;

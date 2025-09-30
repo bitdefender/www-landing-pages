@@ -220,7 +220,11 @@ main .columns-container.padding-0 .columns-wrapper {
         flex-direction: column;
         >div {
           min-width: 100%;
+          gap: 30px;
           >div {
+            padding: 24px;
+            gap: 8px;
+            background-color: #FAFAFA;
             flex-direction: column;
             text-align: center;
             border-radius: 20px;
@@ -235,6 +239,7 @@ main .columns-container.padding-0 .columns-wrapper {
               font-size: 16px;
               text-decoration: underline;
               font-weight: 600;
+              padding-bottom: 0;
             }
           }
         }
@@ -252,13 +257,13 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 
   .columns.white-cards {
-    gap: 20px;
+    gap: 30px;
     display: flex;
     flex-direction: column;
     padding: 10px;
 
     >div {
-      gap: 20px;
+      gap: 30px;
       justify-content: center;
       padding-top: 0;
       padding-bottom: 0;
@@ -424,7 +429,6 @@ main .columns-container.padding-0 .columns-wrapper {
       }
     }
   }
-
 
   .columns.dynamic-image {
     h2 {
