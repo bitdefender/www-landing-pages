@@ -95,13 +95,44 @@ function trackYoutubeVideo(link, url, videoTitle, videoDuration) {
   });
 }
 
+function isMobileDevice() {
+  return window.innerWidth < 768;
+}
+
+function getCurrentVideoData(metadata) {
+  const isMobile = isMobileDevice();
+
+  if (isMobile && metadata.mobileVideo) {
+    return {
+      link: metadata.mobileVideo,
+      title: metadata.mobileVideoTitle || metadata.videoTitle,
+      duration: metadata.mobileVideoDuration || metadata.videoDuration,
+    };
+  }
+
+  return {
+    link: null, // Will use the original link from the block
+    title: metadata.videoTitle,
+    duration: metadata.videoDuration,
+  };
+}
+
 export default async function decorate(block) {
-  const { desktopAlign, videoTitle, videoDuration } = getDatasetFromSection(block); // left / middle / right
+  const metadata = getDatasetFromSection(block);
+  const {
+    // eslint-disable-next-line no-unused-vars
+    desktopAlign, videoTitle, videoDuration, mobileVideo, mobileVideoTitle, mobileVideoDuration,
+  } = metadata;
+
   const placeholder = block.querySelector('picture');
-  const link = block.querySelector('a').href;
+  const originalLink = block.querySelector('a').href;
   block.textContent = '';
 
   positionVideoContainer(block, desktopAlign);
+
+  // Determine which video to use based on device
+  const currentVideoData = getCurrentVideoData(metadata);
+  const videoLink = currentVideoData.link || originalLink;
 
   if (placeholder) {
     const wrapper = document.createElement('div');
@@ -109,7 +140,7 @@ export default async function decorate(block) {
     wrapper.innerHTML = '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>';
     wrapper.prepend(placeholder);
     wrapper.addEventListener('click', () => {
-      loadVideoEmbed(block, link, true);
+      loadVideoEmbed(block, videoLink, true);
     });
     block.append(wrapper);
   } else {
@@ -117,16 +148,16 @@ export default async function decorate(block) {
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
         observer.disconnect();
-        loadVideoEmbed(block, link, false);
+        loadVideoEmbed(block, videoLink, false);
         block.classList.remove('lazy-loading');
       }
     });
     observer.observe(block);
   }
 
-  const url = new URL(link);
-  const isYoutube = link.includes('youtube') || link.includes('youtu.be');
+  const url = new URL(videoLink);
+  const isYoutube = videoLink.includes('youtube') || videoLink.includes('youtu.be');
   if (isYoutube) {
-    trackYoutubeVideo(link, url, videoTitle, videoDuration);
+    trackYoutubeVideo(videoLink, url, videoTitle, videoDuration);
   }
 }
