@@ -82,12 +82,11 @@ function positionVideoContainer(block, desktopAlign) {
 
 function trackYoutubeVideo(link, url, videoTitle, videoDuration) {
   const usp = new URLSearchParams(url.search);
-  console.log(usp.get('v'));
   AdobeDataLayerService.push({
     event: 'youtube.play',
     video: {
       title: videoTitle || 'no title metadata provided',
-      id: usp.get('v') || link,
+      id: usp.get('v') || link.split('/').pop(),
       playhead: 0,
       duration: videoDuration || 0,
       milestone: 0,
@@ -101,7 +100,6 @@ function isMobileDevice() {
 
 function getCurrentVideoData(metadata) {
   const isMobile = isMobileDevice();
-
   if (isMobile && metadata.mobileVideo) {
     return {
       link: metadata.mobileVideo,
