@@ -452,7 +452,6 @@ export default function decorate(block) {
             ${pictureEl.innerHTML}
         </div>`;
     }
-    console.log(pictureEl.querySelector('picture'));
     block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-block d-sm-flex d-md-flex d-lg-flex position-relative">
