@@ -1606,6 +1606,9 @@ main .section.they-wear-our-faces {
   font-family: "IBM Plex Sans";
   box-sizing: unset;
 }
+main .section.they-wear-our-faces.columns-container.banner-with-cards-container .default-content-wrapper {
+  padding-top: 25px;
+}
 main .section.they-wear-our-faces .default-content-wrapper {
   padding-left: 30px;
   padding-right: 30px;
