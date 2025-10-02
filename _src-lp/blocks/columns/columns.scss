@@ -422,12 +422,20 @@ main .columns-container.padding-0 .columns-wrapper{
     min-height: 100%;
   }
 
-  .columns-container.round-corners .columns div{
+  .columns-container.round-corners .columns div {
     padding: 0;
+    align-items: unset;
+  }
+
+  .columns-container.round-corners .columns > div > div:has(.text-content){
+    display: flex;
+    padding: 30px 0;
+    align-items: center;
   }
 
   .columns-container.round-corners .columns div.text-content{
     padding: 0 60px;
+    align-self: center;
   }
 
   .columns-container.new .columns > div {
