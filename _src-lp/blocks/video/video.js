@@ -9,7 +9,7 @@ import { getDatasetFromSection } from '../../scripts/utils.js';
 
 function embedYoutube(url, autoplay) {
   const usp = new URLSearchParams(url.search);
-  const suffix = autoplay ? '&muted=1&autoplay=1' : '';
+  const suffix = autoplay ? '&muted=1&autoplay=1playsinline=1' : '';
   const startTime = usp.get('t') ? `&start=${encodeURIComponent(usp.get('t'))}` : '';
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
   const embed = url.pathname;
