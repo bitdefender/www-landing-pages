@@ -1200,6 +1200,27 @@ function setBFCacheListener() {
   });
 }
 
+/**
+ * Adds click event listeners to multiple elements with Adobe Data Layer tracking
+ * @param {string} selector - CSS selector to find elements
+ * @param {string} assetName - Asset name for Adobe Data Layer tracking
+ * @param {string} eventType - Event type (default: 'click')
+ */
+function addTrackingEventListeners(selector, assetName, eventType = 'click') {
+  const elements = document.querySelectorAll(`a[href*="${selector}"]`);
+
+  elements.forEach((element) => {
+    element.addEventListener(eventType, () => {
+      AdobeDataLayerService.push({
+        event: eventType,
+        asset: assetName,
+      });
+    });
+  });
+
+  return elements.length;
+}
+
 async function loadPage() {
   setBFCacheListener();
   await loadEager(document);
@@ -1213,6 +1234,15 @@ async function loadPage() {
     target.abort();
   }
   initializeProductsPriceLogic();
+
+  // Asset tracking - adding event listeners to all the links that contain the specified selector
+  // this tracks links that are in the page, directing the user to a buy flow, like a product card
+  // this pattern should not be replicated
+  // this currently will work only in the they-wear-our-faces page
+  const selectorForTracking = getMetadata('selectors-for-asset-tracking');
+  if (selectorForTracking) {
+    addTrackingEventListeners(selectorForTracking, 'trial');
+  }
 
   addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 

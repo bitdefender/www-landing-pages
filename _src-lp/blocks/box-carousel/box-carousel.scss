@@ -1,0 +1,352 @@
+$carousel-bg: black;
+$text-color: white;
+$disabled-opacity: 0.3;
+$border-radius: 15px;
+$item-bg: #eaf2ff;
+$subtitle-color: #242424;
+$disabled-fill: #a5a5a5;
+$font-family: "IBM Plex Sans", sans-serif;
+$arrow-bg: #006DFF;
+$grey-text: #828282;
+
+// Breakpoints
+$tablet: 768px;
+$desktop: 991px;
+
+.box-carousel-container {
+    background: $carousel-bg;
+    padding: 0 !important;
+
+    .arrow {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $arrow-bg;
+        border-radius: 50%;
+
+        svg {
+            width: 10px;
+            height: 10px;
+            fill: white;
+
+            path {
+                fill: white;
+            }
+        }
+    }
+
+    .left-arrow,
+    .right-arrow {
+        &.disabled {
+            opacity: $disabled-opacity;
+            fill: white;
+            background: $disabled-fill;
+            pointer-events: none;
+        }
+    }
+
+    .carousel-container {
+        width: 100%;
+        position: relative;
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+    }
+
+    .carousel {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+
+        /* Firefox */
+        -ms-overflow-style: none;
+
+        // Hide scrollbar for WebKit browsers
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+
+
+    .carousel-item {
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        width: 220px;
+        margin: 10px;
+        margin-bottom: 0;
+        box-sizing: border-box;
+        padding: 0 30px;
+        border-radius: $border-radius;
+        color: $text-color;
+        font-size: 1em;
+        background: $carousel-bg;
+        flex-shrink: 0;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        h3 {
+            font-family: "IBM Plex Sans", sans-serif;
+            font-weight: 700;
+            font-style: bold;
+            font-size: 1.5rem;
+            line-height: 100%;
+            text-align: center;
+            margin-bottom: 16px;
+
+            em {
+                font-size: 0.875rem;
+                font-family: "IBM Plex Mono", sans-serif;
+                line-height: 100%;
+                font-style: normal;
+                text-align: center;
+                color: $grey-text;
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        p.text-element {
+            font-family: "IBM Plex Sans", sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 100%;
+            text-align: center;
+            margin-top: 45px;
+        }
+
+        p.button-container {
+            border-radius: 8px;
+            margin-bottom: 0;
+
+            a {
+                background-color: rgb(214 0 0 / 100%);
+                font-family: "IBM Plex Sans", sans-serif;
+                font-weight: 500;
+                font-style: medium;
+                font-size: 16px;
+                line-height: normal;
+                padding: 12px 20px;
+                width: 100%;
+            }
+        }
+
+        .images-container {
+            position: relative;
+            display: none;
+
+            .image-1 {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            .image-2 {
+                position: absolute;
+                top: 55%;
+                left: 50%;
+                width: 90%;
+                transform: translate(-50%, 30%);
+            }
+
+            &.mobile-images-container {
+                display: block;
+            }
+        }
+
+        .icon {
+            width: 35px;
+            height: 35px;
+            margin: 0;
+        }
+    }
+
+    .carousel-header {
+        position: absolute;
+        z-index: 10;
+        top: 40%;
+        width: 100%;
+
+        .arrows {
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+    }
+
+    ul {
+        padding-left: 0;
+        display: grid;
+        grid-auto-flow: column;
+    }
+
+    // Navigation elements - visible only on mobile
+    .carousel-nav {
+        display: inline-flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 0 20px;
+
+        .carousel-nav-wrapper {
+            display: inline-flex;
+            justify-content: center;
+            padding: 8px 10px;
+            background-color: rgb(255 255 255 / 10%);
+            border-radius: 20px;
+            gap: 8px;
+        }
+
+        .navigation-item {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgb(255 255 255 / 30%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &.active {
+                width: 36px;
+                border-radius: 20px;
+                background: $arrow-bg;
+            }
+        }
+    }
+
+    @media screen and (width >= 576px) and (width <= 991px) {
+        .carousel-item {
+            p.text-element {
+                max-width: 445px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            p.button-container {
+                max-width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .images-container {
+                &.mobile-images-container {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .image-1 {
+                    max-width: 600px;
+                }
+
+                .image-2 {
+                    width: 60%;
+                    max-width: 400px;
+                    transform: translate(-50%, 65%);
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: $tablet) {
+        .carousel-header {
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+    }
+
+    // Mobile-specific styles to ensure smooth carousel behavior
+    @media screen and (max-width: #{$desktop - 1px}) {
+        .glide__track {
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .glide__slides {
+            will-change: transform;
+            transition: transform 0ms; // Let Glide handle the animation
+        }
+
+        // Ensure carousel items don't interfere with swipe
+        .carousel-item {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+    }
+
+    @media screen and (min-width: $desktop) {
+        ul.glide__slides {
+            display: grid !important;
+            grid-auto-flow: row;
+            gap: 40px;
+            width: 100% !important;
+            transform: none !important;
+            padding: 0 20px;
+            padding-bottom: 50px;
+
+            // overflow: hidden;
+            // overflow-y: visible;
+        }
+
+        .carousel-item {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+            &.odd {
+                flex-direction: row-reverse;
+
+                .images-container {
+                    .image-2 {
+                        transform: translate(-75%, 30%);
+                    }
+                }
+            }
+
+            &>:first-child {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                max-width: 410px;
+
+                h3 {
+                    em {
+                        justify-content: flex-start;
+                    }
+                }
+
+                p.text-element {
+                    text-align: left;
+                    line-height: normal;
+                    margin-top: 30px;
+                }
+            }
+
+            .images-container {
+                display: block;
+                width: 100%;
+                max-width: 610px;
+
+                .image-2 {
+                    transform: translate(-25%, 30%);
+                }
+
+                &.mobile-images-container {
+                    display: none;
+                }
+            }
+        }
+
+        // Hide navigation elements on desktop
+        .carousel-header,
+        .carousel-nav {
+            display: none !important;
+        }
+    }
+}

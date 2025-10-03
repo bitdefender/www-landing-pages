@@ -107,6 +107,38 @@
     height: 225px;
 }
 
+.modal-container:has(.video-container) {
+    .modal-content {
+        padding: 0;
+        max-width: 1200px;
+
+        .modal-close::before,
+        .modal-close::after {
+            background-color: white;
+        }
+
+        .video-container {
+            padding: 0;
+            aspect-ratio: 16 / 9;
+            max-width: 1200px;
+
+            .video {
+                margin: 0;
+                aspect-ratio: 16 / 9;
+                max-width: 1200px;
+            }
+
+            @media (width < 768px) {
+                aspect-ratio:  9 / 16;
+
+                .video {
+                    aspect-ratio: 9/16;
+                }
+            }
+        }
+    }
+}
+
 @media (min-width: 900px) {
     .modal-container .modal-content {
         padding: 52px 62px 54px 55px;
@@ -122,8 +154,13 @@
 /* animations */
 
 @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* thank-you-for-downloading modal */
@@ -177,12 +214,12 @@
         font-weight: 400;
     }
 
-    .thank-you-for-downloading .modal-content .columns > div {
+    .thank-you-for-downloading .modal-content .columns>div {
         position: relative;
         align-items: start;
     }
 
-    .thank-you-for-downloading .modal-content .columns > div::after {
+    .thank-you-for-downloading .modal-content .columns>div::after {
         content: '';
         position: absolute;
         left: 30px;
@@ -222,7 +259,8 @@
     opacity: 1;
 }
 
-.modal-container.video-modal .modal-content .modal-close::after, .modal-container.video-modal .modal-content .modal-close::before {
+.modal-container.video-modal .modal-content .modal-close::after,
+.modal-container.video-modal .modal-content .modal-close::before {
     position: absolute;
     content: ' ';
     height: 33px;
@@ -274,11 +312,14 @@
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.identity-exposed .section[class*="scan-"], .identity-exposed .scan-loading h3, .identity-exposed .hide {
+.identity-exposed .section[class*="scan-"],
+.identity-exposed .scan-loading h3,
+.identity-exposed .hide {
     display: none;
 }
 
-.identity-exposed .section[class*="scan-"].show, .identity-exposed .scan-loading h3.show {
+.identity-exposed .section[class*="scan-"].show,
+.identity-exposed .scan-loading h3.show {
     display: block;
 }
 

@@ -1,4 +1,4 @@
-import { getMetadata, decorateIcons2 } from '../../scripts/lib-franklin.js';
+import { getMetadata, decorateIcons2, decorateButtons } from '../../scripts/lib-franklin.js';
 import {
   adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection, getLocale,
 } from '../../scripts/utils.js';
@@ -27,6 +27,14 @@ function checkForRevolut(spanSvgs, block) {
     spanSvgs.map((svg) => svg.classList.add('reverse-filter'));
     block.closest('.header-wrapper').classList.add('rev-header');
   }
+}
+
+function createButton(element) {
+  const elementCopy = element.cloneNode(true);
+  const p = document.createElement('p');
+  p.className = 'button-container';
+  p.appendChild(elementCopy);
+  return p;
 }
 
 /**
@@ -101,6 +109,25 @@ export default async function decorate(block) {
       headerWrapper.classList.add('customNav');
       if (html.indexOf('custom_nav') !== -1) headerWrapper.classList.add('dark');
       if (html.indexOf('custom_nav_white') !== -1) headerWrapper.classList.add('white');
+      if (html.indexOf('custom_nav_blue') !== -1) headerWrapper.classList.add('blue');
+      if (html.indexOf('they-wear-our-faces') !== -1) {
+        headerWrapper.classList.add('they-wear-our-faces');
+        block.innerHTML = html;
+        let logo = block.querySelector('img').getAttribute('src');
+        const headerDiv = block.querySelector('p');
+        headerDiv.className = 'd-flex justify-content-between';
+
+        const anchorEl = document.createElement('a');
+        anchorEl.href = linklessNav ? '#' : homeUrl;
+        anchorEl.innerHTML = `<img src="${logo}" alt="Bitdefender">`;
+
+        const link = block.querySelector('a');
+        link.outerHTML = createButton(link).outerHTML;
+        decorateButtons(block);
+        logo = anchorEl;
+        block.querySelector('.section-metadata').remove();
+        return;
+      }
       block.innerHTML = html;
 
       const logo = block.querySelector('img').getAttribute('src');

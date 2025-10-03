@@ -19,7 +19,7 @@ module.exports = {
     'carousel-control-prev-icon',
     'pointer-event',
     'justify-content-end',
-    'p-5', 'my-5', 'my-0', 'my-1', 'my-2',
+    'p-5', 'pt-3', 'my-5', 'my-0', 'my-1', 'my-2', 'mx-auto',
     'table-bordered',
   ],
   blocklist: ['strong'],

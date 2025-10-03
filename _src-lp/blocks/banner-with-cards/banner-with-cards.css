@@ -102,7 +102,8 @@
 }
 
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox p {
-  font-size: 14px;
+  font-size: 14px !important;
+  line-height: 16px !important;
 }
 
 .section.banner-with-cards-container.free-size .banner-with-cards .hasProds > div:first-of-type p {
@@ -174,7 +175,7 @@
   color: white;
   background-color: #026DFF;
   border-radius: 20px;
-  margin-top: 10px;
+  margin-top: 6px;
   padding: 3px 8px;
   display: inline-block;
   width: fit-content;
@@ -399,6 +400,7 @@
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper {
   background-color: #EDF9FF;
   border-radius: 20px;
+  text-align: left;
 }
 
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds {
@@ -460,7 +462,7 @@
 }
 
 .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .hasProds .prodBox hr {
-  border: 1px solid;
+  border-top: 0.5px solid;
   margin: 12px 0;
 }
 
@@ -498,6 +500,115 @@
 .section.banner-with-cards-container.rounded .banner-with-cards {
   border-radius: 20px;
   background-color: #F6F6F6 !important;
+}
+
+.section.banner-with-cards-container.trial-banner.v2 .banner-with-cards-wrapper .hasProds .prodBox {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2509803922);
+  z-index: 2;
+}
+
+.section.banner-with-cards-container.trial-banner.v2 .banner-with-cards-wrapper .hasProds .prodBox h3 {
+  font-weight: 700;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-with-cards-container.trial-banner.v2 .banner-with-cards .prodBox ul li {
+  background-position: left;
+  background-image: url("../../icons/checkmark_solid-circle_2.svg");
+}
+
+.section.banner-with-cards-container.trial-banner.v2 .default-content-wrapper h2 {
+  color: #fff;
+}
+
+.section.banner-with-cards-container.trial-banner.v2 .default-content-wrapper p {
+  color: #fff;
+}
+
+main:has(.section.banner-with-cards-container.they-wear-our-faces) {
+  overflow: hidden;
+}
+
+.section.banner-with-cards-container.they-wear-our-faces {
+  background: linear-gradient(180deg, #000 0%, #006DFF 100%);
+  border: none !important;
+}
+.section.banner-with-cards-container.they-wear-our-faces::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 45%;
+  left: -50%;
+  bottom: -41%;
+  z-index: 1;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  transform: rotate(170deg);
+}
+.section.banner-with-cards-container.they-wear-our-faces h4 {
+  font-style: normal;
+  font-weight: 400;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+.section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards {
+  display: flex;
+  justify-content: center;
+}
+.section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds {
+  justify-content: center;
+}
+.section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p {
+  position: relative;
+}
+.section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p:has(.icon) {
+  padding-left: 60px;
+}
+.section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p .icon {
+  position: absolute;
+}
+.section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p .icon svg {
+  left: -48px;
+  top: 0;
+}
+@media (width < 992px) {
+  .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child {
+    max-width: 446px;
+  }
+}
+.section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds .prodBox {
+  margin: 0 auto;
+  max-width: 446px;
+}
+@media (width < 768px) {
+  .section.banner-with-cards-container.they-wear-our-faces .default-content-wrapper {
+    text-align: left;
+    padding-left: 30px;
+    padding-bottom: 0;
+    gap: 0;
+  }
+  .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds {
+    padding: 0 30px;
+  }
+  .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p:has(.icon) {
+    padding-left: 37px;
+  }
+  .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p:has(.icon) .icon svg {
+    left: -35px;
+  }
+  .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .prodBox-wrapper {
+    margin: 0;
+  }
+}
+@media (width >= 768px) {
+  .section.banner-with-cards-container.they-wear-our-faces h4 {
+    padding-left: 60px;
+  }
+}
+@media (width >= 991px) {
+  .section.banner-with-cards-container.they-wear-our-faces::after {
+    height: 55%;
+    bottom: -51%;
+  }
 }
 
 @media (width <= 1225px) {

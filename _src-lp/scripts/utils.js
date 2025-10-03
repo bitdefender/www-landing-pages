@@ -583,9 +583,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
         const match = trialLinks.find((item) => (
           item.locale.toLowerCase() === locale
-            && item.product === productId
-            && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-            && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+          && item.product === productId
+          && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+          && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
         ));
 
         if (match) {
@@ -617,9 +617,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
     const match = trialLinks.find((item) => (
       item.locale.toLowerCase() === locale
-        && item.product === productId
-        && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-        && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+      && item.product === productId
+      && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+      && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
     ));
 
     if (match) {
@@ -1180,6 +1180,62 @@ export async function matchHeights(targetNode, selector) {
   });
 
   adjustHeights();
+}
+
+// General function to match the width of elements based on a selector
+export async function matchWidths(targetNode, selector, windowMaxInnerWidth = 768) {
+  const resetWidths = () => {
+    const elements = targetNode.querySelectorAll(selector);
+    elements.forEach((element) => {
+      element.style.minWidth = '';
+    });
+  };
+
+  const adjustWidths = () => {
+    if (window.innerWidth >= windowMaxInnerWidth) {
+      resetWidths();
+      const elements = targetNode.querySelectorAll(selector);
+      const elementsWidth = Array.from(elements).map((element) => element.offsetWidth);
+      const maxWidth = Math.max(...elementsWidth);
+
+      elements.forEach((element) => {
+        element.style.minWidth = `${maxWidth}px`;
+      });
+    } else {
+      resetWidths();
+    }
+  };
+
+  const matchWidthsCallback = (mutationsList) => {
+    Array.from(mutationsList).forEach((mutation) => {
+      if (mutation.type === 'childList') {
+        adjustWidths();
+      }
+    });
+  };
+
+  const observer = new MutationObserver(matchWidthsCallback);
+  const resizeObserver = new ResizeObserver(debounce((entries) => {
+    // eslint-disable-next-line no-unused-vars
+    entries.forEach((entry) => {
+      adjustWidths();
+    });
+  }), 100);
+
+  if (targetNode) {
+    observer.observe(targetNode, { childList: true, subtree: true });
+  }
+
+  window.addEventListener('resize', () => {
+    adjustWidths();
+  });
+
+  const elements = targetNode.querySelectorAll(selector);
+  elements.forEach((element) => {
+    resizeObserver.observe(element);
+  });
+
+  adjustWidths();
 }
 
 /**

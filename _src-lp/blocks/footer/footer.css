@@ -92,6 +92,83 @@ footer .footer__links li:last-child::after {
   display: none;
 }
 
+footer:has(.new-design) {
+  padding-top: 0;
+  background-color: #0059D6;
+  padding-bottom: 24px;
+}
+footer:has(.new-design) .image-section {
+  padding: 20px 0 5px;
+  background-color: #006DFF;
+}
+footer:has(.new-design) .image-section .default-content-wrapper {
+  max-width: 1350px;
+}
+footer:has(.new-design) .image-section .default-content-wrapper p {
+  display: flex;
+  min-width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+footer:has(.new-design) .image-section .default-content-wrapper p img {
+  width: 125px;
+}
+@media (width >= 768px) {
+  footer:has(.new-design) .image-section .default-content-wrapper p {
+    padding: 0 30px;
+  }
+}
+@media (width >= 992px) {
+  footer:has(.new-design) .image-section .default-content-wrapper p {
+    padding: 0 30px;
+  }
+  footer:has(.new-design) .image-section .default-content-wrapper p img {
+    width: 160px;
+  }
+}
+
+footer .new-design .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0 0;
+  max-width: 1350px;
+}
+footer .new-design .default-content-wrapper p {
+  font-size: 14px;
+  padding: 0 20px;
+}
+footer .new-design .default-content-wrapper p:nth-of-type(1) {
+  display: flex;
+  padding-bottom: 25px;
+  max-width: 700px;
+  justify-content: space-between;
+  flex-direction: column;
+  color: #0059D6;
+}
+footer .new-design .default-content-wrapper p:last-of-type {
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  width: calc(100% - 60px);
+  padding-left: 0;
+  margin: auto;
+}
+@media (width >= 768px) {
+  footer .new-design .default-content-wrapper p:first-of-type {
+    flex-direction: row;
+    color: inherit;
+    max-width: 740px;
+  }
+  footer .new-design .default-content-wrapper p {
+    padding: 0 30px;
+  }
+}
+@media (width >= 992px) {
+  footer .new-design .default-content-wrapper p {
+    padding: 0 30px;
+  }
+}
+
 /* for mobile */
 @media (width <= 768px) {
   footer {

@@ -53,7 +53,6 @@
   font-size: 13px;
   text-transform: uppercase;
   color: #999;
-  letter-spacing: 0.7px;
   margin-bottom: 30px;
 }
 
@@ -157,7 +156,8 @@ main .columns-container.padding-0 .columns-wrapper {
   background-color: #E4F2FF;
   border-radius: 10px;
 }
-.columns-container .columns.blue-cards > div > div h3, .columns-container .columns.blue-cards > div > div p {
+.columns-container .columns.blue-cards > div > div h3,
+.columns-container .columns.blue-cards > div > div p {
   color: #000;
   margin: 0;
   text-transform: none;
@@ -184,7 +184,8 @@ main .columns-container.padding-0 .columns-wrapper {
   background-color: #F5F5F7;
   border-radius: 10px;
 }
-.columns-container .columns.gray-cards > div > div > div h3, .columns-container .columns.gray-cards > div > div > div p {
+.columns-container .columns.gray-cards > div > div > div h3,
+.columns-container .columns.gray-cards > div > div > div p {
   color: #000;
   margin: 0;
   text-transform: none;
@@ -195,6 +196,121 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container .columns.gray-cards.v2 {
   flex-wrap: wrap;
+}
+.columns-container .columns.gray-cards.v3 > div {
+  flex-direction: column;
+}
+.columns-container .columns.gray-cards.v3 > div > div {
+  min-width: 100%;
+  gap: 30px;
+}
+.columns-container .columns.gray-cards.v3 > div > div > div {
+  padding: 24px;
+  gap: 8px;
+  background-color: #FAFAFA;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 20px;
+}
+.columns-container .columns.gray-cards.v3 > div > div > div h3 {
+  font-size: 18px;
+}
+.columns-container .columns.gray-cards.v3 > div > div > div .button-container a {
+  background: none;
+  color: #006DFF;
+  font-size: 16px;
+  text-decoration: underline;
+  font-weight: 600;
+  padding-bottom: 0;
+}
+@media (width >= 992px) {
+  .columns-container .columns.gray-cards.v3 > div {
+    flex-direction: unset;
+  }
+  .columns-container .columns.gray-cards.v3 > div > div {
+    min-width: unset;
+  }
+}
+.columns-container .columns.white-cards {
+  gap: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.columns-container .columns.white-cards > div {
+  gap: 30px;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.columns-container .columns.white-cards > div > div {
+  flex: 0;
+  padding: 0;
+}
+.columns-container .columns.white-cards > div > div > div {
+  display: flex;
+  text-align: left;
+  background-color: #FFF;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 20px;
+}
+.columns-container .columns.white-cards > div > div > div h3 {
+  text-transform: none;
+  color: #000;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.columns-container .columns.white-cards > div > div > div p {
+  font-size: 16px;
+  margin: 0;
+}
+.columns-container .columns.white-cards > div > div > div .icon {
+  height: 48px;
+  width: 48px;
+  margin-bottom: 9px;
+}
+@media (width >= 768px) and (width <= 992px) {
+  .columns-container .columns.white-cards > div > div > div {
+    flex-direction: row;
+    gap: 10px;
+    width: 446px;
+  }
+}
+@media (width > 992px) {
+  .columns-container .columns.white-cards > div > div > div {
+    width: 300px;
+  }
+}
+@media (width > 1400px) {
+  .columns-container .columns.white-cards > div > div > div {
+    width: 410px;
+  }
+}
+@media (width >= 768px) and (width <= 992px) {
+  .columns-container .columns.white-cards > div > div {
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+  }
+}
+@media (width >= 768px) and (width <= 992px) {
+  .columns-container .columns.white-cards > div {
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+  }
+}
+.columns-container .columns.ibm-plex-sans {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+.columns-container .columns.ibm-plex-sans h3 {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+.columns-container .columns.icons-48 .icon {
+  width: 48px !important;
+  height: 48px !important;
 }
 .columns-container .columns.feature-cards > div {
   gap: 30px;
@@ -263,8 +379,79 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container .columns.feature-cards.blue-border > div > div p {
   font-size: 16px;
 }
+.columns-container .columns.dynamic-image h2 {
+  color: unset;
+  font-size: 24px;
+  line-height: normal;
+}
+.columns-container .columns.dynamic-image p {
+  font-size: 18px;
+}
+.columns-container .columns.dynamic-image .text-content {
+  text-align: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 0;
+}
+.columns-container .columns.dynamic-image .button-container a {
+  width: 100%;
+  font-size: 18px;
+  line-height: 14px;
+  font-weight: 500;
+  padding: 20px;
+}
+.columns-container .columns.dynamic-image p:last-of-type {
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+}
+.columns-container .columns.dynamic-image img {
+  max-width: 90%;
+  margin: auto;
+}
+.columns-container .columns.dynamic-image picture:last-of-type {
+  display: none;
+}
+.columns-container .columns.dynamic-image > div {
+  gap: 16px;
+}
+@media (width >= 768px) {
+  .columns-container .columns.dynamic-image > div {
+    flex-direction: column;
+    text-align: center;
+  }
+  .columns-container .columns.dynamic-image .text-content {
+    text-align: center;
+  }
+  .columns-container .columns.dynamic-image h2 {
+    font-size: 32px;
+  }
+  .columns-container .columns.dynamic-image picture:first-of-type {
+    display: none;
+  }
+  .columns-container .columns.dynamic-image picture:last-of-type {
+    display: block;
+  }
+  .columns-container .columns.dynamic-image .button-container a {
+    width: fit-content;
+  }
+}
+@media (width >= 993px) {
+  .columns-container .columns.dynamic-image > div {
+    flex-direction: unset;
+    text-align: left;
+  }
+  .columns-container .columns.dynamic-image p:last-of-type {
+    width: fit-content;
+  }
+  .columns-container .columns.dynamic-image .text-content {
+    text-align: left;
+  }
+}
 @media (width > 1400px) {
-  .columns-container .columns-wrapper:has(.feature-cards), .columns-container .columns-wrapper:has(.gray-cards) {
+  .columns-container .columns-wrapper:has(.feature-cards),
+  .columns-container .columns-wrapper:has(.gray-cards),
+  .columns-container .columns-wrapper:has(.white-cards) {
     max-width: 1320px;
   }
 }
@@ -301,6 +488,11 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container.blue-buttons .columns-wrapper .columns .text-content .button-container a:hover {
   filter: brightness(95%);
+}
+
+.columns-container.they-wear-our-faces {
+  background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(0, 42, 96) 50%);
+  border: none !important;
 }
 
 @media (width <= 991px) {
