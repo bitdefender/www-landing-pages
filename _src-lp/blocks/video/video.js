@@ -4,8 +4,8 @@
  * https://www.aem.live/developer/block-collection/video
  */
 
-import { AdobeDataLayerService } from '@repobit/dex-data-layer';
 import { getDatasetFromSection } from '../../scripts/utils.js';
+import YouTubeTracker from './youtube-tracker.js';
 
 function embedYoutube(url, autoplay) {
   const usp = new URLSearchParams(url.search);
@@ -16,8 +16,10 @@ function embedYoutube(url, autoplay) {
   if (url.origin.includes('youtu.be')) {
     [, vid] = url.pathname.split('/');
   }
+  // Generate unique ID for iframe
+  const iframeId = `youtube-player-${Math.random().toString(36).substr(2, 9)}`;
   return `<div style="left: 0; width: 100%; height: 100%; position: relative; padding-bottom: 56.25%;">
-  <iframe src="https://www.youtube.com${vid ? `/embed/${vid}?rel=0&v=${vid}${suffix}${startTime}` : embed}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" 
+  <iframe id="${iframeId}" src="https://www.youtube.com${vid ? `/embed/${vid}?rel=0&v=${vid}&enablejsapi=1${suffix}${startTime}` : embed}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" 
   allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope; picture-in-picture" allowfullscreen="" scrolling="no" title="Content from Youtube" loading="lazy"></iframe>
   </div>`;
 }
@@ -60,6 +62,8 @@ const loadVideoEmbed = (block, link, autoplay) => {
 
   if (isYoutube) {
     block.innerHTML = embedYoutube(url, autoplay);
+    const tracker = new YouTubeTracker(block, link, url);
+    tracker.initialize();
   } else if (isVimeo) {
     block.innerHTML = embedVimeo(url, autoplay);
   } else if (isMp4) {
@@ -78,20 +82,6 @@ const DESKTOP_ALIGN_ENUM = {
 
 function positionVideoContainer(block, desktopAlign) {
   block.classList.add(DESKTOP_ALIGN_ENUM[desktopAlign] || DESKTOP_ALIGN_ENUM.LEFT);
-}
-
-function trackYoutubeVideo(link, url, videoTitle, videoDuration) {
-  const usp = new URLSearchParams(url.search);
-  AdobeDataLayerService.push({
-    event: 'youtube.play',
-    video: {
-      title: videoTitle || 'no title metadata provided',
-      id: usp.get('v') || link.split('/').pop(),
-      playhead: 0,
-      duration: videoDuration || 0,
-      milestone: 0,
-    },
-  });
 }
 
 function isMobileDevice() {
@@ -151,11 +141,5 @@ export default async function decorate(block) {
       }
     });
     observer.observe(block);
-  }
-
-  const url = new URL(videoLink);
-  const isYoutube = videoLink.includes('youtube') || videoLink.includes('youtu.be');
-  if (isYoutube) {
-    trackYoutubeVideo(videoLink, url, videoTitle, videoDuration);
   }
 }
