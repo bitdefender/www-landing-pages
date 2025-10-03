@@ -510,6 +510,9 @@
     font-size: 24px;
     line-height: 37px;
   }
+  .c-icon-box-grid-container.bigger-heading .col-lg .title {
+    font-size: 32px;
+  }
   .c-icon-box-grid-container.grey-box .col-lg .subtitle {
     font-size: var(--body-font-size-s);
   }

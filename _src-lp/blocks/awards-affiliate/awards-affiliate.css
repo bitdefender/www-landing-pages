@@ -75,13 +75,14 @@
   width: 125px;
 }
 
+.awards-affiliate.no-button .subtitle h3 {
+  margin-top: 0;
+}
+
 @media screen and (width >= 768px) {
   .smaller-imgs .awards-affiliate > div:last-of-type img {
     height: 100px;
     margin-top: 1em;
-  }
-  .smaller-imgs .awards-affiliate > div:last-of-type img:first-of-type {
-    margin-right: 2em;
   }
   .awards-affiliate img {
     max-width: none;

@@ -220,6 +220,7 @@ main .columns-container.padding-0 .columns-wrapper {
   gap: 0;
   padding: 30px 0 0;
   overflow: hidden;
+  background-color: #EDF9FF;
 }
 .columns-container .columns.feature-cards > div > div > *:not(p:has(img)) {
   padding: 0 24px 0 32px;
@@ -351,9 +352,16 @@ main .columns-container.padding-0 .columns-wrapper {
   }
   .columns-container.round-corners .columns div {
     padding: 0;
+    align-items: unset;
+  }
+  .columns-container.round-corners .columns > div > div:has(.text-content) {
+    display: flex;
+    padding: 30px 0;
+    align-items: center;
   }
   .columns-container.round-corners .columns div.text-content {
     padding: 0 60px;
+    align-self: center;
   }
   .columns-container.new .columns > div {
     padding: 15px 0;
