@@ -20,6 +20,66 @@
   font-weight: bold;
 }
 
+.section.banner-container.csam-design h1 {
+  display: none;
+}
+
+.section.banner-container.csam-design .block {
+  overflow: hidden;
+}
+
+.section.banner-container.csam-design .block .row > div {
+  width: 100%;
+}
+
+.section.banner-container.csam-design .block .row > div p {
+  padding: 0;
+  margin: 0;
+}
+
+.section.banner-container.csam-design .block .row > div p:last-of-type {
+  text-align: center;
+  width: 500px;
+  margin-left: 1em;
+  font-size: 19px;
+  line-height: 25px;
+  margin-top: -11em;
+}
+
+.section.banner-container.csam-design .block .row > div p:last-of-type a {
+  background: #E72325 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  font-family: Arial, sans-serif;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+  margin-top: 1em;
+  transition: .4s all ease-in-out;
+}
+
+.section.banner-container.csam-design .block .row > div p:last-of-type a:hover {
+  background: #c5171a 0% 0% no-repeat padding-box;
+  text-decoration: none;
+  transition: .4s all ease-in-out;
+}
+
+.section.banner-container.csam-design .block .row > div em {
+  display: block;
+  width: max-content;
+  background-color: #e5f2ff;
+  color: #026DFF;
+  padding: 10px 15px;
+  transform: skewX(-10deg);
+  margin-bottom: -6em;
+  margin-left: 3.5em;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
 .section.banner-container.borders-rounded .banner {
   border-radius: 11px;
 }
@@ -734,8 +794,8 @@
     margin-bottom: -3em;
   }
 
-  .section.banner-container.csam-design .block .row>div p:last-of-type {
-    margin-left: 3em;
+  .section.banner-container.csam-design .block .row > div p:last-of-type {
+    margin-left: 0;
     margin-top: -7em;
   }
 }
@@ -819,9 +879,10 @@
     min-width: 900px;
   }
 
-  .section.banner-container.csam-design .block .row>div p:last-of-type {
-    margin-left: 1em;
+  .section.banner-container.csam-design .block .row > div p:last-of-type {
+    margin-left: 0;
     margin-top: -7em;
+    width: 400px;
   }
 }
 
