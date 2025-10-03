@@ -274,6 +274,10 @@
     min-height: 2rem;
 }
 
+.new-prod-boxes-container .tag-subtitle {
+    align-content: end;
+}
+
 .new-prod-boxes-container.flex-height .tag-subtitle {
     min-height: 80px;
     display: flex;
@@ -849,9 +853,13 @@
 	visibility: visible;
 	min-height: 130px;
 	text-align: center;
-	font-size: var(--heading-font-size-xs);
+	font-size: 16px;
   line-height: var(--heading-font-size-m);
 	margin-top: 20px;
+}
+
+.new-prod-boxes-container.business .block .prod_box .inner_prod_box .billed span {
+	font-size: 18px;
 }
 
 .new-prod-boxes-container.business.business-compact .block .prod_box .inner_prod_box .billed {
