@@ -218,9 +218,11 @@ main .columns-container.padding-0 .columns-wrapper {
     &.v3 {
       >div {
         flex-direction: column;
+
         >div {
           min-width: 100%;
           gap: 30px;
+
           >div {
             padding: 24px;
             gap: 8px;
@@ -248,6 +250,7 @@ main .columns-container.padding-0 .columns-wrapper {
       @media (width >= 992px) {
         >div {
           flex-direction: unset;
+
           >div {
             min-width: unset;
           }

@@ -123,6 +123,8 @@
 }
 .awards-affiliate-container.they-wear-our-faces .awards-affiliate-wrapper {
   background-color: #EDF9FF;
+  z-index: 2;
+  position: relative;
 }
 .awards-affiliate-container.they-wear-our-faces.they-wear-our-faces-awards-affiliate span:has(.button.primary) .button.primary {
   width: 324px;
@@ -162,10 +164,6 @@
 }
 .awards-affiliate-container.they-wear-our-faces {
   border: none !important;
-}
-.awards-affiliate-container.they-wear-our-faces .awards-affiliate-wrapper {
-  z-index: 2;
-  position: relative;
 }
 @media (width < 768px) {
   .awards-affiliate-container.they-wear-our-faces {

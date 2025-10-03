@@ -136,6 +136,8 @@
 
   .awards-affiliate-wrapper {
     background-color: #EDF9FF;
+    z-index: 2;
+    position: relative;
   }
 
   &.they-wear-our-faces-awards-affiliate {
@@ -188,11 +190,6 @@
   }
 
   border: none !important;
-
-  .awards-affiliate-wrapper {
-    z-index: 2;
-    position: relative;
-  }
 
   @media (width < 768px) {
     padding: 30px;
@@ -300,6 +297,7 @@
     .awards-affiliate.black-heading {
       padding-left: 32px;
       padding-right: 32px;
+
       .columns-class {
         flex-direction: column;
         margin-top: 5px;

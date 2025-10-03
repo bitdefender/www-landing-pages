@@ -103,6 +103,7 @@ footer:has(.new-design) {
 
     .default-content-wrapper {
       max-width: 1350px;
+
       p {
         display: flex;
         min-width: 100%;
@@ -117,12 +118,14 @@ footer:has(.new-design) {
         // Tablet and up (768px+)
         @media (width >= 768px) {
           padding: 0 30px;
+
           // img stays 125px for tablet
         }
 
         // Desktop and up (992px+)
         @media (width >= 992px) {
           padding: 0 30px;
+
           img {
             width: 160px; // Increase image size for desktop
           }
@@ -154,7 +157,7 @@ footer .new-design .default-content-wrapper {
 
   p:last-of-type {
     padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 1px solid rgb(255 255 255 / 25%);
     width: calc(100% - 60px);
     padding-left: 0;
     margin: auto;
