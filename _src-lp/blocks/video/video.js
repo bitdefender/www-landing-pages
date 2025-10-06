@@ -8,13 +8,13 @@ import { getDatasetFromSection } from '../../scripts/utils.js';
 import YouTubeTracker from './youtube-tracker.js';
 
 function isSafariMobile() {
-  return UserAgent.os === 'ios' || UserAgent.os === 'Mac/iOS';
+  return (UserAgent.os === 'ios' || UserAgent.os === 'Mac/iOS') && UserAgent.isSafari();
 }
 
 function embedYoutube(url, autoplay) {
   const usp = new URLSearchParams(url.search);
-  const muteParam = autoplay && isSafariMobile() ? '&mute=1' : '';
-  const suffix = autoplay ? `&cc_load_policy=1&muted=1&autoplay=1&playsinline=1${muteParam}` : '';
+  const muteParam = autoplay && isSafariMobile() ? '&mute=1&muted=1' : '';
+  const suffix = autoplay ? `&cc_load_policy=1&autoplay=1&playsinline=1${muteParam}` : '';
   const startTime = usp.get('t') ? `&start=${encodeURIComponent(usp.get('t'))}` : '';
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
   const embed = url.pathname;
