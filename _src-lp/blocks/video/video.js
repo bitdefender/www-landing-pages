@@ -17,8 +17,8 @@ function isSafariMobile() {
 
 function embedYoutube(url, autoplay) {
   const usp = new URLSearchParams(url.search);
-  const muteParam = autoplay && isSafariMobile() ? '' : '';
-  const suffix = autoplay ? `&muted=1&autoplay=1&playsinline=1${muteParam}` : '';
+  const muteParam = autoplay && isSafariMobile() ? 'mute=1' : '';
+  const suffix = autoplay ? `&cc_load_policy=1&muted=1&autoplay=1&playsinline=1${muteParam}` : '';
   const startTime = usp.get('t') ? `&start=${encodeURIComponent(usp.get('t'))}` : '';
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
   const embed = url.pathname;
