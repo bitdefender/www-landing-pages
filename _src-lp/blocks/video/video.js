@@ -3,22 +3,18 @@
  * Show a video referenced by a link
  * https://www.aem.live/developer/block-collection/video
  */
-
+import { UserAgent } from '@repobit/dex-utils';
 import { getDatasetFromSection } from '../../scripts/utils.js';
 import YouTubeTracker from './youtube-tracker.js';
 
 function isSafariMobile() {
-  const userAgent = navigator.userAgent;
-  console.log(userAgent);
-  const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/CriOS/.test(userAgent);
-  const isMobile = /iPhone|iPad|iPod/.test(userAgent);
-  return isSafari && isMobile;
+  return UserAgent.os === 'ios' || UserAgent.os === 'Mac/iOS';
 }
 
 function embedYoutube(url, autoplay) {
   const usp = new URLSearchParams(url.search);
   const muteParam = autoplay && isSafariMobile() ? '&mute=1' : '';
-  const suffix = autoplay ? `&muted=1&autoplay=1&playsinline=1${muteParam}` : '';
+  const suffix = autoplay ? `&cc_load_policy=1&muted=1&autoplay=1&playsinline=1${muteParam}` : '';
   const startTime = usp.get('t') ? `&start=${encodeURIComponent(usp.get('t'))}` : '';
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
   const embed = url.pathname;
@@ -58,7 +54,6 @@ function getVideoElement(source, autoplay) {
 
   return video;
 }
-
 const loadVideoEmbed = (block, link, autoplay) => {
   if (block.dataset.embedIsLoaded) {
     return;

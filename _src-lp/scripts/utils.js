@@ -549,6 +549,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     if (dcurrency) newParams.set('DCURRENCY', dcurrency);
     if (campaign) newParams.set('COUPON', campaign);
 
+    updatedUrl.href = await target.appendVisitorIDsTo(updatedUrl.href);
+    if (window.UC_UI) {
+      updatedUrl.searchParams.set('ucControllerId', window.UC_UI.getControllerId());
+    }
+
     return updatedUrl.toString();
   };
 

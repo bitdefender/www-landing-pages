@@ -1,7 +1,6 @@
 /*
  * YouTube Video Tracker
- * Tracks YouTube video events (play, pause, milestone, completed) and sends to Adobe Data Layer
- */
+ * Tracks YouTube video events (play, pause, milestone, completed) and sends to Adobe Data Layer */
 
 import { AdobeDataLayerService } from '@repobit/dex-data-layer';
 
