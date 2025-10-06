@@ -1,6 +1,6 @@
 import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { matchHeights, updateProductsList } from '../../scripts/utils.js';
+import { matchHeights, updateProductsList, adobeMcAppendVisitorId } from '../../scripts/utils.js';
 
 function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, radio1, radio2) {
   const radioBoxParent = document.createElement('div');
@@ -63,10 +63,11 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
 
 function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display) {
   const trialText = tableBuyBtn.closest('.section').dataset.trialText;
+  const hardcodedLink = tableBuyBtn.closest('.section').dataset.hardcodedLink;
   const btnText = trialText?.includes('no-trial-text') ? tableBuyBtn.textContent.replace('0%', '') : tableBuyBtn.textContent;
   const createButton = (className, selectorClass) => {
     const button = document.createElement('div');
-    button.innerHTML = `<a href='#' title='Bitdefender ${prodName}' class='${className} red-buy-button await-loader prodload prodload-${selectorClass} buylink-${selectorClass}' referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
+    button.innerHTML = `<a href='${hardcodedLink ?? '#'}' title='Bitdefender ${prodName}' class='${className} ${hardcodedLink ? '' : `await-loader prodload prodload-${selectorClass} buylink-${selectorClass}`} red-buy-button referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
 
     return button.innerHTML;
   };
@@ -275,4 +276,9 @@ export default function decorate(block) {
   matchHeights(block, '.prodBox p:first-of-type');
   matchHeights(block, '.prodBox ul:first-of-type');
   matchHeights(block, '.prices_box > div > div:first-of-type');
+
+  const trialButton = block.querySelector('.banner-with-cards .prodBox a');
+  if (trialButton && !trialButton.href.includes('store')) {
+    adobeMcAppendVisitorId('.banner-with-cards .prodBox a');
+  }
 }
