@@ -8,7 +8,7 @@ import { getDatasetFromSection } from '../../scripts/utils.js';
 import YouTubeTracker from './youtube-tracker.js';
 
 function isSafariMobile() {
-  return (UserAgent.os === 'ios' || UserAgent.os === 'Mac/iOS') && UserAgent.isSafari();
+  return (UserAgent.os === 'ios' || UserAgent.os === 'Mac/iOS') && UserAgent.isSafari;
 }
 
 function embedYoutube(url, autoplay) {
