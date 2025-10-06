@@ -3,16 +3,12 @@
  * Show a video referenced by a link
  * https://www.aem.live/developer/block-collection/video
  */
-
+import { UserAgent } from '@repobit/dex-utils';
 import { getDatasetFromSection } from '../../scripts/utils.js';
 import YouTubeTracker from './youtube-tracker.js';
 
 function isSafariMobile() {
-  const userAgent = navigator.userAgent;
-  console.log(userAgent);
-  const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/CriOS/.test(userAgent);
-  const isMobile = /iPhone|iPad|iPod/.test(userAgent);
-  return isSafari && isMobile;
+  return UserAgent.os === 'ios';
 }
 
 function embedYoutube(url, autoplay) {
