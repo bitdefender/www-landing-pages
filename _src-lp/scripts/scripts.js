@@ -1217,6 +1217,10 @@ function addTrackingEventListeners(selector, assetName, eventType = 'click') {
       return 'header';
     }
 
+    if (element.closest('.they-wear-our-faces-sticky-section')) {
+      return 'they-wear-our-faces-sticky-section';
+    }
+
     return null;
   }
 
