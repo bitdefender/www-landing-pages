@@ -1,7 +1,6 @@
 /*
  * YouTube Video Tracker
- * Tracks YouTube video events (play, pause, milestone, completed) and sends to Adobe Data Layer
- */
+ * Tracks YouTube video events (play, pause, milestone, completed) and sends to Adobe Data Layer */
 
 import { AdobeDataLayerService } from '@repobit/dex-data-layer';
 
@@ -40,6 +39,9 @@ export default class YouTubeTracker {
     const usp = new URLSearchParams(url.search);
     this.videoId = usp.get('v') || link.split('/').pop();
 
+    // Detect Safari for auto-unmute functionality
+    this.isSafari = YouTubeTracker.detectSafari();
+
     this.trackingState = {
       videoId: this.videoId,
       title: 'no title metadata provided',
@@ -53,6 +55,11 @@ export default class YouTubeTracker {
       hasPlayed: false,
       progressInterval: null,
     };
+  }
+
+  static detectSafari() {
+    const userAgent = navigator.userAgent;
+    return /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/CriOS/.test(userAgent);
   }
 
   updateVideoDataFromPlayer(player) {
@@ -85,6 +92,15 @@ export default class YouTubeTracker {
   }
 
   handlePlayingState(player) {
+    // Auto-unmute on Safari after video starts playing (if user interacted with page)
+    if (this.isSafari && player.isMuted && player.isMuted()) {
+      try {
+        player.unMute();
+        console.log('Video auto-unmuted on Safari');
+      } catch (error) {
+        console.log('Could not auto-unmute video:', error);
+      }
+    }
     // Update video data from player if not yet populated
     if (!this.trackingState.duration || this.trackingState.title === 'no title metadata provided') {
       this.updateVideoDataFromPlayer(player);

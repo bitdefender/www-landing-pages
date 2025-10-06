@@ -17,7 +17,7 @@ function isSafariMobile() {
 
 function embedYoutube(url, autoplay) {
   const usp = new URLSearchParams(url.search);
-  const muteParam = autoplay && isSafariMobile() ? '&mute=1' : '';
+  const muteParam = autoplay && isSafariMobile() ? '' : '';
   const suffix = autoplay ? `&muted=1&autoplay=1&playsinline=1${muteParam}` : '';
   const startTime = usp.get('t') ? `&start=${encodeURIComponent(usp.get('t'))}` : '';
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
@@ -59,6 +59,37 @@ function getVideoElement(source, autoplay) {
   return video;
 }
 
+function setupSafariAutoUnmute(block) {
+  let hasInteracted = false;
+
+  const handleFirstInteraction = () => {
+    if (hasInteracted) return;
+    hasInteracted = true;
+
+    // Find the YouTube iframe and try to unmute
+    const iframe = block.querySelector('iframe[id^="youtube-player"]');
+    if (iframe && window.YT) {
+      try {
+        const player = new window.YT.Player(iframe.id);
+        if (player.isMuted && player.isMuted()) {
+          player.unMute();
+          console.log('Video unmuted after user interaction on Safari');
+        }
+      } catch (error) {
+        console.log('Could not unmute video after interaction:', error);
+      }
+    }
+
+    // Remove event listeners after first interaction
+    document.removeEventListener('touchstart', handleFirstInteraction);
+    document.removeEventListener('click', handleFirstInteraction);
+  };
+
+  // Listen for first user interaction
+  document.addEventListener('touchstart', handleFirstInteraction, { once: true });
+  document.addEventListener('click', handleFirstInteraction, { once: true });
+}
+
 const loadVideoEmbed = (block, link, autoplay) => {
   if (block.dataset.embedIsLoaded) {
     return;
@@ -73,6 +104,11 @@ const loadVideoEmbed = (block, link, autoplay) => {
     block.innerHTML = embedYoutube(url, autoplay);
     const tracker = new YouTubeTracker(block, link, url);
     tracker.initialize();
+
+    // Set up auto-unmute functionality for Safari
+    if (isSafariMobile() && autoplay) {
+      setupSafariAutoUnmute(block);
+    }
   } else if (isVimeo) {
     block.innerHTML = embedVimeo(url, autoplay);
   } else if (isMp4) {
