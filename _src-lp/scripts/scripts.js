@@ -1207,13 +1207,31 @@ function setBFCacheListener() {
  * @param {string} eventType - Event type (default: 'click')
  */
 function addTrackingEventListeners(selector, assetName, eventType = 'click') {
+  function getSectionId(element) {
+    const parentSection = element.closest('.section');
+    if (parentSection?.id) {
+      return parentSection.id;
+    }
+
+    if (element.closest('header')) {
+      return 'header';
+    }
+
+    if (element.closest('.they-wear-our-faces-sticky-section')) {
+      return 'they-wear-our-faces-sticky-section';
+    }
+
+    return null;
+  }
+
   const elements = document.querySelectorAll(`a[href*="${selector}"]`);
 
-  elements.forEach((element) => {
+  elements.forEach((element, idx) => {
     element.addEventListener(eventType, () => {
+      const sectionID = getSectionId(element);
       AdobeDataLayerService.push({
         event: eventType,
-        asset: assetName,
+        asset: `${assetName}_${sectionID}_${idx + 1}`,
       });
     });
   });

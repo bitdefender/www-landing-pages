@@ -156,7 +156,7 @@ export async function sendAnalyticsProducts(product, region) {
     });
   }
 
-  if (productsInAdobe.length === initCount) {
+  if (productsInAdobe.length === initCount && !(getMetadata('trialbuylinks') || window.trialLinksExist)) {
     window.adobeDataLayer.push({
       event: 'campaign product',
       product: { info: productsInAdobe.filter((value) => Boolean(value)) },
