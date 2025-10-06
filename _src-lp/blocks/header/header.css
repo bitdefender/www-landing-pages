@@ -74,6 +74,14 @@ header.customNav.they-wear-our-faces em {
     margin-right: 16px;
   }
 }
+@media screen and (width >= 991px) {
+  header.customNav.they-wear-our-faces {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+  }
+}
 header.customNav .block div {
   display: flex;
   justify-content: space-between;

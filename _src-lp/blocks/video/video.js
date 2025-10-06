@@ -7,9 +7,18 @@
 import { getDatasetFromSection } from '../../scripts/utils.js';
 import YouTubeTracker from './youtube-tracker.js';
 
+function isSafariMobile() {
+  const userAgent = navigator.userAgent;
+  console.log(userAgent);
+  const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/CriOS/.test(userAgent);
+  const isMobile = /iPhone|iPad|iPod/.test(userAgent);
+  return isSafari && isMobile;
+}
+
 function embedYoutube(url, autoplay) {
   const usp = new URLSearchParams(url.search);
-  const suffix = autoplay ? '&muted=1&autoplay=1&playsinline=1&mute=1' : '';
+  const muteParam = autoplay && isSafariMobile() ? '&mute=1' : '';
+  const suffix = autoplay ? `&muted=1&autoplay=1&playsinline=1${muteParam}` : '';
   const startTime = usp.get('t') ? `&start=${encodeURIComponent(usp.get('t'))}` : '';
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
   const embed = url.pathname;

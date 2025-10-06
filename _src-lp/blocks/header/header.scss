@@ -91,6 +91,13 @@ header {
           margin-right: 16px;
         }
       }
+
+      @media screen and (width >= 991px) {
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        width: 100%;
+      }
     }
 
     .block div {
