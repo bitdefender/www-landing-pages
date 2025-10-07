@@ -547,15 +547,15 @@
     padding-top: 0;
     padding-right: 15px;
   }
-  .b-dropdownbox-container .new > div:not(:first-child), .b-dropdownbox-container.new .b-dropdownbox > div:not(:first-child) {
-  display: block;
-  padding-right: 15px;
-  }
   .b-dropdownbox-container .new div:nth-child(1) > div, .b-dropdownbox-container.new .b-dropdownbox div:nth-child(1) > div {
     font-size: 18px;
     line-height: 24px;
   }
   .b-dropdownbox-container .new ul, .b-dropdownbox-container.new .b-dropdownbox ul {
     text-align: left;
+  }
+  .b-dropdownbox-container .new > div:not(:first-child), .b-dropdownbox-container.new .b-dropdownbox > div:not(:first-child) {
+    display: block;
+    padding-right: 15px;
   }
 }

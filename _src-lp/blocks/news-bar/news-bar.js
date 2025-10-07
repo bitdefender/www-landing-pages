@@ -64,7 +64,6 @@ export default function decorate(block) {
       parentBlockStyle.backgroundColor = '#E4F2FF';
       blockStyle.color = '#006EFF';
       if (elementLink) elementLink.style.color = '#006EFF';
-      blockStyle.height = 'auto';
     }, 2000);
   }
 }
