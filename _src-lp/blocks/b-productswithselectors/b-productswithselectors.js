@@ -1,5 +1,5 @@
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { matchHeights, updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
@@ -162,14 +162,14 @@ export default function decorate(block) {
       pricesDiv.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
       pricesDiv.innerHTML = `<span class="prod-percent prod-percent-tag">
           <span class="percent-${onSelectorClass}">0%</span>
-          ${discountText}
+          ${discountText ?? ''}
         </span>`;
 
       pricesDiv.innerHTML += `
         ${customPrice ? '<div class="custom_hide">' : ''}
         <span class="prod-percent green_txt">
           <b class="percent-${onSelectorClass}">0%</b>
-          ${discountText}
+          ${discountText ?? ''}
         </span>
         ${customPrice ? '</div>' : ''}
       `;
@@ -213,7 +213,17 @@ export default function decorate(block) {
 
       const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');
-      renderedProductSection.querySelector('ul').after(pricesDiv);
+      const lists = renderedProductSection.querySelectorAll('ul');
+
+      if (lists.length === 0) {
+        renderedProductSection.appendChild(pricesDiv);
+      } else if (lists.length === 1) {
+        const list = renderedProductSection.querySelector('ul');
+        if (list.previousElementSibling.tagName === 'P') list.previousElementSibling.before(pricesDiv);
+        else list.before(pricesDiv);
+      } else {
+        lists[0].after(pricesDiv);
+      }
 
       // add selected element
       const selectedProductSection = block.children[idx + 1].querySelector('p:first-of-type u');
@@ -225,4 +235,7 @@ export default function decorate(block) {
       }
     });
   }
+
+  matchHeights(block, 'ul:first-of-type');
+  matchHeights(block, '.prod-newprice');
 }

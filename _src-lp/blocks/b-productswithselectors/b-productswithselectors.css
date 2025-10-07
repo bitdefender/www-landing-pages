@@ -65,8 +65,8 @@
   margin: 0 1%;
 }
 .b-productswithselectors > div .redTag {
-  width: 80px;
-  height: 85px;
+  width: 100px;
+  height: 245px;
   position: absolute;
   top: -45px;
   right: -6px;
@@ -79,8 +79,8 @@
   transform: rotate(45deg);
   display: block;
   text-align: center;
-  margin-top: 10px;
-  margin-left: 5px;
+  margin-top: 20px;
+  margin-left: 10px;
   font-size: 13px;
   width: 124%;
 }
@@ -106,7 +106,6 @@
 }
 
 .b-productswithselectors > div.selected {
-  margin: 1%;
   margin-top: 0;
   border: 1px solid #0E8532;
   border-bottom: 0;
@@ -187,6 +186,10 @@
   visibility: hidden !important;
 }
 
+.hide-btn-2 .b-productswithselectors .prices_box .buy_box2 a.red-buy-button {
+  visibility: hidden;
+}
+
 .b-productswithselectors-container .prod-percent-tag {
   display: none;
 }
@@ -234,6 +237,7 @@
   position: absolute;
   z-index: 9;
   margin-left: -7em;
+  top: 0;
 }
 
 .b-productswithselectors-container.bf2024 a.red-buy-button {
