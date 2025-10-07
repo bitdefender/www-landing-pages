@@ -213,16 +213,12 @@ export default function decorate(block) {
 
       const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');
-      const lists = renderedProductSection.querySelectorAll('ul');
+      const list = renderedProductSection.querySelector('ul');
 
-      if (lists.length === 0) {
-        renderedProductSection.appendChild(pricesDiv);
-      } else if (lists.length === 1) {
-        const list = renderedProductSection.querySelector('ul');
-        if (list.previousElementSibling.tagName === 'P') list.previousElementSibling.before(pricesDiv);
-        else list.before(pricesDiv);
+      if (list) {
+        list.after(pricesDiv);
       } else {
-        lists[0].after(pricesDiv);
+        renderedProductSection.appendChild(pricesDiv);
       }
 
       // add selected element
