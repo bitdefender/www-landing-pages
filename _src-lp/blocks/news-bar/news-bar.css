@@ -2,7 +2,6 @@
   background-color: #006EFF;
   padding: 5px;
   transition: all 1s ease;
-  height: auto;
 }
 
 .section.news-bar-container .news-bar {
@@ -124,6 +123,6 @@
 @media screen and (width >= 991px) {
   .news-bar {
     min-height: 44px;
-    height: 44px;
+    height: auto;
   }
 }
