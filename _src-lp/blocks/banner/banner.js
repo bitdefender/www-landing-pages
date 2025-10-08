@@ -380,7 +380,6 @@ export default function decorate(block) {
     }
 
     const defaultSize = getContentSizeClasses(contentSize);
-    console.log('here');
     if (contentSize === 'full') {
       console.log('full');
     }
