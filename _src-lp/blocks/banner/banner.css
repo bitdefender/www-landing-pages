@@ -79,6 +79,11 @@
   font-family: "IBM Plex Sans", sans-serif;
 }
 
+.section.banner-container.csam-design .block .row > div em * {
+  color: #026DFF;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
 .section.banner-container.borders-rounded .banner {
   border-radius: 11px;
 }
