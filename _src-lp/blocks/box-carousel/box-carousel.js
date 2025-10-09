@@ -2,6 +2,7 @@
 import Glide from '@glidejs/glide';
 import { debounce } from '@repobit/dex-utils';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
+import { detectModalButtons } from '../../scripts/scripts.js';
 
 class TextScramble {
     constructor(el) {
@@ -101,7 +102,7 @@ function generateSlidesHTML(slides) {
         const mobileImagesContainer = slide.querySelector('.images-container').cloneNode(true);
         mobileImagesContainer.classList.add('mobile-images-container');
         slide.querySelector('h3').insertAdjacentElement('afterend', mobileImagesContainer);
-        slide.querySelector('p').classList.add('text-element');
+        slide.querySelector('p:not(.button-container)').classList.add('text-element');
         return `
     <li class="carousel-item glide__slide ${isEven ? 'even' : 'odd'}">
       ${slide.innerHTML}
@@ -415,4 +416,5 @@ export default async function decorate(block) {
 
     // Initialize text scramble effect
     initializeTextScramble(block);
+    detectModalButtons(block);
 }
