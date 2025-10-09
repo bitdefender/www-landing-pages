@@ -73,15 +73,15 @@
   left: 7px;
 }
 
-.default-content-wrapper {
+.video-container .default-content-wrapper {
   text-align: center;
   max-width: 520px;
 }
-.default-content-wrapper em {
+.video-container .default-content-wrapper em {
   color: #828282;
   font-size: 0.875rem;
 }
-.default-content-wrapper img {
+.video-container .default-content-wrapper img {
   width: 210px;
   margin: 10px;
 }
