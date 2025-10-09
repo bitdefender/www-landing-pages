@@ -102,7 +102,7 @@ function generateSlidesHTML(slides) {
         const mobileImagesContainer = slide.querySelector('.images-container').cloneNode(true);
         mobileImagesContainer.classList.add('mobile-images-container');
         slide.querySelector('h3').insertAdjacentElement('afterend', mobileImagesContainer);
-        slide.querySelector('p:not(.button-container)').classList.add('text-element');
+        slide.querySelector('p:not(.button-container):not(:has(img))')?.classList.add('text-element');
         return `
     <li class="carousel-item glide__slide ${isEven ? 'even' : 'odd'}">
       ${slide.innerHTML}
