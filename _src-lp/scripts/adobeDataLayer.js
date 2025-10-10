@@ -1,4 +1,4 @@
-import { AdobeDataLayerService, PageLoadStartedEvent } from '@repobit/dex-data-layer';
+import { AdobeDataLayerService, PageLoadedEvent, PageLoadStartedEvent } from '@repobit/dex-data-layer';
 import userPromise from './user.js';
 import { targetPromise, getPageNameAndSections, getDefaultLanguage } from './target.js';
 import pagePromise from './page.js';
@@ -45,7 +45,7 @@ export const sendAnalyticsErrorEvent = async () => {
   if ((subSection && subSection === '404') || window.errorCode === '404') {
     await target.sendCdpData(); // wait for CDP data to finalize
     window.adobeDataLayer.push({ event: 'page error' });
-    window.adobeDataLayer.push({ event: 'page loaded' });
+    AdobeDataLayerService.push(new PageLoadedEvent());
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 };
@@ -162,9 +162,7 @@ export async function sendAnalyticsProducts(product, region) {
       product: { info: productsInAdobe.filter((value) => Boolean(value)) },
     });
 
-    window.adobeDataLayer.push({
-      event: 'page loaded',
-    });
+    AdobeDataLayerService.push(new PageLoadedEvent());
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 }
@@ -185,7 +183,7 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
     || getMetadata('free-product')
     || force) {
     await target.sendCdpData();
-    window.adobeDataLayer.push({ event: 'page loaded' });
+    AdobeDataLayerService.push(new PageLoadedEvent());
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 }
