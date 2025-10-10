@@ -18,26 +18,35 @@ function embedYoutube(url, autoplay) {
   const startTime = usp.get('t') ? `&start=${encodeURIComponent(usp.get('t'))}` : '';
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
   const embed = url.pathname;
+
   if (url.origin.includes('youtu.be')) {
     [, vid] = url.pathname.split('/');
   }
-  // Generate unique ID for iframe
+
   const iframeId = `youtube-player-${Math.random().toString(36).substr(2, 9)}`;
-  return `<div style="left: 0; width: 100%; height: 100%; position: relative; padding-bottom: 56.25%;">
-  <iframe id="${iframeId}" src="https://www.youtube.com${vid ? `/embed/${vid}?rel=0&v=${vid}&enablejsapi=1${suffix}${startTime}` : embed}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" 
-  allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope; picture-in-picture" allowfullscreen="" scrolling="no" title="Content from Youtube" loading="lazy"></iframe>
+
+  return `<div style="left:0;width:100%;height:100%;position:relative;padding-bottom:56.25%;">
+    <iframe id="${iframeId}"
+      src="https://www.youtube.com${vid ? `/embed/${vid}?rel=0&v=${vid}&enablejsapi=1${suffix}${startTime}` : embed}"
+      style="border:0;top:0;left:0;width:100%;height:100%;position:absolute;"
+      allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope; picture-in-picture"
+      allowfullscreen
+      scrolling="no"
+      title="Content from Youtube"
+      loading="lazy"></iframe>
   </div>`;
 }
 
 function embedVimeo(url, autoplay) {
   const [, video] = url.pathname.split('/');
   const suffix = autoplay ? '?muted=1&autoplay=1' : '';
-  return `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
-      <iframe src="https://player.vimeo.com/video/${video}${suffix}" 
-      style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" 
-      frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen  
+
+  return `<div style="left:0;width:100%;height:0;position:relative;padding-bottom:56.25%;">
+    <iframe src="https://player.vimeo.com/video/${video}${suffix}"
+      style="border:0;top:0;left:0;width:100%;height:100%;position:absolute;"
+      frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
       title="Content from Vimeo" loading="lazy"></iframe>
-    </div>`;
+  </div>`;
 }
 
 function getVideoElement(source, autoplay) {
@@ -54,12 +63,12 @@ function getVideoElement(source, autoplay) {
 
   return video;
 }
-const loadVideoEmbed = (block, link, autoplay) => {
-  if (block.dataset.embedIsLoaded) {
-    return;
-  }
-  const url = new URL(link);
 
+const loadVideoEmbed = (block, link, autoplay) => {
+  if (block.dataset.embedIsLoaded) return;
+  if (!link) return;
+
+  const url = new URL(link);
   const isYoutube = link.includes('youtube') || link.includes('youtu.be');
   const isVimeo = link.includes('vimeo');
   const isMp4 = link.includes('.mp4');
@@ -85,7 +94,7 @@ const DESKTOP_ALIGN_ENUM = {
 };
 
 function positionVideoContainer(block, desktopAlign) {
-  block.classList.add(DESKTOP_ALIGN_ENUM[desktopAlign] || DESKTOP_ALIGN_ENUM.LEFT);
+  block.classList.add(DESKTOP_ALIGN_ENUM[desktopAlign] || DESKTOP_ALIGN_ENUM.left);
 }
 
 function isMobileDevice() {
@@ -94,6 +103,7 @@ function isMobileDevice() {
 
 function getCurrentVideoData(metadata) {
   const isMobile = isMobileDevice();
+
   if (isMobile && metadata.mobileVideo) {
     return {
       link: metadata.mobileVideo,
@@ -103,30 +113,142 @@ function getCurrentVideoData(metadata) {
   }
 
   return {
-    link: null, // Will use the original link from the block
+    link: null,
     title: metadata.videoTitle,
     duration: metadata.videoDuration,
   };
 }
 
+/* ------------------ Text Scramble ------------------ */
+class TextScramble {
+  constructor(el) {
+    this.el = el;
+    this.chars = '!<>-_\\/[]{}—=+*^?#________';
+    this.update = this.update.bind(this);
+  }
+
+  setText(newText) {
+    const oldText = this.el.innerText;
+    const length = Math.max(oldText.length, newText.length);
+    const promise = new Promise((resolve) => {
+      this.resolve = resolve; // no-return-assign & no-promise-executor-return safe
+    });
+
+    this.queue = [];
+
+    for (let i = 0; i < length; i += 1) {
+      const from = oldText[i] || '';
+      const to = newText[i] || '';
+      const start = Math.floor(Math.random() * 40);
+      const end = start + Math.floor(Math.random() * 40);
+      this.queue.push({
+        from,
+        to,
+        start,
+        end,
+      });
+    }
+
+    cancelAnimationFrame(this.frameRequest);
+    this.frame = 0;
+    this.update();
+
+    return promise;
+  }
+
+  update() {
+    let output = '';
+    let complete = 0;
+
+    for (let i = 0, n = this.queue.length; i < n; i += 1) {
+      const {
+        from, to, start, end, char: prevChar,
+      } = this.queue[i];
+      let char = prevChar;
+
+      if (this.frame >= end) {
+        complete += 1;
+        output += to;
+      } else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.randomChar();
+          this.queue[i].char = char;
+        }
+        output += `<span class="dud">${char}</span>`;
+      } else {
+        output += from;
+      }
+    }
+
+    this.el.innerHTML = output;
+
+    if (complete === this.queue.length) {
+      this.resolve();
+    } else {
+      this.frameRequest = requestAnimationFrame(this.update);
+      this.frame += 1;
+    }
+  }
+
+  randomChar() {
+    return this.chars[Math.floor(Math.random() * this.chars.length)];
+  }
+}
+
+/** loop care merge și cu 1 singură frază */
+function next(phrases, fx, i = 0, delay = 1000) {
+  const phrase = phrases[i % phrases.length];
+  fx.setText(phrase).then(() => {
+    setTimeout(() => next(phrases, fx, (i + 1) % phrases.length, delay), delay);
+  });
+}
+
+function initializeTextScramble(block) {
+  const section = block.closest('.section');
+  if (!section) return;
+
+  // ia toate <em> din default-content-wrapper (în afara block-ului video)
+  const ems = section.querySelectorAll('.default-content-wrapper em');
+  if (!ems.length) return;
+
+  // frazele vin din toate <em>-urile existente
+  const phrases = [...ems].map((em) => em.textContent.trim()).filter(Boolean);
+  if (!phrases.length) return;
+
+  // animăm în buclă în primul <em> (chiar dacă e o singură frază)
+  const targetEm = ems[0];
+  const fx = new TextScramble(targetEm);
+  targetEm.textContent = ''; // pornește din „gol” ca să se vadă efectul
+  next(phrases, fx, 0, 1000);
+
+  // dacă ai mai multe <em>, celelalte le poți goli ca să nu dubleze textul
+  for (let i = 1; i < ems.length; i += 1) {
+    ems[i].textContent = '';
+  }
+}
+
+/* ------------------ Decorate ------------------ */
 export default async function decorate(block) {
   const metadata = getDatasetFromSection(block);
   const {
-    // eslint-disable-next-line no-unused-vars
-    desktopAlign, videoTitle, videoDuration, mobileVideo, mobileVideoTitle, mobileVideoDuration,
+    desktopAlign,
+    // extragem DOAR ce folosim ca să evităm no-unused-vars
+    backgroundImage,
   } = metadata;
 
+  // ia link-ul (dacă există) înainte de a goli block-ul
+  const linkEl = block.querySelector('a');
+  const originalLink = linkEl?.href || null;
+
   const placeholder = block.querySelector('picture');
-  const originalLink = block.querySelector('a').href;
   block.textContent = '';
 
   positionVideoContainer(block, desktopAlign);
 
-  // Determine which video to use based on device
   const currentVideoData = getCurrentVideoData(metadata);
   const videoLink = currentVideoData.link || originalLink;
 
-  if (placeholder) {
+  if (placeholder && videoLink) {
     const wrapper = document.createElement('div');
     wrapper.className = 'video-placeholder';
     wrapper.innerHTML = '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>';
@@ -135,7 +257,7 @@ export default async function decorate(block) {
       loadVideoEmbed(block, videoLink, true);
     });
     block.append(wrapper);
-  } else {
+  } else if (videoLink) {
     block.classList.add('lazy-loading');
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
@@ -146,4 +268,14 @@ export default async function decorate(block) {
     });
     observer.observe(block);
   }
+
+  // Background: clasă + var CSS (media query în CSS – desktop doar)
+  if (backgroundImage) {
+    const wrapperEl = block.closest('.video-wrapper') || block.parentElement || block;
+    wrapperEl.classList.add('video-bg-desktop');
+    wrapperEl.style.setProperty('--video-bg-url', `url("${backgroundImage}")`);
+  }
+
+  // Scramble text (loop chiar și cu 1 frază)
+  initializeTextScramble(block);
 }
