@@ -45,7 +45,7 @@ export const sendAnalyticsErrorEvent = async () => {
   if ((subSection && subSection === '404') || window.errorCode === '404') {
     await target.sendCdpData(); // wait for CDP data to finalize
     window.adobeDataLayer.push({ event: 'page error' });
-    AdobeDataLayerService.push(new Event(PageLoadedEvent));
+    AdobeDataLayerService.push(new PageLoadedEvent());
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 };
