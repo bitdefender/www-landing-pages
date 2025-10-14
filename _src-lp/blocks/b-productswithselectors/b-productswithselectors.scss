@@ -25,7 +25,6 @@
   border-bottom: 1px solid #c5c5c5;
   margin: 10px;
   padding: 10px 0;
-  min-height: 11em;
 }
 
 .b-productswithselectors > div:not(:first-child) ul:nth-of-type(2) {
@@ -65,10 +64,10 @@
   margin: 0 1%;
 
   .redTag {
-    width: 80px;
-    height: 85px;
+    width:100px;
+    height: 245px;
     position: absolute;
-    top: -45px;
+    top: -16px;
     right: -6px;
     background: url('../../images/new_redtag.png') 0 0 no-repeat transparent;
     background-size: 100%;
@@ -79,8 +78,8 @@
       transform: rotate(45deg);
       display: block;
       text-align: center;
-      margin-top: 10px;
-      margin-left: 5px;
+      margin-top: 20px;
+      margin-left: 10px;
       font-size: 13px;
       width: 124%
     }
@@ -108,7 +107,6 @@
 }
 
 .b-productswithselectors > div.selected {
-  margin: 1%;
   margin-top: 0;
   border: 1px solid  #0E8532;
   border-bottom: 0;
@@ -156,7 +154,7 @@
   color: #fff;
   padding: 10px;
   left: -1px;
-  top: -40px;
+  top: -7px;
   right: -1px;
   font-weight: 600;
   text-decoration: none;
@@ -189,6 +187,11 @@
       visibility: hidden!important;
     }
   }
+}
+
+.hide-btn-1 .b-productswithselectors .prices_box .buy_box1 a.red-buy-button, .hide-btn-2 .b-productswithselectors .prices_box .buy_box2 a.red-buy-button {
+  display: inline-block;
+  visibility: hidden;
 }
 
 .b-productswithselectors-container .prod-percent-tag {
@@ -238,6 +241,7 @@
   position: absolute;
   z-index: 9;
   margin-left: -7em;
+  top: 0;
 }
 
 .b-productswithselectors-container.bf2024 a.red-buy-button {
