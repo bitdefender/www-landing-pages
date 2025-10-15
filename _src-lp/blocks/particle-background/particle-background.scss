@@ -42,6 +42,10 @@
   font-size: 18px;
 }
 
+.usbs-brand .particle-background div:last-of-type p {
+  text-transform: unset;
+}
+
 .particle-background div {
     z-index: 1;
     padding: 24px;
@@ -51,6 +55,22 @@
   .particle-background h2 {
     line-height: 30px;
   }
+}
+
+@media screen and (width >= 768px) {
+    .particle-background h2 {
+        font-size: 40px;
+        line-height: 40px;
+    }
+
+    .particle-background #ts-particles {
+        display: block;
+    }
+
+
+    .usbs-brand .particle-background div:last-of-type p {
+       width: 100%;
+    }
 }
 
 @media (min-width: 1200px) {
