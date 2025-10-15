@@ -208,8 +208,9 @@ export default class ProductPrice {
       const fakeYearsSelector = document.getElementById(`y_${this.#alias}-${this.#devicesNo}${this.#yearsNo}`);
       const decorator = new DecorateLink(
         this.#targetBuyLinks?.[this.#alias]?.[`${this.#devicesNo}-${this.#yearsNo}`]?.buyLink
-          || option.buyLink,
-        this.#campaign
+        || option.buyLink,
+        this.#campaign,
+        this.#targetBuyLinks?.[this.#alias]?.[`${this.#devicesNo}-${this.#yearsNo}`]?.extraParameters
       );
       let buy_link = await decorator.getFullyDecoratedUrl();
 
@@ -389,8 +390,9 @@ export class DecorateLink {
   #urlObj;
   #params;
   #campaign;
+  #targetExtraParameters;
 
-  constructor(buyLink, campaign = '') {
+  constructor(buyLink, campaign = '', targetExtraParameters = []) {
     if (!buyLink || typeof buyLink !== 'string') {
       throw new Error('A valid buy link must be provided.');
     }
@@ -398,6 +400,16 @@ export class DecorateLink {
     this.#urlObj = new URL(this.#link);
     this.#params = new URLSearchParams(this.#urlObj.search);
     this.#campaign = campaign;
+    this.#targetExtraParameters = targetExtraParameters;
+  }
+
+  /**
+   * Adds or replaces exisiting parameters with the ones from Target
+   */
+  #addExtraParametersFromTarget() {
+    this.#targetExtraParameters.forEach(extraParameter => {
+      this.#params.set(extraParameter.key, extraParameter.value);
+    });
   }
 
   /**
@@ -460,6 +472,7 @@ export class DecorateLink {
     this.#addSRC();
     this.#addREF();
     this.#cleanSection();
+    this.#addExtraParametersFromTarget();
     this.#urlObj.search = this.#params.toString();
     return await this.#appendAdobeMc(this.#urlObj.toString());
   }

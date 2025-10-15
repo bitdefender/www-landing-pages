@@ -123,6 +123,22 @@
 .box-carousel-container .carousel-item .images-container.mobile-images-container {
   display: block;
 }
+.box-carousel-container .carousel-item .images-container a:has(.icon-play-button) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  z-index: 50;
+}
+.box-carousel-container .carousel-item .images-container a:has(.icon-play-button) .icon-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 72px;
+  height: 72px;
+  transform: translate(-50%, -50%);
+}
 .box-carousel-container .carousel-item .icon {
   width: 35px;
   height: 35px;

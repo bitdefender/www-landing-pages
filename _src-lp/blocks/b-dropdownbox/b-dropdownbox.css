@@ -549,7 +549,7 @@
   }
   .b-dropdownbox-container .new div:nth-child(1) > div, .b-dropdownbox-container.new .b-dropdownbox div:nth-child(1) > div {
     font-size: 18px;
-    line-height: 24px;
+    line-height: 25px;
   }
   .b-dropdownbox-container .new ul, .b-dropdownbox-container.new .b-dropdownbox ul {
     text-align: left;
