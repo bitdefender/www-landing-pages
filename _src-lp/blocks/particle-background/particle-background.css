@@ -23,10 +23,7 @@
 
 .particle-background #ts-particles {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  inset: 0;
   padding: 0;
   margin: 0;
 }
@@ -51,7 +48,7 @@
   padding: 24px;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .particle-background h2 {
     line-height: 30px;
   }
@@ -68,7 +65,7 @@
     width: 100%;
   }
 }
-@media (min-width: 1200px) {
+@media (width >= 1200px) {
   .particle-background-container.we-container {
     max-width: 1330px;
     padding: 0 20px;
