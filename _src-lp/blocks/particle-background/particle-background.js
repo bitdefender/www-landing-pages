@@ -32,7 +32,7 @@ async function init(block) {
   const configs = {
     particles: {
       number: {
-        value: 30,
+        value: 20,
       },
       color: {
         value: '#ffffff',
@@ -51,7 +51,7 @@ async function init(block) {
       },
       move: {
         enable: true,
-        speed: 2,
+        speed: 0.5,
       },
     },
     background: { color: '#016DFF' },
