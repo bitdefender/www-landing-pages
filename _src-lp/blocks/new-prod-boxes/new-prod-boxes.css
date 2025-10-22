@@ -277,6 +277,10 @@
   align-content: end;
 }
 
+.new-prod-boxes-container .subtitle p {
+  margin-bottom: 0;
+}
+
 .new-prod-boxes-container.flex-height .tag-subtitle {
   min-height: 80px;
   display: flex;

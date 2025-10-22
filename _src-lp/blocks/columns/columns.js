@@ -6,9 +6,7 @@ export default function decorate(block) {
   // block.classList.add('container-sm');
   const metaData = getDatasetFromSection(block);
 
-  const backgroundColor = metaData.backgroundcolor || undefined;
-  const textColor = metaData.textColor || undefined;
-
+  const { backgroundColor, textColor, linksOpenInNewTab } = metaData;
   if (backgroundColor) {
     block.style.backgroundColor = backgroundColor;
   }
@@ -36,6 +34,13 @@ export default function decorate(block) {
       }
     });
   });
+
+  if (linksOpenInNewTab === 'true') {
+    block.querySelectorAll('.button-container > a').forEach((anchorEl) => {
+      anchorEl.target = '_blank';
+      anchorEl.rel = 'noopener noreferrer';
+    });
+  }
 
   // special handling for dynamic image block, present in the
   // they-wear-our-faces campaign

@@ -734,6 +734,7 @@ export default function decorate(block) {
   matchHeights(targetNode, '.tag-subtitle');
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
+  matchHeights(targetNode, '.subtitle p:first-of-type');
   matchHeights(targetNode, 'h2');
   matchHeights(targetNode, '.save-trial-text');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');

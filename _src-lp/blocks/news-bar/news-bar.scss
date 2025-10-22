@@ -125,6 +125,7 @@
 
 @media screen and (width >= 991px) {
   .news-bar {
-    height: 44px;
+    min-height: 44px;
+    height: auto;
   }
 }
