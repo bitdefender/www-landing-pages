@@ -118,6 +118,9 @@
   }
 }
 
+.awards-affiliate-container.they-wear-our-faces {
+  border: none !important;
+}
 .awards-affiliate-container.they-wear-our-faces.blue-gradient {
   background: linear-gradient(180deg, rgb(0, 109, 255) 25%, rgb(255, 255, 255) 25%);
 }
@@ -161,9 +164,6 @@
 }
 .awards-affiliate-container.they-wear-our-faces .columns-class img {
   width: 48px;
-}
-.awards-affiliate-container.they-wear-our-faces {
-  border: none !important;
 }
 @media (width < 768px) {
   .awards-affiliate-container.they-wear-our-faces {

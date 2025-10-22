@@ -298,7 +298,7 @@
   margin: 1em 0;
 }
 
-.new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .buy-btn {
+.new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .buy-btn, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .buy-btn {
   visibility: hidden !important;
 }
 
