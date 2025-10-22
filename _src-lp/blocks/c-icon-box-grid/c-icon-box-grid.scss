@@ -250,6 +250,33 @@
   font-weight: 500;
 }
 
+.c-icon-box-grid-container.dotted-lines .block .container {
+  position: relative;
+}
+
+.c-icon-box-grid-container.dotted-lines .block .container .row {
+  gap: 2em;
+  position: relative;
+}
+
+.c-icon-box-grid-container.dotted-lines .block .container .col-lg {
+  margin: 10px 0;
+}
+
+.c-icon-box-grid-container.dotted-lines .block .container::before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 1px;
+  border: none;
+  border-top: 2px dotted #006EFF;
+  margin: 24px 0;
+  position: absolute;
+  top: 42%;
+  left: 0;
+  width: 100%;
+}
+
 .c-icon-box-grid-container.box-shadow .col-lg {
   box-shadow: 0 4px 7px #ccc;
   border-radius: 10px;
@@ -285,7 +312,15 @@
   border-radius: 20px;
   padding: 32px;
   margin: 6px;
+}
 
+.c-icon-box-grid-container.white-background .col-lg {
+  background-color: #FFF;
+}
+
+.c-icon-box-grid-container.transparent-background .col-lg {
+  background-color: transparent;
+  padding: 0;
 }
 
 .c-icon-box-grid-container.button-center .button-container {
@@ -475,10 +510,13 @@
   }
 
   .c-icon-box-grid-container.four-columns .col-lg-4 {
-    width: 23%;
+    width: 23%!important;
+    flex: 1;
+    padding: 32px;
+    margin: 6px;
   }
 
-  .c-icon-box-grid-container .c-icon-box-grid.blue-cards .quotebox{
+  .c-icon-box-grid-container .c-icon-box-grid.blue-cards .quotebox {
     width: 30%;
     max-width: 300px;
   }

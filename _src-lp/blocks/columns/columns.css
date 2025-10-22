@@ -128,6 +128,10 @@ main .columns-container.padding-0 .columns-wrapper {
   margin-left: -12px;
 }
 
+.bigger-imgs .columns > div > .columns-img-col img {
+  width: 100%;
+}
+
 .columns-container.netgear .text-content {
   margin-top: 20px;
 }

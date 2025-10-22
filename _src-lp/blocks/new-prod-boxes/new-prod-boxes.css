@@ -294,6 +294,10 @@
   margin: 1em 0;
 }
 
+.new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .buy-btn {
+  visibility: hidden !important;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box.blue-header {
   overflow: hidden;
 }
@@ -414,6 +418,30 @@
   transition: all 0.5s ease;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink span.demoBtn {
+  border: 2px solid #000;
+  font-size: 14px;
+  line-height: 14px;
+  font-style: normal;
+  font-weight: 500;
+  color: black;
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  margin-top: -56px;
+  margin-bottom: 32px;
+  cursor: pointer;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink span.demoBtn:hover {
+  text-decoration: none;
+  background-color: #000;
+  color: #FFF;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink a {
   color: #005ED9;
 }
@@ -509,7 +537,7 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .subtitle {
   min-height: 35px;
-  font-size: 14px;
+  font-size: 13px;
   font-family: Arial, sans-serif;
   margin-bottom: 0;
   line-height: 1.25;
@@ -637,8 +665,8 @@
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box .prod-newprice {
-  font-size: var(--heading-font-size-xl);
-  line-height: var(--heading-font-size-xl);
+  font-size: var(--heading-font-size-l);
+  line-height: var(--heading-font-size-l);
 }
 
 .new-prod-boxes-container.veepee .block .prod_box .inner_prod_box .subtitle ul li {
@@ -795,8 +823,8 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box sup {
   margin: 15px 0 0 5px;
-  font-size: var(--heading-font-size-s);
-  line-height: var(--heading-font-size-s);
+  font-size: var(--heading-font-size-xs);
+  line-height: var(--heading-font-size-xs);
 }
 
 .new-prod-boxes-container.trial-links .block .prod_box .inner_prod_box .billed span[class^=newprice-] {
