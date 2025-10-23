@@ -510,6 +510,26 @@
     max-width: 300px;
   }
 }
+@media screen and (width <= 992px) {
+  .c-icon-box-grid-container.dotted-lines .block .container::before {
+    height: max-content;
+    border: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    transform: rotate(90deg);
+  }
+  .c-icon-box-grid-container.grey-box .col-lg {
+    margin: 10px 15px;
+  }
+  .c-icon-box-grid-container.dotted-lines .block .container .col-lg {
+    padding: 1em;
+  }
+  .c-icon-box-grid-container.dotted-lines .block .container .row {
+    gap: 0;
+  }
+}
 @media (width >= 768px) {
   .c-icon-box-grid-container .new-blue {
     padding: 2em;

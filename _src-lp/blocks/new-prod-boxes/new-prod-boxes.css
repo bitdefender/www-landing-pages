@@ -1422,6 +1422,24 @@
   .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .save-trial-text {
     min-height: auto !important;
   }
+  .new-prod-boxes-container.hide-switch-text .default-content-wrapper {
+    display: none;
+  }
+  .new-prod-boxes-container .switchBox {
+    padding-bottom: 25px;
+  }
+  .new-prod-boxes-container .switchBox {
+    padding-bottom: 25px;
+  }
+  .new-prod-boxes-container .switchBox .switch {
+    height: 44px;
+  }
+  .new-prod-boxes-container .switchBox .slider {
+    height: 40px;
+  }
+  .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .buy-btn, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .buy-btn {
+    display: none;
+  }
 }
 @media (width >= 768px) {
   .new-prod-boxes-container .switchBox .switch {
