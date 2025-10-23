@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, matchHeights } from '../../scripts/utils.js';
 
