@@ -266,7 +266,7 @@
 .c-icon-box-grid-container.dotted-lines .block .container::before {
   content: "";
   display: block;
-  width: 30px;
+  width: 100%;
   height: 1px;
   border: none;
   border-top: 2px dotted #006EFF;
@@ -274,7 +274,6 @@
   position: absolute;
   top: 42%;
   left: 0;
-  width: 100%;
 }
 
 .c-icon-box-grid-container.box-shadow .col-lg {
