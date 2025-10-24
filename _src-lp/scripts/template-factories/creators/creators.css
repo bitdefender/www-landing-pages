@@ -103,6 +103,10 @@ main .section.pb-0 {
   opacity: 0.8;
 }
 
+.creators .has-trial-btn table:last-of-type img, .creators .has-trial-btn table em {
+  font-size: 15px;
+}
+
 .creators .has-trial-btn table:last-of-type img, .creators .has-trial-btn table:last-of-type span.icon {
   width: 24px;
   margin: 0 2px;
