@@ -97,6 +97,11 @@ main .section.pb-0 {
   margin-left: 10px;
 }
 
+.creators .has-trial-btn p.button-container:last-of-type a:hover {
+  background: #FFF 0% 0% no-repeat padding-box;
+  color: #005ed9;
+}
+
 .creators .has-trial-btn table:last-of-type img, .creators .has-trial-btn table:last-of-type span.icon {
   width: 24px;
   margin: 0 2px;
