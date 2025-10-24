@@ -42,15 +42,21 @@
   cursor: pointer;
   margin-bottom: 5px;
   width: 95%;
+  display: inline-flex;
+  align-items:center;
 }
 
 .features-container .features .feature-list .accordion::after {
   content: '\276F';
-  font-weight: bold;
-  position: absolute;
+  font-weight: bold;  
   margin-left: 8px;
   transition: transform 0.4s;
   transform: rotate(90deg);
+}
+
+.features-container .features .feature-list .accordion .tag {
+  order: 2;
+  margin-left: 15px;
 }
 
 .features-container .features .feature-list .accordion.active::after {
