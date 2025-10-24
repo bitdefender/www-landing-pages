@@ -393,6 +393,10 @@ main .section.pb-0 {
     font: normal normal normal 19px / 28px Arial, sans-serif !important;
   }
 
+  .creators .columns p.button-container {
+    display: inline-block;
+  }
+
   .creators .columns p.button-container *, .creators .section.bold-anchor a.button:any-link {
     width: max-content;
     margin: 5px auto;
@@ -441,6 +445,18 @@ main .section.pb-0 {
   .creators .creators-block.block>div:nth-child(2) .creator-box {
     width: 100% !important;
     height: 65vw !important;
+  }
+
+  .creators .has-trial-btn p.button-container a {
+    margin: 5px 0!important;
+    width: 100%;
+  }
+}
+
+@media (width <= 450px) {
+  .creators .columns p.button-container {
+    display: inline-block;
+    margin: 0;
   }
 }
 
