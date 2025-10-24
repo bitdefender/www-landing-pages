@@ -437,10 +437,6 @@ main .section.pb-0 {
   }
 }
 
-@media (width <= 767px) {
-
-}
-
 @media (width <= 525px) {
   .creators .creators-block.block>div:nth-child(2) .creator-box {
     width: 100% !important;
