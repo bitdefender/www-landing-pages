@@ -100,6 +100,7 @@ main .section.pb-0 {
 .creators .has-trial-btn p.button-container:last-of-type a:hover {
   background: #FFF 0% 0% no-repeat padding-box;
   color: #005ed9;
+  opacity: 0.8;
 }
 
 .creators .has-trial-btn table:last-of-type img, .creators .has-trial-btn table:last-of-type span.icon {
