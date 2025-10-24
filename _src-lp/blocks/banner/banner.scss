@@ -517,6 +517,45 @@
   padding: 2px 11px;
 }
 
+.section.banner-container.red-pull #greenPillBox {
+  background-color: #FF0000;
+  border-radius: 100%;
+  border: 3px solid white;
+  position: absolute;
+  right: 5em;
+  top: -2em;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transform: rotate(-9deg);
+  padding: 0;
+}
+
+.section.banner-container.red-pull #greenPillBox:hover {
+  opacity: 1;
+}
+
+.section.banner-container.red-pull #greenPillBox > span {
+  border-radius: 100%;
+  border: 4px solid black;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 26px;
+  line-height: 28px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.red-pull #greenPillBox > span br {
+  display: none;
+}
+
 .section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1) *,
 .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2) * {
   background-color: white;
@@ -1172,7 +1211,7 @@
   }
 }
 
-@media (width >=768px) {
+@media (width >= 768px) {
   .section.lp-brand .banner h1 {
     font-weight: lighter;
     font-size: var(--heading-font-size-l);
@@ -1277,7 +1316,7 @@
 
 }
 
-@media screen and (width >=991px) {
+@media screen and (width >= 991px) {
   .section.banner-container .banner h1 {
     font-size: var(--heading-font-size-xl);
     line-height: 45px;
@@ -1316,7 +1355,7 @@
   }
 }
 
-@media screen and (width <=991px) {
+@media screen and (width <= 991px) {
   .section.banner-container.hide-tablet,
   .section.banner-container.hide-tablet .block {
     background-image: unset !important;
@@ -1338,9 +1377,51 @@
   .banner-container h2 {
     font-size: 26px;
   }
+
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
 }
 
-@media screen and (width <=767px) {
+@media screen and (width >= 1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+
+@media screen and (width <= 1200px) {
+  .section.banner-container.red-pull #greenPillBox {
+    right: 4em;
+  }
+}
+
+@media screen and (width <= 1000px) {
+  .section.banner-container.red-pull #greenPillBox {
+    right: 2em;
+    top: -3em;
+  }
+}
+
+@media screen and (width <= 830px) {
+  .section.banner-container.red-pull #greenPillBox {
+    right: 1em;
+    top: -3em;
+  }
+}
+
+@media screen and (width <= 767px) {
+  .section.banner-container.red-pull #greenPillBox {
+    right: 2em;
+    top: -1em;
+  }
+
+  .section.banner-container.red-pull .banner img {
+    width: 70%;
+    margin-top: 2em;
+  }
+
   .section.section.banner-container.hasslide .block>div {
     text-align: left;
     width: 100%;
@@ -1584,14 +1665,7 @@
   }
 }
 
-@media screen and (width <=991px) {
-  .section.banner-container.hide-tablet {
-    background-image: unset !important;
-    background-color: #000;
-  }
-}
-
-@media screen and (width <=600px) {
+@media screen and (width <= 600px) {
   .section.banner-container.csam-design .block .row>div em {
     margin-bottom: -9em;
     margin-left: 2.5em;
@@ -1607,14 +1681,19 @@
   }
 }
 
-@media screen and (width >=1400px) {
-  .section.banner-container .custom-col-xl-4 {
-    flex: 0 0 auto;
-    width: 27.33%;
+@media screen and (width <= 500px) {
+  .section.banner-container.red-pull #greenPillBox {
+    width: 80px;
+    height: 80px;
+    right: 2em;
+    top: -1em;
   }
-}
 
-@media screen and (width <=500px) {
+  .section.banner-container.red-pull #greenPillBox > span {
+    font-size: 21px;
+    line-height: 23px;
+  }
+
   .section.banner-container.csam-design .block .row>div em {
     margin-bottom: -4.3em;
     margin-left: 1.5em;
@@ -1636,20 +1715,20 @@
   }
 }
 
-@media screen and (width >=1800px) {
+@media screen and (width >= 1800px) {
   .section.banner-container .custom-justify-content-xxxl-center {
     justify-content: center !important;
   }
 }
 
-@media screen and (width <=400px) {
+@media screen and (width <= 400px) {
   .section.banner-container.csam-design .block .row>div em {
     font-size: 10px;
     margin-bottom: -5em;
   }
 }
 
-@media screen and (width <=350px) {
+@media screen and (width <= 350px) {
   .section.banner-container.csam-design .block .row>div em {
     font-size: 10px;
     margin-left: 1em;

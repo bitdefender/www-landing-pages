@@ -195,15 +195,13 @@ export default function decorate(block) {
           <span class="slider round">
           </span>
           <span class="label right">
-          ${partsIndividual[0]}
-          <hr>
-          <p>${partsIndividual[1]}</p>
+            ${partsIndividual[0]}
+            ${partsIndividual[1] ? `<hr><p>${partsIndividual[1]}</p>` : ''}
           </span>
 
           <span class="label left">
-          ${partsFamily[0]}
-          <hr>
-          <p>${partsFamily[1]}</p>
+            ${partsFamily[0]}
+            ${partsFamily[1] ? `<hr><p>${partsFamily[1]}</p>` : ''}
           </span>
         </label>
       `;
@@ -499,36 +497,36 @@ export default function decorate(block) {
                 </div>`}
 
   ${billed ? (() => {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`);
-    const firstP = tempDiv.querySelector('p');
-    if (firstP) {
-      firstP.innerHTML = firstP.innerHTML
-        .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
-        .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
-        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-    } else {
-      tempDiv.innerHTML = tempDiv.innerHTML
-        .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
-        .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
-        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-    }
-    return `<div class="billed">${tempDiv.innerHTML}</div>`;
-  })() : ''}
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`);
+            const firstP = tempDiv.querySelector('p');
+            if (firstP) {
+              firstP.innerHTML = firstP.innerHTML
+                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
+                .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
+                .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+                .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+                .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+                .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+                .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+                .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+            } else {
+              tempDiv.innerHTML = tempDiv.innerHTML
+                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
+                .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
+                .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+                .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+                .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+                .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+                .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+                .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+            }
+            return `<div class="billed">${tempDiv.innerHTML}</div>`;
+          })() : ''}
   </div><!-- end header-box --> 
 
               ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
