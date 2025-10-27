@@ -1036,6 +1036,7 @@ async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks 
             }
             sendAnalyticsProducts(vlaicuResult);
 
+            // eslint-disable-next-line consistent-return
             return vlaicuResult;
           }),
         );
