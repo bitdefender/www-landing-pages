@@ -849,6 +849,7 @@ const createFakeSelectors = () => {
   document.querySelector('footer').before(fakeSelectorsBottom);
   if (!productsList.length) return;
   productsList.forEach((prod) => {
+    if (!prod) return;
     const prodSplit = prod.split('/');
     const prodAlias = productAliases(prodSplit[0].trim());
     const prodUsers = prodSplit[1].trim();
@@ -879,6 +880,7 @@ function initSelectors(pid) {
     fakeSelectorsBottom.id = 'fakeSelectors_bottom';
     document.querySelector('footer').before(fakeSelectorsBottom);
     productsList.forEach((prod) => {
+      if (!prod) return;
       const prodSplit = prod.split('/');
       const prodAlias = productAliases(prodSplit[0].trim());
       const prodUsers = prodSplit[1].trim();
@@ -1016,6 +1018,7 @@ async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks 
       try {
         await Promise.all(
           productsList.map(async (item) => {
+            if (!item) return;
             const prodSplit = item.split('/');
             const prodAlias = prodSplit[0].trim();
             const prodUsers = prodSplit[1].trim();
