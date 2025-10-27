@@ -860,8 +860,9 @@ main .section.light-sky-blue > * {
   padding: 3px 7px 3px 8px;
   text-transform: uppercase;
   white-space: nowrap;
-  display: inline-block;
+  display: inline-flex;
   vertical-align: middle;
+  align-items: center;
 }
 
 .greenTag {

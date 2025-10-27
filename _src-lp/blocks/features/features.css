@@ -44,7 +44,16 @@
   width: 95%;
 }
 
-.features-container .features .feature-list .accordion::after {
+.features-container .features .feature-list .accordion:not(:has(.tag))::after {
+  content: "❯";
+  font-weight: bold;
+  position: absolute;
+  margin-left: 8px;
+  transition: transform 0.4s;
+  transform: rotate(90deg);
+}
+
+.features-container .features .feature-list .accordion:has(.tag)::after {
   content: "❯";
   font-weight: bold;
   position: absolute;
