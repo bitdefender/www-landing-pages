@@ -691,7 +691,7 @@ export async function decorateTags(element) {
         node.parentNode.replaceChild(newNode, node);
       }
     } else if (node.nodeType === Node.ELEMENT_NODE) {
-      node.innerHTML = replaceTags(node.innerHTML).nodeValue;
+      node.childNodes.forEach(replaceTagsInNode);
     }
   }
 

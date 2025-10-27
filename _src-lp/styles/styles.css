@@ -852,7 +852,7 @@ main .section.light-sky-blue > * {
   color: white;
   font-size: 10px;
   font-weight: 600;
-  line-height: normal;
+  line-height: 1;
   border-radius: 75pt;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
   font-style: normal;
@@ -860,8 +860,6 @@ main .section.light-sky-blue > * {
   padding: 3px 7px 3px 8px;
   text-transform: uppercase;
   white-space: nowrap;
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .greenTag {
