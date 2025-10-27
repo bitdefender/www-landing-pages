@@ -196,15 +196,13 @@ export default function decorate(block) {
           <span class="slider round">
           </span>
           <span class="label right">
-          ${partsIndividual[0]}
-          <hr>
-          <p>${partsIndividual[1]}</p>
+            ${partsIndividual[0]}
+            ${partsIndividual[1] ? `<hr><p>${partsIndividual[1]}</p>` : ''}
           </span>
 
           <span class="label left">
-          ${partsFamily[0]}
-          <hr>
-          <p>${partsFamily[1]}</p>
+            ${partsFamily[0]}
+            ${partsFamily[1] ? `<hr><p>${partsFamily[1]}</p>` : ''}
           </span>
         </label>
       `;
