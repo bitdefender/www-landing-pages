@@ -404,7 +404,8 @@ function maxDiscount() {
   selectors.forEach((selector) => {
     if (document.querySelector(selector)) {
       document.querySelectorAll(selector).forEach((item) => {
-        const discount = parseInt(item.textContent, 10);
+        const match = item.textContent.match(/\d+/);
+        const discount = match ? parseInt(match[0], 10) : 0;
         if (!Number.isNaN(discount)) {
           discountAmounts.push(discount);
         }

@@ -25,7 +25,7 @@
   width: 100%;
   max-width: 50rem;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 15px;
 }
 .form-container .form textarea {
   min-height: 100px;
@@ -99,6 +99,9 @@
   margin-bottom: 20px;
 }
 @media screen and (width >= 900px) {
+  .form-container .form {
+    max-width: 31%;
+  }
   .form-container .form .field-wrapper {
     display: flex;
   }
@@ -108,9 +111,6 @@
   }
   .form-container .form .field-wrapper.form-short:first-of-type {
     padding-right: 10px;
-  }
-  .form-container .form {
-    max-width: 31%;
   }
   .form-container .form-wrapper:has(.form-besides-table) {
     display: flex;
