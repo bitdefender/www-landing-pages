@@ -53,13 +53,21 @@
   transform: rotate(90deg);
 }
 
-.features-container .features .feature-list .accordion:has(.tag)::after {
+.features-container .features .feature-list .accordion:has(.tag) .tag {
+  margin-left: 24px;
+  position: relative;
+}
+.features-container .features .feature-list .accordion:has(.tag) .tag::before {
   content: "❯";
   font-weight: bold;
+  font-size: 16px;
+  color: #006DFF;
+  line-height: 1;
   position: absolute;
-  margin-left: 8px;
+  left: -17px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
   transition: transform 0.4s;
-  transform: rotate(90deg);
 }
 
 .features-container .features .feature-list .accordion.active::after {
