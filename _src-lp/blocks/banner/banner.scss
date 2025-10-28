@@ -1427,6 +1427,11 @@
     margin-top: 2em;
   }
 
+  .section.banner-container.red-pill .banner .content-column img {
+    width: 85%;
+    margin-top: 10px;
+  }
+
   .section.section.banner-container.hasslide .block>div {
     text-align: left;
     width: 100%;
@@ -1724,6 +1729,10 @@
     width: 121%;
     max-width: 121%;
     min-width: 121%;
+  }
+
+  .section.banner-container.red-pill .banner .content-column img {
+    width: 100%;
   }
 
   .section.banner-container.csam-design .block .row>div p:last-of-type {
