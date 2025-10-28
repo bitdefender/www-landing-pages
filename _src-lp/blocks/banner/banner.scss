@@ -517,7 +517,7 @@
   padding: 2px 11px;
 }
 
-.section.banner-container.red-pull #greenPillBox {
+.section.banner-container.red-pill #greenPillBox {
   background-color: #F00;
   border-radius: 100%;
   border: 3px solid white;
@@ -534,11 +534,11 @@
   padding: 0;
 }
 
-.section.banner-container.red-pull #greenPillBox:hover {
+.section.banner-container.red-pill #greenPillBox:hover {
   opacity: 1;
 }
 
-.section.banner-container.red-pull #greenPillBox > span {
+.section.banner-container.red-pill #greenPillBox > span {
   border-radius: 100%;
   border: 4px solid black;
   align-items: center;
@@ -552,8 +552,13 @@
   font-family: "IBM Plex Sans", sans-serif;
 }
 
-.section.banner-container.red-pull #greenPillBox > span br {
+.section.banner-container.red-pill #greenPillBox > span br {
   display: none;
+}
+
+.section.banner-container.bf25 p.button-container {
+  margin-top: 2em;
+  display: block;
 }
 
 .section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1) *,
@@ -1392,32 +1397,32 @@
 }
 
 @media screen and (width <= 1200px) {
-  .section.banner-container.red-pull #greenPillBox {
+  .section.banner-container.red-pill #greenPillBox {
     right: 4em;
   }
 }
 
 @media screen and (width <= 1000px) {
-  .section.banner-container.red-pull #greenPillBox {
+  .section.banner-container.red-pill #greenPillBox {
     right: 2em;
     top: -3em;
   }
 }
 
 @media screen and (width <= 830px) {
-  .section.banner-container.red-pull #greenPillBox {
+  .section.banner-container.red-pill #greenPillBox {
     right: 1em;
     top: -3em;
   }
 }
 
 @media screen and (width <= 767px) {
-  .section.banner-container.red-pull #greenPillBox {
+  .section.banner-container.red-pill #greenPillBox {
     right: 2em;
     top: -1em;
   }
 
-  .section.banner-container.red-pull .banner img {
+  .section.banner-container.red-pill .banner img {
     width: 70%;
     margin-top: 2em;
   }
@@ -1456,6 +1461,17 @@
     font-size: 24px;
     line-height: 28px;
     text-align: left;
+  }
+
+  .section.banner-container .banner .content-column {
+    width: 100%;
+    text-align: center;
+    padding-left: 15px !important;
+    padding-right: 15px;
+  }
+
+  .section.banner-container .banner .content-column p.button-container * {
+    width: 70%;
   }
 
   .section.banner-container .banner p {
@@ -1682,14 +1698,14 @@
 }
 
 @media screen and (width <= 500px) {
-  .section.banner-container.red-pull #greenPillBox {
+  .section.banner-container.red-pill #greenPillBox {
     width: 80px;
     height: 80px;
     right: 2em;
     top: -1em;
   }
 
-  .section.banner-container.red-pull #greenPillBox > span {
+  .section.banner-container.red-pill #greenPillBox > span {
     font-size: 21px;
     line-height: 23px;
   }
@@ -1712,6 +1728,10 @@
 
   .section.banner-container.csam-design .block .row>div p:last-of-type {
     display: none;
+  }
+
+  .section.banner-container .banner .content-column p.button-container * {
+    width: 100%;
   }
 }
 
