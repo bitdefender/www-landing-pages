@@ -331,7 +331,7 @@
   margin-bottom: 1em;
 }
 
-.section.banner-container.partnerportale .banner div.col-12 div > p strong em {
+.section.banner-container.partnerportale .banner div.col-12 div > p strong em, .section.banner-container.partnerportale .banner div.col-12 div > p em strong {
   border-radius: 20px;
   background-color: #1C7928;
   font-style: normal;
