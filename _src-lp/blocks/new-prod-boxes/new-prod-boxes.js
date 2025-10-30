@@ -218,6 +218,7 @@ export default function decorate(block) {
       switchCheckbox.addEventListener('change', () => {
         if (set && set === 'height') {
           [1, 2, 3].forEach((i) => {
+            // eslint-disable-next-line no-use-before-define
             matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
           });
         }
