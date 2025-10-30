@@ -838,4 +838,9 @@ main .columns-container.padding-0 .columns-wrapper {
     justify-content: center;
     width: 100%;
   }
+
+  .columns-container.table-btns table tr em {
+    margin-left: 3px;
+    margin-top: -10px;
+  }
 }
