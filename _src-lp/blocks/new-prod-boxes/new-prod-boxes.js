@@ -216,6 +216,12 @@ export default function decorate(block) {
       }
       // Add an event listener to the checkbox
       switchCheckbox.addEventListener('change', () => {
+        if (set && set === 'height') {
+          [1, 2, 3].forEach((i) => {
+            matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
+          });
+        }
+
         if (switchCheckbox.checked) {
           const familyBoxes = block.querySelectorAll('.family-box');
           familyBoxes.forEach((box) => {
