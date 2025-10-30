@@ -515,8 +515,6 @@ main .columns-container.padding-0 .columns-wrapper {
   color: #fff;
   display: inline-block;
   text-align: center;
-  border-radius: 8px;
-  padding: 10px 3em;
   font-size: 14px;
   font-weight: bold;
   transition: background-color 0.2s;
