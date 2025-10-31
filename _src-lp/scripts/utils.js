@@ -1386,7 +1386,7 @@ export async function submitWithTurnstile({
     }
 
     const requestData = {
-      file: `/sites/common/formdata/${fileName}.xlsx`,
+      file: `/franklin/common/formdata/${fileName}.xlsx`,
       table: 'Table1',
       row: { ...data },
       token,
