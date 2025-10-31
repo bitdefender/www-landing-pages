@@ -1386,7 +1386,7 @@ export async function submitWithTurnstile({
     }
 
     const requestData = {
-      file: `/franklin/common/formdata/${fileName}.xlsx`,
+      file: `https://www.bitdefender.com/pages/common/formdata/${fileName}.xlsx`,
       table: 'Table1',
       row: { ...data },
       token,
