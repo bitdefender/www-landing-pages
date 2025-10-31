@@ -82,7 +82,7 @@ main .section.pb-0 {
   font-weight: 600;
   text-align: center;
   transition: all 0.3s ease;
-  margin: 10px 10px 10px 0;
+  margin: 0 10px 10px 0;
 }
 
 .creators .has-trial-btn p.button-container a:hover {
