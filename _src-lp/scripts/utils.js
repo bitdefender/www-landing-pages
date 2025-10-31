@@ -3,6 +3,7 @@ import { getMetadata } from './lib-franklin.js';
 import userPromise from './user.js';
 import { Bundle } from './vendor/product.js';
 import pagePromise from './page.js';
+import Constants from './constants.js';
 
 const target = await targetPromise;
 const page = await pagePromise;
@@ -1386,7 +1387,7 @@ export async function submitWithTurnstile({
     }
 
     const requestData = {
-      file: `/franklin/common/formdata/${fileName}.xlsx`,
+      file: `${Constants.BASE_URL_FOR_DEV}/common/formdata/${fileName}.xlsx`,
       table: 'Table1',
       row: { ...data },
       token,

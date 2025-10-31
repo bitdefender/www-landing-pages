@@ -11,6 +11,10 @@ export default class Constants {
 
   static API_BASE = 'https://www.bitdefender.com';
 
+  static BASE_URL_FOR_DEV = ['localhost', 'stage', '.hlx.', '.aem.'].some((domain) => window.location.hostname.includes(domain)) ? 'https://www.bitdefender.com/pages' : '';
+
+  static BASE_URL_FOR_PROD = ['localhost', 'stage', '.hlx.', '.aem.'].some((domain) => window.location.hostname.includes(domain)) ? '' : 'https://www.bitdefender.com';
+
   static API_ROOT = '/p-api/v1';
 
   static LOCALISATIONS = {
