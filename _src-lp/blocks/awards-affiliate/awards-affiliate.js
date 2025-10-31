@@ -6,7 +6,15 @@ export default function decorate(block) {
   const { product, buttonText, buttonLink } = metaData;
   const [, iconSubtitle, , subtitle, , columnTitle, columnSubtitle, columns] = block.children;
 
-  if (product) {
+  // Always apply the CSS classes regardless of metadata presence
+  columns?.classList.add('columns-class');
+  subtitle?.classList.add('subtitle');
+  columnTitle?.classList.add('columns-title');
+  columnSubtitle?.classList.add('columns-subtitle');
+  if (iconSubtitle?.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
+
+  // Only add the buy button if product metadata exists
+  if (product && buttonText) {
     const [prodName, prodUsers, prodYears] = product.split('/');
     const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
@@ -17,11 +25,6 @@ export default function decorate(block) {
       buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#"><strong>${buttonText}</strong></a>`;
     }
 
-    columns?.classList.add('columns-class');
-    subtitle?.classList.add('subtitle');
-    columnTitle?.classList.add('columns-title');
-    columnSubtitle?.classList.add('columns-subtitle');
-    if (iconSubtitle?.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
     columns?.insertAdjacentElement('afterend', buybtn);
   }
 

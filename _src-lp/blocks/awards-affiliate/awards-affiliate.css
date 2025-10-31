@@ -39,6 +39,11 @@
   width: 38px;
 }
 
+.fragment .awards-affiliate .columns-class img {
+  width: 50px;
+  padding: 0;
+}
+
 .awards-affiliate .columns-class > div {
   background-color: white;
   border-radius: 20px;
@@ -69,6 +74,12 @@
 
 .awards-affiliate.no-button .button {
   display: none;
+}
+
+.awards-affiliate-container.fragment .awards-affiliate {
+  background-color: #EDF9FF;
+  border-radius: 20px;
+  padding: 2em 0;
 }
 
 .awards-affiliate.no-button .subtitle img {
@@ -118,9 +129,6 @@
   }
 }
 
-.awards-affiliate-container.they-wear-our-faces {
-  border: none !important;
-}
 .awards-affiliate-container.they-wear-our-faces.blue-gradient {
   background: linear-gradient(180deg, rgb(0, 109, 255) 25%, rgb(255, 255, 255) 25%);
 }
@@ -165,6 +173,9 @@
 .awards-affiliate-container.they-wear-our-faces .columns-class img {
   width: 48px;
 }
+.awards-affiliate-container.they-wear-our-faces {
+  border: none !important;
+}
 @media (width < 768px) {
   .awards-affiliate-container.they-wear-our-faces {
     padding: 30px;
@@ -208,6 +219,11 @@
   .awards-affiliate img {
     max-width: none;
   }
+  .awards-affiliate-container.fragment img {
+    padding: 10px;
+    max-height: 100px;
+    margin: 5px 10px;
+  }
   .awards-affiliate div {
     font-size: 18px;
   }
@@ -217,6 +233,9 @@
   }
   .awards-affiliate .subtitle {
     max-width: 620px;
+  }
+  .awards-affiliate-container.fragment .subtitle {
+    margin: 10px auto 10px auto;
   }
   .awards-affiliate .columns-subtitle {
     max-width: 628px;
