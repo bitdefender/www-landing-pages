@@ -475,6 +475,11 @@ export default function decorate(block) {
       }
 
       const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
+      const [alias, selector, btnText] = (buyLinkObj?.text || '').trim().split('|');
+      let demoBtn = '';
+      if (alias.trim() === 'popup') {
+        demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
+      }
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
@@ -539,6 +544,7 @@ export default function decorate(block) {
 
               ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
+              
               ${replaceBuyLinks ? `<div class="buy-btn">
                   <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
                 </div>` : `<div class="buy-btn">
@@ -550,7 +556,7 @@ export default function decorate(block) {
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
-            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
+            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${demoBtn !== '' ? demoBtn : underBuyLink.innerHTML.trim()}</div>` : ''}
             <hr />
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
