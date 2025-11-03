@@ -20,8 +20,73 @@
   font-weight: bold;
 }
 
+.section.banner-container.csam-design h1 {
+  display: none;
+}
+
+.section.banner-container.csam-design .block {
+  overflow: hidden;
+}
+
+.section.banner-container.csam-design .block .row > div {
+  width: 100%;
+}
+
+.section.banner-container.csam-design .block .row > div p {
+  padding: 0;
+  margin: 0;
+}
+
+.section.banner-container.csam-design .block .row > div p:last-of-type {
+  text-align: center;
+  width: 500px;
+  margin-left: 1em;
+  font-size: 19px;
+  line-height: 25px;
+  margin-top: -11em;
+}
+
+.section.banner-container.csam-design .block .row > div p:last-of-type a {
+  background: #E72325 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  font-family: Arial, sans-serif;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+  margin-top: 1em;
+  transition: .4s all ease-in-out;
+}
+
+.section.banner-container.csam-design .block .row > div p:last-of-type a:hover {
+  background: #c5171a 0% 0% no-repeat padding-box;
+  text-decoration: none;
+  transition: .4s all ease-in-out;
+}
+
+.section.banner-container.csam-design .block .row > div em {
+  display: block;
+  width: max-content;
+  background-color: #e5f2ff;
+  color: #026DFF;
+  padding: 10px 15px;
+  transform: skewX(-10deg);
+  margin-bottom: -6em;
+  margin-left: 3.5em;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.csam-design .block .row > div em * {
+  color: #026DFF;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
 .section.banner-container.borders-rounded .banner {
-  border-radius: 10px;
+  border-radius: 11px;
 }
 
 .section.banner-container .banner h1 {
@@ -38,7 +103,7 @@
 .section.banner-container .banner h1 a {
   color: white;
   text-decoration: underline;
-  text-decoration-color:#599bfc;
+  text-decoration-color: #599bfc;
 }
 
 .section.banner-container .banner p a {
@@ -46,7 +111,7 @@
 }
 
 .section.banner-container .banner h1 a:hover {
-  text-decoration-color:#cee2fe;
+  text-decoration-color: #cee2fe;
 }
 
 .section.banner-container .banner img {
@@ -81,14 +146,17 @@
 
 .section.banner-container.new-2024 .save-class {
   color: #1C7928;
-  margin-left:10px;
-  margin-right:10px;
-  margin-top:0;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 0;
   font: normal normal bold 18px/21px Arial, sans-serif;
   gap: 5px;
 }
 
-.section.banner-container.normal-title .banner h1, .section.banner-container.normal-title .banner h2, .section.banner-container.normal-title .banner h3, .section.banner-container.normal-title .banner h4 {
+.section.banner-container.normal-title .banner h1,
+.section.banner-container.normal-title .banner h2,
+.section.banner-container.normal-title .banner h3,
+.section.banner-container.normal-title .banner h4 {
   font-weight: normal;
 }
 
@@ -121,13 +189,36 @@
   text-align: left;
 }
 
+.section.banner-container.v2.rounded-image .banner>div>div::after {
+  display: none;
+}
+
+.section.banner-container.v2.rounded-image .banner .img-right {
+  width: 50%;
+  ;
+}
+
+.section.banner-container.v2.rounded-image .banner .img-right div::after {
+  display: none;
+}
+
+.section.banner-container.v2.rounded-image .banner h2 {
+  color: #006EFF;
+  font-size: 32px;
+}
+
+.section.banner-container.v2.rounded-image .banner h1 em {
+  color: #D70000;
+  font-style: normal;
+}
+
 .section.banner-container .banner ul {
   padding-left: 0;
 }
 
 .section.banner-container.divider .banner ul {
   padding-bottom: 20px;
-    border-bottom: 1px solid #E7E7E7;
+  border-bottom: 1px solid #E7E7E7;
 }
 
 .section.banner-container .banner ul li {
@@ -231,7 +322,7 @@
 
 .section.banner-container.new-2024.v2 p.button-container a {
   text-decoration: none;
-  color: white!important;
+  color: white !important;
 }
 
 .section.banner-container .banner .blue-box tr td:first-of-type {
@@ -242,7 +333,7 @@
   margin-bottom: 1em;
 }
 
-.section.banner-container.partnerportale .banner div.col-12 div > p strong em {
+.section.banner-container.partnerportale .banner div.col-12 div > p strong em, .section.banner-container.partnerportale .banner div.col-12 div > p em strong {
   border-radius: 20px;
   background-color: #1C7928;
   font-style: normal;
@@ -307,6 +398,21 @@
   line-height: 17px;
 }
 
+.section.banner-container.v2.rounded-image .banner>div>div>div img {
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.section.banner-container.v2.rounded-image .banner h1 {
+  font: normal normal bold 40px/46px 'IBM Plex Sans', sans-serif;
+  text-align: left;
+}
+
+.section.banner-container.v2.rounded-image .banner p {
+  font: normal normal normal 18px/24px 'IBM Plex Sans', sans-serif;
+}
+
 .section.banner-container.new-green-pill h1 strong {
   color: #000;
   text-align: left;
@@ -352,7 +458,7 @@
   font-size: var(--body-font-size-xs);
   line-height: var(--body-font-size-m);
   margin: 1.5rem 0;
-  padding: 10px 20px!important;
+  padding: 10px 20px !important;
 }
 
 .section.banner-container .banner #lidlBox a.red-buy-button img {
@@ -411,7 +517,52 @@
   padding: 2px 11px;
 }
 
-.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1) *, .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2) * {
+.section.banner-container.red-pill #greenPillBox {
+  background-color: #F00;
+  border-radius: 100%;
+  border: 3px solid white;
+  position: absolute;
+  right: 5em;
+  top: -2em;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transform: rotate(-9deg);
+  padding: 0;
+}
+
+.section.banner-container.red-pill #greenPillBox:hover {
+  opacity: 1;
+}
+
+.section.banner-container.red-pill #greenPillBox > span {
+  border-radius: 100%;
+  border: 4px solid black;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 26px;
+  line-height: 28px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.red-pill #greenPillBox > span br {
+  display: none;
+}
+
+.section.banner-container.bf25 p.button-container {
+  margin-top: 2em;
+  display: block;
+}
+
+.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1) *,
+.section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2) * {
   background-color: white;
   color: black;
 }
@@ -429,7 +580,8 @@
   margin-right: 10px;
 }
 
-.section.banner-container #greenPillBox:hover, .section.banner-container #greenPillBox:hover a {
+.section.banner-container #greenPillBox:hover,
+.section.banner-container #greenPillBox:hover a {
   opacity: 0.9;
   text-decoration: none;
 }
@@ -572,7 +724,7 @@
   height: 16px;
   width: 18px;
   margin-right: 5px;
-  background-size: auto 100%!important;
+  background-size: auto 100% !important;
   display: inline-block;
 }
 
@@ -607,17 +759,26 @@
   font-size: 16px;
 }
 
-.section.banner-container.new-green-pill #greenPillBox span{
+.section.banner-container.new-green-pill #greenPillBox span {
   font-weight: 700;
   align-items: center;
   display: flex;
   gap: 5px;
-} 
+}
 
 .section.banner-container.new-green-pill #greenPillBox .icon {
   width: 25px;
   height: 25px;
   margin-bottom: 2px;
+}
+
+.section.banner-container.pink-pill #greenPillBox {
+  background-color: #F9D9EB;
+  color: #EC008C;
+}
+
+.section.banner-container.pink-pill #greenPillBox svg path {
+  fill: #EC008C;
 }
 
 .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(1)::before {
@@ -636,12 +797,13 @@
   background: url('../../icons/small_bs_blue.png') no-repeat 0 0 transparent;
 }
 
-.section.banner-container.hasslide .block > div:first-of-type .button {
+.section.banner-container.hasslide .block>div:first-of-type .button {
   background: transparent;
   padding: unset;
 }
 
-.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1), .section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2) {
+.section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1),
+.section.banner-container.hasslide.selected2 .block table tr td:nth-of-type(2) {
   background-color: white;
   color: black;
 }
@@ -650,13 +812,408 @@
   color: black;
 }
 
-.section.banner-container.hasslide .block > div:nth-of-type(3) {
+.section.banner-container.hasslide .block>div:nth-of-type(3) {
   width: 630px;
   margin: 0 auto;
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 18px;
   line-height: 23px;
   font-weight: normal;
+}
+
+.section.banner-container.v2.rounded-image .banner>div>div {
+  justify-content: space-between;
+}
+
+@media screen and (width >=1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+
+@media screen and (width >=1800px) {
+  .section.banner-container .custom-justify-content-xxxl-center {
+    justify-content: center !important;
+  }
+}
+
+@media screen and (width <=1110px) {
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -3em;
+  }
+
+  .section.banner-container.csam-design .block .row > div p:last-of-type {
+    margin-left: 0;
+    margin-top: -7em;
+  }
+}
+
+@media screen and (width >=991px) {
+  .section.banner-container .banner h1 {
+    font-size: var(--heading-font-size-xl);
+    line-height: 45px;
+    text-align: left;
+  }
+
+  .section.lp-brand .banner h1 {
+    font-weight: lighter;
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+  }
+
+  .section.banner-container .banner.smaller-title h1,
+  .section.banner-container.smaller-title .banner h1 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container.smaller-title-2 .banner h1 {
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container .banner h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-xl);
+    text-align: left;
+  }
+
+  .section.banner-container .banner img {
+    width: initial;
+  }
+
+  .section.lp-brand .banner {
+    padding-bottom: 9rem;
+  }
+}
+
+@media screen and (width <=991px) {
+  .section.banner-container.hide-tablet,
+  .section.banner-container.hide-tablet .block {
+    background-image: unset !important;
+  }
+
+  .section.lp-brand .banner {
+    padding-bottom: 1rem !important;
+    background: none !important;
+  }
+
+  .banner-container.bckimg-full-right {
+    background-position: right -19rem top !important;
+  }
+
+  .banner-container h1 {
+    font-size: 30px;
+  }
+
+  .banner-container h2 {
+    font-size: 26px;
+  }
+
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
+
+  .section.banner-container.csam-design .block .row>div em {
+    margin-bottom: -5em;
+    margin-left: 2.5em;
+  }
+
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -3em;
+    width: 900px;
+    max-width: 900px;
+    min-width: 900px;
+  }
+
+  .section.banner-container.csam-design .block .row > div p:last-of-type {
+    margin-left: 0;
+    margin-top: -7em;
+    width: 400px;
+  }
+}
+
+@media screen and (width >=1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+
+@media screen and (width >=1800px) {
+  .section.banner-container .custom-justify-content-xxxl-center {
+    justify-content: center !important;
+  }
+}
+
+@media screen and (width <=1110px) {
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -3em;
+  }
+
+  .section.banner-container.csam-design .block .row>div p:last-of-type {
+    margin-left: 3em;
+    margin-top: -7em;
+  }
+}
+
+@media screen and (width >=991px) {
+  .section.banner-container .banner h1 {
+    font-size: var(--heading-font-size-xl);
+    line-height: 45px;
+    text-align: left;
+  }
+
+  .section.lp-brand .banner h1 {
+    font-weight: lighter;
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-font-size-xl);
+  }
+
+  .section.banner-container .banner.smaller-title h1,
+  .section.banner-container.smaller-title .banner h1 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container.smaller-title-2 .banner h1 {
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container .banner h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-xl);
+    text-align: left;
+  }
+
+  .section.banner-container .banner img {
+    width: initial;
+  }
+
+  .section.lp-brand .banner {
+    padding-bottom: 9rem;
+  }
+}
+
+@media screen and (width <=991px) {
+  .section.banner-container.hide-tablet,
+  .section.banner-container.hide-tablet .block {
+    background-image: unset !important;
+  }
+
+  .section.lp-brand .banner {
+    padding-bottom: 1rem !important;
+    background: none !important;
+  }
+
+  .banner-container.bckimg-full-right {
+    background-position: right -19rem top !important;
+  }
+
+  .banner-container h1 {
+    font-size: 30px;
+  }
+
+  .banner-container h2 {
+    font-size: 26px;
+  }
+
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
+
+  .section.banner-container.csam-design .block .row>div em {
+    margin-bottom: -5em;
+    margin-left: 2.5em;
+  }
+
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -3em;
+    width: 900px;
+    max-width: 900px;
+    min-width: 900px;
+  }
+
+  .section.banner-container.csam-design .block .row>div p:last-of-type {
+    margin-left: 1em;
+    margin-top: -7em;
+  }
+}
+
+.section.banner-container.they-wear-our-faces {
+  font-family: "IBM Plex Sans", sans-serif;
+
+  .banner {
+    padding: 0 0 1rem !important;
+    margin-bottom: 0 !important;
+
+    p {
+      text-align: center;
+      font-size: 20px;
+      line-height: normal;
+
+      &:has(.icon) {
+        .icon {
+          height: auto;
+          width: 243px;
+        }
+      }
+
+      &.button-container {
+        padding-top: 20px;
+
+        a {
+          font-size: 18px;
+          font-weight: 500;
+          padding-top: 16px;
+          padding-bottom: 16px;
+          background-color: #D60000;
+        }
+      }
+    }
+
+    .bck-img>div {
+      &::before {
+        content: '';
+        width: 160%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        left: -25%;
+        bottom: -1%;
+        background: linear-gradient(180deg, rgb(0 0 0 / 0%) 0%, #000 100%);
+        z-index: 19;
+      }
+    }
+
+    picture img {
+      height: 100%;
+      overflow: visible;
+      object-fit: cover;
+      z-index: 18;
+    }
+
+    a:has(.icon-play-button) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: transparent;
+      z-index: 50;
+
+      .icon-play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 72px;
+        height: 72px;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  @media (width >= 768px) {
+    .banner {
+      .content-column {
+        margin: 64px 0;
+        z-index: 20;
+
+        >div {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          height: 100%;
+          justify-content: center;
+          align-items: flex-start;
+
+          p {
+            margin: 0;
+            text-align: left;
+            font-size: 18px;
+
+            &:has(.icon) {
+              .icon {
+                max-width: 210px;
+              }
+            }
+
+            &.button-container {
+              padding-top: 0;
+
+              a {
+                padding: 16px 24px;
+              }
+            }
+          }
+
+          p:nth-child(1) {
+            order: 2;
+          }
+
+          p:nth-child(2) {
+            order: 1;
+          }
+
+          p:nth-child(3) {
+            order: 3;
+          }
+        }
+      }
+
+      .img-right>div {
+        height: 100%;
+
+        &::before {
+          bottom: -10%;
+        }
+      }
+
+      .icon-play-button {
+        width: 96px;
+        height: 96px;
+      }
+    }
+  }
+
+  @media (width >= 1200px) {
+    .banner {
+      height: 480px;
+      max-height: 480px;
+
+      .content-column {
+        margin: 0;
+
+        >div {
+          position: relative;
+          z-index: 1;
+
+          p {
+            font-size: 24px;
+
+            &:has(.icon) {
+              .icon {
+                max-width: 310px;
+              }
+            }
+          }
+        }
+      }
+
+      div {
+        height: 100%;
+      }
+
+      picture img {
+        position: relative;
+        object-fit: none;
+        z-index: 0;
+      }
+    }
+  }
 }
 
 @media (width >= 768px) {
@@ -690,7 +1247,7 @@
     margin-top: 1em;
   }
 
- .section.banner-container #pricesBox .d-flex {
+  .section.banner-container #pricesBox .d-flex {
     align-items: center;
   }
 
@@ -711,7 +1268,7 @@
     font-weight: bold;
   }
 
- .section.banner-container #pricesBox .d-flex .variation {
+  .section.banner-container #pricesBox .d-flex .variation {
     font-size: var(--body-font-size-xs);
     line-height: 19px;
     font-weight: bold;
@@ -730,7 +1287,8 @@
     margin-left: 0;
   }
 
-  .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
+  .section.banner-container #pricesBox .buy_box a,
+  .section.banner-container #pricesBox .buy_box span {
     display: inline;
   }
 
@@ -748,7 +1306,7 @@
   .section.banner-container #pricesBox .terms p a {
     color: #006DFF;
   }
-  
+
   .section.banner-container.new-green-pill .col-md-7 {
     width: 80%;
   }
@@ -776,7 +1334,8 @@
     line-height: var(--heading-font-size-xl);
   }
 
-  .section.banner-container .banner.smaller-title h1, .section.banner-container.smaller-title .banner h1 {
+  .section.banner-container .banner.smaller-title h1,
+  .section.banner-container.smaller-title .banner h1 {
     font-size: var(--heading-font-size-l);
     line-height: var(--heading-font-size-l);
   }
@@ -802,8 +1361,9 @@
 }
 
 @media screen and (width <= 991px) {
-  .section.banner-container.hide-tablet, .section.banner-container.hide-tablet .block {
-    background-image: unset!important;
+  .section.banner-container.hide-tablet,
+  .section.banner-container.hide-tablet .block {
+    background-image: unset !important;
   }
 
   .section.lp-brand .banner {
@@ -812,7 +1372,7 @@
   }
 
   .banner-container.bckimg-full-right {
-    background-position: right -19rem top!important;
+    background-position: right -19rem top !important;
   }
 
   .banner-container h1 {
@@ -822,10 +1382,57 @@
   .banner-container h2 {
     font-size: 26px;
   }
+
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
+}
+
+@media screen and (width >= 1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+
+@media screen and (width <= 1200px) {
+  .section.banner-container.red-pill #greenPillBox {
+    right: 4em;
+  }
+}
+
+@media screen and (width <= 1000px) {
+  .section.banner-container.red-pill #greenPillBox {
+    right: 2em;
+    top: -3em;
+  }
+}
+
+@media screen and (width <= 830px) {
+  .section.banner-container.red-pill #greenPillBox {
+    right: 1em;
+    top: -3em;
+  }
 }
 
 @media screen and (width <= 767px) {
-  .section.section.banner-container.hasslide .block > div {
+  .section.banner-container.red-pill #greenPillBox {
+    right: 2em;
+    top: -1em;
+  }
+
+  .section.banner-container.red-pill .banner img {
+    width: 70%;
+    margin-top: 2em;
+  }
+
+  .section.banner-container.red-pill .banner .content-column img {
+    width: 70%;
+    margin-top: 10px;
+  }
+
+  .section.section.banner-container.hasslide .block>div {
     text-align: left;
     width: 100%;
   }
@@ -855,10 +1462,21 @@
     font-weight: normal;
   }
 
-  .section.banner-container.hasslide .block > div:first-of-type h1 {
+  .section.banner-container.hasslide .block>div:first-of-type h1 {
     font-size: 24px;
     line-height: 28px;
     text-align: left;
+  }
+
+  .section.banner-container .banner .content-column {
+    width: 100%;
+    text-align: center;
+    padding-left: 15px !important;
+    padding-right: 15px;
+  }
+
+  .section.banner-container .banner .content-column p.button-container * {
+    width: 70%;
   }
 
   .section.banner-container .banner p {
@@ -902,8 +1520,8 @@
   }
 
   .section.banner-container .banner {
-    padding: 1em 0!important;
-    margin-bottom: 2em!important;
+    padding: 1em 0 !important;
+    margin-bottom: 2em !important;
   }
 
   .section.lp-brand .banner {
@@ -916,8 +1534,8 @@
   }
 
   .section.banner-container.new-2024.v2 .banner {
-    border-radius: 0!important;
-    margin-top: 0!important;
+    border-radius: 0 !important;
+    margin-top: 0 !important;
     margin-bottom: 1em !important;
   }
 
@@ -965,7 +1583,7 @@
     line-height: 25px;
     font-weight: bold;
     letter-spacing: -0.17px;
-    padding: 10px 15px!important;
+    padding: 10px 15px !important;
     margin: 1rem 0;
   }
 
@@ -1017,7 +1635,8 @@
     text-align: center
   }
 
-  .section.banner-container #pricesBox .buy_box a, .section.banner-container #pricesBox .buy_box span {
+  .section.banner-container #pricesBox .buy_box a,
+  .section.banner-container #pricesBox .buy_box span {
     display: inline;
     font-size: var(--body-font-size-s);
   }
@@ -1052,8 +1671,9 @@
     display: none !important;
   }
 
-  .section.banner-container.hide-mobile, .section.banner-container.hide-mobile .block {
-    background-image: unset!important;
+  .section.banner-container.hide-mobile,
+  .section.banner-container.hide-mobile .block {
+    background-image: unset !important;
   }
 
   .section.banner-container.hide-mobile .bck-img {
@@ -1066,22 +1686,82 @@
   }
 }
 
-@media screen and (width <= 991px) {
-  .section.banner-container.hide-tablet {
-    background-image: unset!important;
-    background-color: #000;
+@media screen and (width <= 600px) {
+  .section.banner-container.csam-design .block .row>div em {
+    margin-bottom: -9em;
+    margin-left: 2.5em;
+    margin-top: 3em;
+  }
+
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -1em;
+    margin-top: 4em;
+    width: 850px;
+    max-width: 850px;
+    min-width: 850px;
   }
 }
 
-@media screen and (width >= 1400px) {
-  .section.banner-container .custom-col-xl-4 {
-    flex: 0 0 auto;
-    width: 27.33%;
+@media screen and (width <= 500px) {
+  .section.banner-container.red-pill #greenPillBox {
+    width: 80px;
+    height: 80px;
+    right: 2em;
+    top: -1em;
+  }
+
+  .section.banner-container.red-pill #greenPillBox > span {
+    font-size: 21px;
+    line-height: 23px;
+  }
+
+  .section.banner-container.csam-design .block .row>div em {
+    margin-bottom: -4.3em;
+    margin-left: 1.5em;
+    margin-top: 1em;
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+
+  .section.banner-container.csam-design .banner img {
+    margin-bottom: -1em;
+    margin-top: 1em;
+    width: 121%;
+    max-width: 121%;
+    min-width: 121%;
+  }
+
+  .section.banner-container.red-pill .banner .content-column img {
+    width: 100%;
+  }
+
+  .section.banner-container.csam-design .block .row>div p:last-of-type {
+    display: none;
+  }
+
+  .section.banner-container .banner .content-column p.button-container * {
+    width: 100%;
   }
 }
 
 @media screen and (width >= 1800px) {
   .section.banner-container .custom-justify-content-xxxl-center {
     justify-content: center !important;
+  }
+}
+
+@media screen and (width <= 400px) {
+  .section.banner-container.csam-design .block .row>div em {
+    font-size: 10px;
+    margin-bottom: -5em;
+  }
+}
+
+@media screen and (width <= 350px) {
+  .section.banner-container.csam-design .block .row>div em {
+    font-size: 10px;
+    margin-left: 1em;
+    margin-bottom: -4.5em;
+    padding: 2px 9px;
   }
 }

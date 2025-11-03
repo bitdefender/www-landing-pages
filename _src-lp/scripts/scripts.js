@@ -849,6 +849,7 @@ const createFakeSelectors = () => {
   document.querySelector('footer').before(fakeSelectorsBottom);
   if (!productsList.length) return;
   productsList.forEach((prod) => {
+    if (!prod) return;
     const prodSplit = prod.split('/');
     const prodAlias = productAliases(prodSplit[0].trim());
     const prodUsers = prodSplit[1].trim();
@@ -879,6 +880,7 @@ function initSelectors(pid) {
     fakeSelectorsBottom.id = 'fakeSelectors_bottom';
     document.querySelector('footer').before(fakeSelectorsBottom);
     productsList.forEach((prod) => {
+      if (!prod) return;
       const prodSplit = prod.split('/');
       const prodAlias = productAliases(prodSplit[0].trim());
       const prodUsers = prodSplit[1].trim();
@@ -1016,6 +1018,7 @@ async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks 
       try {
         await Promise.all(
           productsList.map(async (item) => {
+            if (!item) return;
             const prodSplit = item.split('/');
             const prodAlias = prodSplit[0].trim();
             const prodUsers = prodSplit[1].trim();
@@ -1033,6 +1036,7 @@ async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks 
             }
             sendAnalyticsProducts(vlaicuResult);
 
+            // eslint-disable-next-line consistent-return
             return vlaicuResult;
           }),
         );
@@ -1133,24 +1137,51 @@ function eventOnDropdownSlider() {
       clearInterval(interval); // Clear the interval
     }
 
-    // Set the initial active item
-    moveToNextItem();
-
-    // Start automatic movement after the loading is complete
-    setTimeout(() => {
-      startAutomaticMovement();
-    }, 1000);
-
-    // Click event listener on titles
-    titles.forEach((title, index) => {
-      title.addEventListener('click', () => {
-        stopAutomaticMovement();
-        activeIndex = index;
-        showLoadingBar(index);
-        moveToNextItem();
-        startAutomaticMovement();
+    function moveToNextItemNoLoader() {
+      titles.forEach((title, index) => {
+        if (index === activeIndex) {
+          title.parentNode.classList.add('active');
+          title.closest('.dropdownSlider').setAttribute('style', `min-height: ${title.parentNode.querySelector('.description').offsetHeight + 50}px`);
+        } else {
+          title.parentNode.classList.remove('active');
+        }
       });
-    });
+    }
+
+    if (slider.classList.contains('no-loader')) {
+      moveToNextItemNoLoader();
+      titles.forEach((title, index) => {
+        title.addEventListener('click', () => {
+          activeIndex = index;
+          moveToNextItemNoLoader();
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        moveToNextItemNoLoader();
+      });
+    }
+
+    if (!slider.classList.contains('no-loader')) {
+      // Set the initial active item
+      moveToNextItem();
+
+      // Start automatic movement after the loading is complete
+      setTimeout(() => {
+        startAutomaticMovement();
+      }, 1000);
+
+      // Click event listener on titles
+      titles.forEach((title, index) => {
+        title.addEventListener('click', () => {
+          stopAutomaticMovement();
+          activeIndex = index;
+          showLoadingBar(index);
+          moveToNextItem();
+          startAutomaticMovement();
+        });
+      });
+    }
   });
 }
 
@@ -1173,6 +1204,45 @@ function setBFCacheListener() {
   });
 }
 
+/**
+ * Adds click event listeners to multiple elements with Adobe Data Layer tracking
+ * @param {string} selector - CSS selector to find elements
+ * @param {string} assetName - Asset name for Adobe Data Layer tracking
+ * @param {string} eventType - Event type (default: 'click')
+ */
+function addTrackingEventListeners(selector, assetName, eventType = 'click') {
+  function getSectionId(element) {
+    const parentSection = element.closest('.section');
+    if (parentSection?.id) {
+      return parentSection.id;
+    }
+
+    if (element.closest('header')) {
+      return 'header';
+    }
+
+    if (element.closest('.they-wear-our-faces-sticky-section')) {
+      return 'they-wear-our-faces-sticky-section';
+    }
+
+    return null;
+  }
+
+  const elements = document.querySelectorAll(`a[href*="${selector}"]`);
+
+  elements.forEach((element, idx) => {
+    element.addEventListener(eventType, () => {
+      const sectionID = getSectionId(element);
+      AdobeDataLayerService.push({
+        event: eventType,
+        asset: `${assetName}_${sectionID}_${idx + 1}`,
+      });
+    });
+  });
+
+  return elements.length;
+}
+
 async function loadPage() {
   setBFCacheListener();
   await loadEager(document);
@@ -1187,6 +1257,15 @@ async function loadPage() {
   }
   initializeProductsPriceLogic();
 
+  // Asset tracking - adding event listeners to all the links that contain the specified selector
+  // this tracks links that are in the page, directing the user to a buy flow, like a product card
+  // this pattern should not be replicated
+  // this currently will work only in the they-wear-our-faces page
+  const selectorForTracking = getMetadata('selectors-for-asset-tracking');
+  if (selectorForTracking) {
+    addTrackingEventListeners(selectorForTracking, 'trial');
+  }
+
   addScript('/_src-lp/scripts/vendor/bootstrap/bootstrap.bundle.min.js', {}, 'defer');
 
   eventOnDropdownSlider();
@@ -1196,6 +1275,9 @@ async function loadPage() {
   loadDelayed();
 
   go2Anchor();
+
+  document.dispatchEvent(new Event('bd_page_ready'));
+  window.bd_page_ready = true;
 }
 
 /*

@@ -72,3 +72,25 @@
   top: 4px;
   left: 7px;
 }
+
+.video-container .default-content-wrapper {
+  text-align: center;
+  max-width: 520px;
+}
+.video-container .default-content-wrapper em {
+  color: #828282;
+  font-size: 0.875rem;
+}
+.video-container .default-content-wrapper img {
+  width: 211px;
+  margin: 10px;
+}
+
+@media screen and (width >= 991px) {
+  .video-wrapper.video-bg-desktop {
+    background-image: var(--video-bg-url);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

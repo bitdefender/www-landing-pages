@@ -8,6 +8,80 @@ header.dark {
 header.rev-header {
   background-color: #fff;
 }
+header.customNav.blue {
+  background-color: #0059d6;
+}
+header.customNav.they-wear-our-faces {
+  font-family: "IBM Plex Sans", sans-serif;
+  border: none;
+  height: 54px;
+}
+header.customNav.they-wear-our-faces .block {
+  padding: 9.5px 30px !important;
+}
+header.customNav.they-wear-our-faces .block div {
+  justify-content: center;
+}
+header.customNav.they-wear-our-faces .block div picture img {
+  max-height: 24px;
+  width: auto;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+header.customNav.they-wear-our-faces .button-container {
+  display: none;
+}
+header.customNav.they-wear-our-faces em {
+  display: none;
+}
+@media screen and (width >= 590px) {
+  header.customNav.they-wear-our-faces {
+    height: var(--nav-height);
+  }
+  header.customNav.they-wear-our-faces.blue {
+    background-color: #006DFF;
+  }
+  header.customNav.they-wear-our-faces .block div {
+    justify-content: space-between;
+  }
+  header.customNav.they-wear-our-faces .block div picture {
+    display: flex;
+    align-items: center;
+  }
+  header.customNav.they-wear-our-faces .block div picture img {
+    max-height: 24px;
+    width: auto;
+    margin: 0;
+  }
+  header.customNav.they-wear-our-faces .block div > p {
+    width: 100%;
+  }
+  header.customNav.they-wear-our-faces .button-container {
+    display: block;
+  }
+  header.customNav.they-wear-our-faces em {
+    color: rgb(255, 255, 255);
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 16px;
+  }
+}
+@media screen and (width >= 991px) {
+  header.customNav.they-wear-our-faces {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+  }
+}
 header.customNav .block div {
   display: flex;
   justify-content: space-between;
@@ -47,6 +121,12 @@ header#headerBlue .block div {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+header#headerBlue.no-link img {
+  height: 26px;
+  display: inline-block;
+  width: auto;
+  position: relative;
 }
 header#headerBlue a {
   text-align: center;

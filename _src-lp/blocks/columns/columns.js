@@ -1,4 +1,4 @@
-import { getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
+import { getDatasetFromSection, matchHeights, matchWidths } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
@@ -6,10 +6,13 @@ export default function decorate(block) {
   // block.classList.add('container-sm');
   const metaData = getDatasetFromSection(block);
 
-  const backgroundColor = metaData.backgroundcolor || undefined;
-
+  const { backgroundColor, textColor, linksOpenInNewTab } = metaData;
   if (backgroundColor) {
     block.style.backgroundColor = backgroundColor;
+  }
+
+  if (textColor) {
+    block.style.color = textColor;
   }
 
   // setup image columns
@@ -31,5 +34,26 @@ export default function decorate(block) {
       }
     });
   });
+
+  if (linksOpenInNewTab === 'true') {
+    block.querySelectorAll('.button-container > a').forEach((anchorEl) => {
+      anchorEl.target = '_blank';
+      anchorEl.rel = 'noopener noreferrer';
+    });
+  }
+
+  // special handling for dynamic image block, present in the
+  // they-wear-our-faces campaign
+  // this is a bit hacky, please do not extend this pattern
+  if (block.classList.contains('dynamic-image')) {
+    const buttonContainerLink = block.querySelector('.button-container a');
+    const buttonContainerSibling = buttonContainerLink.parentElement.nextElementSibling;
+    if (buttonContainerLink && buttonContainerSibling) {
+      buttonContainerLink.classList.add('same-width');
+      buttonContainerSibling.classList.add('same-width');
+      matchWidths(block, '.same-width', 991);
+    }
+  }
   matchHeights(block, '.text-content');
+  matchHeights(block, '.feature-cards img');
 }

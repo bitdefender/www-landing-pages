@@ -9,7 +9,7 @@ export default function decorate(block) {
   const {
     product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, corners, textNextToPill, bestValue,
+    marginBottom, imageCover, corners, textNextToPill, type, bestValue,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -67,13 +67,13 @@ export default function decorate(block) {
     // PRICE_BOX
     if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
-      const [alias, save, prices, terms, buybtn] = [...table.querySelectorAll('tr')];
+      const [alias, save, prices, terms, buybtn, prodstext, afterTrial] = [...table.querySelectorAll('tr')];
 
       if (products) {
         const productsAsList = products.split(',');
         productsAsList.forEach((prod) => updateProductsList(prod));
 
-        const containerDiv = document.createElement('div'); // Create a div container
+        const containerDiv = document.createElement('div');
         containerDiv.id = 'prodSel';
 
         if (bestValue) {
@@ -85,7 +85,7 @@ export default function decorate(block) {
           containerDiv.appendChild(productSelectorBestValue);
         }
 
-        const productSelector = document.createElement('select');
+        const productSelector = type && type === 'radio-buttons' ? document.createElement('div') : document.createElement('select');
         productSelector.id = 'productSelector';
         productSelector.className = 'productSelector';
 
@@ -95,18 +95,31 @@ export default function decorate(block) {
         table.innerHTML = '';
         table.appendChild(containerDiv);
 
-        productsAsList.forEach((prod) => {
+        productsAsList.forEach((prod, i) => {
           /* eslint-disable no-shadow */
           const [prodName, prodUsers, prodYears] = prod.split('/');
           const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
           const pricesBox = document.createElement('div');
 
           if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
             buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
           }
 
-          productSelector.innerHTML += `<option value="${onSelectorClass}">${productAliasesNames(prodName)}</option>`;
+          const isTrial = !!type && type === 'radio-buttons';
+          if (isTrial) {
+            productSelector.setAttribute('value', onSelectorClass);
+            containerDiv.classList.add('prodsel-radio');
+            const optionsText = prodstext.querySelectorAll('li');
+            productSelector.innerHTML += `
+              <label class="prodsel-radio-label" value="${onSelectorClass}">
+                <input type="radio" name="productSelector" value="${onSelectorClass}" ${i === 0 ? 'checked' : ''}>
+                <span>${optionsText[i].innerHTML}</span>
+              </label>
+            `;
+          } else {
+            productSelector.innerHTML += `<option value="${onSelectorClass}">${productAliasesNames(prodName)}</option>`;
+          }
+
           pricesBox.className = `pricesBox prices_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} await-loader prodload prodload-${onSelectorClass}`;
           pricesBox.innerHTML += `<div class="d-flex">
             <p>
@@ -117,7 +130,8 @@ export default function decorate(block) {
               </div>
               </p>
               <div class="d-flex">
-                <span class="prod-newprice newprice-${onSelectorClass}"></span>
+                ${isTrial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
+                
                 <p class="variation">${prices.innerHTML}</p>
               </div>
           </div>`;
@@ -126,6 +140,12 @@ export default function decorate(block) {
           pricesBox.innerHTML += `<div class="buy_box">
             <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
           </div>`;
+
+          if (afterTrial) {
+            pricesBox.innerHTML += `<div class="pay_after_trial">
+              ${afterTrial.innerHTML.replace('0', `<span class="prod-newprice newprice-${onSelectorClass}"></span>`)}
+            </div>`;
+          }
 
           table.appendChild(pricesBox);
         });
@@ -414,19 +434,32 @@ export default function decorate(block) {
     });
   }
 
-  if (block.querySelector('.productSelector')) {
-    const selectElement = block.querySelector('.productSelector');
-    selectElement.addEventListener('change', function handleSelectChange() {
-      const selectedValue = this.value;
-      const elementProdBoxes = block.querySelectorAll('.pricesBox');
-      const elementProduct = block.querySelector(`.prodload-${selectedValue}`);
-      elementProdBoxes.forEach((elementProdBox) => {
-        elementProdBox.style.display = 'none';
+  const productSelector = block.querySelector('.productSelector');
+  if (productSelector) {
+    const showProduct = (value) => {
+      block.querySelectorAll('.pricesBox').forEach((box) => {
+        box.style.display = 'none';
       });
-      elementProduct.style.display = 'block';
-    });
-  }
-  block.querySelector('.pricesBox').style.display = 'block';
+      const productBox = block.querySelector(`.prodload-${value}`);
+      if (productBox) productBox.style.display = 'block';
+    };
 
+    if (productSelector.querySelector('label.prodsel-radio-label')) {
+      const firstInput = productSelector.querySelector('input[type="radio"]');
+      if (firstInput) {
+        firstInput.checked = true;
+        firstInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      productSelector.querySelectorAll('label.prodsel-radio-label').forEach((label) => {
+        label.addEventListener('click', () => showProduct(label.getAttribute('value')));
+      });
+    } else {
+      productSelector.addEventListener('change', () => {
+        showProduct(productSelector.value || productSelector.getAttribute('value'));
+      });
+    }
+  }
+
+  block.querySelector('.pricesBox').style.display = 'block';
   detectModalButtons(block);
 }

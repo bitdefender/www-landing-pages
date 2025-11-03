@@ -2,8 +2,12 @@
   "extends": ["stylelint-config-standard", "stylelint-config-standard-scss"],
   "rules": {
     "selector-class-pattern": null,
-    "selector-id-pattern": null
+    "selector-id-pattern": null,
+    "no-descending-specificity": null
   },
+  "overrides": [
+    { "files": ["**/*.scss"], "customSyntax": "postcss-scss" }
+  ],
   "ignoreFiles": [
     "_src-lp/styles/vendor/*.css"
   ]

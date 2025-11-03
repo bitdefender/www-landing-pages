@@ -1,4 +1,5 @@
 import { productAliases } from '../../scripts/scripts.js';
+import { matchHeights } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
@@ -21,6 +22,8 @@ export default function decorate(block) {
     columnTitle?.classList.add('columns-title');
     columnSubtitle?.classList.add('columns-subtitle');
     if (iconSubtitle?.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
-    block.appendChild(buybtn);
+    columns?.insertAdjacentElement('afterend', buybtn);
   }
+
+  matchHeights(block, 'h4');
 }

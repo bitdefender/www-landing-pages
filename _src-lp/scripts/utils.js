@@ -1,11 +1,14 @@
-import { User } from '@repobit/dex-utils';
 import { targetPromise, getDefaultLanguage } from './target.js';
 import { getMetadata } from './lib-franklin.js';
+import userPromise from './user.js';
 import { Bundle } from './vendor/product.js';
 import pagePromise from './page.js';
+import Constants from './constants.js';
 
 const target = await targetPromise;
 const page = await pagePromise;
+const user = await userPromise;
+
 export const IANA_BY_REGION_MAP = new Map([
   [3, { locale: 'en-GB', label: 'united kingdom' }],
   [4, { locale: 'au-AU', label: 'australia' }],
@@ -402,7 +405,8 @@ function maxDiscount() {
   selectors.forEach((selector) => {
     if (document.querySelector(selector)) {
       document.querySelectorAll(selector).forEach((item) => {
-        const discount = parseInt(item.textContent, 10);
+        const match = item.textContent.match(/\d+/);
+        const discount = match ? parseInt(match[0], 10) : 0;
         if (!Number.isNaN(discount)) {
           discountAmounts.push(discount);
         }
@@ -547,6 +551,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     if (dcurrency) newParams.set('DCURRENCY', dcurrency);
     if (campaign) newParams.set('COUPON', campaign);
 
+    updatedUrl.href = await target.appendVisitorIDsTo(updatedUrl.href);
+    if (window.UC_UI) {
+      updatedUrl.searchParams.set('ucControllerId', window.UC_UI.getControllerId());
+    }
+
     return updatedUrl.toString();
   };
 
@@ -581,9 +590,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
         const match = trialLinks.find((item) => (
           item.locale.toLowerCase() === locale
-            && item.product === productId
-            && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-            && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+          && item.product === productId
+          && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+          && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
         ));
 
         if (match) {
@@ -613,19 +622,17 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   } else {
     const [productId, prodUsers, prodYears] = onSelector.split('/');
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
-
     const match = trialLinks.find((item) => (
       item.locale.toLowerCase() === locale
-        && item.product === productId
-        && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-        && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
+      && item.product === productId
+      && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
+      && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
     ));
 
     if (match) {
       const oldUrl = storeObjBuyLink;
       const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
-
-      document.querySelectorAll(`.buylink-${onSelectorClass}`).forEach((link) => link.setAttribute('href', updatedUrl));
+      document.querySelectorAll(`.buylink-${onSelectorClass}:not(.no-trial)`).forEach((link) => link.setAttribute('href', updatedUrl));
     }
   }
 }
@@ -803,6 +810,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         const parentPercentBox = parentDiv?.querySelector(`.percent-${onSelectorClass}`);
         if (parentPercentBox) {
           parentPercentBox.innerHTML = `${percentageSticker}%`;
+          parentPercentBox.style.visibility = 'visible';
           parentPercentBox.parentNode.style.visibility = 'visible';
         }
       } else {
@@ -810,6 +818,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
           item.innerHTML = `${percentageSticker}%`;
           item.style.visibility = 'visible';
           item.parentNode.style.visibility = 'visible';
+          item.parentNode.parentNode.style.visibility = 'visible';
         });
       }
     }
@@ -916,7 +925,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       });
       if (saveBox.closest('.prod-save')) {
         saveBox.closest('.prod-save').remove();
-        if (saveBox.parentNode.nodeName === 'P') {
+        if (saveBox.parentNode?.nodeName === 'P') {
           saveBox.parentNode.remove();
         }
       }
@@ -940,7 +949,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           const container = item.closest('p') || item.parentNode;
           if (container && !item.classList.contains('parent-no-hide')) {
-            container.remove();
+            container.style.visibility = 'hidden';
           }
           // if we have parent-no-hide and no-price-show, we only show BUY NOW instead of BUY NOW FOR + price + OFF
           if (item.classList.contains('parent-no-hide') && item.classList.contains('no-price-show')) {
@@ -957,8 +966,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
 
     const bulinaBox = document.querySelector(`.bulina-${onSelectorClass}`);
     if (bulinaBox) {
-      bulinaBox.remove();
-      // bulinaBox.parentNode.style.visibility = 'hidden';
+      bulinaBox.style.visibility = 'hidden';
     }
   }
 
@@ -968,12 +976,14 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
       if (comparativeTextBox) {
         allBuyLinkBox.forEach((item) => {
-          item.href = buyLink;
+          item.href = item.getAttribute('data-href') || buyLink;
+          item.removeAttribute('data-href');
         });
       }
     } else {
       allBuyLinkBox.forEach((item) => {
-        item.href = buyLink;
+        item.href = item.getAttribute('data-href') || buyLink;
+        item.removeAttribute('data-href');
       });
     }
   }
@@ -1047,7 +1057,7 @@ export function getCookie(name) {
  */
 export async function fetchGeoIP() {
   try {
-    window.geoip = await User.country;
+    window.geoip = await user.country;
 
     const event = new CustomEvent(GLOBAL_EVENTS.GEOIPINFO_LOADED, { detail: window.geoip });
     window.dispatchEvent(event);
@@ -1179,6 +1189,62 @@ export async function matchHeights(targetNode, selector) {
   adjustHeights();
 }
 
+// General function to match the width of elements based on a selector
+export async function matchWidths(targetNode, selector, windowMaxInnerWidth = 768) {
+  const resetWidths = () => {
+    const elements = targetNode.querySelectorAll(selector);
+    elements.forEach((element) => {
+      element.style.minWidth = '';
+    });
+  };
+
+  const adjustWidths = () => {
+    if (window.innerWidth >= windowMaxInnerWidth) {
+      resetWidths();
+      const elements = targetNode.querySelectorAll(selector);
+      const elementsWidth = Array.from(elements).map((element) => element.offsetWidth);
+      const maxWidth = Math.max(...elementsWidth);
+
+      elements.forEach((element) => {
+        element.style.minWidth = `${maxWidth}px`;
+      });
+    } else {
+      resetWidths();
+    }
+  };
+
+  const matchWidthsCallback = (mutationsList) => {
+    Array.from(mutationsList).forEach((mutation) => {
+      if (mutation.type === 'childList') {
+        adjustWidths();
+      }
+    });
+  };
+
+  const observer = new MutationObserver(matchWidthsCallback);
+  const resizeObserver = new ResizeObserver(debounce((entries) => {
+    // eslint-disable-next-line no-unused-vars
+    entries.forEach((entry) => {
+      adjustWidths();
+    });
+  }), 100);
+
+  if (targetNode) {
+    observer.observe(targetNode, { childList: true, subtree: true });
+  }
+
+  window.addEventListener('resize', () => {
+    adjustWidths();
+  });
+
+  const elements = targetNode.querySelectorAll(selector);
+  elements.forEach((element) => {
+    resizeObserver.observe(element);
+  });
+
+  adjustWidths();
+}
+
 /**
  * /**
  * @typedef {{
@@ -1217,4 +1283,132 @@ export async function getCdpData(mcID) {
   }
 
   return {};
+}
+
+let isRendering = false;
+let widgetExecuting = false;
+export function renderTurnstile(containerId, { invisible = false } = {}) {
+  if (isRendering) {
+    return Promise.reject(new Error('Turnstile is already rendering.'));
+  }
+
+  isRendering = true;
+
+  return new Promise((resolve, reject) => {
+    function finish(error, result = null) {
+      isRendering = false;
+      widgetExecuting = false;
+      if (error) reject(error);
+      else resolve(result);
+    }
+
+    function renderWidget() {
+      if (!window.turnstile) {
+        return finish(new Error('Turnstile not loaded.'));
+      }
+
+      const container = document.getElementById(containerId);
+      if (!container) {
+        return finish(new Error(`Container "${containerId}" not found.`));
+      }
+
+      // Clear previous widget
+      container.innerHTML = '';
+
+      const widgetId = window.turnstile.render(container, {
+        sitekey: '0x4AAAAAABkTzSd63P7J-Tl_',
+        size: invisible ? 'compact' : 'normal',
+        callback: (token) => {
+          widgetExecuting = false;
+
+          if (!invisible) window.latestVisibleToken = token;
+          if (!token) return finish(new Error('Token missing.'));
+          return finish(null, { widgetId, token });
+        },
+        'error-callback': () => {
+          finish(new Error('Turnstile error during execution.'));
+        },
+        'expired-callback': () => {
+          finish(new Error('Turnstile token expired.'));
+        },
+      });
+
+      if (invisible) {
+        if (!widgetExecuting) {
+          widgetExecuting = true;
+
+          try {
+            window.turnstile.execute(widgetId);
+          } catch (err) {
+            window.turnstile.reset(widgetId);
+            window.turnstile.execute(widgetId);
+          }
+        }
+      } else {
+        finish(null, { widgetId });
+      }
+
+      return undefined;
+    }
+
+    if (window.turnstile) {
+      renderWidget();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback';
+      script.async = true;
+      script.defer = true;
+      window.onloadTurnstileCallback = renderWidget;
+      document.head.appendChild(script);
+    }
+  });
+}
+
+export async function submitWithTurnstile({
+  widgetId,
+  data,
+  fileName,
+  successCallback = null,
+  errorCallback = null,
+}) {
+  let ENDPOINT = 'https://stage.bitdefender.com/form';
+  if (window.location.hostname.startsWith('www.')) {
+    ENDPOINT = ENDPOINT.replace('stage.', 'www.');
+  }
+
+  try {
+    if (!window.turnstile || typeof window.turnstile.getResponse !== 'function') {
+      throw new Error('Turnstile is not loaded.');
+    }
+
+    const token = window.turnstile.getResponse(widgetId);
+    if (!token || token.length < 10) {
+      throw new Error('Turnstile token is missing or invalid. Please complete the challenge.');
+    }
+
+    console.log('form-url', `${Constants.BASE_URL_FOR_DEV}/common/formdata/${fileName}.xlsx`)
+
+    const requestData = {
+      file: `${Constants.BASE_URL_FOR_DEV}/common/formdata/${fileName}.xlsx`,
+      table: 'Table1',
+      row: { ...data },
+      token,
+    };
+
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestData),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Server returned status ${res.status}`);
+    }
+
+    if (typeof successCallback === 'function') successCallback();
+
+    window.turnstile.reset(widgetId);
+  } catch (err) {
+    if (typeof errorCallback === 'function') errorCallback(err);
+  }
 }

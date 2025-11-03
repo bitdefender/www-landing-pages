@@ -1,6 +1,6 @@
 import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { matchHeights, updateProductsList } from '../../scripts/utils.js';
+import { matchHeights, updateProductsList, adobeMcAppendVisitorId } from '../../scripts/utils.js';
 
 function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, radio1, radio2) {
   const radioBoxParent = document.createElement('div');
@@ -44,11 +44,10 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
     `;
 
     tablePrices.appendChild(pricesBox);
-
     if (trialText) {
       const pricesTrial = document.createElement('p');
       pricesTrial.className = 'pricesTrial';
-      pricesTrial.innerHTML = trialText.replace('0', `<strong class="prod-newprice newprice-${selectorClass}"></strong>`);
+      pricesTrial.innerHTML = trialText.includes('no-trial-text') ? '' : trialText.replace('0', `<strong class="prod-newprice newprice-${selectorClass}"></strong>`);
       tablePrices.appendChild(pricesTrial);
     }
   };
@@ -63,11 +62,12 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
 }
 
 function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display) {
-  const btnText = tableBuyBtn.textContent;
-
+  const trialText = tableBuyBtn.closest('.section').dataset.trialText;
+  const hardcodedLink = tableBuyBtn.closest('.section').dataset.hardcodedLink;
+  const btnText = trialText?.includes('no-trial-text') ? tableBuyBtn.textContent.replace('0%', '') : tableBuyBtn.textContent;
   const createButton = (className, selectorClass) => {
     const button = document.createElement('div');
-    button.innerHTML = `<a href='#' title='Bitdefender ${prodName}' class='${className} red-buy-button await-loader prodload prodload-${selectorClass} buylink-${selectorClass}' referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
+    button.innerHTML = `<a href='${hardcodedLink ?? '#'}' title='Bitdefender ${prodName}' class='${className} ${hardcodedLink ? '' : `await-loader prodload prodload-${selectorClass} buylink-${selectorClass}`} red-buy-button referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
 
     return button.innerHTML;
   };
@@ -124,9 +124,9 @@ export default function decorate(block) {
   // get Metadatas:
   const {
     products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, imageCover, imageHeight, contentSize, greenTag,
+    marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground, wrapperBackground,
   } = metaData;
-  const [contentEl, pictureEl, contentRightEl] = [...block.children];
+  const [contentEl, pictureEl, contentRightEl, tosButton] = [...block.children];
   const prodBoxesParent = document.createElement('div');
 
   // config based on Metadatas
@@ -146,12 +146,17 @@ export default function decorate(block) {
   if (marginBottom) blockStyle.marginBottom = `${marginBottom}rem`;
 
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
+  if (wrapperBackground) block.parentElement.style.backgroundColor = wrapperBackground;
 
   if (pictureEl && pictureEl.querySelector('img')) {
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+    if (blockBackground) {
+      block.style.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
+    } else {
+      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
-    if (imageCover === 'full-right') {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
+      if (imageCover === 'full-right') {
+        parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
+      }
     }
   }
 
@@ -202,16 +207,17 @@ export default function decorate(block) {
       const contentRightItem = contentRightEl.children[idx];
       if (!contentRightItem) return;
       const [bluePill, tableRadios, tablePrices] = contentRightItem.querySelectorAll('table');
+      if (bluePill) {
+        bluePill.style.display = 'none';
 
-      bluePill.style.display = 'none';
-
-      bluePill.querySelectorAll('tr').forEach((row) => {
-        Array.from(row.cells).forEach((cell) => {
-          if (cell.textContent.trim() !== '' || cell.innerHTML) {
-            bluePill.style.display = '';
-          }
+        bluePill.querySelectorAll('tr').forEach((row) => {
+          Array.from(row.cells).forEach((cell) => {
+            if (cell.textContent.trim() !== '' || cell.innerHTML) {
+              bluePill.style.display = '';
+            }
+          });
         });
-      });
+      }
 
       if (tableRadios && tablePrices) {
         const [radio1, radio2] = tableRadios.querySelectorAll('td');
@@ -246,6 +252,11 @@ export default function decorate(block) {
         prodBox.innerHTML = greenTagEl + prodBox.innerHTML;
       }
 
+      if (tosButton) {
+        tosButton.classList.add('tos-button');
+        prodBox.insertAdjacentElement('beforeend', tosButton);
+      }
+
       prodBoxesParent.appendChild(prodBox);
     });
   }
@@ -263,6 +274,11 @@ export default function decorate(block) {
 
   matchHeights(block, 'h3');
   matchHeights(block, '.prodBox p:first-of-type');
-  matchHeights(block, 'ul:first-of-type');
+  matchHeights(block, '.prodBox ul:first-of-type');
   matchHeights(block, '.prices_box > div > div:first-of-type');
+
+  const trialButton = block.querySelector('.banner-with-cards .prodBox a');
+  if (trialButton && !trialButton.href.includes('store')) {
+    adobeMcAppendVisitorId('.banner-with-cards .prodBox a');
+  }
 }
