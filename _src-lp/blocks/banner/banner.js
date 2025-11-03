@@ -380,10 +380,6 @@ export default function decorate(block) {
     }
 
     const defaultSize = getContentSizeClasses(contentSize);
-    if (contentSize === 'full') {
-      console.log('full');
-    }
-
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
@@ -410,7 +406,7 @@ export default function decorate(block) {
     };
 
     // Apply background styles for regular image cover
-    if (imageCoverVar) {
+    if (imageCoverVar !== 'cover') {
       applyBackgroundStyles(parentBlockStyle, imageSrc, `top ${imageCoverVar}`, 'auto 100%', styleOptions);
     } else {
       applyBackgroundStyles(parentBlockStyle, imageSrc, 'top right', 'cover', styleOptions);
