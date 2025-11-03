@@ -527,7 +527,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   };
 
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
-    console.log('oldUrl ', oldUrl)
     const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = oldParams.get('COUPON');
