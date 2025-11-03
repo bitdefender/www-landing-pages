@@ -3,6 +3,7 @@ import { getMetadata } from './lib-franklin.js';
 import userPromise from './user.js';
 import { Bundle } from './vendor/product.js';
 import pagePromise from './page.js';
+import Constants from './constants.js';
 
 const target = await targetPromise;
 const page = await pagePromise;
@@ -404,7 +405,8 @@ function maxDiscount() {
   selectors.forEach((selector) => {
     if (document.querySelector(selector)) {
       document.querySelectorAll(selector).forEach((item) => {
-        const discount = parseInt(item.textContent, 10);
+        const match = item.textContent.match(/\d+/);
+        const discount = match ? parseInt(match[0], 10) : 0;
         if (!Number.isNaN(discount)) {
           discountAmounts.push(discount);
         }
@@ -1385,7 +1387,7 @@ export async function submitWithTurnstile({
     }
 
     const requestData = {
-      file: `/sites/common/formdata/${fileName}.xlsx`,
+      file: `${Constants.BASE_URL_FOR_DEV}/common/formdata/${fileName}.xlsx`,
       table: 'Table1',
       row: { ...data },
       token,

@@ -128,6 +128,10 @@ main .columns-container.padding-0 .columns-wrapper {
   margin-left: -12px;
 }
 
+.bigger-imgs .columns > div > .columns-img-col img {
+  width: 100%;
+}
+
 .columns-container.netgear .text-content {
   margin-top: 20px;
 }
@@ -588,6 +592,58 @@ main .columns-container.padding-0 .columns-wrapper {
   border: none !important;
 }
 
+.columns-container.table-btns table {
+  margin: 15px 0;
+}
+
+.columns-container.table-btns table:first-of-type tr {
+  display: flex;
+}
+
+.columns-container.table-btns table a {
+  min-width: 200px;
+  height: auto !important;
+  padding: 10px 20px !important;
+  background: #e72325;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  width: auto;
+  border-style: none;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+
+.columns-container.table-btns table tr td:last-of-type a {
+  background-color: white;
+  color: #006dff;
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.columns-container.table-btns table tr td p {
+  margin: 0;
+}
+
+.columns-container.table-btns table tr em {
+  font-size: 14px;
+  display: block;
+  margin-left: 25px;
+  margin-top: 5px;
+}
+
+.columns-container.table-btns table img, .columns-container.table-btns table .icon, .columns-container.table-btns table svg {
+  width: 23px;
+}
+
+.columns-container.table-btns table img {
+  margin: 0 3px;
+}
+
 @media (width <=991px) {
   .columns-container.csam-design .block>div {
     padding-right: 0;
@@ -762,5 +818,27 @@ main .columns-container.padding-0 .columns-wrapper {
     padding: 0;
     margin-bottom: -2em;
     margin-top: -2em;
+  }
+}
+
+@media (width <= 500px) {
+  .columns-container.table-btns table {
+    margin: 15px auto;
+  }
+
+  .columns-container.table-btns table:first-of-type tr td:first-of-type {
+    margin-bottom: 15px;
+  }
+
+  .columns-container.table-btns table:first-of-type tr {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .columns-container.table-btns table tr em {
+    margin-left: 3px;
+    margin-top: -10px;
   }
 }

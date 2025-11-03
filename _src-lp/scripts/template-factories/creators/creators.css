@@ -32,7 +32,7 @@
 
 
 body.creators main {
-  background: linear-gradient(to bottom, #F6FCFF, white);
+  background: linear-gradient(to bottom, #e4f2ff 0%, white 15%);
 }
 
 main .section {
@@ -54,11 +54,69 @@ main .section.pb-0 {
   margin: 0 !important;
 }
 
-.creators .creators-block.block>div h3 {
+.creators .creators-banner h1 {
+  font: normal normal bold 55px / 60px "IBM Plex Sans", sans-serif;
+}
+
+.creators .creators-banner h2 {
+  color: #006DFF;
+  font: normal normal bold 32px / 45px "IBM Plex Sans", sans-serif;
+  margin-bottom: 0;
+}
+
+.creators .has-trial-btn table {
+  clear: both;
+}
+
+.creators .has-trial-btn p.button-container a {
+  min-width: 180px;
+  height: auto;
+  display: inline-block;
+  float: left;
+  background: #E72325 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  justify-content: center;
+  padding: 9px 19px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  margin: 0 10px 10px 0;
+}
+
+.creators .has-trial-btn p.button-container a:hover {
+  text-decoration: none;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.creators .has-trial-btn p.button-container:last-of-type a {
+  background: #FFF 0% 0% no-repeat padding-box;
+  color: #005ed9;
+  margin-left: 10px;
+}
+
+.creators .has-trial-btn p.button-container:last-of-type a:hover {
+  background: #FFF 0% 0% no-repeat padding-box!important;
+  color: #005ed9!important;
+  opacity: 0.8;
+}
+
+.creators .has-trial-btn table:last-of-type img, .creators .has-trial-btn table em {
+  font-size: 15px;
+}
+
+.creators .has-trial-btn table:last-of-type img, .creators .has-trial-btn table:last-of-type span.icon {
+  width: 24px;
+  margin: 0 2px;
+}
+
+.creators .creators-block.block > div h3 {
   margin: 0 !important;
 }
 
-.creators .creators-block.block>div:nth-child(2)>div {
+.creators .creators-block.block > div:nth-child(2) > div {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)) !important;
   grid-gap: 15px !important;
@@ -126,6 +184,34 @@ main .section.pb-0 {
   background-color: #D70000 !important;
 }
 
+.creators .creators-table.grey-background > div {
+  background-color: #F5F5F7;
+  padding-left: 10em;
+  padding-right: 10em;
+}
+
+.creators .creators-table.grey-background > div:first-of-type {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding-top: 3em;
+}
+
+.creators .creators-table.grey-background > div:last-of-type {
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding-bottom: 3em;
+}
+
+.creators .c-icon-box-grid-container.creators-table .quotebox {
+  padding: 0;
+  text-align: center;
+  padding: 25px 15px;
+  margin: 0 10px;
+  border-radius: 16px;
+  border: 1px #fff solid;
+  flex: 1;
+}
+
 .creators .c-icon-box-grid-container .quotebox {
   background: #F5F5F7;
   border-radius: 20px;
@@ -138,17 +224,40 @@ main .section.pb-0 {
   font: normal normal normal 20px / 23px Arial, sans-serif;
 }
 
+.creators .c-icon-box-grid-container.creators-table .quotebox p strong {
+  font-size: 32px;
+  margin: 10px 0;
+}
+
+.creators .c-icon-box-grid-container.creators-table .quotebox p {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  font-family: var(--body-font-family);
+  line-height: 1.6;
+}
+
 .creators .c-icon-box-grid-container .quotebox img {
   height: 60px;
 }
 
 .creators .c-icon-box-grid-container .quotebox h6 {
-  font: normal normal bold 32px / 38px "IBM Plex Sans", sans-serif;
-  margin-top: 0;
+  font: normal normal normal 32px / 38px "IBM Plex Sans", sans-serif;
+  margin-top: 10px;
+}
+
+.creators .c-icon-box-grid-container.font-v2 .quotebox h6 {
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-m);
+  margin-top: 10px;
 }
 
 .creators .c-icon-box-grid-container .quotebox p {
   font: normal normal normal 20px / 26px Arial, sans-serif;
+}
+
+.creators .c-icon-box-grid-container.font-v2 .quotebox .subtitle {
+  font-size: var(--heading-font-size-xs);
+  margin-bottom: 0;
 }
 
 .creators .c-icon-box-grid-container .quotebox .subtitle {
@@ -166,13 +275,14 @@ main .section.pb-0 {
   color: white;
 }
 
+.creators .default-content-wrapper h2, .creators .ash2 .default-content-wrapper h3 {
+  font: normal normal 300 60px/69px "IBM Plex Sans", sans-serif;
+  margin-bottom: 10px;
+}
+
 @media (width >= 992px) {
   main .section {
     padding: 48px 0;
-  }
-
-  .creators .default-content-wrapper h2 {
-    font: normal normal 300 60px/69px "IBM Plex Sans", sans-serif;
   }
 
   .creators.creators-block-container .creators-block-wrapper {
@@ -191,17 +301,158 @@ main .section.pb-0 {
   }
 }
 
-@media (width <= 767px) {
+@media (max-width: 992px) {
+  .creators .columns-container .has-trial-btn h2 {
+    font-size: 31px;
+    line-height: 35px;
+    margin-top: 1em;
+    margin-bottom: 10px;
+  }
+
+  .creators .columns-container .has-trial-btn h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .creators .creators-banner {
+    text-align: center;
+  }
+
+  .creators .creators-banner > div > div:last-of-type {
+    display: none;
+  }
+
+  .creators .has-trial-btn table {
+    clear: both;
+    margin: 0 auto;
+  }
+
+  .creators .c-icon-box-grid-container .row {
+    flex-direction: column;
+  }
+
   .creators .c-icon-box-grid-container .quotebox {
-    padding: 1em;
-    margin-bottom: 2em !important;
+    padding: 10px 15px 20px;
+    margin-bottom: 1em !important;
+  }
+
+  .creators .c-icon-box-grid-container .row .quotebox * {
+    text-align: center;
+    margin: 5px auto;
+  }
+
+  .creators .c-icon-box-grid-container.grey-box-v2 .row .quotebox * {
+    text-align: left;
+    margin: 5px 0;
+  }
+
+  .creators .c-icon-box-grid-container.grey-box-v2 .row .quotebox h6 {
+    font-size: 26px;
+    line-height: 30px;
+  }
+
+  .creators .default-content-wrapper h2:last-of-type {
+    font-size: 31px;
+    line-height: 1.2;
+    color: #006DFF;
+  }
+
+  .creators .c-icon-box-grid-container .row .quotebox span.icon {
+    height: 56px;
+    width: 50px;
+    margin-bottom: 14px;
+  }
+
+  .creators.creators-block-container .creators-block-wrapper {
+    margin: 0 15px!important;
+  }
+
+  .creators .creators-block.block>div:nth-child(2) .creator-box {
+    width: 100% !important;
+    height: 65vw !important;
+  }
+
+  .creators .creators-block.block {
+    margin: 0;
+    padding: 0 1em;
+  }
+
+  .creators .columns * {
+    text-align: center;
+  }
+
+  .creators .columns h2 * {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  .creators .columns p {
+    margin-top: 5px;
+    font: normal normal normal 19px / 28px Arial, sans-serif !important;
+  }
+
+  .creators .columns p.button-container {
+    display: inline-block;
+  }
+
+  .creators .columns p.button-container *, .creators .section.bold-anchor a.button:any-link {
+    width: max-content;
+    margin: 5px auto;
+    border-radius: 30px;
+    font-size: 14px;
+  }
+
+  .creators .c-icon-box-grid-container.gray-background .col-lg {
+    background-color: transparent;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  .creators .c-icon-box-grid-container.gray-background.dotted-lines .col-lg {
+    background-color: #F6F6F6;
+    text-align: left;
+  }
+
+  .creators .section.width-medium .default-content-wrapper {
+    width: auto;
+    padding: 0;
+  }
+
+  .creators .ash2 .default-content-wrapper h3 {
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 1.2;
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+
+  .creators .creators-table.grey-background > div {
+    padding: 1em 2em 10px!important;
+    margin: 0 15px;
+  }
+
+  .creators .c-icon-box-grid-container.creators-table .quotebox {
+    padding: 6px 15px 10px;
   }
 }
 
 @media (width <= 525px) {
   .creators .creators-block.block>div:nth-child(2) .creator-box {
-      width: 100% !important;
-      height: 120vw !important;
+    width: 100% !important;
+    height: 65vw !important;
+  }
+
+  .creators .has-trial-btn p.button-container a {
+    margin: 5px 0!important;
+    width: 100%;
+  }
+}
+
+@media (width <= 450px) {
+  .creators .columns p.button-container {
+    display: inline-block;
+    margin: 0;
   }
 }
 

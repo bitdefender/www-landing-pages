@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, matchHeights } from '../../scripts/utils.js';
 
@@ -195,15 +196,13 @@ export default function decorate(block) {
           <span class="slider round">
           </span>
           <span class="label right">
-          ${partsIndividual[0]}
-          <hr>
-          <p>${partsIndividual[1]}</p>
+            ${partsIndividual[0]}
+            ${partsIndividual[1] ? `<hr><p>${partsIndividual[1]}</p>` : ''}
           </span>
 
           <span class="label left">
-          ${partsFamily[0]}
-          <hr>
-          <p>${partsFamily[1]}</p>
+            ${partsFamily[0]}
+            ${partsFamily[1] ? `<hr><p>${partsFamily[1]}</p>` : ''}
           </span>
         </label>
       `;
@@ -217,6 +216,13 @@ export default function decorate(block) {
       }
       // Add an event listener to the checkbox
       switchCheckbox.addEventListener('change', () => {
+        if (set && set === 'height') {
+          [1, 2, 3].forEach((i) => {
+            // eslint-disable-next-line no-use-before-define
+            matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
+          });
+        }
+
         if (switchCheckbox.checked) {
           const familyBoxes = block.querySelectorAll('.family-box');
           familyBoxes.forEach((box) => {
@@ -469,6 +475,11 @@ export default function decorate(block) {
       }
 
       const buyLinkObj = buyLinksObj[key] || buyLinksObj[0];
+      const [alias, selector, btnText] = (buyLinkObj?.text || '').trim().split('|');
+      let demoBtn = '';
+      if (alias.trim() === 'popup') {
+        demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
+      }
       block.innerHTML += `
         <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
@@ -499,40 +510,41 @@ export default function decorate(block) {
                 </div>`}
 
   ${billed ? (() => {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`);
-    const firstP = tempDiv.querySelector('p');
-    if (firstP) {
-      firstP.innerHTML = firstP.innerHTML
-        .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
-        .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
-        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-    } else {
-      tempDiv.innerHTML = tempDiv.innerHTML
-        .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
-        .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
-        .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-        .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-        .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-        .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-        .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
-        .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-    }
-    return `<div class="billed">${tempDiv.innerHTML}</div>`;
-  })() : ''}
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`);
+            const firstP = tempDiv.querySelector('p');
+            if (firstP) {
+              firstP.innerHTML = firstP.innerHTML
+                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
+                .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
+                .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+                .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+                .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+                .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+                .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+                .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+            } else {
+              tempDiv.innerHTML = tempDiv.innerHTML
+                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
+                .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
+                .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
+                .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
+                .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
+                .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
+                .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
+                .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
+                .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+            }
+            return `<div class="billed">${tempDiv.innerHTML}</div>`;
+          })() : ''}
   </div><!-- end header-box --> 
 
               ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
+              
               ${replaceBuyLinks ? `<div class="buy-btn">
                   <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
                 </div>` : `<div class="buy-btn">
@@ -544,7 +556,7 @@ export default function decorate(block) {
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
-            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${underBuyLink.innerHTML}</div>` : ''}
+            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${demoBtn !== '' ? demoBtn : underBuyLink.innerHTML.trim()}</div>` : ''}
             <hr />
             ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>

@@ -331,7 +331,7 @@
   margin-bottom: 1em;
 }
 
-.section.banner-container.partnerportale .banner div.col-12 div > p strong em {
+.section.banner-container.partnerportale .banner div.col-12 div > p strong em, .section.banner-container.partnerportale .banner div.col-12 div > p em strong {
   border-radius: 20px;
   background-color: #1C7928;
   font-style: normal;
@@ -513,6 +513,50 @@
   margin-left: 0 !important;
   font-size: 18px;
   padding: 2px 11px;
+}
+
+.section.banner-container.red-pill #greenPillBox {
+  background-color: #F00;
+  border-radius: 100%;
+  border: 3px solid white;
+  position: absolute;
+  right: 5em;
+  top: -2em;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transform: rotate(-9deg);
+  padding: 0;
+}
+
+.section.banner-container.red-pill #greenPillBox:hover {
+  opacity: 1;
+}
+
+.section.banner-container.red-pill #greenPillBox > span {
+  border-radius: 100%;
+  border: 4px solid black;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 26px;
+  line-height: 28px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.red-pill #greenPillBox > span br {
+  display: none;
+}
+
+.section.banner-container.bf25 p.button-container {
+  margin-top: 2em;
+  display: block;
 }
 
 .section.banner-container.hasslide.selected1 .block table tr td:nth-of-type(1) *,
@@ -1222,8 +1266,47 @@
   .banner-container h2 {
     font-size: 26px;
   }
+  .section.banner-container.hide-tablet {
+    background-image: unset !important;
+    background-color: #000;
+  }
+}
+@media screen and (width >= 1400px) {
+  .section.banner-container .custom-col-xl-4 {
+    flex: 0 0 auto;
+    width: 27.33%;
+  }
+}
+@media screen and (width <= 1200px) {
+  .section.banner-container.red-pill #greenPillBox {
+    right: 4em;
+  }
+}
+@media screen and (width <= 1000px) {
+  .section.banner-container.red-pill #greenPillBox {
+    right: 2em;
+    top: -3em;
+  }
+}
+@media screen and (width <= 830px) {
+  .section.banner-container.red-pill #greenPillBox {
+    right: 1em;
+    top: -3em;
+  }
 }
 @media screen and (width <= 767px) {
+  .section.banner-container.red-pill #greenPillBox {
+    right: 2em;
+    top: -1em;
+  }
+  .section.banner-container.red-pill .banner img {
+    width: 70%;
+    margin-top: 2em;
+  }
+  .section.banner-container.red-pill .banner .content-column img {
+    width: 70%;
+    margin-top: 10px;
+  }
   .section.section.banner-container.hasslide .block > div {
     text-align: left;
     width: 100%;
@@ -1252,6 +1335,15 @@
     font-size: 24px;
     line-height: 28px;
     text-align: left;
+  }
+  .section.banner-container .banner .content-column {
+    width: 100%;
+    text-align: center;
+    padding-left: 15px !important;
+    padding-right: 15px;
+  }
+  .section.banner-container .banner .content-column p.button-container * {
+    width: 70%;
   }
   .section.banner-container .banner p {
     font-size: 14px;
@@ -1419,12 +1511,6 @@
     padding-bottom: 0 !important;
   }
 }
-@media screen and (width <= 991px) {
-  .section.banner-container.hide-tablet {
-    background-image: unset !important;
-    background-color: #000;
-  }
-}
 @media screen and (width <= 600px) {
   .section.banner-container.csam-design .block .row > div em {
     margin-bottom: -9em;
@@ -1439,13 +1525,17 @@
     min-width: 850px;
   }
 }
-@media screen and (width >= 1400px) {
-  .section.banner-container .custom-col-xl-4 {
-    flex: 0 0 auto;
-    width: 27.33%;
-  }
-}
 @media screen and (width <= 500px) {
+  .section.banner-container.red-pill #greenPillBox {
+    width: 80px;
+    height: 80px;
+    right: 2em;
+    top: -1em;
+  }
+  .section.banner-container.red-pill #greenPillBox > span {
+    font-size: 21px;
+    line-height: 23px;
+  }
   .section.banner-container.csam-design .block .row > div em {
     margin-bottom: -4.3em;
     margin-left: 1.5em;
@@ -1460,8 +1550,14 @@
     max-width: 121%;
     min-width: 121%;
   }
+  .section.banner-container.red-pill .banner .content-column img {
+    width: 100%;
+  }
   .section.banner-container.csam-design .block .row > div p:last-of-type {
     display: none;
+  }
+  .section.banner-container .banner .content-column p.button-container * {
+    width: 100%;
   }
 }
 @media screen and (width >= 1800px) {
