@@ -527,6 +527,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   };
 
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
+    console.log('oldUrl ', oldUrl)
     const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = oldParams.get('COUPON');
@@ -550,6 +551,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     if (currency) newParams.set('CURRENCY', currency);
     if (dcurrency) newParams.set('DCURRENCY', dcurrency);
     if (campaign) newParams.set('COUPON', campaign);
+    newParams.set('SRC', window.location.origin + window.location.pathname);
 
     updatedUrl.href = await target.appendVisitorIDsTo(updatedUrl.href);
     if (window.UC_UI) {
