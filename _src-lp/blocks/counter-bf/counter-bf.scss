@@ -129,21 +129,25 @@
 
 .counter-bf-container .counter-bf-wrapper a {
   background: #e72325 !important;
-    color: #fff !important;
-    display: inline-block;
-    text-align: center;
-    border-radius: 8px;
-    transition: background-color 0.2s;
-    border-style: none;
-    cursor: pointer;
-    margin: 5px 0;
-    text-decoration: none !important;
-    width: 224px;
-    text-transform: none;
-    font-size: 18px;
-    line-height: 14px;
-    font-weight: 600 !important;
-    padding: 15px 1% !important;
+  color: #fff !important;
+  display: inline-block;
+  text-align: center;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  border-style: none;
+  cursor: pointer;
+  margin: 20px 0;
+  text-decoration: none !important;
+  width: 224px;
+  text-transform: none;
+  font-size: 20px;
+  line-height: 14px;
+  font-weight: 700 !important;
+  padding: 15px 1% !important;
+}
+
+.counter-bf-container .counter-bf-wrapper h4 {
+  margin-top: 5px;
 }
 
 .counter-bf-container .counter-bf-wrapper ul {
