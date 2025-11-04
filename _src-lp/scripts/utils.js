@@ -1375,6 +1375,7 @@ export async function submitWithTurnstile({
   /*if (window.location.hostname.startsWith('www.')) {
     ENDPOINT = ENDPOINT.replace('stage.', 'www.');
   }*/
+  alert('sdafads')
 
   try {
     if (!window.turnstile || typeof window.turnstile.getResponse !== 'function') {
@@ -1392,6 +1393,8 @@ export async function submitWithTurnstile({
       row: { ...data },
       token,
     };
+
+    console.log('requestData ', requestData)
 
     const res = await fetch(ENDPOINT, {
       method: 'POST',
