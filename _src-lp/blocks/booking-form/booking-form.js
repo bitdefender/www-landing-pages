@@ -384,6 +384,7 @@ function setupModalOpeners(block, formBox, { downloadlink, skipform }) {
 }
 
 export default function decorate(block) {
+  alert('asdfasd')
   const formBox = createForm(block);
   block.innerHTML = '';
   block.appendChild(formBox);
