@@ -287,6 +287,7 @@ function handleSubmit(formBox, widgetId, token, downloadlink) {
   };
 
   formBox.addEventListener('submit', async (e) => {
+    alert('000')
     e.preventDefault();
     if (!validateFields()) return;
 
