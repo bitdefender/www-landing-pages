@@ -338,7 +338,9 @@ function handleSubmit(formBox, widgetId, token, downloadlink) {
           formBox.classList.add('form-submitted');
           formBox.querySelector('h4').innerHTML = `<strong>${successMsg.innerText}</strong>`;
           successMsg.scrollIntoView({ behavior: 'smooth' });
+          alert('1')
         } else {
+          alert('2')
           formBox.classList.remove('loading');
         }
       },
