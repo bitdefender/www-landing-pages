@@ -1371,10 +1371,10 @@ export async function submitWithTurnstile({
   successCallback = null,
   errorCallback = null,
 }) {
-  let ENDPOINT = 'https://stage.bitdefender.com/form';
-  if (window.location.hostname.startsWith('www.')) {
+  let ENDPOINT = 'https://www.bitdefender.com/form';
+  /*if (window.location.hostname.startsWith('www.')) {
     ENDPOINT = ENDPOINT.replace('stage.', 'www.');
-  }
+  }*/
 
   try {
     if (!window.turnstile || typeof window.turnstile.getResponse !== 'function') {
@@ -1387,7 +1387,7 @@ export async function submitWithTurnstile({
     }
 
     const requestData = {
-      file: `${Constants.BASE_URL_FOR_DEV}/common/formdata/${fileName}.xlsx`,
+      file: `https://www.bitdefender.com/pages/common/formdata/${fileName}.xlsx`,
       table: 'Table1',
       row: { ...data },
       token,
