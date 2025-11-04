@@ -437,6 +437,18 @@ main .section.pb-0 {
   }
 }
 
+@media (width <= 787px) {
+  .creators .table-btns table {
+    width: 100%;
+  }
+
+  .creators .table-btns table tr {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
 @media (width <= 525px) {
   .creators .creators-block.block>div:nth-child(2) .creator-box {
     width: 100% !important;
