@@ -542,6 +542,7 @@
   border-radius: 100%;
   border: 4px solid black;
   align-items: center;
+  text-align: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -550,6 +551,17 @@
   font-size: 26px;
   line-height: 28px;
   font-family: "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.red-pill.red-pill-smaller #greenPillBox > span {
+  font-size: 12px;
+  line-height: 13px;
+}
+
+.section.banner-container.red-pill #greenPillBox span.max-discount {
+  font-size: 26px;
+  line-height: 28px;
+  display: block;
 }
 
 .section.banner-container.red-pill #greenPillBox > span br {

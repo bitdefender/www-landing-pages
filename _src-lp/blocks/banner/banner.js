@@ -373,17 +373,13 @@ export default function decorate(block) {
     };
 
     // Apply background styles for small image cover
-    if (imageCoverVar) {
+    if (imageCoverVar && imageCoverVar !== 'cover') {
       applyBackgroundStyles(blockStyle, imageSrc, `top ${imageCoverVar}`, 'auto 100%', styleOptions);
     } else {
       applyBackgroundStyles(blockStyle, imageSrc, '0 0', 'cover', styleOptions);
     }
 
     const defaultSize = getContentSizeClasses(contentSize);
-    if (contentSize === 'full') {
-      console.log('full');
-    }
-
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
@@ -410,7 +406,7 @@ export default function decorate(block) {
     };
 
     // Apply background styles for regular image cover
-    if (imageCoverVar) {
+    if (imageCoverVar && imageCoverVar !== 'cover') {
       applyBackgroundStyles(parentBlockStyle, imageSrc, `top ${imageCoverVar}`, 'auto 100%', styleOptions);
     } else {
       applyBackgroundStyles(parentBlockStyle, imageSrc, 'top right', 'cover', styleOptions);
