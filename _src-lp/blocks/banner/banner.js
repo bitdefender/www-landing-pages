@@ -216,7 +216,7 @@ export default function decorate(block) {
     if (aliasTr && aliasTr.textContent.trim() === 'buybtn') {
       // eslint-disable-next-line no-unused-vars
       const [alias, buybtnText] = [...table.querySelectorAll('tr')];
-      const [buybtn, text] = [...buybtnText.querySelectorAll('tr td')];
+      const [buybtn] = [...buybtnText.querySelectorAll('tr td')];
       const buyBtnBox = document.createElement('div');
 
       buyBtnBox.id = 'buyBtnBox';
@@ -226,7 +226,7 @@ export default function decorate(block) {
           buybtn.querySelector('a').className = 'button primary';
           buyBtnBox.innerHTML += buybtn.innerHTML;
         } else {
-          buyBtnBox.innerHTML = `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">${buybtn.innerHTML} </a>`;
+          buyBtnBox.innerHTML = `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">${buybtn.innerHTML}</a>`;
         }
       }
 
