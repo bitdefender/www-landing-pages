@@ -68,7 +68,7 @@ main .section.pb-0 {
   clear: both;
 }
 
-.creators .has-trial-btn p.button-container a {
+.creators .has-trial-btn p.button-container a, .creators .table-btns table a {
   min-width: 180px;
   height: auto;
   display: inline-block;
@@ -434,6 +434,18 @@ main .section.pb-0 {
 
   .creators .c-icon-box-grid-container.creators-table .quotebox {
     padding: 6px 15px 10px;
+  }
+}
+
+@media (width <= 787px) {
+  .creators .table-btns table {
+    width: 100%;
+  }
+
+  .creators .table-btns table tr {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
 
