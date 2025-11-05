@@ -111,6 +111,11 @@
   line-height: 40px;
 }
 
+.counter-bf-container.bf-2025 .counter-bf-wrapper h1 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .counter-bf-container .counter-bf-wrapper h2 {
   font-size: 30px;
   line-height: 35px;
@@ -125,6 +130,28 @@
   font-size: 20px;
   line-height: 30px;
   margin: 1em 0;
+}
+
+.counter-bf-container .counter-bf-wrapper a {
+  background: #e72325 !important;
+  color: #fff !important;
+  display: inline-block;
+  text-align: center;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  border-style: none;
+  cursor: pointer;
+  text-decoration: none !important;
+  width: 224px;
+  text-transform: none;
+  font-size: 20px;
+  line-height: 14px;
+  font-weight: 800 !important;
+  padding: 15px 1% !important;
+}
+
+.counter-bf-container .counter-bf-wrapper h4 {
+  margin-top: 5px;
 }
 
 .counter-bf-container .counter-bf-wrapper ul {

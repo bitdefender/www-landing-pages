@@ -278,6 +278,10 @@
     align-content: end;
 }
 
+.new-prod-boxes-container.bf-2025 .tag-subtitle {
+    text-align: center;
+}
+
 .new-prod-boxes-container .subtitle p {
     margin-bottom: 0;
 }
@@ -413,6 +417,10 @@
     line-height: var(--body-font-size-m);
     font-family: Arial, sans-serif;
     margin-top: 10px;
+}
+
+.new-prod-boxes-container.bf-2025 .block .prod_box .inner_prod_box h2 {
+    text-align: center;
 }
 
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box h2 {
