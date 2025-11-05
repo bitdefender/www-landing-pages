@@ -531,11 +531,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = page.getParamValue('vcampaign') || getMetadata('vcampaign') || oldParams.get('COUPON');
 
-
-    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
-      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
-    }
-
+    if (['de', 'nl', 'au', 'gb'].includes(page.country)) campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
     const updatedUrl = new URL(newUrl);
     const newParams = updatedUrl.searchParams;
 
@@ -622,8 +618,14 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
       }
     }));
   } else {
-    const [productId, prodUsers, prodYears] = onSelector.split('/');
+    let [productId, prodUsers, prodYears] = onSelector.split('/');
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
+
+    const prodYearsInt = parseInt(prodYears, 10);
+    prodYears = (prodYearsInt >= 1 && prodYearsInt <= 3)
+      ? prodYearsInt * 12
+      : prodYearsInt;
+
     const match = trialLinks.find((item) => (
       item.locale.toLowerCase() === locale
       && item.product === productId
