@@ -618,11 +618,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
       }
     }));
   } else {
-    let [productId, prodUsers, prodYears] = onSelector.split('/');
+    const [productId, prodUsers, prodYears] = onSelector.split('/');
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
 
     const prodYearsInt = parseInt(prodYears, 10);
-    prodYears = (prodYearsInt >= 1 && prodYearsInt <= 3)
+    const prodYearsConv = (prodYearsInt >= 1 && prodYearsInt <= 3)
       ? prodYearsInt * 12
       : prodYearsInt;
 
@@ -635,7 +635,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
     if (match) {
       const oldUrl = storeObjBuyLink;
-      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
+      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYearsConv);
       document.querySelectorAll(`.buylink-${onSelectorClass}:not(.no-trial)`).forEach((link) => link.setAttribute('href', updatedUrl));
     }
   }
