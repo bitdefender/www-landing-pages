@@ -212,6 +212,28 @@ export default function decorate(block) {
       }
     }
 
+    // NORMAL BUYBTN
+    if (aliasTr && aliasTr.textContent.trim() === 'buybtn') {
+      // eslint-disable-next-line no-unused-vars
+      const [alias, buybtnText] = [...table.querySelectorAll('tr')];
+      const [buybtn, text] = [...buybtnText.querySelectorAll('tr td')];
+      const buyBtnBox = document.createElement('div');
+
+      buyBtnBox.id = 'buyBtnBox';
+      buyBtnBox.className = `d-flex await-loader prodload prodload-${onSelectorClass}`;
+      if (buybtn) {
+        if (buybtn.innerHTML.includes('<a')) {
+          buybtn.querySelector('a').className = 'button primary';
+          buyBtnBox.innerHTML += buybtn.innerHTML;
+        } else {
+          buyBtnBox.innerHTML = `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">${buybtn.innerHTML} </a>`;
+        }
+      }
+
+      table.innerHTML = '';
+      table.appendChild(buyBtnBox);
+    }
+
     // BUYBTN_AND_GREEN_CIRCLE_BOX
     if (aliasTr && aliasTr.textContent.trim() === 'buybtn_and_green_circle') {
       // eslint-disable-next-line no-unused-vars
@@ -274,7 +296,7 @@ export default function decorate(block) {
     productsAsList.forEach((prod) => updateProductsList(prod));
     const targetElement = Array.from(block.querySelectorAll('*')).find((el) => el.textContent.includes('0%'));
     if (targetElement) {
-      targetElement.innerHTML = targetElement.innerHTML.replace('0%', '<span class="max-discount"></span>');
+      targetElement.innerHTML = targetElement.innerHTML.replace(/(\s)0\s*%/g, '$1<span class="max-discount"></span>');
     }
   }
 
