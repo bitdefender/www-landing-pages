@@ -821,6 +821,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = `${percentageSticker}%`;
           item.style.visibility = 'visible';
+          if (!item.parentNode) return;
           item.parentNode.style.visibility = 'visible';
           item.parentNode.parentNode.style.visibility = 'visible';
         });
