@@ -1427,6 +1427,9 @@
     margin-bottom: 0 !important;
     margin-top: 2em;
   }
+  .new-prod-boxes-container .block .prod_box.index0 {
+    margin-top: 0;
+  }
   .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .save-trial-text {
     min-height: auto !important;
   }

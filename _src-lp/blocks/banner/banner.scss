@@ -124,7 +124,7 @@
 }
 
 .section.banner-container .banner .img-right .icon {
-  width: 300px;
+  width: 100%;
   height: auto;
 }
 
@@ -556,6 +556,10 @@
   font-size: 26px;
   line-height: 28px;
   font-family: "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.red-pill #greenPillBox.d-flex > span strong {
+  display: flex;
 }
 
 .section.banner-container.red-pill.red-pill-smaller #greenPillBox > span {

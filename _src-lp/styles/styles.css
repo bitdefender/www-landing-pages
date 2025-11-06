@@ -496,6 +496,18 @@ main .default-content-wrapper {
   font-size: 12px;
 }
 
+main .centered-title .default-content-wrapper * {
+  text-align: center;
+}
+
+main .pb-0-title .default-content-wrapper {
+  padding-bottom: 0;
+}
+
+main .pb-0-title .default-content-wrapper h2 {
+  margin-bottom: 0 !important;
+}
+
 main .default-content-wrapper h1,
 main .default-content-wrapper h2,
 main .default-content-wrapper h3 {
