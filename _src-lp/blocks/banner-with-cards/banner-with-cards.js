@@ -264,7 +264,7 @@ export default function decorate(block) {
     });
   }
 
-  if (show && pictureEl && pictureEl.querySelector('img')) {
+  if (show && show === '3-cols' && pictureEl && pictureEl.querySelector('img')) {
     const imgBox = document.createElement('div');
     imgBox.className = 'imgBox-wrapper';
     imgBox.innerHTML = pictureEl;
@@ -274,7 +274,7 @@ export default function decorate(block) {
   block.innerHTML = `
     <div class="customWrapper d-flex hasProds">
       ${contentEl.textContent.trim() !== '' ? contentEl.innerHTML : ''}
-      ${pictureEl ? `<div class="imgBox">
+      ${show && show === '3-cols' ? `<div class="imgBox">
         ${pictureEl.innerHTML.replace(/0\s*%/g, '<span class="max-discount"></span>')}
       </div> ` : ''}
       ${products ? prodBoxesParent.innerHTML : ''}
