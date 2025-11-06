@@ -24,6 +24,10 @@ function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, r
 
 function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display) {
   const trialText = tablePrices.closest('.section').dataset.trialText;
+  const showPrice = tablePrices.closest('.section').dataset.showPrice;
+  let showPriceText;
+  if (showPrice) showPriceText = tablePrices.querySelector('tr:last-of-type').innerText.trim()
+
   // Clear existing content
   tablePrices.innerHTML = '';
 
@@ -38,10 +42,13 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
         <span class="d-none percent percent-${selectorClass}">0%</span>
       </div>
       <div class="display-flex">
-        <span class="prod-newprice${trialText ? ' newprice-0' : ''} newprice-${selectorClass}"></span>
+        <span class="prod-newprice${trialText ? ' newprice-0' : ''} newprice-${selectorClass}${showPrice && showPrice === 'per-month' ? '-monthly' : ''}"></span>
+        ${showPriceText ? `<sup>${showPriceText}</sup>` : ''}
       </div>
     </div>
     `;
+
+
 
     tablePrices.appendChild(pricesBox);
     if (trialText) {
@@ -67,12 +74,14 @@ function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClas
   const btnText = trialText?.includes('no-trial-text') ? tableBuyBtn.textContent.replace('0%', '') : tableBuyBtn.textContent;
   const createButton = (className, selectorClass) => {
     const button = document.createElement('div');
+    console.log('selectorClass ', selectorClass)
     button.innerHTML = `<a href='${hardcodedLink ?? '#'}' title='Bitdefender ${prodName}' class='${className} ${hardcodedLink ? '' : `await-loader prodload prodload-${selectorClass} buylink-${selectorClass}`} red-buy-button referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
 
     return button.innerHTML;
   };
 
   if (display) {
+    console.log('display ', display, onSelectorClassM)
     const buyButton = createButton(display, display === 'monthly' ? onSelectorClassM : onSelectorClass);
     tableBuyBtn.innerHTML = buyButton;
   } else {
@@ -124,7 +133,7 @@ export default function decorate(block) {
   // get Metadatas:
   const {
     products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground, wrapperBackground,
+    marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground, wrapperBackground, show, showPrice,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, tosButton] = [...block.children];
   const prodBoxesParent = document.createElement('div');
@@ -136,10 +145,8 @@ export default function decorate(block) {
   }
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
-
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
-
   if (paddingTop) blockStyle.paddingTop = `${paddingTop}rem`;
   if (paddingBottom) blockStyle.paddingBottom = `${paddingBottom}rem`;
   if (marginTop) blockStyle.marginTop = `${marginTop}rem`;
@@ -148,7 +155,7 @@ export default function decorate(block) {
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
   if (wrapperBackground) block.parentElement.style.backgroundColor = wrapperBackground;
 
-  if (pictureEl && pictureEl.querySelector('img')) {
+  if (!show && pictureEl && pictureEl.querySelector('img')) {
     if (blockBackground) {
       block.style.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
     } else {
@@ -256,15 +263,24 @@ export default function decorate(block) {
         tosButton.classList.add('tos-button');
         prodBox.insertAdjacentElement('beforeend', tosButton);
       }
-
+      prodBox.innerHTML = prodBox.innerHTML.replace(/0\s*%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
       prodBoxesParent.appendChild(prodBox);
     });
+  }
+
+  if (show && pictureEl && pictureEl.querySelector('img')) {
+    const imgBox = document.createElement('div');
+    imgBox.className = 'imgBox-wrapper';
+    imgBox.innerHTML = pictureEl;
   }
 
   // display
   block.innerHTML = `
     <div class="customWrapper d-flex hasProds">
       ${contentEl.textContent.trim() !== '' ? contentEl.innerHTML : ''}
+      ${pictureEl ? `<div class="imgBox">
+        ${pictureEl.innerHTML.replace(/0\s*%/g, '<span class="max-discount"></span>')}
+      </div> ` : ''}
       ${products ? prodBoxesParent.innerHTML : ''}
     </div>
   `;

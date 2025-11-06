@@ -636,9 +636,95 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   }
 }
 
+.section.banner-with-cards-container .imgBox {
+  position: relative;
+}
+
+.section.banner-with-cards-container .imgBox table tr {
+  background-color: #F00;
+  border-radius: 100%;
+  border: 3px solid white;
+  position: absolute;
+  right: 0em;
+  top: -1em;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transform: rotate(-9deg);
+  padding: 0;
+}
+
+.section.banner-with-cards-container .imgBox table tr > td {
+  border-radius: 100%;
+  border: 4px solid black;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 26px;
+  line-height: 28px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-with-cards-container .banner-with-cards .prodBox .prices_box sup {
+  font-size: 18px;
+  margin-left: 5px;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] h3 {
+  font-size: 22px;
+  font-weight: inherit;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper {
+  align-items: center;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox-wrapper .prodBox {
+  flex: unset!important;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox .prices_box {
+  margin-top: 0;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox p {
+  text-align: left;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox h3 {
+  min-height: auto!important;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox table:first-of-type td {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox .prices_box .prod-oldprice, .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox .prices_box .prod-save {
+  display: none;
+}
+
 @media (width <=1225px) {
   .section.banner-with-cards-container.margin-0 .banner-with-cards .customWrapper {
     padding: 0 15px;
+  }
+}
+
+@media (width <=1100px) {
+  .section.banner-with-cards-container .banner-with-cards .hasProds > div {
+    flex: unset;
   }
 }
 
@@ -707,6 +793,40 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 
   .section.banner-with-cards-container.rounded .banner-with-cards .hasProds>div:first-of-type {
     margin-left: 0;
+  }
+
+  .columns-container.v-nov25 .columns {
+    padding: 2em 1em 1em;
+  }
+
+  .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards {
+    padding-top: 3em!important;
+  }
+
+  .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(1) {
+    order: 2;
+    text-align: center;
+    width: 100%;
+  }
+
+  .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(2) {
+    order: 1;
+  }
+
+  .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(3) {
+    order: 3;
+  }
+
+  .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(2) {
+    flex: unset;
+    width: 350px;
+    margin: 0 auto;
+  }
+
+  .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(3) {
+    flex: unset;
+    width: 70%;
+    margin: 0 auto;
   }
 }
 

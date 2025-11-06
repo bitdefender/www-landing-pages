@@ -21,6 +21,10 @@
     position: relative;
 }
 
+.particle-background-container.no-padding .we-container {
+  padding: 0;
+}
+
 .particle-background #ts-particles {
     position: absolute;
     inset: 0;
