@@ -620,7 +620,7 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   border-radius: 100%;
   border: 3px solid white;
   position: absolute;
-  right: 0em;
+  right: 0;
   top: -1em;
   width: 90px;
   height: 90px;
@@ -770,15 +770,13 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   }
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(3) {
     order: 3;
+    flex: unset;
+    width: 70%;
+    margin: 0 auto;
   }
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(2) {
     flex: unset;
     width: 350px;
-    margin: 0 auto;
-  }
-  .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(3) {
-    flex: unset;
-    width: 70%;
     margin: 0 auto;
   }
 }

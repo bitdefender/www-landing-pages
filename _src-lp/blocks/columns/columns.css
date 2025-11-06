@@ -676,9 +676,6 @@ main .columns-container.padding-0 .columns-wrapper {
   border-bottom: 1px solid var(--light-grey-color);
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-}
-
-.columns-container.compare .columns > div:last-of-type > div {
   border-bottom: 1px solid var(--light-grey-color);
 }
 
