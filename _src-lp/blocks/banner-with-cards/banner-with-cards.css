@@ -615,6 +615,11 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   position: relative;
 }
 
+.section.banner-with-cards-container .imgBox p .icon {
+  width: 100%;
+  height: auto;
+}
+
 .section.banner-with-cards-container .imgBox table tr {
   background-color: #F00;
   border-radius: 100%;
