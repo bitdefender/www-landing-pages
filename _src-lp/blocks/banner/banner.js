@@ -175,7 +175,7 @@ export default function decorate(block) {
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
         const link = text.querySelector('a');
-        text.innerText.includes('-') && greenPillBox.classList.add('d-flex');
+        if (text.innerText.includes('-')) greenPillBox.classList.add('d-flex');
         (link || text).innerHTML = text.innerHTML.replace(
           /0\s*%/g,
           '<span class="max-discount"></span>',
