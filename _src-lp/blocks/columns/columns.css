@@ -625,7 +625,7 @@ main .columns-container.padding-0 .columns-wrapper {
   color: #525252;
 }
 
-.columns-container.v-nov25 .columns > div:not(:first-of-type) table img {
+.columns-container.v-nov25 .columns > div:not(:first-of-type) table img, .columns-container.v-nov25 .columns > div:not(:first-of-type) table span.icon {
   margin-right: 10px;
 }
 
