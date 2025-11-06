@@ -122,7 +122,7 @@
   left: 15px;
 }
 
-.section.banner-container .banner .img-right .icon {
+.section.banner-container .banner .bck-img .icon {
   width: 100%;
   height: auto;
 }
@@ -1319,6 +1319,10 @@
   .section.banner-container.red-pill #greenPillBox {
     right: 2em;
     top: -1em;
+  }
+  .section.banner-container .banner .bck-img .icon {
+    max-width: 300px;
+    margin-bottom: 1em;
   }
   .section.banner-container.red-pill .banner img {
     width: 70%;
