@@ -257,6 +257,7 @@ function renderPrice(block, ...price) {
   const btnText = buyButton?.textContent;
   const trialText = trialButton?.textContent;
   const billed = document.querySelector('h6');
+  const saveText = block.closest('.section').dataset.saveText;
   // Function to create and append price boxes
   const createPriceBox = (className, product) => {
     const pricesBox = document.createElement('div');
@@ -265,6 +266,7 @@ function renderPrice(block, ...price) {
     pricesBox.innerHTML = `<div>
         <div class="display-flex">
           <span class="prod-oldprice oldprice-${productCode}-${prodUsers}${prodYears}"></span>
+          ${saveText ? `${saveText} <span class="percent percent-${productCode}-${prodUsers}${prodYears}"></span>` : ''}
         </div>
         <div class="display-flex">
           <span class="prod-newprice newprice-${productCode}-${prodUsers}${prodYears}"></span>
