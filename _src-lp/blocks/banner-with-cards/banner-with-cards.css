@@ -692,7 +692,7 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   line-height: 16px;
 }
 
-.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox .prices_box .prod-oldprice, .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox .prices_box .prod-save {
+.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox .prices_box .prod-save {
   display: none;
 }
 
