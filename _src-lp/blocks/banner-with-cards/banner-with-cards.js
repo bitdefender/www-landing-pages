@@ -74,14 +74,12 @@ function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClas
   const btnText = trialText?.includes('no-trial-text') ? tableBuyBtn.textContent.replace('0%', '') : tableBuyBtn.textContent;
   const createButton = (className, selectorClass) => {
     const button = document.createElement('div');
-    console.log('selectorClass ', selectorClass)
     button.innerHTML = `<a href='${hardcodedLink ?? '#'}' title='Bitdefender ${prodName}' class='${className} ${hardcodedLink ? '' : `await-loader prodload prodload-${selectorClass} buylink-${selectorClass}`} red-buy-button referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
 
     return button.innerHTML;
   };
 
   if (display) {
-    console.log('display ', display, onSelectorClassM)
     const buyButton = createButton(display, display === 'monthly' ? onSelectorClassM : onSelectorClass);
     tableBuyBtn.innerHTML = buyButton;
   } else {
