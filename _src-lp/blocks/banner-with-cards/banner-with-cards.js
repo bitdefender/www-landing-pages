@@ -26,7 +26,7 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
   const trialText = tablePrices.closest('.section').dataset.trialText;
   const showPrice = tablePrices.closest('.section').dataset.showPrice;
   let showPriceText;
-  if (showPrice) showPriceText = tablePrices.querySelector('tr:last-of-type').innerText.trim()
+  if (showPrice) showPriceText = tablePrices.querySelector('tr:last-of-type').innerText.trim();
 
   // Clear existing content
   tablePrices.innerHTML = '';
@@ -47,8 +47,6 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
       </div>
     </div>
     `;
-
-
 
     tablePrices.appendChild(pricesBox);
     if (trialText) {
@@ -131,7 +129,7 @@ export default function decorate(block) {
   // get Metadatas:
   const {
     products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
-    marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground, wrapperBackground, show, showPrice,
+    marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground, wrapperBackground, show,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, tosButton] = [...block.children];
   const prodBoxesParent = document.createElement('div');
