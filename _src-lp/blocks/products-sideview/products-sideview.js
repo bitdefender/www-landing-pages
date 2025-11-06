@@ -266,7 +266,7 @@ function renderPrice(block, ...price) {
     pricesBox.innerHTML = `<div>
         <div class="display-flex">
           <span class="prod-oldprice oldprice-${productCode}-${prodUsers}${prodYears}"></span>
-          ${saveText ? `${saveText} <span class="percent percent-${productCode}-${prodUsers}${prodYears}"></span>` : ''}
+          ${saveText ? `<span class="save-green-pill">${saveText} <span class="percent percent-${productCode}-${prodUsers}${prodYears}"></span></span>` : ''}
         </div>
         <div class="display-flex">
           <span class="prod-newprice newprice-${productCode}-${prodUsers}${prodYears}"></span>
