@@ -1451,7 +1451,7 @@
   }
   .new-prod-boxes-container .switchBox .label hr {
     margin: 0 auto 2px;
-    font: normal normal normal 9px/10px Arial, sans-serif;
+    font: normal normal normal 8px/11px Arial, sans-serif;
   }
 }
 @media (width >= 768px) {
