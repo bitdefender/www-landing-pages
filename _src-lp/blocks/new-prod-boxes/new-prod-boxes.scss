@@ -1461,6 +1461,11 @@ margin: 20px 0 0 5px;
     .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .buy-btn, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .buy-btn {
         display: none;
     }
+
+    .new-prod-boxes-container .switchBox .label hr {
+        margin: 0 auto 2px;
+        font: normal normal normal 9px / 10px Arial, sans-serif;
+    }
 }
 
 
