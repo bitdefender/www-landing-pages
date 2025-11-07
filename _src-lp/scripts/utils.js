@@ -1392,7 +1392,7 @@ export async function submitWithTurnstile({
     }
 
     const requestData = {
-      file: `${Constants.BASE_URL_FOR_DEV}/common/formdata/${fileName}.xlsx`,
+      file: `/sites/common/formdata/${fileName}.xlsx`,
       table: 'Table1',
       row: { ...data },
       token,
