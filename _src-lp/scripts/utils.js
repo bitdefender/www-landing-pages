@@ -531,10 +531,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = oldParams.get('COUPON');
 
-    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
-      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
-    }
-
+    if (['de', 'nl', 'au', 'gb'].includes(page.country)) campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
     const updatedUrl = new URL(newUrl);
     const newParams = updatedUrl.searchParams;
 
@@ -623,6 +620,12 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   } else {
     const [productId, prodUsers, prodYears] = onSelector.split('/');
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
+
+    const prodYearsInt = parseInt(prodYears, 10);
+    const prodYearsConv = (prodYearsInt >= 1 && prodYearsInt <= 3)
+      ? prodYearsInt * 12
+      : prodYearsInt;
+
     const match = trialLinks.find((item) => (
       item.locale.toLowerCase() === locale
       && item.product === productId
@@ -632,7 +635,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
     if (match) {
       const oldUrl = storeObjBuyLink;
-      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
+      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYearsConv);
       document.querySelectorAll(`.buylink-${onSelectorClass}:not(.no-trial)`).forEach((link) => link.setAttribute('href', updatedUrl));
     }
   }
@@ -818,6 +821,7 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
         document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
           item.innerHTML = `${percentageSticker}%`;
           item.style.visibility = 'visible';
+          if (!item.parentNode) return;
           item.parentNode.style.visibility = 'visible';
           item.parentNode.parentNode.style.visibility = 'visible';
         });

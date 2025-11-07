@@ -122,6 +122,17 @@
   left: 15px;
 }
 
+.section.banner-container .banner .bck-img .icon {
+  width: 100%;
+  height: auto;
+}
+
+.section.banner-container.smaller-stamp .banner .bck-img .icon {
+  width: 80%;
+  height: auto;
+  margin-left: 10%;
+}
+
 .section.banner-container .banner .img-right {
   position: relative;
 }
@@ -551,6 +562,10 @@
   font-family: "IBM Plex Sans", sans-serif;
 }
 
+.section.banner-container.red-pill #greenPillBox.d-flex > span strong {
+  display: flex;
+}
+
 .section.banner-container.red-pill.red-pill-smaller #greenPillBox > span {
   font-size: 12px;
   line-height: 13px;
@@ -564,6 +579,11 @@
 
 .section.banner-container.red-pill #greenPillBox > span br {
   display: none;
+}
+
+.section.banner-container.bf25 .banner .content-column {
+  display: flex;
+  align-items: center;
 }
 
 .section.banner-container.bf25 p.button-container {
@@ -1311,6 +1331,13 @@
     right: 2em;
     top: -1em;
   }
+  .section.banner-container .banner .bck-img .icon {
+    max-width: 300px;
+    margin-bottom: 1em;
+  }
+  .section.banner-container.smaller-stamp .banner .bck-img .icon {
+    margin-left: 0;
+  }
   .section.banner-container.red-pill .banner img {
     width: 70%;
     margin-top: 2em;
@@ -1391,7 +1418,7 @@
   }
   .section.banner-container .banner {
     padding: 1em 0 !important;
-    margin-bottom: 2em !important;
+    margin-bottom: 1em !important;
   }
   .section.lp-brand .banner {
     padding-bottom: 5.5rem;

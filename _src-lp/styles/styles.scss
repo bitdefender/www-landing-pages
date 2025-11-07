@@ -23,6 +23,9 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ececec;
   --background-color-light-sky-blue: #e4f2ff;
+  --baby-blue-color: #EDF9FF;
+  --darker-blue-color: #016FFF;
+  --light-grey-color: #FAFAFA;
   --text-color: #000;
   /* fonts */
   --body-font-family: "Arial", sans-serif;
@@ -306,6 +309,18 @@ button:hover {
   background: #b33027;
 }
 
+.bblue-bck {
+  background-color: var(--baby-blue-color);
+}
+
+.light-grey-bck {
+  background-color: var(--light-grey-color);
+}
+
+.bradius-20 {
+  border-radius: 20px;
+}
+
 [data-button-color=blue] a.button:any-link,
 [data-button-color=blue] button {
   background: #006DFF;
@@ -487,6 +502,18 @@ main .default-content-wrapper {
 
 .size-12-normal {
   font-size: 12px;
+}
+
+main .centered-title .default-content-wrapper * {
+  text-align: center;
+}
+
+main .pb-0-title .default-content-wrapper {
+  padding-bottom: 0;
+}
+
+main .pb-0-title .default-content-wrapper h2 {
+  margin-bottom: 0!important;
 }
 
 main .default-content-wrapper h1,
