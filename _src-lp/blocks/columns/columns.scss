@@ -796,11 +796,15 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 
   .columns div.text-content {
-    padding: 2em;
+    padding: 0 2em;
   }
 
   .columns div.text-content h5 {
     font-size: var(--heading-font-size-l);
+  }
+
+  .columns-container.smaller-titles .columns div.text-content h5 {
+    font-size: var(--heading-font-size-m);
   }
 
   .columns>div>div {
