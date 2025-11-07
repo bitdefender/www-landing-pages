@@ -22,6 +22,9 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ececec;
   --background-color-light-sky-blue: #e4f2ff;
+  --baby-blue-color: #EDF9FF;
+  --darker-blue-color: #016FFF;
+  --light-grey-color: #FAFAFA;
   --text-color: #000;
   /* fonts */
   --body-font-family: "Arial", sans-serif;
@@ -301,6 +304,18 @@ button:hover {
   background: #b33027;
 }
 
+.bblue-bck {
+  background-color: var(--baby-blue-color);
+}
+
+.light-grey-bck {
+  background-color: var(--light-grey-color);
+}
+
+.bradius-20 {
+  border-radius: 20px;
+}
+
 [data-button-color=blue] a.button:any-link,
 [data-button-color=blue] button {
   background: #006DFF;
@@ -479,6 +494,18 @@ main .default-content-wrapper {
 
 .size-12-normal {
   font-size: 12px;
+}
+
+main .centered-title .default-content-wrapper * {
+  text-align: center;
+}
+
+main .pb-0-title .default-content-wrapper {
+  padding-bottom: 0;
+}
+
+main .pb-0-title .default-content-wrapper h2 {
+  margin-bottom: 0 !important;
 }
 
 main .default-content-wrapper h1,
@@ -852,7 +879,7 @@ main .section.light-sky-blue > * {
   color: white;
   font-size: 10px;
   font-weight: 600;
-  line-height: 1;
+  line-height: normal;
   border-radius: 75pt;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
   font-style: normal;
@@ -860,6 +887,9 @@ main .section.light-sky-blue > * {
   padding: 3px 7px 3px 8px;
   text-transform: uppercase;
   white-space: nowrap;
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
 }
 
 .greenTag {

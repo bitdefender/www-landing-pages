@@ -44,7 +44,7 @@
   width: 95%;
 }
 
-.features-container .features .feature-list .accordion::after {
+.features-container .features .feature-list .accordion:not(:has(.tag))::after {
   content: '\276F';
   font-weight: bold;
   position: absolute;
@@ -52,6 +52,26 @@
   transition: transform 0.4s;
   transform: rotate(90deg);
 }
+
+.features-container .features .feature-list .accordion:has(.tag) {
+  .tag {
+    margin-left: 24px;
+    position: relative;
+    }
+
+  .tag::before {
+    content: '\276F';
+    font-weight: bold;
+    font-size: 16px;  
+    color: #006DFF;      
+    line-height: 1;
+    position: absolute;
+    left: -17px;          
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transition: transform 0.4s;     
+    }
+  }
 
 .features-container .features .feature-list .accordion.active::after {
   transform: rotate(270deg);
