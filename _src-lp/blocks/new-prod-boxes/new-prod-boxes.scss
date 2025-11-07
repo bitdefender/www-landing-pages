@@ -1464,10 +1464,12 @@ margin: 20px 0 0 5px;
 
     .new-prod-boxes-container .switchBox .label hr {
         margin: 0 auto 2px;
+    }
+
+    .new-prod-boxes-container .switchBox .label p {
         font: normal normal normal 8px / 11px Arial, sans-serif;
     }
 }
-
 
 @media (width >= 768px) {
     .new-prod-boxes-container .switchBox .switch {
