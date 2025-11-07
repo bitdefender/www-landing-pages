@@ -529,12 +529,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
     const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
-    let campaign = oldParams.get('COUPON');
+    let campaign = page.getParamValue('vcampaign') || getMetadata('vcampaign') || oldParams.get('COUPON');
 
-    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
-      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
-    }
-
+    if (['de', 'nl', 'au', 'gb'].includes(page.country)) campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
     const updatedUrl = new URL(newUrl);
     const newParams = updatedUrl.searchParams;
 
@@ -550,6 +547,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     if (currency) newParams.set('CURRENCY', currency);
     if (dcurrency) newParams.set('DCURRENCY', dcurrency);
     if (campaign) newParams.set('COUPON', campaign);
+    newParams.set('SRC', window.location.origin + window.location.pathname);
 
     updatedUrl.href = await target.appendVisitorIDsTo(updatedUrl.href);
     if (window.UC_UI) {
@@ -622,6 +620,12 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   } else {
     const [productId, prodUsers, prodYears] = onSelector.split('/');
     const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
+
+    const prodYearsInt = parseInt(prodYears, 10);
+    const prodYearsConv = (prodYearsInt >= 1 && prodYearsInt <= 3)
+      ? prodYearsInt * 12
+      : prodYearsInt;
+
     const match = trialLinks.find((item) => (
       item.locale.toLowerCase() === locale
       && item.product === productId
@@ -631,7 +635,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
     if (match) {
       const oldUrl = storeObjBuyLink;
-      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
+      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYearsConv);
       document.querySelectorAll(`.buylink-${onSelectorClass}:not(.no-trial)`).forEach((link) => link.setAttribute('href', updatedUrl));
     }
   }
