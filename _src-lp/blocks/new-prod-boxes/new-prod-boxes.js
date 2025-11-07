@@ -170,11 +170,11 @@ export default function decorate(block) {
     }
 
     const titleBox = document.createElement('div');
-    if (titleText && subText) {
+    if (titleText || subText) {
       titleBox.classList.add('titleBox');
       titleBox.innerHTML = `
       <h2>${titleText}</h2>
-      <p>${subText}</p>`;
+      ${subText ? `<p>${subText}</p>` : ''}`;
 
       if (titleBox.innerHTML.includes('0%')) {
         titleBox.innerHTML = titleBox.innerHTML.replace('0%', '<span class=\'max-discount\'></span>');
