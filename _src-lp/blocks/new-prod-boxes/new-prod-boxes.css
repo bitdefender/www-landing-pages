@@ -38,6 +38,10 @@
   margin: 0 0 15px;
 }
 
+.new-prod-boxes-container.bf-2025 .titleBox h2 {
+  color: #fff;
+}
+
 .new-prod-boxes-container.title-pink .titleBox h2 {
   color: #FE32A9;
 }
@@ -1444,6 +1448,12 @@
   }
   .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .save_price_box *, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .prices_box, .new-prod-boxes-container.book-a-demo .block .prod_box.individual-box:not(:has(~ .prod_box.individual-box)) .buy-btn, .new-prod-boxes-container.book-a-demo .block .prod_box.family-box:not(:has(~ .prod_box.family-box)) .buy-btn {
     display: none;
+  }
+  .new-prod-boxes-container .switchBox .label hr {
+    margin: 0 auto 2px;
+  }
+  .new-prod-boxes-container .switchBox .label p {
+    font: normal normal normal 8px/11px Arial, sans-serif;
   }
 }
 @media (width >= 768px) {
