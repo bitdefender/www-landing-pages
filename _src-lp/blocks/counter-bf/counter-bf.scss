@@ -215,7 +215,7 @@
   }
 
   .counter-bf-container .flipdown .rotor {
-    width: 18px;
+    width: 30px;
     font-size: 2rem;
   }
 
@@ -245,4 +245,22 @@
     font-size: 30px;
     line-height: 34px;
   }
+}
+
+@media screen and (width < 550px) {
+  .counter-bf-container .flipdown .rotor {
+      width: 11px;
+      font-size: 1.5rem;
+      margin-right: 10px;
+      
+  }
+  
+  .counter-bf-container .flipdown {
+    gap: 2px;
+  }
+
+  .counter-bf-container .flipdown .rotor-group {
+    padding-right: 10px;
+    width: 55px
+}
 }
