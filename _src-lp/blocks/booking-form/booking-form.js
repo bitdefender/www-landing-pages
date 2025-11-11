@@ -233,7 +233,6 @@ async function triggerFileDownload(url) {
   }
 }
 
-
 function handleSubmit(formBox, widgetId, token, downloadlink) {
   const validateFields = () => {
     let isValid = true;
@@ -294,7 +293,6 @@ function handleSubmit(formBox, widgetId, token, downloadlink) {
     const data = new Map();
 
     // set date și locale
-
     data.set('DATE', date);
     data.set('LOCALE', getLocale());
 
