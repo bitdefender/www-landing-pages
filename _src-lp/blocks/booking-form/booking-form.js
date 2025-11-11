@@ -1,4 +1,5 @@
 import { renderTurnstile, submitWithTurnstile, getLocale } from '../../scripts/utils.js';
+import { getDefaultLanguage } from '../../scripts/target.js';
 
 function createForm(block) {
   const allFields = [...block.children];
@@ -294,7 +295,7 @@ function handleSubmit(formBox, widgetId, token, downloadlink) {
 
     // set date și locale
     data.set('DATE', date);
-    data.set('LOCALE', getLocale());
+    data.set('LOCALE', getLocale(getDefaultLanguage()));
 
     formBox.querySelectorAll('.input-box').forEach((box) => {
       const field = box.querySelector('input[name], select[name], textarea[name]');
