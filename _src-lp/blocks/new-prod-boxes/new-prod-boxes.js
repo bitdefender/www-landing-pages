@@ -259,6 +259,7 @@ export default function decorate(block) {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      if (!buyLink) return;
       const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
 
