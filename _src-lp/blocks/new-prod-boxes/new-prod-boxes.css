@@ -250,10 +250,6 @@
   transition: all 0.4s;
 }
 
-.new-prod-boxes-container.bf-2025 {
-  padding-top: 30px;
-}
-
 .new-prod-boxes-container .block {
   margin: 0 auto;
   padding: 0 15px;
@@ -1455,9 +1451,6 @@
   }
   .new-prod-boxes-container .switchBox .label hr {
     margin: 0 auto 2px;
-  }
-  .new-prod-boxes-container .switchBox .label p {
-    font: normal normal normal 8px/11px Arial, sans-serif;
   }
 }
 @media (width >= 768px) {
