@@ -317,6 +317,17 @@
   .b-productswithselectors-container .b-productswithselectors-wrapper .b-productswithselectors.has-campaign-logo {
     margin: 1em 0;
   }
+  .b-productswithselectors.has3prods {
+    flex-wrap: wrap;
+  }
+  .b-productswithselectors.has3prods > div:nth-child(1) {
+    width: 100%;
+    flex: 0 1 auto;
+    margin-bottom: 1em;
+  }
+  .b-productswithselectors.has3prods > div:not(:first-child) {
+    flex: 1;
+  }
 }
 /* for mobile */
 @media (width <= 768px) {

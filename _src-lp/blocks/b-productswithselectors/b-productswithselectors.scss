@@ -328,6 +328,22 @@
   .b-productswithselectors-container .b-productswithselectors-wrapper .b-productswithselectors.has-campaign-logo {
     margin: 1em 0;
   }
+
+  .b-productswithselectors.has3prods {
+    flex-wrap: wrap;
+
+    > div:nth-child(1) {
+      width: 100%;
+      flex: 0 1 auto;
+      margin-bottom: 1em;
+    }
+
+    > div:not(:first-child) {
+      flex: 1;
+    }
+  }
+
+
 }
 
 /* for mobile */
@@ -338,7 +354,7 @@
 
   .b-productswithselectors > div {
     border-radius: 5px;
-    
+
     .redTag {
       width: 50px;
       height: 50px;
