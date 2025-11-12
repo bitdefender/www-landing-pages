@@ -93,6 +93,7 @@
 /* 1st box */
 .b-productswithselectors > div:nth-child(1) {
   font-size: 14px;
+  width: 500px;
 }
 
 .b-productswithselectors > div:not(:first-child) {
@@ -113,7 +114,6 @@
 .b-productswithselectors > div.selected {
   margin-top: 0;
   border: 1px solid #0E8532;
-  border-bottom: 0;
 }
 
 .b-productswithselectors > div:not(:first-child) p {
@@ -297,8 +297,19 @@
     margin: 0 auto;
     position: relative;
   }
+  .b-productswithselectors > div:nth-child(1) {
+    width: 250px;
+  }
+  .b-productswithselectors > div:nth-child(1) h3 {
+    font-size: 25px;
+    line-height: 1;
+    margin-top: 0;
+  }
+  .b-productswithselectors > div:not(:first-child) p:first-of-type u {
+    padding: 5px;
+  }
   .b-productswithselectors-container .b-productswithselectors-wrapper .b-productswithselectors.has-campaign-logo {
-    margin-top: 1em;
+    margin: 1em 0;
   }
 }
 /* for mobile */
@@ -309,12 +320,12 @@
   .b-productswithselectors > div .redTag {
     width: 50px;
     height: 50px;
-    top: -30px;
-    right: -5px;
+    top: -33px;
+    right: -4px;
   }
-  .b-productswithselectors > div .redTag i {
-    margin-top: 5px;
-    margin-left: 5px;
+  .b-productswithselectors > div .redTag > i {
+    margin-top: 57px;
+    margin-left: 100px;
     font-size: 10px;
   }
   .b-productswithselectors > div:nth-child(1) h3 {
@@ -335,7 +346,7 @@
     font-size: 10px;
   }
   .b-productswithselectors > div:nth-child(1) {
-    width: 98%;
+    width: 100%;
     margin-bottom: 4em !important;
   }
   .b-productswithselectors > div:not(:nth-child(1)) {
@@ -362,15 +373,27 @@
     line-height: 18px;
     margin-bottom: 10px;
   }
+  .b-productswithselectors > div {
+    border-radius: 5px;
+  }
+  .b-productswithselectors.has3prods {
+    flex-direction: column;
+  }
   .b-productswithselectors.has3prods > div:not(:first-child) {
-    width: 31%;
+    width: 100%;
+    margin-bottom: 1em;
   }
   .b-productswithselectors.has3prods > div:not(:first-child) h3 {
-    font-size: 12px;
-    line-height: 13px;
+    font-size: 16px;
+    line-height: 19px;
+    height: auto;
+    min-height: auto;
   }
   .b-productswithselectors.has3prods > div:not(:first-child) h4 {
     font-size: 14px;
+  }
+  .b-productswithselectors.has3prods > div:not(:first-child) ul:first-of-type {
+    min-height: auto;
   }
   .b-productswithselectors.has3prods > div:not(:first-child) ul li {
     font-size: 12px;
@@ -381,13 +404,17 @@
     width: 11px;
     height: 11px;
   }
+  .b-productswithselectors.has3prods > div:not(:first-child) p:first-of-type u {
+    top: -30px;
+    font-size: 12px;
+  }
   .b-productswithselectors.has3prods > div:not(:first-child) p:last-of-type {
     font-size: 12px;
     line-height: 15px;
   }
   .b-productswithselectors.has3prods .prod-newprice {
-    font-size: 13px;
-    line-height: 15px;
+    font-size: 27px;
+    line-height: 16px;
   }
   .b-productswithselectors.has3prods .prod-taxes {
     font-size: 10px;
@@ -396,10 +423,12 @@
     display: none;
   }
   .b-productswithselectors {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .b-productswithselectors > div:not(:first-child) ul:first-of-type {
-    min-height: 17em;
+    min-height: 15em;
     margin: 6px 0;
   }
   .b-productswithselectors .prod-oldprice {
@@ -413,13 +442,13 @@
     margin-left: 1%;
   }
   .b-productswithselectors-container.bf2024 .b-productswithselectors > div:not(:nth-child(1)) {
-    width: 49%;
+    width: 48%;
     float: left;
-    margin: auto;
+    margin: 0 auto;
   }
   .b-productswithselectors-container.bf2024 .b-productswithselectors > div:nth-child(1) {
-    margin-bottom: 0 !important;
     padding-bottom: 1em !important;
+    margin: 0 0 15px 0 !important;
   }
   .b-productswithselectors-container.bf2024 .prod-percent-tag {
     display: none;
