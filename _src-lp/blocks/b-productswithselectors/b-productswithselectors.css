@@ -365,7 +365,7 @@
   }
   .b-productswithselectors > div:nth-child(1) {
     width: 100%;
-    margin-bottom: 4em !important;
+    margin-bottom: 3em !important;
   }
   .b-productswithselectors > div:not(:nth-child(1)) {
     width: 48%;
@@ -467,7 +467,7 @@
     margin: 0 0 35px !important;
   }
   .b-productswithselectors-container.bf2024 .b-productswithselectors > div:nth-child(1) {
-    padding-bottom: 1em !important;
+    margin-top: 1em;
     margin-bottom: 1em;
   }
   .b-productswithselectors-container.bf2024 .prod-percent-tag {
