@@ -1,4 +1,5 @@
-import { renderTurnstile, submitWithTurnstile } from '../../scripts/utils.js';
+import { renderTurnstile, submitWithTurnstile, getLocale } from '../../scripts/utils.js';
+import { getDefaultLanguage } from '../../scripts/target.js';
 
 function createForm(block) {
   const allFields = [...block.children];
@@ -234,8 +235,6 @@ async function triggerFileDownload(url) {
 }
 
 function handleSubmit(formBox, widgetId, token, downloadlink) {
-  const locale = window.location.pathname.split('/')[1] || 'en';
-
   const validateFields = () => {
     let isValid = true;
     const inputs = formBox.querySelectorAll('input, textarea, select');
@@ -296,7 +295,7 @@ function handleSubmit(formBox, widgetId, token, downloadlink) {
 
     // set date și locale
     data.set('DATE', date);
-    data.set('LOCALE', locale);
+    data.set('LOCALE', getLocale(getDefaultLanguage()));
 
     formBox.querySelectorAll('.input-box').forEach((box) => {
       const field = box.querySelector('input[name], select[name], textarea[name]');
