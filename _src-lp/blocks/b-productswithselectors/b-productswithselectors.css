@@ -83,8 +83,11 @@
   transform: rotate(45deg);
   text-align: center;
   margin-top: 38px;
-  margin-left: 108px;
+  margin-left: 112px;
   font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 1st box */

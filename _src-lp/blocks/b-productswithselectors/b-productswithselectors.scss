@@ -64,24 +64,30 @@
   margin: 0 1%;
 
   .redTag {
-    width:100px;
-    height: 245px;
+    width: 86px;
+    height: 88px;
     position: absolute;
-    top: -16px;
+    top: -12px;
     right: -6px;
-    background: url('../../images/new_redtag.png') 0 0 no-repeat transparent;
+    background: url("../../images/new_redtag.png") 0 0 no-repeat transparent;
     background-size: 100%;
     color: white;
     z-index: 1;
+    border-radius: unset;
+    box-shadow: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     i {
       transform: rotate(45deg);
-      display: block;
       text-align: center;
-      margin-top: 20px;
-      margin-left: 10px;
+      margin-top: 38px;
+      margin-left: 112px;
       font-size: 13px;
-      width: 124%
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

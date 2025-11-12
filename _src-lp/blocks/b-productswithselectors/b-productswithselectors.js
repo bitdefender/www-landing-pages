@@ -137,7 +137,7 @@ export default function decorate(block) {
     const tagDiv = document.createElement('div');
     if (tagText) {
       tagDiv.className = 'tag redTag';
-      tagDiv.innerHTML = `<i>${tagText}<i>`;
+      tagDiv.innerHTML = `<i>${tagText.replace(' ', '<br>')}<i>`;
     }
 
     /// ///////////////////////////////////////////////////////////////////////
