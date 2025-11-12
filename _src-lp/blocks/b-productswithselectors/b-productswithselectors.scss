@@ -433,13 +433,14 @@
       }
 
       ul li {
-        font-size: 12px;
+        font-size: 13px;
         line-height: 15px;
         margin-bottom: 5px;
 
         &::before {
           width: 11px;
           height: 11px;
+          margin-top: 2px;
         }
       }
 
@@ -509,6 +510,6 @@
   }
 
   .b-productswithselectors-container.bf2024 .b-productswithselectors > div:not(:first-child) ul:first-of-type {
-    min-height: 9em;
+    min-height: auto;
   }
 }

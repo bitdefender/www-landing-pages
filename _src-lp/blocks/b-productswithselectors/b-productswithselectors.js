@@ -214,6 +214,7 @@ export default function decorate(block) {
       const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');
       const list = renderedProductSection.querySelector('ul');
+      list.className = 'featsList';
 
       if (list) {
         list.after(pricesDiv);
@@ -232,6 +233,6 @@ export default function decorate(block) {
     });
   }
 
-  matchHeights(block, 'ul:first-of-type');
+  matchHeights(block, 'ul.featsList', true);
   matchHeights(block, '.prod-newprice');
 }
