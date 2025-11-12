@@ -64,22 +64,24 @@
   margin: 0 1%;
 }
 .b-productswithselectors > div .redTag {
-  width: 100px;
-  height: 245px;
+  width: 86px;
+  height: 88px;
   position: absolute;
-  top: -16px;
+  top: -12px;
   right: -6px;
   background: url("../../images/new_redtag.png") 0 0 no-repeat transparent;
   background-size: 100%;
   color: white;
   z-index: 1;
+  border-radius: unset;
+  box-shadow: unset;
 }
 .b-productswithselectors > div .redTag i {
   transform: rotate(45deg);
   display: block;
   text-align: center;
-  margin-top: 20px;
-  margin-left: 10px;
+  margin-top: -45px;
+  margin-left: 39px;
   font-size: 13px;
   width: 124%;
 }
