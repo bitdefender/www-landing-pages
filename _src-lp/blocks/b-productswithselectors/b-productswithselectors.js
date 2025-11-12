@@ -66,7 +66,10 @@ export default function decorate(block) {
         }
         return `<option value="${key}" ${selected}>${key}</option>`;
       });
-      block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox"><label for="select${labelName[0]}">${labelName[0]}</label><select id="select${labelName[0]}" data-trigger="users">${optionsDevices}</select></div>`;
+      block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox">
+        <label for="select${labelName[0]}">${labelName[0]}</label>
+        <select id="select${labelName[0]}" data-trigger="users">${optionsDevices}</select>
+      </div>`;
 
       // years
       const optionsYears = Array(3).fill().map((_, y) => {
@@ -79,7 +82,10 @@ export default function decorate(block) {
         return `<option value="${key}" ${selected}>${key}</option>`;
       });
 
-      block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox"><label for="select${labelName[1].trim()}">${labelName[1].trim()}</label><select id="select${labelName[1].trim()}" data-trigger="years">${optionsYears}</select></div>`;
+      block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox">
+        <label for="select${labelName[1].trim()}">${labelName[1].trim()}</label>
+        <select id="select${labelName[1].trim()}" data-trigger="years">${optionsYears}</select>
+      </div>`;
 
       /// ///////////////////////////////////////////////////////////////////////
       // add eventListener
@@ -108,9 +114,7 @@ export default function decorate(block) {
                 const { index, type, value } = selector;
                 const query = `.b-productswithselectors > div:nth-child(${index}) ul:last-of-type li:nth-child(${type}) strong`;
                 const element = block.querySelector(query);
-                if (element) {
-                  element.innerHTML = value;
-                }
+                if (element) element.innerHTML = value;
               });
             }
 
@@ -137,7 +141,7 @@ export default function decorate(block) {
     const tagDiv = document.createElement('div');
     if (tagText) {
       tagDiv.className = 'tag redTag';
-      tagDiv.innerHTML = `<i>${tagText}<i>`;
+      tagDiv.innerHTML = `<i>${tagText.replace(' ', '<br>')}<i>`;
     }
 
     /// ///////////////////////////////////////////////////////////////////////
@@ -214,6 +218,7 @@ export default function decorate(block) {
       const renderedProductSection = block.children[idx + 1];
       renderedProductSection.setAttribute('data-testid', 'prod_box');
       const list = renderedProductSection.querySelector('ul');
+      list.className = 'featsList';
 
       if (list) {
         list.after(pricesDiv);
@@ -232,6 +237,6 @@ export default function decorate(block) {
     });
   }
 
-  matchHeights(block, 'ul:first-of-type');
+  matchHeights(block, 'ul.featsList', true);
   matchHeights(block, '.prod-newprice');
 }

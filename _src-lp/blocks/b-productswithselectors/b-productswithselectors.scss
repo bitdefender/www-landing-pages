@@ -62,26 +62,33 @@
   padding-bottom: 0 !important;
   background-color: white;
   margin: 0 1%;
+  border-radius: 5px;
 
   .redTag {
-    width:100px;
-    height: 245px;
+    width: 86px;
+    height: 88px;
     position: absolute;
-    top: -16px;
+    top: -6px;
     right: -6px;
     background: url('../../images/new_redtag.png') 0 0 no-repeat transparent;
     background-size: 100%;
     color: white;
     z-index: 1;
+    border-radius: unset;
+    box-shadow: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     i {
       transform: rotate(45deg);
-      display: block;
       text-align: center;
-      margin-top: 20px;
-      margin-left: 10px;
+      margin-top: 38px;
+      margin-left: 112px;
       font-size: 13px;
-      width: 124%
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
@@ -89,10 +96,12 @@
 /* 1st box */
 .b-productswithselectors > div:nth-child(1) {
   font-size: 14px;
+  width: 500px;
 }
 
 .b-productswithselectors > div:not(:first-child) {
   font-size: 16px;
+  border: 1px solid #efeeee;
 }
 
 .hide-selectors .b-productswithselectors > div:nth-child(1) {
@@ -109,7 +118,6 @@
 .b-productswithselectors > div.selected {
   margin-top: 0;
   border: 1px solid  #0E8532;
-  border-bottom: 0;
 }
 
 .b-productswithselectors > div:not(:first-child) p {
@@ -152,9 +160,9 @@
   position: absolute;
   border-radius: 5px 5px 0 0;
   color: #fff;
-  padding: 10px;
+  padding: 5px;
   left: -1px;
-  top: -7px;
+  top: 0;
   right: -1px;
   font-weight: 600;
   text-decoration: none;
@@ -206,7 +214,7 @@
   display: flex;
   background: url('../../icons/bf24-Ribbon.png') no-repeat 0 0 transparent;
   right: 3px;
-  top: -18px;
+  top: -12px;
   left: auto;
   width: 105px;
   height: 80px;
@@ -242,6 +250,10 @@
   z-index: 9;
   margin-left: -7em;
   top: 0;
+}
+
+.b-productswithselectors-container a.red-buy-button {
+  line-height: 1;
 }
 
 .b-productswithselectors-container.bf2024 a.red-buy-button {
@@ -298,9 +310,41 @@
     margin: 0 auto;
     position: relative;
   }
+
+  .b-productswithselectors > div:nth-child(1) {
+    width: 250px;
+
+    h3 {
+      font-size: 25px;
+      line-height: 1;
+      margin-top: 0;
+    }
+  }
+
+  .b-productswithselectors > div:not(:first-child) p:first-of-type u {
+    padding: 5px;
+  }
   
   .b-productswithselectors-container .b-productswithselectors-wrapper .b-productswithselectors.has-campaign-logo {
-    margin-top: 1em;
+    margin: 1em 0;
+  }
+
+  .b-productswithselectors-container.bf2024 .b-productswithselectors-wrapper .b-productswithselectors {
+    margin-top: 3em;
+  }
+
+  .b-productswithselectors.has3prods {
+    flex-wrap: wrap;
+
+    > div:nth-child(1) {
+      width: 100%;
+      flex: 0 1 auto;
+      margin-bottom: 1em;
+    }
+
+    > div:not(:first-child) {
+      flex: 1;
+    }
   }
 }
 
@@ -311,15 +355,17 @@
   }
 
   .b-productswithselectors > div {
+    border-radius: 5px;
+
     .redTag {
       width: 50px;
       height: 50px;
-      top: -30px;
-      right: -5px;
+        top: -33px;
+        right: -4px;
 
-      i {
-        margin-top: 5px;
-        margin-left: 5px;
+      > i {
+        margin-top: 57px;
+        margin-left: 100px;
         font-size: 10px
       }
     }
@@ -340,15 +386,9 @@
     font-size: 14px;
   }
 
-  .b-productswithselectors.has3prods > div:not(:first-child) p:first-of-type u {
-    padding: 5px 1px;
-    top: -24px;
-    font-size: 10px;
-  }
-
   .b-productswithselectors > div:nth-child(1) {
-    width: calc(100% - 2%);
-    margin-bottom: 4em !important;
+    width: 100%;
+    margin-bottom: 3em !important;
   }
 
   .b-productswithselectors > div:not(:nth-child(1)) {
@@ -381,27 +421,43 @@
   }
 
   .b-productswithselectors.has3prods {
+    flex-direction: column;
+
     > div:not(:first-child) {
-      width: 31%;
+      width: 100%;
+      margin-bottom: 1em;
 
       h3 {
-        font-size: 12px;
-        line-height: 13px;
+        font-size: 16px;
+        line-height: 19px;
+        height: auto;
+        min-height: auto;
       }
 
       h4 {
         font-size: 14px;
       }
 
+      ul:first-of-type {
+        min-height: auto;
+      }
+
       ul li {
-        font-size: 12px;
+        font-size: 13px;
         line-height: 15px;
         margin-bottom: 5px;
 
         &::before {
           width: 11px;
           height: 11px;
+          margin-top: 2px;
         }
+      }
+
+      p:first-of-type u {
+        padding: 5px 1px;
+        top: -30px;
+        font-size: 12px;
       }
 
       p:last-of-type {
@@ -412,8 +468,8 @@
     }
 
     .prod-newprice {
-      font-size: 13px;
-      line-height: 15px;
+      font-size: 27px;
+      line-height: 16px;
     }
 
     .prod-taxes {
@@ -426,11 +482,13 @@
   }
 
   .b-productswithselectors {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .b-productswithselectors > div:not(:first-child) ul:first-of-type {
-    min-height: 17em;
+    min-height: 15em;
     margin: 6px 0;
   }
 
@@ -448,14 +506,18 @@
   }
 
   .b-productswithselectors-container.bf2024 .b-productswithselectors > div:not(:nth-child(1)) {
-    width: calc(50% - 1%);
+    width: 48%;
     float: left;
-    margin: auto;
+    margin: 0 auto;
+  }
+
+  .b-productswithselectors-container.bf2024 .b-productswithselectors-wrapper .b-productswithselectors {
+    margin: 0 0 35px !important;
   }
 
   .b-productswithselectors-container.bf2024 .b-productswithselectors > div:nth-child(1) {
-    margin-bottom: 0 !important;
-    padding-bottom: 1em !important;
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
 
   .b-productswithselectors-container.bf2024 .prod-percent-tag {
@@ -463,6 +525,6 @@
   }
 
   .b-productswithselectors-container.bf2024 .b-productswithselectors > div:not(:first-child) ul:first-of-type {
-    min-height: 9em;
+    min-height: auto;
   }
 }

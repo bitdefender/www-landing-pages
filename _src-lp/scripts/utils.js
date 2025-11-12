@@ -1138,7 +1138,7 @@ export function debounce(func, wait) {
 }
 
 // General function to match the height of elements based on a selector
-export async function matchHeights(targetNode, selector) {
+export async function matchHeights(targetNode, selector, onMobile = undefined) {
   const resetHeights = () => {
     const elements = targetNode.querySelectorAll(selector);
     elements.forEach((element) => {
@@ -1147,7 +1147,7 @@ export async function matchHeights(targetNode, selector) {
   };
 
   const adjustHeights = () => {
-    if (window.innerWidth >= 768) {
+    if (onMobile || window.innerWidth >= 768) {
       resetHeights();
       const elements = targetNode.querySelectorAll(selector);
       const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
