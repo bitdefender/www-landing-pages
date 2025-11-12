@@ -75,15 +75,16 @@
   z-index: 1;
   border-radius: unset;
   box-shadow: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .b-productswithselectors > div .redTag i {
   transform: rotate(45deg);
-  display: block;
   text-align: center;
-  margin-top: -45px;
-  margin-left: 39px;
+  margin-top: 38px;
+  margin-left: 108px;
   font-size: 13px;
-  width: 124%;
 }
 
 /* 1st box */
