@@ -77,7 +77,7 @@ export default class ProductPrice {
     let forceLocale = page.getParamValue(Constants.LOCALE_PARAMETER);
 
     if (forceLocale)
-      this.#locale = forceLocale;
+      this.#locale = forceLocale.toLowerCase();
 
     /**
     * Legacy connection to StoreProducts
