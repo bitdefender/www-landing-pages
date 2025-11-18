@@ -423,7 +423,6 @@ function maxDiscount() {
 
   const maxDiscountElements = document.querySelectorAll('.max-discount');
   if (maxDiscountElements.length && maxDiscountValue) {
-    const discountText = `${maxDiscountValue}%`;
     maxDiscountElements.forEach((item) => {
       item.textContent = discountText;
 
