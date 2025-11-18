@@ -46,7 +46,7 @@ export default function decorate(block) {
   const metaData = parentSelector.dataset;
   const {
     products, yearsText, bulinaText, devicesLimits, yearsSelector, monthlyText, incrementalCounter, titleTag,
-    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice, backgroundColor, backgroundImage, campaignImage,
+    skipUnwantedSelectors, secondTemplate, reverseMonthlyTextWithPrice, backgroundColor, backgroundImage, backgroundRepeat, campaignImage,
   } = metaData;
   const productsAsList = products && products.split(',');
   const subscribeTexts = parent2ndDiv.querySelector('p').innerText;
@@ -57,16 +57,20 @@ export default function decorate(block) {
   const taxesText = parent2ndDiv.querySelector('p:nth-child(6)').innerText;
 
   if (backgroundImage) {
+    parentSelectorStyle.backgroundSize = 'cover';
     parentSelectorStyle.backgroundImage = `url(${backgroundImage.split('?')[0]})`;
     if (backgroundColor) {
       parentSelectorStyle.backgroundSize = '100% auto';
       parentSelectorStyle.backgroundColor = backgroundColor;
-    } else {
-      parentSelectorStyle.backgroundSize = 'cover';
+    }
+
+    parentSelectorStyle.backgroundRepeat = 'no-repeat';
+    if (backgroundRepeat) {
+      parentSelectorStyle.backgroundRepeat = 'repeat';
     }
 
     parentSelectorStyle.backgroundPosition = '0 0';
-    parentSelectorStyle.backgroundRepeat = 'no-repeat';
+
     parentSelectorStyle.backgroundBlendMode = 'unset';
   }
 

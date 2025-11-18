@@ -124,6 +124,12 @@ export function decorateMain(main) {
   decorateTags(main);
   decorateSections(main);
   decorateBlocks(main);
+
+  if (getMetadata('background-color')) main.style.backgroundColor = getMetadata('background-color');
+  if (getMetadata('background-image')) {
+    main.style.backgroundImage = `url(${getMetadata('background-image')})`;
+  };
+  if (getMetadata('text-color')) main.querySelector('*').style.color = getMetadata('text-color');
 }
 
 export async function createModal(path, template) {

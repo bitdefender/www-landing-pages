@@ -68,6 +68,8 @@ export default async function decorate(block) {
     if (html.indexOf('bigger-logo') !== -1) {
       headerWrapper.classList.add('biggerLogo');
     }
+    console.log("html.indexOf('custom_nav') ", html.indexOf('custom_nav'), html);
+    console.log(block)
     if (window.location.href.indexOf('scuderiaferrari') !== -1) {
       headerWrapper.id = 'headerFerrari';
       headerWrapper.classList.add('headerSpurs', 'dark');
@@ -107,7 +109,8 @@ export default async function decorate(block) {
       block.querySelector('.section-metadata').remove();
     } else if (html.indexOf('custom_nav') !== -1 || html.indexOf('custom_nav_white') !== -1) {
       headerWrapper.classList.add('customNav');
-      if (html.indexOf('custom_nav') !== -1) headerWrapper.classList.add('dark');
+      if (html.indexOf('transparent_bck') !== -1) headerWrapper.classList.add('transparent_bck');
+      if (html.indexOf('custom_nav') !== -1) headerWrapper.classList.add('dark1');
       if (html.indexOf('custom_nav_white') !== -1) headerWrapper.classList.add('white');
       if (html.indexOf('custom_nav_blue') !== -1) headerWrapper.classList.add('blue');
       if (html.indexOf('they-wear-our-faces') !== -1) {
@@ -140,7 +143,7 @@ export default async function decorate(block) {
 
       block.querySelector('.section-metadata').remove();
     } else {
-      headerWrapper.classList.add('dark');
+      headerWrapper.classList.add('dark2');
       block.innerHTML = `
       <a class="d-flex justify-content-between" href="${linklessNav ? '#' : homeUrl}">
         ${spanSvg.map((svg) => `
