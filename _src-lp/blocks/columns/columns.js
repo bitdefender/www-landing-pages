@@ -16,7 +16,7 @@ export default function decorate(block) {
   }
 
   // setup image columns
-  [...block.children].forEach((row) => {
+  [...block.children].forEach((row, key) => {
     [...row.children].forEach((col, idx) => {
       const pic = col.querySelector('picture');
       if (pic) {
@@ -27,7 +27,7 @@ export default function decorate(block) {
         }
       } else {
         col.innerHTML = `
-          <div class="text-content">
+          <div class="text-content text-content-${key}">
             ${col.innerHTML}
           </div>
         `;
@@ -54,6 +54,6 @@ export default function decorate(block) {
       matchWidths(block, '.same-width', 991);
     }
   }
-  matchHeights(block, '.text-content');
+  matchHeights(block, '.text-content:not(.text-content-0)');
   matchHeights(block, '.feature-cards img');
 }

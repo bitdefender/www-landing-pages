@@ -701,7 +701,7 @@ main .columns-container.padding-0 .columns-wrapper {
     padding: 0 18px;
   }
   .columns div.text-content {
-    padding: 0 2em;
+    padding: 0 1em;
   }
   .columns div.text-content h5 {
     font-size: var(--heading-font-size-l);
