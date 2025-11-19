@@ -381,10 +381,14 @@ export default function decorate(block) {
     }
 
     const defaultSize = getContentSizeClasses(contentSize);
+    console.log('block ', block)
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
           <div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
+          <div class="col-12 ${defaultSize} ps-4">
+            ${contentRightEl.innerHTML}
+          </div>
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>
