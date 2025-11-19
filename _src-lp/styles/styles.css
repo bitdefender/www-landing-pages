@@ -462,6 +462,10 @@ main .section.blue-h3 h3 {
   width: 100%;
 }
 
+.icon svg [clip-path] {
+  clip-path: none !important;
+}
+
 main {
   background-color: var(--background-color);
 }
@@ -605,11 +609,13 @@ main .section.width-smaller .default-content-wrapper {
 
 main .section.width-smaller2 .block {
   max-width: 500px;
+  margin: 0 auto;
 }
 
 main .section.width-smaller4 .block,
 main .section.width-smaller4 .default-content-wrapper {
   max-width: 630px;
+  margin: 0 auto;
 }
 
 main .section[data-backgroundcolor=black] {
@@ -1982,6 +1988,9 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   }
   main .default-content-wrapper {
     padding-top: 1em;
+  }
+  main .section.width-medium .block, main .section.width-medium .default-content-wrapper {
+    width: auto;
   }
   main .default-content-wrapper h1 {
     font-size: 25px;

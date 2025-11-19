@@ -397,7 +397,7 @@ export function formatPrice(price, currency) {
 
 // get max discount
 function maxDiscount() {
-  const selectors = ['.prod-percent', '.percent'];
+  const selectors = ['.prod-percent', '.percent', '[class^="percent-"]'];
   const discountAmounts = [];
 
   // Collect all discount values
@@ -414,10 +414,15 @@ function maxDiscount() {
   });
 
   const maxDiscountValue = Math.max(...discountAmounts);
-  const maxDiscountElements = document.querySelectorAll('.max-discount');
+  if (!maxDiscountValue) return;
 
+  const discountText = `${maxDiscountValue}%`;
+  document.querySelectorAll('.max-discount-content .block, .max-discount-content .default-content-wrapper').forEach((link) => {
+    link.innerHTML = link.innerHTML.replace(/0%/g, discountText);
+  });
+
+  const maxDiscountElements = document.querySelectorAll('.max-discount');
   if (maxDiscountElements.length && maxDiscountValue) {
-    const discountText = `${maxDiscountValue}%`;
     maxDiscountElements.forEach((item) => {
       item.textContent = discountText;
 
