@@ -59,6 +59,9 @@ export default function decorate(block) {
   if (backgroundImage) {
     parentSelectorStyle.backgroundSize = 'cover';
     parentSelectorStyle.backgroundImage = `url(${backgroundImage.split('?')[0]})`;
+    parentSelectorStyle.backgroundPosition = '0 0';
+    parentSelectorStyle.backgroundBlendMode = 'unset';
+
     if (backgroundColor) {
       parentSelectorStyle.backgroundSize = '100% auto';
       parentSelectorStyle.backgroundColor = backgroundColor;
@@ -66,9 +69,6 @@ export default function decorate(block) {
 
     parentSelectorStyle.backgroundRepeat = 'no-repeat';
     if (backgroundRepeat) parentSelectorStyle.backgroundRepeat = 'repeat';
-
-    parentSelectorStyle.backgroundPosition = '0 0';
-    parentSelectorStyle.backgroundBlendMode = 'unset';
   }
 
   if (campaignImage) {
