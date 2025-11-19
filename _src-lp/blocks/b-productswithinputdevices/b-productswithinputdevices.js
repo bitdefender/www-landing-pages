@@ -65,12 +65,9 @@ export default function decorate(block) {
     }
 
     parentSelectorStyle.backgroundRepeat = 'no-repeat';
-    if (backgroundRepeat) {
-      parentSelectorStyle.backgroundRepeat = 'repeat';
-    }
+    if (backgroundRepeat) parentSelectorStyle.backgroundRepeat = 'repeat';
 
     parentSelectorStyle.backgroundPosition = '0 0';
-
     parentSelectorStyle.backgroundBlendMode = 'unset';
   }
 
