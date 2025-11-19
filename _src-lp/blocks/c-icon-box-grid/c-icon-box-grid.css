@@ -108,7 +108,7 @@
 
 .c-icon-box-grid-container.new .subtitle {
   color: black;
-  font-family: Arial, sans-serif;
+  font-family: var(--body-font-family);
   font-size: 12px;
 }
 
@@ -125,7 +125,7 @@
 .c-icon-box-grid-container.new p {
   font-size: 12px;
   line-height: 14px;
-  font-family: Arial, sans-serif;
+  font-family: var(--body-font-family);
 }
 
 .c-icon-box-grid-container.top-author .subtitle > p {
@@ -144,7 +144,7 @@
 
 .c-icon-box-grid-container.new .title {
   color: black;
-  font-family: Arial, sans-serif;
+  font-family: var(--body-font-family);
   font-weight: bold;
   font-size: var(--heading-font-size-s);
 }
@@ -173,7 +173,7 @@
 .c-icon-box-grid-container.new h3 {
   font-size: var(--heading-font-size-s);
   font-weight: normal;
-  font-family: Arial, sans-serif;
+  font-family: var(--body-font-family);
 }
 
 .c-icon-box-grid-container .quotes .icon-box-grid-column {
@@ -199,6 +199,13 @@
 .c-icon-box-grid-container.top-author .quotes .icon-box-grid-column {
   background: url("../../images/baby-blue-quote-small.svg") no-repeat top 5.5em left 20px #EDF9FF;
   background-size: auto 28px;
+}
+
+.c-icon-box-grid-container.trustpilot-design .quotes h6 {
+  font-size: 14px;
+  line-height: 19px;
+  font-family: var(--body-font-family);
+  font-weight: bold;
 }
 
 .c-icon-box-grid-container.box-shadow .col-lg .icon-box-grid-column {
@@ -328,12 +335,12 @@
 
 .c-icon-box-grid-container.grey-box .col-lg .title {
   font-size: var(--heading-font-size-s);
-  font-family: Arial, sans-serif;
+  font-family: var(--body-font-family);
 }
 
 .c-icon-box-grid-container.grey-box .col-lg .subtitle {
   font-size: 12px;
-  font-family: Arial, sans-serif;
+  font-family: var(--body-font-family);
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -358,7 +365,7 @@
   margin-top: 0;
   font-size: 14px;
   line-height: 19px;
-  font-family: Arial, sans-serif;
+  font-family: var(--body-font-family);
 }
 
 .c-icon-box-grid-container.new .quotes .icon-box-grid-column p:nth-of-type(2) {
@@ -427,6 +434,10 @@
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-s);
   }
+  .c-icon-box-grid-container.smaller-title .title, .c-icon-box-grid-container.smaller-title .subtitle {
+    font-size: var(--body-font-size-xs);
+    line-height: 22px;
+  }
   .c-icon-box-grid-container.items-smaller .row {
     justify-content: space-between;
   }
@@ -451,13 +462,16 @@
     flex-direction: column;
     justify-content: space-between;
   }
-  .c-icon-box-grid-container .new-blue .subtitle p:last-of-type::before {
+  .c-icon-box-grid-container .new-blue .subtitle p:last-of-type::before, .c-icon-box-grid-container.trustpilot-design .subtitle p:last-of-type::before {
     content: "";
     width: 24px;
     height: 1px;
     background-color: #00439C;
     display: block;
     margin-bottom: 5px;
+  }
+  .c-icon-box-grid-container.trustpilot-design .subtitle p:last-of-type::before {
+    margin-top: 10px;
   }
   .c-icon-box-grid-container.color-black .title, .c-icon-box-grid-container.color-black .subtitle {
     color: black;
