@@ -68,6 +68,7 @@ export default async function decorate(block) {
     if (html.indexOf('bigger-logo') !== -1) {
       headerWrapper.classList.add('biggerLogo');
     }
+
     if (window.location.href.indexOf('scuderiaferrari') !== -1) {
       headerWrapper.id = 'headerFerrari';
       headerWrapper.classList.add('headerSpurs', 'dark');
@@ -148,6 +149,9 @@ export default async function decorate(block) {
         `).join('')}
       </a>`;
     }
+
+    const headerColor = getMetadata('header-color');
+    if (headerColor) headerWrapper.style.backgroundColor = headerColor;
 
     adobeMcAppendVisitorId('header');
   }
