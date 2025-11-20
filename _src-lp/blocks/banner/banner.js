@@ -381,7 +381,6 @@ export default function decorate(block) {
     }
 
     const defaultSize = getContentSizeClasses(contentSize);
-    console.log(contentRightEl.innerText.trim())
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
