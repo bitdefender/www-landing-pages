@@ -385,11 +385,11 @@ export default function decorate(block) {
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
           <div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
-          ${contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>
-          ${contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
         </div>
       </div>
     `;
@@ -450,7 +450,7 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-block d-sm-flex d-md-flex d-lg-flex position-relative">
-        <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img position-relative">
+        <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img position-relative">dsfgsdfg
             ${pictureEl.innerHTML}
         </div>
 
