@@ -38,7 +38,6 @@ const applyBackgroundStyles = (target, imageSrc, position = 'top center', size =
       target.background = `linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})${size === 'cover' ? '' : ' !important'}`;
     }
   } else {
-    console.log(backgroundColor)
     const bgColor = target === blockStyle ? (innerBackgroundColor || '#000') : (backgroundColor || '#000');
     target.background = `url(${imageSrc}) no-repeat ${position} / ${size} ${bgColor}`;
   }
@@ -382,17 +381,16 @@ export default function decorate(block) {
     }
 
     const defaultSize = getContentSizeClasses(contentSize);
-    console.log('block ', block)
+    console.log(contentRightEl.innerText.trim())
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
           <div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
-          <div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>
+          ${contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>
-          <div class="col-12 ${defaultSize} text-center">${contentRightEl.innerHTML}</div>
-          <div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>
+          ${contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
         </div>
       </div>
     `;
