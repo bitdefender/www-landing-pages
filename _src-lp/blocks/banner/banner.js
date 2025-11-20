@@ -391,9 +391,8 @@ export default function decorate(block) {
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>
-          <div class="col-12 p-0 text-center bck-img">
-            ${pictureEl.innerHTML}
-          </div>
+          <div class="col-12 ${defaultSize} text-center">${contentRightEl.innerHTML}</div>
+          <div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>
         </div>
       </div>
     `;
