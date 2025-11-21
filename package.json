@@ -31,9 +31,9 @@
   },
   "homepage": "https://github.com/adobe/helix-project-boilerplate#readme",
   "devDependencies": {
-    "@babel/core": "^7.28.4",
+    "@babel/core": "^7.28.5",
     "@babel/eslint-parser": "7.19.1",
-    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-env": "^7.28.5",
     "@testing-library/dom": "^10.4.1",
     "@web/test-runner": "0.15.1",
     "@web/test-runner-commands": "0.6.5",
@@ -49,7 +49,7 @@
     "jsdom": "^23.2.0",
     "openai": "^5.23.2",
     "purgecss": "^5.0.0",
-    "sass": "^1.93.2",
+    "sass": "^1.94.2",
     "sinon": "15.0.1",
     "stylelint": "^15.11.0",
     "stylelint-config-standard": "30.0.1",
@@ -59,9 +59,9 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.7.1",
-    "@repobit/dex-data-layer": "^1.9.1",
+    "@repobit/dex-data-layer": "^1.9.2",
     "@repobit/dex-launch": "^2.0.9",
-    "@repobit/dex-target": "^2.5.12",
+    "@repobit/dex-target": "^2.5.13",
     "@repobit/dex-utils": "^2.0.7"
   },
   "volta": {
