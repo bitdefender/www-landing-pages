@@ -784,6 +784,7 @@
   border-radius: 8px;
   padding: 10px;
   font-size: 16px;
+  width: fit-content;
 }
 
 .section.banner-container.new-green-pill #greenPillBox span {
