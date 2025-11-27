@@ -448,6 +448,32 @@
   padding: 2rem;
 }
 
+.section.banner-container.right-content-v2 .banner #lidlBox, .section.banner-container.right-content-v2 .banner #lidlBox * {
+  background-color: transparent;
+  box-shadow: unset;
+  text-align: center;
+}
+
+.section.banner-container.right-content-v2 .banner #lidlBox a.red-buy-button {
+  width: 400px;
+}
+
+.section.banner-container.full-width .banner #lidlBox {
+  width: 100%;
+  padding: 1em!important;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.section.banner-container.full-width .banner #lidlBox h2 {
+  flex: 0 1 auto;
+  margin: 0;
+}
+
 .section.banner-container.new-2024 hr {
   border: 2px solid #C6C6C6;
   width: 80px;

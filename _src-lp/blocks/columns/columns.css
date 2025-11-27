@@ -158,6 +158,7 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container .columns.blue-cards > div > div {
   background-color: #E4F2FF;
+  background-color: #E4F2FF;
   border-radius: 10px;
 }
 .columns-container .columns.blue-cards > div > div h3,
@@ -301,6 +302,77 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 @media (width >= 768px) and (width <= 992px) {
   .columns-container .columns.white-cards > div {
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+  }
+}
+.columns-container .columns.bblue-cards {
+  gap: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.columns-container .columns.bblue-cards > div {
+  gap: 30px;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.columns-container .columns.bblue-cards > div > div {
+  flex: 0;
+  padding: 0;
+}
+.columns-container .columns.bblue-cards > div > div > div {
+  display: flex;
+  text-align: left;
+  background-color: #FFE9FF;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 20px;
+}
+.columns-container .columns.bblue-cards > div > div > div h3 {
+  text-transform: none;
+  color: #000;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.columns-container .columns.bblue-cards > div > div > div p {
+  font-size: 16px;
+  margin: 0;
+}
+.columns-container .columns.bblue-cards > div > div > div .icon {
+  height: 48px;
+  width: 48px;
+  margin-bottom: 9px;
+}
+@media (width >= 768px) and (width <= 992px) {
+  .columns-container .columns.bblue-cards > div > div > div {
+    flex-direction: row;
+    gap: 10px;
+    width: 446px;
+  }
+}
+@media (width > 992px) {
+  .columns-container .columns.bblue-cards > div > div > div {
+    width: 300px;
+  }
+}
+@media (width > 1400px) {
+  .columns-container .columns.bblue-cards > div > div > div {
+    width: 410px;
+  }
+}
+@media (width >= 768px) and (width <= 992px) {
+  .columns-container .columns.bblue-cards > div > div {
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+  }
+}
+@media (width >= 768px) and (width <= 992px) {
+  .columns-container .columns.bblue-cards > div {
     flex-direction: column;
     display: flex;
     gap: 20px;
@@ -555,6 +627,18 @@ main .columns-container.padding-0 .columns-wrapper {
   padding: 2em 6em 3em;
 }
 
+.columns-container.v-nov25.spaced .columns {
+  padding: 2em calc(var(--bs-gutter-x) * 0.5) 3em;
+}
+
+.columns-container.v-nov25.spaced .columns div.text-content {
+  padding: 0;
+}
+
+.columns-container.v-nov25.spaced .columns div.text-content .icon {
+  margin-bottom: 10px;
+}
+
 .columns-container.v-nov25 .columns h3 {
   font-size: 32px;
   color: #111;
@@ -610,6 +694,10 @@ main .columns-container.padding-0 .columns-wrapper {
   background-color: var(--light-grey-color);
 }
 
+.columns-container.bblue-cards .columns > div:not(:first-of-type) > div {
+  background-color: #EFF9FF;
+}
+
 .columns-container.v-nov25 .columns > div:not(:first-of-type) > div {
   border-radius: 10px;
   padding: 1.5em;
@@ -623,6 +711,10 @@ main .columns-container.padding-0 .columns-wrapper {
   font-size: 14px;
   line-height: 19px;
   color: #525252;
+}
+
+.columns-container.v-nov25.black-text .columns > div:not(:first-of-type) > div p {
+  color: black;
 }
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) table img, .columns-container.v-nov25 .columns > div:not(:first-of-type) table span.icon {

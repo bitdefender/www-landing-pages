@@ -54,11 +54,11 @@ export default function decorate(block) {
     marginBottom, imageCover, corners, textNextToPill, isCampaign,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
+  const hasContentEl = contentEl?.innerText.trim();
   const isDesktop = isView('desktop');
 
-  if (imageCover) {
-    parentBlock.classList.add(`bckimg-${imageCover}`);
-  }
+  if (imageCover) parentBlock.classList.add(`bckimg-${imageCover}`);
+  if (!hasContentEl) parentBlock.classList.add('full-width');
 
   // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
@@ -384,8 +384,8 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
-          <div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
-          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
+          ${hasContentEl ? `<div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>` : ''}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>
