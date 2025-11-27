@@ -743,11 +743,15 @@ main .columns-container.padding-0 .columns-wrapper {
   background-color: var(--light-grey-color);
 }
 
+.columns-container.compare.new2025 .columns > div:first-of-type {
+  background-color: #FFF;
+}
+
 .columns-container.compare .columns > div > div:not(:first-of-type) > div {
   text-align: center;
 }
 
-.columns-container.compare .columns > div:first-of-type > div:nth-of-type(2) {
+.columns-container.compare:not(.new2025) .columns > div:first-of-type > div:nth-of-type(2) {
   background-color: var(--darker-blue-color);
   color: white;
   border: 1px solid var(--darker-blue-color);
@@ -755,12 +759,12 @@ main .columns-container.padding-0 .columns-wrapper {
   border-top-right-radius: 8px;
 }
 
-.columns-container.compare .columns > div:not(:first-of-type) > div {
+.columns-container.compare:not(.new2025) .columns > div:not(:first-of-type) > div {
   border-left: 1px solid var(--light-grey-color);
   border-right: 1px solid var(--light-grey-color);
 }
 
-.columns-container.compare .columns > div:not(:first-of-type) > div:nth-of-type(2) {
+.columns-container.compare:not(.new2025) .columns > div:not(:first-of-type) > div:nth-of-type(2) {
   border-left: 1px solid var(--darker-blue-color);
   border-right: 1px solid var(--darker-blue-color);
 }
@@ -771,7 +775,7 @@ main .columns-container.padding-0 .columns-wrapper {
   border-bottom-right-radius: 8px;
 }
 
-.columns-container.compare .columns > div:last-of-type > div:nth-of-type(2) {
+.columns-container.compare:not(.new2025) .columns > div:last-of-type > div:nth-of-type(2) {
   border-bottom: 1px solid var(--darker-blue-color);
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -789,6 +793,15 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 @media (width >=768px) {
+  // Display classes for responsive behavior
+  .mobile-only {
+    display: none;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+
   .columns>div {
     align-items: center;
     flex-direction: unset;
@@ -900,7 +913,286 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 }
 
+.columns-container.comparison .columns {
+  // Custom list styles for comparison columns
+
+  // Ensure all container rows have proper flex behavior  
+  > div {
+    display: flex;
+    align-items: stretch; // Make children take full height
+
+    // Both columns should take full height and remove default paddings
+    > div {
+      display: flex;
+      flex-direction: column;
+      padding: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      
+      // Left column (first div) - 60% of space with list styles
+      &:first-of-type {
+        flex: 0 0 60%; // Takes exactly 60% of available space
+        
+        ul {
+          list-style: none;
+          padding-left: 0;
+
+          li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+
+            &::before {
+              content: '✔';
+              position: absolute;
+              left: 0;
+              top: 0;
+              color: #006DFF;
+              font-weight: bold;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+      
+      // Right column (second div) - 40% of space with list styles
+      &:nth-of-type(2) {
+        flex: 0 0 40%; // Takes exactly 40% of available space
+        
+        ul {
+          list-style: none;
+          padding-left: 0;
+
+          li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+
+            &::before {
+              content: '✕';
+              position: absolute;
+              left: 0;
+              top: 0;
+              color: #666;
+              font-weight: bold;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // First row specific height
+  >div:first-of-type {
+    min-height: 200px;
+    
+    > div:nth-of-type(2) {
+      justify-content: flex-end; // Align content to bottom only on first row
+    }
+  }
+
+  // First row - border top, left, right using pseudo-elements
+  >div:first-of-type > div:first-of-type {
+    position: relative;
+    padding: 60px 60px 0 !important;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    box-shadow: 0 16px 34px rgb(39 116 255 / 5%);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 -3px;
+      background: linear-gradient(135deg, #006DFF 0%, #FF3C3C 100%);
+      border-top-left-radius: 22px;
+      border-top-right-radius: 22px;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 5px 5px -3px;
+      background: white;
+      border-top-left-radius: 17px;
+      border-top-right-radius: 17px;
+      z-index: 2;
+    }
+
+    > * {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  // Middle rows - border left, right only
+  >div:not(:first-of-type, :last-of-type) > div:first-of-type {
+    position: relative;
+    padding: 0 60px !important;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -3px 0;
+      background: linear-gradient(135deg, #006DFF 0%, #FF3C3C 100%);
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -3px 5px;
+      background: white;
+      z-index: 2;
+    }
+
+    > * {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  // Last row - border bottom, left, right
+  >div:last-of-type > div:first-of-type {
+    position: relative;
+    padding: 0 60px 30px !important;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -3px 0 0;
+      background: linear-gradient(135deg, #006DFF 0%, #FF3C3C 100%);
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -3px 5px 5px;
+      background: white;
+      border-bottom-left-radius: 17px;
+      border-bottom-right-radius: 17px;
+      z-index: 2;
+    }
+
+    > * {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  // If only one row exists (first and last are the same)
+  >div:first-of-type:last-of-type > div:first-of-type {
+    border: 5px solid transparent;
+    border-radius: 22px;
+    box-shadow: 0 16px 34px rgb(39 116 255 / 5%);
+  }
+
+  // RIGHT COLUMN - First row with gray border around text-content
+  >div:first-of-type > div:nth-of-type(2) .text-content {
+    position: relative;
+    padding: 45px 45px 0;
+    border-top-right-radius: 16px;
+    box-shadow: 0 16px 34px rgb(39 116 255 / 5%);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 -5px;
+      background: #DADADA;
+      border-top-right-radius: 16px;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 1px 1px -5px;
+      background: white;
+      border-top-right-radius: 15px;
+      z-index: 2;
+    }
+
+    > * {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  // RIGHT COLUMN - Middle rows with gray border
+  >div:not(:first-of-type, :last-of-type) > div:nth-of-type(2) .text-content {
+    position: relative;
+    padding: 0 45px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -5px 0;
+      background: #DADADA;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -5px 1px;
+      background: white;
+      z-index: 2;
+    }
+
+    > * {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  // RIGHT COLUMN - Last row with gray border
+  >div:last-of-type > div:nth-of-type(2) .text-content {
+    position: relative;
+    padding: 0 45px 45px;
+    border-bottom-right-radius: 16px;
+    margin-bottom: 20px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -5px 0 0;
+      background: #DADADA;
+      border-bottom-right-radius: 16px;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -5px 1px 1px;
+      background: white;
+      border-bottom-right-radius: 15px;
+      z-index: 2;
+    }
+
+    > * {
+      position: relative;
+      z-index: 3;
+    }
+  }
+}
+
 @media (width <=768px) {
+  // Display classes for responsive behavior - mobile rules
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
   .columns h3 {
     margin-bottom: 0;
   }
@@ -983,6 +1275,63 @@ main .columns-container.padding-0 .columns-wrapper {
     padding: 0.5rem;
   }
 
+  // Custom mobile proportions for compare.new2025: 50% - 25% - 25%
+  .columns-container.compare.new2025 .columns > div > div  {
+    &:first-of-type {
+      flex: 0 0 50%;
+    }
+
+    &:nth-of-type(2) {
+      flex: 0 0 25%;
+    }
+
+    &:nth-of-type(3) {
+      flex: 0 0 25%;
+    }
+  }
+
+  // Font size for first row text in compare.new2025
+  .columns-container.compare.new2025 .columns > div:first-of-type {
+    font-size: 9px;
+  }
+
+  // Add border under each row except the first two (with margin from edges)
+  .columns-container.compare.new2025 .columns > div:not(:first-of-type, :nth-of-type(2)) {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 8px;
+      right: 8px;
+      height: 1px;
+      background-color: #DFDFDF;
+    }
+  }
+
+  // Color for check and X icons in compare.new2025 (exclude first row)
+  .columns-container.compare.new2025 .columns > div:not(:first-of-type) > div:nth-of-type(2) strong {
+    color: #006DFF; // Blue for check marks
+  }
+
+  .columns-container.compare.new2025 .columns > div:not(:first-of-type) > div:nth-of-type(3) {
+    color: #FF2323; // Red for X marks
+  }
+
+  // Box shadow and border radius for compare.new2025 wrapper
+  .columns-container.compare.new2025 .columns-wrapper {
+    box-shadow: 
+      1px 4px 6px -2px rgb(16 24 40 / 5%),
+      0 0 16px -4px rgb(16 24 40 / 6%);
+    border-radius: 10px;
+  }
+
+  // Center button in compare.new2025
+  .columns-container.compare.new2025 .button-container {
+    text-align: center;
+  }
+
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(3) {
     width: 90%;
   }
@@ -1016,6 +1365,17 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns-container.compare .columns *, .columns-container.compare * {
     font-size: 14px;
     line-height: 17px;
+  }
+
+  .columns-container.compare.new2025 .columns *, .columns-container.compare * {
+    font-size: 13px;
+    line-height: 15px;
+  }
+
+  // Override font-size for first row in compare.new2025 to 9px
+  .columns-container.compare.new2025 .columns > div:first-of-type * {
+    font-size: 10px !important;
+    line-height: 12px;
   }
 
   .columns-container.compare .columns > div > div:first-of-type {
