@@ -793,7 +793,6 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 @media (width >=768px) {
-  // Display classes for responsive behavior
   .mobile-only {
     display: none;
   }
@@ -914,14 +913,11 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.comparison .columns {
-  // Custom list styles for comparison columns
-
-  // Ensure all container rows have proper flex behavior  
+  
   > div {
     display: flex;
-    align-items: stretch; // Make children take full height
+    align-items: stretch;
 
-    // Both columns should take full height and remove default paddings
     > div {
       display: flex;
       flex-direction: column;
@@ -929,9 +925,8 @@ main .columns-container.padding-0 .columns-wrapper {
       padding-left: 0 !important;
       padding-right: 0 !important;
       
-      // Left column (first div) - 60% of space with list styles
       &:first-of-type {
-        flex: 0 0 60%; // Takes exactly 60% of available space
+        flex: 0 0 60%;
         
         ul {
           list-style: none;
@@ -955,9 +950,8 @@ main .columns-container.padding-0 .columns-wrapper {
         }
       }
       
-      // Right column (second div) - 40% of space with list styles
       &:nth-of-type(2) {
-        flex: 0 0 40%; // Takes exactly 40% of available space
+        flex: 0 0 40%;
         
         ul {
           list-style: none;
@@ -983,16 +977,14 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  // First row specific height
   >div:first-of-type {
     min-height: 200px;
     
     > div:nth-of-type(2) {
-      justify-content: flex-end; // Align content to bottom only on first row
+      justify-content: flex-end;
     }
   }
 
-  // First row - border top, left, right using pseudo-elements
   >div:first-of-type > div:first-of-type {
     position: relative;
     padding: 60px 60px 0 !important;
@@ -1026,7 +1018,6 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  // Middle rows - border left, right only
   >div:not(:first-of-type, :last-of-type) > div:first-of-type {
     position: relative;
     padding: 0 60px !important;
@@ -1053,7 +1044,6 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  // Last row - border bottom, left, right
   >div:last-of-type > div:first-of-type {
     position: relative;
     padding: 0 60px 30px !important;
@@ -1086,14 +1076,12 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  // If only one row exists (first and last are the same)
   >div:first-of-type:last-of-type > div:first-of-type {
     border: 5px solid transparent;
     border-radius: 22px;
     box-shadow: 0 16px 34px rgb(39 116 255 / 5%);
   }
 
-  // RIGHT COLUMN - First row with gray border around text-content
   >div:first-of-type > div:nth-of-type(2) .text-content {
     position: relative;
     padding: 45px 45px 0;
@@ -1124,7 +1112,6 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  // RIGHT COLUMN - Middle rows with gray border
   >div:not(:first-of-type, :last-of-type) > div:nth-of-type(2) .text-content {
     position: relative;
     padding: 0 45px;
@@ -1151,7 +1138,6 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  // RIGHT COLUMN - Last row with gray border
   >div:last-of-type > div:nth-of-type(2) .text-content {
     position: relative;
     padding: 0 45px 45px;
@@ -1184,7 +1170,6 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 @media (width <=768px) {
-  // Display classes for responsive behavior - mobile rules
   .mobile-only {
     display: block;
   }
@@ -1275,7 +1260,6 @@ main .columns-container.padding-0 .columns-wrapper {
     padding: 0.5rem;
   }
 
-  // Custom mobile proportions for compare.new2025: 50% - 25% - 25%
   .columns-container.compare.new2025 .columns > div > div  {
     &:first-of-type {
       flex: 0 0 50%;
@@ -1290,12 +1274,10 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  // Font size for first row text in compare.new2025
   .columns-container.compare.new2025 .columns > div:first-of-type {
     font-size: 9px;
   }
 
-  // Add border under each row except the first two (with margin from edges)
   .columns-container.compare.new2025 .columns > div:not(:first-of-type, :nth-of-type(2)) {
     position: relative;
     
@@ -1310,16 +1292,14 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  // Color for check and X icons in compare.new2025 (exclude first row)
   .columns-container.compare.new2025 .columns > div:not(:first-of-type) > div:nth-of-type(2) strong {
-    color: #006DFF; // Blue for check marks
+    color: #006DFF;
   }
 
   .columns-container.compare.new2025 .columns > div:not(:first-of-type) > div:nth-of-type(3) {
-    color: #FF2323; // Red for X marks
+    color: #FF2323;
   }
 
-  // Box shadow and border radius for compare.new2025 wrapper
   .columns-container.compare.new2025 .columns-wrapper {
     box-shadow: 
       1px 4px 6px -2px rgb(16 24 40 / 5%),
@@ -1327,7 +1307,6 @@ main .columns-container.padding-0 .columns-wrapper {
     border-radius: 10px;
   }
 
-  // Center button in compare.new2025
   .columns-container.compare.new2025 .button-container {
     text-align: center;
   }
@@ -1372,7 +1351,6 @@ main .columns-container.padding-0 .columns-wrapper {
     line-height: 15px;
   }
 
-  // Override font-size for first row in compare.new2025 to 9px
   .columns-container.compare.new2025 .columns > div:first-of-type * {
     font-size: 10px !important;
     line-height: 12px;
