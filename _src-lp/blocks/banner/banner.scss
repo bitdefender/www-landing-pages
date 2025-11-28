@@ -455,6 +455,7 @@
 }
 
 .section.banner-container.right-content-v2 .banner #lidlBox a.red-buy-button {
+  width: max-content;
   align-items: center;
   justify-content: center;
 }
@@ -1005,6 +1006,10 @@
   .section.banner-container.full-width .banner #lidlBox h2 {
     font-size: var(--heading-font-size-m);
     line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container.right-content-v2 .banner #lidlBox br {
+    display: none;
   }
 
   .section.banner-container.right-content-v2 .banner #lidlBox a.red-buy-button {
@@ -1665,6 +1670,10 @@
     margin: 1em 0;
   }
 
+  .section.banner-container.right-content-v2 .banner #lidlBox hr {
+    display: none;
+  }
+
   .section.banner-container .banner #lidlBox a.red-buy-button {
     font-size: 11px;
     line-height: 25px;
@@ -1827,6 +1836,14 @@
   }
 
   .section.banner-container .banner .content-column p.button-container * {
+    width: 100%;
+  }
+
+  .section.banner-container.full-width .banner #lidlBox {
+    padding: 0!important;
+  }
+
+  .section.banner-container.right-content-v2 .banner #lidlBox a.red-buy-button {
     width: 100%;
   }
 }

@@ -388,8 +388,8 @@ export default function decorate(block) {
           ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
-          <div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>
-          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
+           ${hasContentEl ? `<div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>` : ''}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
         </div>
       </div>
     `;
@@ -417,7 +417,7 @@ export default function decorate(block) {
       block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-lg-between justify-content-xxl-start' : ''}">
-        <div class="col-12 col-md-6 col-lg-5 col-xxl-4">${contentEl.innerHTML}</div>
+        ${hasContentEl ? `<div class="col-12 col-md-6 col-lg-5 col-xxl-4">${contentEl.innerHTML}</div>` : ''}
         ${contentRightEl ? `<div class="col-12 col-md-6 col-lg-4 custom-col-xl-4">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
@@ -427,7 +427,7 @@ export default function decorate(block) {
       block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
-        <div class="col-12 col-md-${colSize}">${contentEl.innerHTML}</div>
+        ${hasContentEl ? `<div class="col-12 col-md-${colSize}">${contentEl.innerHTML}</div>` : ''}
         ${contentRightEl ? `<div class="col-12 col-md-${colSize}">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
