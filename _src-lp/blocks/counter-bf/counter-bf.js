@@ -24,10 +24,11 @@ export default function decorate(block) {
       document.dispatchEvent(new Event(GLOBAL_EVENTS.COUNTER_LOADED));
     });
 
-    // config
+    // config - hardcoded dates for December 2025 campaign (Romania time)
+    const switchOnDate = new Date('2025-11-30T22:00:00.000Z').getTime() / 1000; // 1 Dec 00:00 Romania time
     const flipClockConfig = {
       theme: counterTheme || 'dark',
-      switchOn: new Date(counterSwitchOn).getTime() / 1000,
+      switchOn: switchOnDate,
       headings: counterHeadings ? counterHeadings.split(',') : '',
     };
 
@@ -94,8 +95,9 @@ export default function decorate(block) {
     const flipdownTable = block.querySelector('table#flipdownTable');
     const skip2ndCounter = flipdownTable !== null;
 
-    const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
-    const newTime = counterSwitchOnUpdated + 62 * 60 * 60;
+    // Hardcoded dates for December 2025 campaign (Romania time)
+    const counterSwitchOnUpdated = new Date('2025-11-30T22:00:00.000Z').getTime() / 1000; // 1 Dec 00:00 Romania
+    const newTime = new Date('2025-12-04T21:59:59.000Z').getTime() / 1000; // 4 Dec 23:59 Romania
     const currentTime = Math.floor(Date.now() / 1000);
 
     if (skip2ndCounter && counterSwitchOnUpdated > currentTime) {
