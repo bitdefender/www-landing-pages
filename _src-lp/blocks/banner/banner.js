@@ -54,7 +54,7 @@ export default function decorate(block) {
     marginBottom, imageCover, corners, textNextToPill, isCampaign,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
-  const hasContentEl = contentEl?.innerText.trim();
+  const hasContentEl = contentEl ? contentEl.innerText.trim() : null;
   const isDesktop = isView('desktop');
 
   if (imageCover) parentBlock.classList.add(`bckimg-${imageCover}`);
