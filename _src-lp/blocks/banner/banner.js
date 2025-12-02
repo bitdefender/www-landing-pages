@@ -450,7 +450,7 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-block d-sm-flex d-md-flex d-lg-flex position-relative">
-        <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img position-relative">dsfgsdfg
+        <div class="col-12 d-block d-sm-block d-md-none d-lg-none p-0 text-center bck-img position-relative">
             ${pictureEl.innerHTML}
         </div>
 
