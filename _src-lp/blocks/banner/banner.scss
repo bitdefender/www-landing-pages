@@ -448,6 +448,34 @@
   padding: 2rem;
 }
 
+.section.banner-container.right-content-v2 .banner #lidlBox, .section.banner-container.right-content-v2 .banner #lidlBox * {
+  background-color: transparent;
+  box-shadow: unset;
+  text-align: center;
+}
+
+.section.banner-container.right-content-v2 .banner #lidlBox a.red-buy-button {
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.section.banner-container.full-width .banner #lidlBox {
+  width: 991px;
+  padding: 1em!important;
+	display: flex;
+	flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.section.banner-container.full-width .banner #lidlBox h2 {
+  flex: 0 1 auto;
+  margin: 0;
+}
+
 .section.banner-container.new-2024 hr {
   border: 2px solid #C6C6C6;
   width: 80px;
@@ -966,6 +994,28 @@
     margin-left: 0;
     margin-top: -7em;
     width: 400px;
+  }
+
+  .section.banner-container.full-width {
+    padding: 15px;
+  }
+
+  .section.banner-container.full-width .banner #lidlBox {
+    width: 100%;
+  }
+
+  .section.banner-container.full-width .banner #lidlBox h2 {
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-l);
+  }
+
+  .section.banner-container.right-content-v2 .banner #lidlBox br {
+    display: none;
+  }
+
+  .section.banner-container.right-content-v2 .banner #lidlBox a.red-buy-button {
+    width: auto;
+    margin: 0;
   }
 }
 
@@ -1621,6 +1671,10 @@
     margin: 1em 0;
   }
 
+  .section.banner-container.right-content-v2 .banner #lidlBox hr {
+    display: none;
+  }
+
   .section.banner-container .banner #lidlBox a.red-buy-button {
     font-size: 11px;
     line-height: 25px;
@@ -1783,6 +1837,14 @@
   }
 
   .section.banner-container .banner .content-column p.button-container * {
+    width: 100%;
+  }
+
+  .section.banner-container.full-width .banner #lidlBox {
+    padding: 0!important;
+  }
+
+  .section.banner-container.right-content-v2 .banner #lidlBox a.red-buy-button {
     width: 100%;
   }
 }
