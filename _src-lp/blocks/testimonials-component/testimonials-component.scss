@@ -183,3 +183,26 @@
     }
   }
   
+.testimonials-component-container.new2025 {
+  font: normal normal 400 16px/24px "IBM Plex Sans", sans-serif;
+  
+  .review p {
+    margin-bottom: 0;
+    width: 100%;
+  }
+  
+  .reviews-container {
+    align-items: flex-start;
+  }
+  
+  .review-container {
+    flex-direction: column;
+    gap: 10px;
+    background: #fff;
+    box-shadow: 1px 4px 6px -2px rgb(16 24 40 / 5%), 0 0 16px -4px rgb(16 24 40 / 6%);
+    
+    svg {
+      margin-top: 0!important;
+    }
+  }
+}

@@ -161,3 +161,23 @@
     padding-right: 20px;
   }
 }
+
+.testimonials-component-container.new2025 {
+  font: normal normal 400 16px/24px "IBM Plex Sans", sans-serif;
+}
+.testimonials-component-container.new2025 .review p {
+  margin-bottom: 0;
+  width: 100%;
+}
+.testimonials-component-container.new2025 .reviews-container {
+  align-items: flex-start;
+}
+.testimonials-component-container.new2025 .review-container {
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  box-shadow: 1px 4px 6px -2px rgba(16, 24, 40, 0.05), 0 0 16px -4px rgba(16, 24, 40, 0.06);
+}
+.testimonials-component-container.new2025 .review-container svg {
+  margin-top: 0 !important;
+}
