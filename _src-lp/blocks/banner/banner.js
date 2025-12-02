@@ -54,11 +54,11 @@ export default function decorate(block) {
     marginBottom, imageCover, corners, textNextToPill, isCampaign,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
+  const hasContentEl = !!contentEl?.textContent?.trim();
   const isDesktop = isView('desktop');
 
-  if (imageCover) {
-    parentBlock.classList.add(`bckimg-${imageCover}`);
-  }
+  if (imageCover) parentBlock.classList.add(`bckimg-${imageCover}`);
+  if (!hasContentEl) parentBlock.classList.add('full-width');
 
   // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
@@ -295,11 +295,11 @@ export default function decorate(block) {
         const createBuyLink = (button, index) => {
           const anchor = button.querySelector('a');
           const link = anchor ? anchor.getAttribute('href') : '#';
-          const img = button.querySelector('img')?.getAttribute('src').split('?')[0];
-          const text = button.textContent;
+          // const img = button.querySelector('img')?.getAttribute('src').split('?')[0];
+          const text = button.innerHTML;
           const onSelectorClass = onSelectorClasses[index];
 
-          lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${img ? `<img src="${img}" alt="Bitdefender">` : ''} ${text}</a>`;
+          lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${text}</a>`;
         };
 
         if (products) {
@@ -384,12 +384,12 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
-          <div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>
-          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
+          ${hasContentEl ? `<div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>` : ''}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
-          <div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>
-          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
+           ${hasContentEl ? `<div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>` : ''}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
         </div>
       </div>
     `;
@@ -417,7 +417,7 @@ export default function decorate(block) {
       block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-lg-between justify-content-xxl-start' : ''}">
-        <div class="col-12 col-md-6 col-lg-5 col-xxl-4">${contentEl.innerHTML}</div>
+        ${hasContentEl ? `<div class="col-12 col-md-6 col-lg-5 col-xxl-4">${contentEl.innerHTML}</div>` : ''}
         ${contentRightEl ? `<div class="col-12 col-md-6 col-lg-4 custom-col-xl-4">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
@@ -427,7 +427,7 @@ export default function decorate(block) {
       block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
-        <div class="col-12 col-md-${colSize}">${contentEl.innerHTML}</div>
+        ${hasContentEl ? `<div class="col-12 col-md-${colSize}">${contentEl.innerHTML}</div>` : ''}
         ${contentRightEl ? `<div class="col-12 col-md-${colSize}">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
