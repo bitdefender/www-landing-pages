@@ -9,9 +9,7 @@ import { updateProductsList } from '../../scripts/utils.js';
  * @returns {void}
  */
 function updateTableElement(tableElement, currentdevices, multiplier) {
-  if (tableElement) {
-    tableElement.innerText = Math.ceil((currentdevices / 100) * multiplier);
-  }
+  if (tableElement) tableElement.innerText = Math.ceil((currentdevices / 100) * multiplier);
 }
 
 /**
@@ -136,13 +134,13 @@ export default function decorate(block) {
     const devicesInput = block.querySelector('#devicesInput');
     const prodiId = productAliases(productsAsList[0].split('/')[0]);
 
-    const tableElServers = tableEl?.querySelector('strong:nth-child(1) em');
+    const tableElServers = tableEl?.querySelector('strong:nth-child(1) em') || tableEl?.querySelector('em:nth-child(1)');
     updateTableElement(tableElServers, devicesSelected, 30);
 
-    const tableElMailboxes = tableEl?.querySelector('strong:nth-child(2) em');
+    const tableElMailboxes = tableEl?.querySelector('strong:nth-child(2) em') || tableEl?.querySelector('em:nth-child(2)');
     updateTableElement(tableElMailboxes, devicesSelected, 150);
 
-    const tableElMailboxes2 = tableEl?.querySelector('strong:nth-child(3) em');
+    const tableElMailboxes2 = tableEl?.querySelector('strong:nth-child(3) em') || tableEl?.querySelector('em:nth-child(3)');
     updateTableElement(tableElMailboxes2, devicesSelected, 150);
 
     // click on buttons
