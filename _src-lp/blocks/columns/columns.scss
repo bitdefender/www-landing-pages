@@ -132,14 +132,6 @@ main .columns-container.padding-0 .columns-wrapper {
   width: 100%;
 }
 
-.columns-container.mobile-hide-imgs .columns > div {
-  padding: 0;
-}
-
-.mobile-hide-imgs .columns > div > .columns-img-col img {
-  display: none;
-}
-
 .columns-container.netgear .text-content {
   margin-top: 20px;
 }
@@ -1423,6 +1415,14 @@ main .columns-container.padding-0 .columns-wrapper {
 
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(3) {
     width: 90%;
+  }
+
+  .columns-container.mobile-hide-imgs .columns > div {
+    padding: 0;
+  }
+
+  .mobile-hide-imgs .columns > div > .columns-img-col img {
+    display: none;
   }
 }
 
