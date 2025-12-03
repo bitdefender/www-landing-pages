@@ -432,11 +432,13 @@
 /* Phishing end */
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
-    font-size: var(--body-font-size-s);
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-font-size-s);
+    color: #161616;
   }
   .c-icon-box-grid-container.smaller-title .title, .c-icon-box-grid-container.smaller-title .subtitle {
     font-size: var(--body-font-size-xs);
-    line-height: 22px;
+    line-height: var(--body-font-size-s);
   }
   .c-icon-box-grid-container.items-smaller .row {
     justify-content: space-between;
@@ -456,11 +458,13 @@
     font-size: var(--heading-font-size-m);
   }
   .c-icon-box-grid-container .subtitle {
-    font-size: 14px;
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-font-size-s);
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    color: #161616;
   }
   .c-icon-box-grid-container .new-blue .subtitle p:last-of-type::before, .c-icon-box-grid-container.trustpilot-design .subtitle p:last-of-type::before {
     content: "";
@@ -507,7 +511,7 @@
   .c-icon-box-grid-container.four-columns .col-lg-4 {
     width: 23% !important;
     flex: 1;
-    padding: 32px;
+    padding: 25px;
     margin: 6px;
   }
   .c-icon-box-grid-container .c-icon-box-grid.blue-cards .quotebox {
