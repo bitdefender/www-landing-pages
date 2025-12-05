@@ -280,6 +280,7 @@
   height: 18px;
   background: url("../../icons/checkmark_solid-circle_2.svg") no-repeat left center transparent;
   float: left;
+  margin-bottom: 3px;
 }
 
 .section.banner-container .banner .blue-box {
@@ -1412,6 +1413,15 @@
     text-align: left;
   }
   .section.banner-container.new-2024.v2 .banner h1 {
+    font-size: 22px;
+    line-height: 30px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: normal;
+  }
+  .section.banner-container.left-align .banner h1 {
+    text-align: left;
+  }
+  .section.banner-container.new-2024.left-align .banner h1 {
     font-size: 22px;
     line-height: 30px;
     font-family: "IBM Plex Sans", sans-serif;
