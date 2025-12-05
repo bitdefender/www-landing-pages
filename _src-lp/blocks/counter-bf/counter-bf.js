@@ -17,6 +17,8 @@ export default function decorate(block) {
   const [contentEl, pictureBF, pictureCM] = [...block.children];
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
+  if (block.querySelector('table').innerText.trim() === '[counter]') block.classList.add('no-extra-text');
+
   if (counterSwitchOn) {
     // adding neccessary scripts: js, css
     loadCSS('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css');
@@ -83,10 +85,12 @@ export default function decorate(block) {
     `);
 
     const blockFlopDown = block.querySelector('#flipdown');
-    if (blockFlopDown && blockFlopDown.closest('table')) {
-      blockFlopDown.closest('table').id = 'flipdownTable';
+    const counterTable = blockFlopDown.closest('table');
+    if (blockFlopDown && counterTable) {
+      counterTable.id = 'flipdownTable';
+
       if (counterTheme) {
-        blockFlopDown.closest('table').classList.add(counterTheme);
+        counterTable.classList.add(counterTheme);
       }
     }
 
