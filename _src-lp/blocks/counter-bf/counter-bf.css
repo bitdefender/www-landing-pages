@@ -234,7 +234,7 @@
     height: 45px;
     margin: 6px 0;
     padding: 15px 1em;
-    border-radius: 10px;
+    border-radius: 50px;
   }
   .counter-bf-container:not(.default) table#flipdownTable .flipdown .rotor-group-heading::before {
     font-size: 11px;
