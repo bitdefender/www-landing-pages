@@ -36,7 +36,7 @@
   flex: 1;
 }
 
-.counter-bf-container .block.no-extra-text table#flipdownTable.red td {
+.counter-bf-container:not(.default) .block.no-extra-text table#flipdownTable.red td {
   background-color: #EB0000;
   padding: 0;
 }
