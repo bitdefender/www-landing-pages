@@ -17,7 +17,7 @@ export default function decorate(block) {
   const [contentEl, pictureBF, pictureCM] = [...block.children];
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
 
-  if (block.querySelector('table').innerText.trim() === '[counter]') block.classList.add('no-extra-text');
+  if (block.querySelector('table')?.innerText.trim() === '[counter]') block.classList.add('no-extra-text');
 
   if (counterSwitchOn) {
     // adding neccessary scripts: js, css
