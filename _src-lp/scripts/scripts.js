@@ -1,5 +1,10 @@
 import Launch from '@repobit/dex-launch';
-import { AdobeDataLayerService, PageLoadedEvent } from '@repobit/dex-data-layer';
+import { AdobeDataLayerService, PageLoadedEvent, ProductLoadedEvent } from '@repobit/dex-data-layer';
+import {
+  registerActionNodes,
+  registerContextNodes,
+  registerRenderNodes,
+} from './dist-store-elements/src/index.js';
 import { targetPromise, getDefaultLanguage } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
 import pagePromise from './page.js';
@@ -38,6 +43,7 @@ import {
   getInstance,
   setTrialLinks,
 } from './utils.js';
+import store from './store.js';
 
 const page = await pagePromise;
 const target = await targetPromise;
@@ -1245,8 +1251,33 @@ function addTrackingEventListeners(selector, assetName, eventType = 'click') {
 
 async function loadPage() {
   setBFCacheListener();
+  const main = document.querySelector('main');
+  /**
+   * @type {import('@repobit/dex-store-elements').RootNode}
+   */
+  const storeRoot = document.createElement('bd-root');
+  storeRoot.dataLayer = ({ option, event }) => {
+    AdobeDataLayerService.push(new ProductLoadedEvent(option, event));
+  };
+  document.body.replaceChild(storeRoot, main);
+  storeRoot.appendChild(main);
+  storeRoot.store = store;
+
+  registerContextNodes();
+
   await loadEager(document);
   await loadLazy(document);
+
+  registerActionNodes(main);
+  registerRenderNodes(main);
+  await storeRoot.updateComplete;
+
+  // TODO: remove new-store class once the store is used corretcly in the entire project
+  const awaitLoaderElements = document.querySelectorAll('.await-loader.new-store');
+  console.log(awaitLoaderElements);
+  awaitLoaderElements.forEach((element) => {
+    element.classList.remove('await-loader', 'new-store');
+  });
 
   addIdsToEachSection();
 

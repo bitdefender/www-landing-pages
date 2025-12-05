@@ -1,0 +1,32 @@
+import { dataLayerContextType, dataLayerPayload } from "../contexts/context.datalayer.js";
+import { optionContextType } from "../contexts/context.option.js";
+import { productContextType } from "../contexts/context.product.js";
+import { EventType } from "../events/events.js";
+import { ProductBundleOption, ProductOption } from "@repobit/dex-store";
+import { StateNode } from "./node.state.js";
+export declare class OptionNode extends StateNode {
+    _optionContext?: optionContextType;
+    _dataLayer?: dataLayerContextType;
+    product?: productContextType;
+    bundle: ProductBundleOption[];
+    devices?: number;
+    subscription?: number;
+    dataLayerEvent?: dataLayerPayload["event"];
+    _option: ProductOption | null | undefined;
+    private _sentDataLayer;
+    private _pendingDevicesFromEvent;
+    private _pendingSubscriptionFromEvent;
+    get option(): ProductOption | null | undefined;
+    private _changeOptionEvent;
+    private _fireDataLayerTask;
+    private _loadOptionByAttributes;
+    private _etaOptionRenderTask;
+    protected shouldRunEtaStateRender(): boolean;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+    protected getUpdateComplete(): Promise<boolean>;
+    protected _eventChange(e: EventType): void;
+    private _applyDeltaUpdate;
+    private __applyAction;
+    private __applyBundle;
+}

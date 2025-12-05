@@ -1,0 +1,4 @@
+export declare const OBS_ATTRS_COMMON: readonly ["data-store-hide", "data-store-hide-type"];
+export declare const OBS_ATTRS_OPTION: readonly ["data-store-devices", "data-store-subscription", "data-store-text-single", "data-store-text-many", "data-store-subscription-type", "data-store-price", "data-store-discount", "data-store-buy-link", "data-store-trial-link"];
+export declare const OBS_ATTRS_STATE: readonly ["data-store-context-price", "data-store-context-discount"];
+export declare const OBS_ATTRS_OPTION_PLUS_STATE: readonly ["data-store-devices", "data-store-subscription", "data-store-text-single", "data-store-text-many", "data-store-subscription-type", "data-store-price", "data-store-discount", "data-store-buy-link", "data-store-trial-link", "data-store-context-price", "data-store-context-discount", "data-store-hide", "data-store-hide-type"];
