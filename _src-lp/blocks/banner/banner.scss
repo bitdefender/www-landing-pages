@@ -1651,6 +1651,8 @@
 
   .section.banner-container.new-2024.v2 .banner ul {
     text-align: left;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .section.banner-container .banner ul li {
@@ -1822,6 +1824,10 @@
   .section.banner-container.red-pill #greenPillBox > span {
     font-size: 21px;
     line-height: 23px;
+  }
+
+  .section.banner-container.new-2024.v2 #pricesBox .buy_box a {
+    width: 100%;
   }
 
   .section.banner-container.csam-design .block .row>div em {

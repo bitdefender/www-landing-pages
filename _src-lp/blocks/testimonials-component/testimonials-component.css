@@ -181,3 +181,20 @@
 .testimonials-component-container.new2025 .review-container svg {
   margin-top: 0 !important;
 }
+
+@media screen and (width <= 768px) {
+  .testimonials-component-container.title-small-mobile .title-class, .testimonials-component-container.title-small-mobile .title-class *, .testimonials-component-container.title-small-mobile .subtitle-class, .testimonials-component-container.title-small-mobile .subtitle-class * {
+    width: 100%;
+    max-width: unset;
+    text-align: left;
+  }
+  .testimonials-component-container.title-small-mobile .subtitle-class *, .testimonials-component-container.title-small-mobile .review p {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 17px;
+  }
+  .testimonials-component-container.title-small-mobile .title-class h2 {
+    font-size: 17px;
+    line-height: 22px;
+  }
+}

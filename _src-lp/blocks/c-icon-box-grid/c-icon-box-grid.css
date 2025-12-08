@@ -86,7 +86,7 @@
 }
 
 .c-icon-box-grid-container .subtitle {
-  font-size: 12px;
+  font-size: 13px;
   margin-top: 0;
 }
 
@@ -606,6 +606,9 @@
 @media (width <= 768px) {
   .c-icon-box-grid-container {
     overflow: hidden;
+  }
+  .c-icon-box-grid-container .title {
+    margin: 10px 0 0;
   }
   .c-icon-box-grid-container .slider-container .container > div:last-of-type {
     font-size: 8px;

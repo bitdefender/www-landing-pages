@@ -67,7 +67,6 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.new .columns p {
-  font-size: 12px;
   color: black;
   font-family: Arial, sans-serif;
 }
@@ -845,6 +844,11 @@ main .columns-container.padding-0 .columns-wrapper {
   text-align: center;
 }
 
+.columns-container.compare .columns > div > div:not(:first-of-type) > div .icon {
+  width: auto;
+  height: 14px;
+}
+
 .columns-container.compare:not(.new2025) .columns > div:first-of-type > div:nth-of-type(2) {
   background-color: var(--darker-blue-color);
   color: white;
@@ -881,7 +885,7 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.compare .columns > div:first-of-type > div:not(:first-of-type) div.text-content {
-  font-size: 12px;
+  font-size: 13px;
   text-align: left;
 }
 
@@ -1032,17 +1036,17 @@ main .columns-container.padding-0 .columns-wrapper {
 
           li {
             position: relative;
-            padding-left: 30px;
+            padding-left: 33px;
             margin-bottom: 12px;
 
             &::before {
-              content: '✔';
+              content: '';
+              width: 28px;
+              height: 26px;
+              background: url('../../icons/ok-blue.svg') no-repeat 0 0 transparent;;
               position: absolute;
               left: 0;
-              top: 0;
-              color: #006DFF;
-              font-weight: bold;
-              font-size: 20px;
+              top: 6px;
             }
           }
         }
@@ -1065,9 +1069,9 @@ main .columns-container.padding-0 .columns-wrapper {
               position: absolute;
               left: 0;
               top: 0;
-              color: #666;
-              font-weight: bold;
-              font-size: 16px;
+              color: #454545;
+              font-weight: bolder;
+              font-size: 19px;
             }
           }
         }
@@ -1113,6 +1117,16 @@ main .columns-container.padding-0 .columns-wrapper {
     > * {
       position: relative;
       z-index: 3;
+    }
+
+    table {
+      position: absolute;
+      right: 0;
+
+      .icon {
+        width: 41px;
+        height: 55px;
+      }
     }
   }
 
@@ -1406,7 +1420,17 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 
   .columns-container.compare.new2025 .default-content-wrapper h2 {
+
+  }
+
+  .columns-container.compare.new2025 .default-content-wrapper h2 {
     margin-bottom: 0;
+    font-size: 20px;
+  }
+
+  .columns-container.compare .columns div.text-content {
+    font-size: 13px;
+    line-height: 17px;
   }
 
   .columns-container.compare.new2025 .button-container {
@@ -1423,6 +1447,16 @@ main .columns-container.padding-0 .columns-wrapper {
 
   .mobile-hide-imgs .columns > div > .columns-img-col img {
     display: none;
+  }
+
+  .columns-container.smaller-text-mobile  .columns h2 {
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  .columns-container.smaller-text-mobile .columns p {
+    font-size: 12px;
+    line-height: 16px;
   }
 }
 
@@ -1478,5 +1512,9 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns-container.compare .columns > div > div:nth-of-type(2) {
     margin: 0;
     flex: 0 0 175px;
+  }
+
+  .section.banner-container.new-2024.v2 p {
+    text-align: left;
   }
 }

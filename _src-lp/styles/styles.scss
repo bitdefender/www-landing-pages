@@ -2122,6 +2122,22 @@ main .section.they-wear-our-faces {
     font-size: 21px;
   }
 
+  main .title-small-mobile .default-content-wrapper h3 {
+    font-size: 17px;
+    line-height: 22px;
+  }
+  
+  main .title-small-mobile .default-content-wrapper {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  main .title-small-mobile .default-content-wrapper p {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 17px;
+  }
+
   main .default-content-wrapper h4 {
     font-size: 19px;
   }
