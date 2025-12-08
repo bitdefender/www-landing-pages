@@ -207,9 +207,9 @@
   .awards-affiliate-container.they-wear-our-faces:has(.awards-affiliate.black-heading) .awards-affiliate-wrapper .awards-affiliate {
     padding: 30px;
   }
-  .awards-affiliate .columns-class > div {
-    max-width: unset;
-  }
+}
+.awards-affiliate-container.they-wear-our-faces .awards-affiliate .columns-class > div {
+  max-width: unset;
 }
 
 @media screen and (width >= 768px) {

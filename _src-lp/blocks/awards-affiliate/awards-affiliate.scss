@@ -240,6 +240,10 @@
       }
     }
   }
+  
+  .awards-affiliate .columns-class > div {
+    max-width: unset;
+  }
 }
 
 @media screen and (width >=768px) {
