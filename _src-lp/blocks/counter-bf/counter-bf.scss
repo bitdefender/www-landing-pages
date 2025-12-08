@@ -32,6 +32,15 @@
   padding: 0 15px;
 }
 
+.counter-bf-container:not(.default) table#flipdownTable.red td > * {
+  flex: 1;
+}
+
+.counter-bf-container:not(.default) .block.no-extra-text table#flipdownTable.red td {
+  background-color: #EB0000;
+  padding: 0;
+}
+
 .counter-bf-container:not(.default) table#flipdownTable.red td strong {
   line-height: 20px;
 }
@@ -46,11 +55,12 @@
 
 .counter-bf-container:not(.default) table#flipdownTable .flipdown {
   min-width: 200px;
-  height: 40px;
+  height: 100%;
+  min-height: 40px;
   background-color: #EB0000;
   color: white;
   width: auto;
-  padding: 23px 10px 18px 5px;
+  padding: 10px 10px 4px;
   margin: -1px 15px;
   font-size: 8px;
 }
@@ -233,7 +243,7 @@
     height: 45px;
     margin: 6px 0;
     padding: 15px 1em;
-    border-radius: 10px;
+    border-radius: 50px;
   }
 
   .counter-bf-container:not(.default) table#flipdownTable .flipdown .rotor-group-heading::before {
