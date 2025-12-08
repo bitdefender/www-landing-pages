@@ -884,7 +884,7 @@ main .columns-container.padding-0 .columns-wrapper {
   padding: 0;
 }
 
-.columns-container.compare .columns > div:first-of-type > div:not(:first-of-type) div.text-content {
+.columns-container.compare.v2 .columns > div:first-of-type > div:not(:first-of-type) div.text-content {
   font-size: 13px;
   text-align: left;
 }
