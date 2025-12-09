@@ -1276,6 +1276,10 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 }
 
+.columns-container.compare .columns .icon {
+  height: 13px;
+}
+
 @media (width <=768px) {
   .mobile-only {
     display: block;

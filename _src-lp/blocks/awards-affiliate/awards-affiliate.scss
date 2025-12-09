@@ -203,7 +203,7 @@
     }
   }
 
-  @media (width < 768px) {
+  @media screen and (width < 768px) {
     padding: 30px;
 
     .awards-affiliate {
@@ -239,10 +239,6 @@
         }
       }
     }
-  }
-  
-  .awards-affiliate .columns-class > div {
-    max-width: unset;
   }
 }
 
@@ -338,6 +334,16 @@
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (width < 768px) {
+  .awards-affiliate .columns-class > div {
+    max-width: unset;
+
+    a.button {
+      width: 100%;
     }
   }
 }

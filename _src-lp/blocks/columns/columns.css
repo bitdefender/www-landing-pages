@@ -1112,6 +1112,10 @@ main .columns-container.padding-0 .columns-wrapper {
   z-index: 3;
 }
 
+.columns-container.compare .columns .icon {
+  height: 13px;
+}
+
 @media (width <= 768px) {
   .mobile-only {
     display: block;

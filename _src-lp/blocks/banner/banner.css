@@ -640,6 +640,11 @@
   margin-right: 10px;
 }
 
+.section.banner-container[data-align=centered] #buyBtnGreenCircleBox {
+  justify-content: center;
+  text-align: center;
+}
+
 .section.banner-container #greenPillBox:hover,
 .section.banner-container #greenPillBox:hover a {
   opacity: 0.9;

@@ -2227,6 +2227,10 @@ main .section.they-wear-our-faces {
     display: flex;
   }
 
+  .mobile-full-btn a.button {
+    width: 100%;
+  }
+
   main .section.width-smaller .block {
     width: 100%;
     margin: 0 auto;
