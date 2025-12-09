@@ -109,6 +109,10 @@
   color: inherit;
 }
 
+.section.banner-container .banner p a.button {
+  color: white;
+}
+
 .section.banner-container .banner h1 a:hover {
   text-decoration-color: #cee2fe;
 }
@@ -293,6 +297,14 @@
 .section.banner-container .banner .blue-box tr {
   display: flex;
   align-items: center;
+}
+
+.section.banner-container.small-table-awards .row > div:first-of-type table img {
+  height: 60px;
+  width: unset;
+  min-width: unset;
+  max-width: unset;
+  margin: 0 5px;
 }
 
 .section.banner-container.hasslide .block table tr {
@@ -1374,6 +1386,13 @@
   }
 }
 @media screen and (width <= 767px) {
+  .section.banner-container[data-image-cover=small-right] .banner {
+    background-image: unset !important;
+  }
+  .section.banner-container[data-image-cover=small-right] .banner .row {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
   .section.banner-container.red-pill #greenPillBox {
     right: 2em;
     top: -1em;
@@ -1445,6 +1464,9 @@
   .section.banner-container.hasslide .block p:last-of-type {
     font-size: 14px;
     line-height: 18px;
+  }
+  .section.banner-container.small-table-awards .row > div:first-of-type table {
+    margin: 0 auto;
   }
   .section.banner-container.partnerportale .banner table {
     width: 100%;
