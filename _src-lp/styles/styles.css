@@ -222,7 +222,6 @@ main .section.blue-slogan * {
 }
 
 main .section.bold-anchor a.button:any-link {
-  font-weight: bold !important;
   padding: 10px 15px;
   background-color: #D70000;
 }

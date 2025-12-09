@@ -285,7 +285,4 @@
   .awards-affiliate .columns-class > div {
     max-width: unset;
   }
-  .awards-affiliate .columns-class > div a.button {
-    width: 100%;
-  }
 }

@@ -10,11 +10,12 @@ export default function decorate(block) {
     const [prodName, prodUsers, prodYears] = product.split('/');
     const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
-    const buybtn = document.createElement('span');
+    const buybtn = document.createElement('div');
+    buybtn.style.width = '100%';
     if (buttonLink) {
-      buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}"><strong>${buttonText}</strong></a>`;
+      buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}">${buttonText}</a>`;
     } else {
-      buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#"><strong>${buttonText}</strong></a>`;
+      buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">${buttonText}</a>`;
     }
 
     columns?.classList.add('columns-class');
