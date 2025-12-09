@@ -300,7 +300,7 @@
 }
 
 .section.banner-container.small-table-awards .row > div:first-of-type table img {
-  height: 60px;
+  height: 80px;
   width: unset;
   min-width: unset;
   max-width: unset;
@@ -1388,10 +1388,16 @@
 @media screen and (width <= 767px) {
   .section.banner-container[data-image-cover=small-right] .banner {
     background-image: unset !important;
+    margin-top: 20px !important;
+    padding-top: 0 !important;
   }
   .section.banner-container[data-image-cover=small-right] .banner .row {
     flex-direction: column-reverse;
     gap: 10px;
+  }
+  .section.banner-container.small-table-awards .row > div:first-of-type table img {
+    height: auto;
+    width: 90%;
   }
   .section.banner-container.red-pill #greenPillBox {
     right: 2em;
