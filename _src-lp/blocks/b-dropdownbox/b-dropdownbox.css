@@ -36,6 +36,10 @@
   padding: 0;
 }
 
+.b-dropdownbox-container.rounded .b-dropdownbox > div:nth-child(1) {
+  border-radius: 8px;
+}
+
 .b-dropdownbox-container .b-dropdownbox > div:first-of-type > div, .b-dropdownbox-container .b-dropdownbox > div:last-of-type > div {
   border-bottom: 0 none;
 }
