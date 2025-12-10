@@ -591,6 +591,7 @@
   }
   .c-icon-box-grid-container.grey-box .col-lg .subtitle {
     font-size: var(--body-font-size-s);
+    line-height: var(--body-font-size-m);
   }
   .c-icon-box-grid-container.grey-box-v2 .col-lg .subtitle {
     font-size: 16px;
