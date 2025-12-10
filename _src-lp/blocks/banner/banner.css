@@ -666,10 +666,6 @@
   align-items: center;
 }
 
-.section.banner-container.centered #buyBtnGreenCircleBox {
-  justify-content: center;
-}
-
 .section.banner-container #buyBtnGreenCircleBox span.green_circle_box.v2 {
   flex-direction: row;
   font-size: 28px;
