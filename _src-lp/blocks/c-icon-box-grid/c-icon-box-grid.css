@@ -608,7 +608,7 @@
     overflow: hidden;
   }
   .c-icon-box-grid-container .title {
-    margin: 10px 0 0;
+    margin: 10px 0 5px;
   }
   .c-icon-box-grid-container .slider-container .container > div:last-of-type {
     font-size: 8px;
