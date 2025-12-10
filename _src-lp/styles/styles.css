@@ -222,7 +222,6 @@ main .section.blue-slogan * {
 }
 
 main .section.bold-anchor a.button:any-link {
-  font-weight: bold !important;
   padding: 10px 15px;
   background-color: #D70000;
 }
@@ -2020,6 +2019,19 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   main .default-content-wrapper h3 {
     font-size: 21px;
   }
+  main .title-small-mobile .default-content-wrapper h3 {
+    font-size: 17px;
+    line-height: 22px;
+  }
+  main .title-small-mobile .default-content-wrapper {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  main .title-small-mobile .default-content-wrapper p {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 17px;
+  }
   main .default-content-wrapper h4 {
     font-size: 19px;
   }
@@ -2088,6 +2100,9 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
     margin: 0 auto !important;
     width: fit-content;
     display: flex;
+  }
+  .mobile-full-btn a.button {
+    width: 100%;
   }
   main .section.width-smaller .block {
     width: 100%;

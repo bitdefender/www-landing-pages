@@ -1132,6 +1132,10 @@ margin: 20px 0 0 5px;
     cursor: pointer;
 }
 
+.new-prod-boxes-container.bluecheckmark .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
+    background-image: url('../../icons/circle-check-sharp-solid-blue.png');
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li:last-of-type {
     margin-bottom: 0;
 }

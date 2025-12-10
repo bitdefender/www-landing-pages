@@ -86,7 +86,7 @@
 }
 
 .c-icon-box-grid-container .subtitle {
-  font-size: 12px;
+  font-size: 13px;
   margin-top: 0;
 }
 
@@ -408,7 +408,6 @@
 }
 
 .c-icon-box-grid-container.phishing div.subtitle {
-  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -433,12 +432,14 @@
 
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
-    font-size: var(--body-font-size-s);
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-font-size-s);
+    color: #161616;
   }
 
   .c-icon-box-grid-container.smaller-title .title, .c-icon-box-grid-container.smaller-title .subtitle {
     font-size: var(--body-font-size-xs);
-    line-height: 22px;
+    line-height: var(--body-font-size-s);
   }
 
   .c-icon-box-grid-container.items-smaller .row {
@@ -464,11 +465,13 @@
   }
 
   .c-icon-box-grid-container .subtitle {
-    font-size: 14px;
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-font-size-m);
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    color: #161616;
   }
 
   .c-icon-box-grid-container .new-blue .subtitle p:last-of-type::before, .c-icon-box-grid-container.trustpilot-design .subtitle p:last-of-type::before {
@@ -527,7 +530,7 @@
   .c-icon-box-grid-container.four-columns .col-lg-4 {
     width: 23%!important;
     flex: 1;
-    padding: 32px;
+    padding: 25px;
     margin: 6px;
   }
 
@@ -626,6 +629,7 @@
 
   .c-icon-box-grid-container.grey-box .col-lg .subtitle {
     font-size: var(--body-font-size-s);
+    line-height: var(--body-font-size-m);
   }
 
   .c-icon-box-grid-container.grey-box-v2 .col-lg .subtitle {
@@ -645,6 +649,10 @@
 @media (width <= 768px) {
   .c-icon-box-grid-container {
     overflow: hidden;
+  }
+
+  .c-icon-box-grid-container .title {
+    margin: 10px 0 5px;
   }
 
   .c-icon-box-grid-container .slider-container .container > div:last-of-type {

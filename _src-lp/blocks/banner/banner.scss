@@ -306,6 +306,7 @@
   height: 18px;
   background: url('../../icons/checkmark_solid-circle_2.svg') no-repeat left center transparent;
   float: left;
+  margin-bottom: 3px;
 }
 
 .section.banner-container .banner .blue-box {
@@ -671,6 +672,11 @@
 
 .section.banner-container #buyBtnGreenCircleBox a {
   margin-right: 10px;
+}
+
+.section.banner-container[data-align="centered"] #buyBtnGreenCircleBox {
+  justify-content: center;
+  text-align: center;
 }
 
 .section.banner-container #greenPillBox:hover,
@@ -1615,6 +1621,17 @@
     font-weight: normal;
   }
 
+  .section.banner-container.left-align .banner h1 {
+    text-align: left;
+  }
+
+  .section.banner-container.new-2024.left-align .banner h1 {
+    font-size: 22px;
+    line-height: 30px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: normal;
+  }
+
   .section.banner-container.hasslide .block>div:first-of-type h1 {
     font-size: 24px;
     line-height: 28px;
@@ -1703,6 +1720,8 @@
 
   .section.banner-container.new-2024.v2 .banner ul {
     text-align: left;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .section.banner-container .banner ul li {
@@ -1874,6 +1893,10 @@
   .section.banner-container.red-pill #greenPillBox > span {
     font-size: 21px;
     line-height: 23px;
+  }
+
+  .section.banner-container.new-2024.v2 #pricesBox .buy_box a {
+    width: 100%;
   }
 
   .section.banner-container.csam-design .block .row>div em {

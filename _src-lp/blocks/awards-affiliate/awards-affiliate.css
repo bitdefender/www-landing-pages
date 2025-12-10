@@ -177,7 +177,7 @@
 .awards-affiliate-container.they-wear-our-faces .columns-class img {
   width: 48px;
 }
-@media (width < 768px) {
+@media screen and (width < 768px) {
   .awards-affiliate-container.they-wear-our-faces {
     padding: 30px;
   }
@@ -279,5 +279,10 @@
     height: 48px;
     width: 48px;
     margin: 0;
+  }
+}
+@media screen and (width < 768px) {
+  .awards-affiliate .columns-class > div {
+    max-width: unset;
   }
 }

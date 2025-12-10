@@ -1,18 +1,22 @@
-import { getDatasetFromSection, matchHeights, matchWidths } from '../../scripts/utils.js';
+/* eslint-disable object-curly-newline */
+import { getDatasetFromSection, matchHeights, matchWidths, updateProductsList } from '../../scripts/utils.js';
+import { productAliases } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
-  // block.classList.add('container-sm');
   const metaData = getDatasetFromSection(block);
 
-  const { backgroundColor, textColor, linksOpenInNewTab } = metaData;
-  if (backgroundColor) {
-    block.style.backgroundColor = backgroundColor;
-  }
+  const { backgroundColor, textColor, linksOpenInNewTab, product } = metaData;
+  if (backgroundColor) block.style.backgroundColor = backgroundColor;
+  if (textColor) block.style.color = textColor;
 
-  if (textColor) {
-    block.style.color = textColor;
+  if (product && product.length) {
+    updateProductsList(product);
+    const [prodName, prodUsers, prodYears] = product.split('/');
+    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+    block.querySelector('p.button-container a').className = `button primary await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`;
   }
 
   // setup image columns
