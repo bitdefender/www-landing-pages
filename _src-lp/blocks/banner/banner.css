@@ -109,6 +109,10 @@
   color: inherit;
 }
 
+.section.banner-container .banner p a.button {
+  color: white;
+}
+
 .section.banner-container .banner h1 a:hover {
   text-decoration-color: #cee2fe;
 }
@@ -178,6 +182,26 @@
 
 .section.banner-container.new-2024 .banner h1 {
   font-weight: normal;
+}
+
+.section.banner-container.tables-switch .banner .row > div > div > table:last-of-type {
+  display: none;
+}
+
+.section.banner-container.new-2024-v2 .banner .row > div > div > p:first-of-type {
+  margin: 10px 0;
+}
+
+.section.banner-container.new-2024-v2 .banner .row > div > div table img {
+  margin: 10px 0;
+}
+
+.section.banner-container.new-2024-v2 .banner h1 {
+  margin-bottom: 0;
+}
+
+.section.banner-container.new-2024-v2 .banner h6 {
+  margin-top: 0;
 }
 
 .section.banner-container.hasslide .block h1 {
@@ -293,6 +317,14 @@
 .section.banner-container .banner .blue-box tr {
   display: flex;
   align-items: center;
+}
+
+.section.banner-container.small-table-awards .row > div:first-of-type table img {
+  height: 80px;
+  width: unset;
+  min-width: unset;
+  max-width: unset;
+  margin: 0 5px;
 }
 
 .section.banner-container.hasslide .block table tr {
@@ -1374,6 +1406,28 @@
   }
 }
 @media screen and (width <= 767px) {
+  .section.banner-container[data-image-cover=small-right] .banner {
+    background-image: unset !important;
+    margin-top: 20px !important;
+    padding-top: 0 !important;
+  }
+  .section.banner-container[data-image-cover=small-right] .banner .row {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+  .section.banner-container.tables-switch .banner .row > div > div table img {
+    margin: 0;
+  }
+  .section.banner-container.tables-switch .banner .row > div > div > table:nth-last-of-type(2) {
+    display: none;
+  }
+  .section.banner-container.tables-switch .banner .row > div > div > table:last-of-type {
+    display: block;
+  }
+  .section.banner-container.small-table-awards .row > div:first-of-type table img {
+    height: auto;
+    width: 90%;
+  }
   .section.banner-container.red-pill #greenPillBox {
     right: 2em;
     top: -1em;
@@ -1445,6 +1499,9 @@
   .section.banner-container.hasslide .block p:last-of-type {
     font-size: 14px;
     line-height: 18px;
+  }
+  .section.banner-container.small-table-awards .row > div:first-of-type table {
+    margin: 0 auto;
   }
   .section.banner-container.partnerportale .banner table {
     width: 100%;

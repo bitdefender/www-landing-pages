@@ -9,12 +9,12 @@ const getImageSrc = (pictureEl) => pictureEl?.querySelector('img')?.getAttribute
 const getContentSizeClasses = (size) => {
   const sizeMap = {
     full: 'col-sm-12 col-md-12 col-lg-12',
-    larger: 'col-sm-7 col-md-7 col-lg-7',
-    half: 'col-sm-6 col-md-6 col-lg-6',
+    larger: 'col-sm-12 col-md-7 col-lg-7',
+    half: 'col-sm-13 col-md-6 col-lg-6',
     fourth: '', // Special case handled separately
     'they-wear-our-faces': 'col-sm-12 col-md-6 col-lg-6 col-xl-7',
   };
-  return sizeMap[size] || 'col-sm-5 col-md-5 col-lg-5';
+  return sizeMap[size] || 'col-sm-12 col-md-5 col-lg-5';
 };
 
 // Helper function to apply background styles
