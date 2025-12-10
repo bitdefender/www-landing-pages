@@ -664,6 +664,9 @@
 
 .section.banner-container #buyBtnGreenCircleBox {
   align-items: center;
+}
+
+.section.banner-container.centered #buyBtnGreenCircleBox {
   justify-content: center;
 }
 
