@@ -131,6 +131,10 @@
   line-height: 26px;
 }
 
+.c-icon-box-grid-container .buttons {
+  margin-top: 10px;
+}
+
 .c-icon-box-grid-container.new p {
   font-size: 12px;
   line-height: 14px;

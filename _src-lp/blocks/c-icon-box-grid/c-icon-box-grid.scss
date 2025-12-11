@@ -133,6 +133,10 @@
   line-height: 26px;
 }
 
+.c-icon-box-grid-container .buttons {
+  margin-top: 10px;
+}
+
 .c-icon-box-grid-container.new p {
   font-size: 12px;
   line-height: 14px;
@@ -443,7 +447,7 @@
   gap: 30px;
 }
 
-.c-icon-box-grid-container .c-icon-box-grid.blue-cards .quotebox{
+.c-icon-box-grid-container .c-icon-box-grid.blue-cards .quotebox {
   background-color: #E4F2FF;
   border-radius: 10px;
   padding: 40px 20px;
