@@ -155,7 +155,7 @@
 
 .b-dropdownbox-container.right-arrow .b-dropdownbox > div:nth-child(1) > div::before {
   position: absolute;
-  right: 10px;
+  right: 9px;
 }
 
 .b-dropdownbox-container .b-dropdownbox.inactive > div:nth-child(1) > div::before,
