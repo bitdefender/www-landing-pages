@@ -8,7 +8,6 @@ export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
 
   const { backgroundColor, textColor, linksOpenInNewTab, product } = metaData;
-  console.log(backgroundColor)
   if (backgroundColor) block.style.backgroundColor = backgroundColor;
   if (textColor) block.style.color = textColor;
 
