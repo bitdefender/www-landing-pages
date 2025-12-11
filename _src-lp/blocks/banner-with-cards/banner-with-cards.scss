@@ -757,12 +757,16 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     margin-bottom: 1em !important;
   }
 
+  .section.banner-with-cards-container.bigger-title .banner-with-cards h1 {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-line-height-xl);
+  }
+
   .section.banner-with-cards-container .banner-with-cards .hasProds>div:first-of-type {
     flex: 1;
     width: 500px;
     margin: 0 auto;
   }
-
 
   .section.banner-with-cards-container .banner-with-cards .hasProds {
     flex-direction: column;
@@ -805,9 +809,9 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   }
 
   .section.banner-with-cards-container.rounded .banner-with-cards {
-    background: none !important;
     margin-left: 0;
   }
+  
 
   .section.banner-with-cards-container.rounded .banner-with-cards .hasProds>div:first-of-type {
     margin-left: 0;
@@ -815,6 +819,10 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 
   .columns-container.v-nov25 .columns {
     padding: 2em 1em 1em;
+  }
+
+  .section.banner-with-cards-container.free-size[data-show="2-cols"] .banner-with-cards .hasProds > div:first-of-type {
+    flex: unset;
   }
 
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards {
