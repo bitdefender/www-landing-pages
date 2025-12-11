@@ -8,6 +8,10 @@
   margin: 10px 0;
 }
 
+.c-icon-box-grid-container .title strong {
+  font-weight: 600;
+}
+
 .c-icon-box-grid-container .quotebox {
   text-align: left;
 }
@@ -224,7 +228,7 @@
 
 .c-icon-box-grid-container.bigger-icons .col-lg .icon-box-grid-column .icon {
   width: max-content;
-  height: 58px;
+  height: 50px;
 }
 
 .c-icon-box-grid-container.new .quotes .icon-box-grid-column {
@@ -366,6 +370,10 @@
   display: inline;
 }
 
+.c-icon-box-grid-container.grey-box .col-lg .buttons {
+  margin-top: 10px;
+}
+
 .c-icon-box-grid-container.grey-box .col-lg p.button-container a {
   width: 100%;
 }
@@ -452,7 +460,7 @@
   }
   .c-icon-box-grid-container.smaller-title .title, .c-icon-box-grid-container.smaller-title .subtitle {
     font-size: var(--body-font-size-xs);
-    line-height: var(--body-font-size-s);
+    line-height: var(--body-font-size-m);
   }
   .c-icon-box-grid-container.bigger-title .title {
     font-size: var(--body-font-size-s);
