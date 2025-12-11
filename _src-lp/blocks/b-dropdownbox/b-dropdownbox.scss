@@ -154,6 +154,11 @@
   width: 90%;
 }
 
+.b-dropdownbox-container.right-arrow .b-dropdownbox > div:nth-child(1) > div::before {
+  position: absolute;
+  right: 10px;
+}
+
 .b-dropdownbox-container .b-dropdownbox.inactive > div:nth-child(1) > div::before,
 .b-dropdownbox-container .b-dropdownbox.closed > div:nth-child(1) > div::before {
   width: 10px;

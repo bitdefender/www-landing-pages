@@ -86,6 +86,10 @@
   line-height: 15px;
 }
 
+.c-icon-box-grid-container.grey-color .subtitle {
+  color: #525252;
+}
+
 .c-icon-box-grid-container .subtitle {
   font-size: 13px;
   margin-top: 0;
@@ -218,6 +222,11 @@
   height: 100%;
 }
 
+.c-icon-box-grid-container.bigger-icons .col-lg .icon-box-grid-column .icon {
+  width: max-content;
+  height: 58px;
+}
+
 .c-icon-box-grid-container.new .quotes .icon-box-grid-column {
   background: url("../../images/dark-blue-quote.svg") no-repeat top 2.3em left 20px #FFF;
   margin: 0.2em 0;
@@ -345,6 +354,11 @@
   display: flex;
   height: 100%;
   flex-direction: column;
+  margin: 10px 0;
+}
+
+.c-icon-box-grid-container.grey-box .col-lg .subtitle p {
+  margin: 0;
 }
 
 .c-icon-box-grid-container.grey-box .col-lg .subtitle p.button-container {

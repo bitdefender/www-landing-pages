@@ -25,8 +25,30 @@
   font-size: 18px;
 }
 
-.columns-container.csam-design .block>div {
+.columns-container.csam-design .block > div {
   padding-right: 11em;
+}
+
+.columns-container.new-list .columns table {
+  width: 85%;
+  margin-left: 10px;
+}
+
+.columns-container.new-list .columns table tr td:first-child {
+  width: 20px;
+  vertical-align: top;
+}
+
+.columns-container.new-list .columns table tr td:first-child img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  display: block;
+  margin-top: 6px;
+}
+
+.columns-container.new-list .columns table tr td:last-child {
+  vertical-align: top;
 }
 
 .columns-container.csam-design .block div.columns-img-col {
@@ -892,6 +914,11 @@ main .columns-container.padding-0 .columns-wrapper {
 @media (width <=991px) {
   .columns-container.csam-design .block>div {
     padding-right: 0;
+  }
+
+  .columns-container.new-list .columns table {
+    width: 100%;
+    margin-left: 0;
   }
 }
 
