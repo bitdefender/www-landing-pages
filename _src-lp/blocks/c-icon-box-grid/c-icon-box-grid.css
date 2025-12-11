@@ -39,6 +39,7 @@
 
 .c-icon-box-grid-container.phishing-v2 h2 {
   font-size: 46px;
+  display: flex;
 }
 
 .c-icon-box-grid-container.phishing-v2 h2 strong {
@@ -47,7 +48,7 @@
 }
 
 .c-icon-box-grid-container.phishing-v2 h2 em {
-  font-size: 40px;
+  font-size: 35px;
   font-style: normal;
 }
 
