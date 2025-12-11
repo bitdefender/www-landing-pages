@@ -83,7 +83,7 @@
   border-bottom: none;
 }
 
-.b-dropdownbox-container .b-dropdownbox > div > div strong em {
+.b-dropdownbox-container .b-dropdownbox > div > div strong em, .b-dropdownbox-container .b-dropdownbox > div > div em strong {
   color: #0B6A26;
   background-color: #D1FADC;
   border-radius: 8px;
@@ -92,6 +92,9 @@
   display: inline-block;
   margin-bottom: 10px;
   margin-left: 5px;
+  font-size: 13px;
+  line-height: 18px;
+  font-style: normal;
 }
 
 .b-dropdownbox-container .b-dropdownbox:not(.selected-2) > div > div:nth-child(2), .b-dropdownbox-container .b-dropdownbox.selected-1 > div > div:nth-child(2), .b-dropdownbox-container .b-dropdownbox.selected-2 > div > div:nth-child(3), .b-dropdownbox-container .b-dropdownbox.selected-3 > div > div:nth-child(4) {
