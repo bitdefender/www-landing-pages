@@ -440,6 +440,14 @@
     font-size: var(--body-font-size-xs);
     line-height: var(--body-font-size-s);
   }
+  .c-icon-box-grid-container.bigger-title .title {
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-font-size-m);
+  }
+  .c-icon-box-grid-container.smaller-text .subtitle {
+    font-size: 14px;
+    line-height: var(--body-font-size-m);
+  }
   .c-icon-box-grid-container.items-smaller .row {
     justify-content: space-between;
   }
