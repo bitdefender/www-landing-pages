@@ -609,6 +609,12 @@ main .section.size-14-normal .default-content-wrapper p {
   font-weight: normal;
 }
 
+main .section.size-18-normal .default-content-wrapper p {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: normal;
+}
+
 main .section[data-textcolor=grey] .default-content-wrapper p {
   color: #6F6F6F;
 }
