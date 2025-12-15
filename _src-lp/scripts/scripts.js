@@ -1274,7 +1274,6 @@ async function loadPage() {
 
   // TODO: remove new-store class once the store is used corretcly in the entire project
   const awaitLoaderElements = document.querySelectorAll('.await-loader.new-store');
-  console.log(awaitLoaderElements);
   awaitLoaderElements.forEach((element) => {
     element.classList.remove('await-loader', 'new-store');
   });

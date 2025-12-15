@@ -139,10 +139,11 @@ export default function decorate(block) {
   const parentSection = block.closest('.section');
   const metaData = parentSection.dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks,
+    products, priceType, optionsType, type, textBulina, individual, titleText, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks, bundles,
   } = metaData;
   const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
+  const bundlesArray = bundles.split(',').map((entry) => entry.trim());
 
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
@@ -260,49 +261,76 @@ export default function decorate(block) {
       [...block.children][key].innerHTML = '';
       // create procent - bulina
       let divBulina = '';
-      const vpnInfoContent = '';
+      let bundleInfoContent = '';
       if (textBulina) {
         divBulina = `<div class='bulina' data-store-hide="!it.option.price.discounted">
           ${textBulina.replace('0%', '<span data-store-render data-store-discount="percentage" div-percent"></span>')}
         </div>`;
       }
-      // if we have vpn
 
-      // if (billed.innerText.includes('[vpn_box]')) {
-      //   // add VPN
-      //   updateProductsList('vpn/10/1');
+      // if we have a bundle
+      if (billed.innerText.includes('[bundle_box]')) {
+        // add bundle
+        const boxBundle = bundlesArray[key];
+        const billedUL = billed.querySelector('ul');
 
-      //   const billedUL = billed.querySelector('ul');
-      //   /* eslint-disable-next-line no-unused-vars */
-      //   const [alias, text1, text2, vpnInfo] = billedUL.querySelectorAll('li');
-      //   const modifiedText1 = text1.innerHTML.replace('0', '<span class="newprice-vpn-101"></span>');
-      //   const modifiedText2 = text2.innerHTML.replace('0', '<span class="oldprice-vpn-101"></span>').replace('0%', '<span class="percent-vpn-101"></span>');
-      //   if (vpnInfo) {
-      //     const vpnInfoText = vpnInfo.innerText;
-      //     if (vpnInfoText.trim()) {
-      //       vpnInfoContent = `<div class="vpn-info-container"><div class='vpn-icon'></div><ul>${vpnInfoText.split(',').map((info) => `<li>${info.trim()}</li>`).join('')}</ul></div>`;
-      //     }
-      //   }
+        if (boxBundle === 'null') {
+          const emptyBundleBox = document.createElement('div');
+          emptyBundleBox.classList.add('bundle_box');
+          billedUL.parentElement.appendChild(emptyBundleBox);
+          billedUL.remove();
+        } else {
+          const [bundleId, bundleDevices, bundleSubscription] = boxBundle.split('/').map((entry) => entry.trim());
+          /* eslint-disable-next-line no-unused-vars */
+          const [_, text1, text2, bundleInfo] = billedUL.querySelectorAll('li');
+          const modifiedText1 = text1.innerHTML
+            .replace('0', '<span data-store-render data-store-price="discounted||full"></span>');
+          const modifiedText2 = text2.innerHTML
+            .replace('0', '<span data-store-hide="!it.option.price.discounted" data-store-price="full"></span>')
+            .replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>');
+          if (bundleInfo) {
+            const bundleInfoText = bundleInfo.innerText;
+            if (bundleInfoText.trim()) {
+              bundleInfoContent = `
+              <div class="bundle-info-container">
+                <div class="bundle-icon"></div>
+                <ul>${bundleInfoText.split(',').map((info) => `<li>${info.trim()}</li>`).join('')}</ul>
+              </div>`;
+            }
+          }
 
-      //   let labelId = `checkboxVPN-${onSelectorClass}`;
-      //   if (document.getElementById(labelId)) {
-      //     labelId = `${labelId}-1`;
-      //   }
+          let labelId = 'checkbox-bundle';
+          if (document.getElementById(labelId)) {
+            labelId = `${labelId}-1`;
+          }
 
-      //   const vpnContent = `
-      //     <input id="${labelId}" class="${labelId} checkboxVPN" type="checkbox" value="">
-      //     <label for="${labelId}">
-      //       <span>${modifiedText1} ${modifiedText2}</span>
-      //     </label>
-      //   `;
+          const bundleContent = `
+            <input
+              data-store-action
+              data-store-set-id="${bundleId}"
+              data-store-set-bundle
+              data-store-set-devices="${bundleDevices}"
+              data-store-set-subscription="${bundleSubscription}"
+              id="${labelId}" class="${labelId} checkboxBundle" type="checkbox">
+            <label for="${labelId}">
+              <bd-context ignore-events-parent>
+                <bd-product product-id="${bundleId}">
+                  <bd-option devices="${bundleDevices}" subscription="${bundleSubscription}">
+                    <span>${modifiedText1} ${modifiedText2}</span>
+                  </bd-option>
+                </bd-product>
+              </bd-context>
+            </label>
+          `;
 
-      //   const vpnBox = document.createElement('div');
-      //   vpnBox.classList = `vpn_box prodload prodload-${onSelectorClass}`;
-      //   vpnBox.innerHTML = `<div>${vpnContent}</div>`;
+          const bundleBox = document.createElement('div');
+          bundleBox.classList = 'bundle_box';
+          bundleBox.innerHTML = `<div class="await-loader new-store">${bundleContent}</div>`;
 
-      //   billedUL.before(vpnBox);
-      //   billedUL.remove();
-      // }
+          billedUL.before(bundleBox);
+          billedUL.remove();
+        }
+      }
 
       const featuresSet = benefitsLists.querySelectorAll('table');
       const featureList = Array.from(featuresSet).map((table) => {
@@ -513,7 +541,7 @@ export default function decorate(block) {
   </div><!-- end header-box --> 
 
               ${trialSaveText ? `<div class="save-trial-text"><hr><div data-store-hide="!it.option.price.discounted">${trialSaveText.replace(/0%/g, '<span data-store-render data-store-discount="percentage"></span>')}</div></div>` : ''}
-              ${vpnInfoContent && vpnInfoContent}
+              ${bundleInfoContent && bundleInfoContent}
               
               ${replaceBuyLinks
                 ? `<div class="buy-btn">
@@ -725,13 +753,18 @@ export default function decorate(block) {
 
   const targetNode = document.querySelector('.new-prod-boxes-2');
   matchHeights(targetNode, '.tag-subtitle');
-  matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, '.subtitle p:first-of-type');
   matchHeights(targetNode, 'h2');
   matchHeights(targetNode, '.save-trial-text');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
+
+  const storeRoot = block.closest('bd-root');
+  storeRoot.updateComplete.then(() => {
+    matchHeights(targetNode, '.save_price_box');
+    matchHeights(targetNode, '.bundle_box');
+  });
 
   // set max height for benefits
   if (set && set === 'height') {
@@ -740,45 +773,47 @@ export default function decorate(block) {
     });
   }
 
-  block.addEventListener('change', (event) => {
-    const { target } = event;
-    if (target.type === 'radio' || target.type === 'select-one') {
-      const {
-        selectorU,
-        valueU,
-        selectorY,
-        valueY,
-      } = target.closest('li')?.dataset || target.options[target.selectedIndex]?.dataset || {};
+  // TODO: if these lines are obsolete delete them
+  // block.addEventListener('change', (event) => {
+  //   const { target } = event;
+  //   if (target.type === 'radio' || target.type === 'select-one') {
+  //     const {
+  //       selectorU,
+  //       valueU,
+  //       selectorY,
+  //       valueY,
+  //     } = target.closest('li')?.dataset || target.options[target.selectedIndex]?.dataset || {};
 
-      target.closest('.inner_prod_box').querySelectorAll('.combinedPricesBox').forEach((item) => {
-        item.style.display = 'none';
-      });
+  //     target.closest('.inner_prod_box').querySelectorAll('.combinedPricesBox').forEach((item) => {
+  //       item.style.display = 'none';
+  //     });
 
-      if (isShowMoreShowLess) {
-        const tagSubtitle = target.closest('.tag-subtitle');
-        if (tagSubtitle) {
-          const blueTags = [...tagSubtitle.querySelectorAll('.blueTag')];
+  //     if (isShowMoreShowLess) {
+  //       const tagSubtitle = target.closest('.tag-subtitle');
+  //       if (tagSubtitle) {
+  //         const blueTags = [...tagSubtitle.querySelectorAll('.blueTag')];
 
-          const visibleTag = blueTags.find((tag) => window.getComputedStyle(tag).display !== 'none');
-          const hiddenTag = blueTags.find((tag) => window.getComputedStyle(tag).display === 'none');
+  //         const visibleTag = blueTags.find((tag) => window.getComputedStyle(tag).display !== 'none');
+  //         const hiddenTag = blueTags.find((tag) => window.getComputedStyle(tag).display === 'none');
 
-          if (visibleTag && hiddenTag) {
-            visibleTag.style.display = 'none';
-            hiddenTag.style.display = 'flex';
-          }
-        }
-      }
-      target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';
+  //         if (visibleTag && hiddenTag) {
+  //           visibleTag.style.display = 'none';
+  //           hiddenTag.style.display = 'flex';
+  //         }
+  //       }
+  //     }
 
-      if (selectorU && selectorY) {
-        const selectorUsers = document.getElementById(selectorU);
-        const selectorYears = document.getElementById(selectorY);
+  //     target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';
 
-        if (selectorUsers) selectorUsers.value = valueU;
-        if (selectorYears) selectorYears.value = valueY;
-      }
-    }
-  });
+  //     if (selectorU && selectorY) {
+  //       const selectorUsers = document.getElementById(selectorU);
+  //       const selectorYears = document.getElementById(selectorY);
+
+  //       if (selectorUsers) selectorUsers.value = valueU;
+  //       if (selectorYears) selectorYears.value = valueY;
+  //     }
+  //   }
+  // });
 
   // slider:
   if (type === 'mobileSlider') initializeSlider(block);

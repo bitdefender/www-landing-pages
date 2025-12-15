@@ -668,7 +668,7 @@
     font-weight: bold;
 }
 
-.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed ul li, .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .vpn_box li {
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed ul li, .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box li {
     list-style-type: none;
     font-size: 14px;
     margin: 5px 0;
@@ -727,7 +727,7 @@
     margin: 0;
 }
 
-.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .vpn_box > div input {
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box > div input {
     width: 14px;
     margin: 0;
     margin-right: 10px;
@@ -987,13 +987,13 @@ margin: 20px 0 0 5px;
 	font-weight: bold;
 }
 
-.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container {
+.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .bundle-info-container {
     display: flex;
     align-items: center;
     font: normal normal normal 12px/18px Arial, sans-serif;
 }
 
-.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container .vpn-icon {
+.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .bundle-info-container .bundle-icon {
     width: 50px;
     height: 50px;
     background-image: url("/_src-lp/icons/vpn.png");
@@ -1003,7 +1003,7 @@ margin: 20px 0 0 5px;
     background-repeat: no-repeat;
 }
 
-.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .vpn-info-container li::marker {
+.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .bundle-info-container li::marker {
     color: #06f;
 }
 
@@ -1012,7 +1012,7 @@ margin: 20px 0 0 5px;
     width: 65%;
 }
 
-.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .vpn_box {
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box {
     border-top: 1px solid #D1D1D1;
     border-bottom: 1px solid #D1D1D1;
     padding: 1em 0;
@@ -1021,7 +1021,7 @@ margin: 20px 0 0 5px;
     justify-content: center;
 }
 
-.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .vpn_box > div {
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1031,7 +1031,7 @@ margin: 20px 0 0 5px;
     padding: 1em 5px;
 }
 
-.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .billed .vpn_box > div {
+.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .billed .bundle_box > div {
     padding: 1.4em 5px;
     justify-content: left;
     min-width: 100%;
@@ -1044,7 +1044,7 @@ margin: 20px 0 0 5px;
     gap: 3px;
 }
 
-.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .vpn_box > div label {
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box > div label {
     cursor: pointer;
 }
 
@@ -1279,11 +1279,11 @@ margin: 20px 0 0 5px;
     position: relative;
 }
 
-.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child {
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box > div:first-child {
     position: relative;
 }
 
-.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .billed .vpn_box > div:first-child::before {
+.new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .billed .bundle_box > div:first-child::before {
     content: "";
     display: block;
     position: absolute;
@@ -1532,7 +1532,7 @@ margin: 20px 0 0 5px;
         width: 50%;
     }
 
-    .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed ul, .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .vpn_box {
+    .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed ul, .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box {
         min-height: 115px;
     }
 }
