@@ -110,6 +110,10 @@
   color: inherit;
 }
 
+.section.banner-container .banner p a.button {
+  color: white;
+}
+
 .section.banner-container .banner h1 a:hover {
   text-decoration-color: #cee2fe;
 }
@@ -179,6 +183,26 @@
 
 .section.banner-container.new-2024 .banner h1 {
   font-weight: normal;
+}
+
+.section.banner-container.tables-switch .banner .row > div > div > table:last-of-type {
+  display: none;
+}
+
+.section.banner-container.new-2024-v2 .banner .row > div > div > p:first-of-type {
+  margin: 10px 0;
+}
+
+.section.banner-container.new-2024-v2 .banner .row > div > div table img {
+  margin: 10px 0;
+}
+
+.section.banner-container.new-2024-v2 .banner h1 {
+  margin-bottom: 0;
+}
+
+.section.banner-container.new-2024-v2 .banner h6 {
+  margin-top: 0;
 }
 
 .section.banner-container.hasslide .block h1 {
@@ -282,6 +306,7 @@
   height: 18px;
   background: url('../../icons/checkmark_solid-circle_2.svg') no-repeat left center transparent;
   float: left;
+  margin-bottom: 3px;
 }
 
 .section.banner-container .banner .blue-box {
@@ -295,6 +320,14 @@
 .section.banner-container .banner .blue-box tr {
   display: flex;
   align-items: center;
+}
+
+.section.banner-container.small-table-awards .row > div:first-of-type table img {
+  height: 80px;
+  width: unset;
+  min-width: unset;
+  max-width: unset;
+  margin: 0 5px;
 }
 
 .section.banner-container.hasslide .block table tr {
@@ -641,6 +674,11 @@
   margin-right: 10px;
 }
 
+.section.banner-container[data-align="centered"] #buyBtnGreenCircleBox {
+  justify-content: center;
+  text-align: center;
+}
+
 .section.banner-container #greenPillBox:hover,
 .section.banner-container #greenPillBox:hover a {
   opacity: 0.9;
@@ -971,6 +1009,10 @@
 
   .banner-container h2 {
     font-size: 26px;
+  }
+
+  .banner-container h4 {
+    margin: 15px 0;
   }
 
   .section.banner-container.hide-tablet {
@@ -1501,6 +1543,34 @@
 }
 
 @media screen and (width <= 767px) {
+  .section.banner-container[data-image-cover="small-right"] .banner {
+    background-image: unset!important;
+    margin-top: 20px!important;
+    padding-top: 0 !important;
+  }
+
+  .section.banner-container[data-image-cover="small-right"] .banner .row {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .section.banner-container.tables-switch .banner .row > div > div table img {
+    margin: 0;
+  }
+
+  .section.banner-container.tables-switch .banner .row > div > div > table:nth-last-of-type(2) {
+    display: none;
+  }
+
+  .section.banner-container.tables-switch .banner .row > div > div > table:last-of-type {
+    display: block;
+  }
+
+  .section.banner-container.small-table-awards .row > div:first-of-type table img {
+    height: auto;
+    width: 90%
+  }
+
   .section.banner-container.red-pill #greenPillBox {
     right: 2em;
     top: -1em;
@@ -1555,6 +1625,17 @@
     font-weight: normal;
   }
 
+  .section.banner-container.left-align .banner h1 {
+    text-align: left;
+  }
+
+  .section.banner-container.new-2024.left-align .banner h1 {
+    font-size: 22px;
+    line-height: 30px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: normal;
+  }
+
   .section.banner-container.hasslide .block>div:first-of-type h1 {
     font-size: 24px;
     line-height: 28px;
@@ -1589,6 +1670,10 @@
   .section.banner-container.hasslide .block p:last-of-type {
     font-size: 14px;
     line-height: 18px;
+  }
+
+  .section.banner-container.small-table-awards .row > div:first-of-type table {
+    margin: 0 auto;
   }
 
   .section.banner-container.partnerportale .banner table {
@@ -1639,6 +1724,8 @@
 
   .section.banner-container.new-2024.v2 .banner ul {
     text-align: left;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .section.banner-container .banner ul li {
@@ -1810,6 +1897,10 @@
   .section.banner-container.red-pill #greenPillBox > span {
     font-size: 21px;
     line-height: 23px;
+  }
+
+  .section.banner-container.new-2024.v2 #pricesBox .buy_box a {
+    width: 100%;
   }
 
   .section.banner-container.csam-design .block .row>div em {

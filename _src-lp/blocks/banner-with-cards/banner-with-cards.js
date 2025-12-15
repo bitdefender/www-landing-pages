@@ -128,7 +128,7 @@ export default function decorate(block) {
 
   // get Metadatas:
   const {
-    products, type, display, headerColor, textColor, cardsColor, backgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
+    products, type, display, headerColor, textColor, cardsColor, backgroundColor, innerBackgroundColor, backgroundHide, paddingTop, paddingBottom, marginTop, bannerHide,
     marginBottom, imageCover, imageHeight, contentSize, greenTag, blockBackground, wrapperBackground, show,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl, tosButton] = [...block.children];
@@ -142,6 +142,7 @@ export default function decorate(block) {
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
+  if (innerBackgroundColor) blockStyle.backgroundColor = innerBackgroundColor;
   if (textColor) blockStyle.color = textColor;
   if (paddingTop) blockStyle.paddingTop = `${paddingTop}rem`;
   if (paddingBottom) blockStyle.paddingBottom = `${paddingBottom}rem`;

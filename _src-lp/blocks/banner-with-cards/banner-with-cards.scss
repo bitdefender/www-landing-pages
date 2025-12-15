@@ -21,6 +21,10 @@
   align-items: flex-start;
 }
 
+.section.banner-with-cards-container.vertical-centered .banner-with-cards .customWrapper {
+  align-items: center;
+}
+
 .section.banner-with-cards-container.margin-0 .banner-with-cards .customWrapper {
   margin: 0;
   padding: 0;
@@ -200,12 +204,17 @@
 }
 
 .section.banner-with-cards-container .banner-with-cards h1 {
-  font-size: 40px;
-  line-height: 40px;
+  font-size: var(--heading-font-size-xl);
+  line-height: var(--heading-line-height-xl);
   font-weight: bold;
   font-family: "IBM Plex Sans", sans-serif;
   padding-top: 0;
   margin-top: 5px;
+}
+
+.section.banner-with-cards-container.bigger-title .banner-with-cards h1 {
+  font-size: var(--heading-font-size-xxl2);
+  line-height: var(--heading-line-height-xxl2);
 }
 
 .section.banner-with-cards-container .banner-with-cards h1 em {
@@ -501,7 +510,7 @@
 
 .section.banner-with-cards-container.rounded .banner-with-cards {
   border-radius: 20px;
-  background-color: #F6F6F6 !important;
+  background-color: #F6F6F6;
 }
 
 .section.banner-with-cards-container.trial-banner.v2 .banner-with-cards-wrapper .hasProds .prodBox {
@@ -682,7 +691,16 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   margin-left: 5px;
 }
 
-.section.banner-with-cards-container[data-show="3-cols"] h3 {
+.section.banner-with-cards-container .banner-with-cards .prodBox hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.section.banner-with-cards-container.free-size[data-show="2-cols"] .banner-with-cards .hasProds > div:first-of-type {
+  flex: 0 0 50%;
+}
+
+.section.banner-with-cards-container[data-show="3-cols"] h3, .section.banner-with-cards-container[data-show="2-cols"] h4 {
   font-size: 22px;
   font-weight: inherit;
 }
@@ -705,11 +723,6 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 
 .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox h3 {
   min-height: auto!important;
-}
-
-.section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox hr {
-  margin-top: 5px;
-  margin-bottom: 5px;
 }
 
 .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox table:first-of-type td {
@@ -744,12 +757,16 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     margin-bottom: 1em !important;
   }
 
+  .section.banner-with-cards-container.bigger-title .banner-with-cards h1 {
+    font-size: var(--heading-font-size-xl);
+    line-height: var(--heading-line-height-xl);
+  }
+
   .section.banner-with-cards-container .banner-with-cards .hasProds>div:first-of-type {
     flex: 1;
     width: 500px;
     margin: 0 auto;
   }
-
 
   .section.banner-with-cards-container .banner-with-cards .hasProds {
     flex-direction: column;
@@ -792,9 +809,9 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   }
 
   .section.banner-with-cards-container.rounded .banner-with-cards {
-    background: none !important;
     margin-left: 0;
   }
+  
 
   .section.banner-with-cards-container.rounded .banner-with-cards .hasProds>div:first-of-type {
     margin-left: 0;
@@ -802,6 +819,10 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 
   .columns-container.v-nov25 .columns {
     padding: 2em 1em 1em;
+  }
+
+  .section.banner-with-cards-container.free-size[data-show="2-cols"] .banner-with-cards .hasProds > div:first-of-type {
+    flex: unset;
   }
 
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards {
