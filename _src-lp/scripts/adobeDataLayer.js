@@ -178,7 +178,7 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
   }
 
   if (
-    (typeof StoreProducts === 'undefined' && (getMetadata('trialbuylinks') || window.trialLinksExist))
+    (typeof StoreProducts === 'undefined')
     || (typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0)
     || getMetadata('free-product')
     || force) {
