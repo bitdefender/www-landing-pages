@@ -299,33 +299,41 @@ export default function decorate(block) {
             }
           }
 
-          let labelId = 'checkbox-bundle';
-          if (document.getElementById(labelId)) {
-            labelId = `${labelId}-1`;
-          }
-
-          const bundleContent = `
-            <input
-              data-store-action
-              data-store-set-id="${bundleId}"
-              data-store-set-bundle
-              data-store-set-devices="${bundleDevices}"
-              data-store-set-subscription="${bundleSubscription}"
-              id="${labelId}" class="${labelId} checkboxBundle" type="checkbox">
-            <label for="${labelId}">
-              <bd-context ignore-events-parent>
-                <bd-product product-id="${bundleId}">
-                  <bd-option devices="${bundleDevices}" subscription="${bundleSubscription}">
-                    <span>${modifiedText1} ${modifiedText2}</span>
-                  </bd-option>
-                </bd-product>
-              </bd-context>
-            </label>
-          `;
-
+          const labelId = `checkbox-bundle-${key}`;
           const bundleBox = document.createElement('div');
-          bundleBox.classList = 'bundle_box';
-          bundleBox.innerHTML = `<div class="await-loader new-store">${bundleContent}</div>`;
+          bundleBox.className = 'bundle_box';
+
+          const loaderWrapper = document.createElement('div');
+          loaderWrapper.className = 'await-loader new-store';
+
+          // create the bundle Input
+          const bundleInput = document.createElement('input');
+          bundleInput.setAttribute('data-store-action', '');
+          bundleInput.setAttribute('data-store-set-id', bundleId);
+          bundleInput.setAttribute('data-store-set-bundle', '');
+          bundleInput.setAttribute('data-store-set-devices', bundleDevices);
+          bundleInput.setAttribute('data-store-set-subscription', bundleSubscription);
+          bundleInput.id = labelId;
+          bundleInput.className = `${labelId} checkboxBundle`;
+          bundleInput.type = 'checkbox';
+
+          // create the bundle label
+          const bundleLabel = document.createElement('label');
+          bundleLabel.htmlFor = labelId;
+          const optionSpan = document.createElement('span');
+          optionSpan.innerHTML = `${modifiedText1} ${modifiedText2}`;
+
+          bundleLabel.appendChild(optionSpan);
+          wrapChildrenWithStoreContext(bundleLabel, {
+            productId: bundleId,
+            devices: bundleDevices,
+            subscription: bundleSubscription,
+            ignoreEventsParent: true,
+            storeEvent: 'all',
+          });
+
+          loaderWrapper.append(bundleInput, bundleLabel);
+          bundleBox.appendChild(loaderWrapper);
 
           billedUL.before(bundleBox);
           billedUL.remove();

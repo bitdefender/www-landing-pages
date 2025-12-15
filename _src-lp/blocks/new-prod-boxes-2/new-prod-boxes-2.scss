@@ -1021,6 +1021,13 @@ margin: 20px 0 0 5px;
     justify-content: center;
 }
 
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box:empty {    
+    @media (width <= 768px) {
+        padding: 0;
+        border-top: none;
+    }
+}
+
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box > div {
     display: flex;
     align-items: center;

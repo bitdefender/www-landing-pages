@@ -309,7 +309,6 @@ export async function loadLazy(doc) {
   //   });
 
   await sendAnalyticsErrorEvent();
-  sendAnalyticsPageLoadedEvent();
 
   window.sentryOnLoad = () => {
     /* eslint-disable-next-line no-undef */
@@ -1271,6 +1270,8 @@ async function loadPage() {
   registerActionNodes(main);
   registerRenderNodes(main);
   await storeRoot.updateComplete;
+
+  sendAnalyticsPageLoadedEvent();
 
   // TODO: remove new-store class once the store is used corretcly in the entire project
   const awaitLoaderElements = document.querySelectorAll('.await-loader.new-store');
