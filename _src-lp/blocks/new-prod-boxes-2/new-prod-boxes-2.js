@@ -267,25 +267,27 @@ export default function decorate(block) {
       }
 
       // if we have a bundle
+      const billedUL = billed.querySelector('ul');
       if (billed.innerText.includes('[bundle_box]')) {
         // add bundle
         const boxBundle = bundlesArray[key];
-        const billedUL = billed.querySelector('ul');
 
         if (!boxBundle || boxBundle === 'null') {
           const emptyBundleBox = document.createElement('div');
           emptyBundleBox.classList.add('bundle_box');
-          billedUL.parentElement.appendChild(emptyBundleBox);
-          billedUL.remove();
+          billedUL?.parentElement.appendChild(emptyBundleBox);
+          billedUL?.remove();
         } else {
           const [bundleId, bundleDevices, bundleSubscription] = boxBundle.split('/').map((entry) => entry.trim());
           /* eslint-disable-next-line no-unused-vars */
-          const [_, text1, text2, bundleInfo] = billedUL.querySelectorAll('li');
-          const modifiedText1 = text1.innerHTML
-            .replace('0', '<span data-store-render data-store-price="discounted||full"></span>');
-          const modifiedText2 = text2.innerHTML
-            .replace('0', '<span data-store-hide="!it.option.price.discounted" data-store-price="full"></span>')
-            .replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>');
+          const [_, text1, text2, bundleInfo] = billedUL?.querySelectorAll('li') || [];
+          const modifiedText1 = text1?.innerHTML
+            ?.replace('0', '<span data-store-render data-store-price="discounted||full"></span>')
+            || '';
+          const modifiedText2 = text2?.innerHTML
+            ?.replace('0', '<span data-store-hide="!it.option.price.discounted" data-store-price="full"></span>')
+            ?.replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
+            || '';
           if (bundleInfo) {
             const bundleInfoText = bundleInfo.innerText;
             if (bundleInfoText.trim()) {
@@ -336,6 +338,8 @@ export default function decorate(block) {
           billedUL.before(bundleBox);
           billedUL.remove();
         }
+      } else {
+        billedUL.classList.add('bundle_box');
       }
 
       const featuresSet = benefitsLists.querySelectorAll('table');
