@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { updateProductsList, matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+import { matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
@@ -146,8 +146,6 @@ export default function decorate(block) {
   const bundlesArray = bundles.split(',').map((entry) => entry.trim());
 
   if (productsAsList.length) {
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
     const defaultContentWrapperElements = parentSection.querySelector('.default-content-wrapper')?.children;
     let individualSwitchText;
     let familySwitchText;
@@ -274,7 +272,7 @@ export default function decorate(block) {
         const boxBundle = bundlesArray[key];
         const billedUL = billed.querySelector('ul');
 
-        if (boxBundle === 'null') {
+        if (!boxBundle || boxBundle === 'null') {
           const emptyBundleBox = document.createElement('div');
           emptyBundleBox.classList.add('bundle_box');
           billedUL.parentElement.appendChild(emptyBundleBox);
@@ -329,7 +327,7 @@ export default function decorate(block) {
             devices: bundleDevices,
             subscription: bundleSubscription,
             ignoreEventsParent: true,
-            storeEvent: 'all',
+            storeEvent: 'info',
           });
 
           loaderWrapper.append(bundleInput, bundleLabel);
@@ -584,7 +582,7 @@ export default function decorate(block) {
         devices: prodUsers,
         subscription: prodYears,
         ignoreEventsParent: true,
-        storeEvent: 'info',
+        storeEvent: newCard.classList.contains('family-box') ? '' : 'info',
       });
 
       block.appendChild(newCard);

@@ -396,7 +396,7 @@ export function formatPrice(price, currency) {
 }
 
 // get max discount
-function maxDiscount() {
+export function maxDiscount() {
   const selectors = ['.prod-percent', '.percent', '[class^="percent-"]'];
   const discountAmounts = [];
 

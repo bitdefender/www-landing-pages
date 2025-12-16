@@ -42,6 +42,7 @@ import {
   formatPrice,
   getInstance,
   setTrialLinks,
+  maxDiscount,
 } from './utils.js';
 import store from './store.js';
 
@@ -1256,7 +1257,7 @@ async function loadPage() {
    */
   const storeRoot = document.createElement('bd-root');
   storeRoot.dataLayer = ({ option, event }) => {
-    AdobeDataLayerService.push(new ProductLoadedEvent(option, event));
+    AdobeDataLayerService.push(new ProductLoadedEvent(option, event, 'campaign product'));
   };
   document.body.replaceChild(storeRoot, main);
   storeRoot.appendChild(main);
@@ -1285,6 +1286,11 @@ async function loadPage() {
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
   if (!isPageNotInDraftsFolder) {
     target.abort();
+  }
+
+  // TODO: this needs to be removed after we finish implementing the new store in all the components
+  if (document.querySelector('bd-context') && productsList.length === 0) {
+    maxDiscount();
   }
   initializeProductsPriceLogic();
 
