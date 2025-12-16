@@ -5,6 +5,7 @@ import pagePromise from './page.js';
 import { getMetadata } from './lib-franklin.js';
 import {
   GLOBAL_EVENTS, getCookie,
+  productsList,
 } from './utils.js';
 
 const page = await pagePromise;
@@ -178,7 +179,7 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
   }
 
   if (
-    (typeof StoreProducts === 'undefined')
+    (typeof StoreProducts === 'undefined' && !productsList.length)
     || (typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0)
     || getMetadata('free-product')
     || force) {
