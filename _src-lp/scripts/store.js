@@ -1,4 +1,4 @@
-import { Store } from './dist-store/src/index.js';
+import { Store } from '@repobit/dex-store';
 import pagePromise from './page.js';
 import { targetPromise } from './target.js';
 import { getMetadata } from './lib-franklin.js';

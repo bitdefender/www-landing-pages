@@ -4,7 +4,7 @@ import {
   registerActionNodes,
   registerContextNodes,
   registerRenderNodes,
-} from './dist-store-elements/src/index.js';
+} from '@repobit/dex-store-elements';
 import { targetPromise, getDefaultLanguage } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
 import pagePromise from './page.js';
