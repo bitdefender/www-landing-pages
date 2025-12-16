@@ -1017,6 +1017,7 @@
   padding: 1em 0;
   min-height: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
