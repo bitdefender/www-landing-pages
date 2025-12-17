@@ -527,6 +527,10 @@
   .c-icon-box-grid-container.affiliate .quotebox .subtitle {
     max-width: 250px;
   }
+  .c-icon-box-grid-container.smaller-text-width .quotebox .subtitle {
+    max-width: 200px;
+    margin-top: 10px;
+  }
   .c-icon-box-grid-container.grey-box .col-lg p {
     font-size: var(--body-font-size-s);
   }
