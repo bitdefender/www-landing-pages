@@ -501,7 +501,7 @@
 
   .c-icon-box-grid-container .subtitle {
     font-size: var(--body-font-size-xs);
-    line-height: var(--body-font-size-m);
+    line-height: var(--body-font-size-s);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -546,6 +546,11 @@
 
   .c-icon-box-grid-container.affiliate .quotebox .subtitle {
     max-width: 250px;
+  }
+
+  .c-icon-box-grid-container.smaller-text-width .quotebox .subtitle {
+    max-width: 200px;
+    margin-top: 10px;
   }
 
   .c-icon-box-grid-container.grey-box .col-lg p {
