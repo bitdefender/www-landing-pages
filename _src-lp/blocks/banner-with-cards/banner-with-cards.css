@@ -622,11 +622,14 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 
 .section.banner-with-cards-container .imgBox {
   position: relative;
+  align-self: stretch;
+  text-align: right;
 }
 
-.section.banner-with-cards-container .imgBox p .icon {
+.section.banner-with-cards-container .imgBox p .icon, .section.banner-with-cards-container .imgBox .icon, .section.banner-with-cards-container .imgBox img {
   width: 100%;
   height: auto;
+  max-width: 350px;
 }
 
 .section.banner-with-cards-container .imgBox table tr {
@@ -694,6 +697,7 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 
 .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox p {
   text-align: left;
+  visibility: visible !important;
 }
 
 .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .prodBox h3 {
