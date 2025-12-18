@@ -437,6 +437,7 @@
 }
 
 .section.banner-container.partnerportale .banner table tr td:first-of-type img {
+  min-width: 83px;
   width: 255px;
 }
 
@@ -1176,6 +1177,7 @@
 
 .section.banner-container.they-wear-our-faces {
   font-family: "IBM Plex Sans", sans-serif;
+  overflow: hidden;
 
   .banner {
     padding: 0 0 1rem !important;
@@ -1280,11 +1282,11 @@
             }
           }
 
-          p:nth-child(1) {
+          p {
             order: 2;
           }
 
-          p:nth-child(2) {
+          p:has(.icon) {
             order: 1;
           }
 
@@ -1298,7 +1300,8 @@
         height: 100%;
 
         &::before {
-          bottom: -10%;
+          height: 170%;
+          bottom: -50%;
         }
       }
 
@@ -1311,9 +1314,8 @@
 
   @media (width >= 1200px) {
     .banner {
-      height: 480px;
-      max-height: 480px;
-
+      min-height: 480px;
+      align-content: center;
       .content-column {
         margin: 0;
 
@@ -1334,7 +1336,7 @@
       }
 
       div {
-        height: 100%;
+        min-height: 100%;
       }
 
       picture img {
