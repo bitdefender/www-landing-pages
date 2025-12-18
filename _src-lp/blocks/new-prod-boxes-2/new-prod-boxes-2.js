@@ -339,7 +339,7 @@ export default function decorate(block) {
           billedUL.remove();
         }
       } else {
-        billedUL.classList.add('bundle_box');
+        billedUL?.classList?.add('bundle_box');
       }
 
       const featuresSet = benefitsLists.querySelectorAll('table');
