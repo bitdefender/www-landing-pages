@@ -1200,6 +1200,10 @@
     margin: 0;
     text-align: left;
     font-size: 18px;
+    order: 2;
+  }
+  .section.banner-container.they-wear-our-faces .banner .content-column > div p:has(.icon) {
+    order: 1;
   }
   .section.banner-container.they-wear-our-faces .banner .content-column > div p:has(.icon) .icon {
     max-width: 210px;
@@ -1209,12 +1213,6 @@
   }
   .section.banner-container.they-wear-our-faces .banner .content-column > div p.button-container a {
     padding: 16px 24px;
-  }
-  .section.banner-container.they-wear-our-faces .banner .content-column > div p {
-    order: 2;
-  }
-  .section.banner-container.they-wear-our-faces .banner .content-column > div p:has(.icon) {
-    order: 1;
   }
   .section.banner-container.they-wear-our-faces .banner .content-column > div p:nth-child(3) {
     order: 3;

@@ -1266,8 +1266,11 @@
             margin: 0;
             text-align: left;
             font-size: 18px;
+            order: 2;
 
             &:has(.icon) {
+              order: 1;
+
               .icon {
                 max-width: 210px;
               }
@@ -1280,14 +1283,6 @@
                 padding: 16px 24px;
               }
             }
-          }
-
-          p {
-            order: 2;
-          }
-
-          p:has(.icon) {
-            order: 1;
           }
 
           p:nth-child(3) {
@@ -1316,6 +1311,7 @@
     .banner {
       min-height: 480px;
       align-content: center;
+
       .content-column {
         margin: 0;
 
