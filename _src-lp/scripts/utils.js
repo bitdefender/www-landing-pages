@@ -414,30 +414,32 @@ export function maxDiscount() {
   });
 
   const maxDiscountValue = Math.max(...discountAmounts);
-  if (!maxDiscountValue) return;
-
-  const discountText = `${maxDiscountValue}%`;
-  document.querySelectorAll('.max-discount-content .block, .max-discount-content .default-content-wrapper').forEach((link) => {
-    link.innerHTML = link.innerHTML.replace(/0%/g, discountText);
-  });
-
-  const maxDiscountElements = document.querySelectorAll('.max-discount');
-  if (maxDiscountElements.length && maxDiscountValue) {
-    maxDiscountElements.forEach((item) => {
-      item.textContent = discountText;
-
-      const closestEm = item.closest('em');
-      if (closestEm) closestEm.style.display = 'inline-block';
-
-      const closestDiv = item.closest('div');
-      if (closestDiv) closestDiv.style.visibility = 'visible';
-    });
+  if (!maxDiscountValue) {
+    document.querySelectorAll('.max-discount')?.forEach((el) => el.closest('table').style.display = 'none');
   } else {
-    // Remove surrounding element if no discounts found
-    maxDiscountElements.forEach((item) => {
-      const closestEm = item.closest('em');
-      if (closestEm) closestEm.remove();
+    const discountText = `${maxDiscountValue}%`;
+    document.querySelectorAll('.max-discount-content .block, .max-discount-content .default-content-wrapper').forEach((link) => {
+      link.innerHTML = link.innerHTML.replace(/0%/g, discountText);
     });
+
+    const maxDiscountElements = document.querySelectorAll('.max-discount');
+    if (maxDiscountElements.length && maxDiscountValue) {
+      maxDiscountElements.forEach((item) => {
+        item.textContent = discountText;
+
+        const closestEm = item.closest('em');
+        if (closestEm) closestEm.style.display = 'inline-block';
+
+        const closestDiv = item.closest('div');
+        if (closestDiv) closestDiv.style.visibility = 'visible';
+      });
+    } else {
+      // Remove surrounding element if no discounts found
+      maxDiscountElements.forEach((item) => {
+        const closestEm = item.closest('em') || item.closest('table');
+        if (closestEm) closestEm.remove();
+      });
+    }
   }
 }
 
