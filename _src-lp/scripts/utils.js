@@ -415,7 +415,9 @@ export function maxDiscount() {
 
   const maxDiscountValue = Math.max(...discountAmounts);
   if (!maxDiscountValue) {
-    document.querySelectorAll('.max-discount')?.forEach((el) => el.closest('table').style.display = 'none');
+    document.querySelectorAll('.max-discount')?.forEach((el) => {
+      el.closest('table').style.display = 'none';
+    });
   } else {
     const discountText = `${maxDiscountValue}%`;
     document.querySelectorAll('.max-discount-content .block, .max-discount-content .default-content-wrapper').forEach((link) => {
