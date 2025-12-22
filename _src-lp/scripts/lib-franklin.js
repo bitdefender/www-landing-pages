@@ -562,7 +562,8 @@ export function decorateButtons(element) {
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
-      if (!a.querySelector('img')) {
+      // make sure the button isn't already decorated
+      if (!a.querySelector('img') && !a.classList.contains('button')) {
         if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
           a.className = 'button primary'; // default
           up.classList.add('button-container');
