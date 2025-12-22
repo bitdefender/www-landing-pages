@@ -435,6 +435,7 @@
 }
 
 .section.banner-container.partnerportale .banner table tr td:first-of-type img {
+  min-width: 83px;
   width: 255px;
 }
 
@@ -1124,6 +1125,7 @@
 }
 .section.banner-container.they-wear-our-faces {
   font-family: "IBM Plex Sans", sans-serif;
+  overflow: hidden;
 }
 .section.banner-container.they-wear-our-faces .banner {
   padding: 0 0 1rem !important;
@@ -1198,6 +1200,10 @@
     margin: 0;
     text-align: left;
     font-size: 18px;
+    order: 2;
+  }
+  .section.banner-container.they-wear-our-faces .banner .content-column > div p:has(.icon) {
+    order: 1;
   }
   .section.banner-container.they-wear-our-faces .banner .content-column > div p:has(.icon) .icon {
     max-width: 210px;
@@ -1208,12 +1214,6 @@
   .section.banner-container.they-wear-our-faces .banner .content-column > div p.button-container a {
     padding: 16px 24px;
   }
-  .section.banner-container.they-wear-our-faces .banner .content-column > div p:nth-child(1) {
-    order: 2;
-  }
-  .section.banner-container.they-wear-our-faces .banner .content-column > div p:nth-child(2) {
-    order: 1;
-  }
   .section.banner-container.they-wear-our-faces .banner .content-column > div p:nth-child(3) {
     order: 3;
   }
@@ -1221,7 +1221,8 @@
     height: 100%;
   }
   .section.banner-container.they-wear-our-faces .banner .img-right > div::before {
-    bottom: -10%;
+    height: 170%;
+    bottom: -50%;
   }
   .section.banner-container.they-wear-our-faces .banner .icon-play-button {
     width: 96px;
@@ -1230,8 +1231,8 @@
 }
 @media (width >= 1200px) {
   .section.banner-container.they-wear-our-faces .banner {
-    height: 480px;
-    max-height: 480px;
+    min-height: 480px;
+    align-content: center;
   }
   .section.banner-container.they-wear-our-faces .banner .content-column {
     margin: 0;
@@ -1247,7 +1248,7 @@
     max-width: 310px;
   }
   .section.banner-container.they-wear-our-faces .banner div {
-    height: 100%;
+    min-height: 100%;
   }
   .section.banner-container.they-wear-our-faces .banner picture img {
     position: relative;

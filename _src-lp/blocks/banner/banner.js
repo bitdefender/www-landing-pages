@@ -441,7 +441,7 @@ export default function decorate(block) {
         </div>`;
 
     if (contentSize === 'they-wear-our-faces') {
-      pictureEl.querySelector('.icon.icon-play-button')?.closest('a')?.classList.add('button', 'button--modal');
+      block.querySelector('.icon.icon-play-button')?.closest('a')?.classList.add('button', 'button--modal');
       imageComponent = `
         <div class="col-6 col-xl-5 d-none d-sm-none d-md-flex d-lg-block img-right bck-img">
             ${pictureEl.innerHTML}
