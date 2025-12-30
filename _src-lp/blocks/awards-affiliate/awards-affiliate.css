@@ -96,6 +96,9 @@
   margin-top: 5px;
   text-align: center;
 }
+.awards-affiliate.black-heading .columns-class > div {
+  flex: 1;
+}
 .awards-affiliate.black-heading div {
   font-size: 16px;
 }

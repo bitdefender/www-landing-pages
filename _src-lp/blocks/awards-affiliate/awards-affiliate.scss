@@ -96,6 +96,10 @@
   .columns-class {
     margin-top: 5px;
     text-align: center;
+    
+    > div {
+      flex: 1;
+    }
   }
 
   div {
