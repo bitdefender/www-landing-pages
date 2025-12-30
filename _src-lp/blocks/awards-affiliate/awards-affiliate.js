@@ -12,10 +12,12 @@ export default function decorate(block) {
 
     const buybtn = document.createElement('div');
     buybtn.style.width = '100%';
-    if (buttonLink) {
-      buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}">${buttonText}</a>`;
-    } else {
-      buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">${buttonText}</a>`;
+    if (buttonText) {
+      if (buttonLink) {
+        buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}">${buttonText}</a>`;
+      } else {
+        buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">${buttonText}</a>`;
+      }
     }
 
     columns?.classList.add('columns-class');
@@ -24,7 +26,11 @@ export default function decorate(block) {
     columnSubtitle?.classList.add('columns-subtitle');
     if (iconSubtitle?.innerText.trim()) iconSubtitle.classList.add('icon-subtitle');
     columns?.insertAdjacentElement('afterend', buybtn);
+    if (!columns?.innerText?.trim()) {
+      columns.remove();
+    }
   }
 
   matchHeights(block, 'h4');
+  matchHeights(block, '.columns-class img');
 }
