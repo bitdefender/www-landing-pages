@@ -206,6 +206,9 @@
   .awards-affiliate-container.they-wear-our-faces .awards-affiliate .columns-title img {
     max-width: 40px;
   }
+  .awards-affiliate-container.they-wear-our-faces .awards-affiliate .columns-class > div {
+    min-width: 100%;
+  }
   .awards-affiliate-container.they-wear-our-faces:has(.awards-affiliate.black-heading) {
     padding: 0;
   }

@@ -188,11 +188,11 @@
     }
   }
 
-  h3,h4 {
+  h3, h4 {
     font-family: "IBM Plex Sans", sans-serif;
   }
 
-  .columns-title>div picture {
+  .columns-title > div picture {
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -233,6 +233,10 @@
 
       .columns-title img {
         max-width: 40px;
+      }
+
+      .columns-class > div {
+        min-width: 100%;
       }
     }
 
