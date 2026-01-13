@@ -1,5 +1,7 @@
 import { decorateButtons, decorateIcons } from '../../scripts/lib-franklin.js';
-import { detectModalButtons, productAliases, isView } from '../../scripts/scripts.js';
+import {
+  detectModalButtons, productAliases, isView, getParam,
+} from '../../scripts/scripts.js';
 import { updateProductsList } from '../../scripts/utils.js';
 
 // Helper function to get image source safely
@@ -51,7 +53,7 @@ export default function decorate(block) {
   const {
     product, products, animatedText, contentSize, backgroundColor, backgroundColorGradient, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, corners, textNextToPill, isCampaign,
+    marginBottom, imageCover, corners, textNextToPill, isCampaign, redirectCampaign,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
   const hasContentEl = !!contentEl?.textContent?.trim();
@@ -504,6 +506,20 @@ export default function decorate(block) {
   if (block.querySelector('.divider .container-fluid ul li a')) {
     block.querySelectorAll('.divider .container-fluid ul li a').forEach((link) => {
       link.target = '_blank';
+    });
+  }
+
+  if (redirectCampaign) {
+    const campaign = getParam('vcampaign');
+    if (campaign) localStorage.setItem('campaign', campaign);
+    const buttons = block.querySelectorAll('a');
+    buttons.forEach((button) => {
+      const url = new URL(button.href);
+      const cachedCampaign = localStorage.getItem('campaign');
+      if (url.searchParams.has('vcampaign') && cachedCampaign) {
+        url.searchParams.set('vcampaign', cachedCampaign);
+        button.href = url.toString();
+      }
     });
   }
 
