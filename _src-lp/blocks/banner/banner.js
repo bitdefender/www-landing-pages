@@ -511,18 +511,16 @@ export default function decorate(block) {
 
   if (redirectCampaign) {
     const campaign = getParam('vcampaign');
-    if (campaign) {
-      localStorage.setItem('campaign', campaign);
-      const buttons = block.querySelectorAll('a');
-      buttons.forEach((button) => {
-        const url = new URL(button.href);
-        const cachedCampaign = localStorage.getItem('campaign');
-        if (url.searchParams.has('vcampaign')) {
-          url.searchParams.set('vcampaign', cachedCampaign);
-          button.href = url.toString();
-        }
-      });
-    }
+    localStorage.setItem('campaign', campaign);
+    const buttons = block.querySelectorAll('a');
+    buttons.forEach((button) => {
+      const url = new URL(button.href);
+      const cachedCampaign = localStorage.getItem('campaign');
+      if (url.searchParams.has('vcampaign')) {
+        url.searchParams.set('vcampaign', cachedCampaign);
+        button.href = url.toString();
+      }
+    });
   }
 
   detectModalButtons(block);
