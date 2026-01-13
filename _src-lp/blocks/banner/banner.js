@@ -511,7 +511,7 @@ export default function decorate(block) {
 
   if (redirectCampaign) {
     const campaign = getParam('vcampaign');
-    localStorage.setItem('campaign', campaign);
+    if (campaign) localStorage.setItem('campaign', campaign);
     const buttons = block.querySelectorAll('a');
     buttons.forEach((button) => {
       const url = new URL(button.href);
