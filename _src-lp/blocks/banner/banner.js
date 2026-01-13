@@ -516,7 +516,7 @@ export default function decorate(block) {
     buttons.forEach((button) => {
       const url = new URL(button.href);
       const cachedCampaign = localStorage.getItem('campaign');
-      if (url.searchParams.has('vcampaign')) {
+      if (url.searchParams.has('vcampaign') && cachedCampaign) {
         url.searchParams.set('vcampaign', cachedCampaign);
         button.href = url.toString();
       }
