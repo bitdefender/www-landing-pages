@@ -543,29 +543,7 @@
 }
 
 .section.banner-with-dropdown-container .pricesBox {
-  display: none !important;
-}
-
-.section.banner-with-dropdown-container .pricesBox.prodload {
-  display: none !important;
-}
-
-.section.banner-with-dropdown-container .pricesBox.prodload[style*="display: block"],
-.section.banner-with-dropdown-container .pricesBox[style*="display: block"] {
-  display: block !important;
-}
-
-.section.banner-with-dropdown-container .featuresBox {
-  display: none !important;
-}
-
-.section.banner-with-dropdown-container .featuresBox.prodload {
-  display: none !important;
-}
-
-.section.banner-with-dropdown-container .featuresBox.prodload[style*="display: block"],
-.section.banner-with-dropdown-container .featuresBox[style*="display: block"] {
-  display: block !important;
+  display: none;
 }
 
 .section.banner-with-dropdown-container .pricesBox:nth-of-type(2) {
