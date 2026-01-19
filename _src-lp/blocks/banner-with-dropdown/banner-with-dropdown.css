@@ -514,6 +514,12 @@
   border-radius: 0 10px 10px;
   color: rgb(0, 110, 255);
   font-weight: bold;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' stroke='%23000000' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px 10px;
+  padding-right: 45px;
 }
 
 .section.banner-with-dropdown-container.new-2025 #prodSel select.productSelector {
@@ -521,6 +527,12 @@
   border-color: #006DFF;
   color: #161616;
   padding: 15px 22px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' stroke='%23000000' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 16px 10px;
+  padding-right: 50px;
 }
 
 .section.banner-with-dropdown-container.new-2025 .pricesBox .buy_box {
@@ -553,7 +565,7 @@
 /* Features list styling */
 .section.banner-with-dropdown-container .features-title {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 16px;
   margin-top: 0;
   color: #161616;

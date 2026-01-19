@@ -238,18 +238,16 @@ export default function decorate(block) {
 
           pricesBox.className = `pricesBox prices_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} await-loader prodload prodload-${onSelectorClass}`;
           pricesBox.innerHTML += `<div class="d-flex">
-            <p>
             <div>
               <div class="d-flex">
                 <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
                 <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
               </div>
-              </p>
               <div class="d-flex">
                 ${isTrial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
-                
                 <p class="variation">${prices.innerHTML}</p>
               </div>
+            </div>
           </div>`;
 
           pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
