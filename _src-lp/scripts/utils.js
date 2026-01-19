@@ -123,6 +123,8 @@ const VALICU_PRODS = {
   vsbm: 'com.bitdefender.vsb',
   sc: 'com.bitdefender.ccp',
   scm: 'com.bitdefender.ccp',
+  idtheftp: 'com.bitdefender.idtheftpremium',
+  idthefts: 'com.bitdefender.idtheftstandard',
 };
 
 /**
