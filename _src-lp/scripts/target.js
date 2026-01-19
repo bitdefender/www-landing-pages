@@ -58,7 +58,7 @@ const createTarget = async () => {
     ),
   });
 
-  window.BD.state.target = target;
+  window.target = target;
   return target;
 };
 
