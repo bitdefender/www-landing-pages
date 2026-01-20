@@ -1,6 +1,9 @@
 .c-icon-box-grid-container {
   margin-bottom: 2em;
 }
+.c-icon-box-grid-container[data-layout=featured-left] {
+  margin-bottom: 0;
+}
 .c-icon-box-grid-container[data-layout=featured-left] .row {
   margin-left: 0;
   margin-right: 0;
