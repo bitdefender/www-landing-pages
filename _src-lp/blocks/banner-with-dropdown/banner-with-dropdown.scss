@@ -564,7 +564,10 @@
   display: block;
 }
 
-/* Features list styling */
+.section.banner-with-dropdown-container .featuresBox {
+  margin-bottom: 20px;
+}
+
 .section.banner-with-dropdown-container .features-title {
   font-size: 16px;
   font-weight: 500;
