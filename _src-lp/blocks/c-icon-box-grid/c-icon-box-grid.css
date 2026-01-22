@@ -2,7 +2,7 @@
   margin-bottom: 2em;
 }
 .c-icon-box-grid-container[data-layout=featured-left] {
-  margin-bottom: 0;
+  margin-bottom: -15px;
 }
 .c-icon-box-grid-container[data-layout=featured-left] .row {
   margin-left: 0;
@@ -29,6 +29,9 @@
 }
 .c-icon-box-grid-container[data-layout=featured-left] .col-lg-4 .quotebox img {
   border-radius: 15px;
+}
+.c-icon-box-grid-container[data-layout=featured-left] .button-container {
+  margin: 0;
 }
 
 .c-icon-box-grid-container .title {

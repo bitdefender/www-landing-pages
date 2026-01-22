@@ -552,6 +552,8 @@
 .section.banner-with-dropdown-container.new-2025 .pricesBox .buy_box a:nth-of-type(2) {
   background-color: #fff;
   color: #006DFF;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .section.banner-with-dropdown-container .pricesBox {
