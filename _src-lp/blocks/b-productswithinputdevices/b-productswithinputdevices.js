@@ -135,9 +135,9 @@ export default function decorate(block) {
 
     const emElements = tableEl?.querySelectorAll('em');
     const deviceValues = [30, 150, 150];
-    // Disable linting for 'one-var' rule for the next line
-    /* eslint-disable-next-line one-var */
-    let tableElServers, tableElMailboxes, tableElMailboxes2;
+    let tableElServers;
+    let tableElMailboxes;
+    let tableElMailboxes2;
 
     if (emElements) {
       tableElServers = emElements[0];
