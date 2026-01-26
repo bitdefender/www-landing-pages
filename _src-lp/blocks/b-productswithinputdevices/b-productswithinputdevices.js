@@ -133,9 +133,12 @@ export default function decorate(block) {
     const devicesInput = block.querySelector('#devicesInput');
     const prodiId = productAliases(productsAsList[0].split('/')[0]);
 
-    let emElements = tableEl?.querySelectorAll('em');
-    let deviceValues = [30, 150, 150];
+    const emElements = tableEl?.querySelectorAll('em');
+    const deviceValues = [30, 150, 150];
+    // Disable linting for 'one-var' rule for the next line
+    /* eslint-disable-next-line one-var */
     let tableElServers, tableElMailboxes, tableElMailboxes2;
+
     if (emElements) {
       tableElServers = emElements[0];
       tableElMailboxes = emElements[1];
