@@ -130,18 +130,22 @@ export default function decorate(block) {
     const tableEl = parent1ndDiv.querySelector('table');
     tableEl?.before(inputFieldset);
 
-    // add event listeners
     const devicesInput = block.querySelector('#devicesInput');
     const prodiId = productAliases(productsAsList[0].split('/')[0]);
 
-    const tableElServers = tableEl?.querySelector('strong:nth-child(1) em') || tableEl?.querySelector('em:nth-child(1)');
-    updateTableElement(tableElServers, devicesSelected, 30);
+    let emElements = tableEl?.querySelectorAll('em');
+    let deviceValues = [30, 150, 150];
+    let tableElServers, tableElMailboxes, tableElMailboxes2;
+    if (emElements) {
+      tableElServers = emElements[0];
+      tableElMailboxes = emElements[1];
+      tableElMailboxes2 = emElements[2];
 
-    const tableElMailboxes = tableEl?.querySelector('strong:nth-child(2) em') || tableEl?.querySelector('em:nth-child(2)');
-    updateTableElement(tableElMailboxes, devicesSelected, 150);
-
-    const tableElMailboxes2 = tableEl?.querySelector('strong:nth-child(3) em') || tableEl?.querySelector('em:nth-child(3)');
-    updateTableElement(tableElMailboxes2, devicesSelected, 150);
+      // Update the elements
+      updateTableElement(tableElServers, devicesSelected, deviceValues[0]);
+      updateTableElement(tableElMailboxes, devicesSelected, deviceValues[1]);
+      updateTableElement(tableElMailboxes2, devicesSelected, deviceValues[2]);
+    }
 
     // click on buttons
     block.querySelectorAll('fieldset button').forEach((item) => {
