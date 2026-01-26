@@ -52,6 +52,8 @@ export default class ProductPrice {
     vsbm: "com.bitdefender.vsb",
     sc: "com.bitdefender.ccp",
     scm: "com.bitdefender.ccp",
+    idtheftp: 'com.bitdefender.idtheftpremium',
+    idthefts: 'com.bitdefender.idtheftstandard',
   }
 
   #locale;

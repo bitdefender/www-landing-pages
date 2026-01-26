@@ -182,6 +182,7 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
     (typeof StoreProducts === 'undefined' && !productsList.length)
     || (typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0)
     || getMetadata('free-product')
+    || (getMetadata('trialbuylinks') && !getMetadata('allowdatatracking'))
     || force) {
     await target.sendCdpData();
     AdobeDataLayerService.push(new PageLoadedEvent());
