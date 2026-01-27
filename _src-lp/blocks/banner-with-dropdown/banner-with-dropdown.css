@@ -478,9 +478,30 @@
   cursor: pointer;
 }
 
+.section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label {
+  border-radius: 12px;
+  border: 1px solid #DBDBDB;
+  background: #FFF;
+  padding: 10px 20px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected {
+  border: 1px solid #B5E5FF;
+  background: #F1F5F9;
+}
+
 .section.banner-with-dropdown-container #prodSel.prodsel-radio .productSelector {
   display: flex;
   flex-direction: column;
+}
+
+.section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio .productSelector {
+  flex-direction: row;
+  gap: 12px;
 }
 
 .section.banner-with-dropdown-container #prodSel.prodsel-radio label input {
@@ -735,6 +756,8 @@
   }
   .section.banner-with-dropdown-container.new-2024.v2 .banner-with-dropdown ul {
     text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
   }
   .section.banner-with-dropdown-container.dropdown.v2 .banner-with-dropdown ul {
     text-align: left;
@@ -751,6 +774,9 @@
   }
   .section.banner-with-dropdown-container.dropdown.v2 .banner-with-dropdown ul li {
     font-size: 14px;
+  }
+  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio .productSelector {
+    justify-content: center;
   }
   .section.banner-with-dropdown-container.dropdown.v2 .banner-with-dropdown .prices_box {
     text-align: left;
@@ -872,6 +898,11 @@
   .section.banner-with-dropdown-container .animated_box {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+  }
+}
+@media screen and (width <= 450px) {
+  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio .productSelector {
+    flex-direction: column;
   }
 }
 @media screen and (width <= 991px) {
