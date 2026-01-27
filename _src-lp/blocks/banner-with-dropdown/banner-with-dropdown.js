@@ -9,7 +9,7 @@ export default function decorate(block) {
   const {
     product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, corners, textNextToPill, type, bestValue,
+    marginBottom, imageCover, corners, textNextToPill, type, skipTrial, bestValue,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -111,7 +111,7 @@ export default function decorate(block) {
             containerDiv.classList.add('prodsel-radio');
             const optionsText = prodstext.querySelectorAll('li');
             productSelector.innerHTML += `
-              <label class="prodsel-radio-label" value="${onSelectorClass}">
+              <label class="prodsel-radio-label${i === 0 ? ' selected' : ''}" value="${onSelectorClass}">
                 <input type="radio" name="productSelector" value="${onSelectorClass}" ${i === 0 ? 'checked' : ''}>
                 <span>${optionsText[i].innerHTML}</span>
               </label>
@@ -130,7 +130,7 @@ export default function decorate(block) {
               </div>
               </p>
               <div class="d-flex">
-                ${isTrial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
+                ${!skipTrial && isTrial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
                 
                 <p class="variation">${prices.innerHTML}</p>
               </div>
@@ -319,7 +319,7 @@ export default function decorate(block) {
     if (contentSize === 'full') {
       defaultSize = 'col-sm-12 col-md-12 col-lg-12';
     } else if (contentSize === 'larger') {
-      defaultSize = 'col-sm-7 col-md-7 col-lg-7';
+      defaultSize = 'col-sm-8 col-md-7 col-lg-7';
     } else if (contentSize === 'half') {
       defaultSize = 'col-sm-6 col-md-6 col-lg-6';
     }
@@ -436,7 +436,7 @@ export default function decorate(block) {
 
   const productSelector = block.querySelector('.productSelector');
   if (productSelector) {
-    const showProduct = (value) => {
+    const showProduct = (value, label = undefined) => {
       block.querySelectorAll('.pricesBox').forEach((box) => {
         box.style.display = 'none';
       });
@@ -450,8 +450,18 @@ export default function decorate(block) {
         firstInput.checked = true;
         firstInput.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      productSelector.querySelectorAll('label.prodsel-radio-label').forEach((label) => {
-        label.addEventListener('click', () => showProduct(label.getAttribute('value')));
+      productSelector.querySelectorAll('label.prodsel-radio-label').forEach(label => {
+        label.addEventListener('click', function () {
+          // remove 'selected' from all labels
+          productSelector
+            .querySelectorAll('label.prodsel-radio-label')
+            .forEach(l => l.classList.remove('selected'));
+
+          // add 'selected' to the clicked one
+          this.classList.add('selected');
+
+          showProduct(this.getAttribute('value'));
+        });
       });
     } else {
       productSelector.addEventListener('change', () => {
