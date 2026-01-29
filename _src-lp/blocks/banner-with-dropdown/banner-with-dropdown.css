@@ -541,7 +541,7 @@
   display: none;
 }
 
-.section.banner-with-dropdown-container .pricesBox:nth-of-type(2) {
+.section.banner-with-dropdown-container .pricesBox.active {
   display: block;
 }
 

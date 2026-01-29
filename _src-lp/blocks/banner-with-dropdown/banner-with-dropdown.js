@@ -120,7 +120,7 @@ export default function decorate(block) {
             productSelector.innerHTML += `<option value="${onSelectorClass}">${productAliasesNames(prodName)}</option>`;
           }
 
-          pricesBox.className = `pricesBox prices_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} await-loader prodload prodload-${onSelectorClass}`;
+          pricesBox.className = `pricesBox prices_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} await-loader prodload prodload-${onSelectorClass} ${i === 0 ? ' active' : ''}`;
           pricesBox.innerHTML += `<div class="d-flex">
             <p>
             <div>
@@ -436,12 +436,8 @@ export default function decorate(block) {
 
   const productSelector = block.querySelector('.productSelector');
   if (productSelector) {
-    const showProduct = (value, label = undefined) => {
-      block.querySelectorAll('.pricesBox').forEach((box) => {
-        box.style.display = 'none';
-      });
-      const productBox = block.querySelector(`.prodload-${value}`);
-      if (productBox) productBox.style.display = 'block';
+    const showProduct = () => {
+      block.querySelectorAll('.pricesBox').forEach((box) => box.classList.toggle('active'));
     };
 
     if (productSelector.querySelector('label.prodsel-radio-label')) {
@@ -450,19 +446,26 @@ export default function decorate(block) {
         firstInput.checked = true;
         firstInput.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      productSelector.querySelectorAll('label.prodsel-radio-label').forEach(label => {
-        label.addEventListener('click', function () {
-          // remove 'selected' from all labels
-          productSelector
-            .querySelectorAll('label.prodsel-radio-label')
-            .forEach(l => l.classList.remove('selected'));
 
-          // add 'selected' to the clicked one
+      block.addEventListener('click', function (el) {
+        if (el.target.nodeName === 'INPUT') {
+          const productSelector = el.target.closest('#productSelector');
+
+          productSelector.querySelectorAll('label.prodsel-radio-label').forEach(l => l.classList.remove('selected'));
+
+          el.target.closest('label').classList.add('selected');
+          showProduct();
+        }
+      });
+
+      /*productSelector.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.addEventListener('change', function () {
+          productSelector.querySelectorAll('label.prodsel-radio-label').forEach(l => l.classList.remove('selected'));
           this.classList.add('selected');
 
           showProduct(this.getAttribute('value'));
         });
-      });
+      });*/
     } else {
       productSelector.addEventListener('change', () => {
         showProduct(productSelector.value || productSelector.getAttribute('value'));
@@ -470,6 +473,5 @@ export default function decorate(block) {
     }
   }
 
-  block.querySelector('.pricesBox').style.display = 'block';
   detectModalButtons(block);
 }
