@@ -905,17 +905,18 @@
   }
   .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label::after {
     content: "";
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background-color: white;
     border: 3px solid #2c2d2f;
     position: absolute;
     border-radius: 100%;
-    left: 21px;
+    left: 27px;
   }
   .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::after {
     content: "";
     border: 3px solid #006DFF;
+    left: 13px;
   }
 }
 @media screen and (width <= 450px) {
