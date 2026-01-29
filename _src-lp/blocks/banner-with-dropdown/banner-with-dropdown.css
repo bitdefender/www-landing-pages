@@ -902,6 +902,12 @@
   }
   .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::after {
     content: "";
+    width: 7px;
+    height: 7px;
+    background-color: #006DFF;
+    position: absolute;
+    border-radius: 100%;
+    left: 22px;
   }
 }
 @media screen and (width <= 450px) {
