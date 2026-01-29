@@ -991,6 +991,10 @@
     border-radius: 100%;
     left: 21px;
   }
+
+  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected input {
+    visibility: hidden;
+  }
 }
 
 @media screen and (width <= 450px) {
