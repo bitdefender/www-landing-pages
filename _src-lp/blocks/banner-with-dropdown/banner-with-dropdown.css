@@ -900,18 +900,22 @@
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
-  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::after {
+  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label input {
+    visibility: hidden;
+  }
+  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label::after {
     content: "";
     width: 18px;
     height: 18px;
     background-color: white;
-    border: 3px solid #006DFF;
+    border: 3px solid #2c2d2f;
     position: absolute;
     border-radius: 100%;
     left: 21px;
   }
-  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected input {
-    visibility: hidden;
+  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::after {
+    content: "";
+    border: 3px solid #006DFF;
   }
 }
 @media screen and (width <= 450px) {
