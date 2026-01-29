@@ -494,6 +494,7 @@
 .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected {
   border: 1px solid #B5E5FF;
   background: #F1F5F9;
+  position: relative;
 }
 
 .section.banner-with-dropdown-container #prodSel.prodsel-radio .productSelector {
@@ -978,6 +979,16 @@
   .section.banner-with-dropdown-container .animated_box {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+  }
+
+  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::after {
+  content: "";
+    width: 7px;
+    height: 7px;
+    background-color: #006DFF;
+    position: absolute;
+    border-radius: 100%;
+    left: 22px;
   }
 }
 
