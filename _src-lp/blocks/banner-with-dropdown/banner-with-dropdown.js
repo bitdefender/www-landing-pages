@@ -6,10 +6,9 @@ export default function decorate(block) {
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
+  console.log(metaData)
   const {
-    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
-    underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, corners, textNextToPill, type, skipTrial, bestValue,
+    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners, textNextToPill, type, trial, bestValue,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -221,13 +220,12 @@ export default function decorate(block) {
             });
           }
 
-          const isTrial = !!type && type === 'radio-buttons';
-          if (isTrial) {
+          if (type === 'radio-buttons') {
             productSelector.setAttribute('value', onSelectorClass);
             containerDiv.classList.add('prodsel-radio');
             const optionsText = prodstext.querySelectorAll('li');
             productSelector.innerHTML += `
-              <label class="prodsel-radio-label${i === 0 ? ' selected' : ''}" value="${onSelectorClass}">
+              <label class="prodsel-radio-label" value="${onSelectorClass}">
                 <input type="radio" name="productSelector" value="${onSelectorClass}" ${i === 0 ? 'checked' : ''}>
                 <span>${optionsText[i].innerHTML}</span>
               </label>
@@ -236,7 +234,7 @@ export default function decorate(block) {
             productSelector.innerHTML += `<option value="${onSelectorClass}">${productAliasesNames(prodName)}</option>`;
           }
 
-          pricesBox.className = `pricesBox prices_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} await-loader prodload prodload-${onSelectorClass} ${i === 0 ? ' active' : ''}`;
+          pricesBox.className = `pricesBox prices_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} await-loader prodload prodload-${onSelectorClass}`;
           pricesBox.innerHTML += `<div class="d-flex">
             <div>
               <div class="d-flex">
@@ -244,8 +242,7 @@ export default function decorate(block) {
                 <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
               </div>
               <div class="d-flex">
-                ${!skipTrial && isTrial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
-                
+                ${trial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
                 <p class="variation">${prices.innerHTML}</p>
               </div>
             </div>
@@ -506,7 +503,7 @@ export default function decorate(block) {
     if (contentSize === 'full') {
       defaultSize = 'col-sm-12 col-md-12 col-lg-12';
     } else if (contentSize === 'larger') {
-      defaultSize = 'col-sm-8 col-md-7 col-lg-7';
+      defaultSize = 'col-sm-10 col-md-10 col-lg-7';
     } else if (contentSize === 'half') {
       defaultSize = 'col-sm-10 col-md-8 col-lg-6';
     }
@@ -623,36 +620,84 @@ export default function decorate(block) {
 
   const productSelector = block.querySelector('.productSelector');
   if (productSelector) {
-    const showProduct = () => {
-      block.querySelectorAll('.pricesBox').forEach((box) => box.classList.toggle('active'));
+    const showProduct = (value) => {
+      // Hide all price boxes
+      block.querySelectorAll('.pricesBox').forEach((box) => {
+        box.style.display = 'none';
+        box.classList.toggle('active')
+      });
+      // Hide all features boxes
+      block.querySelectorAll('.featuresBox').forEach((box) => box.style.display = 'none');
+
+      // Show selected price boxes (all instances)
+      const productBoxes = block.querySelectorAll(`.pricesBox.prodload-${value}`);
+      productBoxes.forEach((box) => box.style.display = 'block');
+
+      // Show selected features boxes (all instances)
+      const featuresBoxes = block.querySelectorAll(`.featuresBox.prodload-${value}`);
+      featuresBoxes.forEach((box) => box.style.display = 'block');
     };
 
-    if (productSelector.querySelector('label.prodsel-radio-label')) {
-      const firstInput = productSelector.querySelector('input[type="radio"]');
-      if (firstInput) {
-        firstInput.checked = true;
-        firstInput.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-
-      block.addEventListener('click', function (el) {
-        if (el.target.nodeName === 'INPUT') {
-          const productSelector = el.target.closest('#productSelector');
-
-          productSelector.querySelectorAll('label.prodsel-radio-label').forEach(l => l.classList.remove('selected'));
-
-          el.target.closest('label').classList.add('selected');
-          showProduct();
+    // Add event listeners to ALL productSelector instances
+    const allProductSelectors = block.querySelectorAll('.productSelector');
+    allProductSelectors.forEach((selector) => {
+      if (selector.querySelector('label.prodsel-radio-label')) {
+        const firstInput = selector.querySelector('input[type="radio"]');
+        if (firstInput) {
+          firstInput.checked = true;
+          firstInput.dispatchEvent(new Event('change', { bubbles: true }));
+          firstInput.closest('label').classList.add('selected');
         }
-      });
 
-      /*productSelector.querySelectorAll('input[type="radio"]').forEach(input => {
-        input.addEventListener('change', function () {
-          productSelector.querySelectorAll('label.prodsel-radio-label').forEach(l => l.classList.remove('selected'));
-          this.classList.add('selected');
+        selector.querySelectorAll('label.prodsel-radio-label').forEach((label) => {
+          label.addEventListener('click', () => {
+            const selectedValue = label.getAttribute('value');
 
-          showProduct(this.getAttribute('value'));
+            // Sync all other radio selectors
+            allProductSelectors.forEach((otherSelector) => {
+              if (otherSelector !== selector && otherSelector.querySelector('label.prodsel-radio-label')) {
+                const otherRadio = otherSelector.querySelector(`input[value="${selectedValue}"]`);
+                if (otherRadio) otherRadio.checked = true;
+              }
+            });
+
+            showProduct(selectedValue);
+          });
         });
-      });*/
+      } else {
+        selector.addEventListener('change', () => {
+          const selectedValue = selector.value || selector.getAttribute('value');
+
+          // Sync all other select dropdowns
+          allProductSelectors.forEach((otherSelector) => {
+            if (otherSelector !== selector && otherSelector.tagName === 'SELECT') {
+              otherSelector.value = selectedValue;
+            }
+          });
+
+          showProduct(selectedValue);
+        });
+      }
+    });
+
+    block.addEventListener('click', function (el) {
+      if (el.target.nodeName === 'INPUT') {
+        const productSelector = el.target.closest('#productSelector');
+        productSelector.querySelectorAll('label.prodsel-radio-label').forEach(l => l.classList.remove('selected'));
+
+        el.target.closest('label').classList.add('selected');
+      }
+    });
+  }
+
+  // Show first product boxes by default
+  if (productSelector) {
+    // Get the first option value from select dropdown or first radio button
+    let firstValue = null;
+
+    if (productSelector.tagName === 'SELECT') {
+      const firstOption = productSelector.options[0];
+      if (firstOption) firstValue = firstOption.value;
     } else {
       const firstRadio = productSelector.querySelector('input[type="radio"]');
       if (firstRadio) firstValue = firstRadio.value;
@@ -670,6 +715,17 @@ export default function decorate(block) {
         box.style.display = 'block';
       });
     }
+  } else {
+    // Fallback: show first boxes if no selector (all instances)
+    const firstPricesBoxes = block.querySelectorAll('.pricesBox');
+    firstPricesBoxes.forEach((box) => {
+      box.style.display = 'block';
+    });
+
+    const firstFeaturesBoxes = block.querySelectorAll('.featuresBox');
+    firstFeaturesBoxes.forEach((box) => {
+      box.style.display = 'block';
+    });
   }
 
   detectModalButtons(block);

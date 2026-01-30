@@ -476,6 +476,8 @@
   align-items: center;
   justify-self: self-start;
   cursor: pointer;
+  position: relative;
+  gap: 5px;
 }
 
 .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label {
@@ -588,6 +590,11 @@
 
 .section.banner-with-dropdown-container .featuresBox {
   margin-bottom: 20px;
+  display: none;
+}
+
+.section.banner-with-dropdown-container .featuresBox.active {
+  display: block;
 }
 
 .section.banner-with-dropdown-container .features-title {
@@ -663,6 +670,44 @@
 .section.banner-with-dropdown-container.free-trial .pricesBox .pay_after_trial span {
   display: inline-block;
   font-size: 14px;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label input {
+  visibility: hidden;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border: 2px solid #2c2d2f;
+  position: absolute;
+  border-radius: 100%;
+  left: 0;
+}
+
+.section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label::after {
+  left: 15px;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label.selected::after {
+  border: 2px solid #006DFF;
+}
+
+.section.banner-with-dropdown-container #prodSel.prodsel-radio label.selected::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  background-color: #006DFF;
+  position: absolute;
+  border-radius: 100%;
+  left: 4px;
+  z-index: 1;
+}
+
+.section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::before {
+  left: 18px;
 }
 
 @media (width >= 768px) {
@@ -985,33 +1030,6 @@
   .section.banner-with-dropdown-container .animated_box {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
-  }
-  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label input {
-    visibility: hidden;
-  }
-  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label::after {
-    content: "";
-    width: 16px;
-    height: 16px;
-    background-color: white;
-    border: 2px solid #2c2d2f;
-    position: absolute;
-    border-radius: 100%;
-    left: 27px;
-  }
-  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::after {
-    border: 2px solid #006DFF;
-    left: 14px;
-  }
-  .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background-color: #006DFF;
-    position: absolute;
-    border-radius: 100%;
-    left: 18px;
-    z-index: 1;
   }
 }
 @media screen and (width <= 450px) {
