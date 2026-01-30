@@ -510,6 +510,7 @@
 .section.banner-with-dropdown-container #prodSel.prodsel-radio label input {
   width: 12px;
   margin: 0 8px 0 0;
+  visibility: hidden;
 }
 
 .section.banner-with-dropdown-container #prodSel.prodsel-radio label em {
@@ -670,10 +671,6 @@
 .section.banner-with-dropdown-container.free-trial .pricesBox .pay_after_trial span {
   display: inline-block;
   font-size: 14px;
-}
-
-.section.banner-with-dropdown-container #prodSel.prodsel-radio label input {
-  visibility: hidden;
 }
 
 .section.banner-with-dropdown-container #prodSel.prodsel-radio label::after {
