@@ -26,7 +26,7 @@ async function loadFragment(path) {
      * once we move everything to www, we sghould remove this
      */
     const loc = window.location;
-    if (loc.hostname === 'www.bitdefender.com' && !path.startsWith('/pages')) {
+    if ((loc.hostname === 'www.bitdefender.com' || loc.hostname === 'stage.bitdefender.com') && !path.startsWith('/pages')) {
       // eslint-disable-next-line no-param-reassign
       path = `/pages${path}`;
     }

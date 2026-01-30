@@ -18,6 +18,7 @@ export default function decorate(block) {
   }
 
   // table from left content
+  let defaultFeaturesIndex = 0; // Counter for default features tables
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     let prodName;
     let prodUsers;
@@ -64,6 +65,30 @@ export default function decorate(block) {
       table.appendChild(titleBox);
     }
 
+    // FEATURES_BOX - mark tables for product association
+    if (aliasTr && aliasTr.textContent.trim().startsWith('features_box')) {
+      // Format: features_box or features_box_productname
+      const parts = aliasTr.textContent.trim().split('_');
+      if (parts.length > 2) {
+        const productName = parts.slice(2).join('_'); // Get product name after 'features_box_'
+        table.setAttribute('data-product', productName);
+      } else if (products) {
+        // Auto-assign to products in order if products exist
+        const productsAsList = products.split(',');
+        if (defaultFeaturesIndex < productsAsList.length) {
+          const [productName] = productsAsList[defaultFeaturesIndex].split('/');
+          const productKey = productName.trim().toLowerCase().replace(/\s+/g, '-');
+          table.setAttribute('data-product', productKey);
+          defaultFeaturesIndex += 1;
+        } else {
+          table.setAttribute('data-product', 'default');
+        }
+      } else {
+        table.setAttribute('data-product', 'default');
+      }
+      table.style.display = 'none'; // Hide original table
+    }
+
     // PRICE_BOX
     if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
@@ -99,10 +124,101 @@ export default function decorate(block) {
           /* eslint-disable no-shadow */
           const [prodName, prodUsers, prodYears] = prod.split('/');
           const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+          // Create features box for this product
+          const featuresBox = document.createElement('div');
+          featuresBox.className = `featuresBox features_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} prodload prodload-${onSelectorClass}`;
+          featuresBox.style.display = 'none'; // Hidden by default, will be shown by JS
+
+          // Look for a features_box table for this specific product or default
+          const productKey = prodName.trim().toLowerCase().replace(/\s+/g, '-');
+          let productFeaturesTable = contentEl.querySelector(`table[data-product="${productKey}"]`);
+
+          // If no specific product table found, use the default one for first product
+          if (!productFeaturesTable && i === 0) {
+            productFeaturesTable = contentEl.querySelector('table[data-product="default"]');
+          }
+
+          if (productFeaturesTable) {
+            const allRows = [...productFeaturesTable.querySelectorAll('tr')];
+
+            // Get the title from the second row (first row after alias)
+            let featureTitle = '';
+            if (allRows.length > 1) {
+              const titleRow = allRows[1];
+              const titleCell = titleRow.querySelector('td');
+              if (titleCell) {
+                featureTitle = titleCell.innerHTML.trim();
+              }
+            }
+
+            // Get feature rows starting from the third row (skip alias and title)
+            const featureRows = allRows.slice(2);
+            if (featureRows.length > 0) {
+              const featuresList = document.createElement('div');
+              featuresList.className = 'features-list';
+
+              // Add title as div if it exists
+              if (featureTitle) {
+                const titleElement = document.createElement('div');
+                titleElement.className = 'features-title';
+                titleElement.innerHTML = featureTitle;
+                featuresBox.appendChild(titleElement);
+              }
+
+              featureRows.forEach((row) => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 2) {
+                  const featureItem = document.createElement('div');
+                  featureItem.className = 'feature-row';
+
+                  const featureName = cells[0].innerHTML.trim();
+                  const featureValue = cells[1].innerHTML.trim();
+
+                  // Create feature name element
+                  const nameDiv = document.createElement('div');
+                  nameDiv.className = 'feature-name';
+
+                  // Check if feature name starts with -x- (not supported feature)
+                  if (featureName.toLowerCase().startsWith('-x-')) {
+                    nameDiv.className += ' nocheck';
+                    nameDiv.innerHTML = featureName.substring(3).trim(); // Remove -x- prefix
+                  } else {
+                    nameDiv.innerHTML = featureName;
+                  }
+
+                  // Create feature value element
+                  const valueDiv = document.createElement('div');
+                  valueDiv.className = 'feature-value';
+
+                  // Check if feature value starts with -x- (not supported feature)
+                  if (featureValue.toLowerCase().startsWith('-x-')) {
+                    valueDiv.className += ' nocheck';
+                    valueDiv.innerHTML = featureValue.substring(3).trim(); // Remove -x- prefix
+                  } else {
+                    valueDiv.innerHTML = featureValue;
+                  }
+
+                  featureItem.appendChild(nameDiv);
+                  featureItem.appendChild(valueDiv);
+                  featuresList.appendChild(featureItem);
+                }
+              });
+
+              featuresBox.appendChild(featuresList);
+            }
+          }
+
           const pricesBox = document.createElement('div');
 
-          if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
-            buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+          // Process 0% replacement for both button columns
+          if (buybtn) {
+            const buybtnCells = buybtn.querySelectorAll('td');
+            buybtnCells.forEach((cell) => {
+              if (cell && (cell.textContent.indexOf('0%') !== -1 || cell.innerHTML.indexOf('0 %') !== -1)) {
+                cell.innerHTML = cell.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+              }
+            });
           }
 
           const isTrial = !!type && type === 'radio-buttons';
@@ -122,24 +238,63 @@ export default function decorate(block) {
 
           pricesBox.className = `pricesBox prices_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} await-loader prodload prodload-${onSelectorClass} ${i === 0 ? ' active' : ''}`;
           pricesBox.innerHTML += `<div class="d-flex">
-            <p>
             <div>
               <div class="d-flex">
                 <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
                 <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
               </div>
-              </p>
               <div class="d-flex">
                 ${!skipTrial && isTrial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
                 
                 <p class="variation">${prices.innerHTML}</p>
               </div>
+            </div>
           </div>`;
 
           pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
-          pricesBox.innerHTML += `<div class="buy_box">
-            <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
-          </div>`;
+
+          // Get button cells from buybtn row
+          const buybtnCells = buybtn ? buybtn.querySelectorAll('td') : [];
+
+          // Extract text and href for first button
+          const firstBtnCell = buybtnCells[0];
+          let firstBtnText = 'Get it now';
+          let firstBtnHref = '#';
+
+          if (firstBtnCell) {
+            const firstBtnLink = firstBtnCell.querySelector('a');
+            if (firstBtnLink) {
+              firstBtnText = firstBtnLink.innerHTML;
+              firstBtnHref = firstBtnLink.getAttribute('href') || '#';
+            } else {
+              firstBtnText = firstBtnCell.innerHTML;
+            }
+          }
+
+          // Extract text and href for second button
+          const secondBtnCell = buybtnCells[1];
+          let secondBtnText = null;
+          let secondBtnHref = '#';
+
+          if (secondBtnCell && secondBtnCell.innerHTML.trim()) {
+            const secondBtnLink = secondBtnCell.querySelector('a');
+            if (secondBtnLink) {
+              secondBtnText = secondBtnLink.innerHTML;
+              secondBtnHref = secondBtnLink.getAttribute('href') || '#';
+            } else {
+              secondBtnText = secondBtnCell.innerHTML;
+            }
+          }
+
+          // Create buy_box content
+          let buyBoxContent = `<a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="${firstBtnHref}" referrerpolicy="no-referrer-when-downgrade">${firstBtnText}</a>`;
+
+          // Add second button if second column exists and has content
+          if (secondBtnText && secondBtnText.trim()) {
+            buyBoxContent += `<a class="await-loader prodload prodload-${onSelectorClass} buylink2-${onSelectorClass}" href="${secondBtnHref}" referrerpolicy="no-referrer-when-downgrade">${secondBtnText}</a>`;
+          }
+
+          pricesBox.innerHTML += `<div class="buy_box">${buyBoxContent}</div>`;
 
           if (afterTrial) {
             pricesBox.innerHTML += `<div class="pay_after_trial">
@@ -147,6 +302,8 @@ export default function decorate(block) {
             </div>`;
           }
 
+          // Add features box first (will appear between dropdown and prices)
+          table.appendChild(featuresBox);
           table.appendChild(pricesBox);
         });
       }
@@ -307,6 +464,36 @@ export default function decorate(block) {
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
+  // Process feature icons in original tables before generating templates
+  const processFeatureIcons = (container) => {
+    const featureTables = container.querySelectorAll('table[style*="display: none"]');
+    featureTables.forEach((table) => {
+      const aliasTr = table.querySelector('tr');
+      if (aliasTr && aliasTr.textContent.trim().startsWith('features_box')) {
+        const featureRows = [...table.querySelectorAll('tr')].slice(1); // Skip alias row
+        featureRows.forEach((row) => {
+          const cells = row.querySelectorAll('td');
+          cells.forEach((featureCell) => {
+            const featureName = featureCell.textContent.trim();
+
+            // Only process if not already processed and has content
+            if (!featureCell.classList.contains('processed') && featureName) {
+              // Check if feature name starts with -x- (not supported feature)
+              if (featureName.toLowerCase().startsWith('-x-')) {
+                featureCell.classList.add('nocheck');
+                featureCell.innerHTML = featureName.substring(3).trim(); // Remove -x- prefix
+              }
+              featureCell.classList.add('processed'); // Mark as processed
+            }
+          });
+        });
+      }
+    });
+  };
+
+  // Process icons in contentEl before it's used in templates
+  processFeatureIcons(contentEl);
+
   if (imageCover && imageCover.indexOf('small') !== -1) {
     blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${innerBackgroundColor || '#000'}`;
 
@@ -315,13 +502,13 @@ export default function decorate(block) {
       blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${innerBackgroundColor || '#000'}`;
     }
 
-    let defaultSize = 'col-sm-6 col-md-6 col-lg-5';
+    let defaultSize = 'col-sm-10 col-md-10 col-lg-5';
     if (contentSize === 'full') {
       defaultSize = 'col-sm-12 col-md-12 col-lg-12';
     } else if (contentSize === 'larger') {
       defaultSize = 'col-sm-8 col-md-7 col-lg-7';
     } else if (contentSize === 'half') {
-      defaultSize = 'col-sm-6 col-md-6 col-lg-6';
+      defaultSize = 'col-sm-10 col-md-8 col-lg-6';
     }
 
     block.innerHTML = `
@@ -349,8 +536,8 @@ export default function decorate(block) {
       block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-lg-between justify-content-xxl-start' : ''}">
-        <div class="col-12 col-md-6 col-lg-5 col-xxl-4">${contentEl.innerHTML}</div>
-        ${contentRightEl ? `<div class="col-12 col-md-6 col-lg-4 custom-col-xl-4">${contentRightEl.innerHTML}</div>` : ''}
+        <div class="col-12 col-md-8 col-lg-5 col-xxl-4">${contentEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-md-4 col-lg-4 custom-col-xl-4">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
     `;
@@ -358,19 +545,19 @@ export default function decorate(block) {
       block.innerHTML = `
     <div class="container-fluid">
       <div class="row d-md-flex d-sm-block ${contentRightEl ? 'justify-content-center' : ''}">
-        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentEl.innerHTML}</div>
-        ${contentRightEl ? `<div class="col-12 col-md-${contentSize === 'half' ? '6' : '7'}">${contentRightEl.innerHTML}</div>` : ''}
+        <div class="col-12 col-md-${contentSize === 'half' ? '6' : '8'}">${contentEl.innerHTML}</div>
+        ${contentRightEl ? `<div class="col-12 col-md-${contentSize === 'half' ? '6' : '4'}">${contentRightEl.innerHTML}</div>` : ''}
       </div>
       </div>
     `;
     }
   } else {
-    let defaultSize = 'col-sm-5 col-md-5 col-lg-5';
+    let defaultSize = 'col-sm-10 col-md-8 col-lg-5';
     blockStyle.background = `url(${pictureEl.querySelector('img')?.getAttribute('src').split('?')[0]}) no-repeat top right / auto 100% ${backgroundColor || '#000'}`;
     if (contentSize === 'larger') {
-      defaultSize = 'col-sm-7 col-md-7 col-lg-7';
+      defaultSize = 'col-sm-10 col-md-10 col-lg-7';
     } else if (contentSize === 'half') {
-      defaultSize = 'col-sm-6 col-md-6 col-lg-6';
+      defaultSize = 'col-sm-10 col-md-8 col-lg-6';
     }
 
     block.innerHTML = `
@@ -467,8 +654,20 @@ export default function decorate(block) {
         });
       });*/
     } else {
-      productSelector.addEventListener('change', () => {
-        showProduct(productSelector.value || productSelector.getAttribute('value'));
+      const firstRadio = productSelector.querySelector('input[type="radio"]');
+      if (firstRadio) firstValue = firstRadio.value;
+    }
+
+    if (firstValue) {
+      // Show boxes for first product (all instances)
+      const firstPricesBoxes = block.querySelectorAll(`.pricesBox.prodload-${firstValue}`);
+      firstPricesBoxes.forEach((box) => {
+        box.style.display = 'block';
+      });
+
+      const firstFeaturesBoxes = block.querySelectorAll(`.featuresBox.prodload-${firstValue}`);
+      firstFeaturesBoxes.forEach((box) => {
+        box.style.display = 'block';
       });
     }
   }

@@ -21,6 +21,8 @@ module.exports = {
     'justify-content-end',
     'p-5', 'pt-3', 'my-5', 'my-0', 'my-1', 'my-2', 'mx-auto',
     'table-bordered',
+    'col-lg-8', 'col-lg-4', 'col-lg-9', 'col-lg-3', 'g-0', 'row',
+    'col-12', 'd-flex', 'flex-column', 'justify-content-start',
   ],
   blocklist: ['strong'],
 };

@@ -497,6 +497,7 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  margin-bottom: 5px;
 }
 
 .new-prod-boxes-container.business .block .prod_box .inner_prod_box .blueTagsWrapper {
