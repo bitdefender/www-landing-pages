@@ -6,7 +6,6 @@ export default function decorate(block) {
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
-  console.log(metaData)
   const {
     product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners, textNextToPill, type, trial, bestValue,
   } = metaData;
@@ -624,18 +623,24 @@ export default function decorate(block) {
       // Hide all price boxes
       block.querySelectorAll('.pricesBox').forEach((box) => {
         box.style.display = 'none';
-        box.classList.toggle('active')
+        box.classList.toggle('active');
       });
       // Hide all features boxes
-      block.querySelectorAll('.featuresBox').forEach((box) => box.style.display = 'none');
+      block.querySelectorAll('.featuresBox').forEach((box) => {
+        box.style.display = 'none';
+      });
 
       // Show selected price boxes (all instances)
       const productBoxes = block.querySelectorAll(`.pricesBox.prodload-${value}`);
-      productBoxes.forEach((box) => box.style.display = 'block');
+      productBoxes.forEach((box) => {
+        box.style.display = 'block';
+      });
 
       // Show selected features boxes (all instances)
       const featuresBoxes = block.querySelectorAll(`.featuresBox.prodload-${value}`);
-      featuresBoxes.forEach((box) => box.style.display = 'block');
+      featuresBoxes.forEach((box) => {
+        box.style.display = 'block';
+      });
     };
 
     // Add event listeners to ALL productSelector instances
@@ -680,10 +685,10 @@ export default function decorate(block) {
       }
     });
 
-    block.addEventListener('click', function (el) {
+    block.addEventListener('click', (el) => {
       if (el.target.nodeName === 'INPUT') {
         const productSelector = el.target.closest('#productSelector');
-        productSelector.querySelectorAll('label.prodsel-radio-label').forEach(l => l.classList.remove('selected'));
+        productSelector.querySelectorAll('label.prodsel-radio-label').forEach((label) => label.classList.remove('selected'));
 
         el.target.closest('label').classList.add('selected');
       }
