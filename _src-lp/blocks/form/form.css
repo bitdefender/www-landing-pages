@@ -99,6 +99,9 @@
   margin-bottom: 20px;
 }
 @media screen and (width >= 900px) {
+  .form-container .form {
+    max-width: 31%;
+  }
   .form-container .form .field-wrapper {
     display: flex;
   }
