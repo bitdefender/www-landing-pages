@@ -7,9 +7,7 @@ export default function decorate(block) {
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
   const {
-    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
-    underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, corners, textNextToPill, type, bestValue,
+    product, products, animatedText, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor, underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop, marginBottom, imageCover, corners, textNextToPill, type, trial, bestValue,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -221,8 +219,7 @@ export default function decorate(block) {
             });
           }
 
-          const isTrial = !!type && type === 'radio-buttons';
-          if (isTrial) {
+          if (type === 'radio-buttons') {
             productSelector.setAttribute('value', onSelectorClass);
             containerDiv.classList.add('prodsel-radio');
             const optionsText = prodstext.querySelectorAll('li');
@@ -244,7 +241,7 @@ export default function decorate(block) {
                 <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
               </div>
               <div class="d-flex">
-                ${isTrial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
+                ${trial ? `<span class="prod-newprice newprice-${onSelectorClass} newprice-0"></span>` : `<span class="prod-newprice newprice-${onSelectorClass}"></span>`}
                 <p class="variation">${prices.innerHTML}</p>
               </div>
             </div>
@@ -626,6 +623,7 @@ export default function decorate(block) {
       // Hide all price boxes
       block.querySelectorAll('.pricesBox').forEach((box) => {
         box.style.display = 'none';
+        box.classList.toggle('active');
       });
       // Hide all features boxes
       block.querySelectorAll('.featuresBox').forEach((box) => {
@@ -653,7 +651,9 @@ export default function decorate(block) {
         if (firstInput) {
           firstInput.checked = true;
           firstInput.dispatchEvent(new Event('change', { bubbles: true }));
+          firstInput.closest('label').classList.add('selected');
         }
+
         selector.querySelectorAll('label.prodsel-radio-label').forEach((label) => {
           label.addEventListener('click', () => {
             const selectedValue = label.getAttribute('value');
@@ -682,6 +682,15 @@ export default function decorate(block) {
 
           showProduct(selectedValue);
         });
+      }
+    });
+
+    block.addEventListener('click', (el) => {
+      if (el.target.nodeName === 'INPUT') {
+        const productSelector = el.target.closest('#productSelector');
+        productSelector.querySelectorAll('label.prodsel-radio-label').forEach((label) => label.classList.remove('selected'));
+
+        el.target.closest('label').classList.add('selected');
       }
     });
   }
