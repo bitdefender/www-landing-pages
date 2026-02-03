@@ -1,4 +1,4 @@
-import {formatPrice} from "../utils.js";
+import { formatPrice } from "../utils.js";
 
 if (typeof window.StoreProducts === 'undefined' || window.StoreProducts === null) {
   window.StoreProducts = new Object();
@@ -190,6 +190,15 @@ window.StoreProducts.initSelector = function (config) {
       } else {
         extra_params.force_country = urlParams.force_country;
       }
+    } else {
+      // ex: www.bitdefender.com/business/fr/bsp-flashsale
+      let country_from_path = window.location.pathname.split('/')[2];
+      const force_country = country_from_path;
+      if (extra_params == null) {
+        extra_params = { force_country: force_country };
+      } else {
+        extra_params.force_country = force_country;
+      }
     }
 
     if ('cid' in urlParams) {
@@ -289,25 +298,6 @@ window.StoreProducts.initSelector = function (config) {
       const siteSection = window.location.pathname.indexOf('/business/') !== -1 ? 'business' : 'consumer';
       if (siteSection === 'business') {
         forceBussiness = true;
-      }
-
-      let BASE_URI = 'https://www.bitdefender.com/site';
-      // todo convert this if else to Map
-      if (DEFAULT_LANGUAGE) {
-        let DOMAIN = DEFAULT_LANGUAGE;
-        if (DOMAIN === 'en') {
-          DOMAIN = 'com';
-        } else if (DOMAIN === 'uk') {
-          DOMAIN = 'co.uk';
-        } else if (DOMAIN === 'au') {
-          DOMAIN = 'com.au';
-        } else if (DOMAIN === 'br') {
-          DOMAIN = 'com.br';
-        } else if (DOMAIN === 'zh-hk' || DOMAIN === 'zh-tw') {
-          DOMAIN = 'com';
-        }
-
-        BASE_URI = `https://www.bitdefender.${DOMAIN}/site`;
       }
 
       if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw')) {
