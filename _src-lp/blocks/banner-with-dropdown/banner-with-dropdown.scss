@@ -470,10 +470,12 @@
 
 
 .section.banner-with-dropdown-container #prodSel.prodsel-radio {
+  width: max-content;
   display: block;
 }
 
 .section.banner-with-dropdown-container #prodSel.prodsel-radio label {
+  width: max-content;
   display: flex;
   align-items: center;
   justify-self: self-start;
@@ -704,6 +706,7 @@
   border-radius: 100%;
   left: 4px;
   z-index: 1;
+  top: 8px;
 }
 
 .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio label.selected::before {
