@@ -169,33 +169,39 @@ export default function decorate(block) {
               featureRows.forEach((row) => {
                 const cells = row.querySelectorAll('td');
                 if (cells.length >= 2) {
-                  const featureItem = document.createElement('div');
-                  featureItem.className = 'feature-row';
-
                   const featureName = cells[0].innerHTML.trim();
                   const featureValue = cells[1].innerHTML.trim();
 
-                  // Create feature name element
-                  const nameDiv = document.createElement('div');
-                  nameDiv.className = 'feature-name';
+                  if (!featureName && !featureValue) {
+                    return;
+                  }
 
-                  // Check if feature name starts with -x- (not supported feature)
-                  if (featureName.toLowerCase().startsWith('-x-')) {
-                    nameDiv.className += ' nocheck';
-                    nameDiv.innerHTML = featureName.substring(3).trim(); // Remove -x- prefix
+                  const featureItem = document.createElement('div');
+                  featureItem.className = 'feature-row';
+
+                  const nameDiv = document.createElement('div');
+
+                  if (!featureName || featureName === '') {
+                    nameDiv.className = 'feature-name';
+                    nameDiv.innerHTML = '';
+                  } else if (featureName.toLowerCase().startsWith('-x-')) {
+                    nameDiv.className = 'feature-name nocheck';
+                    nameDiv.innerHTML = featureName.substring(3).trim();
                   } else {
+                    nameDiv.className = 'feature-name';
                     nameDiv.innerHTML = featureName;
                   }
 
-                  // Create feature value element
                   const valueDiv = document.createElement('div');
-                  valueDiv.className = 'feature-value';
 
-                  // Check if feature value starts with -x- (not supported feature)
-                  if (featureValue.toLowerCase().startsWith('-x-')) {
-                    valueDiv.className += ' nocheck';
-                    valueDiv.innerHTML = featureValue.substring(3).trim(); // Remove -x- prefix
+                  if (!featureValue || featureValue === '') {
+                    valueDiv.className = 'feature-value';
+                    valueDiv.innerHTML = '';
+                  } else if (featureValue.toLowerCase().startsWith('-x-')) {
+                    valueDiv.className = 'feature-value nocheck';
+                    valueDiv.innerHTML = featureValue.substring(3).trim();
                   } else {
+                    valueDiv.className = 'feature-value';
                     valueDiv.innerHTML = featureValue;
                   }
 
@@ -463,7 +469,6 @@ export default function decorate(block) {
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (bannerHide) parentBlock.classList.add(`block-hide-${bannerHide}`);
 
-  // Process feature icons in original tables before generating templates
   const processFeatureIcons = (container) => {
     const featureTables = container.querySelectorAll('table[style*="display: none"]');
     featureTables.forEach((table) => {
@@ -475,14 +480,14 @@ export default function decorate(block) {
           cells.forEach((featureCell) => {
             const featureName = featureCell.textContent.trim();
 
-            // Only process if not already processed and has content
-            if (!featureCell.classList.contains('processed') && featureName) {
-              // Check if feature name starts with -x- (not supported feature)
+            if (!featureCell.classList.contains('processed') && featureName && featureName !== '') {
               if (featureName.toLowerCase().startsWith('-x-')) {
                 featureCell.classList.add('nocheck');
-                featureCell.innerHTML = featureName.substring(3).trim(); // Remove -x- prefix
+                featureCell.innerHTML = featureName.substring(3).trim();
               }
-              featureCell.classList.add('processed'); // Mark as processed
+              featureCell.classList.add('processed');
+            } else if (!featureName || featureName === '') {
+              featureCell.classList.add('processed');
             }
           });
         });
@@ -490,7 +495,6 @@ export default function decorate(block) {
     });
   };
 
-  // Process icons in contentEl before it's used in templates
   processFeatureIcons(contentEl);
 
   if (imageCover && imageCover.indexOf('small') !== -1) {

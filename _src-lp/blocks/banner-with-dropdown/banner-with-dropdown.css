@@ -373,7 +373,6 @@
   width: 322px;
 }
 
-/* animated text */
 .section.banner-with-dropdown-container .animated_text {
   height: 40px;
   width: 100%;
@@ -608,6 +607,11 @@
 .section.banner-with-dropdown-container .feature-value.nocheck {
   background: url("../../icons/red-x.svg") no-repeat left center;
   background-size: 12px 12px;
+}
+
+.section.banner-with-dropdown-container .feature-name:empty,
+.section.banner-with-dropdown-container .feature-value:empty {
+  display: none;
 }
 
 .section.banner-with-dropdown-container .pricesBox .d-flex .variation {
