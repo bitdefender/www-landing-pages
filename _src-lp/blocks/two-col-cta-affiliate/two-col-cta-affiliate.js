@@ -17,21 +17,29 @@ export default function decorate(block) {
     }
   } else {
     const [title, subtitle, ...rightColumns] = block.children;
+    const buyBtn = document.createElement('span');
 
-    const buybtn = document.createElement('span');
-    if (buttonLink) {
-      buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}"><strong>${buttonText}</strong></a>`;
-    } else if (onSelectorClass) {
-      buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
-        <strong>${buttonText}</strong>
-        </a>`;
+    if (buttonText) {
+      const cls = onSelectorClass ? ` buylink-${onSelectorClass}` : '';
+      const href = buttonLink || '#';
+
+      buyBtn.innerHTML = `
+        <a
+          class="button primary${cls}"
+          referrerpolicy="no-referrer-when-downgrade"
+          href="${href}"
+          title="${buttonText.trim()} Bitdefender"
+        >
+          <strong>${buttonText}</strong>
+        </a>
+      `;
     }
 
     const leftColumn = document.createElement('div');
     leftColumn.classList.add('left-column');
     leftColumn.appendChild(title);
     leftColumn.appendChild(subtitle);
-    leftColumn.appendChild(buybtn);
+    leftColumn.appendChild(buyBtn);
 
     const rightColumn = document.createElement('div');
     rightColumn.classList.add('right-column');
