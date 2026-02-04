@@ -180,7 +180,6 @@ export default function decorate(block) {
 
                   // Create feature name element
                   const nameDiv = document.createElement('div');
-                  
                   if (!featureName || featureName === '') {
                     // Empty cell - hide it completely
                     nameDiv.className = 'feature-name';
@@ -197,7 +196,7 @@ export default function decorate(block) {
 
                   // Create feature value element
                   const valueDiv = document.createElement('div');
-                  
+
                   if (!featureValue || featureValue === '') {
                     // Empty cell - hide it completely
                     valueDiv.className = 'feature-value';
@@ -652,8 +651,7 @@ export default function decorate(block) {
       });
 
       // Show selected features boxes (all instances)
-      // Extract product name from onSelectorClass (e.g., "ps_i-51" -> "ps_i")
-      const productAlias = value.split('-')[0]; // Get "ps_i" from "ps_i-51"
+      const productAlias = value.split('-')[0];
       const featuresBoxes = block.querySelectorAll(`.featuresBox.prod-${productAlias}`);
       featuresBoxes.forEach((box) => {
         box.style.display = 'block';
