@@ -470,10 +470,12 @@
 
 
 .section.banner-with-dropdown-container #prodSel.prodsel-radio {
+  width: max-content;
   display: block;
 }
 
 .section.banner-with-dropdown-container #prodSel.prodsel-radio label {
+  width: max-content;
   display: flex;
   align-items: center;
   justify-self: self-start;
