@@ -125,7 +125,7 @@ export default function decorate(block) {
 
           // Create features box for this product
           const featuresBox = document.createElement('div');
-          featuresBox.className = `featuresBox features_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')} prodload prodload-${onSelectorClass}`;
+          featuresBox.className = `featuresBox features_box prod-${prodName.trim().toLowerCase().replace(/\s+/g, '-')}`;
           featuresBox.style.display = 'none'; // Hidden by default, will be shown by JS
 
           // Look for a features_box table for this specific product or default
@@ -173,27 +173,42 @@ export default function decorate(block) {
                   const featureName = cells[0].innerHTML.trim();
                   const featureValue = cells[1].innerHTML.trim();
 
+                  // Skip completely empty rows
+                  if (!featureName && !featureValue) {
+                    return;
+                  }
+
                   // Create feature name element
                   const nameDiv = document.createElement('div');
-                  nameDiv.className = 'feature-name';
-
-                  // Check if feature name starts with -x- (not supported feature)
-                  if (featureName.toLowerCase().startsWith('-x-')) {
-                    nameDiv.className += ' nocheck';
-                    nameDiv.innerHTML = featureName.substring(3).trim(); // Remove -x- prefix
+                  
+                  if (!featureName || featureName === '') {
+                    // Empty cell - hide it completely
+                    nameDiv.className = 'feature-name';
+                    nameDiv.style.display = 'none';
+                  } else if (featureName.toLowerCase().startsWith('-x-')) {
+                    // Not supported feature - show X
+                    nameDiv.className = 'feature-name nocheck';
+                    nameDiv.innerHTML = featureName.substring(3).trim();
                   } else {
+                    // Normal feature - show check mark
+                    nameDiv.className = 'feature-name';
                     nameDiv.innerHTML = featureName;
                   }
 
                   // Create feature value element
                   const valueDiv = document.createElement('div');
-                  valueDiv.className = 'feature-value';
-
-                  // Check if feature value starts with -x- (not supported feature)
-                  if (featureValue.toLowerCase().startsWith('-x-')) {
-                    valueDiv.className += ' nocheck';
-                    valueDiv.innerHTML = featureValue.substring(3).trim(); // Remove -x- prefix
+                  
+                  if (!featureValue || featureValue === '') {
+                    // Empty cell - hide it completely
+                    valueDiv.className = 'feature-value';
+                    valueDiv.style.display = 'none';
+                  } else if (featureValue.toLowerCase().startsWith('-x-')) {
+                    // Not supported feature - show X
+                    valueDiv.className = 'feature-value nocheck';
+                    valueDiv.innerHTML = featureValue.substring(3).trim();
                   } else {
+                    // Normal feature - show check mark
+                    valueDiv.className = 'feature-value';
                     valueDiv.innerHTML = featureValue;
                   }
 
@@ -637,7 +652,9 @@ export default function decorate(block) {
       });
 
       // Show selected features boxes (all instances)
-      const featuresBoxes = block.querySelectorAll(`.featuresBox.prodload-${value}`);
+      // Extract product name from onSelectorClass (e.g., "ps_i-51" -> "ps_i")
+      const productAlias = value.split('-')[0]; // Get "ps_i" from "ps_i-51"
+      const featuresBoxes = block.querySelectorAll(`.featuresBox.prod-${productAlias}`);
       featuresBoxes.forEach((box) => {
         box.style.display = 'block';
       });
@@ -715,7 +732,9 @@ export default function decorate(block) {
         box.style.display = 'block';
       });
 
-      const firstFeaturesBoxes = block.querySelectorAll(`.featuresBox.prodload-${firstValue}`);
+      // Extract product name from onSelectorClass for features boxes
+      const productAlias = firstValue.split('-')[0];
+      const firstFeaturesBoxes = block.querySelectorAll(`.featuresBox.prod-${productAlias}`);
       firstFeaturesBoxes.forEach((box) => {
         box.style.display = 'block';
       });
