@@ -610,6 +610,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
           // Update hrefs and restore button state
           [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
             if (btn) {
+              btn.classList.add(`buylink-${productId}-${prodUsers}${Math.floor(prodYears / 12)}`);
               btn.setAttribute('href', updatedUrl);
               btn.style.opacity = '1';
               btn.style.cursor = 'pointer';
