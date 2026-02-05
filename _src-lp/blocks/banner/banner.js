@@ -116,42 +116,42 @@ export default function decorate(block) {
 
     // BUTTONS_BOX
     if (aliasTr && (aliasTr.textContent.trim() === 'buttons_box' || aliasTr.textContent.trim() === 'Buttons_table')) {
-      const [alias, buttonsRow] = [...table.querySelectorAll('tr')];
+      const [, buttonsRow] = [...table.querySelectorAll('tr')];
       const buttonsCells = buttonsRow.querySelectorAll('td');
-      
+
       if (buttonsCells.length >= 3) {
         const [leftButton, orText, rightButton] = buttonsCells;
-        
+
         const buttonsBox = document.createElement('div');
         buttonsBox.className = 'buttons-box';
-        
+
         // Extract left button content
         const leftLink = leftButton.querySelector('a');
         const leftButtonText = leftLink ? leftLink.textContent.trim() : '';
         const leftButtonHref = leftLink ? leftLink.getAttribute('href') : '#';
         const leftButtonTitle = leftLink ? leftLink.getAttribute('title') : leftButtonText;
-        
+
         // Extract additional text after the link (like "Basic protection, Windows only")
         const leftAdditionalText = leftButton.textContent.replace(leftButtonText, '').trim();
-        
+
         // Extract right button content
         const rightLink = rightButton.querySelector('a');
         const rightButtonText = rightLink ? rightLink.textContent.trim() : '';
         const rightButtonHref = rightLink ? rightLink.getAttribute('href') : '#';
         const rightButtonTitle = rightLink ? rightLink.getAttribute('title') : rightButtonText;
-        
+
         // Extract additional text after the right button and replace [discounted_price]
         const rightAdditionalTexts = rightButton.querySelectorAll('p:not(.button-container)');
         let rightAdditionalText = rightAdditionalTexts.length > 0 ? rightAdditionalTexts[0].innerHTML : '';
-        
+
         // Replace [discounted_price] with dynamic price span
         if (rightAdditionalText.includes('[discounted_price]') && onSelectorClass) {
           rightAdditionalText = rightAdditionalText.replace(
             '[discounted_price]',
-            `<span class="newprice-${onSelectorClass}"></span>`
+            `<span class="newprice-${onSelectorClass}"></span>`,
           );
         }
-        
+
         buttonsBox.innerHTML = `
           <div class="row align-items-center g-3">
             <div class="col-12 col-xl-5">
@@ -168,7 +168,7 @@ export default function decorate(block) {
               ${rightAdditionalText ? `<p class="text-muted d-block text-center">${rightAdditionalText}</p>` : ''}
             </div>
           </div>`;
-        
+
         table.innerHTML = '';
         table.appendChild(buttonsBox);
       }

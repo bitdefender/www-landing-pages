@@ -1529,10 +1529,6 @@
     right: 4em;
   }
 
-  .section.banner-container .buttons-box .col-xl-1 {
-    margin-top: 10px;
-  }
-
   /* Buttons Box Responsive */
   .section.banner-container .buttons-box .row {
     flex-direction: column;
@@ -2042,7 +2038,7 @@
 .section.banner-container .buttons-box .text-muted {
   font-size: 14px;
   color: #666 !important;
-  margin: 5px 0 0 0;
+  margin: 5px 0 0;
 }
 
 .section.banner-container .buttons-box .fw-medium {
