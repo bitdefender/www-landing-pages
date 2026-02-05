@@ -298,7 +298,7 @@ export default function decorate(block) {
           const anchor = button.querySelector('a');
           const link = anchor ? anchor.getAttribute('href') : '#';
           // const img = button.querySelector('img')?.getAttribute('src').split('?')[0];
-          const text = button.innerHTML;
+          const text = anchor ? anchor.innerHTML : button.innerText.trim();
           const onSelectorClass = onSelectorClasses[index];
 
           lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${text}</a>`;
