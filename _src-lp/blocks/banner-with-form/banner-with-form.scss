@@ -1,446 +1,446 @@
 @charset "UTF-8";
 
 .banner-with-form-container .banner-with-form h2 {
-  font-weight: normal;
-  margin: 0;
+	font-weight: normal;
+	margin: 0;
 }
 
 .banner-with-form-container h3, .banner-with-form-container h4 {
-  font-size: 20px;
+	font-size: 20px;
 }
 
 .banner-with-form-container .form-logo {
-  width: 100px;
+	width: 100px;
 }
 
 .banner-with-form-container p {
-    font-size: 11px;
-    margin: 0;
+	font-size: 11px;
+	margin: 0;
 }
 
 .banner-with-form-container #captchaBox {
-  margin: 1em 0;
+	margin: 1em 0;
 }
 
 .banner-with-form-container {
-  background-color: black;
-  color: white;
-  padding: 0;
+	background-color: black;
+	color: white;
+	padding: 0;
 }
 
 .banner-with-form-container.borders-rounded .banner-with-form {
-  border-radius: 10px;
+	border-radius: 10px;
 }
 
 .banner-with-form-container .banner-with-form p a {
-  color: inherit;
+	color: inherit;
 }
 
 .banner-with-form-container .banner-with-form .img-right picture {
-  position: relative;
-  left: 15px;
+	position: relative;
+	left: 15px;
 }
 
 .banner-with-form-container .banner-with-form .img-right {
-  position: relative;
+	position: relative;
 }
 
 .banner-with-form-container.new-2024 .banner-with-form .img-right div::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to left, rgb(247 247 247 / 0%), #F7F7F7);
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to left, rgb(247 247 247 / 0%), #F7F7F7);
 }
 
 .banner-with-form-container .banner-with-form h1 {
-  font-size: 28px;
-  text-align: left;
-  margin-top: 0;
+	font-size: 28px;
+	text-align: left;
+	margin-top: 0;
 }
 
 .banner-with-form-container.new-2024 .banner-with-form {
-  overflow: hidden;
-  background-color: #F6F6F6;
+	overflow: hidden;
+	background-color: #F6F6F6;
 }
 
 .banner-with-form-container.new-2024 .save-class {
-  color: #1C7928;
-  margin-left:10px;
-  margin-right:10px;
-  margin-top:0;
-  font: normal normal bold 18px/21px Arial, sans-serif;
-  gap: 5px;
+	color: #1C7928;
+	margin-left:10px;
+	margin-right:10px;
+	margin-top:0;
+	font: normal normal bold 18px/21px Arial, sans-serif;
+	gap: 5px;
 }
 
 .banner-with-form-container.new-2024 .banner-with-form h1 {
-  font-weight: normal;
+	font-weight: normal;
 }
 
 
 
 .banner-with-form-container.new-2024 .banner-with-form h3 {
-  font: normal normal bold 24px/28px Arial, sans-serif;
-  letter-spacing: 0;
-  text-align: left;
+	font: normal normal bold 24px/28px Arial, sans-serif;
+	letter-spacing: 0;
+	text-align: left;
 }
 
 .banner-with-form-container .banner-with-form .button-container {
-  display: none;
+	display: none;
 }
 
 .banner-with-form-container .banner-with-form ul {
-  padding-left: 0;
+	padding-left: 0;
 }
 
 .banner-with-form-container .banner-with-form ul li {
-  list-style-type: none;
-  padding-left: 0;
-  font-size: var(--body-font-size-xs);
-  line-height: 20px;
-  color: #000;
-  text-align: left;
-  margin-top: 6px;
-  display: flex;
-  align-items: flex-start;
+	list-style-type: none;
+	padding-left: 0;
+	font-size: var(--body-font-size-xs);
+	line-height: 20px;
+	color: #000;
+	text-align: left;
+	margin-top: 6px;
+	display: flex;
+	align-items: flex-start;
 }
 
 .banner-with-form-container .banner-with-form ul li::before {
-  content: "•";
-  color: #4CA154;
-  font-weight: bold;
-  display: inline-block;
-  margin-left: 0;
-  margin-right: 10px;
-  font-size: 35px;
+	content: "•";
+	color: #4CA154;
+	font-weight: bold;
+	display: inline-block;
+	margin-left: 0;
+	margin-right: 10px;
+	font-size: 35px;
 }
 
 .banner-with-form-container .banner-with-form .blue-box {
-  width: 290px;
-  background-color: #E4F2FF;
-  border-radius: 10px;
-  padding: 0 10px;
-  display: flex;
+	width: 290px;
+	background-color: #E4F2FF;
+	border-radius: 10px;
+	padding: 0 10px;
+	display: flex;
 }
 
 .banner-with-form-container .banner-with-form .blue-box tr {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .banner-with-form-container .banner-with-form .blue-box tr:first-of-type {
-  display: none;
+	display: none;
 }
 
 .banner-with-form-container .banner-with-form .blue-box tr td:first-of-type {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 .banner-with-form-container .banner-with-form .blue-box tr td p {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  line-height: 17px;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	line-height: 17px;
 }
 
 .banner-with-form-container .banner-with-form .blue-box tr td p strong {
-  margin-left: 5px;
+	margin-left: 5px;
 }
 
 .banner-with-form-container .banner-with-form .blue-box tr td p picture {
-  width: 80px;
-  margin: 5px 0;
+	width: 80px;
+	margin: 5px 0;
 }
 
 .banner-with-form-container .banner-with-form .blue-box tr td p picture img {
-  min-width: unset;
+	min-width: unset;
 }
 
 .banner-with-form-container.new-2024 hr {
-  border: 2px solid #C6C6C6;
-  width: 80px;
+	border: 2px solid #C6C6C6;
+	width: 80px;
 }
 
 .banner-with-form-container #greenPillBox {
-  background-color: #2FB43E;
-  display: inline-block;
-  color: #fff;
-  border-radius: 15px;
-  margin-top: 15px;
-  margin-left: 0 !important;
-  font-size: 18px;
-  padding: 2px 11px;
+	background-color: #2FB43E;
+	display: inline-block;
+	color: #fff;
+	border-radius: 15px;
+	margin-top: 15px;
+	margin-left: 0 !important;
+	font-size: 18px;
+	padding: 2px 11px;
 }
 
 .banner-with-form-container #redPillBox {
-  background-color: #E72325;
-  display: inline-block;
-  color: #fff;
-  border-radius: 15px;
-  margin-top: 15px;
-  margin-left: 0 !important;
-  font-size: 18px;
-  padding: 2px 11px;
+	background-color: #E72325;
+	display: inline-block;
+	color: #fff;
+	border-radius: 15px;
+	margin-top: 15px;
+	margin-left: 0 !important;
+	font-size: 18px;
+	padding: 2px 11px;
 }
 
 .banner-with-form-container #buyBtnGreenCircleBox {
-  align-items: center;
+	align-items: center;
 }
 
 .banner-with-form-container #buyBtnGreenCircleBox a {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 .banner-with-form-container #buyBtnGreenCircleBox span.green_circle_box {
-  position: relative;
-  background: #2cb43d;
-  border-radius: 50%;
-  width: 83px;
-  height: 83px;
-  font-size: 28px;
-  line-height: 81px;
-  text-align: center;
-  padding: 0;
-  color: #fff;
-  display: inline-block;
-  margin-top: 10px;
+	position: relative;
+	background: #2cb43d;
+	border-radius: 50%;
+	width: 83px;
+	height: 83px;
+	font-size: 28px;
+	line-height: 81px;
+	text-align: center;
+	padding: 0;
+	color: #fff;
+	display: inline-block;
+	margin-top: 10px;
 }
 
 .banner-with-form-container.form .banner-with-form-wrapper table {
-  display: none;
+	display: none;
 }
 
 .banner-with-form-container .banner-with-form-wrapper .priceBox {
-	padding: 5px 0 10px 0;
+	padding: 5px 0 10px;
 }
 
 .banner-with-form-container .banner-with-form-wrapper #formBox {
-  width: 215px;
-  margin-bottom: 1em;
+	width: 215px;
+	margin-bottom: 1em;
 }
 
 .banner-with-form-container .banner-with-form-wrapper #formBox label {
-  display: none;
-  font-size: 11px;
+	display: none;
+	font-size: 11px;
 }
 
 .banner-with-form-container .banner-with-form-wrapper #formBox input {
-  font-size: 14px;
-  border-radius: 8px;
-  padding: 13px 15px;
-  line-height: 14px;
+	font-size: 14px;
+	border-radius: 8px;
+	padding: 13px 15px;
+	line-height: 14px;
 }
 
 .section.b-banner-container .banner-with-form-wrapper #formBox button {
-  width: 100%;
-  border-radius: 8px;
+	width: 100%;
+	border-radius: 8px;
 }
 
 .banner-with-form-container .banner-with-form-wrapper #formBox p.form_err {
-  font-size: 12px;
-  color: red;
+	font-size: 12px;
+	color: red;
 }
 
 @media (width >= 768px) {
-  .banner-with-form-container .banner-with-form h1 {
-    font-size: 30px;
-  }
+	.banner-with-form-container .banner-with-form h1 {
+		font-size: 30px;
+	}
 
-  .banner-with-form-container #pricesBox {
-    text-align: left;
-  }
+	.banner-with-form-container #pricesBox {
+		text-align: left;
+	}
 
- .banner-with-form-container #pricesBox .d-flex {
-    align-items: center;
-  }
+	.banner-with-form-container #pricesBox .d-flex {
+		align-items: center;
+	}
 
-  .banner-with-form-container #pricesBox .d-flex p {
-    margin: 0 10px 0 0;
-  }
+	.banner-with-form-container #pricesBox .d-flex p {
+		margin: 0 10px 0 0;
+	}
 
-  .banner-with-form-container #pricesBox .d-flex span.prod-oldprice {
-    text-decoration: line-through;
-    font-size: var(--heading-font-size-xs);
-    line-height: var(--heading-font-size-xs);
-    font-weight: normal;
-  }
+	.banner-with-form-container #pricesBox .d-flex span.prod-oldprice {
+		text-decoration: line-through;
+		font-size: var(--heading-font-size-xs);
+		line-height: var(--heading-font-size-xs);
+		font-weight: normal;
+	}
 
-  .banner-with-form-container #pricesBox .d-flex span.prod-newprice {
-    font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
-    font-weight: bold;
-  }
+	.banner-with-form-container #pricesBox .d-flex span.prod-newprice {
+		font-size: var(--heading-font-size-xl);
+		line-height: var(--heading-font-size-xl);
+		font-weight: bold;
+	}
 
- .banner-with-form-container #pricesBox .d-flex .variation {
-    font-size: var(--body-font-size-xs);
-    line-height: 19px;
-    font-weight: bold;
-  }
+	.banner-with-form-container #pricesBox .d-flex .variation {
+		font-size: var(--body-font-size-xs);
+		line-height: 19px;
+		font-weight: bold;
+	}
 
-  .banner-with-form-container #pricesBox .buy_box {
-    margin: 20px 0;
-    min-height: auto;
-  }
+	.banner-with-form-container #pricesBox .buy_box {
+		margin: 20px 0;
+		min-height: auto;
+	}
 
-  .banner-with-form-container .animated_text span {
-    font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
-    text-align: left;
-    margin-left: 25px;
-  }
+	.banner-with-form-container .animated_text span {
+		font-size: var(--heading-font-size-xl);
+		line-height: var(--heading-font-size-xl);
+		text-align: left;
+		margin-left: 25px;
+	}
 
-  .banner-with-form-container #pricesBox .buy_box a, .banner-with-form-container #pricesBox .buy_box span {
-    display: inline;
-  }
+	.banner-with-form-container #pricesBox .buy_box a, .banner-with-form-container #pricesBox .buy_box span {
+		display: inline;
+	}
 
-  .banner-with-form-container #pricesBox .terms {
-    margin: 5px 0 10px;
-    font: normal normal normal 14px/16px Arial, sans-serif;
-  }
+	.banner-with-form-container #pricesBox .terms {
+		margin: 5px 0 10px;
+		font: normal normal normal 14px/16px Arial, sans-serif;
+	}
 
-  .banner-with-form-container #pricesBox .terms p {
-    font-size: 12px;
-    line-height: 15px;
-    margin: 0 5px;
-  }
+	.banner-with-form-container #pricesBox .terms p {
+		font-size: 12px;
+		line-height: 15px;
+		margin: 0 5px;
+	}
 
-  .banner-with-form-container #pricesBox .terms p a {
-    color: #006EFF;
-  }
+	.banner-with-form-container #pricesBox .terms p a {
+		color: #006EFF;
+	}
 }
 
 @media screen and (width >= 991px) {
-  .banner-with-form-container .banner-with-form h1 {
-    font-size: 36px;
-    line-height: 45px;
-  }
+	.banner-with-form-container .banner-with-form h1 {
+		font-size: 36px;
+		line-height: 45px;
+	}
 
-  .banner-with-form-container .banner.smaller-title h1 {
-    font-size: var(--heading-font-size-l);
-    line-height: var(--heading-font-size-l);
-  }
+	.banner-with-form-container .banner.smaller-title h1 {
+		font-size: var(--heading-font-size-l);
+		line-height: var(--heading-font-size-l);
+	}
 
-  .banner-with-form-container .banner-with-form h2 {
-    font-size: 36px;
-  }
+	.banner-with-form-container .banner-with-form h2 {
+		font-size: 36px;
+	}
 
-  .banner-with-form-container .banner-with-form .button-container {
-    display: block;
-  }
+	.banner-with-form-container .banner-with-form .button-container {
+		display: block;
+	}
 }
 
 @media screen and (width <= 768px) {
-  .banner-with-form-container .banner-with-form {
-    padding: 1em 0!important;
-    margin-bottom: 2em!important;
-  }
+	.banner-with-form-container .banner-with-form {
+		padding: 1em 0!important;
+		margin-bottom: 2em!important;
+	}
 
-  .section.normal-padding-mobile .banner-with-form {
-    padding-bottom: 1rem;
-  }
+	.section.normal-padding-mobile .banner-with-form {
+		padding-bottom: 1rem;
+	}
 
-  .banner-with-form-container .banner-with-form h1 {
-    margin-top: 0;
-    font-size: 30px;
-    text-align: left;
-  }
+	.banner-with-form-container .banner-with-form h1 {
+		margin-top: 0;
+		font-size: 30px;
+		text-align: left;
+	}
 
-  .banner-with-form-container .banner-with-form h2 {
-    font-size: var(--body-font-size-m);
-  }
+	.banner-with-form-container .banner-with-form h2 {
+		font-size: var(--body-font-size-m);
+	}
 
-  .banner-with-form-container .banner-with-form p {
-    font-size: 13px;
-    line-height: 18px;
-  }
+	.banner-with-form-container .banner-with-form p {
+		font-size: 13px;
+		line-height: 18px;
+	}
 
-  .banner-with-form-container .banner-with-form ul li {
-    font-size: 11px;
-    line-height: 16px;
-  }
+	.banner-with-form-container .banner-with-form ul li {
+		font-size: 11px;
+		line-height: 16px;
+	}
 
-  .banner-with-form-container #pricesBox .d-flex {
-    justify-content: center;
-  }
+	.banner-with-form-container #pricesBox .d-flex {
+		justify-content: center;
+	}
 
-  .banner-with-form-container #pricesBox .d-flex p {
-    margin: 0 10px 0 0;
-  }
+	.banner-with-form-container #pricesBox .d-flex p {
+		margin: 0 10px 0 0;
+	}
 
-  .banner-with-form-container #pricesBox .d-flex span.prod-oldprice {
-    text-decoration: line-through;
-    font: normal normal normal 18px/21px Arial, sans-serif;
-  }
+	.banner-with-form-container #pricesBox .d-flex span.prod-oldprice {
+		text-decoration: line-through;
+		font: normal normal normal 18px/21px Arial, sans-serif;
+	}
 
-  .banner-with-form-container #pricesBox .d-flex span.prod-newprice {
-    font-size: var(--heading-font-size-l);
-    line-height: var(--heading-font-size-l);
-    font-weight: bold;
-  }
+	.banner-with-form-container #pricesBox .d-flex span.prod-newprice {
+		font-size: var(--heading-font-size-l);
+		line-height: var(--heading-font-size-l);
+		font-weight: bold;
+	}
 
-  .banner-with-form-container #pricesBox .d-flex .variation {
-    font-size: var(--body-font-size-s);
-    line-height: 19px;
-    font-weight: bold;
-  }
+	.banner-with-form-container #pricesBox .d-flex .variation {
+		font-size: var(--body-font-size-s);
+		line-height: 19px;
+		font-weight: bold;
+	}
 
-  .banner-with-form-container #pricesBox .buy_box {
-    margin: 20px 0;
-    min-height: auto;
-  }
+	.banner-with-form-container #pricesBox .buy_box {
+		margin: 20px 0;
+		min-height: auto;
+	}
 
-  .banner-with-form-container #pricesBox .buy_box a, .banner-with-form-container #pricesBox .buy_box span {
-    display: inline;
-    font-size: var(--body-font-size-s);
-  }
+	.banner-with-form-container #pricesBox .buy_box a, .banner-with-form-container #pricesBox .buy_box span {
+		display: inline;
+		font-size: var(--body-font-size-s);
+	}
 
-  .banner-with-form-container #pricesBox .terms {
-    margin: 5px 0 10px;
-  }
+	.banner-with-form-container #pricesBox .terms {
+		margin: 5px 0 10px;
+	}
 
-  .banner-with-form-container #pricesBox .terms p {
-    font-size: 12px;
-    line-height: 15px;
-    margin: 0 5px;
-  }
+	.banner-with-form-container #pricesBox .terms p {
+		font-size: 12px;
+		line-height: 15px;
+		margin: 0 5px;
+	}
 
-  .banner-with-form-container #pricesBox .terms p a {
-    color: #006EFF;
-  }
+	.banner-with-form-container #pricesBox .terms p a {
+		color: #006EFF;
+	}
 
-  .banner-with-form-container.block-hide-mobile {
-    display: none !important;
-  }
+	.banner-with-form-container.block-hide-mobile {
+		display: none !important;
+	}
 
-  .banner-with-form-container.hide-mobile, .banner-with-form-container.hide-mobile .block {
-    background-image: unset!important;
-  }
+	.banner-with-form-container.hide-mobile, .banner-with-form-container.hide-mobile .block {
+		background-image: unset!important;
+	}
 
-  .banner-with-form-container.hide-mobile .bck-img {
-    display: none;
-  }
+	.banner-with-form-container.hide-mobile .bck-img {
+		display: none;
+	}
 
-  .banner-with-form-container .animated_box {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
+	.banner-with-form-container .animated_box {
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
 }
 
 @media screen and (width <= 991px) {
-  .banner-with-form-container.hide-tablet {
-    background-image: unset!important;
-    background-color: #000;
-  }
+	.banner-with-form-container.hide-tablet {
+		background-image: unset!important;
+		background-color: #000;
+	}
 }
 
 @media screen and (width >= 1400px) {
-  .banner-with-form-container .custom-col-xl-4 {
-    flex: 0 0 auto;
-    width: 27.33%;
-  }
+	.banner-with-form-container .custom-col-xl-4 {
+		flex: 0 0 auto;
+		width: 27.33%;
+	}
 }
 
 @media screen and (width >= 1800px) {
-  .banner-with-form-container .custom-justify-content-xxxl-center {
-    justify-content: center !important;
-  }
+	.banner-with-form-container .custom-justify-content-xxxl-center {
+		justify-content: center !important;
+	}
 }
