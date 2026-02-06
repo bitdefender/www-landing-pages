@@ -888,6 +888,10 @@ main .section.highlight {
   background-color: var(--highlight-background-color);
 }
 
+main .section.light-sky-blue-bck{
+  background-color: var(--background-color-light-sky-blue);
+}
+
 main .section.light-sky-blue>* {
   /* apply to all children wrapper */
   background-color: var(--background-color-light-sky-blue);

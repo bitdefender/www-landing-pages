@@ -114,6 +114,66 @@ export default function decorate(block) {
       table.appendChild(titleBox);
     }
 
+    // BUTTONS_BOX
+    if (aliasTr && (aliasTr.textContent.trim() === 'buttons_box' || aliasTr.textContent.trim() === 'Buttons_table')) {
+      const [, buttonsRow] = [...table.querySelectorAll('tr')];
+      const buttonsCells = buttonsRow.querySelectorAll('td');
+
+      if (buttonsCells.length >= 3) {
+        const [leftButton, orText, rightButton] = buttonsCells;
+
+        const buttonsBox = document.createElement('div');
+        buttonsBox.className = 'buttons-box';
+
+        // Extract left button content
+        const leftLink = leftButton.querySelector('a');
+        const leftButtonText = leftLink ? leftLink.textContent.trim() : '';
+        const leftButtonHref = leftLink ? leftLink.getAttribute('href') : '#';
+        const leftButtonTitle = leftLink ? leftLink.getAttribute('title') : leftButtonText;
+
+        // Extract additional text after the link (like "Basic protection, Windows only")
+        const leftAdditionalText = leftButton.textContent.replace(leftButtonText, '').trim();
+
+        // Extract right button content
+        const rightLink = rightButton.querySelector('a');
+        const rightButtonText = rightLink ? rightLink.textContent.trim() : '';
+        const rightButtonHref = rightLink ? rightLink.getAttribute('href') : '#';
+        const rightButtonTitle = rightLink ? rightLink.getAttribute('title') : rightButtonText;
+
+        // Extract additional text after the right button and replace [discounted_price]
+        const rightAdditionalTexts = rightButton.querySelectorAll('p:not(.button-container)');
+        let rightAdditionalText = rightAdditionalTexts.length > 0 ? rightAdditionalTexts[0].innerHTML : '';
+
+        // Replace [discounted_price] with dynamic price span
+        if (rightAdditionalText.includes('[discounted_price]') && onSelectorClass) {
+          rightAdditionalText = rightAdditionalText.replace(
+            '[discounted_price]',
+            `<span class="newprice-${onSelectorClass}"></span>`,
+          );
+        }
+
+        buttonsBox.innerHTML = `
+          <div class="row align-items-center g-3">
+            <div class="col-12 col-xl-5">
+              <a href="${leftButtonHref}" title="${leftButtonTitle}" class="button primary w-100 mb-2">${leftButtonText}</a>
+              ${leftAdditionalText ? `<p class="text-muted d-block text-center">${leftAdditionalText}</p>` : ''}
+            </div>
+            
+            <div class="col-12 col-xl-1 text-center d-flex align-items-center justify-content-center">
+              <span class="fw-medium">${orText.textContent.trim()}</span>
+            </div>
+            
+            <div class="col-12 col-xl-6">
+              <a href="${rightButtonHref}" title="${rightButtonTitle}" class="btn btn-outline-primary w-100 mb-2">${rightButtonText}</a>
+              ${rightAdditionalText ? `<p class="text-muted d-block text-center">${rightAdditionalText}</p>` : ''}
+            </div>
+          </div>`;
+
+        table.innerHTML = '';
+        table.appendChild(buttonsBox);
+      }
+    }
+
     if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
       // eslint-disable-next-line no-unused-vars
       const [alias, save, prices, terms, buybtn] = [...table.querySelectorAll('tr')];
