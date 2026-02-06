@@ -1,5 +1,6 @@
 import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
-import { GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { productAliases } from '../../scripts/scripts.js';
+import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
@@ -9,7 +10,7 @@ export default function decorate(block) {
   const {
     logo, config, imageAlign, paddingTop, paddingBottom, marginTop,
     marginBottom, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
-    underlinedInclinedTextColor, textAlignVertical, imageCover, corners,
+    underlinedInclinedTextColor, textAlignVertical, imageCover, corners, product,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -57,13 +58,34 @@ export default function decorate(block) {
     const formBox = document.createElement('div');
     const [inputText, buttonText] = parentBlock.querySelectorAll('table td');
     if (inputText && buttonText) {
-      formBox.innerHTML = `<form id="formBox" onsubmit="event.preventDefault();">
-        <label for="formEmail">Email:</label>
-        <p class="form_err"></p>
-        <input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>
-        <button class='green-buy-button'>${buttonText.innerText}</button>
-        <div id="captchaBox"></div>
-      </form>`;
+      let htmlForm = '';
+
+      if (product) {
+        const [prodName, prodUsers, prodYears] = product.split('/');
+        const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+        updateProductsList(product);
+
+        htmlForm += `
+          <div class="priceBox await-loader prodload prodload-${onSelectorClass}">
+            <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+            <span class="prod-newprice newprice-${onSelectorClass}"></span>
+          </div>
+        `;
+      }
+
+      htmlForm += `
+        <form id="formBox" onsubmit="event.preventDefault();">
+          <label for="formEmail">Email:</label>
+          <p class="form_err"></p>
+          <input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>
+          <button class='green-buy-button'>${buttonText.innerText}</button>
+          <div id="captchaBox"></div>
+        </form>
+      `;
+
+      formBox.innerHTML = htmlForm;
+
       window.onRecaptchaLoadCallback = () => {
         window.clientId = grecaptcha.render('captchaBox', {
           sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
