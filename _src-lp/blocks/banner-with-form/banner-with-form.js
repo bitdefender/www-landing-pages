@@ -58,7 +58,7 @@ export default function decorate(block) {
     const formBox = document.createElement('div');
     const [inputText, buttonText] = parentBlock.querySelectorAll('table td');
     if (inputText && buttonText) {
-      let html = '';
+      let htmlForm = '';
 
       if (product) {
         const [prodName, prodUsers, prodYears] = product.split('/');
@@ -66,9 +66,7 @@ export default function decorate(block) {
 
         updateProductsList(product);
 
-        console.log(product);
-
-        html += `
+        htmlForm += `
           <div class="priceBox await-loader prodload prodload-${onSelectorClass}">
             <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
             <span class="prod-newprice newprice-${onSelectorClass}"></span>
@@ -76,7 +74,7 @@ export default function decorate(block) {
         `;
       }
 
-      html += `
+      htmlForm += `
         <form id="formBox" onsubmit="event.preventDefault();">
           <label for="formEmail">Email:</label>
           <p class="form_err"></p>
@@ -86,7 +84,7 @@ export default function decorate(block) {
         </form>
       `;
 
-      formBox.innerHTML = html;
+      formBox.innerHTML = htmlForm;
 
       window.onRecaptchaLoadCallback = () => {
         window.clientId = grecaptcha.render('captchaBox', {
