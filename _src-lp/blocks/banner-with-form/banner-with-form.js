@@ -142,7 +142,6 @@ export default function decorate(block) {
           formData.append('nfo[no_days]', noDays.split(':')[1].trim());
           formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
           formData.append('nfo[allowed_email]', allowedEmailValueForSubmit);
-          // formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
           const allowedCountriesValue = getConfigValue(allowedCountries);
           if (allowedCountriesValue) {
             formData.append('nfo[allowed_countries]', allowedCountriesValue);
