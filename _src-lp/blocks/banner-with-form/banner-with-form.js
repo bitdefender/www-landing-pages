@@ -1,5 +1,6 @@
 import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
-import { GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { productAliases } from '../../scripts/scripts.js';
+import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
@@ -9,7 +10,7 @@ export default function decorate(block) {
   const {
     logo, config, imageAlign, paddingTop, paddingBottom, marginTop,
     marginBottom, contentSize, backgroundColor, innerBackgroundColor, backgroundHide, bannerHide, textColor,
-    underlinedInclinedTextColor, textAlignVertical, imageCover, corners,
+    underlinedInclinedTextColor, textAlignVertical, imageCover, corners, product,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
 
@@ -57,13 +58,34 @@ export default function decorate(block) {
     const formBox = document.createElement('div');
     const [inputText, buttonText] = parentBlock.querySelectorAll('table td');
     if (inputText && buttonText) {
-      formBox.innerHTML = `<form id="formBox" onsubmit="event.preventDefault();">
-        <label for="formEmail">Email:</label>
-        <p class="form_err"></p>
-        <input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>
-        <button class='green-buy-button'>${buttonText.innerText}</button>
-        <div id="captchaBox"></div>
-      </form>`;
+      let htmlForm = '';
+
+      if (product) {
+        const [prodName, prodUsers, prodYears] = product.split('/');
+        const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+
+        updateProductsList(product);
+
+        htmlForm += `
+          <div class="priceBox await-loader prodload prodload-${onSelectorClass}">
+            <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+            <span class="prod-newprice newprice-${onSelectorClass}"></span>
+          </div>
+        `;
+      }
+
+      htmlForm += `
+        <form id="formBox" onsubmit="event.preventDefault();">
+          <label for="formEmail">Email:</label>
+          <p class="form_err"></p>
+          <input class='input' id='formEmail' name='nfo[email]' placeholder='${inputText.innerText}' type='email'></input>
+          <button class='green-buy-button'>${buttonText.innerText}</button>
+          <div id="captchaBox"></div>
+        </form>
+      `;
+
+      formBox.innerHTML = htmlForm;
+
       window.onRecaptchaLoadCallback = () => {
         window.clientId = grecaptcha.render('captchaBox', {
           sitekey: '6LcEH5onAAAAAH4800Uc6IYdUvmqPLHFGi_nOGeR',
@@ -86,7 +108,26 @@ export default function decorate(block) {
         const email = document.getElementById('formEmail').value;
         const formBtn = formSelector.querySelector('button');
         const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
-        if (email.includes(allowedEmail.split(':')[1].trim())) {
+        const getConfigValue = (value) => {
+          if (!value) return '';
+          const v = String(value).trim();
+          if (!v) return '';
+          return v.includes(':') ? v.split(':').slice(1).join(':').trim() : v;
+        };
+        let allowedEmailValue = getConfigValue(allowedEmail);
+        if (allowedEmailValue.includes('allowed_countries:')) {
+          allowedEmailValue = allowedEmailValue.split('allowed_countries:')[0].trim();
+        }
+        const normalizeDomain = (domain) => domain.replace(/[^@\w.-]/g, '').trim();
+        const allowedDomains = allowedEmailValue
+          ? allowedEmailValue
+            .split(/;|,/)
+            .map((domain) => normalizeDomain(domain))
+            .filter((domain) => domain && !domain.startsWith('allowed_countries'))
+          : [];
+        const allowedEmailValueForSubmit = allowedDomains.join('; ');
+        const isAllowed = allowedDomains.length === 0 || allowedDomains.some((domain) => email.endsWith(domain));
+        if (isAllowed) {
           formBtn.disabled = true;
           formSelector.classList.add('await-loader');
           formErr.style.display = 'none';
@@ -100,8 +141,11 @@ export default function decorate(block) {
           formData.append('nfo[end_date]', endDate.split(':')[1].trim());
           formData.append('nfo[no_days]', noDays.split(':')[1].trim());
           formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
-          formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
-          formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
+          formData.append('nfo[allowed_email]', allowedEmailValueForSubmit);
+          const allowedCountriesValue = getConfigValue(allowedCountries);
+          if (allowedCountriesValue) {
+            formData.append('nfo[allowed_countries]', allowedCountriesValue);
+          }
           formData.append('nfo[captcha_token]', captchaToken);
           fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
             method: 'POST',
