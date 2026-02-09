@@ -108,7 +108,26 @@ export default function decorate(block) {
         const email = document.getElementById('formEmail').value;
         const formBtn = formSelector.querySelector('button');
         const formErrData = { '001': 'Invalid page', '002': 'Invalid email address', '003': 'Invalid captcha' };
-        if (email.includes(allowedEmail.split(':')[1].trim())) {
+        const getConfigValue = (value) => {
+          if (!value) return '';
+          const v = String(value).trim();
+          if (!v) return '';
+          return v.includes(':') ? v.split(':').slice(1).join(':').trim() : v;
+        };
+        let allowedEmailValue = getConfigValue(allowedEmail);
+        if (allowedEmailValue.includes('allowed_countries:')) {
+          allowedEmailValue = allowedEmailValue.split('allowed_countries:')[0].trim();
+        }
+        const normalizeDomain = (domain) => domain.replace(/[^@\w.-]/g, '').trim();
+        const allowedDomains = allowedEmailValue
+          ? allowedEmailValue
+            .split(/;|,/)
+            .map((domain) => normalizeDomain(domain))
+            .filter((domain) => domain && !domain.startsWith('allowed_countries'))
+          : [];
+        const allowedEmailValueForSubmit = allowedDomains.join('; ');
+        const isAllowed = allowedDomains.length === 0 || allowedDomains.some((domain) => email.endsWith(domain));
+        if (isAllowed) {
           formBtn.disabled = true;
           formSelector.classList.add('await-loader');
           formErr.style.display = 'none';
@@ -122,9 +141,14 @@ export default function decorate(block) {
           formData.append('nfo[end_date]', endDate.split(':')[1].trim());
           formData.append('nfo[no_days]', noDays.split(':')[1].trim());
           formData.append('nfo[no_users]', noUsers.split(':')[1].trim());
-          formData.append('nfo[allowed_email]', allowedEmail.split(':')[1].trim());
-          formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
+          formData.append('nfo[allowed_email]', allowedEmailValueForSubmit);
+          // formData.append('nfo[allowed_countries]', allowedCountries.split(':')[1].trim());
+          const allowedCountriesValue = getConfigValue(allowedCountries);
+          if (allowedCountriesValue) {
+            formData.append('nfo[allowed_countries]', allowedCountriesValue);
+          }
           formData.append('nfo[captcha_token]', captchaToken);
+          console.log('formData', Object.fromEntries(formData.entries()));
           fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
             method: 'POST',
             body: formData,
