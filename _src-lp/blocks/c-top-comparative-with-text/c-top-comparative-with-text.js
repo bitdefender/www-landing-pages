@@ -79,13 +79,9 @@ export default function decorate(block) {
         let hardcodedLinkData = null;
 
         const tableBuybtn = item.querySelector('table:last-of-type td');
-        console.log(`\n🎴 Card ${key} - Checking for hardcoded link...`);
         if (tableBuybtn) {
           const existingLink = tableBuybtn.querySelector('a');
-          console.log('   Existing link found:', existingLink);
           if (existingLink) {
-            console.log('   href:', existingLink.href);
-            console.log('   text:', existingLink.innerText.trim());
 
             if (existingLink.href && existingLink.href !== '' && existingLink.href !== '#') {
               const href = existingLink.href;
@@ -96,15 +92,10 @@ export default function decorate(block) {
                   href,
                   text: existingLink.innerText.trim() || 'BUY NOW',
                 };
-                console.log('   ✅ HARDCODED LINK DETECTED:', hardcodedLinkData);
               }
             }
           }
         }
-
-        console.log(`\n🎴 Processing Card ${key}:`);
-        console.log(`   Product: ${currentProduct}`);
-        console.log(`   hasHardcodedLink: ${hasHardcodedLink}`);
 
         // Process product
         let prodName = '';
@@ -126,7 +117,6 @@ export default function decorate(block) {
         if (hasHardcodedLink) {
           // Empty div, no prices at all for hardcoded links
           pricesDiv = '<div class="prices_box"></div>';
-          console.log('   👻 No prices (hardcoded link)');
         } else {
           // Show prices with loader for API products
           const loaderClasses = !isEmptyProduct ? `await-loader prodload prodload-${onSelectorClass}` : '';
@@ -135,7 +125,6 @@ export default function decorate(block) {
           if (discount && !isEmptyProduct) pricesDiv += `<span class="percent"><span class="percent percent-${onSelectorClass}""></span> OFF</span>`;
           pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
           pricesDiv += '</div>';
-          console.log('   💰 Showing prices with API loader');
           if (bulinaText && (isActiveCard || isLastCard) && !isEmptyProduct) {
             const bulinaSplitted = bulinaText.split(',');
             pricesDiv += `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass}">
@@ -153,13 +142,11 @@ export default function decorate(block) {
           if (hasHardcodedLink && hardcodedLinkData) {
             // Use hardcoded link, no API loader
             buttonHTML = `<div class="buy_box buy_box${key}"><a href="${hardcodedLinkData.href}" title="Bitdefender" class="red-buy-button" referrerpolicy="no-referrer-when-downgrade">${hardcodedLinkData.text}</a></div>`;
-            console.log(`   ✅ Creating HARDCODED button with href: ${hardcodedLinkData.href}`);
           } else {
             // Use API link with loader
             const buttonText = tableBuybtnForButton.innerText.trim() || 'BUY NOW';
             const loaderClasses = !isEmptyProduct ? ` await-loader prodload prodload-${onSelectorClass}` : '';
             buttonHTML = `<div class="buy_box buy_box${key}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass}${loaderClasses}" referrerpolicy="no-referrer-when-downgrade">${buttonText}</a></div>`;
-            console.log('   🔗 Creating API button with href: #');
           }
           tableBuybtnForButton.innerHTML = buttonHTML;
         }

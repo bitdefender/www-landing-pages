@@ -84,6 +84,8 @@ export function productAliasesNames(name) {
   } else if (newName === 'us_pfe') {
     newName = 'Bitdefender Ultimate Security Plus Family Extended';
   } else if (newName === 'av') {
+    newName = 'Bitdefender Antivirus Plus Multiplatform';
+  } else if (newName === 'avpm') {
     newName = 'Bitdefender Antivirus Plus';
   } else if (newName === 'is') {
     newName = 'Bitdefender Internet Security';
