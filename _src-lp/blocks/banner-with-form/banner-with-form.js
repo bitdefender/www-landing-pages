@@ -147,7 +147,6 @@ export default function decorate(block) {
             formData.append('nfo[allowed_countries]', allowedCountriesValue);
           }
           formData.append('nfo[captcha_token]', captchaToken);
-          console.log('formData', Object.fromEntries(formData.entries()));
           fetch('https://www.bitdefender.com/site/Promotions/spreadPromotionsPages', {
             method: 'POST',
             body: formData,
