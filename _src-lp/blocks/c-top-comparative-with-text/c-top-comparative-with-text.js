@@ -82,7 +82,6 @@ export default function decorate(block) {
         if (tableBuybtn) {
           const existingLink = tableBuybtn.querySelector('a');
           if (existingLink) {
-
             if (existingLink.href && existingLink.href !== '' && existingLink.href !== '#') {
               const href = existingLink.href;
 
