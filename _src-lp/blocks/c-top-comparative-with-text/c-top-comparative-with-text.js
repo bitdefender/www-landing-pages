@@ -38,14 +38,23 @@ export default function decorate(block) {
     const topTextSplitted = topText.split(',');
     const topHeader = document.createElement('div');
     topHeader.className = 'topHeader col-12';
-    topHeader.innerHTML += `<h3 class="heading">${topTextSplitted[0]}</h3>`;
-    topHeader.innerHTML += `<h2 class="subheading">${topTextSplitted[1]}</h2>`;
+    if (topTextSplitted[0]) {
+      topHeader.innerHTML += `<h3 class="heading">${topTextSplitted[0]}</h3>`;
+    }
+    if (topTextSplitted[1]) {
+      topHeader.innerHTML += `<h2 class="subheading">${topTextSplitted[1]}</h2>`;
+    }
     block.parentNode.prepend(topHeader);
   }
 
   if (productsAsList.length) {
-    // check and add products into the final array
-    productsAsList.forEach((prod) => updateProductsList(prod));
+    /// ///////////////////////////////////////////////////////////////////////
+    // check and add products into the final array (skip empty products)
+    productsAsList.forEach((prod) => {
+      if (prod && prod.trim() !== '') {
+        updateProductsList(prod);
+      }
+    });
 
     /// ///////////////////////////////////////////////////////////////////////
     // set top class with numbers of products
@@ -62,49 +71,107 @@ export default function decorate(block) {
           item.classList.add('active');
         }
 
-        // eslint-disable-next-line prefer-const
-        let [prodName, prodUsers, prodYears] = productsAsList[key - 1].split('/');
-        prodName = prodName.trim();
-        const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+        const currentProduct = productsAsList[key - 1];
+        const isEmptyProduct = !currentProduct || currentProduct.trim() === '';
+
+        // DETECT hardcoded link RIGHT NOW for this card
+        let hasHardcodedLink = false;
+        let hardcodedLinkData = null;
+
+        const tableBuybtn = item.querySelector('table:last-of-type td');
+        if (tableBuybtn) {
+          const existingLink = tableBuybtn.querySelector('a');
+          if (existingLink) {
+            if (existingLink.href && existingLink.href !== '' && existingLink.href !== '#') {
+              const href = existingLink.href;
+
+              if (!href.endsWith('#') && href.indexOf('#') !== href.length - 1) {
+                hasHardcodedLink = true;
+                hardcodedLinkData = {
+                  href,
+                  text: existingLink.innerText.trim() || 'BUY NOW',
+                };
+              }
+            }
+          }
+        }
+
+        // Process product
+        let prodName = '';
+        let prodUsers = '';
+        let prodYears = '';
+        let onSelectorClass = 'custom';
+
+        if (!isEmptyProduct) {
+          // eslint-disable-next-line prefer-const
+          [prodName, prodUsers, prodYears] = currentProduct.split('/');
+          prodName = prodName.trim();
+          onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+        }
 
         const pricesSection = item.querySelector('table:first-of-type');
-        let pricesDiv = `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">`;
-        pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
-        if (discount)pricesDiv += `<span class="percent"><span class="percent percent-${onSelectorClass}""></span> OFF</span>`;
-        pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
-        pricesDiv += '<div>';
-        if (bulinaText && (isActiveCard || isLastCard)) {
-          const bulinaSplitted = bulinaText.split(',');
-          pricesDiv += `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass}">
-            <span class="bulina_text1"><b class="percent-${onSelectorClass}">${bulinaSplitted[0]}</b></span>
-            <span class="bulina_text2">${bulinaSplitted[1]}</span>
-          </div>`;
+
+        // If has hardcoded link, don't create price elements at all. Otherwise show them with API loader
+        let pricesDiv = '';
+        if (hasHardcodedLink) {
+          // Empty div, no prices at all for hardcoded links
+          pricesDiv = '<div class="prices_box"></div>';
+        } else {
+          // Show prices with loader for API products
+          const loaderClasses = !isEmptyProduct ? `await-loader prodload prodload-${onSelectorClass}` : '';
+          pricesDiv = `<div class="prices_box ${loaderClasses}">`;
+          pricesDiv += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+          if (discount && !isEmptyProduct) pricesDiv += `<span class="percent"><span class="percent percent-${onSelectorClass}""></span> OFF</span>`;
+          pricesDiv += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+          pricesDiv += '</div>';
+          if (bulinaText && (isActiveCard || isLastCard) && !isEmptyProduct) {
+            const bulinaSplitted = bulinaText.split(',');
+            pricesDiv += `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass}">
+              <span class="bulina_text1"><b class="percent-${onSelectorClass}">${bulinaSplitted[0]}</b></span>
+              <span class="bulina_text2">${bulinaSplitted[1]}</span>
+            </div>`;
+          }
         }
         pricesSection.innerHTML = pricesDiv;
 
         // add buybtn div & anchor
-        const tableBuybtn = item.querySelector('table:last-of-type td');
-        tableBuybtn.innerHTML = `<div class="buy_box buy_box${key}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
+        const tableBuybtnForButton = item.querySelector('table:last-of-type td');
+        if (tableBuybtnForButton) {
+          let buttonHTML = '';
+          if (hasHardcodedLink && hardcodedLinkData) {
+            // Use hardcoded link, no API loader
+            buttonHTML = `<div class="buy_box buy_box${key}"><a href="${hardcodedLinkData.href}" title="Bitdefender" class="red-buy-button" referrerpolicy="no-referrer-when-downgrade">${hardcodedLinkData.text}</a></div>`;
+          } else {
+            // Use API link with loader
+            const buttonText = tableBuybtnForButton.innerText.trim() || 'BUY NOW';
+            const loaderClasses = !isEmptyProduct ? ` await-loader prodload prodload-${onSelectorClass}` : '';
+            buttonHTML = `<div class="buy_box buy_box${key}"><a href="#" title="Bitdefender" class="red-buy-button buylink-${onSelectorClass}${loaderClasses}" referrerpolicy="no-referrer-when-downgrade">${buttonText}</a></div>`;
+          }
+          tableBuybtnForButton.innerHTML = buttonHTML;
+        }
 
         const priceBoxSelector = block.querySelector(`.c-top-comparative-with-text > div:nth-child(${key + 1})`);
         priceBoxSelector.classList.add(`${onSelectorClass}_box_comp`);
-        const prodDescription = !block.classList.contains('reveresed') ? block.querySelector(`.${onSelectorClass}_box_comp > div > p:nth-child(3)`) : '';
-        prodDescription?.classList.add(`${prodName}_description_comp`);
 
-        if (userText) {
-          document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
-            const users = StoreProducts.product[prodName].selected_users;
-            // const years = StoreProducts.product[prodName].selected_years;
-            const textUser = userText.split(',');
-            let devicesText = '';
-            if (users !== '1') {
-              devicesText = `${textUser[1]}`;
-            } else {
-              devicesText = `${textUser[0]}`;
-            }
-            const devicesDesc = block.querySelector(`.${prodName}_description_comp`);
-            devicesDesc.innerHTML = `${users} ${devicesText}`;
-          });
+        if (!isEmptyProduct) {
+          const prodDescription = !block.classList.contains('reveresed') ? block.querySelector(`.${onSelectorClass}_box_comp > div > p:nth-child(3)`) : '';
+          prodDescription?.classList.add(`${prodName}_description_comp`);
+
+          if (userText) {
+            document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
+              const users = StoreProducts.product[prodName].selected_users;
+              // const years = StoreProducts.product[prodName].selected_years;
+              const textUser = userText.split(',');
+              let devicesText = '';
+              if (users !== '1') {
+                devicesText = `${textUser[1]}`;
+              } else {
+                devicesText = `${textUser[0]}`;
+              }
+              const devicesDesc = block.querySelector(`.${prodName}_description_comp`);
+              devicesDesc.innerHTML = `${users} ${devicesText}`;
+            });
+          }
         }
       }
     });

@@ -14,6 +14,7 @@ export default function decorate(block) {
     loader,
     topBackgroundColor,
     topTextColor,
+    alwaysOpen,
   } = parentSelector.dataset;
 
   // search for [] to replace with span greeenTag class
@@ -28,9 +29,11 @@ export default function decorate(block) {
     const getFirstTabs = block.querySelectorAll('.b-dropdownbox-container .block > div:first-child');
     getFirstTabs.forEach((tab) => {
       tab.parentNode.classList.remove('inactive');
-      tab.parentNode.addEventListener('click', () => {
-        tab.parentNode.classList.toggle('inactive');
-      });
+      if (!alwaysOpen) {
+        tab.parentNode.addEventListener('click', () => {
+          tab.parentNode.classList.toggle('inactive');
+        });
+      }
     });
   }
 

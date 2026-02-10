@@ -23,6 +23,9 @@ module.exports = {
     'table-bordered',
     'col-lg-8', 'col-lg-4', 'col-lg-9', 'col-lg-3', 'g-0', 'row',
     'col-12', 'd-flex', 'flex-column', 'justify-content-start',
+    'col-md-5', 'col-md-2', 'col-md-1', 'col-md-6', 'col-xl-5', 'col-xl-1', 'col-xl-6',
+    'align-items-center', 'g-3', 'btn', 'btn-danger', 'btn-outline-primary',
+    'w-100', 'mb-2', 'text-center', 'fw-medium', 'text-muted', 'd-block', 'justify-content-center',
   ],
   blocklist: ['strong'],
 };
