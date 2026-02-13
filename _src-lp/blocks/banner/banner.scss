@@ -1578,6 +1578,11 @@
     padding-top: 0 !important;
   }
 
+  .section.banner-container .banner > div > div.row:nth-last-of-type {
+    flex-direction: column-reverse;
+    gap: 1em;
+  }
+
   .section.banner-container.tables-switch .banner .row > div > div table img {
     margin: 0;
   }
