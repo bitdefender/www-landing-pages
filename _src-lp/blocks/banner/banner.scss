@@ -1578,6 +1578,17 @@
     padding-top: 0 !important;
   }
 
+  .section.banner-container .banner {
+    border-radius: 0!important;
+    padding: 1em 0 !important;
+    margin-bottom: 1em !important;
+  }
+
+  .section.banner-container .banner > div > div:nth-of-type(2) {
+    flex-direction: column-reverse;
+    gap: 1em;
+  }
+
   .section.banner-container.tables-switch .banner .row > div > div table img {
     margin: 0;
   }
@@ -1730,11 +1741,6 @@
     top: 34px;
     font-size: 24px;
     line-height: 18px;
-  }
-
-  .section.banner-container .banner {
-    padding: 1em 0 !important;
-    margin-bottom: 1em !important;
   }
 
   .section.lp-brand .banner {
