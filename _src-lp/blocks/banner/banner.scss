@@ -1578,7 +1578,11 @@
     padding-top: 0 !important;
   }
 
-  .section.banner-container .banner > div > div.row:nth-last-of-type {
+  .section.banner-container .banner {
+    border-radius: 0!important;
+  }
+
+  .section.banner-container .banner > div > div:nth-of-type(2) {
     flex-direction: column-reverse;
     gap: 1em;
   }
