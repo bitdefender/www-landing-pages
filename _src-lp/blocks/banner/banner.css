@@ -1450,6 +1450,8 @@
   }
   .section.banner-container .banner {
     border-radius: 0 !important;
+    padding: 1em 0 !important;
+    margin-bottom: 1em !important;
   }
   .section.banner-container .banner > div > div:nth-of-type(2) {
     flex-direction: column-reverse;
@@ -1577,10 +1579,6 @@
     top: 34px;
     font-size: 24px;
     line-height: 18px;
-  }
-  .section.banner-container .banner {
-    padding: 1em 0 !important;
-    margin-bottom: 1em !important;
   }
   .section.lp-brand .banner {
     padding-bottom: 5.5rem;
