@@ -1406,9 +1406,6 @@
   .section.banner-container.red-pill #greenPillBox {
     right: 4em;
   }
-  .section.banner-container .buttons-box .col-xl-1 {
-    margin-top: 10px;
-  }
   /* Buttons Box Responsive */
   .section.banner-container .buttons-box .row {
     flex-direction: column;
@@ -1450,6 +1447,13 @@
     background-image: unset !important;
     margin-top: 20px !important;
     padding-top: 0 !important;
+  }
+  .section.banner-container .banner {
+    border-radius: 0!important;
+  }
+  .section.banner-container .banner > div > div:nth-of-type(2) {
+    flex-direction: column-reverse;
+    gap: 1em;
   }
   .section.banner-container.tables-switch .banner .row > div > div table img {
     margin: 0;
@@ -1831,7 +1835,7 @@
 .section.banner-container .buttons-box .text-muted {
   font-size: 14px;
   color: #666 !important;
-  margin: 5px 0 0 0;
+  margin: 5px 0 0;
 }
 
 .section.banner-container .buttons-box .fw-medium {
