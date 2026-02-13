@@ -144,6 +144,8 @@ $checkbox-size: 20px;
 
   @media screen and (width >= 900px) {
     .form {
+      max-width: 31%;
+      
       .field-wrapper {
         display: flex;
 
@@ -156,8 +158,6 @@ $checkbox-size: 20px;
           }
         }
       }
-
-      max-width: 31%;
     }
 
     .form-wrapper {
