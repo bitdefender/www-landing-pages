@@ -1454,7 +1454,7 @@
 @media screen and (width <= 767px) {
   .section.banner-container[data-image-cover=small-right] .banner {
     background-image: unset !important;
-    margin-top: 20px !important;
+    margin-top: 0 !important;
     padding-top: 0 !important;
   }
   .section.banner-container .banner {
