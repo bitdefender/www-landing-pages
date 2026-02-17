@@ -115,6 +115,7 @@
 }
 
 .section.banner-container .banner p a.button:any-link {
+  height: 48px;
   padding: 13px 3em;
 }
 
@@ -1594,7 +1595,7 @@
   }
 
   .section.banner-container.tables-switch .banner .row > div > div table img {
-    margin: 0;
+    margin: 1em 0 0;
   }
 
   .section.banner-container.tables-switch .banner .row > div > div > table:nth-last-of-type(2) {
