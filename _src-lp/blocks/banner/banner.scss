@@ -114,6 +114,10 @@
   color: white;
 }
 
+.section.banner-container .banner p a.button:any-link {
+  padding: 13px 3em;
+}
+
 .section.banner-container .banner h1 a:hover {
   text-decoration-color: #cee2fe;
 }
@@ -327,7 +331,7 @@
 }
 
 .section.banner-container.small-table-awards .row > div:first-of-type table img {
-  height: 80px;
+  height: 40px;
   width: unset;
   min-width: unset;
   max-width: unset;
