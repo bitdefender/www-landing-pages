@@ -1437,12 +1437,9 @@
   .new-prod-boxes-container {
     overflow: hidden;
   }
-  .new-prod-boxes-container .block {
-    display: block !important;
-  }
   .new-prod-boxes-container .block .prod_box {
     margin-bottom: 0 !important;
-    margin-top: 2em;
+    margin-top: var(--green-tag-height) !important;
   }
   .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .save-trial-text {
     min-height: auto !important;

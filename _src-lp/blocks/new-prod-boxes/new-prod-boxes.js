@@ -60,6 +60,7 @@ function initializeSlider(block) {
 }
 
 function extractBuyLinks(tdElement) {
+  if (!tdElement) return [];
   const result = [];
   const paragraphs = tdElement.querySelectorAll('p');
   if (paragraphs.length > 0) {
@@ -173,7 +174,7 @@ export default function decorate(block) {
     if (titleText || subText) {
       titleBox.classList.add('titleBox');
       titleBox.innerHTML = `
-      <h2>${titleText}</h2>
+      ${titleText ? `<h2>${titleText}</h2>` : ''}
       ${subText ? `<p>${subText}</p>` : ''}`;
 
       if (titleBox.innerHTML.includes('0%')) {
@@ -259,7 +260,7 @@ export default function decorate(block) {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const buyLinkText = buyLink.innerText.trim();
+      const buyLinkText = buyLink?.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
 
       [...block.children][key].innerHTML = '';
@@ -273,7 +274,7 @@ export default function decorate(block) {
       }
       // if we have vpn
 
-      if (billed.innerText.includes('[vpn_box]')) {
+      if (billed?.innerText.includes('[vpn_box]')) {
         // add VPN
         updateProductsList('vpn/10/1');
 
@@ -309,8 +310,10 @@ export default function decorate(block) {
         billedUL.remove();
       }
 
-      const featuresSet = benefitsLists.querySelectorAll('table');
-      const featureList = Array.from(featuresSet).map((table) => {
+      const featuresSet = benefitsLists?.querySelectorAll('table');
+      let featureList;
+      if (featuresSet) {
+        featureList = Array.from(featuresSet).map((table) => {
         const trList = Array.from(table.querySelectorAll('tr'));
 
         const liString = trList.map((tr) => {
@@ -360,25 +363,29 @@ export default function decorate(block) {
         }).join('');
 
         return `<ul>${liString}</ul>`;
-      });
+        });
+      }
 
-      if (title.innerHTML.indexOf('href') !== -1) {
+      if (title && title.innerHTML.indexOf('href') !== -1) {
         title.innerHTML = `<a href="${title.querySelector('tr a').getAttribute('href')}" title="${title.innerText}">${title.querySelector('tr a').innerHTML}</a>`;
       }
 
       let percentOffFlag = false;
-      let percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
-      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-        percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
-        percentOffFlag = true;
+      let percentOff;
+      if (saveOldPrice) {
+        percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
+        if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+          percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
+          percentOffFlag = true;
+        }
+        if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+          percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
+          percentOffFlag = true;
+        }
+        if (!percentOff) percentOffFlag = false;
       }
-      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-        percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
-        percentOffFlag = true;
-      }
-      if (!percentOff) percentOffFlag = false;
 
-      const optionList = subtitle.querySelector('ul');
+      const optionList = subtitle?.querySelector('ul');
       const combinedPricesBox = document.createElement('div');
       if (optionList) {
         const optionSelector = document.createElement('select');
@@ -388,6 +395,7 @@ export default function decorate(block) {
           const [pname, pusers, pyears] = variationText.split('/');
           const selectorClass = `${pname.trim()}-${pusers}${pyears}`;
           const value = variationText.trim();
+
           const isChecked = idx === 0 ? 'checked' : '';
 
           percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${selectorClass}"></span>`);
@@ -410,7 +418,7 @@ export default function decorate(block) {
 
           if (optionsType && optionsType === 'dropdown') {
             if (!optionSelector.id) optionSelector.id = `optionSelector_${pname.trim()}`;
-            optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
+            optionSelector.innerHTML += `<option name="card-radio-${key}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
             const priceSpan = type === 'dropdown-benefits'
               ? `<span class="prod-oldprice oldprice-${selectorClass}"></span><span class="prod-newprice newprice-${selectorClass} radio-price"></span>`
@@ -423,7 +431,7 @@ export default function decorate(block) {
               `;
             } else {
               li.innerHTML = `
-                <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+                <input type="radio" name="card-radio-${key}" id="${value}" value="${selectorClass}" ${isChecked}>
                 <label for="${value}">${labelText.trim()}</label>
               `;
             }
@@ -440,8 +448,8 @@ export default function decorate(block) {
             </div>
 
               ${billed ? ` <div class="billed">
-                ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
-              </div>` : billed.innerText}
+                ${billed?.innerText.includes('0') ? billed?.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
+              </div>` : billed?.innerText}
 
               ${replaceBuyLinks ? `<div class="buy-btn">
                 <a class="red-buy-button buylink-${selectorClass}" href="#" data-href="${buyLinkObj.href}"  title="Bitdefender">
@@ -481,20 +489,20 @@ export default function decorate(block) {
         demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
       }
       block.innerHTML += `
-        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
+        <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
           ${divBulina}
-            ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
+            ${greenTag?.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             <div class="header-box">
-              ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
+              ${title?.innerText.trim() ? `<h2>${title?.innerHTML}</h2>` : ''}
               <div class="tag-subtitle">
                 ${newBlueTag.innerText.trim() ? `<div class="blueTagsWrapper">${newBlueTag.innerHTML.trim()}</div>` : ''}
-                ${subtitle.innerText.trim() ? `<div class="subtitle">${subtitle.innerHTML.trim()}</div>` : ''}
+                ${subtitle?.innerText.trim() ? `<div class="subtitle">${subtitle?.innerHTML.trim()}</div>` : ''}
               </div>
               <hr />
 
               ${combinedPricesBox && combinedPricesBox.innerText ? combinedPricesBox.innerHTML : `
-                ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
+                ${saveOldPrice?.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
                   <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
                   <strong class="percent prod-percent">
                     ${percentOff}
@@ -506,7 +514,7 @@ export default function decorate(block) {
                   <sup>${price.innerText.trim().replace('0', '')}</sup>
                 </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
+                  <sup>${price?.innerText.trim().replace('0', '')}</sup>
                 </div>`}
 
   ${billed ? (() => {
@@ -549,16 +557,16 @@ export default function decorate(block) {
                   <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
                 </div>` : `<div class="buy-btn">
                 <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
-                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                  ${buyLinkText?.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
                 </div>`}
 
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
-            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${demoBtn !== '' ? demoBtn : underBuyLink.innerHTML.trim()}</div>` : ''}
+            ${underBuyLink?.innerText.trim() ? `<div class="underBuyLink">${demoBtn !== '' ? demoBtn : underBuyLink?.innerHTML.trim()}</div>` : ''}
             <hr />
-            ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
+            ${benefitsLists?.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
       </div>`;
 
@@ -736,13 +744,15 @@ export default function decorate(block) {
     observer.observe(document, { childList: true, subtree: true });
   }
 
-  const targetNode = document.querySelector('.new-prod-boxes');
+  const targetNode = block;
   matchHeights(targetNode, '.tag-subtitle');
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, '.subtitle p:first-of-type');
   matchHeights(targetNode, 'h2');
   matchHeights(targetNode, '.save-trial-text');
+  matchHeights(targetNode, '.underBuyLink');
+  matchHeights(targetNode, '.billed');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
 
@@ -841,6 +851,12 @@ export default function decorate(block) {
 
   const resizeObserver = new ResizeObserver(() => {
     updateMargin();
+
+    const greenTags = block.querySelectorAll('.greenTag2');
+    greenTags.forEach((tag) => {
+      console.log(tag.offsetHeight);
+      tag.parentElement.parentElement.style.setProperty('--green-tag-height', `${tag.offsetHeight}px`);
+    });
   });
   resizeObserver.observe(document.body);
   window.addEventListener('resize', () => {
