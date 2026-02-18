@@ -415,6 +415,10 @@
   color: black;
 }
 
+.new-prod-boxes-container.disable-first-box .block .prod_box.index0 .inner_prod_box .prices_box {
+  visibility: hidden !important;
+}
+
 .new-prod-boxes-container.disable-first-box .block .prod_box.index0 .inner_prod_box .save_price_box .prod-oldprice, .new-prod-boxes-container.disable-first-box .block .prod_box.index0 .inner_prod_box .prod-newprice {
   display: none;
 }
@@ -425,7 +429,7 @@
   font-size: 18px;
   line-height: 21px;
   text-align: center;
-  margin: 1em 1em 37px;
+  margin: 0 1em 35px;
 }
 
 .new-prod-boxes-container.new-v3 .block .prod_box .inner_prod_box .billed a {
@@ -451,6 +455,7 @@
   border: 1px solid #707070;
   border-radius: 5px;
   color: black !important;
+  opacity: 1;
 }
 
 .new-prod-boxes-container.disable-first-box .block .prod_box.index0 .inner_prod_box .underBuyLink * {

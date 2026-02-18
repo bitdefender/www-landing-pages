@@ -261,9 +261,7 @@ export default function decorate(block) {
       let onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
-      console.log(parentSection.classList.contains('disable-first-box'))
       if (parentSection.classList.contains('disable-first-box') && key === 0) onSelectorClass += '-disable';
-
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
