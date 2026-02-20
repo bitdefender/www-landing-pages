@@ -1437,6 +1437,9 @@
   .new-prod-boxes-container {
     overflow: hidden;
   }
+  .new-prod-boxes-container .block {
+    gap: 20px;
+  }
   .new-prod-boxes-container .block .prod_box {
     margin-bottom: 0 !important;
     margin-top: var(--green-tag-height) !important;
