@@ -382,7 +382,7 @@
 
 .new-prod-boxes-container.new-v3 .block .prod_box .inner_prod_box .greenTag2 {
     background-color: #E72325;
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0 0;
     font-size: 18px;
     line-height: 21px;
     padding: 10px 5px;
@@ -1555,6 +1555,7 @@ margin: 20px 0 0 5px;
         line-height: 15px;
         padding: 7px 5px;
     }
+
     .new-prod-boxes-container.trial-links-2 .block .prod_box .inner_prod_box .save-trial-text {
         min-height: auto!important;
     }
