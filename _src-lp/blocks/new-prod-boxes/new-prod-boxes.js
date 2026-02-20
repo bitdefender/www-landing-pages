@@ -266,7 +266,7 @@ export default function decorate(block) {
       [...block.children][key].innerHTML = '';
       // create procent - bulina
       let divBulina = '';
-      let vpnInfoContent = '';
+      let vpnInfoContent = '<div class="vpn-info-container"></div>';
       if (textBulina) {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = textBulina.replace('0%', `<span class="percent-${onSelectorClass} div-percent"></span>`);
@@ -291,7 +291,7 @@ export default function decorate(block) {
         }
 
         let labelId = `checkboxVPN-${onSelectorClass}`;
-        if (document.getElementById(labelId)) {
+        if (block.querySelector(`#${labelId}`)) {
           labelId = `${labelId}-1`;
         }
 
@@ -751,10 +751,11 @@ export default function decorate(block) {
   matchHeights(targetNode, '.subtitle p:first-of-type');
   matchHeights(targetNode, 'h2');
   matchHeights(targetNode, '.save-trial-text');
+  matchHeights(targetNode, '.vpn-info-container');
   matchHeights(targetNode, '.underBuyLink');
   matchHeights(targetNode, '.billed');
-  matchHeights(targetNode, '.benefitsLists ul:first-of-type');
-  matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
+  matchHeights(targetNode, '.benefitsLists >  ul:first-of-type');
+  matchHeights(targetNode, '.benefitsLists > ul:first-of-type > li:first-of-type');
 
   // set max height for benefits
   if (set && set === 'height') {
@@ -794,8 +795,8 @@ export default function decorate(block) {
       target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';
 
       if (selectorU && selectorY) {
-        const selectorUsers = document.getElementById(selectorU);
-        const selectorYears = document.getElementById(selectorY);
+        const selectorUsers = block.querySelector(`#${selectorU}`);
+        const selectorYears = block.querySelector(`#${selectorY}`);
 
         if (selectorUsers) selectorUsers.value = valueU;
         if (selectorYears) selectorYears.value = valueY;
