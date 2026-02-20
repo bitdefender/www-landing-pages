@@ -149,8 +149,13 @@ main .columns-container.padding-0 .columns-wrapper {
   margin-left: -12px;
 }
 
-.bigger-imgs .columns > div > .columns-img-col img {
+.columns-container.bigger-imgs .columns > div > .columns-img-col img {
   width: 100%;
+}
+
+.columns-container.bigger-svg .columns .icon {
+  height: auto;
+  width: 65px;
 }
 
 .columns-container.netgear .text-content {

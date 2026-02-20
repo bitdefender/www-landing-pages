@@ -23,6 +23,7 @@
   --highlight-background-color: #ececec;
   --background-color-light-sky-blue: #e4f2ff;
   --baby-blue-color: #EDF9FF;
+  --dark-blue-color: #0853C5;
   --darker-blue-color: #016FFF;
   --light-grey-color: #FAFAFA;
   --text-color: #000;
@@ -316,6 +317,10 @@ button:hover {
 
 .bblue-bck {
   background-color: var(--baby-blue-color);
+}
+
+.dark-blue-bck {
+    background-color: var(--dark-blue-color);
 }
 
 .light-grey-bck {

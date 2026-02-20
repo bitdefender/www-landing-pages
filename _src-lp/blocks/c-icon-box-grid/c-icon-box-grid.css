@@ -141,6 +141,15 @@
   color: #525252;
 }
 
+.c-icon-box-grid-container.blue-titles .title {
+  color: #006DFF;
+}
+
+.c-icon-box-grid-container.bigger-titles .title {
+  font-size: var(--body-font-size-m);
+  line-height: 27px;
+}
+
 .c-icon-box-grid-container .subtitle {
   font-size: 13px;
   margin-top: 0;
@@ -259,6 +268,27 @@
 .c-icon-box-grid-container.top-author .quotes .icon-box-grid-column {
   background: url("../../images/baby-blue-quote-small.svg") no-repeat top 5.5em left 20px #EDF9FF;
   background-size: auto 28px;
+}
+
+.c-icon-box-grid-container.trustpilot-design-v2 .quotes .quotebox {
+  padding: 0 5px !important;
+}
+
+.c-icon-box-grid-container.trustpilot-design-v2 .quotes .icon-box-grid-column {
+  background: transparent;
+  padding: 1.5em;
+  border: solid 1px #ddd;
+}
+
+.c-icon-box-grid-container.trustpilot-design-v2 .quotes .icon-box-grid-column table p {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+.c-icon-box-grid-container.trustpilot-design-v2 .quotes .icon-box-grid-column table p .icon {
+  height: auto;
+  width: 25px;
 }
 
 .c-icon-box-grid-container.trustpilot-design .quotes h6 {
