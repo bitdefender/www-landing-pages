@@ -21,8 +21,9 @@ function initializeSlider(block) {
 
   let currentIndex = 0;
   const updateSlider = () => {
+    const boxSize = slides[0].offsetWidth;
     // Update slide position
-    slidesWrapper.style.transform = `translateX(-${currentIndex * 91}%)`;
+    slidesWrapper.style.transform = `translateX(-${currentIndex * boxSize}px)`;
 
     // Update bullets' active state
     bullets.forEach((bullet, index) => {
@@ -431,7 +432,7 @@ export default function decorate(block) {
 
           if (optionsType && optionsType === 'dropdown') {
             if (!optionSelector.id) optionSelector.id = `optionSelector_${pname.trim()}`;
-            optionSelector.innerHTML += `<option name="card-radio-${key}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
+            optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
             const priceSpan = type === 'dropdown-benefits'
               ? `<span class="prod-oldprice oldprice-${selectorClass}"></span><span class="prod-newprice newprice-${selectorClass} radio-price"></span>`
