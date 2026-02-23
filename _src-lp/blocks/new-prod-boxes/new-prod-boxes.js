@@ -280,7 +280,6 @@ export default function decorate(block) {
       const buyLinksObj = extractBuyLinks(buyLink);
       if (parentSection.classList.contains('disable-first-box') && key === 0) onSelectorClass += '-disable';
 
-      [...block.children][key].innerHTML = '';
       // create procent - bulina
       let divBulina = '';
       let vpnInfoContent = '<div class="vpn-info-container"></div>';
