@@ -275,9 +275,12 @@ export default function decorate(block) {
     children.forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const buyLinkText = buyLink?.innerText.trim();
+      let onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
+      if (parentSection.classList.contains('disable-first-box') && key === 0) onSelectorClass += '-disable';
+
+      [...block.children][key].innerHTML = '';
       // create procent - bulina
       let divBulina = '';
       let vpnInfoContent = '<div class="vpn-info-container"></div>';
@@ -341,9 +344,8 @@ export default function decorate(block) {
 
           // Create the <li> combining the first and second td content
           let liClass = '';
-          if (firstTdContent === '') {
-            liClass += 'd-none';
-          }
+          if (firstTdContent === '') liClass += 'd-none';
+          if (tdList.length > 1 && tdList[1].textContent.trim() !== '') liClass += 'hasTooltip';
 
           // &lt reffers to '<' character
           if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
@@ -509,10 +511,12 @@ export default function decorate(block) {
           ${divBulina}
             ${greenTag?.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             <div class="header-box">
-              ${title?.innerText.trim() ? `<h2>${title?.innerHTML}</h2>` : ''}
-              <div class="tag-subtitle">
-                ${newBlueTag.innerText.trim() ? `<div class="blueTagsWrapper">${newBlueTag.innerHTML.trim()}</div>` : ''}
-                ${subtitle?.innerText.trim() ? `<div class="subtitle">${subtitle?.innerHTML.trim()}</div>` : ''}
+              <div class="inner-header-box">
+                ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
+                <div class="tag-subtitle">
+                  ${newBlueTag.innerText.trim() ? `<div class="blueTagsWrapper">${newBlueTag.innerHTML.trim()}</div>` : ''}
+                  ${subtitle.innerText.trim() ? `<div class="subtitle">${subtitle.innerHTML.trim()}</div>` : ''}
+                </div>
               </div>
               <hr />
 
@@ -765,6 +769,7 @@ export default function decorate(block) {
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, '.subtitle p:first-of-type');
   matchHeights(targetNode, 'h2');
+  matchHeights(targetNode, '.underBuyLink');
   matchHeights(targetNode, '.save-trial-text');
   matchHeights(targetNode, '.vpn-info-container');
   matchHeights(targetNode, '.underBuyLink');
