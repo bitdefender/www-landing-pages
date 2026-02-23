@@ -2,6 +2,15 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, matchHeights } from '../../scripts/utils.js';
 
+function updateTagsMargin(block) {
+   const greenTags = block.querySelectorAll('.greenTag2');
+    let greenTagsHeight = 0;
+    greenTags.forEach((tag) => {
+      if (greenTagsHeight < tag.offsetHeight) greenTagsHeight = tag.offsetHeight;
+      block.style.setProperty('--green-tag-height', `${greenTagsHeight}px`);
+    });
+}
+
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
   const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
@@ -245,6 +254,8 @@ export default function decorate(block) {
             box.style.display = 'block';
           });
         }
+
+        updateTagsMargin(block);
       });
     }
     if (individualSwitchText && familySwitchText) {
@@ -256,14 +267,16 @@ export default function decorate(block) {
       block.classList.add('slides-wrapper');
     }
 
-    [...block.children].forEach((prod, key) => {
+    const children = [...block.children];
+    // clean up old elements before building the new prodcuct boxes
+    block.innerHTML = '';
+
+    children.forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink?.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
-
-      [...block.children][key].innerHTML = '';
       // create procent - bulina
       let divBulina = '';
       let vpnInfoContent = '<div class="vpn-info-container"></div>';
@@ -488,6 +501,7 @@ export default function decorate(block) {
       if (alias.trim() === 'popup') {
         demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
       }
+
       block.innerHTML += `
         <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
@@ -517,7 +531,7 @@ export default function decorate(block) {
                   <sup>${price?.innerText.trim().replace('0', '')}</sup>
                 </div>`}
 
-  ${billed ? (() => {
+          ${billed ? (() => {
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`);
             const firstP = tempDiv.querySelector('p');
@@ -548,7 +562,7 @@ export default function decorate(block) {
             }
             return `<div class="billed">${tempDiv.innerHTML}</div>`;
           })() : ''}
-  </div><!-- end header-box --> 
+            </div><!-- end header-box --> 
 
               ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
@@ -564,7 +578,7 @@ export default function decorate(block) {
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
-            ${underBuyLink?.innerText.trim() ? `<div class="underBuyLink">${demoBtn !== '' ? demoBtn : underBuyLink?.innerHTML.trim()}</div>` : ''}
+            <div class="underBuyLink"> ${underBuyLink?.innerText.trim() ? `${demoBtn !== '' ? demoBtn : underBuyLink?.innerHTML.trim()}` : ''} </div>
             <hr />
             ${benefitsLists?.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
@@ -852,12 +866,7 @@ export default function decorate(block) {
 
   const resizeObserver = new ResizeObserver(() => {
     updateMargin();
-
-    const greenTags = block.querySelectorAll('.greenTag2');
-    greenTags.forEach((tag) => {
-      console.log(tag.offsetHeight);
-      tag.parentElement.parentElement.style.setProperty('--green-tag-height', `${tag.offsetHeight}px`);
-    });
+    updateTagsMargin(block);
   });
   resizeObserver.observe(document.body);
   window.addEventListener('resize', () => {
