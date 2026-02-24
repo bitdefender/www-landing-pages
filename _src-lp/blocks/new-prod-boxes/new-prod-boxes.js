@@ -2,6 +2,15 @@
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, matchHeights } from '../../scripts/utils.js';
 
+function updateTagsMargin(block) {
+  const greenTags = block.querySelectorAll('.greenTag2');
+  let greenTagsHeight = 0;
+  greenTags.forEach((tag) => {
+    if (greenTagsHeight < tag.offsetHeight) greenTagsHeight = tag.offsetHeight;
+    block.style.setProperty('--green-tag-height', `${greenTagsHeight}px`);
+  });
+}
+
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
   const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
@@ -12,8 +21,9 @@ function initializeSlider(block) {
 
   let currentIndex = 0;
   const updateSlider = () => {
+    const boxSize = slides[0].offsetWidth;
     // Update slide position
-    slidesWrapper.style.transform = `translateX(-${currentIndex * 91}%)`;
+    slidesWrapper.style.transform = `translateX(-${currentIndex * boxSize}px)`;
 
     // Update bullets' active state
     bullets.forEach((bullet, index) => {
@@ -60,6 +70,7 @@ function initializeSlider(block) {
 }
 
 function extractBuyLinks(tdElement) {
+  if (!tdElement) return [];
   const result = [];
   const paragraphs = tdElement.querySelectorAll('p');
   if (paragraphs.length > 0) {
@@ -173,7 +184,7 @@ export default function decorate(block) {
     if (titleText || subText) {
       titleBox.classList.add('titleBox');
       titleBox.innerHTML = `
-      <h2>${titleText}</h2>
+      ${titleText ? `<h2>${titleText}</h2>` : ''}
       ${subText ? `<p>${subText}</p>` : ''}`;
 
       if (titleBox.innerHTML.includes('0%')) {
@@ -244,6 +255,8 @@ export default function decorate(block) {
             box.style.display = 'block';
           });
         }
+
+        updateTagsMargin(block);
       });
     }
     if (individualSwitchText && familySwitchText) {
@@ -255,7 +268,11 @@ export default function decorate(block) {
       block.classList.add('slides-wrapper');
     }
 
-    [...block.children].forEach((prod, key) => {
+    const children = [...block.children];
+    // clean up old elements before building the new prodcuct boxes
+    block.innerHTML = '';
+
+    children.forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
@@ -263,10 +280,9 @@ export default function decorate(block) {
       const buyLinksObj = extractBuyLinks(buyLink);
       const disabled1stBox = parentSection.classList.contains('disable-first-box') && key === 0;
 
-      [...block.children][key].innerHTML = '';
       // create procent - bulina
       let divBulina = '';
-      let vpnInfoContent = '';
+      let vpnInfoContent = '<div class="vpn-info-container"></div>';
       if (textBulina) {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = textBulina.replace('0%', `<span class="percent-${onSelectorClass} div-percent"></span>`);
@@ -274,7 +290,7 @@ export default function decorate(block) {
       }
       // if we have vpn
 
-      if (billed.innerText.includes('[vpn_box]')) {
+      if (billed?.innerText.includes('[vpn_box]')) {
         // add VPN
         updateProductsList('vpn/10/1');
 
@@ -291,7 +307,7 @@ export default function decorate(block) {
         }
 
         let labelId = `checkboxVPN-${onSelectorClass}`;
-        if (document.getElementById(labelId)) {
+        if (block.querySelector(`#${labelId}`)) {
           labelId = `${labelId}-1`;
         }
 
@@ -310,75 +326,81 @@ export default function decorate(block) {
         billedUL.remove();
       }
 
-      const featuresSet = benefitsLists.querySelectorAll('table');
-      const featureList = Array.from(featuresSet).map((table) => {
-        const trList = Array.from(table.querySelectorAll('tr'));
+      const featuresSet = benefitsLists?.querySelectorAll('table');
+      let featureList;
+      if (featuresSet) {
+        featureList = Array.from(featuresSet).map((table) => {
+          const trList = Array.from(table.querySelectorAll('tr'));
 
-        const liString = trList.map((tr) => {
-          const tdList = Array.from(tr.querySelectorAll('td'));
+          const liString = trList.map((tr) => {
+            const tdList = Array.from(tr.querySelectorAll('td'));
 
-          // Extract the content of the first <td> to be placed outside the <li>
-          let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
+            // Extract the content of the first <td> to be placed outside the <li>
+            let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
 
-          // Extract the content of the second <td> (if present) inside a <span>
-          const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span class="white-pill-content">${tdList[1].innerHTML}</span>` : '';
+            // Extract the content of the second <td> (if present) inside a <span>
+            const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span class="white-pill-content">${tdList[1].innerHTML}</span>` : '';
 
-          // Create the <li> combining the first and second td content
-          let liClass = '';
-          if (firstTdContent === '') liClass += 'd-none';
-          if (tdList.length > 1 && tdList[1].textContent.trim() !== '') liClass += 'hasTooltip';
+            // Create the <li> combining the first and second td content
+            let liClass = '';
+            if (firstTdContent === '') liClass += 'd-none';
+            if (tdList.length > 1 && tdList[1].textContent.trim() !== '') liClass += 'hasTooltip';
 
-          // &lt reffers to '<' character
-          if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
-            liClass += ' has_arrow';
-            firstTdContent = firstTdContent.replace('&lt;-', '');
-          }
+            // &lt reffers to '<' character
+            if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
+              liClass += ' has_arrow';
+              firstTdContent = firstTdContent.replace('&lt;-', '');
+            }
 
-          // &gt reffers to '>' character
-          if (firstTdContent.indexOf('-&gt;') !== -1 || firstTdContent.indexOf('&gt;') !== -1) {
-            liClass += ' has_arrow_right';
-            firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
-          }
+            // &gt reffers to '>' character
+            if (firstTdContent.indexOf('-&gt;') !== -1 || firstTdContent.indexOf('&gt;') !== -1) {
+              liClass += ' has_arrow_right';
+              firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
+            }
 
-          if (firstTdContent.indexOf('?pill') !== -1) {
-            const pillRegExp = /\?pill (\w+)/;
-            firstTdContent = replacePill(firstTdContent, pillRegExp, 'blue-pill');
-          }
+            if (firstTdContent.indexOf('?pill') !== -1) {
+              const pillRegExp = /\?pill (\w+)/;
+              firstTdContent = replacePill(firstTdContent, pillRegExp, 'blue-pill');
+            }
 
-          if (firstTdContent.indexOf('?green-pill') !== -1) {
-            const greenPillRegExp = /\?green-pill (\w+)/;
-            firstTdContent = replacePill(firstTdContent, greenPillRegExp, 'green-pill');
-          }
+            if (firstTdContent.indexOf('?green-pill') !== -1) {
+              const greenPillRegExp = /\?green-pill (\w+)/;
+              firstTdContent = replacePill(firstTdContent, greenPillRegExp, 'green-pill');
+            }
 
-          if (firstTdContent.indexOf('-x-') !== -1) {
-            liClass += ' nocheck';
-            firstTdContent = firstTdContent.replace('-x-', '');
-          }
-          const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
+            if (firstTdContent.indexOf('-x-') !== -1) {
+              liClass += ' nocheck';
+              firstTdContent = firstTdContent.replace('-x-', '');
+            }
+            const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
 
-          return liContent;
-        }).join('');
+            return liContent;
+          }).join('');
 
-        return `<ul>${liString}</ul>`;
-      });
+          return `<ul>${liString}</ul>`;
+        });
+      }
 
-      if (title.innerHTML.indexOf('href') !== -1) {
+      if (title && title.innerHTML.indexOf('href') !== -1) {
         title.innerHTML = `<a href="${title.querySelector('tr a').getAttribute('href')}" title="${title.innerText}">${title.querySelector('tr a').innerHTML}</a>`;
       }
 
       let percentOffFlag = false;
-      let percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
-      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-        percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
-        percentOffFlag = true;
+      let percentOff;
+      if (saveOldPrice) {
+        percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
+        if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+          percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
+          percentOffFlag = true;
+        }
+        if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+          percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
+          percentOffFlag = true;
+        }
+        if (!percentOff) percentOffFlag = false;
       }
-      if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-        percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
-        percentOffFlag = true;
-      }
-      if (!percentOff) percentOffFlag = false;
 
-      const optionList = subtitle.querySelector('ul');
+      const optionList = subtitle?.querySelector('ul');
       const combinedPricesBox = document.createElement('div');
       if (optionList) {
         const optionSelector = document.createElement('select');
@@ -388,6 +410,7 @@ export default function decorate(block) {
           const [pname, pusers, pyears] = variationText.split('/');
           const selectorClass = `${pname.trim()}-${pusers}${pyears}`;
           const value = variationText.trim();
+
           const isChecked = idx === 0 ? 'checked' : '';
 
           percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${selectorClass}"></span>`);
@@ -423,7 +446,7 @@ export default function decorate(block) {
               `;
             } else {
               li.innerHTML = `
-                <input type="radio" name="${pname.trim()}" id="${value}" value="${selectorClass}" ${isChecked}>
+                <input type="radio" name="card-radio-${key}" id="${value}" value="${selectorClass}" ${isChecked}>
                 <label for="${value}">${labelText.trim()}</label>
               `;
             }
@@ -440,8 +463,8 @@ export default function decorate(block) {
             </div>
 
               ${billed ? ` <div class="billed">
-                ${billed.innerText.includes('0') ? billed.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
-              </div>` : billed.innerText}
+                ${billed?.innerText.includes('0') ? billed?.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
+              </div>` : billed?.innerText}
 
               ${replaceBuyLinks ? `<div class="buy-btn">
                 <a class="red-buy-button buylink-${selectorClass}" href="#" data-href="${buyLinkObj.href}"  title="Bitdefender">
@@ -482,10 +505,10 @@ export default function decorate(block) {
       }
 
       block.innerHTML += `
-        <div class="prod_box${greenTag.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
+        <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
           ${divBulina}
-            ${greenTag.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
+            ${greenTag?.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
             <div class="header-box">
               <div class="inner-header-box">
                 ${title.innerText.trim() ? `<h2>${title.innerHTML}</h2>` : ''}
@@ -497,7 +520,7 @@ export default function decorate(block) {
               <hr />
 
               ${combinedPricesBox && combinedPricesBox.innerText ? combinedPricesBox.innerHTML : `
-                ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
+                ${saveOldPrice?.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
                   <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
                   <strong class="percent prod-percent">
                     ${percentOff}
@@ -509,10 +532,10 @@ export default function decorate(block) {
                   <sup>${price.innerText.trim().replace('0', '')}</sup>
                 </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
+                  <sup>${price?.innerText.trim().replace('0', '')}</sup>
                 </div>`}
 
-  ${billed ? (() => {
+          ${billed ? (() => {
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`);
             const firstP = tempDiv.querySelector('p');
@@ -543,7 +566,7 @@ export default function decorate(block) {
             }
             return `<div class="billed">${tempDiv.innerHTML}</div>`;
           })() : ''}
-  </div><!-- end header-box --> 
+            </div><!-- end header-box --> 
 
               ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
@@ -559,9 +582,9 @@ export default function decorate(block) {
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
 
-            ${underBuyLink.innerText.trim() ? `<div class="underBuyLink">${demoBtn !== '' ? demoBtn : underBuyLink.innerHTML.trim()}</div>` : ''}
+            <div class="underBuyLink"> ${underBuyLink?.innerText.trim() ? `${demoBtn !== '' ? demoBtn : underBuyLink?.innerHTML.trim()}` : ''} </div>
             <hr />
-            ${benefitsLists.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
+            ${benefitsLists?.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
       </div>`;
 
@@ -739,7 +762,7 @@ export default function decorate(block) {
     observer.observe(document, { childList: true, subtree: true });
   }
 
-  const targetNode = document.querySelector('.new-prod-boxes');
+  const targetNode = block;
   matchHeights(targetNode, '.tag-subtitle');
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
@@ -747,8 +770,11 @@ export default function decorate(block) {
   matchHeights(targetNode, 'h2');
   matchHeights(targetNode, '.underBuyLink');
   matchHeights(targetNode, '.save-trial-text');
-  matchHeights(targetNode, '.benefitsLists ul:first-of-type');
-  matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
+  matchHeights(targetNode, '.vpn-info-container');
+  matchHeights(targetNode, '.underBuyLink');
+  matchHeights(targetNode, '.billed');
+  matchHeights(targetNode, '.benefitsLists >  ul:first-of-type');
+  matchHeights(targetNode, '.benefitsLists > ul:first-of-type > li:first-of-type');
 
   // set max height for benefits
   if (set && set === 'height') {
@@ -788,8 +814,8 @@ export default function decorate(block) {
       target.closest('.inner_prod_box').querySelector(`.combinedPricesBox-${target.value}`).style.display = 'block';
 
       if (selectorU && selectorY) {
-        const selectorUsers = document.getElementById(selectorU);
-        const selectorYears = document.getElementById(selectorY);
+        const selectorUsers = block.querySelector(`#${selectorU}`);
+        const selectorYears = block.querySelector(`#${selectorY}`);
 
         if (selectorUsers) selectorUsers.value = valueU;
         if (selectorYears) selectorYears.value = valueY;
@@ -845,6 +871,7 @@ export default function decorate(block) {
 
   const resizeObserver = new ResizeObserver(() => {
     updateMargin();
+    updateTagsMargin(block);
   });
   resizeObserver.observe(document.body);
   window.addEventListener('resize', () => {
