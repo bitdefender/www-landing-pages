@@ -748,8 +748,8 @@ export default function decorate(block) {
   matchHeights(targetNode, '.underBuyLink');
   matchHeights(targetNode, '.save-trial-text');
   matchHeights(targetNode, '.billed');
-  matchHeights(targetNode, '.benefitsLists ul:first-of-type');
-  matchHeights(targetNode, '.benefitsLists ul:first-of-type li:first-of-type');
+  matchHeights(targetNode, '.benefitsLists > ul:first-of-type');
+  matchHeights(targetNode, '.benefitsLists >  ul:first-of-type > li:first-of-type');
 
   // set max height for benefits
   if (set && set === 'height') {
