@@ -258,7 +258,7 @@ export default function decorate(block) {
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
-      let onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
       const disabled1stBox = parentSection.classList.contains('disable-first-box') && key === 0;
