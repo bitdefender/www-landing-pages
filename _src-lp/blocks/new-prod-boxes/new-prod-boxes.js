@@ -551,7 +551,7 @@ export default function decorate(block) {
               ${replaceBuyLinks ? `<div class="buy-btn">
                   <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
                 </div>` : `<div class="buy-btn">
-                <a class="red-buy-button ${disabled1stBox ? '' : `buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`}" href="${disabled1stBox ? 'javascript:void(0)' : "#"}" title="Bitdefender">
+                <a class="red-buy-button ${disabled1stBox ? '' : `buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`}" href="#" title="Bitdefender" ${disabled1stBox ? 'onclick="event.preventDefault()"' : ''}>
                   ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
                 </div>`}
