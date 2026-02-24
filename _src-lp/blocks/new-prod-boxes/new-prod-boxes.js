@@ -258,6 +258,7 @@ export default function decorate(block) {
         updateTagsMargin(block);
       });
     }
+
     if (individualSwitchText && familySwitchText) {
       block.parentNode.insertBefore(switchBox, block);
     }
