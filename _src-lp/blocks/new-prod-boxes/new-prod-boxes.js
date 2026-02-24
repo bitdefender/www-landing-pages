@@ -261,7 +261,7 @@ export default function decorate(block) {
       let onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
-      if (parentSection.classList.contains('disable-first-box') && key === 0) onSelectorClass += '-disable';
+      const disabled1stBox = parentSection.classList.contains('disable-first-box') && key === 0;
 
       [...block.children][key].innerHTML = '';
       // create procent - bulina
@@ -551,7 +551,7 @@ export default function decorate(block) {
               ${replaceBuyLinks ? `<div class="buy-btn">
                   <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
                 </div>` : `<div class="buy-btn">
-                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
+                <a class="red-buy-button ${disabled1stBox ? '' : `buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`}" href="${disabled1stBox ? 'javascript:void(0)' : "#"}" title="Bitdefender">
                   ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
                 </div>`}
