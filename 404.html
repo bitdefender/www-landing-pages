@@ -5,14 +5,14 @@
     "@glidejs/glide/": "https://esm.sh/@glidejs/glide@3.7.1/",
     "@repobit/dex-data-layer": "https://esm.sh/@repobit/dex-data-layer@2.1.8",
     "@repobit/dex-data-layer/": "https://esm.sh/@repobit/dex-data-layer@2.1.8/",
-    "@repobit/dex-launch": "https://esm.sh/@repobit/dex-launch@3.0.0",
-    "@repobit/dex-launch/": "https://esm.sh/@repobit/dex-launch@3.0.0/",
+    "@repobit/dex-launch": "https://esm.sh/@repobit/dex-launch@2.1.8",
+    "@repobit/dex-launch/": "https://esm.sh/@repobit/dex-launch@2.1.8/",
     "@repobit/dex-store-elements": "https://esm.sh/@repobit/dex-store-elements@1.4.2",
     "@repobit/dex-store-elements/": "https://esm.sh/@repobit/dex-store-elements@1.4.2/",
     "@repobit/dex-store": "https://esm.sh/@repobit/dex-store@1.3.10",
     "@repobit/dex-store/": "https://esm.sh/@repobit/dex-store@1.3.10/",
-    "@repobit/dex-target": "https://esm.sh/@repobit/dex-target@2.12.9",
-    "@repobit/dex-target/": "https://esm.sh/@repobit/dex-target@2.12.9/",
+    "@repobit/dex-target": "https://esm.sh/@repobit/dex-target@2.12.10",
+    "@repobit/dex-target/": "https://esm.sh/@repobit/dex-target@2.12.10/",
     "@repobit/dex-utils": "https://esm.sh/@repobit/dex-utils@2.1.10",
     "@repobit/dex-utils/": "https://esm.sh/@repobit/dex-utils@2.1.10/"
   }
@@ -67,6 +67,7 @@
       font-size: 32px;
       margin: 0;
     }
+
     main.error .error-message-2 {
       font-size: 24px;
       margin-top: 10px;
@@ -99,8 +100,8 @@
       -webkit-transform: translateX(0);
       transform: translateX(0);
       background-size: cover;
-      -webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
-      transition: all .2s cubic-bezier(.4,0,.2,1);
+      -webkit-transition: all .2s cubic-bezier(.4, 0, .2, 1);
+      transition: all .2s cubic-bezier(.4, 0, .2, 1);
       position: relative;
       top: 0;
     }
@@ -111,7 +112,7 @@
       margin-bottom: 10px;
     }
 
-    @media (width >= 576px) {
+    @media (width >=576px) {
       main.error .links-pair a {
         width: 250px;
       }
@@ -128,28 +129,32 @@
 <body>
   <header></header>
   <main class="error section">
-      <h1 class="error-number">404</h1>
-      <h2 class="error-message">Page Not Found</h2>
-      <p class="error-message-2">The page you are looking for might have been removed,<br class="d-none d-md-block" /> had its name changed, or is temporarily unavailable.</p>
-      <div class="links-section p-5 my-5">
-        <h3 class="popular-sections text-center">Our most popular sections</h3>
-        <div>
-          <div class="links-pair">
-            <a href="https://www.bitdefender.com/solutions">Consumer Solutions</a>
-            <a href="https://www.bitdefender.com/consumer/support">Support for Home Products</a>
-          </div>
-          <div class="links-pair">
-            <a href="https://www.bitdefender.com/business">Business Solutions</a>
-            <a href="https://www.bitdefender.com/business/customer-portal/enterprise-standard-support.html"> Support for Business Products</a>
-          </div>
-          <div class="links-pair">
-            <a href="https://www.bitdefender.com/blog.html">Blog</a>
-            <a href="https://community.bitdefender.com">Community</a>
-          </div>
+    <h1 class="error-number">404</h1>
+    <h2 class="error-message">Page Not Found</h2>
+    <p class="error-message-2">The page you are looking for might have been removed,<br class="d-none d-md-block" /> had
+      its name changed, or is temporarily unavailable.</p>
+    <div class="links-section p-5 my-5">
+      <h3 class="popular-sections text-center">Our most popular sections</h3>
+      <div>
+        <div class="links-pair">
+          <a href="https://www.bitdefender.com/solutions">Consumer Solutions</a>
+          <a href="https://www.bitdefender.com/consumer/support">Support for Home Products</a>
+        </div>
+        <div class="links-pair">
+          <a href="https://www.bitdefender.com/business">Business Solutions</a>
+          <a href="https://www.bitdefender.com/business/customer-portal/enterprise-standard-support.html"> Support for
+            Business Products</a>
+        </div>
+        <div class="links-pair">
+          <a href="https://www.bitdefender.com/blog.html">Blog</a>
+          <a href="https://community.bitdefender.com">Community</a>
         </div>
       </div>
+    </div>
   </main>
   <footer></footer>
+
+
 
 
 
