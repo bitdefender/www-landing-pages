@@ -99,6 +99,10 @@
     margin: 10px 0;
 }
 
+.new-prod-boxes-container.hide-last-hr .prod_box .inner_prod_box hr:last-of-type{
+    display: none;
+}
+
 .new-prod-boxes-container .switchBox .label hr {
     margin: 0 auto 8px;
     width: 90%;
@@ -845,6 +849,10 @@
     margin-bottom: 8px;
 }
 
+.new-prod-boxes-container.hide-price-box .block .prod_box .inner_prod_box .save_price_box {
+    display: none;
+}
+
 .new-prod-boxes-container.disable-product .prod_box.index0 .save_price_box {
     visibility: hidden;
 }
@@ -947,6 +955,10 @@
 .new-prod-boxes-container.trial-links .block .prod_box .inner_prod_box .billed span[class^="newprice-"] {
     font-weight: bold;
     font-size: 16px;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed span[class^="oldprice-"] {
+    text-decoration: line-through;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
