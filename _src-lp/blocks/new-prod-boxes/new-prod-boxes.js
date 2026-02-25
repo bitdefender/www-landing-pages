@@ -3,12 +3,12 @@ import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, matchHeights } from '../../scripts/utils.js';
 
 function updateTagsMargin(block) {
-   const greenTags = block.querySelectorAll('.greenTag2');
-    let greenTagsHeight = 0;
-    greenTags.forEach((tag) => {
-      if (greenTagsHeight < tag.offsetHeight) greenTagsHeight = tag.offsetHeight;
-      block.style.setProperty('--green-tag-height', `${greenTagsHeight}px`);
-    });
+  const greenTags = block.querySelectorAll('.greenTag2');
+  let greenTagsHeight = 0;
+  greenTags.forEach((tag) => {
+    if (greenTagsHeight < tag.offsetHeight) greenTagsHeight = tag.offsetHeight;
+    block.style.setProperty('--green-tag-height', `${greenTagsHeight}px`);
+  });
 }
 
 function initializeSlider(block) {
@@ -222,9 +222,8 @@ export default function decorate(block) {
       const switchCheckbox = switchBox.querySelector('#switchCheckbox');
 
       // Check if individualSwitchText includes 'reverted'
-      if (individual === 'reverted') {
-        switchCheckbox.checked = true; // Set the checkbox to checked by default
-      }
+      if (individual === 'reverted') switchCheckbox.checked = true;
+
       // Add an event listener to the checkbox
       switchCheckbox.addEventListener('change', () => {
         if (set && set === 'height') {
@@ -259,6 +258,7 @@ export default function decorate(block) {
         updateTagsMargin(block);
       });
     }
+
     if (individualSwitchText && familySwitchText) {
       block.parentNode.insertBefore(switchBox, block);
     }
@@ -275,10 +275,10 @@ export default function decorate(block) {
     children.forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
-      let onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
-      if (parentSection.classList.contains('disable-first-box') && key === 0) onSelectorClass += '-disable';
+      const disabled1stBox = parentSection.classList.contains('disable-first-box') && key === 0;
 
       // create procent - bulina
       let divBulina = '';
@@ -330,54 +330,54 @@ export default function decorate(block) {
       let featureList;
       if (featuresSet) {
         featureList = Array.from(featuresSet).map((table) => {
-        const trList = Array.from(table.querySelectorAll('tr'));
+          const trList = Array.from(table.querySelectorAll('tr'));
 
-        const liString = trList.map((tr) => {
-          const tdList = Array.from(tr.querySelectorAll('td'));
+          const liString = trList.map((tr) => {
+            const tdList = Array.from(tr.querySelectorAll('td'));
 
-          // Extract the content of the first <td> to be placed outside the <li>
-          let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
+            // Extract the content of the first <td> to be placed outside the <li>
+            let firstTdContent = tdList.length > 0 && tdList[0].textContent.trim() !== '' ? `${tdList[0].innerHTML}` : '';
 
-          // Extract the content of the second <td> (if present) inside a <span>
-          const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span class="white-pill-content">${tdList[1].innerHTML}</span>` : '';
+            // Extract the content of the second <td> (if present) inside a <span>
+            const secondTdContent = tdList.length > 1 && tdList[1].textContent.trim() !== '' ? `<span class="white-pill-content">${tdList[1].innerHTML}</span>` : '';
 
-          // Create the <li> combining the first and second td content
-          let liClass = '';
-          if (firstTdContent === '') liClass += 'd-none';
-          if (tdList.length > 1 && tdList[1].textContent.trim() !== '') liClass += 'hasTooltip';
+            // Create the <li> combining the first and second td content
+            let liClass = '';
+            if (firstTdContent === '') liClass += 'd-none';
+            if (tdList.length > 1 && tdList[1].textContent.trim() !== '') liClass += 'hasTooltip';
 
-          // &lt reffers to '<' character
-          if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
-            liClass += ' has_arrow';
-            firstTdContent = firstTdContent.replace('&lt;-', '');
-          }
+            // &lt reffers to '<' character
+            if (firstTdContent.indexOf('&lt;-') !== -1 || firstTdContent.indexOf('&lt;') !== -1) {
+              liClass += ' has_arrow';
+              firstTdContent = firstTdContent.replace('&lt;-', '');
+            }
 
-          // &gt reffers to '>' character
-          if (firstTdContent.indexOf('-&gt;') !== -1 || firstTdContent.indexOf('&gt;') !== -1) {
-            liClass += ' has_arrow_right';
-            firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
-          }
+            // &gt reffers to '>' character
+            if (firstTdContent.indexOf('-&gt;') !== -1 || firstTdContent.indexOf('&gt;') !== -1) {
+              liClass += ' has_arrow_right';
+              firstTdContent = firstTdContent.replace('-&gt;', '<span class="arrow-right"></span>');
+            }
 
-          if (firstTdContent.indexOf('?pill') !== -1) {
-            const pillRegExp = /\?pill (\w+)/;
-            firstTdContent = replacePill(firstTdContent, pillRegExp, 'blue-pill');
-          }
+            if (firstTdContent.indexOf('?pill') !== -1) {
+              const pillRegExp = /\?pill (\w+)/;
+              firstTdContent = replacePill(firstTdContent, pillRegExp, 'blue-pill');
+            }
 
-          if (firstTdContent.indexOf('?green-pill') !== -1) {
-            const greenPillRegExp = /\?green-pill (\w+)/;
-            firstTdContent = replacePill(firstTdContent, greenPillRegExp, 'green-pill');
-          }
+            if (firstTdContent.indexOf('?green-pill') !== -1) {
+              const greenPillRegExp = /\?green-pill (\w+)/;
+              firstTdContent = replacePill(firstTdContent, greenPillRegExp, 'green-pill');
+            }
 
-          if (firstTdContent.indexOf('-x-') !== -1) {
-            liClass += ' nocheck';
-            firstTdContent = firstTdContent.replace('-x-', '');
-          }
-          const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
+            if (firstTdContent.indexOf('-x-') !== -1) {
+              liClass += ' nocheck';
+              firstTdContent = firstTdContent.replace('-x-', '');
+            }
+            const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
 
-          return liContent;
-        }).join('');
+            return liContent;
+          }).join('');
 
-        return `<ul>${liString}</ul>`;
+          return `<ul>${liString}</ul>`;
         });
       }
 
@@ -574,8 +574,8 @@ export default function decorate(block) {
               ${replaceBuyLinks ? `<div class="buy-btn">
                   <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
                 </div>` : `<div class="buy-btn">
-                <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">
-                  ${buyLinkText?.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                <a class="red-buy-button ${disabled1stBox ? '' : `buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`}" href="#" title="Bitdefender" ${disabled1stBox ? 'onclick="event.preventDefault()"' : ''}>
+                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
                 </div>`}
 
