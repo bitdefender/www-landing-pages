@@ -571,12 +571,15 @@ export default function decorate(block) {
               ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
               
-              ${replaceBuyLinks ? `<div class="buy-btn">
-                  <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
-                </div>` : `<div class="buy-btn">
-                <a class="red-buy-button ${disabled1stBox ? '' : `buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`}" href="#" title="Bitdefender" ${disabled1stBox ? 'onclick="event.preventDefault()"' : ''}>
-                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
-                </a>
+              ${disabled1stBox ? `<div class="buy-btn">
+                <button class="red-buy-button">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                </button>
+              </div>`
+            : replaceBuyLinks ? `<div class="buy-btn">
+                <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
+              </div>`
+              : `<div class="buy-btn">
+                  <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}</a>
                 </div>`}
 
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
