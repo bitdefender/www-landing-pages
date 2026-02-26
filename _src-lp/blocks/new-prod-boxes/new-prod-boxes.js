@@ -504,13 +504,12 @@ export default function decorate(block) {
         demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
       }
 
-      let buyButtonHtml = '';
-
       const formatText = (text) =>
         text.includes('0%')
           ? text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`)
           : text;
 
+      let buyButtonHtml = '';
       if (disabled1stBox) {
         buyButtonHtml = `
         <div class="buy-btn">
