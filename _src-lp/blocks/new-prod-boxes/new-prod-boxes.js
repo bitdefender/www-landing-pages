@@ -504,19 +504,21 @@ export default function decorate(block) {
         demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
       }
 
+      let buyButtonHtml = '';
+
       const formatText = (text) =>
         text.includes('0%')
           ? text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`)
           : text;
 
-      let buyButtonHtml = '';
       if (disabled1stBox) {
         buyButtonHtml = `
         <div class="buy-btn">
           <button class="red-buy-button">
             ${formatText(buyLinkText)}
           </button>
-        </div>`;
+        </div>
+      `;
       } else if (replaceBuyLinks) {
         buyButtonHtml = `
         <div class="buy-btn">
@@ -525,7 +527,8 @@ export default function decorate(block) {
             title="Bitdefender">
             ${formatText(buyLinkObj.text)}
           </a>
-        </div>`;
+        </div>
+      `;
       } else {
         buyButtonHtml = `
         <div class="buy-btn">
@@ -534,9 +537,9 @@ export default function decorate(block) {
             title="Bitdefender">
             ${formatText(buyLinkText)}
           </a>
-        </div>`;
+        </div>
+      `;
       }
-
       block.innerHTML += `
         <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
@@ -601,7 +604,19 @@ export default function decorate(block) {
           })() : ''}
             </div><!-- end header-box --> 
 
-              ${buyButtonHtml}
+              ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
+              ${vpnInfoContent && vpnInfoContent}
+              
+              ${disabled1stBox ? `<div class="buy-btn">
+                <button class="red-buy-button">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                </button>
+              </div>`
+            : replaceBuyLinks ? `<div class="buy-btn">
+                <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
+              </div>`
+              : `<div class="buy-btn">
+                  <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}</a>
+                </div>`}
 
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
