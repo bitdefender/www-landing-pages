@@ -504,42 +504,6 @@ export default function decorate(block) {
         demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
       }
 
-      let buyButtonHtml = '';
-
-      const formatText = (text) =>
-        text.includes('0%')
-          ? text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`)
-          : text;
-
-      if (disabled1stBox) {
-        buyButtonHtml = `
-        <div class="buy-btn">
-          <button class="red-buy-button">
-            ${formatText(buyLinkText)}
-          </button>
-        </div>
-      `;
-      } else if (replaceBuyLinks) {
-        buyButtonHtml = `
-        <div class="buy-btn">
-          <a class="red-buy-button buylink2-${onSelectorClass}" 
-            href="${buyLinkObj.href || '#'}" 
-            title="Bitdefender">
-            ${formatText(buyLinkObj.text)}
-          </a>
-        </div>
-      `;
-      } else {
-        buyButtonHtml = `
-        <div class="buy-btn">
-          <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" 
-            href="#" 
-            title="Bitdefender">
-            ${formatText(buyLinkText)}
-          </a>
-        </div>
-      `;
-      }
       block.innerHTML += `
         <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
