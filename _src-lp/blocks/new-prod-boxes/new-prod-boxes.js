@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, matchHeights } from '../../scripts/utils.js';
 
