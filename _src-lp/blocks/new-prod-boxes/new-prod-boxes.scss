@@ -454,6 +454,14 @@
     border: 1px solid #000;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .buy-btn {
+    min-height: 45px;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .buy-btn.no-text {
+    visibility: hidden;
+}
+
 .new-prod-boxes-container.new-v3 .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
     border-radius: 5px;
 }
@@ -471,6 +479,10 @@
     padding: 10px 1% !important;
     margin-bottom: 5px;
     cursor: default;
+}
+
+.new-prod-boxes-container.disable-first-box .block .prod_box.index0 .inner_prod_box .underBuyLink {
+    margin-bottom: 12px;
 }
 
 .new-prod-boxes-container.disable-first-box .block .prod_box.index0 .inner_prod_box .underBuyLink * {
