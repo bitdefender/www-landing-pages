@@ -318,6 +318,10 @@ button:hover {
   background-color: var(--baby-blue-color);
 }
 
+.dark-blue-bck {
+  background-color: var(--dark-blue-color);
+}
+
 .light-grey-bck {
   background-color: var(--light-grey-color);
 }

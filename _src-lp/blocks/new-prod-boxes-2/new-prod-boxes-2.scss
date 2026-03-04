@@ -1009,7 +1009,7 @@ margin: 20px 0 0 5px;
 
 .new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .billed label {
     font-size: 14px;
-    width: 65%;
+    width: 100%;
 }
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box {
@@ -1040,7 +1040,7 @@ margin: 20px 0 0 5px;
 }
 
 .new-prod-boxes-2-container.new-v2 .block .prod_box .inner_prod_box .billed .bundle_box > div {
-    padding: 1.4em 5px;
+    padding: 1.4em 10px;
     justify-content: left;
     min-width: 100%;
 }
@@ -1301,6 +1301,10 @@ margin: 20px 0 0 5px;
     height: 33px;
     background: url("https://www.bitdefender.com/common/icons/new.svg") no-repeat center center;
     background-size: contain;
+}
+
+.new-prod-boxes-2-container.new-v2.no-tag .block .prod_box .inner_prod_box .billed .bundle_box > div:first-child::before {
+    display: none;
 }
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) .white-pill-content {
