@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, matchHeights } from '../../scripts/utils.js';
 
@@ -466,11 +467,11 @@ export default function decorate(block) {
                 ${billed?.innerText.includes('0') ? billed?.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
               </div>` : billed?.innerText}
 
-              ${replaceBuyLinks ? `<div class="buy-btn">
+              ${replaceBuyLinks ? `<div class="buy-btn${!buyLinkObj.text ? ' no-text' : ''}">
                 <a class="red-buy-button buylink-${selectorClass}" href="#" data-href="${buyLinkObj.href}"  title="Bitdefender">
                   ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
                 </a>
-              </div>` : `<div class="buy-btn">
+              </div>` : `<div class="buy-btn${!buyLinkText ? ' no-text' : ''}">
                 <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
                   ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
                 </a>
@@ -571,12 +572,15 @@ export default function decorate(block) {
               ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
               
-              ${replaceBuyLinks ? `<div class="buy-btn">
-                  <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
-                </div>` : `<div class="buy-btn">
-                <a class="red-buy-button ${disabled1stBox ? '' : `buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`}" href="#" title="Bitdefender" ${disabled1stBox ? 'onclick="event.preventDefault()"' : ''}>
-                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
-                </a>
+              ${disabled1stBox ? `<div class="buy-btn${!buyLinkText ? ' no-text' : ''}">
+                <button class="red-buy-button">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                </button>
+              </div>`
+            : replaceBuyLinks ? `<div class="buy-btn${!buyLinkObj.text ? ' no-text' : ''}">
+                <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
+              </div>`
+              : `<div class="buy-btn${!buyLinkText ? ' no-text' : ''}">
+                  <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}</a>
                 </div>`}
 
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
