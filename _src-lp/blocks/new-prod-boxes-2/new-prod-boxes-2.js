@@ -441,11 +441,11 @@ export default function decorate(block) {
             if (type === 'dropdown-benefits') {
               li.innerHTML = `
                 <label for="${value}">${priceSpan}${labelText.trim()} ${bluePill ? `<span class="blue-pill-tag">+${bluePill}</span>` : ''}</label>
-                <input type="radio" name="card-radio-${key}" id="${value}" data-store-set-id="${pname}" data-store-set-devices="${pusers}" data-store-set-subscription="${pyears}" ${isChecked}>
+                <input type="radio" name="card-radio-${key}" id="${value}" data-store-set-id="${pname}" data-store-set-devices="${pusers}" data-store-set-subscription="${pyears}" data-store-action ${isChecked}>
               `;
             } else {
               li.innerHTML = `
-                <input type="radio" name="${pname.trim()}" id="${value}" data-store-set-id="${pname}" data-store-set-devices="${pusers}" data-store-set-subscription="${pyears}" ${isChecked}>
+                <input type="radio" name="${pname.trim()}" id="${value}" data-store-action data-store-set-id="${pname}" data-store-set-devices="${pusers}" data-store-set-subscription="${pyears}" ${isChecked}>
                 <label for="${value}">${labelText.trim()}</label>
               `;
             }
