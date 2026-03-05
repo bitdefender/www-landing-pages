@@ -1438,6 +1438,10 @@ margin: 20px 0 0 5px;
         display: block!important;
     }
 
+    .new-prod-boxes-2-container[data-type='mobileSlider'] .block {
+        display: flex!important;
+    }
+
     .new-prod-boxes-2-container .block .prod_box {
         margin-bottom: 0!important;
         margin-top: 2em;
