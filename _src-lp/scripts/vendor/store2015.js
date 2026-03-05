@@ -192,7 +192,12 @@ window.StoreProducts.initSelector = function (config) {
       }
     } else {
       // ex: www.bitdefender.com/business/fr/bsp-flashsale
-      let country_from_path = window.location.pathname.split('/')[2];
+      const currentPath = window.location.pathname;
+      const parts = currentPath.split('/');
+      let country_from_path = currentPath.includes('/pages/') ? parts[3] : parts[2];
+
+      if (country_from_path === 'en') country_from_path = 'us';
+
       const force_country = country_from_path;
       if (extra_params == null) {
         extra_params = { force_country: force_country };
