@@ -1582,8 +1582,8 @@ margin: 20px 0 0 5px;
         gap: 0;
     }
 
-    .new-prod-boxes-container[data-type='mobileSlider'] .block .prod_box {
-        transform: translateX(100%);
+    .new-prod-boxes-container[data-type='mobileSlider'] .block {
+        justify-content: flex-start;
     }
 
     .new-prod-boxes-container .block .prod_box {
