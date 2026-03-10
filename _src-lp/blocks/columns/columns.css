@@ -600,7 +600,7 @@ main .columns-container.padding-0 .columns-wrapper {
   padding: 0;
 }
 
-.columns-container.outlined-image .columns > div > div:first-of-type p, .columns-container.outlined-image .columns > div > div:first-of-type h4 {
+.columns-container.outlined-image .columns > div > div:first-of-type h4 {
   margin: 0;
 }
 
@@ -612,6 +612,7 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container.outlined-image .columns > div > div:first-of-type p {
   font-size: 14px;
   line-height: 18px;
+  margin: 0;
 }
 
 .columns-container.outlined-image .columns > div > div:first-of-type p strong {
