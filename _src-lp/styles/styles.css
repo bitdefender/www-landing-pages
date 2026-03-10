@@ -616,6 +616,14 @@ main .section[data-textcolor=grey] .default-content-wrapper p {
   color: #6F6F6F;
 }
 
+main .section .block.light-blue-bck {
+  background-color: var(--background-color-light-sky-blue);
+}
+
+main .section .block.rounded {
+  border-radius: 20px;
+}
+
 main .section.width-medium .block,
 main .section.width-medium .default-content-wrapper {
   width: 940px;
