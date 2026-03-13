@@ -6,6 +6,10 @@
 
 }
 
+.eu-fragment .awards {
+  padding: 2rem;
+}
+
 .awards .title {
   font-size: 16px;
   line-height: 14px;
@@ -74,6 +78,12 @@
   .row > div:nth-child(2) {
     margin: auto;
   }
+
+  .subtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
   img{
     height: auto;
   }
