@@ -6,6 +6,10 @@
 
 }
 
+.eu-fragment .awards {
+  padding: 2rem;
+}
+
 .awards .title {
   font-size: 16px;
   line-height: 14px;
@@ -67,6 +71,25 @@
   }
 }
 
+.one-award.eu-fragment.awards-container{
+  .row > div:nth-child(1) {
+    display: none;
+  }
+  
+  .row > div:nth-child(2) {
+    margin: auto;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  img{
+    height: auto;
+  }
+}
+
 .no-award.awards-container .row > div:nth-child(1) .text-center > div:nth-child(1) {
     text-align: left;
     font-size: 22px;
@@ -100,6 +123,12 @@
         font-weight: bold;
         margin-bottom: 30px !important;
       }
+    }
+  }
+
+  .one-award.eu-fragment.awards-container{
+  .row > div:nth-child(1) {
+    display: block;
     }
   }
 
