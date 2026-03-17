@@ -329,7 +329,7 @@
 }
 
 .b-productswithinputdevices-container #campaign-logo {
-  width: 24em;
+  width: 15em;
   background-color: transparent;
   position: absolute;
   z-index: 9;
@@ -391,7 +391,7 @@
 
 @media (width <= 1400px) {
   .b-productswithinputdevices-container #campaign-logo {
-    width: 21em;
+    width: 15em;
     margin-left: 0;
   }
 }
@@ -406,7 +406,7 @@
 }
 @media (width <= 991px) {
   .b-productswithinputdevices-container #campaign-logo {
-    width: 21em;
+    width: 15em;
     margin: 0 auto;
     position: relative;
   }
