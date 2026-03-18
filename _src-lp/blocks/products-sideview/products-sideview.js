@@ -1,3 +1,4 @@
+import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { updateProductsList, getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
 
 const nanoBlocks = new Map();
@@ -390,9 +391,20 @@ function renderSelector(block, ...options) {
   return el;
 }
 
+function renderGreenTag(block, text, icon) {
+  const tag = document.createElement('div');
+  tag.classList.add('green-tag');
+
+  const iconHTML = icon ? `<span class="icon ${icon}"></span>` : '';
+
+  tag.innerHTML = `${iconHTML}<p class="green-tag-text"><strong>${text}</strong></p>${iconHTML}`;
+  return tag;
+}
+
 createNanoBlock('price', renderPrice);
 createNanoBlock('monthlyYearly', renderRadioGroup);
 createNanoBlock('selectMembers', renderSelector);
+createNanoBlock('greenTag', renderGreenTag);
 
 function initMembersMap() {
   const selectMembers = state.blockDataset.selectmembers.trim().split(',');
@@ -457,7 +469,7 @@ function initializeDynamicSelection(block) {
   }
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const blockDataset = getDatasetFromSection(block);
 
   state.blockDataset = blockDataset;
@@ -497,6 +509,10 @@ export default function decorate(block) {
     });
   }
   initializeDynamicSelection(block);
-  matchHeights(block, '.block > div > div > p:first-of-type:not(:has(img))');
-  matchHeights(block, '.block >div >div >:first-child');
+  matchHeights(block, '.block > div > div > p:first-of-type:not(:has(img)):not(.green-tag-text)');
+  matchHeights(block, '.block >div >div >:first-child:not(.nanoblock)');
+
+  await decorateIcons(block);
+  console.log(block.querySelector('.green-tag'));
+  block.style.setProperty('green-tag-height', `${block.querySelector('.green-tag')?.offsetHeight}px`);
 }
