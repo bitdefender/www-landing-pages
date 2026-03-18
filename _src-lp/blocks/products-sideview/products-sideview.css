@@ -66,6 +66,10 @@
   margin: 0 !important;
 }
 
+.products-sideview.centered-tax-text .pricing-wrapper > p:last-child {
+  text-align: center;
+}
+
 .products-sideview p.button-container a {
   width: 100%;
   justify-content: center;
