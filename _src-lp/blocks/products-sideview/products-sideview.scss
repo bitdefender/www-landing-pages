@@ -7,7 +7,6 @@
 
   .products-sideview {
     position: relative;
-    margin-top: 65px;
   }
 
   .products-sideview:has(.green-tag) {
@@ -294,11 +293,12 @@
   .products-sideview.trial {
     li.has-icon {
       padding-left: 40px;
+      position: relative;
       font-size: 18px;
     }
 
     li.has-icon::before {
-      left: 25px;
+      left: 0;
       position: absolute;
       align-self: baseline;
       content: '';
