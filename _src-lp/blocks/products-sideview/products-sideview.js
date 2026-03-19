@@ -513,6 +513,4 @@ export default async function decorate(block) {
   matchHeights(block, '.block >div >div >:first-child:not(.nanoblock)');
 
   await decorateIcons(block);
-  console.log(block.querySelector('.green-tag'));
-  block.style.setProperty('green-tag-height', `${block.querySelector('.green-tag')?.offsetHeight}px`);
 }
