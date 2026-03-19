@@ -1,4 +1,4 @@
-import { formatPrice } from "../utils.js";
+import { formatPrice, GLOBAL_EVENTS } from "../utils.js";
 
 if (typeof window.StoreProducts === 'undefined' || window.StoreProducts === null) {
   window.StoreProducts = new Object();
@@ -301,9 +301,7 @@ window.StoreProducts.initSelector = function (config) {
 
       let forceBussiness = false;
       const siteSection = window.location.pathname.indexOf('/business/') !== -1 ? 'business' : 'consumer';
-      if (siteSection === 'business') {
-        forceBussiness = true;
-      }
+      if (siteSection === 'business') forceBussiness = true;
 
       if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw')) {
         if (so.product_id === 'psp' || so.product_id === 'pspm' || so.product_id === 'dip' || so.product_id === 'dipm') {
@@ -324,33 +322,11 @@ window.StoreProducts.initSelector = function (config) {
           if ('DEFAULT_LANGUAGE' in multilang_js) { url = `/${multilang_js.DEFAULT_LANGUAGE}/Store/ajax`; }
         }
 
-        if (typeof BASE_URI !== 'undefined') {
-          if (BASE_URI != null) {
-            if (BASE_URI.length > 0) {
-              url = `${BASE_URI}/Store/ajax`;
-            }
-          }
-        }
+        if (BASE_URI) url = `${BASE_URI}/Store/ajax`;
       } catch (ex) {
         DEBUG && console.log(ex);
       }
 
-      try {
-        /* if (forceBussiness == true) {
-          urlParams.force_country = 'us';
-        }*/
-
-        // if it's us
-        if (window.location.pathname.indexOf(`/us/`) !== -1) {
-          url = `${url}?force_country=us`;
-        } else {
-          if ('force_country' in urlParams) {
-            url = `${url}?force_country=${urlParams.force_country}`;
-          }
-        }
-      } catch (ex) {
-        DEBUG && console.log(ex);
-      }
       so.url = url;
       window.StoreProducts.filterRequestObject(so);
 
@@ -699,8 +675,6 @@ window.StoreProducts.initSelector = function (config) {
       if (params.length > 1) buy_link += params;
 
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
-
-      if ('force_country' in extra_params) { buy_link = `${buy_link}?force_country=${extra_params.force_country}`; }
     } else {
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
     }
@@ -1448,11 +1422,7 @@ window.StoreProducts.loadProducts = function (config) {
   // }
 
   try {
-    if (typeof BASE_URI !== 'undefined') {
-      if (BASE_URI != null) {
-        if (BASE_URI.length > 0) { url = `${BASE_URI}/Store/ajax`; }
-      }
-    }
+    if (BASE_URI) url = `${BASE_URI}/Store/ajax`;
   } catch (ex) {
     DEBUG && console.log(ex);
   }
@@ -1688,15 +1658,20 @@ window.StoreProducts.requestPricingInfo = function (so) {
 
     const formData = new FormData();
     formData.append('data', so);
-    fetch(url, {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then(handleResponse)
-      .catch((error) => {
-        DEBUG && console.log(error);
-      });
+    window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+      const countryDetected = event.country || event.detail;
+      console.log(countryDetected);
+
+      fetch(url + '?force_country=' + countryDetected, {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then(handleResponse)
+        .catch((error) => {
+          DEBUG && console.log(error);
+        });
+    });
   }
 };
 
