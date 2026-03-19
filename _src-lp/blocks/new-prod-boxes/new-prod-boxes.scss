@@ -1398,6 +1398,11 @@ margin: 20px 0 0 5px;
     background-color: black;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.deactivated {
+    filter: grayscale(100%);
+    opacity: 0.3;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.nocheck {
     font-size: 14px;
     line-height: 17px;

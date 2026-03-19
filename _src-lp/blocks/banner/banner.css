@@ -1462,6 +1462,10 @@
     padding: 1em 0 !important;
     margin-bottom: 1em !important;
   }
+  .section.banner-container.mobile-icon-centered table {
+    margin-top: 1em;
+    width: 100%;
+  }
   .section.banner-container .banner > div > div:nth-of-type(2) {
     flex-direction: column-reverse;
     gap: 1em;
