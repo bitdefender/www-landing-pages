@@ -645,6 +645,10 @@ window.StoreProducts.initSelector = function (config) {
       }
 
       if (params.length > 1) buy_link += params;
+      if ('force_country' in urlParams) {
+        if (urlParams.force_country === 'en') urlParams.force_country = 'us';
+        buy_link = `${buy_link}?force_country=${urlParams.force_country}`;
+      }
 
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
     } else {
