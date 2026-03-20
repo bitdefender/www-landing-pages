@@ -992,8 +992,10 @@ window.StoreProducts.__onChangeUsers = function (ev) {
         }
 
         if (params.length > 1) buy_link += params;
-
-        if ('force_country' in c_config.extra_params) { buy_link = `${buy_link}?force_country=${c_config.extra_params.force_country}`; }
+        if ('force_country' in urlParams) {
+          if (urlParams.force_country === 'en') urlParams.force_country = 'us';
+          buy_link = `${buy_link}?force_country=${urlParams.force_country}`;
+        }
       }
     }
   } catch (ex) {
@@ -1215,8 +1217,10 @@ window.StoreProducts.__onChangeYears = function (ev) {
         }
 
         if (params.length > 1) buy_link += params;
-
-        if ('force_country' in c_config.extra_params) { buy_link = `${buy_link}?force_country=${c_config.extra_params.force_country}`; }
+        if ('force_country' in urlParams) {
+          if (urlParams.force_country === 'en') urlParams.force_country = 'us';
+          buy_link = `${buy_link}?force_country=${urlParams.force_country}`;
+        }
       }
     }
   } catch (ex) {
