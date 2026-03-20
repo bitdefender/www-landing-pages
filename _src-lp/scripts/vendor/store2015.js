@@ -40,6 +40,8 @@ const d = function (s) {
 
 // send fetch
 const sendRequest = (url, formData, country) => {
+  if (country === 'en') country = 'us';
+
   fetch(url + '?force_country=' + country, {
     method: 'POST',
     body: formData,
