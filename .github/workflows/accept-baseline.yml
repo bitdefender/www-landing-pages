@@ -25,7 +25,7 @@ jobs:
             exit 1
           fi
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Verify Required Checks
         run: |
           CHECKS=$(gh pr checks ${{ github.event.pull_request.number }} --json name,state --jq '.[] | select(.state != "SUCCESS" and .name != "snapshots-tests" and .name != "check-conditions" and .name != "auto-merge" and .name != "update-baselines" and .name != "acquire-lock" and .name != "aem-psi-check") | .name')
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: aquire-lock
 
@@ -88,14 +88,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout `aquire-lock` Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: aquire-lock
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
-          node-version: '20.4'
+          node-version: '24'
       - run: npm install
 
       - name: Create Lock File
@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: aquire-lock
 
