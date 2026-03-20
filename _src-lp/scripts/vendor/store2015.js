@@ -21,6 +21,36 @@ if (window.location.host.indexOf('localhost:3000') == 0) {
   DEBUG = true;
 }
 
+// get params:
+const urlParams = {};
+let e;
+const a = /\+/g; // Regex for replacing + with space
+const r = /([^&=]+)=?([^&]*)/g;
+const d = function (s) {
+  return decodeURIComponent(s.replace(a, ' '));
+};
+
+(function () {
+  const q = window.location.search.substring(1);
+
+  while ((e = r.exec(q))) {
+    urlParams[d(e[1])] = d(e[2]);
+  }
+})();
+
+// send fetch
+const sendRequest = (url, formData, country) => {
+  fetch(url + '?force_country=' + country, {
+    method: 'POST',
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then(handleResponse)
+    .catch((error) => {
+      DEBUG && console.log(error);
+    });
+};
+
 window.StoreProducts.initSelector = function (config) {
   window.is_product = true;
   if (typeof window.forcePL !== 'undefined' && window.forcePL == true) {
@@ -164,58 +194,8 @@ window.StoreProducts.initSelector = function (config) {
   }
 
   if (product_id == null) { return false; }
-
-  //    if(users_class == null)
-  //	return false;
-
-  //    if(years_class == null)
-  //	return false;
-
-  const urlParams = {};
-
-  try {
-    (function () {
-      let e;
-      const a = /\+/g; // Regex for replacing addition symbol with a space
-      const r = /([^&=]+)=?([^&]*)/g;
-      const d = function (s) { return decodeURIComponent(s.replace(a, ' ')); };
-      const q = window.location.search.substring(1);
-
-      while (e = r.exec(q)) { urlParams[d(e[1])] = d(e[2]); }
-    }());
-
-    if ('force_country' in urlParams) {
-      if (extra_params == null) {
-        extra_params = { force_country: urlParams.force_country };
-      } else {
-        extra_params.force_country = urlParams.force_country;
-      }
-    } else {
-      // ex: www.bitdefender.com/business/fr/bsp-flashsale
-      const currentPath = window.location.pathname;
-      const parts = currentPath.split('/');
-      let country_from_path = currentPath.includes('/pages/') ? parts[3] : parts[2];
-
-      if (country_from_path === 'en') country_from_path = 'us';
-
-      const force_country = country_from_path;
-      if (extra_params == null) {
-        extra_params = { force_country: force_country };
-      } else {
-        extra_params.force_country = force_country;
-      }
-    }
-
-    if ('cid' in urlParams) {
-      config.cid = urlParams.cid;
-    }
-
-    if ('icid' in urlParams) {
-      config.icid = urlParams.icid;
-    }
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
+  if ('cid' in urlParams) config.cid = urlParams.cid;
+  if ('icid' in urlParams) config.icid = urlParams.icid;
 
   if (typeof window.StoreProducts.product[product_id] === 'undefined' || window.StoreProducts.product[product_id] === null) {
     if (doAjax == true) {
@@ -294,14 +274,6 @@ window.StoreProducts.initSelector = function (config) {
       const BASE_URL = ['author', 'localhost', 'local', 'stage', 'dev', 'dev1', 'dev2', 'dev3', 'new'].includes(window.location.hostname.split(/\.|-/)[0]) ? 'https://www.bitdefender.com' : '';
 
       let url = `${BASE_URL}/site/Store/ajax`;
-
-      // if (window.location.hostname == 'www.bitdefender.se') {
-      //     BASE_URI = "https://www.bitdefender.se/site";
-      // }
-
-      let forceBussiness = false;
-      const siteSection = window.location.pathname.indexOf('/business/') !== -1 ? 'business' : 'consumer';
-      if (siteSection === 'business') forceBussiness = true;
 
       if ((DEFAULT_LANGUAGE === 'zh-hk' || DEFAULT_LANGUAGE === 'zh-tw')) {
         if (so.product_id === 'psp' || so.product_id === 'pspm' || so.product_id === 'dip' || so.product_id === 'dipm') {
@@ -458,9 +430,7 @@ window.StoreProducts.initSelector = function (config) {
   try {
     let l_hash = location.hash;
 
-    if (l_hash.length < 1) {
-      if ('var' in urlParams) { l_hash = urlParams.var; }
-    }
+    if (l_hash.length < 1 && 'var' in urlParams) l_hash = urlParams.var;
 
     if (l_hash.length > 1) {
       const pt = new RegExp(`${window.StoreProducts.product[product_id].product_alias}\\-(\\d{1,2})u\\-(\\d{1})y`);
@@ -1400,40 +1370,7 @@ window.StoreProducts.loadProducts = function (config) {
 
   so.config = config;
   let url = '/site/Store/ajax';
-
-  const urlParams = {};
-
-  try {
-    (function () {
-      let e;
-      const a = /\+/g; // Regex for replacing addition symbol with a space
-      const r = /([^&=]+)=?([^&]*)/g;
-      const d = function (s) { return decodeURIComponent(s.replace(a, ' ')); };
-      const q = window.location.search.substring(1);
-
-      while (e = r.exec(q)) { urlParams[d(e[1])] = d(e[2]); }
-    }());
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
-
-  // if (window.location.hostname == 'www.bitdefender.se') {
-  //     BASE_URI = "https://www.bitdefender.se";
-  // }
-
-  try {
-    if (BASE_URI) url = `${BASE_URI}/Store/ajax`;
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
-
-  try {
-    if ('force_country' in urlParams) {
-      url = `${url}?force_country=${urlParams.force_country}`;
-    }
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
+  if (BASE_URI) url = `${BASE_URI}/Store/ajax`;
 
   const onload = function (data) {
     const response_code = data.code;
@@ -1496,61 +1433,6 @@ window.StoreProducts.getBundleProductsInfo = function (va, vb, config) {
     va.selected_years = va.variation.years;
 
     buy_link += `/${pa.product_alias}/${va.selected_users}/${va.selected_years}`;
-    /*
-            if('discount' in va)
-            {
-                if('coupon' in va['discount'])
-                {
-                    va['discount']['coupon'] = $.trim(va['discount']['coupon']);
-
-                    if(va['discount']['coupon'].length > 0)
-                    buy_link += '/' + 'coupon.'+encodeURIComponent(va['discount']['coupon']) + '/' + 'platform.' + va['platform_id'];
-                else
-                    buy_link += '/' + 'platform.' + va['platform_id'];
-                    }
-
-                    if('ref' in va['discount'])
-                    {
-                    if(va['discount']['ref'].length > 0)
-                        buy_link = buy_link + '/ref.' + va['discount']['ref'];
-                    }
-            }
-            */
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
-
-  try {
-    /*
-            if(extra_params['va'] != null)
-            {
-                var params = '';
-
-                for(op in extra_params['va'])
-                {
-                if(op == 'force_country')
-                    continue;
-
-                extra_params['va'][op] = $.trim(extra_params['va'][op]);
-
-                if(extra_params['va'][op].length < 1)
-                    continue;
-            */
-    //	var re = new RegExp(op+'.[^/]*/?','g');
-    /*
-                buy_link = buy_link.replace(re,'');
-                buy_link = buy_link.replace(/\/$/g,'');
-
-                    if(params.length == 0)
-                        params = '/'+op+'.'+encodeURIComponent(extra_params['va'][op]);
-                else
-                    params = params+'/'+op+'.'+encodeURIComponent(extra_params['va'][op]);
-                }
-
-                if(params.length > 1)
-                    buy_link = buy_link + params;
-            }
-            */
   } catch (ex) {
     DEBUG && console.log(ex);
   }
@@ -1560,69 +1442,11 @@ window.StoreProducts.getBundleProductsInfo = function (va, vb, config) {
     vb.selected_years = vb.variation.years;
 
     buy_link += `/${pb.product_alias}/${vb.selected_users}/${vb.selected_years}`;
-    /*
-            if('discount' in vb)
-            {
-                if('coupon' in vb['discount'])
-                {
-                    vb['discount']['coupon'] = $.trim(vb['discount']['coupon']);
-
-                    if(vb['discount']['coupon'].length > 0)
-                    buy_link +=  '/' + 'coupon.'+encodeURIComponent(vb['discount']['coupon']) + '/' + 'platform.' + vb['platform_id'];
-                else
-                    buy_link +=  '/' + 'platform.' + vb['platform_id'];
-                    }
-
-                    if('ref' in vb['discount'])
-                    {
-                    if(vb['discount']['ref'].length > 0)
-                        buy_link = buy_link + '/ref.' + vb['discount']['ref'];
-                    }
-            }
-            */
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
-
-  try {
-    /*
-            if(extra_params['vb'] != null)
-            {
-                var params = '';
-
-                for(op in extra_params['vb'])
-                {
-                if(op == 'force_country')
-                    continue;
-
-                extra_params['vb'][op] = $.trim(extra_params['vb'][op]);
-
-                if(extra_params['vb'][op].length < 1)
-                    continue;
-            */
-    //	var re = new RegExp(op+'.[^/]*/?','g');
-    /*
-                buy_link = buy_link.replace(re,'');
-                buy_link = buy_link.replace(/\/$/g,'');
-
-                    if(params.length == 0)
-                        params = '/'+op+'.'+encodeURIComponent(extra_params['vb'][op]);
-                else
-                    params = params+'/'+op+'.'+encodeURIComponent(extra_params['vb'][op]);
-                }
-
-                if(params.length > 1)
-                    buy_link = buy_link + params;
-            }
-            */
-
-    if ('force_country' in extra_params) { buy_link = `${buy_link}?force_country=${extra_params.force_country}`; }
   } catch (ex) {
     DEBUG && console.log(ex);
   }
 
   let ret_price = 0;
-
   ret_price = (va.price * 100) / 100 + (vb.price * 100) / 100;
   ret_price = ret_price.toFixed(2);
   ret_price = formatPrice(ret_price, va.currency_iso, va.region_id);
@@ -1653,25 +1477,16 @@ window.StoreProducts.requestPricingInfo = function (so) {
         // Handle any error that occurred during the request
       });
   } else {
-    // let params = new URLSearchParams();
-    // params.append('data', so);
-
     const formData = new FormData();
     formData.append('data', so);
-    window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-      const countryDetected = event.country || event.detail;
-      console.log(countryDetected);
 
-      fetch(url + '?force_country=' + countryDetected, {
-        method: 'POST',
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then(handleResponse)
-        .catch((error) => {
-          DEBUG && console.log(error);
-        });
-    });
+    if ('force_country' in urlParams) {
+      sendRequest(url, formData, urlParams.force_country);
+    } else {
+      window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+        sendRequest(url, formData, event.country || event.detail);
+      });
+    }
   }
 };
 
@@ -1883,35 +1698,6 @@ let satellite_track_once = 1;
 window.StoreProducts.setDigitalData = function (product_id, variation) {
   try {
     if (typeof window.digitalData !== 'undefined') {
-      /**
-             if (digitalData.page.category.primary == "landing page") {
-                if (window.StoreProducts.product[product_id].product_type == 1) {
-                    digitalData.page.category.secondary = "consumer";
-                }
-                if (window.StoreProducts.product[product_id].product_type == 2) {
-                    digitalData.page.category.secondary = "business";
-                }
-
-                if (typeof digitalData.user === "undefined") {
-                    digitalData.user = {
-                        potentialCustomer : digitalData.page.category.secondary,
-                    };
-                } else {
-                    digitalData.user.potentialCustomer = digitalData.page.category.secondary;
-                }
-
-                if (!oneTimeSendData && digitalData.page.category.secondary !== "") {
-          if (digitalData.page.category.secondary == "consumer") {
-                        _satellite.track("DLConsumerCampaign");
-                        oneTimeSendData = true;
-          } else if (digitalData.page.category.secondary == "business") {
-                        _satellite.track("DLBusinessCampaign");
-                        oneTimeSendData = true;
-          }
-        }
-            }
-             * */
-
       if (window.digitalData.page.info.subSubSection == 'viewproduct' && digitalData.page.info.name.indexOf(window.StoreProducts.product[product_id].product_id) !== -1) {
         let found = false;
         if (window.digitalData.product !== 'undefined') {
@@ -2226,18 +2012,6 @@ const Base64 = {
 };
 
 window.StoreProducts.filterProductIDExceptions = function (product_id) {
-  // var langExceptions = ['de', 'nl'];
-  // if (typeof DEFAULT_LANGUAGE !== "undefined" && -1 !== langExceptions.indexOf(DEFAULT_LANGUAGE) &&
-  //     ("5002" === product_id || "is" === product_id)) {
-  //     product_id = "5003";
-  // }
-  /*
-          if (typeof DEFAULT_LANGUAGE !== "undefined" && -1 !== langExceptions.indexOf(DEFAULT_LANGUAGE) &&
-              ("5004" === product_id || "tsmd" === product_id)) {
-              product_id = "5009";
-          }
-      */
-  // console.log('filterProductIDExceptions: ' + product_id);
   return product_id;
 };
 
