@@ -1068,7 +1068,7 @@ main .columns-container.padding-0 .columns-wrapper {
   position: relative;
 }
 
-.columns-container.steps-design .columns > div:nth-of-type(2) > div:not(:first-of-type):before {
+.columns-container.steps-design .columns > div:nth-of-type(2) > div:not(:first-of-type)::before {
   content: "";
   display: block;
   width: 30px;
@@ -1097,7 +1097,7 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container.steps-design .columns > div:last-of-type > div p {
     font-size: 18px;
     line-height: 24px;
-    color: #000000;
+    color: #000;
     margin: 0;
 }
 
@@ -1124,7 +1124,7 @@ main .columns-container.padding-0 .columns-wrapper {
     flex-direction: column;
   }
 
-  .columns-container.steps-design .columns > div:nth-of-type(2) > div:not(:first-of-type):before {
+  .columns-container.steps-design .columns > div:nth-of-type(2) > div:not(:first-of-type)::before {
     top: -16px;
     left: 0;
     right: 0;
