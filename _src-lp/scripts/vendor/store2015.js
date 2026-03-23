@@ -650,6 +650,10 @@ window.StoreProducts.initSelector = function (config) {
         buy_link = `${buy_link}?force_country=${urlParams.force_country}`;
       }
 
+      const currency = variation.currency_iso;
+      const separator = buy_link.includes('?') ? '&' : '?';
+      buy_link = `${buy_link}${separator}CURRENCY=${currency}&DCURRENCY=${currency}`;
+
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
     } else {
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
