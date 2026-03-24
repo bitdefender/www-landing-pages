@@ -16,7 +16,8 @@ export default function decorate(block) {
     const [prodName, prodUsers, prodYears] = product.split('/');
     const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
 
-    block.querySelector('p.button-container a').className = `button primary await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`;
+    const button = block.querySelector('p.button-container a');
+    if (button) button.className = `button primary await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`;
   }
 
   // setup image columns
@@ -58,6 +59,5 @@ export default function decorate(block) {
       matchWidths(block, '.same-width', 991);
     }
   }
-  matchHeights(block, '.text-content:not(.text-content-0)');
   matchHeights(block, '.feature-cards img');
 }

@@ -1244,12 +1244,11 @@ main .columns-container.padding-0 .columns-wrapper {
     line-height: 1.25;
   }
   .columns-container.csam-design .block div.columns-img-col img {
-    max-width: 210px;
     border-radius: 10px;
-    margin: 0 auto;
     padding: 0;
     margin-bottom: -2em;
     margin-top: -2em;
+    min-width: 100%;
   }
   .columns-container.v-nov25 .columns {
     padding: 0 1em 1em;

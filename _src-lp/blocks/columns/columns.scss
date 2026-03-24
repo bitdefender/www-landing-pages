@@ -964,7 +964,7 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 @media (width <=991px) {
-  .columns-container.csam-design .block>div {
+  .columns-container.csam-design .block > div {
     padding-right: 0;
   }
 
@@ -1024,11 +1024,11 @@ main .columns-container.padding-0 .columns-wrapper {
     margin-left: auto;
   }
 
-  .columns-container.csam-design-v2 .columns>div>.columns-img-col img {
+  .columns-container.csam-design-v2 .columns >div > .columns-img-col img {
     max-width: 450px;
   }
 
-  .columns-container.csam-design-v2 .columns>div>.columns-img-col--right {
+  .columns-container.csam-design-v2 .columns >div > .columns-img-col--right {
     padding-left: 6em;
   }
 
@@ -1408,7 +1408,7 @@ main .columns-container.padding-0 .columns-wrapper {
     flex-direction: column;
   }
 
-  .columns-container.csam-design .block table tr>td:first-of-type {
+  .columns-container.csam-design .block table tr > td:first-of-type {
     background-color: #1C314A;
     overflow: hidden;
     margin-left: -17px;
@@ -1421,12 +1421,11 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 
   .columns-container.csam-design .block div.columns-img-col img {
-    max-width: 210px;
     border-radius: 10px;
-    margin: 0 auto;
     padding: 0;
     margin-bottom: -2em;
     margin-top: -2em;
+    min-width: 100%;
   }
 
   .columns-container.v-nov25 .columns {
