@@ -826,18 +826,21 @@ window.StoreProducts.initSelector = function (config) {
 
       if (extra_params.force_country === 'en') {
         element.classList.add('buy_link_loader');
+
+        let buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}`;
+
         window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
           const listEnCountries = [
             'ad', 'al', 'at', 'ax', 'ba', 'be', 'ch', 'cy', 'ee', 'fi', 'fo', 'gb', 'gf', 'gg', 'gi', 'gp', 'gr', 'hr', 'ic', 'ie', 'im', 'is', 'je', 'li', 'lt', 'lu', 'lv', 'mc', 'md', 'me', 'mf', 'mk', 'mq', 'mt', 'pm', 're', 'sh', 'si', 'sj', 'sk', 'sm', 'tf', 'tr', 'ua', 'uk', 'va', 'xk', 'yt'
           ];
 
           const detectedCountry = event.country || event.detail;
-          if (detectedCountry && listEnCountries.includes(detectedCountry)) {
-            element.classList.remove('buy_link_loader');
+          const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'en';
 
-            buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}?force_country=${detectedCountry}`;
-            element.setAttribute('href', buy_link);
-          }
+          element.classList.remove('buy_link_loader');
+          buy_link = `${buy_link}?force_country=${countryToUse}`;
+
+          element.setAttribute('href', buy_link);
         });
       } else {
         element.setAttribute('href', buy_link);
