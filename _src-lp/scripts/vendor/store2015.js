@@ -196,13 +196,6 @@ window.StoreProducts.initSelector = function (config) {
       const parts = currentPath.split('/');
       let country_from_path = currentPath.includes('/pages/') ? parts[3] : parts[2];
 
-      if (country_from_path === 'en') {
-        window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-          sendRequest(url, formData, event.country || event.detail);
-        });
-        country_from_path = 'us';
-      }
-
       const force_country = country_from_path;
       if (extra_params == null) {
         extra_params = { force_country: force_country };
@@ -705,7 +698,9 @@ window.StoreProducts.initSelector = function (config) {
 
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
 
-      if ('force_country' in extra_params) { buy_link = `${buy_link}?force_country=${extra_params.force_country}`; }
+      if ('force_country' in extra_params) {
+        buy_link = `${buy_link}?force_country=${extra_params.force_country}`;
+      }
     } else {
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
     }
@@ -829,7 +824,24 @@ window.StoreProducts.initSelector = function (config) {
         }
       });
 
-      element.setAttribute('href', buy_link);
+      if (extra_params.force_country === 'en') {
+        element.classList.add('buy_link_loader');
+        window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+          const listEnCountries = [
+            'ad', 'al', 'at', 'ax', 'ba', 'be', 'ch', 'cy', 'ee', 'fi', 'fo', 'gb', 'gf', 'gg', 'gi', 'gp', 'gr', 'hr', 'ic', 'ie', 'im', 'is', 'je', 'li', 'lt', 'lu', 'lv', 'mc', 'md', 'me', 'mf', 'mk', 'mq', 'mt', 'pm', 're', 'sh', 'si', 'sj', 'sk', 'sm', 'tf', 'tr', 'ua', 'uk', 'va', 'xk', 'yt'
+          ];
+
+          const detectedCountry = event.country || event.detail;
+          if (detectedCountry && listEnCountries.includes(detectedCountry)) {
+            element.classList.remove('buy_link_loader');
+
+            buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}?force_country=${detectedCountry}`;
+            element.setAttribute('href', buy_link);
+          }
+        });
+      } else {
+        element.setAttribute('href', buy_link);
+      }
     });
 
     if (typeof window.__targetCallBack !== 'undefined') {
