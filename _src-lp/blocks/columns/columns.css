@@ -1258,9 +1258,9 @@ main .columns-container.padding-0 .columns-wrapper {
     font-size: 13px;
   }
   .columns-container.compare .columns > div {
-    display: flex;
-    align-items: center;
-    flex-direction: unset;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(3, 1fr);
   }
   .columns-container.compare .columns > div > div {
     flex: 1;
