@@ -21,6 +21,8 @@ if (window.location.host.indexOf('localhost:3000') == 0) {
   DEBUG = true;
 }
 
+const listEnCountries = ['ad', 'al', 'at', 'ax', 'ba', 'be', 'ch', 'cy', 'ee', 'fi', 'fo', 'gb', 'gf', 'gg', 'gi', 'gp', 'gr', 'hr', 'ic', 'ie', 'im', 'is', 'je', 'li', 'lt', 'lu', 'lv', 'mc', 'md', 'me', 'mf', 'mk', 'mq', 'mt', 'pm', 're', 'sh', 'si', 'sj', 'sk', 'sm', 'tf', 'tr', 'ua', 'uk', 'va', 'xk', 'yt'];
+
 // get params:
 const urlParams = {};
 let e;
@@ -40,17 +42,36 @@ const d = function (s) {
 
 // send fetch
 const sendRequest = (url, formData, country) => {
-  if (country === 'en') country = 'us';
+  console.log('sadfasdf ', urlParams)
+  if (country === 'en') {
 
-  fetch(url + '?force_country=' + country, {
-    method: 'POST',
-    body: formData,
-  })
-    .then((response) => response.json())
-    .then(handleResponse)
-    .catch((error) => {
-      DEBUG && console.log(error);
+    window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+      const detectedCountry = event.country || event.detail;
+      console.log(detectedCountry)
+
+      const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
+
+      fetch(url + '?force_country=' + countryToUse, {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then(handleResponse)
+        .catch((error) => {
+          DEBUG && console.log(error);
+        });
     });
+  } else {
+    fetch(url + '?force_country=' + country, {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then(handleResponse)
+      .catch((error) => {
+        DEBUG && console.log(error);
+      });
+  }
 };
 
 window.StoreProducts.initSelector = function (config) {
@@ -87,8 +108,6 @@ window.StoreProducts.initSelector = function (config) {
   let extra_params = null;
 
   let doAjax = true;
-  let force_platform = null;
-  let force_region = null;
 
   let user_label = '';
   let year_label = '';
@@ -778,7 +797,24 @@ window.StoreProducts.initSelector = function (config) {
         }
       });
 
-      element.setAttribute('href', buy_link);
+      console.log('extra_params.force_country ', extra_params.force_country)
+      if (extra_params.force_country === 'en') {
+        element.classList.add('buy_link_loader');
+
+        let buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}`;
+
+        window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+          const detectedCountry = event.country || event.detail;
+          const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'en';
+
+          element.classList.remove('buy_link_loader');
+          buy_link = `${buy_link}?force_country=${countryToUse}`;
+
+          element.setAttribute('href', buy_link);
+        });
+      } else {
+        element.setAttribute('href', buy_link);
+      }
     });
 
     if (typeof window.__targetCallBack !== 'undefined') {
@@ -1440,8 +1476,6 @@ window.StoreProducts.getBundleProductsInfo = function (va, vb, config) {
   const pa = window.StoreProducts.product[va.product_id];
   const pb = window.StoreProducts.product[vb.product_id];
 
-  const extra_params = {};
-
   try {
     va.selected_users = va.variation.dimension_value;
     va.selected_years = va.variation.years;
@@ -1494,13 +1528,7 @@ window.StoreProducts.requestPricingInfo = function (so) {
     const formData = new FormData();
     formData.append('data', so);
 
-    if ('force_country' in urlParams) {
-      sendRequest(url, formData, urlParams.force_country);
-    } else {
-      window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-        sendRequest(url, formData, event.country || event.detail);
-      });
-    }
+    sendRequest(url, formData, urlParams.force_country);
   }
 };
 
