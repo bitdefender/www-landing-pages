@@ -42,35 +42,15 @@ const d = function (s) {
 
 // send fetch
 const sendRequest = (url, formData, country) => {
-  if (DEFAULT_LANGUAGE === 'en') {
-
-    window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-      const detectedCountry = event.country || event.detail;
-      console.log(detectedCountry)
-
-      const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
-
-      fetch(url + '?force_country=' + countryToUse, {
-        method: 'POST',
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then(handleResponse)
-        .catch((error) => {
-          DEBUG && console.log(error);
-        });
+  fetch(url + '?force_country=' + country, {
+    method: 'POST',
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then(handleResponse)
+    .catch((error) => {
+      DEBUG && console.log(error);
     });
-  } else {
-    fetch(url + '?force_country=' + country, {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then(handleResponse)
-      .catch((error) => {
-        DEBUG && console.log(error);
-      });
-  }
 };
 
 window.StoreProducts.initSelector = function (config) {
@@ -881,23 +861,18 @@ window.StoreProducts.initSelector = function (config) {
         }
       });
 
-      if (extra_params.force_country === 'en') {
+      const localeCountry = urlParams.force_country || DEFAULT_LANGUAGE;
+      if (localeCountry === 'en' && window.geoip) {
         element.classList.add('buy_link_loader');
 
-        let buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}`;
+        const detectedCountry = window.geoip;
+        const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
 
-        window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-          const detectedCountry = event.country || event.detail;
-          const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'en';
-
-          element.classList.remove('buy_link_loader');
-          buy_link = `${buy_link}?force_country=${countryToUse}`;
-
-          element.setAttribute('href', buy_link);
-        });
-      } else {
-        element.setAttribute('href', buy_link);
+        element.classList.remove('buy_link_loader');
+        buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
       }
+
+      element.setAttribute('href', buy_link);
     });
 
     if (typeof window.__targetCallBack !== 'undefined') {
@@ -1579,10 +1554,6 @@ window.StoreProducts.loadProducts = function (config) {
 window.StoreProducts.getBundleProductsInfo = function (va, vb, config) {
   let base_uri = window.StoreProducts.product[va.product_id].base_uri;
 
-  // if (window.location.hostname == 'www.bitdefender.se') {
-  //     base_uri = "https://www.bitdefender.se/site";
-  // }
-
   if (typeof window.geoip_code !== 'undefined' && window.geoip_code == 'gb') {
     base_uri = 'https://www.bitdefender.co.uk/site';
   }
@@ -1599,61 +1570,6 @@ window.StoreProducts.getBundleProductsInfo = function (va, vb, config) {
     va.selected_years = va.variation.years;
 
     buy_link += `/${pa.product_alias}/${va.selected_users}/${va.selected_years}`;
-    /*
-            if('discount' in va)
-            {
-                if('coupon' in va['discount'])
-                {
-                    va['discount']['coupon'] = $.trim(va['discount']['coupon']);
-
-                    if(va['discount']['coupon'].length > 0)
-                    buy_link += '/' + 'coupon.'+encodeURIComponent(va['discount']['coupon']) + '/' + 'platform.' + va['platform_id'];
-                else
-                    buy_link += '/' + 'platform.' + va['platform_id'];
-                    }
-
-                    if('ref' in va['discount'])
-                    {
-                    if(va['discount']['ref'].length > 0)
-                        buy_link = buy_link + '/ref.' + va['discount']['ref'];
-                    }
-            }
-            */
-  } catch (ex) {
-    DEBUG && console.log(ex);
-  }
-
-  try {
-    /*
-            if(extra_params['va'] != null)
-            {
-                var params = '';
-
-                for(op in extra_params['va'])
-                {
-                if(op == 'force_country')
-                    continue;
-
-                extra_params['va'][op] = $.trim(extra_params['va'][op]);
-
-                if(extra_params['va'][op].length < 1)
-                    continue;
-            */
-    //	var re = new RegExp(op+'.[^/]*/?','g');
-    /*
-                buy_link = buy_link.replace(re,'');
-                buy_link = buy_link.replace(/\/$/g,'');
-
-                    if(params.length == 0)
-                        params = '/'+op+'.'+encodeURIComponent(extra_params['va'][op]);
-                else
-                    params = params+'/'+op+'.'+encodeURIComponent(extra_params['va'][op]);
-                }
-
-                if(params.length > 1)
-                    buy_link = buy_link + params;
-            }
-            */
   } catch (ex) {
     DEBUG && console.log(ex);
   }
@@ -1663,62 +1579,11 @@ window.StoreProducts.getBundleProductsInfo = function (va, vb, config) {
     vb.selected_years = vb.variation.years;
 
     buy_link += `/${pb.product_alias}/${vb.selected_users}/${vb.selected_years}`;
-    /*
-            if('discount' in vb)
-            {
-                if('coupon' in vb['discount'])
-                {
-                    vb['discount']['coupon'] = $.trim(vb['discount']['coupon']);
-
-                    if(vb['discount']['coupon'].length > 0)
-                    buy_link +=  '/' + 'coupon.'+encodeURIComponent(vb['discount']['coupon']) + '/' + 'platform.' + vb['platform_id'];
-                else
-                    buy_link +=  '/' + 'platform.' + vb['platform_id'];
-                    }
-
-                    if('ref' in vb['discount'])
-                    {
-                    if(vb['discount']['ref'].length > 0)
-                        buy_link = buy_link + '/ref.' + vb['discount']['ref'];
-                    }
-            }
-            */
   } catch (ex) {
     DEBUG && console.log(ex);
   }
 
   try {
-    /*
-            if(extra_params['vb'] != null)
-            {
-                var params = '';
-
-                for(op in extra_params['vb'])
-                {
-                if(op == 'force_country')
-                    continue;
-
-                extra_params['vb'][op] = $.trim(extra_params['vb'][op]);
-
-                if(extra_params['vb'][op].length < 1)
-                    continue;
-            */
-    //	var re = new RegExp(op+'.[^/]*/?','g');
-    /*
-                buy_link = buy_link.replace(re,'');
-                buy_link = buy_link.replace(/\/$/g,'');
-
-                    if(params.length == 0)
-                        params = '/'+op+'.'+encodeURIComponent(extra_params['vb'][op]);
-                else
-                    params = params+'/'+op+'.'+encodeURIComponent(extra_params['vb'][op]);
-                }
-
-                if(params.length > 1)
-                    buy_link = buy_link + params;
-            }
-            */
-
     if ('force_country' in extra_params) { buy_link = `${buy_link}?force_country=${extra_params.force_country}`; }
   } catch (ex) {
     DEBUG && console.log(ex);
@@ -1756,20 +1621,22 @@ window.StoreProducts.requestPricingInfo = function (so) {
         // Handle any error that occurred during the request
       });
   } else {
-    // let params = new URLSearchParams();
-    // params.append('data', so);
-
     const formData = new FormData();
     formData.append('data', so);
-    fetch(url, {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then(handleResponse)
-      .catch((error) => {
-        DEBUG && console.log(error);
+
+    const localeCountry = urlParams.force_country || DEFAULT_LANGUAGE;
+    if (localeCountry === 'en') {
+      window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+        const detectedCountry = event.country || event.detail;
+
+        const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
+        let parsedUrl = url.split('?')[0];
+        sendRequest(parsedUrl, formData, countryToUse);
       });
+
+    } else {
+      sendRequest(url, formData, localeCountry);
+    }
   }
 };
 
