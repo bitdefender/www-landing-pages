@@ -21,6 +21,58 @@ if (window.location.host.indexOf('localhost:3000') == 0) {
   DEBUG = true;
 }
 
+const listEnCountries = ["ad", "al", "at", "ax", "ba", "be", "ch", "cy", "ee", "fi", "fo", "gb", "gf", "gg", "gi", "gp", "gr", "hr", "ic", "ie", "im", "is", "je", "li", "lt", "lu", "lv", "mc", "md", "me", "mf", "mk", "mq", "mt", "pm", "re", "sh", "si", "sj", "sk", "sm", "tf", "tr", "ua", "uk", "va", "xk", "yt", "ro", "de", "fr", "se", "es", "it", "pt"];
+
+// get params:
+const urlParams = {};
+let e;
+const a = /\+/g; // Regex for replacing + with space
+const r = /([^&=]+)=?([^&]*)/g;
+const d = function (s) {
+  return decodeURIComponent(s.replace(a, ' '));
+};
+
+(function () {
+  const q = window.location.search.substring(1);
+
+  while ((e = r.exec(q))) {
+    urlParams[d(e[1])] = d(e[2]);
+  }
+})();
+
+// send fetch
+const sendRequest = (url, formData, country) => {
+  if (DEFAULT_LANGUAGE === 'en') {
+
+    window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+      const detectedCountry = event.country || event.detail;
+      console.log(detectedCountry)
+
+      const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
+
+      fetch(url + '?force_country=' + countryToUse, {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then(handleResponse)
+        .catch((error) => {
+          DEBUG && console.log(error);
+        });
+    });
+  } else {
+    fetch(url + '?force_country=' + country, {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then(handleResponse)
+      .catch((error) => {
+        DEBUG && console.log(error);
+      });
+  }
+};
+
 window.StoreProducts.initSelector = function (config) {
   window.is_product = true;
   if (typeof window.forcePL !== 'undefined' && window.forcePL == true) {
