@@ -21,7 +21,7 @@ if (window.location.host.indexOf('localhost:3000') == 0) {
   DEBUG = true;
 }
 
-const listEnCountries = ["ad", "al", "at", "ax", "ba", "be", "ch", "cy", "ee", "fi", "fo", "gb", "gf", "gg", "gi", "gp", "gr", "hr", "ic", "ie", "im", "is", "je", "li", "lt", "lu", "lv", "mc", "md", "me", "mf", "mk", "mq", "mt", "pm", "re", "sh", "si", "sj", "sk", "sm", "tf", "tr", "ua", "uk", "va", "xk", "yt", "ro", "de", "fr", "se", "es", "it", "pt", "sv"];
+const listEnCountries = ["ad", "al", "at", "ax", "ba", "be", "ch", "cy", "ee", "fi", "fo", "gb", "gf", "gg", "gi", "gp", "gr", "hr", "ic", "ie", "im", "is", "je", "li", "lt", "lu", "lv", "mc", "md", "me", "mf", "mk", "mq", "mt", "pm", "re", "sh", "si", "sj", "sk", "sm", "tf", "tr", "ua", "uk", "va", "xk", "yt", "ro", "de", "fr", "se", "es", "it", "pt", "sv", "nl", "br"];
 
 // get params:
 const urlParams = {};
