@@ -728,6 +728,10 @@ window.StoreProducts.initSelector = function (config) {
     console.log(ex);
   }
 
+  const currency = variation.currency_iso;
+  const separator = buy_link.includes('?') ? '&' : '?';
+  buy_link = `${buy_link}${separator}CURRENCY=${currency}&DCURRENCY=${currency}`;
+
   try {
     if (extra_params != null) {
       let params = '';
@@ -751,7 +755,8 @@ window.StoreProducts.initSelector = function (config) {
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
 
       if ('force_country' in extra_params) {
-        buy_link = `${buy_link}?force_country=${extra_params.force_country}`;
+        const separator = buy_link.includes('?') ? '&' : '?';
+        buy_link = `${buy_link}${separator}force_country=${extra_params.force_country}`;
       }
     } else {
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
