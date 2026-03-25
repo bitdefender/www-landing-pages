@@ -1,4 +1,4 @@
-import { formatPrice } from "../utils.js";
+import { formatPrice, GLOBAL_EVENTS } from "../utils.js";
 
 if (typeof window.StoreProducts === 'undefined' || window.StoreProducts === null) {
   window.StoreProducts = new Object();
@@ -196,7 +196,12 @@ window.StoreProducts.initSelector = function (config) {
       const parts = currentPath.split('/');
       let country_from_path = currentPath.includes('/pages/') ? parts[3] : parts[2];
 
-      if (country_from_path === 'en') country_from_path = 'us';
+      if (country_from_path === 'en') {
+        window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
+          sendRequest(url, formData, event.country || event.detail);
+        });
+        country_from_path = 'us';
+      }
 
       const force_country = country_from_path;
       if (extra_params == null) {
