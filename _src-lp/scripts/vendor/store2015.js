@@ -882,10 +882,6 @@ window.StoreProducts.initSelector = function (config) {
         let buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}`;
 
         window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-          const listEnCountries = [
-            'ad', 'al', 'at', 'ax', 'ba', 'be', 'ch', 'cy', 'ee', 'fi', 'fo', 'gb', 'gf', 'gg', 'gi', 'gp', 'gr', 'hr', 'ic', 'ie', 'im', 'is', 'je', 'li', 'lt', 'lu', 'lv', 'mc', 'md', 'me', 'mf', 'mk', 'mq', 'mt', 'pm', 're', 'sh', 'si', 'sj', 'sk', 'sm', 'tf', 'tr', 'ua', 'uk', 'va', 'xk', 'yt'
-          ];
-
           const detectedCountry = event.country || event.detail;
           const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'en';
 
