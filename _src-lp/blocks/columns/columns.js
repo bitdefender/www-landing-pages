@@ -59,5 +59,7 @@ export default function decorate(block) {
       matchWidths(block, '.same-width', 991);
     }
   }
+
+  matchHeights(block, 'h4');
   matchHeights(block, '.feature-cards img');
 }
