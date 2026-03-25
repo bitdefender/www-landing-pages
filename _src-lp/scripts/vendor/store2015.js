@@ -21,7 +21,7 @@ if (window.location.host.indexOf('localhost:3000') == 0) {
   DEBUG = true;
 }
 
-const listEnCountries = ['ad', 'al', 'at', 'ax', 'ba', 'be', 'ch', 'cy', 'ee', 'fi', 'fo', 'gb', 'gf', 'gg', 'gi', 'gp', 'gr', 'hr', 'ic', 'ie', 'im', 'is', 'je', 'li', 'lt', 'lu', 'lv', 'mc', 'md', 'me', 'mf', 'mk', 'mq', 'mt', 'pm', 're', 'sh', 'si', 'sj', 'sk', 'sm', 'tf', 'tr', 'ua', 'uk', 'va', 'xk', 'yt'];
+const listEnCountries = ["ad", "al", "at", "ax", "ba", "be", "ch", "cy", "ee", "fi", "fo", "gb", "gf", "gg", "gi", "gp", "gr", "hr", "ic", "ie", "im", "is", "je", "li", "lt", "lu", "lv", "mc", "md", "me", "mf", "mk", "mq", "mt", "pm", "re", "sh", "si", "sj", "sk", "sm", "tf", "tr", "ua", "uk", "va", "xk", "yt", "ro", "de", "fr", "se", "es", "it", "pt"];
 
 // get params:
 const urlParams = {};
@@ -42,8 +42,7 @@ const d = function (s) {
 
 // send fetch
 const sendRequest = (url, formData, country) => {
-  console.log('sadfasdf ', urlParams)
-  if (country === 'en') {
+  if (DEFAULT_LANGUAGE === 'en') {
 
     window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
       const detectedCountry = event.country || event.detail;
@@ -797,15 +796,16 @@ window.StoreProducts.initSelector = function (config) {
         }
       });
 
-      console.log('extra_params.force_country ', extra_params.force_country)
-      if (extra_params.force_country === 'en') {
-        element.classList.add('buy_link_loader');
+      if (extra_params.force_country === 'en' || DEFAULT_LANGUAGE === 'en') {
+        // element.classList.add('buy_link_loader');
 
         let buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}`;
 
         window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
           const detectedCountry = event.country || event.detail;
           const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'en';
+
+          console.log(countryToUse)
 
           element.classList.remove('buy_link_loader');
           buy_link = `${buy_link}?force_country=${countryToUse}`;
