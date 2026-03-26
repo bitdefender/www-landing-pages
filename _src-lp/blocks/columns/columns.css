@@ -749,7 +749,7 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) p {
-  margin: 0;
+  margin: 8px 0;
 }
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) p img, .columns-container.v-nov25 .columns > div:not(:first-of-type) table img {
@@ -801,6 +801,13 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.compare .columns > div {
   padding: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.columns-container.compare .columns > div > div {
+  min-height: 100%;
 }
 
 .columns-container.compare .columns > div > div:nth-of-type(2) {
@@ -1424,12 +1431,11 @@ main .columns-container.padding-0 .columns-wrapper {
     line-height: 1.25;
   }
   .columns-container.csam-design .block div.columns-img-col img {
-    max-width: 210px;
     border-radius: 10px;
-    margin: 0 auto;
     padding: 0;
     margin-bottom: -2em;
     margin-top: -2em;
+    min-width: 100%;
   }
   .columns-container.v-nov25 .columns {
     padding: 0 1em 1em;
@@ -1437,11 +1443,6 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns-container.v-nov25 .columns > div:first-of-type .text-content ul li {
     padding: 2px 15px;
     font-size: 13px;
-  }
-  .columns-container.compare .columns > div {
-    display: flex;
-    align-items: center;
-    flex-direction: unset;
   }
   .columns-container.compare .columns > div > div {
     flex: 1;
