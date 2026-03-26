@@ -867,6 +867,7 @@ window.StoreProducts.initSelector = function (config) {
 
         let detectedCountry = window.geoip;
         if (detectedCountry === 'gb') detectedCountry = 'uk';
+        if (detectedCountry === 'sv') detectedCountry = 'se';
         //const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
         const countryToUse = detectedCountry;
 
@@ -1633,6 +1634,7 @@ window.StoreProducts.requestPricingInfo = function (so) {
 
         //const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
         if (detectedCountry === 'gb') detectedCountry = 'uk';
+        if (detectedCountry === 'sv') detectedCountry = 'se';
         const countryToUse = detectedCountry;
         let parsedUrl = url.split('?')[0];
         sendRequest(parsedUrl, formData, countryToUse);
