@@ -865,7 +865,8 @@ window.StoreProducts.initSelector = function (config) {
       if (localeCountry === 'en' && window.geoip) {
         element.classList.add('buy_link_loader');
 
-        const detectedCountry = window.geoip;
+        let detectedCountry = window.geoip;
+        if (detectedCountry === 'gb') detectedCountry = 'uk';
         //const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
         const countryToUse = detectedCountry;
 
@@ -1628,9 +1629,10 @@ window.StoreProducts.requestPricingInfo = function (so) {
     const localeCountry = urlParams.force_country || DEFAULT_LANGUAGE;
     if (localeCountry === 'en') {
       window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-        const detectedCountry = event.country || event.detail;
+        let detectedCountry = event.country || event.detail;
 
         //const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
+        if (detectedCountry === 'gb') detectedCountry = 'uk';
         const countryToUse = detectedCountry;
         let parsedUrl = url.split('?')[0];
         sendRequest(parsedUrl, formData, countryToUse);
