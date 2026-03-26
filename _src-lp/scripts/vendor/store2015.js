@@ -866,7 +866,8 @@ window.StoreProducts.initSelector = function (config) {
         element.classList.add('buy_link_loader');
 
         const detectedCountry = window.geoip;
-        const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
+        //const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
+        const countryToUse = detectedCountry;
 
         element.classList.remove('buy_link_loader');
         buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
@@ -1629,7 +1630,8 @@ window.StoreProducts.requestPricingInfo = function (so) {
       window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
         const detectedCountry = event.country || event.detail;
 
-        const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
+        //const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
+        const countryToUse = detectedCountry;
         let parsedUrl = url.split('?')[0];
         sendRequest(parsedUrl, formData, countryToUse);
       });
