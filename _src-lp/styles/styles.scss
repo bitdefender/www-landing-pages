@@ -2133,6 +2133,15 @@ main .section.they-wear-our-faces {
     padding-top: 1em;
   }
 
+  main .mobile-smaller-space .default-content-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+
+  main .mobile-smaller-space .default-content-wrapper h2 {
+    margin-bottom: 0;
+  }
+
   main .section.width-medium .block, main .section.width-medium .default-content-wrapper {
     width: auto;
   }

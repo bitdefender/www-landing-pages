@@ -531,6 +531,11 @@
   border-radius: 20px;
 }
 
+.c-icon-box-grid-container.smaller-icons .quotebox .icon {
+  height: 32px;
+  width: 32px;
+}
+
 .c-icon-box-grid-container.phishing div.subtitle {
   display: flex;
   align-items: center;
@@ -749,6 +754,10 @@
   }
   .c-icon-box-grid-container .title {
     margin: 10px 0 5px;
+    font-size: 16px;
+  }
+  .c-icon-box-grid-container div.subtitle {
+    font-size: 14px;
   }
   .c-icon-box-grid-container .slider-container .container > div:last-of-type {
     font-size: 8px;
@@ -786,6 +795,13 @@
   }
   .c-icon-box-grid-container.bordered .col-lg, .c-icon-box-grid-container.full-images .col-lg {
     margin: 15px 0 !important;
+  }
+  .c-icon-box-grid-container.gray-background .col-lg {
+    padding: 20px;
+  }
+  .c-icon-box-grid-container.mobile-icon-left .col-lg .icon-box-grid-column {
+    flex-direction: row !important;
+    gap: 14px;
   }
 }
 @media (width <= 1199px) {

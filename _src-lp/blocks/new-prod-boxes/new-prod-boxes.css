@@ -1586,6 +1586,9 @@
   .new-prod-boxes-container .block .prod_box {
     margin-bottom: 0 !important;
   }
+  .new-prod-boxes-container.mobile-top-1 .block .prod_box.index0 {
+    margin-top: 0;
+  }
   .new-prod-boxes-container.new-v3 .block .prod_box .inner_prod_box .greenTag2 {
     font-size: 12px;
     line-height: 15px;

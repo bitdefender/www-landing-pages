@@ -226,8 +226,26 @@
   margin: 0;
 }
 
+.section.banner-container.new-2024.mobile-content-left .banner div.col-lg-7 {
+  text-align: left;
+}
+
 .section.banner-container.new-2024.v2 .banner h1 {
   font: normal normal normal 32px/42px "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.new-2024.v2 .banner h6 {
+  font: normal normal bold 22px/29px "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.new-2024.data-breaches-design .banner .icon, .section.banner-container.new-2024.data-breaches-design .banner .icon svg {
+  height: 61px;
+  width: auto;
+}
+
+.section.banner-container.new-2024.data-breaches-design .banner h1 {
+  font: normal normal bold 45px/55px IBM Plex Sans;
+  margin: 20px 0;
 }
 
 .section.banner-container.new-2024 .banner h3 {
@@ -1456,6 +1474,20 @@
     background-image: unset !important;
     margin-top: 0 !important;
     padding-top: 0 !important;
+  }
+  .section.banner-container.new-2024.data-breaches-design .banner h1 {
+    font-size: 28px !important;
+    line-height: 36px !important;
+    margin-bottom: 10px;
+  }
+  .section.banner-container.new-2024.data-breaches-design .banner h6 {
+    font-size: 18px;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+  }
+  .section.banner-container.new-2024.mobile-content-left .banner div.col-lg-7 * {
+    text-align: left;
   }
   .section.banner-container .banner {
     border-radius: 0 !important;

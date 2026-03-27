@@ -72,6 +72,10 @@
   font-family: Arial, sans-serif;
 }
 
+.columns-container.new .columns h4 {
+  font: normal normal normal 24px/28px Arial;
+}
+
 .columns h3 {
   font-size: 13px;
   text-transform: uppercase;
@@ -1135,6 +1139,10 @@ main .columns-container.padding-0 .columns-wrapper {
     font-size: 24px;
     line-height: 32px;
   }
+  .columns-container.new-2 .columns h2 {
+    font-size: 32px;
+    line-height: 28px;
+  }
   .columns-container.new .columns p {
     font-size: var(--heading-font-size-2);
   }
@@ -1528,6 +1536,13 @@ main .columns-container.padding-0 .columns-wrapper {
     position: unset;
     margin: auto;
     margin-top: -5em;
+  }
+  .columns-container.new .columns h4 {
+    font: normal normal normal 18px/20px Arial;
+  }
+  .columns-container.new-2 .columns h2 {
+    font-size: 25px;
+    line-height: 28px;
   }
 }
 @media (width <= 500px) {
