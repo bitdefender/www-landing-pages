@@ -21,7 +21,12 @@ if (window.location.host.indexOf('localhost:3000') == 0) {
   DEBUG = true;
 }
 
-const listEnCountries = ["ad", "al", "at", "ax", "ba", "be", "ch", "cy", "ee", "fi", "fo", "gb", "gf", "gg", "gi", "gp", "gr", "hr", "ic", "ie", "im", "is", "je", "li", "lt", "lu", "lv", "mc", "md", "me", "mf", "mk", "mq", "mt", "pm", "re", "sh", "si", "sj", "sk", "sm", "tf", "tr", "ua", "uk", "va", "xk", "yt", "ro", "de", "fr", "se", "es", "it", "pt", "sv", "nl", "br"];
+const countryMap = {
+  gb: 'uk',
+  sv: 'se',
+  jp: 'us',
+  bh: 'us'
+};
 
 // get params:
 const urlParams = {};
@@ -865,13 +870,8 @@ window.StoreProducts.initSelector = function (config) {
       if (localeCountry === 'en' && window.geoip) {
         element.classList.add('buy_link_loader');
 
-        let detectedCountry = window.geoip;
-        if (detectedCountry === 'gb') detectedCountry = 'uk';
-        if (detectedCountry === 'sv') detectedCountry = 'se';
-        if (detectedCountry === 'jp' || detectedCountry === 'bh') detectedCountry = 'us';
-
-        //const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
-        const countryToUse = detectedCountry;
+        const detectedCountry = window.geoip;
+        const countryToUse = countryMap[detectedCountry] || detectedCountry;
 
         element.classList.remove('buy_link_loader');
         buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
@@ -1632,14 +1632,9 @@ window.StoreProducts.requestPricingInfo = function (so) {
     const localeCountry = urlParams.force_country || DEFAULT_LANGUAGE;
     if (localeCountry === 'en') {
       window.addEventListener(GLOBAL_EVENTS.GEOIPINFO_LOADED, (event) => {
-        let detectedCountry = event.country || event.detail;
+        const detectedCountry = event.country || event.detail;
+        const countryToUse = countryMap[detectedCountry] || detectedCountry;
 
-        //const countryToUse = detectedCountry && listEnCountries.includes(detectedCountry) ? detectedCountry : 'us';
-        if (detectedCountry === 'gb') detectedCountry = 'uk';
-        if (detectedCountry === 'sv') detectedCountry = 'se';
-        if (detectedCountry === 'jp' || detectedCountry === 'bh') detectedCountry = 'us';
-
-        const countryToUse = detectedCountry;
         let parsedUrl = url.split('?')[0];
         sendRequest(parsedUrl, formData, countryToUse);
       });
