@@ -192,24 +192,7 @@ window.StoreProducts.initSelector = function (config) {
     ignore_promotions = config.ignore_promotions = __global_ignore_promotions;
   }
 
-  let hasPID = false;
-  if (typeof tagit_params !== 'undefined') {
-    for (let i in tagit_params.obj) {
-      if ('pid' in tagit_params.obj[i]) {
-        hasPID = true;
-
-        break;
-      }
-    }
-  }
-
   if (product_id == null) { return false; }
-
-  //    if(users_class == null)
-  //	return false;
-
-  //    if(years_class == null)
-  //	return false;
 
   const urlParams = {};
 
@@ -1475,17 +1458,6 @@ window.StoreProducts.loadProducts = function (config) {
 
   if (config.products.length < 1) { return false; }
 
-  let hasPID = false;
-  if (typeof window.tagit_params !== 'undefined') {
-    for (let i in window.tagit_params.obj) {
-      if ('pid' in window.tagit_params.obj[i]) {
-        hasPID = true;
-
-        break;
-      }
-    }
-  }
-
   so.config = config;
   let url = '/site/Store/ajax';
 
@@ -1504,10 +1476,6 @@ window.StoreProducts.loadProducts = function (config) {
   } catch (ex) {
     DEBUG && console.log(ex);
   }
-
-  // if (window.location.hostname == 'www.bitdefender.se') {
-  //     BASE_URI = "https://www.bitdefender.se";
-  // }
 
   try {
     if (typeof BASE_URI !== 'undefined') {
