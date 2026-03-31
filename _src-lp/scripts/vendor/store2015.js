@@ -47,7 +47,12 @@ const d = function (s) {
 
 // send fetch
 const sendRequest = (url, formData, country) => {
-  fetch(url + '?force_country=' + country, {
+  let ajaxUrl = `${url}?force_country=${country}`;
+  if ('pid' in urlParams) {
+    ajaxUrl = `${ajaxUrl}&pid=${urlParams.pid}`;
+  }
+
+  fetch(ajaxUrl, {
     method: 'POST',
     body: formData,
   })
@@ -382,6 +387,11 @@ window.StoreProducts.initSelector = function (config) {
           if ('force_country' in urlParams) {
             url = `${url}?force_country=${urlParams.force_country}`;
           }
+
+          if ('pid' in urlParams) {
+            const separator = url.includes('?') ? '&' : '?';
+            url = `${url}${separator}pid=${urlParams.pid}`;
+          }
         }
       } catch (ex) {
         DEBUG && console.log(ex);
@@ -714,7 +724,9 @@ window.StoreProducts.initSelector = function (config) {
   }
 
   const currency = variation.currency_iso;
+  const pid = variation.promotion_pid;
   const separator = buy_link.includes('?') ? '&' : '?';
+  if (pid) buy_link = `${buy_link}pid.${pid}`;
   buy_link = `${buy_link}${separator}CURRENCY=${currency}&DCURRENCY=${currency}`;
 
   try {
@@ -743,6 +755,7 @@ window.StoreProducts.initSelector = function (config) {
         const separator = buy_link.includes('?') ? '&' : '?';
         buy_link = `${buy_link}${separator}force_country=${extra_params.force_country}`;
       }
+
     } else {
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
     }
@@ -874,7 +887,7 @@ window.StoreProducts.initSelector = function (config) {
         const countryToUse = countryMap[detectedCountry] || detectedCountry;
 
         element.classList.remove('buy_link_loader');
-        buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
+        buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}${pid ? `/pid.${pid}` : ''}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
       }
 
       element.setAttribute('href', buy_link);
@@ -1513,6 +1526,11 @@ window.StoreProducts.loadProducts = function (config) {
   try {
     if ('force_country' in urlParams) {
       url = `${url}?force_country=${urlParams.force_country}`;
+    }
+
+    if ('pid' in urlParams) {
+      const separator = url.includes('?') ? '&' : '?';
+      url = `${url}${separator}pid=${urlParams.pid}`;
     }
   } catch (ex) {
     DEBUG && console.log(ex);
