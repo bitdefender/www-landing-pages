@@ -511,9 +511,9 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
 
     const match = data.product.options.find((item) => item.slots === Number(prodUsers)
       && item.months === durationInMonths
-      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)));
+      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink) || getParamByName('campaign', item.buyLink)));
 
-    if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
+    if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) || getParamByName('campaign', match.buyLink) : match.buyLink;
 
     return null;
   } catch (error) {
@@ -539,7 +539,8 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
     const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
-    let campaign = oldParams.get('COUPON');
+    let campaign = oldParams.get('COUPON') || oldParams.get('VCAMPAIGN') || oldParams.get('campaign');
+    console.log('campaign ', oldUrl);
 
     if (['de', 'nl', 'au', 'gb'].includes(page.country)) campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
     const updatedUrl = new URL(newUrl);
