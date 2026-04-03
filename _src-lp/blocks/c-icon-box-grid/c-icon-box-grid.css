@@ -553,6 +553,39 @@
 }
 
 /* Phishing end */
+.c-icon-box-grid-container.top-image-version .block {
+  padding: 2em 6em;
+}
+
+.c-icon-box-grid-container.top-image-version .block .row {
+  gap: 1em;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox {
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 0 1em 1em;
+  margin: 0;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox picture {
+  width: calc(100% + 2em);
+  max-width: unset;
+  margin: 0 -1em;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox h3 {
+  font-size: 22px;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox p {
+  padding: 0;
+  margin: 5px 0;
+}
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-xs);

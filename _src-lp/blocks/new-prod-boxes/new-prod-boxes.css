@@ -385,6 +385,15 @@
   justify-content: center;
 }
 
+.new-prod-boxes-container.blue-top-tag .block .prod_box .inner_prod_box .greenTag2 {
+  background: #006EFF;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 10px 5px;
+}
+
 .new-prod-boxes-container.new-v3 .block .prod_box .inner_prod_box .greenTag2 {
   background-color: #E72325;
   border-radius: 20px 20px 0 0;
@@ -621,6 +630,13 @@
   gap: 5px;
   width: 100%;
   justify-content: center;
+}
+
+.new-prod-boxes-container.normal-blue-tag .block .prod_box .inner_prod_box .blueTag {
+  background-color: transparent;
+  color: black;
+  padding: 0;
+  margin: 0;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag {

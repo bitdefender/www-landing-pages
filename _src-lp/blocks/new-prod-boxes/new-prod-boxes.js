@@ -533,7 +533,7 @@ export default function decorate(block) {
                   <sup>${price.innerText.trim().replace('0', '')}</sup>
                 </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-                  <sup>${price?.innerText.trim().replace('0', '')}</sup>
+                  <sup>${price?.innerHTML.trim().replace('0', '')}</sup>
                 </div>`}
 
           ${billed ? (() => {

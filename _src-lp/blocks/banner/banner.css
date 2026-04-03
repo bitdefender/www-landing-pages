@@ -167,6 +167,18 @@
   background-color: #F6F6F6;
 }
 
+.section.banner-container.bck-inner-full .banner {
+  background-size: auto !important;
+}
+
+.section.banner-container.text-center-bottom .banner .container-fluid .row * {
+  text-align: center;
+}
+
+.section.banner-container.text-center-bottom .banner .container-fluid .row {
+  justify-content: center;
+}
+
 .section.banner-container.new-2024 .save-class {
   color: #1C7928;
   margin-left: 10px;
@@ -1719,9 +1731,59 @@
   .section.banner-container.hide-mobile .bck-img {
     display: none;
   }
-  .section.banner-container .animated_box {
+  .section.banner-container .animated_box, .section.banner-container.new-2024.v2[data-title-color-mobile=bblue] .banner {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+  }
+  .section.banner-container[data-title-color-mobile=bblue] .banner h1 {
+    margin-top: 1em !important;
+  }
+  .section.banner-container[data-title-color-mobile=bblue] .banner h1, .section.banner-container[data-title-color-mobile=bblue] .banner h1 * {
+    color: #006EFF !important;
+    font-size: 28px !important;
+    line-height: 30px !important;
+    margin: 0;
+  }
+  .c-icon-box-grid-container.top-image-version {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .c-icon-box-grid-container.top-image-version .block {
+    padding: 1em 0;
+  }
+  .c-icon-box-grid-container.top-image-version .block .row {
+    gap: 3em;
+  }
+  .c-icon-box-grid-container.top-image-version .quotebox:not(:first-of-type)::before {
+    content: "";
+    height: 3em;
+    border-left: 3px dotted #2f80ed;
+    display: block;
+    position: absolute;
+    left: auto;
+    right: auto;
+    margin: -3em 40%;
+  }
+  .c-icon-box-grid-container.top-image-version .quotebox picture img {
+    width: 100%;
+  }
+  .columns-container.blue-version .block > div > div:not(:first-of-type) table:first-of-type {
+    margin-top: 2em;
+  }
+  .columns-container.blue-version table .icon {
+    width: auto;
+    height: 50px;
+  }
+  .columns-container.blue-version table h4 {
+    font-size: 24px !important;
+    line-height: 26px !important;
+  }
+  .columns-container.blue-version table tr p {
+    font-size: 16px !important;
+    line-height: 20px !important;
+  }
+  .columns-container.blue-version table tr {
+    padding: 20px;
   }
 }
 @media screen and (width <= 600px) {
