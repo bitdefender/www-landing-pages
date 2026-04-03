@@ -47,7 +47,10 @@ const d = function (s) {
 
 // send fetch
 const sendRequest = (url, formData, country) => {
-  fetch(url + '?force_country=' + country, {
+  let ajaxUrl = `${url}?force_country=${country}`;
+  if ('pid' in urlParams) ajaxUrl = `${ajaxUrl}&pid=${urlParams.pid}`;
+
+  fetch(ajaxUrl, {
     method: 'POST',
     body: formData,
   })
@@ -189,24 +192,7 @@ window.StoreProducts.initSelector = function (config) {
     ignore_promotions = config.ignore_promotions = __global_ignore_promotions;
   }
 
-  let hasPID = false;
-  if (typeof tagit_params !== 'undefined') {
-    for (let i in tagit_params.obj) {
-      if ('pid' in tagit_params.obj[i]) {
-        hasPID = true;
-
-        break;
-      }
-    }
-  }
-
   if (product_id == null) { return false; }
-
-  //    if(users_class == null)
-  //	return false;
-
-  //    if(years_class == null)
-  //	return false;
 
   const urlParams = {};
 
@@ -381,6 +367,11 @@ window.StoreProducts.initSelector = function (config) {
         } else {
           if ('force_country' in urlParams) {
             url = `${url}?force_country=${urlParams.force_country}`;
+          }
+
+          if ('pid' in urlParams) {
+            const separator = url.includes('?') ? '&' : '?';
+            url = `${url}${separator}pid=${urlParams.pid}`;
           }
         }
       } catch (ex) {
@@ -714,8 +705,8 @@ window.StoreProducts.initSelector = function (config) {
   }
 
   const currency = variation.currency_iso;
-  const separator = buy_link.includes('?') ? '&' : '?';
-  buy_link = `${buy_link}${separator}CURRENCY=${currency}&DCURRENCY=${currency}`;
+  const pid = variation.promotion_pid;
+  buy_link = `${buy_link}${pid ? `/pid.${pid}` : ''}?CURRENCY=${currency}&DCURRENCY=${currency}`;
 
   try {
     if (extra_params != null) {
@@ -743,6 +734,7 @@ window.StoreProducts.initSelector = function (config) {
         const separator = buy_link.includes('?') ? '&' : '?';
         buy_link = `${buy_link}${separator}force_country=${extra_params.force_country}`;
       }
+
     } else {
       buy_link = window.StoreProducts.filterBuyLink(config, buy_link);
     }
@@ -874,7 +866,7 @@ window.StoreProducts.initSelector = function (config) {
         const countryToUse = countryMap[detectedCountry] || detectedCountry;
 
         element.classList.remove('buy_link_loader');
-        buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
+        buy_link = `${base_uri}/Store/buy/${product_id}/${selected_users}/${selected_years}${pid ? `/pid.${pid}` : ''}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
       }
 
       element.setAttribute('href', buy_link);
@@ -1466,17 +1458,6 @@ window.StoreProducts.loadProducts = function (config) {
 
   if (config.products.length < 1) { return false; }
 
-  let hasPID = false;
-  if (typeof window.tagit_params !== 'undefined') {
-    for (let i in window.tagit_params.obj) {
-      if ('pid' in window.tagit_params.obj[i]) {
-        hasPID = true;
-
-        break;
-      }
-    }
-  }
-
   so.config = config;
   let url = '/site/Store/ajax';
 
@@ -1496,10 +1477,6 @@ window.StoreProducts.loadProducts = function (config) {
     DEBUG && console.log(ex);
   }
 
-  // if (window.location.hostname == 'www.bitdefender.se') {
-  //     BASE_URI = "https://www.bitdefender.se";
-  // }
-
   try {
     if (typeof BASE_URI !== 'undefined') {
       if (BASE_URI != null) {
@@ -1513,6 +1490,11 @@ window.StoreProducts.loadProducts = function (config) {
   try {
     if ('force_country' in urlParams) {
       url = `${url}?force_country=${urlParams.force_country}`;
+    }
+
+    if ('pid' in urlParams) {
+      const separator = url.includes('?') ? '&' : '?';
+      url = `${url}${separator}pid=${urlParams.pid}`;
     }
   } catch (ex) {
     DEBUG && console.log(ex);
