@@ -245,7 +245,7 @@
 }
 
 .section.banner-container.new-2024.data-breaches-design .banner h1 {
-  font: normal normal bold 45px/55px IBM Plex Sans;
+  font: normal normal bold 45px/55px "IBM Plex Sans", sans-serif;
   margin: 20px 0;
 }
 
@@ -529,8 +529,8 @@
 .section.banner-container.full-width .banner #lidlBox {
   width: 991px;
   padding: 1em!important;
-	display: flex;
-	flex-flow: row wrap;
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   gap: 1em;
