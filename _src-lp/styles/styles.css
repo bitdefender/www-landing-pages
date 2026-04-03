@@ -1428,6 +1428,34 @@ main .section.light-sky-blue > * {
   visibility: hidden;
 }
 
+.buy_link_loader {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.buy_link_loader::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 2px solid #ccc;
+  border-top: 2px solid #333;
+  border-radius: 50%;
+  animation: buyLinkSpin 0.8s linear infinite;
+}
+
+@keyframes buyLinkSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .below-form-banner {
   border: 2px solid #EAEAEA;
   border-radius: 10px;
