@@ -43,6 +43,7 @@ import {
   getInstance,
   setTrialLinks,
   maxDiscount,
+  fetchGeoIP,
 } from './utils.js';
 import store from './store.js';
 
@@ -1091,6 +1092,7 @@ async function initializeProductsPriceLogic() {
     initVlaicuProductPriceLogic(vlaicuCampaign || pid, targetBuyLinkMappings);
     createFakeSelectors();
   } else {
+    await fetchGeoIP();
     addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
       initSelectors(pid);
     }, {}, 'module');
@@ -1295,6 +1297,7 @@ async function loadPage() {
   if (document.querySelector('bd-context') && productsList.length === 0) {
     maxDiscount();
   }
+
   initializeProductsPriceLogic();
 
   // Asset tracking - adding event listeners to all the links that contain the specified selector
