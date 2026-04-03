@@ -1942,34 +1942,6 @@
     margin: 0;
   }
 
-  .c-icon-box-grid-container.top-image-version {
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  .c-icon-box-grid-container.top-image-version .block {
-    padding: 1em 0;
-  }
-
-  .c-icon-box-grid-container.top-image-version .block .row {
-    gap: 3em;
-  }
-
-  .c-icon-box-grid-container.top-image-version .quotebox:not(:first-of-type)::before {
-    content: '';
-    height: 3em;
-    border-left: 3px dotted #2f80ed;
-    display: block;
-    position: absolute;
-    left: auto;
-    right: auto;
-    margin: -3em 40%;
-  }
-
-  .c-icon-box-grid-container.top-image-version .quotebox picture img {
-    width: 100%;
-  }
-
   .columns-container.blue-version .block > div > div:not(:first-of-type) table:first-of-type {
     margin-top: 2em;
   }

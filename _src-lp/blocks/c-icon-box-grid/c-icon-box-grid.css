@@ -155,6 +155,10 @@
   margin-top: 0;
 }
 
+.c-icon-box-grid-container.smaller-subtitle-italic .subtitle em {
+  font-size: 13px;
+}
+
 .c-icon-box-grid-container.top-author .subtitle {
   display: flex;
   line-height: 19px;
@@ -558,20 +562,42 @@
 }
 
 .c-icon-box-grid-container.top-image-version .block .row {
-  gap: 1em;
+  gap: 35px;
 }
 
 .c-icon-box-grid-container.top-image-version .quotebox {
   border-radius: 20px;
-  overflow: hidden;
   padding: 0 1em 1em;
   margin: 0;
+  position: relative;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox:not(:first-of-type)::before {
+  content: "";
+  height: 3px;
+  width: 35px;
+  border-bottom: 3px dotted #2f80ed;
+  display: block;
+  position: absolute;
+  left: auto;
+  right: auto;
+  margin: 32% 0 0 -53px;
+  z-index: 999;
+  transform: scaleX(-1);
 }
 
 .c-icon-box-grid-container.top-image-version .quotebox picture {
   width: calc(100% + 2em);
   max-width: unset;
   margin: 0 -1em;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox picture img {
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .c-icon-box-grid-container.top-image-version .quotebox h3 {
@@ -819,6 +845,30 @@
   }
   .c-icon-box-grid-container.bordered .col-lg, .c-icon-box-grid-container.full-images .col-lg {
     margin: 15px 0 !important;
+  }
+  .c-icon-box-grid-container.top-image-version {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .c-icon-box-grid-container.top-image-version .block {
+    padding: 1em 0;
+  }
+  .c-icon-box-grid-container.top-image-version .block .row {
+    gap: 3em;
+  }
+  .c-icon-box-grid-container.top-image-version .quotebox:not(:first-of-type)::before {
+    content: "";
+    height: 3em;
+    border-left: 3px dotted #2f80ed;
+    border-bottom: 0 none;
+    display: block;
+    position: absolute;
+    left: auto;
+    right: auto;
+    margin: -3em 38%;
+  }
+  .c-icon-box-grid-container.top-image-version .quotebox picture img {
+    width: 100%;
   }
 }
 @media (width <= 1199px) {
