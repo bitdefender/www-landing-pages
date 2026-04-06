@@ -391,19 +391,15 @@ export default function decorate(block) {
         title.innerHTML = `<a href="${title.querySelector('tr a').getAttribute('href')}" title="${title.innerText}">${title.querySelector('tr a').innerHTML}</a>`;
       }
 
-      let percentOffFlag = false;
       let percentOff;
       if (saveOldPrice) {
         percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
         if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
           percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
-          percentOffFlag = true;
         }
         if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
           percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
-          percentOffFlag = true;
         }
-        if (!percentOff) percentOffFlag = false;
       }
 
       const optionList = subtitle?.querySelector('ul');
@@ -422,14 +418,9 @@ export default function decorate(block) {
           percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${selectorClass}"></span>`);
           if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
             percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${selectorClass}"></span>`);
-            percentOffFlag = true;
           }
           if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
             percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
-            percentOffFlag = true;
-          }
-          if (!percentOff) {
-            percentOffFlag = false;
           }
 
           li.setAttribute('data-selector-u', `u_${selectorClass}`);
@@ -596,10 +587,6 @@ export default function decorate(block) {
             ${benefitsLists?.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
       </div>`;
-
-      if (percentOffFlag) {
-        block.querySelector(`.index${key} .prod-percent`).style.setProperty('visibility', 'visible', 'important');
-      }
     });
 
     if (type === 'mobileSlider') {
