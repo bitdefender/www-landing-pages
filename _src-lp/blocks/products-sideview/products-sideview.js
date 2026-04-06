@@ -478,16 +478,18 @@ export default async function decorate(block) {
   state.secondProduct = state.blockDataset.blockProducts.split(',')[1].trim();
   initMembersMap();
   block.firstElementChild.classList.add('d-flex');
-  const fetaureWrapper = block.firstElementChild.firstElementChild;
-  fetaureWrapper?.classList.add('pricing-wrapper');
+  const pricingWrapper = block.firstElementChild.firstElementChild;
+  pricingWrapper?.classList.add('pricing-wrapper');
   block.firstElementChild.lastElementChild.classList.add('features-wrapper');
+  const featureList = block.querySelector('.features-wrapper > ul');
+  featureList?.classList.add('feature-list');
   renderNanoBlocks(block.firstElementChild, block);
   const cols = [...block.firstElementChild.children];
   block.classList.add(`features-${cols.length}-cols`);
   const col = block.children[0].children[1];
   col.appendChild(extractFeatures(col));
 
-  if (block.classList.contains('trial') && fetaureWrapper) {
+  if (block.classList.contains('trial') && pricingWrapper) {
     block.firstElementChild.lastElementChild.querySelectorAll('li').forEach((li) => {
       const iconEl = li.querySelector('.icon');
       if (!iconEl) return;
