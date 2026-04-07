@@ -532,12 +532,17 @@
   box-shadow: 0 0 2rem 0 rgba(0 0 0 / 10%);
 }
 
-.c-icon-box-grid-container.phishing-v2 .quotebox {
+.c-icon-box-grid-container.blue-border .quotebox, .c-icon-box-grid-container.phishing-v2 .quotebox {
   padding: 1em;
   background-color: transparent;
   box-shadow: unset;
   border: 1px solid #E4F2FF;
   border-radius: 20px;
+}
+
+.c-icon-box-grid-container.smaller-icons .quotebox .icon {
+  height: 32px;
+  width: 32px;
 }
 
 .c-icon-box-grid-container.phishing div.subtitle {
@@ -807,6 +812,11 @@
 
   .c-icon-box-grid-container .title {
     margin: 10px 0 5px;
+    font-size: 16px;
+  }
+
+  .c-icon-box-grid-container div.subtitle {
+    font-size: 14px;
   }
 
   .c-icon-box-grid-container .slider-container .container > div:last-of-type {
@@ -854,6 +864,15 @@
 
   .c-icon-box-grid-container.bordered .col-lg, .c-icon-box-grid-container.full-images .col-lg {
     margin: 15px 0!important;
+  }
+
+  .c-icon-box-grid-container.gray-background .col-lg {
+    padding: 20px;
+  }
+
+  .c-icon-box-grid-container.mobile-icon-left .col-lg .icon-box-grid-column {
+    flex-direction: row !important;
+    gap: 14px
   }
 }
 

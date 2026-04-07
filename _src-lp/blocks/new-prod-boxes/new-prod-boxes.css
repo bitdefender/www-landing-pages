@@ -1394,6 +1394,11 @@
   background-color: black;
 }
 
+.new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.deactivated {
+  filter: grayscale(100%);
+  opacity: 0.3;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .benefitsLists ul li.nocheck {
   font-size: 14px;
   line-height: 17px;
@@ -1580,6 +1585,9 @@
   }
   .new-prod-boxes-container .block .prod_box {
     margin-bottom: 0 !important;
+  }
+  .new-prod-boxes-container.mobile-top-1 .block .prod_box.index0 {
+    margin-top: 0;
   }
   .new-prod-boxes-container.new-v3 .block .prod_box .inner_prod_box .greenTag2 {
     font-size: 12px;
