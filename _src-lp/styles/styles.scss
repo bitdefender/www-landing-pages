@@ -634,13 +634,19 @@ main .section .block.light-blue-bck {
   background-color: var(--background-color-light-sky-blue);
 }
 
-main .section .block.rounded{
+main .section .block.rounded {
   border-radius: 20px;
 }
 
 main .section.width-medium .block,
 main .section.width-medium .default-content-wrapper {
   width: 940px;
+  margin: 0 auto;
+}
+
+main .section.width-medium2 .block,
+main .section.width-medium2 .default-content-wrapper {
+  width: 800px;
   margin: 0 auto;
 }
 
@@ -2066,6 +2072,20 @@ main .section.they-wear-our-faces {
   }
 }
 
+@media (width <=940px) {
+  main .section.width-medium .block,
+  main .section.width-medium .default-content-wrapper {
+    width: 100%;
+  }
+}
+
+@media (width <=800px) {
+  main .section.width-medium2 .block,
+  main .section.width-medium2 .default-content-wrapper {
+    width: 100%;
+  }
+}
+
 @media (width <=768px) {
   header {
     border-bottom: 1px solid white;
@@ -2131,6 +2151,15 @@ main .section.they-wear-our-faces {
 
   main .default-content-wrapper {
     padding-top: 1em;
+  }
+
+  main .mobile-smaller-space .default-content-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+
+  main .mobile-smaller-space .default-content-wrapper h2 {
+    margin-bottom: 0;
   }
 
   main .section.width-medium .block, main .section.width-medium .default-content-wrapper {

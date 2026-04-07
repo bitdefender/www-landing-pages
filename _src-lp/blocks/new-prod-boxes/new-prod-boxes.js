@@ -373,6 +373,11 @@ export default function decorate(block) {
               liClass += ' nocheck';
               firstTdContent = firstTdContent.replace('-x-', '');
             }
+
+            if (firstTdContent.indexOf('**') !== -1) {
+              liClass += ' deactivated';
+              firstTdContent = firstTdContent.replace('**', '');
+            }
             const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
 
             return liContent;

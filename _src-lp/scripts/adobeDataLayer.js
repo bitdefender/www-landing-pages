@@ -115,7 +115,7 @@ export async function sendAnalyticsUserInfo() {
   // Remove properties that are undefined
   Object.keys(user).forEach((key) => user[key] === undefined && delete user[key]);
 
-  window.adobeDataLayer.push({
+  window?.adobeDataLayer.push({
     event: 'user detected',
     user,
   });

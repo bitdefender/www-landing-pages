@@ -72,6 +72,10 @@
   font-family: Arial, sans-serif;
 }
 
+.columns-container.new .columns h4 {
+  font: normal normal normal 24px/28px Arial, sans-serif;
+}
+
 .columns h3 {
   font-size: 13px;
   text-transform: uppercase;
@@ -875,6 +879,148 @@ main .columns-container.padding-0 .columns-wrapper {
   text-align: left;
 }
 
+.columns-container.march26-design .columns > div {
+  align-items: stretch;
+}
+
+.columns-container.march26-design .columns h6, .columns-container.march26-design .columns h5 {
+  color: #006EFF;
+  font-size: 50px;
+  line-height: 40px;
+  margin: 0 0 10px;
+}
+
+.columns-container.march26-design .columns > div > div {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.columns-container.march26-design .columns > div > div:nth-of-type(1) {
+  background: #FAFCFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E4F2FF;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.columns-container.march26-design .columns p {
+  font-size: 18px;
+  line-height: 24px;
+  margin: 0;
+}
+
+.columns-container.march26-design .columns em {
+  display: block;
+  font-size: 12px;
+  line-height: 24px;
+  font-style: normal;
+  margin-top: 10px;
+}
+
+.columns-container.march26-design .columns p strong {
+  display: block;
+  font-size: 22px;
+  line-height: 26px;
+  margin-bottom: 10px;
+}
+
+.columns-container.march26-design .columns > div > div:nth-of-type(1) p {
+  display: block;
+  width: 360px;
+}
+
+.columns-container.march26-design .columns > div > div:nth-of-type(1) p strong {
+  width: 275px;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.columns-container.march26-design .columns > div .text-content tr {
+  background: #FAFCFF 0% 0% no-repeat padding-box;
+  border: 1px solid #E4F2FF;
+  border-radius: 20px;
+  display: block;
+  padding: 2em;
+  margin-bottom: 1em;
+}
+
+.columns-container.march26-design .columns > div .text-content tr:last-of-type {
+  margin-bottom: 0;
+}
+
+.columns-container.march26-design .columns h5 {
+  font-size: 100px;
+  line-height: 90px;
+}
+
+.columns-container.steps-design .columns > div:first-of-type h6 {
+  font-size: 24px;
+  line-height: 28px;
+  color: #006EFF;
+  margin-top: 10px;
+}
+
+.columns-container.steps-design .columns > div:nth-of-type(2) {
+  text-align: left;
+}
+
+.columns-container.steps-design .columns > div:nth-of-type(2) > div:not(:first-of-type) {
+  position: relative;
+}
+
+.columns-container.steps-design .columns > div:nth-of-type(2) > div h4 {
+  font-size: 22px;
+  line-height: 24px;
+}
+
+.columns-container.steps-design .columns > div:nth-of-type(2) > div p {
+  font-size: 16px;
+  line-height: 24px;
+  color: black;
+}
+
+.columns-container.steps-design .columns > div:nth-of-type(2) > div {
+  position: relative;
+}
+
+.columns-container.steps-design .columns > div:nth-of-type(2) > div:not(:first-of-type)::before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 1px;
+  border: none;
+  border-top: 2px dotted #006EFF;
+  margin: 24px 0;
+  position: absolute;
+  top: 50%;
+  left: -30px;
+}
+
+.columns-container.steps-design .columns > div:last-of-type {
+  margin-bottom: 0;
+}
+
+.columns-container.steps-design .columns > div:last-of-type > div {
+  background-color: transparent !important;
+  padding: 1.5em 0 0;
+}
+
+.columns-container.steps-design .columns > div:last-of-type > div > div {
+  min-height: auto !important;
+}
+
+.columns-container.steps-design .columns > div:last-of-type > div p {
+  font-size: 18px;
+  line-height: 24px;
+  color: #000;
+  margin: 0;
+}
+
+.columns-container.steps-design .columns > div:last-of-type > div p.button-container {
+  margin-top: 20px;
+}
+
 .columns-container.blue-version .columns > div {
   align-items: stretch !important;
 }
@@ -955,6 +1101,44 @@ main .columns-container.padding-0 .columns-wrapper {
     width: 100%;
     margin-left: 0;
   }
+  .c-icon-box-grid-container.phishing div.subtitle {
+    align-items: start;
+    justify-content: start;
+  }
+  .columns-container.steps-design .columns > div:nth-of-type(2) {
+    flex-direction: column;
+  }
+  .columns-container.steps-design .columns > div:nth-of-type(2) > div:not(:first-of-type)::before {
+    top: -16px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transform: rotate(90deg);
+  }
+  .columns-container.march26-design .columns > div {
+    flex-direction: column;
+  }
+  .columns-container.march26-design .columns > div > div {
+    padding: 0;
+  }
+  .columns-container.march26-design .columns > div > div:nth-of-type(1) {
+    margin-bottom: 1em;
+  }
+  .columns-container.march26-design .columns h5, .columns-container.march26-design .columns h6 {
+    font-size: 40px;
+    line-height: 37px;
+  }
+  .columns-container.march26-design .columns p strong {
+    font-size: 20px !important;
+    line-height: 27px;
+  }
+  .columns-container.march26-design .columns > div > div:nth-of-type(1) p, .columns-container.march26-design .columns > div > div:nth-of-type(1) p strong {
+    width: 100%;
+  }
+  .columns-container.march26-design .columns > div .text-content {
+    padding: 0;
+    margin: 0 0 1em;
+  }
 }
 @media (width >= 768px) {
   .mobile-only {
@@ -1026,6 +1210,10 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns-container.new .columns h2 {
     font-size: 24px;
     line-height: 32px;
+  }
+  .columns-container.new-2 .columns h2 {
+    font-size: 32px;
+    line-height: 28px;
   }
   .columns-container.new .columns p {
     font-size: var(--heading-font-size-2);
@@ -1420,6 +1608,13 @@ main .columns-container.padding-0 .columns-wrapper {
     position: unset;
     margin: auto;
     margin-top: -5em;
+  }
+  .columns-container.new .columns h4 {
+    font: normal normal normal 18px/20px Arial, sans-serif;
+  }
+  .columns-container.new-2 .columns h2 {
+    font-size: 25px;
+    line-height: 28px;
   }
 }
 @media (width <= 500px) {
