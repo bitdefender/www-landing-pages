@@ -509,10 +509,23 @@ async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink
       ? prodYears * 12
       : prodYears;
 
+    // if it's truesubs
+    const infoArr = [];
+    const dataMatch = data.product.options.find((item) => item.slots === Number(prodUsers)
+      && item.months === durationInMonths);
+
+    if (getParamByName('theme', dataMatch.buyLink) === 'truesubs' && dataMatch.coupon && dataMatch.currency) {
+      infoArr.push(dataMatch.currency);
+      infoArr.push(dataMatch.coupon);
+      infoArr.push(dataMatch.buyLink);
+
+      return infoArr;
+    }
+
+    // if it's NOT truesubs
     const match = data.product.options.find((item) => item.slots === Number(prodUsers)
       && item.months === durationInMonths
       && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)));
-
     if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
 
     return null;
@@ -540,8 +553,14 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
     let campaign = oldParams.get('COUPON');
+    let currency = '';
 
-    if (['de', 'nl', 'au', 'gb'].includes(page.country)) campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
+    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
+      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
+    } else {
+      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'buylink');
+    }
+
     const updatedUrl = new URL(newUrl);
     const newParams = updatedUrl.searchParams;
 
@@ -550,8 +569,14 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
 
     // if: de || nl || noParam - we set locale / EUR
     const lang = exceptionsCountry ? locale : getParamOrDefault('LANG', locale);
-    const currency = exceptionsCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
-    const dcurrency = exceptionsCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
+    currency = exceptionsCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
+    let dcurrency = exceptionsCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
+
+    if (Array.isArray(campaign)) {
+      currency = campaign[0];
+      dcurrency = campaign[0];
+      campaign = campaign[1];
+    }
 
     if (lang) newParams.set('LANG', lang);
     if (currency) newParams.set('CURRENCY', currency);
@@ -604,7 +629,11 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
         ));
 
         if (match) {
-          const oldUrl = await fetchProductInfo(productId, prodUsers, prodYears, 'buyLink');
+          let oldUrl = await fetchProductInfo(productId, prodUsers, prodYears, 'buyLink');
+          if (Array.isArray(oldUrl)) {
+            oldUrl = oldUrl[2];
+          }
+
           const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
 
           // Update hrefs and restore button state
