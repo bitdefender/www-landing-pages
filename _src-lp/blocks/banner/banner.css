@@ -1780,6 +1780,21 @@
     line-height: 30px !important;
     margin: 0;
   }
+  .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > * {
+    color: #000 !important;
+    text-align: center;
+  }
+  .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > h1 {
+    margin-top: 10px !important;
+  }
+  .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > h1 * {
+    font-size: 35px !important;
+    line-height: 40px !important;
+  }
+  .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > h3 {
+    font-size: 16px;
+    line-height: 20px;
+  }
 }
 @media screen and (width <= 600px) {
   .section.banner-container.csam-design .block .row > div em {
