@@ -1981,29 +1981,6 @@
     line-height: 30px !important;
     margin: 0;
   }
-
-  .columns-container.blue-version .block > div > div:not(:first-of-type) table:first-of-type {
-    margin-top: 2em;
-  }
-
-  .columns-container.blue-version table .icon {
-    width: auto;
-    height: 50px;
-  }
-
-  .columns-container.blue-version table h4 {
-    font-size: 24px!important;
-    line-height: 26px!important;
-  }
-
-  .columns-container.blue-version table tr p {
-    font-size: 16px!important;
-    line-height: 20px!important;
-  }
-
-  .columns-container.blue-version table tr {
-    padding: 20px;
-  }
 }
 
 @media screen and (width <= 600px) {
