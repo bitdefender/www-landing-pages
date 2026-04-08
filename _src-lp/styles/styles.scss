@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -10,6 +11,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
 /* load components style */
 @import "/_src-lp/components/column/column.css";
 @import "/_src-lp/components/review/review.css";
@@ -28,10 +30,12 @@
   --darker-blue-color: #016FFF;
   --light-grey-color: #FAFAFA;
   --text-color: #000;
+
   /* fonts */
   --body-font-family: "Arial", sans-serif;
   --heading-font-family: var(--body-font-family);
   --fixed-font-family: "Arial", sans-serif;
+
   /* body sizes */
   --body-font-size-m: 22px;
   --body-line-height-m: 27px;
@@ -39,6 +43,7 @@
   --body-line-height-s: 22px;
   --body-font-size-xs: 16px;
   --body-line-height-xs: 20px;
+
   /* heading sizes */
   --heading-font-size-xxl2: 50px;
   --heading-line-height-xxl2: 60px;
@@ -54,6 +59,7 @@
   --heading-line-height-s: 25px;
   --heading-font-size-xs: 18px;
   --heading-line-height-xs: 22px;
+
   /* nav height */
   --nav-height: 64px;
 }
@@ -76,9 +82,9 @@ body.appear {
   display: unset;
 }
 
-*[data-align=center],
-.section[data-align=center],
-.section[data-align=center] *,
+*[data-align="center"],
+.section[data-align="center"],
+.section[data-align="center"] *,
 .centered {
   text-align: center !important;
 }
@@ -213,7 +219,7 @@ main pre {
   white-space: pre;
 }
 
-main .section[data-textcolor=black] * {
+main .section[data-textcolor="black"] * {
   color: black;
 }
 
@@ -336,13 +342,13 @@ button:hover {
   border-radius: 20px;
 }
 
-[data-button-color=blue] a.button:any-link,
-[data-button-color=blue] button {
+[data-button-color="blue"] a.button:any-link,
+[data-button-color="blue"] button {
   background: #006DFF;
 }
 
-[data-button-color=blue] a.button:any-link:hover,
-[data-button-color=blue] button:hover {
+[data-button-color="blue"] a.button:any-link:hover,
+[data-button-color="blue"] button:hover {
   background-color: #00439c;
 }
 
@@ -510,11 +516,11 @@ main .default-content-wrapper {
   padding: 1em 15px;
 }
 
-*[data-mtop=none] {
+*[data-mtop="none"] {
   margin-top: 0;
 }
 
-*[data-mtop=none] .default-content-wrapper {
+*[data-mtop="none"] .default-content-wrapper {
   margin-top: 0;
   padding-top: 0;
 }
@@ -573,27 +579,27 @@ main .default-content-wrapper h2:last-of-type {
   margin-bottom: 15px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h1 {
+main .section[data-size="bigger"] .default-content-wrapper h1 {
   font-size: 38px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h2 {
+main .section[data-size="bigger"] .default-content-wrapper h2 {
   font-size: 37px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h3 {
+main .section[data-size="bigger"] .default-content-wrapper h3 {
   font-size: 35px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h4 {
+main .section[data-size="bigger"] .default-content-wrapper h4 {
   font-size: 33px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h5 {
+main .section[data-size="bigger"] .default-content-wrapper h5 {
   font-size: 31px;
 }
 
-main .section[data-size=bigger] .default-content-wrapper h6 {
+main .section[data-size="bigger"] .default-content-wrapper h6 {
   font-size: 29px;
 }
 
@@ -620,7 +626,7 @@ main .section.size-18-normal .default-content-wrapper p {
   font-weight: normal;
 }
 
-main .section[data-textcolor=grey] .default-content-wrapper p {
+main .section[data-textcolor='grey'] .default-content-wrapper p {
   color: #6F6F6F;
 }
 
@@ -628,13 +634,19 @@ main .section .block.light-blue-bck {
   background-color: var(--background-color-light-sky-blue);
 }
 
-main .section .block.rounded{
+main .section .block.rounded {
   border-radius: 20px;
 }
 
 main .section.width-medium .block,
 main .section.width-medium .default-content-wrapper {
   width: 940px;
+  margin: 0 auto;
+}
+
+main .section.width-medium2 .block,
+main .section.width-medium2 .default-content-wrapper {
+  width: 800px;
   margin: 0 auto;
 }
 
@@ -655,11 +667,11 @@ main .section.width-smaller4 .default-content-wrapper {
   margin: 0 auto;
 }
 
-main .section[data-backgroundcolor=black] {
+main .section[data-backgroundcolor="black"] {
   background-color: black;
 }
 
-main .section[data-textcolor=white] * {
+main .section[data-textcolor="white"] * {
   color: white;
 }
 
@@ -887,12 +899,12 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
 }
 
 /* section metadata */
-.section[data-backgroundcolor=grey] {
+.section[data-backgroundcolor="grey"] {
   background: var(--highlight-background-color);
   padding: 2em 0;
 }
 
-.section[data-backgroundcolor=black] {
+.section[data-backgroundcolor="black"] {
   background: var(--background-color-black);
   padding: 2em 0;
 }
@@ -929,7 +941,7 @@ main .section.light-sky-blue>* {
   font-weight: 600;
   line-height: normal;
   border-radius: 75pt;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 4%);
   font-style: normal;
   letter-spacing: 0.8px;
   padding: 3px 7px 3px 8px;
@@ -945,7 +957,6 @@ main .section.light-sky-blue>* {
   font-size: 11px;
   display: inline;
   padding: 4px 6px;
-  color: #fff;
   border-radius: 10px;
   font-weight: bold;
   line-height: 15px;
@@ -996,6 +1007,16 @@ main .section.light-sky-blue>* {
   align-items: center;
   flex-direction: column;
   padding: 0 5px 5px !important;
+  position: relative;
+  background: #0E8532;
+  border-radius: 50%;
+  width: 83px;
+  height: 83px;
+  font-size: 28px;
+  line-height: 81px;
+  text-align: center;
+  color: #fff;
+  margin-top: 10px;
 }
 
 .prod-percent.green_bck_circle.bigger span {
@@ -1011,21 +1032,6 @@ main .section.light-sky-blue>* {
   color: #fff;
   border-radius: 15px;
   margin-top: 15px;
-}
-
-.prod-percent.green_bck_circle {
-  position: relative;
-  background: #0E8532;
-  border-radius: 50%;
-  width: 83px;
-  height: 83px;
-  font-size: 28px;
-  line-height: 81px;
-  text-align: center;
-  padding: 0;
-  color: #fff;
-  display: inline-block;
-  margin-top: 10px;
 }
 
 .section.red-circles .prod-percent.green_bck_circle,
@@ -1104,7 +1110,7 @@ main .section.light-sky-blue>* {
 
 .prod-percent.green_txt {
   color: #2cb43d;
-  background-color: rgba(44, 180, 61, 0.2);
+  background-color: rgb(44 180 61 / 20%);
   border-radius: 8px;
   display: inline-block;
   font-size: 14px;
@@ -1656,7 +1662,7 @@ main .section.light-sky-blue>* {
 .green-arrow-and-title .default-content-wrapper h1 {
   color: #0E8532;
   font-size: 24px;
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
 }
 
 .green-arrow-and-title .default-content-wrapper h2 {
@@ -1699,7 +1705,6 @@ main .section.light-sky-blue>* {
   color: white;
   text-align: center;
   background-color: #026DFF;
-  display: inline-block;
   border-radius: 20px;
   padding: 6px 16px;
   margin-bottom: 10px;
@@ -1710,12 +1715,12 @@ main .section.light-sky-blue>* {
   justify-content: center;
 }
 
-main .section[data-textcolor=grey] .default-content-wrapper * {
+main .section[data-textcolor="grey"] .default-content-wrapper * {
   color: #6F6F6F;
 }
 
 main .section.they-wear-our-faces {
-  font-family: "IBM Plex Sans";
+  font-family: "IBM Plex Sans", sans-serif;
   box-sizing: unset;
 
   &.columns-container.banner-with-cards-container {
@@ -1733,7 +1738,7 @@ main .section.they-wear-our-faces {
   }
 
   h2 {
-    font-family: "IBM Plex Sans";
+    font-family: "IBM Plex Sans", sans-serif;
   }
 
   p {
@@ -1749,20 +1754,19 @@ main .section.they-wear-our-faces {
     max-width: 1290px !important;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (width >= 768px) {
     text-align: center;
     padding: 30px;
   }
 }
 
 .section.they-wear-our-faces-sticky-section {
-  position: fixed;
   bottom: 0;
   position: fixed;
   width: 100%;
   z-index: 101;
   background: white;
-  font-family: IBM Plex Sans;
+  font-family: "IBM Plex Sans", sans-serif;
 
   .default-content-wrapper {
     display: flex;
@@ -1780,12 +1784,12 @@ main .section.they-wear-our-faces {
     font-style: normal;
     font-size: 12px;
     line-height: 14px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     text-align: center;
   }
 
 
-  @media screen and (min-width: 576px) {
+  @media screen and (width >= 576px) {
     display: none;
   }
 }
@@ -1842,6 +1846,7 @@ main .section.they-wear-our-faces {
   }
 
   .prod-percent.green_bck_circle.bigger span.bulina_text1 b {
+    width: 50%;
     font-size: 20px;
   }
 
@@ -2058,16 +2063,26 @@ main .section.they-wear-our-faces {
     width: 100%;
   }
 
-  .prod-percent.green_bck_circle.bigger span.bulina_text1 b {
-    width: 50%;
-  }
-
   .prod-percent.green_bck_circle.bigger span.bulina_text1 {
     font-size: 14px;
   }
 
   .prod-percent.green_bck_circle.bigger span:last-of-type {
     font-size: 10px;
+  }
+}
+
+@media (width <=940px) {
+  main .section.width-medium .block,
+  main .section.width-medium .default-content-wrapper {
+    width: 100%;
+  }
+}
+
+@media (width <=800px) {
+  main .section.width-medium2 .block,
+  main .section.width-medium2 .default-content-wrapper {
+    width: 100%;
   }
 }
 
@@ -2106,7 +2121,7 @@ main .section.they-wear-our-faces {
     display: none !important;
   }
 
-  .section[data-backgroundcolor=grey] {
+  .section[data-backgroundcolor="grey"] {
     padding: 1em 0;
   }
 
@@ -2136,6 +2151,15 @@ main .section.they-wear-our-faces {
 
   main .default-content-wrapper {
     padding-top: 1em;
+  }
+
+  main .mobile-smaller-space .default-content-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+
+  main .mobile-smaller-space .default-content-wrapper h2 {
+    margin-bottom: 0;
   }
 
   main .section.width-medium .block, main .section.width-medium .default-content-wrapper {
@@ -2217,27 +2241,27 @@ main .section.they-wear-our-faces {
     max-width: 43%;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h1 {
+  main .section[data-size="bigger"] .default-content-wrapper h1 {
     font-size: 31px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h2 {
+  main .section[data-size="bigger"] .default-content-wrapper h2 {
     font-size: 29px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h3 {
+  main .section[data-size="bigger"] .default-content-wrapper h3 {
     font-size: 27px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h4 {
+  main .section[data-size="bigger"] .default-content-wrapper h4 {
     font-size: 25px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h5 {
+  main .section[data-size="bigger"] .default-content-wrapper h5 {
     font-size: 23px;
   }
 
-  main .section[data-size=bigger] .default-content-wrapper h6 {
+  main .section[data-size="bigger"] .default-content-wrapper h6 {
     font-size: 21px;
   }
 
@@ -2328,8 +2352,8 @@ main .section.they-wear-our-faces {
     width: 40px;
     padding: 0;
     background: #D6F0FF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1607843137);
-    border: 1px solid #FFFFFF;
+    box-shadow: 0 0 6px rgb(0 0 0 / 16.1%);
+    border: 1px solid #FFF;
     border-radius: 100%;
   }
 
@@ -2369,7 +2393,7 @@ main .section.they-wear-our-faces {
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: #FFFFFF;
+    background: #FFF;
     border: 1px solid #006EFF;
     border-radius: 50%;
     margin: 0 5px;
@@ -2417,7 +2441,7 @@ main .section.they-wear-our-faces {
   .green-arrow-and-title .default-content-wrapper h1 {
     color: #0E8532;
     font-size: clamp(1.5rem, 5vw, 3rem);
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
   }
 
   .green-arrow-and-title .default-content-wrapper h2 {

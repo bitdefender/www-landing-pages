@@ -2,7 +2,7 @@
   margin-bottom: 2em;
 
   &[data-layout="featured-left"] {
-  margin-bottom: -15px;
+    margin-bottom: -15px;
     
     .row {
       margin-left: 0;
@@ -37,9 +37,9 @@
       border-radius: 15px;
     }
   
-  .button-container{
-    margin:0;
-  }
+    .button-container{
+      margin:0;
+    }
   }
 }
 
@@ -162,6 +162,10 @@
 .c-icon-box-grid-container .subtitle {
   font-size: 13px;
   margin-top: 0;
+}
+
+.c-icon-box-grid-container.smaller-subtitle-italic .subtitle em {
+  font-size: 13px;
 }
 
 .c-icon-box-grid-container.top-author .subtitle {
@@ -501,7 +505,7 @@
   overflow: hidden;
 }
 
- .c-icon-box-grid-container.full-images .subtitle {
+.c-icon-box-grid-container.full-images .subtitle {
   font-size: 14px;
   line-height: var(--body-font-size-s);
 }
@@ -532,12 +536,17 @@
   box-shadow: 0 0 2rem 0 rgba(0 0 0 / 10%);
 }
 
-.c-icon-box-grid-container.phishing-v2 .quotebox {
+.c-icon-box-grid-container.blue-border .quotebox, .c-icon-box-grid-container.phishing-v2 .quotebox {
   padding: 1em;
   background-color: transparent;
   box-shadow: unset;
   border: 1px solid #E4F2FF;
   border-radius: 20px;
+}
+
+.c-icon-box-grid-container.smaller-icons .quotebox .icon {
+  height: 32px;
+  width: 32px;
 }
 
 .c-icon-box-grid-container.phishing div.subtitle {
@@ -563,6 +572,61 @@
 
 /* Phishing end */
 
+.c-icon-box-grid-container.top-image-version .block {
+  padding: 2em 6em;
+}
+
+.c-icon-box-grid-container.top-image-version .block .row {
+  gap: 35px;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox {
+  border-radius: 20px;
+  padding: 0 1em 1em;
+  margin: 0;
+  position: relative;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox:not(:first-of-type)::before {
+  content: "";
+  height: 3px;
+  width: 35px;
+  border-bottom: 3px dotted #2f80ed;
+  display: block;
+  position: absolute;
+  left: auto;
+  right: auto;
+  margin: 32% 0 0 -53px;
+  z-index: 999;
+  transform: scaleX(-1);
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox picture {
+  width: calc(100% + 2em);
+  max-width: unset;
+  margin: 0 -1em;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox picture img {
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox h3 {
+  font-size: 22px;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.c-icon-box-grid-container.top-image-version .quotebox p {
+  padding: 0;
+  margin: 5px 0;
+}
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-xs);
@@ -576,8 +640,8 @@
   }
 
   .c-icon-box-grid-container.bigger-title .title {
-      font-size: var(--body-font-size-s);
-      line-height: var(--body-font-size-m);
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-font-size-m);
   }
 
   .c-icon-box-grid-container.smaller-text .subtitle {
@@ -807,6 +871,11 @@
 
   .c-icon-box-grid-container .title {
     margin: 10px 0 5px;
+    font-size: 16px;
+  }
+
+  .c-icon-box-grid-container div.subtitle {
+    font-size: 14px;
   }
 
   .c-icon-box-grid-container .slider-container .container > div:last-of-type {
@@ -854,6 +923,44 @@
 
   .c-icon-box-grid-container.bordered .col-lg, .c-icon-box-grid-container.full-images .col-lg {
     margin: 15px 0!important;
+  }
+
+  .c-icon-box-grid-container.top-image-version {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .c-icon-box-grid-container.top-image-version .block {
+    padding: 1em 0;
+  }
+
+  .c-icon-box-grid-container.top-image-version .block .row {
+    gap: 3em;
+  }
+
+  .c-icon-box-grid-container.top-image-version .quotebox:not(:first-of-type)::before {
+    content: '';
+    height: 3em;
+    border-left: 3px dotted #2f80ed;
+    border-bottom: 0 none;
+    display: block;
+    position: absolute;
+    left: auto;
+    right: auto;
+    margin: -3em 38%;
+  }
+
+  .c-icon-box-grid-container.top-image-version .quotebox picture img {
+    width: 100%;
+  }
+
+  .c-icon-box-grid-container.gray-background .col-lg {
+    padding: 20px;
+  }
+
+  .c-icon-box-grid-container.mobile-icon-left .col-lg .icon-box-grid-column {
+    flex-direction: row !important;
+    gap: 14px
   }
 }
 

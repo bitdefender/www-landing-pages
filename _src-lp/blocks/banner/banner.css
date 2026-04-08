@@ -167,6 +167,18 @@
   background-color: #F6F6F6;
 }
 
+.section.banner-container.bck-inner-full .banner {
+  background-size: cover !important;
+}
+
+.section.banner-container.text-center-bottom .banner .container-fluid .row * {
+  text-align: center;
+}
+
+.section.banner-container.text-center-bottom .banner .container-fluid .row {
+  justify-content: center;
+}
+
 .section.banner-container.new-2024 .save-class {
   color: #1C7928;
   margin-left: 10px;
@@ -226,8 +238,26 @@
   margin: 0;
 }
 
+.section.banner-container.new-2024.mobile-content-left .banner div.col-lg-7 {
+  text-align: left;
+}
+
 .section.banner-container.new-2024.v2 .banner h1 {
   font: normal normal normal 32px/42px "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.new-2024.v2 .banner h6 {
+  font: normal normal bold 22px/29px "IBM Plex Sans", sans-serif;
+}
+
+.section.banner-container.new-2024.data-breaches-design .banner .icon, .section.banner-container.new-2024.data-breaches-design .banner .icon svg {
+  height: 61px;
+  width: auto;
+}
+
+.section.banner-container.new-2024.data-breaches-design .banner h1 {
+  font: normal normal bold 45px/55px "IBM Plex Sans", sans-serif;
+  margin: 20px 0;
 }
 
 .section.banner-container.new-2024 .banner h3 {
@@ -1457,10 +1487,28 @@
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
+  .section.banner-container.new-2024.data-breaches-design .banner h1 {
+    font-size: 28px !important;
+    line-height: 36px !important;
+    margin-bottom: 10px;
+  }
+  .section.banner-container.new-2024.data-breaches-design .banner h6 {
+    font-size: 18px;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+  }
+  .section.banner-container.new-2024.mobile-content-left .banner div.col-lg-7 * {
+    text-align: left;
+  }
   .section.banner-container .banner {
     border-radius: 0 !important;
     padding: 1em 0 !important;
     margin-bottom: 1em !important;
+  }
+  .section.banner-container.mobile-icon-centered table {
+    margin-top: 1em;
+    width: 100%;
   }
   .section.banner-container .banner > div > div:nth-of-type(2) {
     flex-direction: column-reverse;
@@ -1719,9 +1767,18 @@
   .section.banner-container.hide-mobile .bck-img {
     display: none;
   }
-  .section.banner-container .animated_box {
+  .section.banner-container .animated_box, .section.banner-container.new-2024.v2[data-title-color-mobile=bblue] .banner {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+  }
+  .section.banner-container[data-title-color-mobile=bblue] .banner h1 {
+    margin-top: 1em !important;
+  }
+  .section.banner-container[data-title-color-mobile=bblue] .banner h1, .section.banner-container[data-title-color-mobile=bblue] .banner h1 * {
+    color: #006EFF !important;
+    font-size: 28px !important;
+    line-height: 30px !important;
+    margin: 0;
   }
 }
 @media screen and (width <= 600px) {

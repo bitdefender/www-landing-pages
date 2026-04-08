@@ -373,6 +373,11 @@ export default function decorate(block) {
               liClass += ' nocheck';
               firstTdContent = firstTdContent.replace('-x-', '');
             }
+
+            if (firstTdContent.indexOf('**') !== -1) {
+              liClass += ' deactivated';
+              firstTdContent = firstTdContent.replace('**', '');
+            }
             const liContent = `<li class="${liClass}">${firstTdContent}${secondTdContent}</li>`;
 
             return liContent;
@@ -521,10 +526,10 @@ export default function decorate(block) {
 
                 ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
+                  <sup>${price.innerHTML.trim().replace('0', '')}</sup>
                 </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
-                  <sup>${price?.innerText.trim().replace('0', '')}</sup>
+                  <sup>${price?.innerHTML.trim().replace('0', '')}</sup>
                 </div>`}
 
           ${billed ? (() => {
