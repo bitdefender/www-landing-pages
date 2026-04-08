@@ -1079,9 +1079,9 @@ main .columns-container.padding-0 .columns-wrapper {
   position: relative;
 }
 
-.columns-container.blue-version table h4 {
-  font-size: 30px;
-  line-height: 40px;
+.columns-container.blue-version table h5 {
+  font-size: 30px !important;
+  line-height: 35px;
   color: #006EFF;
   margin: 0;
 }
