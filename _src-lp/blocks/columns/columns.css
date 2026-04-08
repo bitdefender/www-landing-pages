@@ -80,7 +80,7 @@
   font-size: 13px;
   text-transform: uppercase;
   color: #999;
-  margin-bottom: 30px;
+  margin-bottom: 31px;
 }
 
 main .columns-container.padding-0 .columns-wrapper {
@@ -1019,6 +1019,78 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.steps-design .columns > div:last-of-type > div p.button-container {
   margin-top: 20px;
+}
+
+.columns-container.blue-version .columns > div {
+  align-items: stretch !important;
+}
+
+.columns-container.blue-version .columns > div > div {
+  padding: 0;
+}
+
+.columns-container.blue-version .block > div > div:first-of-type table {
+  margin: 0;
+}
+
+.columns-container.blue-version .block > div > div:first-of-type > div, .columns-container.blue-version .block > div > div:first-of-type > div table tr {
+  height: 100%;
+}
+
+.columns-container.blue-version .block > div > div:not(:first-of-type) table:first-of-type {
+  margin-bottom: 2em;
+}
+
+.columns-container.blue-version table {
+  width: 100%;
+  height: 100%;
+}
+
+.columns-container.blue-version table .icon {
+  width: auto;
+  height: 80px;
+}
+
+.columns-container.blue-version table tr {
+  background: #FAFCFF;
+  border: 1px solid #CDE3FF;
+  border-radius: 20px;
+  padding: 2em 2em 1em;
+  display: block;
+}
+
+.columns-container.blue-version table tr p {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.columns-container.blue-version table tr ul {
+  padding: 0;
+  list-style-position: inside;
+}
+
+.columns-container.blue-version table tr ul li {
+  min-height: 19px;
+  margin-bottom: 8px;
+  list-style-type: none;
+  background: url("../../icons/circle-check-sharp-solid-blue.png") top 5px left no-repeat transparent;
+  padding-left: 22px;
+  background-size: 13px;
+  position: relative;
+}
+
+.columns-container.blue-version table h4 {
+  font-size: 30px;
+  line-height: 40px;
+  color: #006EFF;
+  margin: 0;
+}
+
+.columns-container.blue-version table h6 {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: normal;
+  margin: 3em 0 0;
 }
 
 @media (width <= 991px) {
