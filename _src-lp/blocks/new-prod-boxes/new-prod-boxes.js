@@ -329,6 +329,7 @@ export default function decorate(block) {
 
       const featuresSet = benefitsLists?.querySelectorAll('table');
       let featureList;
+      console.log('benefitsLists ', benefitsLists);
       if (featuresSet) {
         featureList = Array.from(featuresSet).map((table) => {
           const trList = Array.from(table.querySelectorAll('tr'));
