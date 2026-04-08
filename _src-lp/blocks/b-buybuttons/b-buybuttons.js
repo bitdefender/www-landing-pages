@@ -1,4 +1,5 @@
 import { productAliases } from '../../scripts/scripts.js';
+import { updateProductsList } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
@@ -14,6 +15,7 @@ export default function decorate(block) {
   for (let i = 1; i < allChildren.length; i += 1) {
     if (typeof productsList[i - 1] !== 'undefined') {
       const [prodName, prodUsers, prodYears] = productsList[i - 1].split('/');
+      updateProductsList(productsList[i - 1]);
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const buylink = document.createElement('span');
 
