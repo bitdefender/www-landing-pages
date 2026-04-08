@@ -363,11 +363,7 @@
   align-items: center;
 }
 
-.section.banner-container.smaller-awards .row > div:first-of-type img:last-of-type {
-  height: 40px;
-}
-
-.section.banner-container.small-table-awards .row > div:first-of-type table img {
+.section.banner-container.smaller-awards .row > div:first-of-type img:last-of-type, .section.banner-container.small-table-awards .row > div:first-of-type table img {
   height: 40px;
   width: unset;
   min-width: unset;
