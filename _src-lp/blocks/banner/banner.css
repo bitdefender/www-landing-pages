@@ -167,6 +167,18 @@
   background-color: #F6F6F6;
 }
 
+.section.banner-container.bck-inner-full .banner {
+  background-size: cover !important;
+}
+
+.section.banner-container.text-center-bottom .banner .container-fluid .row * {
+  text-align: center;
+}
+
+.section.banner-container.text-center-bottom .banner .container-fluid .row {
+  justify-content: center;
+}
+
 .section.banner-container.new-2024 .save-class {
   color: #1C7928;
   margin-left: 10px;
@@ -351,7 +363,7 @@
   align-items: center;
 }
 
-.section.banner-container.small-table-awards .row > div:first-of-type table img {
+.section.banner-container.smaller-awards .row > div:first-of-type img:last-of-type, .section.banner-container.small-table-awards .row > div:first-of-type table img {
   height: 40px;
   width: unset;
   min-width: unset;
@@ -1755,9 +1767,33 @@
   .section.banner-container.hide-mobile .bck-img {
     display: none;
   }
-  .section.banner-container .animated_box {
+  .section.banner-container .animated_box, .section.banner-container.new-2024.v2[data-title-color-mobile=bblue] .banner {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+  }
+  .section.banner-container[data-title-color-mobile=bblue] .banner h1 {
+    margin-top: 1em !important;
+  }
+  .section.banner-container[data-title-color-mobile=bblue] .banner h1, .section.banner-container[data-title-color-mobile=bblue] .banner h1 * {
+    color: #006EFF !important;
+    font-size: 28px !important;
+    line-height: 30px !important;
+    margin: 0;
+  }
+  .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > * {
+    color: #000 !important;
+    text-align: center;
+  }
+  .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > h1 {
+    margin-top: 10px !important;
+  }
+  .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > h1 * {
+    font-size: 35px !important;
+    line-height: 40px !important;
+  }
+  .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > h3 {
+    font-size: 16px;
+    line-height: 20px;
   }
 }
 @media screen and (width <= 600px) {
