@@ -1008,9 +1008,11 @@
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box sup {
-    margin: 15px 0 0 5px;
-    font-size: var(--body-font-size-xs);
-    line-height: var(--body-font-size-xs);
+    font-size: 14px;
+    line-height: 16px;
+    color: #3D3D3D;
+    font-weight: bold;
+    margin: 10px 0 0 10px;
     text-align: left;
 }
 
