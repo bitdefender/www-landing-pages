@@ -383,7 +383,7 @@ export default function decorate(block) {
             return liContent;
           }).join('');
 
-          return `<ul>${liString}</ul>`;
+          return `<ul>${liString.replace('[.]', 0)}</ul>`;
         });
       }
 

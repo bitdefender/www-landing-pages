@@ -941,6 +941,18 @@
   margin-right: 10px;
 }
 
+.new-prod-boxes-container.green-badge-percent .block .prod_box .inner_prod_box .save_price_box .prod-percent {
+  background-color: #68BA68;
+  color: white;
+  text-transform: capitalize;
+  font-size: 14px;
+  line-height: 100%;
+  padding: 7px 12px;
+  border-radius: 16px;
+  font-weight: 700;
+  display: inline-block;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box .prod-percent {
   line-height: 15px;
   color: #1C7928;
@@ -996,8 +1008,8 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box sup {
   margin: 15px 0 0 5px;
-  font-size: var(--heading-font-size-xs);
-  line-height: var(--heading-font-size-xs);
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-font-size-xs);
   text-align: left;
 }
 
