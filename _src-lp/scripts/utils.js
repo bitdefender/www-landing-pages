@@ -552,25 +552,38 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
     const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
-    let campaign = oldParams.get('COUPON') || null;
-    let currency = '';
-
-    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
-      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
-    } else {
-      campaign = (new URL(await fetchProductInfo(productId, prodUsers, prodYears, 'buylink')))?.searchParams?.get('COUPON') || campaign;
-    }
+    const isCouponCountry = ['de', 'nl', 'au', 'gb'].includes(page.country);
+    const isEuroFixedCountry = ['de', 'nl'].includes(page.country);
+    const mode = isCouponCountry ? 'coupon' : 'buylink';
+    const productInfo = await fetchProductInfo(productId, prodUsers, prodYears, mode);
 
     const updatedUrl = new URL(newUrl);
     const newParams = updatedUrl.searchParams;
-
-    const exceptionsCountry = ['de', 'nl'].includes(page.country);
     const getParamOrDefault = (param, fallback) => oldParams.get(param) || fallback;
+    const extractCoupon = (value) => {
+      if (!value || typeof value !== 'string') return '';
+
+      try {
+        return new URL(value).searchParams.get('COUPON') || '';
+      } catch (error) {
+        // If value is already a coupon code, use it directly.
+        return value;
+      }
+    };
 
     // if: de || nl || noParam - we set locale / EUR
-    const lang = exceptionsCountry ? locale : getParamOrDefault('LANG', locale);
-    currency = exceptionsCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
-    const dcurrency = exceptionsCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
+    const lang = isEuroFixedCountry ? locale : getParamOrDefault('LANG', locale);
+    let currency = isEuroFixedCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
+    let dcurrency = isEuroFixedCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
+    let campaign = '';
+
+    if (Array.isArray(productInfo)) {
+      currency = productInfo[0] || currency;
+      dcurrency = productInfo[0] || dcurrency;
+      campaign = productInfo[1] || '';
+    } else {
+      campaign = extractCoupon(productInfo);
+    }
 
     if (lang) newParams.set('LANG', lang);
     if (currency) newParams.set('CURRENCY', currency);
