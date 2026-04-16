@@ -383,7 +383,7 @@ export default function decorate(block) {
             return liContent;
           }).join('');
 
-          return `<ul>${liString}</ul>`;
+          return `<ul>${liString.replace('[.]', 0)}</ul>`;
         });
       }
 
@@ -392,13 +392,34 @@ export default function decorate(block) {
       }
 
       let percentOff;
+      let textUnderOldPrice;
+
       if (saveOldPrice) {
-        percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
-        if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-          percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
+        const allPriceTd = saveOldPrice.querySelectorAll('td');
+        const allPricesTdArr = Array.from(allPriceTd)[1];
+        const [percentText, textUnder] = allPricesTdArr.innerHTML.split('||');
+
+        percentOff = percentText.replace(
+          '0%',
+          `<span class="percent-${onSelectorClass}"></span>`,
+        );
+
+        if (!percentText.includes('0%') && allPricesTdArr.innerText.includes('0')) {
+          percentOff = percentText.replace(
+            '0',
+            `<span class="save-${onSelectorClass}"></span>`,
+          );
         }
-        if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-          percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
+
+        if (!percentText.includes('0%') && !percentText.includes('0')) {
+          percentOff = percentText;
+        }
+
+        if (textUnder) {
+          textUnderOldPrice = textUnder.replace(
+            '0',
+            `<span class="newprice-${onSelectorClass}"></span>`,
+          );
         }
       }
 
@@ -523,6 +544,7 @@ export default function decorate(block) {
                     ${percentOff}
                   </strong>
                 </div>`}
+                ${textUnderOldPrice ? `<div class="text_under_oldprice">${textUnderOldPrice}</div>` : ''}
 
                 ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
@@ -760,6 +782,7 @@ export default function decorate(block) {
 
   const targetNode = block;
   matchHeights(targetNode, '.tag-subtitle');
+  matchHeights(targetNode, '.billed');
   matchHeights(targetNode, '.save_price_box');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, '.subtitle p:first-of-type');
