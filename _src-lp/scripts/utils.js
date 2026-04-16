@@ -555,7 +555,9 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     let campaign = oldParams.get('COUPON');
     let currency = '';
 
-    campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
+    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
+      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
+    } 
 
     const updatedUrl = new URL(newUrl);
     const newParams = updatedUrl.searchParams;
