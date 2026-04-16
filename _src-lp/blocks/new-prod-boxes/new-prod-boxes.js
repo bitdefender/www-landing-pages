@@ -393,17 +393,32 @@ export default function decorate(block) {
 
       let percentOff;
       let textUnderOldPrice;
+
       if (saveOldPrice) {
         const allPriceTd = saveOldPrice.querySelectorAll('td');
-        percentOff = Array.from(allPriceTd)[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
-        if (!allPriceTd[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-          percentOff = Array.from(allPriceTd)[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
-        }
-        if (!allPriceTd[1].innerText.includes('0%') && !allPriceTd[1].innerText.includes('0')) {
-          percentOff = allPriceTd[1].innerText;
+        const allPricesTdArr = Array.from(allPriceTd)[1];
+        const [percentText, textUnder] = allPricesTdArr.innerHTML.split('||');
+
+        percentOff = percentText.replace(
+          '0%',
+          `<span class="percent-${onSelectorClass}"></span>`,
+        );
+
+        if (!percentText.includes('0%') && allPricesTdArr.innerText.includes('0')) {
+          percentOff = percentText.replace(
+            '0',
+            `<span class="save-${onSelectorClass}"></span>`,
+          );
         }
 
-        textUnderOldPrice = Array.from(allPriceTd)[0].innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`);
+        if (!percentText.includes('0%') && !percentText.includes('0')) {
+          percentOff = percentText;
+        }
+
+        textUnderOldPrice = textUnder.replace(
+          '0',
+          `<span class="newprice-${onSelectorClass}"></span>`,
+        );
       }
 
       const optionList = subtitle?.querySelector('ul');
