@@ -555,10 +555,10 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     let campaign = oldParams.get('COUPON') || null;
     let currency = '';
 
-    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
+    if (['de', 'nl', 'au', 'gb', 'us'].includes(page.country)) {
       campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
     } else {
-      campaign = (new URL(await fetchProductInfo(productId, prodUsers, prodYears, 'buylink')))?.searchParams?.get('COUPON') || campaign;
+      campaign =(new URL(await fetchProductInfo(productId, prodUsers, prodYears, 'buylink')))?.searchParams?.get('COUPON') || campaign;
     }
 
     const updatedUrl = new URL(newUrl);
