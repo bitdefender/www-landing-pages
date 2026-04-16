@@ -552,14 +552,8 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
     const locale = page.country;
     const oldParams = new URL(oldUrl).searchParams;
-    let campaign = oldParams.get('COUPON');
+    let campaign =  (new URL(await fetchProductInfo(productId, prodUsers, prodYears, 'buylink')))?.searchParams?.get('COUPON') || oldParams.get('COUPON');
     let currency = '';
-
-    if (['de', 'nl', 'au', 'gb'].includes(page.country)) {
-      campaign = await fetchProductInfo(productId, prodUsers, prodYears, 'coupon');
-    } else {
-      campaign =  (new URL(await fetchProductInfo(productId, prodUsers, prodYears, 'buylink'))).searchParams.get('COUPON') || campaign;
-    }
 
     const updatedUrl = new URL(newUrl);
     const newParams = updatedUrl.searchParams;
@@ -571,11 +565,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     const lang = exceptionsCountry ? locale : getParamOrDefault('LANG', locale);
     currency = exceptionsCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
     let dcurrency = exceptionsCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
-    if (Array.isArray(campaign)) {
-      currency = campaign[0];
-      dcurrency = campaign[0];
-      campaign = campaign[1];
-    }
 
     if (lang) newParams.set('LANG', lang);
     if (currency) newParams.set('CURRENCY', currency);
