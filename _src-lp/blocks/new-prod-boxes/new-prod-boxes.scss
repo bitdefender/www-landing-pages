@@ -1025,13 +1025,18 @@
     text-decoration: line-through;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed, .new-prod-boxes-container .block .prod_box .inner_prod_box .text_under_oldprice {
     font-size: 12px;
     font-family: Arial, sans-serif;
     line-height: 16px;
     margin: 7px 0;
     min-height: 25px;
 }
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .text_under_oldprice {
+    min-height: auto;
+}
+
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag p {
     margin-top: 0;

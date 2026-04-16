@@ -392,14 +392,18 @@ export default function decorate(block) {
       }
 
       let percentOff;
+      let textUnderOldPrice;
       if (saveOldPrice) {
-        percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
-        if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-          percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
+        const allPriceTd = saveOldPrice.querySelectorAll('td');
+        percentOff = Array.from(allPriceTd)[1].innerText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`);
+        if (!allPriceTd[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
+          percentOff = Array.from(allPriceTd)[1].innerText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
         }
-        if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-          percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
+        if (!allPriceTd[1].innerText.includes('0%') && !allPriceTd[1].innerText.includes('0')) {
+          percentOff = allPriceTd[1].innerText;
         }
+
+        textUnderOldPrice = Array.from(allPriceTd)[0].innerHTML.replace('0', `<span class="newprice-${onSelectorClass}"></span>`);
       }
 
       const optionList = subtitle?.querySelector('ul');
@@ -523,6 +527,7 @@ export default function decorate(block) {
                     ${percentOff}
                   </strong>
                 </div>`}
+                ${textUnderOldPrice ? `<div class="text_under_oldprice">${textUnderOldPrice}</div>` : ''}
 
                 ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
