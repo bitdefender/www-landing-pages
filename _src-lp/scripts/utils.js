@@ -570,7 +570,7 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
     // if: de || nl || noParam - we set locale / EUR
     const lang = exceptionsCountry ? locale : getParamOrDefault('LANG', locale);
     currency = exceptionsCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
-    let dcurrency = exceptionsCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
+    const dcurrency = exceptionsCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
 
     if (lang) newParams.set('LANG', lang);
     if (currency) newParams.set('CURRENCY', currency);
