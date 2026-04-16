@@ -394,6 +394,15 @@
   padding: 10px 5px;
 }
 
+.new-prod-boxes-container.bblue-top-tag .block .prod_box .inner_prod_box .greenTag2 {
+  background: #d6e8ff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: #003385;
+  font-size: 13px;
+  line-height: 100%;
+}
+
 .new-prod-boxes-container.new-v3 .block .prod_box .inner_prod_box .greenTag2 {
   background-color: #E72325;
   border-radius: 20px 20px 0 0;
@@ -591,6 +600,10 @@
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink a {
   color: #005ED9;
+}
+
+.new-prod-boxes-container.left-aligned-30days-refund .block .prod_box .inner_prod_box .underBuyLink {
+  text-align: left;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .underBuyLink {
@@ -928,6 +941,18 @@
   margin-right: 10px;
 }
 
+.new-prod-boxes-container.green-badge-percent .block .prod_box .inner_prod_box .save_price_box .prod-percent {
+  background-color: #68BA68;
+  color: white;
+  text-transform: capitalize;
+  font-size: 14px;
+  line-height: 100%;
+  padding: 7px 12px;
+  border-radius: 16px;
+  font-weight: 700;
+  display: inline-block;
+}
+
 .new-prod-boxes-container .block .prod_box .inner_prod_box .save_price_box .prod-percent {
   line-height: 15px;
   color: #1C7928;
@@ -982,9 +1007,12 @@
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .prices_box sup {
-  margin: 15px 0 0 5px;
-  font-size: var(--heading-font-size-xs);
-  line-height: var(--heading-font-size-xs);
+  font-size: 14px;
+  line-height: 16px;
+  color: #3D3D3D;
+  font-weight: bold;
+  margin: 10px 0 0 10px;
+  text-align: left;
 }
 
 .new-prod-boxes-container.trial-links .block .prod_box .inner_prod_box .billed span[class^=newprice-] {
@@ -996,12 +1024,15 @@
   text-decoration: line-through;
 }
 
-.new-prod-boxes-container .block .prod_box .inner_prod_box .billed {
+.new-prod-boxes-container .block .prod_box .inner_prod_box .billed, .new-prod-boxes-container .block .prod_box .inner_prod_box .text_under_oldprice {
   font-size: 12px;
   font-family: Arial, sans-serif;
   line-height: 16px;
   margin: 7px 0;
-  min-height: 25px;
+}
+
+.new-prod-boxes-container .block .prod_box .inner_prod_box .text_under_oldprice {
+  min-height: auto;
 }
 
 .new-prod-boxes-container .block .prod_box .inner_prod_box .blueTag p {
