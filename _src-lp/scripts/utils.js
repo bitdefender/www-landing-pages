@@ -577,8 +577,6 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
       campaign = campaign[1];
     }
 
-    console.log(`Setting trial link with LANG=${lang}, CURRENCY=${currency}, DCURRENCY=${dcurrency}, CAMPAIGN=${campaign}`);
-
     if (lang) newParams.set('LANG', lang);
     if (currency) newParams.set('CURRENCY', currency);
     if (dcurrency) newParams.set('DCURRENCY', dcurrency);
