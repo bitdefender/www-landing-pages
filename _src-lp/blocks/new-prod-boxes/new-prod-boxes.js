@@ -415,10 +415,12 @@ export default function decorate(block) {
           percentOff = percentText;
         }
 
-        textUnderOldPrice = textUnder.replace(
-          '0',
-          `<span class="newprice-${onSelectorClass}"></span>`,
-        );
+        if (textUnder) {
+          textUnderOldPrice = textUnder.replace(
+            '0',
+            `<span class="newprice-${onSelectorClass}"></span>`,
+          );
+        }
       }
 
       const optionList = subtitle?.querySelector('ul');
