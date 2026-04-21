@@ -39,4 +39,6 @@ export default class Constants {
     'ultsecplusm', 'idtheftsm', 'idtheftpm', 'vsbm', 'scm'];
 
   static DEFAULT_LANGUAGE = 'en';
+
+  static TARGET_EXPERIMENT_METADATA_KEY = 'target-experiment-location';
 }
