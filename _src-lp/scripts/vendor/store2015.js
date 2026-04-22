@@ -1033,7 +1033,7 @@ window.StoreProducts.__onChangeUsers = function (ev) {
   //     base_uri = "https://www.bitdefender.se/site";
   // }
 
-  let buy_link = `${base_uri}/Store/buy/${c_config.product_id}/${selected_users}/${selected_years}`;
+  let buy_link = `${base_uri}/Store/buy/${c_config.product_id}/${selected_users}/${selected_years}${pid ? `/pid.${pid}` : ''}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
 
   try {
     if ('discount' in variation) {
@@ -1256,7 +1256,7 @@ window.StoreProducts.__onChangeYears = function (ev) {
   //     base_uri = "https://www.bitdefender.se/site";
   // }
 
-  let buy_link = `${base_uri}/Store/buy/${c_config.product_id}/${selected_users}/${selected_years}`;
+  let buy_link = `${base_uri}/Store/buy/${c_config.product_id}/${selected_users}/${selected_years}${pid ? `/pid.${pid}` : ''}?CURRENCY=${currency}&DCURRENCY=${currency}&force_country=${countryToUse}`;
 
   try {
     if ('discount' in variation) {
