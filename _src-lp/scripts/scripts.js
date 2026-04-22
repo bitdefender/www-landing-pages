@@ -46,6 +46,7 @@ import {
   fetchGeoIP,
 } from './utils.js';
 import store from './store.js';
+import Constants from './constants.js';
 
 const page = await pagePromise;
 const target = await targetPromise;
@@ -202,6 +203,33 @@ export async function go2Anchor() {
 }
 
 /**
+ * Loads everything that doesn't need to be delayed.
+ * @param {Element} doc The container element
+ */
+
+export async function loadTrackers() {
+  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
+
+  const onAdobeMcLoaded = () => {
+    document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
+    window.ADOBE_MC_EVENT_LOADED = true;
+  };
+
+  if (isPageNotInDraftsFolder) {
+    try {
+      await Launch.load(page.environment);
+    } catch {
+      target.abort();
+    }
+
+    onAdobeMcLoaded();
+  } else {
+    target.abort();
+    onAdobeMcLoaded();
+  }
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
@@ -214,6 +242,12 @@ async function loadEager(doc) {
   if (hasTemplate) {
     loadCSS(`${window.hlx.codeBasePath}/scripts/template-factories/${templateMetadata}/${templateMetadata}.css`);
     addScript(`${window.hlx.codeBasePath}/scripts/template-factories/${templateMetadata}/${templateMetadata}.js`, {}, 'defer', undefined, undefined, 'module');
+  }
+
+  if (getMetadata(Constants.TARGET_EXPERIMENT_METADATA_KEY)) {
+    await loadTrackers();
+    await sendAnalyticsPageEvent();
+    await sendAnalyticsUserInfo();
   }
 
   const main = doc.querySelector('main');
@@ -243,33 +277,6 @@ async function loadEager(doc) {
   }
 }
 
-/**
- * Loads everything that doesn't need to be delayed.
- * @param {Element} doc The container element
- */
-
-export async function loadTrackers() {
-  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
-
-  const onAdobeMcLoaded = () => {
-    document.dispatchEvent(new Event(GLOBAL_EVENTS.ADOBE_MC_LOADED));
-    window.ADOBE_MC_EVENT_LOADED = true;
-  };
-
-  if (isPageNotInDraftsFolder) {
-    try {
-      await Launch.load(page.environment);
-    } catch {
-      target.abort();
-    }
-
-    onAdobeMcLoaded();
-  } else {
-    target.abort();
-    onAdobeMcLoaded();
-  }
-}
-
 export async function loadLazy(doc) {
   // eslint-disable-next-line import/no-unresolved
   // const fpPromise = import('https://fpjscdn.net/v3/V9XgUXnh11vhRvHZw4dw')
@@ -285,15 +292,16 @@ export async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
 
-  loadTrackers();
+  if (!getMetadata(Constants.TARGET_EXPERIMENT_METADATA_KEY)) {
+    loadTrackers();
+    await sendAnalyticsPageEvent();
+    await sendAnalyticsUserInfo();
+  }
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     'gtm.start': new Date().getTime(),
     event: 'gtm.js',
   });
-
-  await sendAnalyticsPageEvent();
-  await sendAnalyticsUserInfo();
 
   loadFooter(doc.querySelector('footer'));
 
