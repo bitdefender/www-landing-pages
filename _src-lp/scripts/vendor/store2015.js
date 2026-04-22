@@ -335,7 +335,7 @@ window.StoreProducts.initSelector = function (config) {
         }
       }
 
-      if (DEFAULT_LANGUAGE !== 'ro-ro' && window.geoip !== 'gb') {
+      if (window.geoip != 'ro' && window.geoip !== 'gb') {
         if (so.product_id === 'vsb' || so.product_id === 'vsbm') {
           so.config.force_region = '2';
         }
