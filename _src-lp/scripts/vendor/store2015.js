@@ -47,8 +47,9 @@ const d = function (s) {
 
 // send fetch
 const sendRequest = (url, formData, country) => {
-  let ajaxUrl = `${url}?force_country=${country}`;
-  if ('pid' in urlParams) ajaxUrl = `${ajaxUrl}&pid=${urlParams.pid}`;
+  const ajaxUrl = new URL(url);
+  ajaxUrl.searchParams.set('force_country', country);
+  if ('pid' in urlParams) ajaxUrl.searchParams.set('pid', urlParams.pid);
 
   fetch(ajaxUrl, {
     method: 'POST',
@@ -334,7 +335,7 @@ window.StoreProducts.initSelector = function (config) {
         }
       }
 
-      if (DEFAULT_LANGUAGE !== 'ro-ro' && window.geoip !== 'gb') {
+      if (window.geoip != 'ro' && window.geoip !== 'gb') {
         if (so.product_id === 'vsb' || so.product_id === 'vsbm') {
           so.config.force_region = '2';
         }
