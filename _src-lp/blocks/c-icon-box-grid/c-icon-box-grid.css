@@ -48,6 +48,10 @@
   text-align: left;
 }
 
+.c-icon-box-grid-container:not(.top-image-version, .full-images) .quotebox img {
+  max-height: 40px;
+}
+
 .c-icon-box-grid-container.steps .quotebox {
   text-align: center;
   max-width: 321px;
@@ -593,7 +597,9 @@
 
 .c-icon-box-grid-container.top-image-version .quotebox picture {
   width: calc(100% + 2em);
+  max-height: 165px;
   max-width: unset;
+  overflow: hidden;
   margin: 0 -1em;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
