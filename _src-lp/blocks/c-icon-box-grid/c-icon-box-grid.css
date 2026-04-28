@@ -48,7 +48,7 @@
   text-align: left;
 }
 
-.c-icon-box-grid-container:not(.top-image-version, .full-images) .quotebox img {
+.c-icon-box-grid-container:not(.top-image-version, .full-images, [data-layout=featured-left]) .quotebox img {
   max-height: 40px;
 }
 
