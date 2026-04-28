@@ -660,6 +660,7 @@
   text-align: center;
   background-color: #026DFF;
   display: inline-flex;
+  gap: 5px;
   border-radius: 20px;
   padding: 1px 12px;
   margin-bottom: 5px;
