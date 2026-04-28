@@ -1620,7 +1620,7 @@
 
 @media (width <= 767px) {
   .new-prod-boxes-container {
-    overflow: hidden;
+    overflow-y: visible;
   }
   .new-prod-boxes-container .block {
     gap: 20px;

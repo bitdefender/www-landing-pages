@@ -948,7 +948,8 @@ main .section.light-sky-blue>* {
   white-space: nowrap;
   display:inline-flex;
   vertical-align:middle;
-  align-items: center; 
+  align-items: center;
+  height: fit-content; 
 }
 
 .greenTag {

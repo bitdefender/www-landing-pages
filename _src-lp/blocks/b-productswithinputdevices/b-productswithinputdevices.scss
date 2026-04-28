@@ -420,6 +420,15 @@
     width: 128px;
     height: 96px
   }
+
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(h3) {
+    max-width: 80%;
+    margin: auto;
+
+    h3 {
+      flex-direction: column;
+    }
+  }
 }
 
 @media (width <= 991px) {
