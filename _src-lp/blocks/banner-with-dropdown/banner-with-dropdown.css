@@ -1051,7 +1051,7 @@
     flex-direction: column;
   }
   .section.banner-with-dropdown-container .banner-with-dropdown > div > div .prices_box {
-    justify-items: center;
+    justify-items: unset;
   }
 }
 @media screen and (width <= 991px) {
