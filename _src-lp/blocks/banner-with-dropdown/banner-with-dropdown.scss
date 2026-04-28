@@ -1132,9 +1132,13 @@
   }
 }
 
-@media screen and (width <= 450px) {
+@media screen and (width <= 500px) {
 .section.banner-with-dropdown-container.new-radio-design #prodSel.prodsel-radio .productSelector {
     flex-direction: column;
+  }
+
+  .section.banner-with-dropdown-container .banner-with-dropdown > div > div .prices_box {
+    justify-items: center;
   }
 }
 
