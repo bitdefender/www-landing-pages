@@ -405,6 +405,15 @@
   color: #A1A2A2;
 }
 
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
+    max-width: 80%;
+    margin: auto;
+
+    h3 {
+      flex-direction: column;
+    }
+}
+
 @media (width <= 1400px) {
   .b-productswithinputdevices-container #campaign-logo {
     width: 15em;
@@ -419,15 +428,6 @@
     left: auto;
     width: 128px;
     height: 96px
-  }
-
-  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(h3) {
-    max-width: 80%;
-    margin: auto;
-
-    h3 {
-      flex-direction: column;
-    }
   }
 }
 

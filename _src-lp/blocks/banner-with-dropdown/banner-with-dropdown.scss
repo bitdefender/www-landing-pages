@@ -1111,6 +1111,25 @@
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
+
+  .section.banner-with-dropdown-container .banner-with-dropdown > div > div {
+    justify-content: center;
+  }
+
+  .section.banner-with-dropdown-container .banner-with-dropdown > div > div .prices_box {
+    justify-items: flex-start;
+  }
+
+  .section.banner-with-dropdown-container #prodSel {
+    max-width: 100%;
+    display: block;
+  }
+
+  .section.banner-with-dropdown-container #prodSel select.productSelector {
+    border-radius: 10px;
+    white-space: normal;
+    max-width: 100%;
+  }
 }
 
 @media screen and (width <= 450px) {
