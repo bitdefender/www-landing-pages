@@ -394,7 +394,7 @@
   margin: auto;
 }
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) h3 {
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 @media (width <= 1400px) {
