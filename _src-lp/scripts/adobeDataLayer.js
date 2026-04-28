@@ -1,4 +1,6 @@
-import { AdobeDataLayerService, PageLoadedEvent, PageLoadStartedEvent } from '@repobit/dex-data-layer';
+import {
+  AdobeDataLayerService, CdpEvent, PageLoadedEvent, PageLoadStartedEvent,
+} from '@repobit/dex-data-layer';
 import { getUserVisitorId } from '@repobit/dex-utils';
 import userPromise from './user.js';
 import { targetPromise, getPageNameAndSections, getDefaultLanguage } from './target.js';
@@ -45,7 +47,10 @@ export const sendAnalyticsErrorEvent = async () => {
   const { subSection } = await getPageNameAndSections();
 
   if ((subSection && subSection === '404') || window.errorCode === '404') {
-    await target.sendCdpData(); // wait for CDP data to finalize
+    const cdpData = await target.cdpData; // wait for CDP data to finalize
+    if (cdpData) {
+      AdobeDataLayerService.push(new CdpEvent(cdpData));
+    }
     window.adobeDataLayer.push({ event: 'page error' });
     AdobeDataLayerService.push(new PageLoadedEvent());
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
@@ -166,6 +171,10 @@ export async function sendAnalyticsProducts(product, region) {
       product: { info: productsInAdobe.filter((value) => Boolean(value)) },
     });
 
+    const cdpData = await target.cdpData; // wait for CDP data to finalize
+    if (cdpData) {
+      AdobeDataLayerService.push(new CdpEvent(cdpData));
+    }
     AdobeDataLayerService.push(new PageLoadedEvent());
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
@@ -187,7 +196,10 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
     || getMetadata('free-product')
     || (getMetadata('trialbuylinks') && !getMetadata('allowdatatracking'))
     || force) {
-    await target.sendCdpData();
+    const cdpData = await target.cdpData; // wait for CDP data to finalize
+    if (cdpData) {
+      AdobeDataLayerService.push(new CdpEvent(cdpData));
+    }
     AdobeDataLayerService.push(new PageLoadedEvent());
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
