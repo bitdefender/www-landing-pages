@@ -36,6 +36,8 @@ async function loadFragment(path) {
       // eslint-disable-next-line no-return-assign
       .forEach((image) => image.src = new URL(image.getAttribute('src'), path).href);
     decorateMain(main);
+    // add a copy temporarily to the document to ensure multi-section blocks are decorated correctly
+    document.body.append(main);
 
     const blocks = main.querySelectorAll('div.block');
     for (let i = 0; i < blocks.length; i += 1) {
@@ -44,10 +46,23 @@ async function loadFragment(path) {
       if (status !== 'loading' && status !== 'loaded') {
         block.dataset.blockStatus = 'loading';
         const { blockName } = block.dataset;
+        const templateConfig = block.closest('.section').dataset.templateConfig;
+
         try {
-          const cssLoaded = new Promise((resolve) => {
-            loadCSS(`${codeBaseUrl}/blocks/${blockName}/${blockName}.css`, resolve);
-          });
+          const cssPromises = [
+            new Promise((resolve) => {
+              loadCSS(`${codeBaseUrl}/blocks/${blockName}/${blockName}.css`, resolve);
+            }),
+          ];
+
+          if (templateConfig) {
+            cssPromises.push(new Promise((resolve) => {
+              loadCSS(`${codeBaseUrl}/scripts/template-factories/${templateConfig}.css`, resolve);
+              document.body.classList.add(templateConfig);
+            }));
+          }
+
+          const cssLoaded = Promise.all(cssPromises);
           const decorationComplete = new Promise((resolve) => {
             (async () => {
               try {
@@ -87,6 +102,8 @@ async function loadFragment(path) {
         }
       }
     }
+    // remove copy
+    document.body.removeChild(main);
 
     return main;
   }
@@ -105,4 +122,7 @@ export default async function decorate(block) {
       block.closest('.fragment-ext-wrapper').replaceWith(...fragmentSection.childNodes);
     }
   }
+
+  // this gets changed by lib-franklin.js in www-websites, we need to reset it to default for the next blocks
+  window.hlx.codeBasePath = '/_src-lp';
 }
