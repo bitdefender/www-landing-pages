@@ -253,7 +253,7 @@ export default class ProductPrice {
         campaign: this.#campaign,
         campaignType: this.#campaignType,
         locale: this.#locale,
-        platformProductID: payload.platformProductId,
+        platformProductID: option.verifoneProductId || payload.platformProductId,
         variations: {
           [this.#devicesNo]: {
             [this.#yearsNo]: this.#generateVariationObject(payload, option, buy_link)
