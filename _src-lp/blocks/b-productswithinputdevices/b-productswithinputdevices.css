@@ -411,6 +411,9 @@
     width: 128px;
     height: 96px;
   }
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
+    max-width: 70%;
+  }
 }
 @media (width <= 991px) {
   .b-productswithinputdevices-container #campaign-logo {
@@ -420,6 +423,9 @@
   }
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo {
     margin-top: 1em;
+  }
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
+    max-width: 75%;
   }
 }
 /* for mobile */
@@ -470,6 +476,9 @@
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div {
     width: auto;
     margin-bottom: 2em;
+  }
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
+    max-width: 100%;
   }
   .b-productswithinputdevices-container.second-template .b-productswithinputdevices {
     max-width: 330px;

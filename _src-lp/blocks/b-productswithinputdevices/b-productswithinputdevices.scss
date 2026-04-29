@@ -406,12 +406,12 @@
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
-    max-width: 80%;
-    margin: auto;
+  max-width: 80%;
+  margin: auto;
 
-    h3 {
-      flex-wrap: wrap;
-    }
+  h3 {
+    flex-wrap: wrap;
+  }
 }
 
 @media (width <= 1400px) {
@@ -429,6 +429,10 @@
     width: 128px;
     height: 96px
   }
+
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
+    max-width: 70%;
+  }
 }
 
 @media (width <= 991px) {
@@ -439,6 +443,10 @@
   }
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices.has-campaign-logo {
     margin-top: 1em;
+  }
+
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
+    max-width: 75%;
   }
 }
 
@@ -498,6 +506,10 @@
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div {
     width: auto;
     margin-bottom: 2em;
+  }
+
+  .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
+    max-width: 100%;
   }
 
   .b-productswithinputdevices-container.second-template {
