@@ -736,6 +736,7 @@ main .columns-container.padding-0 .columns-wrapper {
   gap: 10px;
   margin-bottom: 0;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .columns-container.v-nov25 .columns > div:first-of-type .text-content ul li {

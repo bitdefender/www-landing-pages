@@ -389,6 +389,14 @@
   color: #A1A2A2;
 }
 
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) {
+  max-width: 80%;
+  margin: auto;
+}
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div > div:has(fieldset) h3 {
+  flex-wrap: wrap;
+}
+
 @media (width <= 1400px) {
   .b-productswithinputdevices-container #campaign-logo {
     width: 15em;
