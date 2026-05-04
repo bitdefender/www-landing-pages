@@ -969,6 +969,44 @@
   justify-content: space-between;
 }
 
+.section.banner-container.quotes .banner table {
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  background-color: white;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 1rem;
+  padding: 34px 40px 40px 36px;
+  max-width: 500px;
+}
+
+.section.banner-container.quotes .banner table tbody tr {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.section.banner-container.quotes .banner table tbody tr td:first-of-type {
+  padding: 0;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.section.banner-container.quotes .banner table tbody tr td:first-of-type img {
+  width: 35px;
+  margin-top: 10px;
+  height: auto;
+  display: block;
+}
+
+.section.banner-container.quotes .banner table tbody tr td:last-of-type {
+  padding: 0;
+  font-size: 24px;
+  color: #1A1A1A;
+  vertical-align: middle;
+}
+
 @media screen and (width >=1400px) {
   .section.banner-container .custom-col-xl-4 {
     flex: 0 0 auto;
@@ -1999,6 +2037,25 @@
   .section.banner-container[data-text-color-mobile="black"] .block .container-fluid > .row > div:first-of-type > div > h3 {
     font-size: 16px;
     line-height: 20px;
+  }
+
+  .section.banner-container.quotes .banner table {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 24px;
+  }
+
+  .section.banner-container.quotes .banner table tbody tr {
+    gap: 10px;
+  }
+
+  .section.banner-container.quotes .banner table tbody tr td:first-of-type img {
+    width: 20px;
+    margin-top: 5px;
+  }
+
+  .section.banner-container.quotes .banner table tbody tr td:last-of-type {
+    font-size: 18px;
   }
 }
 
