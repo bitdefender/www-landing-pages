@@ -668,6 +668,18 @@
   font-weight: 600;
 }
 
+.section.banner-with-dropdown-container.green-badge-percent .pricesBox .prod-save {
+    background-color: #68BA68;
+    color: white;
+    text-transform: capitalize;
+    font-size: 14px;
+    line-height: 100%;
+    padding: 7px 12px;
+    border-radius: 16px;
+    font-weight: 700;
+    display: inline-block;
+}
+
 .section.banner-with-dropdown-container.free-trial .pricesBox .pay_after_trial {
   font-size: 13px;
   line-height: 15px;
