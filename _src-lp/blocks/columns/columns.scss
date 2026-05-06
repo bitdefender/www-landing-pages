@@ -831,6 +831,7 @@ main .columns-container.padding-0 .columns-wrapper {
   gap: 10px;
   margin-bottom: 0;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .columns-container.v-nov25 .columns > div:first-of-type .text-content ul li {
@@ -1122,6 +1123,18 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.blue-version .columns > div > div {
   padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.columns-container.blue-version .columns > div > div > div.text-content {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
 }
 
 .columns-container.blue-version .block > div > div:first-of-type table {
@@ -1130,10 +1143,6 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.blue-version .block > div > div:first-of-type > div , .columns-container.blue-version .block > div > div:first-of-type > div table tr {
   height: 100%;
-}
-
-.columns-container.blue-version .block > div > div:not(:first-of-type) table:first-of-type {
-  margin-bottom: 2em;
 }
 
 .columns-container.blue-version table {
@@ -1147,6 +1156,7 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.blue-version table tr {
+  height: 100%;
   background: #FAFCFF;
   border: 1px solid #CDE3FF;
   border-radius: 20px;

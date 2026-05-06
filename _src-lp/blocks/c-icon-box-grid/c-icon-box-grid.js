@@ -205,4 +205,5 @@ export default function decorate(block) {
 
   decorateIcons(block);
   matchHeights(block, 'h6');
+  if (block.closest('.top-image-version') || block.closest('.full-images')) matchHeights(block, 'picture');
 }

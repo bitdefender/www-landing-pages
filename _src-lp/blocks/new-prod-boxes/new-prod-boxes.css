@@ -660,6 +660,7 @@
   text-align: center;
   background-color: #026DFF;
   display: inline-flex;
+  gap: 5px;
   border-radius: 20px;
   padding: 1px 12px;
   margin-bottom: 5px;
@@ -1620,7 +1621,7 @@
 
 @media (width <= 767px) {
   .new-prod-boxes-container {
-    overflow: hidden;
+    overflow-y: visible;
   }
   .new-prod-boxes-container .block {
     gap: 20px;
@@ -1665,6 +1666,9 @@
   }
   .new-prod-boxes-container .switchBox .label p {
     font: normal normal normal 8px/11px Arial, sans-serif;
+  }
+  .new-prod-boxes-container.green-pill .block {
+    gap: 50px;
   }
 }
 @media (width >= 768px) {

@@ -53,7 +53,7 @@ export default function decorate(block) {
   const {
     product, products, animatedText, contentSize, backgroundColor, backgroundColorGradient, innerBackgroundColor, backgroundHide, bannerHide, textColor,
     underlinedInclinedTextColor, textAlignVertical, imageAlign, paddingTop, paddingBottom, marginTop,
-    marginBottom, imageCover, corners, textNextToPill, isCampaign, redirectCampaign,
+    marginBottom, imageCover, corners, textNextToPill, isCampaign, redirectCampaign, hardcodedLinks,
   } = metaData;
   const [contentEl, pictureEl, contentRightEl] = [...block.children];
   const hasContentEl = !!contentEl?.textContent?.trim();
@@ -222,7 +222,9 @@ export default function decorate(block) {
 
         pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
         pricesBox.innerHTML += `<div class="buy_box">
-          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" href="#" referrerpolicy="no-referrer-when-downgrade">${buybtn ? buybtn.innerHTML : 'Get it now'}</a>
+          <a class="red-buy-button" ${hardcodedLinks ? '' : `await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`} 
+            href="${hardcodedLinks ? buybtn.querySelector('a')?.href : '#'}" referrerpolicy="no-referrer-when-downgrade">${(hardcodedLinks ? buybtn.innerText : buybtn.innerHTML) ?? 'Get it now'}
+          </a>
         </div>`;
       }
 
