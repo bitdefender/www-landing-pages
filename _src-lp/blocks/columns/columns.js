@@ -24,7 +24,6 @@ export default function decorate(block) {
   let comparisonMobile = false;
   if (block.closest('.section').classList.contains('comparison') && window.innerWidth < 768) comparisonMobile = true;
 
-  // setup image columns
   let secondCol = null;
 
   [...block.children].forEach((row, key) => {
