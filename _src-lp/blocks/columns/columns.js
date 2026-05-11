@@ -20,22 +20,41 @@ export default function decorate(block) {
     if (button) button.className = `button primary await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`;
   }
 
+  // if comparison table and mobile
+  let comparisonMobile = false;
+  if (block.closest('.section').classList.contains('comparison') && window.innerWidth < 768) comparisonMobile = true;
+
   // setup image columns
+  let secondCol = null;
+
   [...block.children].forEach((row, key) => {
     [...row.children].forEach((col, idx) => {
       const pic = col.querySelector('picture');
+
       if (pic) {
         const picWrapper = pic.closest('div');
+
         if (picWrapper && picWrapper.children.length === 1) {
-          // picture is only content in column
-          picWrapper.classList.add('columns-img-col', `columns-img-col--${idx % 2 === 0 ? 'right' : 'left'}`);
+          picWrapper.classList.add(
+            'columns-img-col',
+            `columns-img-col--${idx % 2 === 0 ? 'right' : 'left'}`,
+          );
         }
       } else {
         col.innerHTML = `
-          <div class="text-content text-content-${key}">
-            ${col.innerHTML}
-          </div>
-        `;
+        <div class="text-content text-content-${key}">
+          ${col.innerHTML}
+        </div>
+      `;
+      }
+
+      if (comparisonMobile) {
+        if (key === 0 && idx === 1) secondCol = col;
+
+        if (key === 1 && idx === 0 && secondCol) {
+          col.innerHTML += secondCol.innerHTML;
+          secondCol.remove();
+        }
       }
     });
   });
