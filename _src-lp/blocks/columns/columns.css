@@ -1626,7 +1626,7 @@ main .columns-container.padding-0 .columns-wrapper {
     font-size: 25px;
     line-height: 28px;
   }
-  .columns-container.comparison .columns h2 {
+  .columns-container.comparison .columns > div:nth-of-type(2) h2 {
     display: flex;
     gap: 3px;
     margin: 28px 0 -25px;
