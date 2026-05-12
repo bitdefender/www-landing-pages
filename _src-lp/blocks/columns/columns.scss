@@ -1845,6 +1845,67 @@ main .columns-container.padding-0 .columns-wrapper {
     font-size: 25px;
     line-height: 28px;
   }
+
+  .columns-container.comparison .columns > div:nth-of-type(2) h2 {
+    display: flex;
+    gap: 3px;
+    margin: 28px 0 -25px;
+  }
+
+  .columns-container.comparison .columns > div:first-of-type > div:nth-of-type(2) .text-content, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 0;
+    background-color: white;
+    box-shadow: none;
+  }
+
+  .columns-container.comparison .columns > div:last-of-type > div:first-of-type {
+    border-radius: 0;
+    border-top: 0 none;
+  }
+
+  .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) {
+    border: 0 none;
+    border-radius: 0;
+    border-bottom: 1px solid #8e9197;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .columns-container.comparison .columns > div > div:nth-of-type(2) > div {
+    border-radius: 0;
+    border: 0 none;
+    margin-bottom: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .columns-container.comparison .columns {
+    border: 1px solid #8e9197;
+    border-radius: 20px;
+  }
+
+  .columns-container.comparison .columns > div {
+    padding: 0;
+  }
+
+  .columns-container.comparison .columns > div > div {
+    border: 0 none;
+    border-radius: 0;
+    background-color: white;
+  }
+
+  .columns-container.comparison .columns > div:first-of-type > div:first-of-type, .columns-container.comparison .columns > div:last-of-type > div:first-of-type, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content {
+    padding: 30px 30px 0 !important;
+  }
+
+  .columns-container.comparison .columns > div:first-of-type > div:first-of-type::after, .columns-container.comparison .columns > div:first-of-type > div:first-of-type::before, .columns-container.comparison .columns > div:last-of-type > div:first-of-type::after
+  , .columns-container.comparison .columns > div:last-of-type > div:first-of-type::before, .columns-container.comparison .columns > div:first-of-type > div:nth-of-type(2) .text-content::after, .columns-container.comparison .columns > div:first-of-type > div:nth-of-type(2) .text-content::before, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content::after, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content::before {
+    background: none;
+    background-color: transparent;
+    border: 0 none;
+    display: none;
+  }
 }
 
 @media (width <= 500px) {
