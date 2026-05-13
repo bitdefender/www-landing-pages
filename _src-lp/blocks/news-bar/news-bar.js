@@ -8,6 +8,8 @@ export default function decorate(block) {
     type, backgroundColor, textColor,
   } = metaData;
 
+  block.innerHTML = block.innerHTML.replace('0%', '<span class="max-discount">$&</span>');
+
   // set the background
   if (backgroundEl) {
     const backgroundImgEl = backgroundEl.querySelector('img');
