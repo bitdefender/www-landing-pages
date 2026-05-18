@@ -11,8 +11,8 @@ const user = await userPromise;
 const getEnvironment = () => {
   const hostToInstance = {
     'bitdefender.com': 'prod',
-    'hlx.page': 'dev',
-    'hlx.live': 'dev',
+    'aem.page': 'stage',
+    'aem.live': 'stage',
   };
 
   // eslint-disable-next-line no-restricted-syntax
@@ -20,7 +20,7 @@ const getEnvironment = () => {
     if (window.location.hostname.includes(host)) return inst;
   }
 
-  return 'dev';
+  return 'stage';
 };
 
 /**
