@@ -135,10 +135,10 @@ export default function decorate(block) {
   const prodBoxesParent = document.createElement('div');
 
   // config based on Metadatas
-  if (block.querySelector('h1')) {
-    if (headerColor) block.querySelector('h1').style.color = headerColor;
-    block.querySelector('h1').innerHTML = block.querySelector('h1').innerHTML.replace('xx%', '<span class="max-discount"></span>');
-  }
+  if (block.querySelector('h1') && headerColor) block.querySelector('h1').style.color = headerColor;
+
+  // apply discount
+  contentEl.innerHTML = contentEl.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
