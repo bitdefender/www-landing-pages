@@ -182,6 +182,7 @@ export default function decorate(block) {
     }
   }
 
+  console.log(imageCover);
   if (imageCover && imageCover.indexOf('small') !== -1) {
     blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
@@ -191,7 +192,7 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
-          <div class="col-12 col-sm-6 col-md-6 col-lg-5 ps-4">${contentEl.innerHTML}</div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-7 ps-4">${contentEl.innerHTML}</div>
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
           <div class="col-12 col-md-7 text-center">${contentEl.innerHTML}</div>
