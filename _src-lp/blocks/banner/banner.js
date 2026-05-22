@@ -574,14 +574,18 @@ export default function decorate(block) {
   if (redirectCampaign) {
     const campaign = getParam('vcampaign');
     if (campaign) localStorage.setItem('campaign', campaign);
+    const locale = getParam('locale');
+    if (locale) localStorage.setItem('locale', locale);
+
     const buttons = block.querySelectorAll('a');
     buttons.forEach((button) => {
       const url = new URL(button.href);
       const cachedCampaign = localStorage.getItem('campaign');
-      if (url.searchParams.has('vcampaign') && cachedCampaign) {
-        url.searchParams.set('vcampaign', cachedCampaign);
-        button.href = url.toString();
-      }
+      const cachedLocale = localStorage.getItem('locale');
+      if (cachedLocale) url.searchParams.set('locale', cachedLocale);
+      if (url.searchParams.has('vcampaign') && cachedCampaign) url.searchParams.set('vcampaign', cachedCampaign);
+
+      button.href = url.toString();
     });
   }
 
