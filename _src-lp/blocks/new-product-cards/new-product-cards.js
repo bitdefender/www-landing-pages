@@ -99,10 +99,17 @@ function renderNanoBlocks(
   });
 }
 
-function renderGreenTag(text) {
+function renderGreenTag(text, ...params) {
+  console.log('Rendering green tag with text:', text, 'and params:', params);
   const root = document.createElement('div');
+  const cardIndex = params[params.length - 2];
+  const card = params[params.length - 1];
+  console.log(card.closest('.section').dataset);
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  const [product, productUsers, productYears] = card?.closest('.section')?.dataset?.[`buyzone${cardIndex + 1}`]?.split(',')?.[0]?.split('/');
+  const selectorClass = `${product}-${productUsers}${productYears}`;
   root.classList.add('green-tag');
-  root.innerText = text;
+  root.innerHTML = text.replace('PERCENT', `&nbsp;<span class="percent-${selectorClass.trim()}"></span>`);
 
   if (!text) root.classList.add('hidden');
 
