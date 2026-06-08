@@ -106,7 +106,7 @@ function renderGreenTag(text, ...params) {
   const card = params[params.length - 1];
   console.log(card.closest('.section').dataset);
   // eslint-disable-next-line no-unsafe-optional-chaining
-  const [product, productUsers, productYears] = card?.closest('.section')?.dataset?.[`buyzone${cardIndex + 1}`]?.split(',')?.[0]?.split('/');
+  const [product, productUsers, productYears] = card?.closest('.section')?.dataset?.[`pricing${cardIndex + 1}`]?.split(',')?.[0]?.split('/');
   const selectorClass = `${product}-${productUsers}${productYears}`;
   root.classList.add('green-tag');
   root.innerHTML = text.replace('PERCENT', `&nbsp;<span class="percent-${selectorClass.trim()}"></span>`);
@@ -151,10 +151,9 @@ function renderRadios(...radios) {
   return root;
 }
 
-function renderBuyzone(...products) {
+function renderPricing(...products) {
   const root = document.createElement('div');
-  const { billedText } = products[products.length - 1].closest('.section').dataset;
-  root.classList.add('buyzone-container');
+  root.classList.add('pricing-container');
 
   products.forEach((product) => {
     if (typeof product === 'string') {
@@ -163,7 +162,7 @@ function renderBuyzone(...products) {
       const selectorClass = `${productName}-${productUsers}${productYears}`;
 
       root.innerHTML += `
-        <div class="buyzone">
+        <div class="pricing">
            <div class="save_price_box await-loader prodload prodload-${selectorClass}">
               <span class="prod-oldprice oldprice-${selectorClass}"></span>
               <strong class="save prod-percent">Save <span class="percent-${selectorClass}"></span></strong>
@@ -171,8 +170,6 @@ function renderBuyzone(...products) {
             <div class="prices_box await-loader prodload prodload-${selectorClass}">
               <span class="prod-newprice newprice-${selectorClass}"></span>
             </div>
-            ${billedText ? `<p class="billed">${billedText}</p>` : ''}
-            <a class="red-buy-button buylink-${selectorClass}" href="#">Buy Now</a>
         </div>
       `;
     }
@@ -184,7 +181,7 @@ function renderBuyzone(...products) {
 createNanoBlock('greenTag', renderGreenTag);
 createNanoBlock('blueTag', renderBlueTag);
 createNanoBlock('radios', renderRadios);
-createNanoBlock('buyzone', renderBuyzone);
+createNanoBlock('pricing', renderPricing);
 
 function replacePill(content, regExp, pillClass) {
   const pillText = content.match(regExp);
@@ -210,9 +207,10 @@ function replacePill(content, regExp, pillClass) {
   return updatedContent;
 }
 
-function selectRadioBuyzone(innerCard, selectedRadioIndex) {
+function selectRadioPricing(innerCard, selectedRadioIndex) {
   const radios = innerCard.querySelectorAll('.radio-wrapper');
-  const buyzones = innerCard.querySelectorAll('.buyzone');
+  const pricingZones = innerCard.querySelectorAll('.pricing');
+  const buyLinks = innerCard.querySelectorAll('.red-buy-button');
 
   radios.forEach((radio, radioIndex) => {
     const input = radio.querySelector('input');
@@ -222,8 +220,12 @@ function selectRadioBuyzone(innerCard, selectedRadioIndex) {
     input.toggleAttribute('checked', radioIndex === selectedRadioIndex);
   });
 
-  buyzones.forEach((buyzone, buyzoneIndex) => {
-    buyzone.style.display = buyzoneIndex === selectedRadioIndex ? 'grid' : 'none';
+  pricingZones.forEach((pricingZone, pricingIndex) => {
+    pricingZone.style.display = pricingIndex === selectedRadioIndex ? 'grid' : 'none';
+  });
+
+  buyLinks.forEach((buyLink, buyIndex) => {
+    buyLink.style.display = buyIndex === selectedRadioIndex ? 'inline-block' : 'none';
   });
 }
 
@@ -284,10 +286,10 @@ export default async function decorate(block) {
     const radioIndex = radios.indexOf(radio);
     if (radioIndex === -1) return;
     const input = radio.querySelector('input');
-    const buyzone = innerCard.querySelectorAll('.buyzone')[radioIndex];
-    if (input?.checked && buyzone?.style.display === 'grid') return;
+    const pricingZone = innerCard.querySelectorAll('.pricing')[radioIndex];
+    if (input?.checked && pricingZone?.style.display === 'grid') return;
 
-    selectRadioBuyzone(innerCard, radioIndex);
+    selectRadioPricing(innerCard, radioIndex);
   });
 
   productCards.forEach((card, idx) => {
@@ -306,11 +308,28 @@ export default async function decorate(block) {
         li.innerHTML = replacePill(li.innerHTML, /\?blue-pill\s+([^?]+)\?/, 'blue-pill');
       });
 
+      const buyButtons = innerCard.querySelectorAll('a[href*="#buylink"]');
+
+      buyButtons.forEach((button) => {
+        const buyLinksContainer = document.createElement('div');
+        buyLinksContainer.classList.add('buylinks-container');
+        const products = block.closest('.section').dataset[`pricing${idx + 1}`]?.split(',') || [];
+        buyLinksContainer.innerHTML = `${products.map((product) => {
+          const [productName, productUsers, productYears] = product.split('/');
+          const selectorClass = `${productName}-${productUsers}${productYears}`;
+          return `
+            <a class="red-buy-button buylink-${selectorClass.trim()}" href="#">Buy Now</a>
+          `;
+        }).join('')}`;
+
+        button.closest('.button-container').replaceWith(buyLinksContainer);
+      });
+
       const radios = innerCard.querySelectorAll('.radio-wrapper');
 
       radios.forEach((radio, radioIndex) => {
         if (radioIndex + 1 === Number(checkedRadio)) {
-          selectRadioBuyzone(innerCard, radioIndex);
+          selectRadioPricing(innerCard, radioIndex);
         }
       });
     }
