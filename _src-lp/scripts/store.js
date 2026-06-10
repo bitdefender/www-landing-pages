@@ -8,6 +8,7 @@ const target = await targetPromise;
 
 const vlaicuCampaign = page.getParamValue('vcampaign') || getMetadata('vcampaign');
 const campaign = page.getParamValue('campaign');
+const channel = page.getParamValue('channel') || 'LP';
 
 export default new Store({
   campaign: async () => (await target.configMbox)?.promotion || vlaicuCampaign || campaign,
@@ -17,16 +18,15 @@ export default new Store({
     buyLink: async (param) => {
       const products = (await target.configMbox)?.products;
       const { buyLink, product, option } = param;
-      if (!products) {
-        return buyLink;
-      }
-
-      const monthsToYears = option.subscription / (option.subscription === 1 ? 1 : 12);
-      const extraParameters = products[product.alias]?.[`${option.devices}-${monthsToYears}`]?.extraParameters || [];
       const buyLinkURL = new URL(buyLink);
-      extraParameters.forEach(({ key, value }) => {
-        buyLinkURL.searchParams.set(key, value);
-      });
+      buyLinkURL.searchParams.set('REF', `${channel}_${product.campaign}`);
+      if (products) {
+        const monthsToYears = option.subscription / (option.subscription === 1 ? 1 : 12);
+        const extraParameters = products[product.alias]?.[`${option.devices}-${monthsToYears}`]?.extraParameters || [];
+        extraParameters.forEach(({ key, value }) => {
+          buyLinkURL.searchParams.set(key, value);
+        });
+      }
 
       return buyLinkURL.href;
     },
