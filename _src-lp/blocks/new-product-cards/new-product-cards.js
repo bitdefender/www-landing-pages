@@ -100,11 +100,10 @@ function renderNanoBlocks(
 }
 
 function renderGreenTag(text, ...params) {
-  console.log('Rendering green tag with text:', text, 'and params:', params);
   const root = document.createElement('div');
   const cardIndex = params[params.length - 2];
   const card = params[params.length - 1];
-  console.log(card.closest('.section').dataset);
+
   // eslint-disable-next-line no-unsafe-optional-chaining
   const [product, productUsers, productYears] = card?.closest('.section')?.dataset?.[`pricing${cardIndex + 1}`]?.split(',')?.[0]?.split('/');
   const selectorClass = `${product}-${productUsers}${productYears}`;
@@ -118,8 +117,8 @@ function renderGreenTag(text, ...params) {
 
 function renderBlueTag(text, icon) {
   const root = document.createElement('div');
-  root.classList.add('blue-tag');
-  root.innerHTML = `<span class="icon icon-${icon}"></span>${text}`;
+  root.classList.add('blue-tag-container');
+  root.innerHTML = `<div class="blue-tag"><span class="icon icon-${icon}"></span>${text}</div>`;
   return root;
 }
 
@@ -240,8 +239,9 @@ function setSliderBoxVisibility(block, showFamilyBoxes) {
 }
 
 export default async function decorate(block) {
+  const section = block.closest('.section');
   const productCards = [...block.children];
-  const { checkedRadio, slider, sliderIcons } = block.closest('.section').dataset;
+  const { checkedRadio, slider, sliderIcons } = section.dataset;
   let limit = productCards.length;
   let switchCheckbox;
   if (slider) {
@@ -257,23 +257,27 @@ export default async function decorate(block) {
               <input type="checkbox" id="switchCheckbox">
               <span class="slider round"></span>
               <span class="label left">
-                ${iconFamily ? `<span class="icon icon-${iconFamily.trim()}"></span>` : ''}
-                ${partsFamily ? `<p>${partsFamily}</p>` : ''}
-              </span>
-               <span class="label right">
                 ${iconIndividual ? `<span class="icon icon-${iconIndividual}"></span>` : ''}
                 ${partsIndividual ? `<p>${partsIndividual}</p>` : ''}
+              </span>
+               <span class="label right">
+                ${iconFamily ? `<span class="icon icon-${iconFamily.trim()}"></span>` : ''}
+                ${partsFamily ? `<p>${partsFamily}</p>` : ''}
               </span>
             </label>
           `;
 
     // Get the checkbox inside the switchBox
     switchCheckbox = switchBox.querySelector('#switchCheckbox');
-
+    if (section.classList.contains('reverted-slider')) {
+      switchCheckbox.checked = true;
+      switchCheckbox.setAttribute('checked', '');
+    }
     // Add an event listener to the checkbox
     switchCheckbox.addEventListener('change', () => {
       setSliderBoxVisibility(block, switchCheckbox.checked);
     });
+
     block.parentElement.prepend(switchBox);
   }
 

@@ -1,5 +1,5 @@
 .new-product-cards-container .new-product-cards-wrapper {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
 }
 .new-product-cards-container .new-product-cards-wrapper .switchBox {
@@ -272,4 +272,12 @@
   color: #1C7928;
   font-weight: bold;
   font-size: calc(14px + 2 * (100vw - 768px) / 680);
+}
+.new-product-cards-container.green-pill .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .pricing-container .pricing .save_price_box .prod-percent {
+  color: #EDF9FF;
+  background-color: #68BA68;
+  font-weight: bold;
+  padding: 3px 7px;
+  border-radius: 16px;
+  font-size: 14px;
 }
