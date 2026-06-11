@@ -138,6 +138,7 @@ function renderRadios(...radios) {
 
   radios.forEach((radio, idx) => {
     if (typeof radio === 'string') {
+      if (!radio) return;
       const radioWrapper = document.createElement('div');
       radioWrapper.classList.add('radio-wrapper');
       const radioElement = document.createElement('input');
