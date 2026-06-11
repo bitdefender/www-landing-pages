@@ -548,7 +548,7 @@ export default function decorate(block) {
                 ${textUnderOldPrice ? `<div class="text_under_oldprice">${textUnderOldPrice}</div>` : ''}
 
                 ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                  <span class="prod-newprice${!onSelectorClass.includes('monthly') && !Constants.MONTHLY_PRODUCTS.find((p) => p === prodName) ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
+                  <span class="prod-newprice${!onSelectorClass.includes('monthly') && !Constants.MONTHLY_PRODUCTS.includes(prodName) ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
                   <sup>${price.innerHTML.trim().replace('0', '')}</sup>
                 </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
