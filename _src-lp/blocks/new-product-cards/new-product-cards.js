@@ -99,6 +99,15 @@ function renderNanoBlocks(
   });
 }
 
+function updateTagsMargin(block) {
+  const greenTags = block.querySelectorAll('.green-tag');
+  let greenTagsHeight = 0;
+  greenTags.forEach((tag) => {
+    if (greenTagsHeight < tag.offsetHeight) greenTagsHeight = tag.offsetHeight;
+    block.style.setProperty('--green-tag-height', `${greenTagsHeight}px`);
+  });
+}
+
 function renderGreenTag(text, ...params) {
   const root = document.createElement('div');
   const cardIndex = params[params.length - 2];
@@ -118,7 +127,7 @@ function renderGreenTag(text, ...params) {
 function renderBlueTag(text, icon) {
   const root = document.createElement('div');
   root.classList.add('blue-tag-container');
-  root.innerHTML = `<div class="blue-tag"><span class="icon icon-${icon}"></span>${text}</div>`;
+  root.innerHTML = `<div class="blue-tag">${icon ? `<span class="icon icon-${icon}"></span>` : ''}${text}</div>`;
   return root;
 }
 
@@ -236,6 +245,8 @@ function setSliderBoxVisibility(block, showFamilyBoxes) {
   block.querySelectorAll('.individual-box').forEach((box) => {
     box.style.display = showFamilyBoxes ? 'none' : 'grid';
   });
+
+  updateTagsMargin(block);
 }
 
 export default async function decorate(block) {
@@ -344,4 +355,9 @@ export default async function decorate(block) {
   }
 
   await decorateIcons(block.closest('.section'));
+
+  const resizeObserver = new ResizeObserver(() => {
+    updateTagsMargin(block);
+  });
+  resizeObserver.observe(document.body);
 }

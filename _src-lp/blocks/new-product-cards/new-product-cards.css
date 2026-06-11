@@ -22,15 +22,15 @@
   transition: color 0.4s;
   color: white !important;
 }
-.new-product-cards-container .new-product-cards-wrapper .switchBox .switch input:checked ~ .label.left .icon svg {
-  fill: #fff;
+.new-product-cards-container .new-product-cards-wrapper .switchBox .switch input:checked ~ .label.left .icon, .new-product-cards-container .new-product-cards-wrapper .switchBox .switch input:checked ~ .label.left svg path {
+  fill: #fff !important;
 }
 .new-product-cards-container .new-product-cards-wrapper .switchBox .switch input:checked ~ .label.right {
   transition: color 0.4s;
   color: #000 !important;
 }
-.new-product-cards-container .new-product-cards-wrapper .switchBox .switch input:checked ~ .label.right .icon svg {
-  fill: #000;
+.new-product-cards-container .new-product-cards-wrapper .switchBox .switch input:checked ~ .label.right .icon, .new-product-cards-container .new-product-cards-wrapper .switchBox .switch input:checked ~ .label.right svg path {
+  fill: #000 !important;
 }
 .new-product-cards-container .new-product-cards-wrapper .switchBox .switch input:checked + .slider {
   transform: translateX(141px);
@@ -69,11 +69,15 @@
   height: 16px;
   margin-bottom: 12px;
 }
+.new-product-cards-container .new-product-cards-wrapper .switchBox .switch .label svg {
+  width: 100%;
+  height: 100%;
+}
 .new-product-cards-container .new-product-cards-wrapper .switchBox .switch .label.right {
   z-index: 10;
 }
-.new-product-cards-container .new-product-cards-wrapper .switchBox .switch .label.right .icon svg {
-  fill: #fff;
+.new-product-cards-container .new-product-cards-wrapper .switchBox .switch .label.right .icon svg path {
+  fill: #fff !important;
 }
 .new-product-cards-container .new-product-cards-wrapper .switchBox .switch .label.left {
   z-index: 10;
@@ -92,6 +96,7 @@
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 10;
+  margin-top: var(--green-tag-height);
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box {
   display: grid;
