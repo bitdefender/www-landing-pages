@@ -223,6 +223,12 @@
   box-shadow: 4px 4px 7px -8px #000;
   border: 1px solid #adacac;
 }
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul li > ul li .icon {
+  width: 12px;
+  height: 12px;
+  fill: #fff;
+  margin-left: 5px;
+}
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .red-buy-button {
   background: #e72325 !important;
   color: #fff !important;
