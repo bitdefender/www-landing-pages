@@ -318,10 +318,10 @@ export default async function decorate(block) {
 
       innerCard.classList.add('inner_prod_box');
 
-      const listElements = innerCard.querySelectorAll('li');
+      const listElements = innerCard.querySelectorAll('ul > li > ul > li');
       listElements.forEach((li) => {
-        li.innerHTML = replacePill(li.innerHTML, /\?green-pill\s+([^?]+)\?/, 'green-pill');
-        li.innerHTML = replacePill(li.innerHTML, /\?blue-pill\s+([^?]+)\?/, 'blue-pill');
+        li.innerHTML = replacePill(li.innerHTML, /\?green-pill (\w+)/, 'green-pill');
+        li.innerHTML = replacePill(li.innerHTML, /\?blue-pill (\w+)/, 'blue-pill');
       });
 
       const buyButtons = innerCard.querySelectorAll('a[href*="#buylink"]');
