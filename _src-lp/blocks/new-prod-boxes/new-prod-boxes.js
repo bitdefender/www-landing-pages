@@ -2,6 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import { productAliases } from '../../scripts/scripts.js';
 import { updateProductsList, matchHeights } from '../../scripts/utils.js';
+import Constants from '../../scripts/constants.js';
 
 function updateTagsMargin(block) {
   const greenTags = block.querySelectorAll('.greenTag2');
@@ -547,7 +548,7 @@ export default function decorate(block) {
                 ${textUnderOldPrice ? `<div class="text_under_oldprice">${textUnderOldPrice}</div>` : ''}
 
                 ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                  <span class="prod-newprice${!onSelectorClass.includes('monthly') && !onSelectorClass.includes('m-') ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
+                  <span class="prod-newprice${!onSelectorClass.includes('monthly') && !Constants.MONTHLY_PRODUCTS.includes(prodName) ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
                   <sup>${price.innerHTML.trim().replace('0', '')}</sup>
                 </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
                   <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
