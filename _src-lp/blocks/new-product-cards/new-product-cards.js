@@ -318,6 +318,10 @@ export default async function decorate(block) {
     const innerCard = card.querySelector(':scope > div');
     if (innerCard) {
       innerCard.classList.add('inner_prod_box');
+      const products = block.closest('.section').dataset[`pricing${idx + 1}`]?.split(',') || [];
+      const activeProduct = products[checkedRadio - 1] || products[0];
+      const [activeProductName, activeProductUsers, activeProductYears] = activeProduct.split('/');
+      const activeProductSelectorClass = `${activeProductName}-${activeProductUsers}${activeProductYears}`;
 
       const listElements = innerCard.querySelectorAll('ul > li > ul > li');
       listElements.forEach((li) => {
@@ -329,7 +333,6 @@ export default async function decorate(block) {
       buyButtons.forEach((button) => {
         const buyLinksContainer = document.createElement('div');
         buyLinksContainer.classList.add('buylinks-container');
-        const products = block.closest('.section').dataset[`pricing${idx + 1}`]?.split(',') || [];
         buyLinksContainer.innerHTML = `${products.map((product) => {
           const [productName, productUsers, productYears] = product.split('/');
           const selectorClass = `${productName}-${productUsers}${productYears}`;
@@ -345,6 +348,33 @@ export default async function decorate(block) {
       paragraphs.forEach((p) => {
         p.innerHTML = p.innerHTML.replace(0, '<span class="billed-price-container"></span>');
       });
+
+      const addOnList = card.querySelector(':scope > div > ol');
+      if (addOnList) {
+        const items = addOnList.querySelectorAll(':scope > li');
+
+        const [isCheckbox, addonProduct, addonContent] = [...items];
+
+        if (isCheckbox.textContent.toLowerCase().includes('add-on-checkbox') && addonProduct) {
+          updateProductsList(addonProduct.textContent.trim());
+
+          const [addOnProductName, addOnProductUsers, addOnProductYears] = addonProduct.textContent.trim().split('/');
+          const addOnSelectorClass = `${addOnProductName}-${addOnProductUsers}${addOnProductYears}`;
+          isCheckbox.remove();
+          addonProduct.remove();
+
+          addonContent.innerHTML = ` <div class= "vpn_box prodload prodload-${activeProductSelectorClass.trim()}">
+          <input type="checkbox" id="checkboxVPN-${activeProductSelectorClass.trim()}" class="checkboxVPN-${activeProductSelectorClass} checkboxVPN" value="">
+          <label for="checkboxVPN-${activeProductSelectorClass.trim()}" class="add-on-label">
+            ${addonContent.innerHTML
+    .replace('0%', `&nbsp;<span class="add-on-percent prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-percent percent-${addOnSelectorClass.trim()}"></span></span>`)
+    .replace('0', `<span class="add-on-price prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-newprice newprice-${addOnSelectorClass.trim()}"></span></span>`)
+    .replace('<del>0</del>', `&nbsp;<span class="add-on-percent prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-oldprice oldprice-${addOnSelectorClass.trim()}"></span></span>`)}
+          </label>
+          </div>
+        `;
+        }
+      }
 
       renderNanoBlocks(innerCard, undefined, idx);
 

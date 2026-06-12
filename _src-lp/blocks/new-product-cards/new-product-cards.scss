@@ -105,7 +105,7 @@
         .new-product-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 0;
 
             .prod_box {
                 padding: 25px;
@@ -114,13 +114,14 @@
                 position: relative;
                 display: grid;
                 grid-template-rows: subgrid;
-                grid-row: span 10;
+                grid-row: span 50;
+                gap: 0;
                 margin-top: var(--green-tag-height);
 
                .inner_prod_box {
                     display: grid;
                     grid-template-rows: subgrid;
-                    grid-row: span 10;
+                    grid-row: span 50;
                     gap: 0;
 
                     h3 {
@@ -303,6 +304,53 @@
                         }
                     }
 
+                    ol {
+                        display: grid;
+                        list-style: none;
+                        padding-left: 0;
+                        gap: 12px;
+                        margin: 0;
+
+                        li {
+                            display: flex;
+                            gap: 5px;
+                            font-size: 14px;
+
+                            .icon {
+                                width: 23px;
+                                height: 23px;
+                                fill: #fff;
+                            }
+                        }
+
+                        .vpn_box {
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            font-size: 14px;
+                            line-height: 16px;
+                            color: #000;
+                            background-color: #EAF5EC;
+                            border-radius: 4px;
+                            padding: 20px;
+
+                            input {
+                                width: 14px;
+                                margin: 0;
+                                margin-right: 10px;
+                            }
+
+                            .prod-newprice {
+                                font-size: 14px;
+                                font-weight: unset;
+                            }
+
+                            .prod-oldprice {
+                                color: #000;
+                            }
+                        }
+                    }
+
                     .red-buy-button {
                         background: #e72325 !important;
                         color: #fff !important;
@@ -379,6 +427,14 @@
                             
                         }
                     }
+                }
+
+                &:not(:first-of-type) {
+                    margin-left: 15px;
+                }
+
+                &:not(:last-of-type) {
+                    margin-right: 15px;
                 }
             }
         }
