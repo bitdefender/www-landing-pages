@@ -1,5 +1,6 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { updateProductsList, getDatasetFromSection } from '../../scripts/utils.js';
+import Constants from '../../scripts/constants.js';
 
 const nanoBlocks = new Map();
 
@@ -163,6 +164,11 @@ function renderRadios(...radios) {
 function renderPricing(...products) {
   const root = document.createElement('div');
   root.classList.add('pricing-container');
+  const productCard = products[products.length - 1];
+  const section = productCard.closest('.section');
+  const monthlyPrice = section.dataset.monthlyPrice;
+  const billedPrice = productCard.querySelector('.billed-price-container');
+  console.log(billedPrice);
 
   products.forEach((product) => {
     if (typeof product === 'string') {
@@ -177,10 +183,15 @@ function renderPricing(...products) {
               <strong class="save prod-percent">Save <span class="percent-${selectorClass}"></span></strong>
             </div>
             <div class="prices_box await-loader prodload prodload-${selectorClass}">
-              <span class="prod-newprice newprice-${selectorClass}"></span>
+              <span class="prod-newprice newprice-${selectorClass} ${monthlyPrice && !Constants.MONTHLY_PRODUCTS.includes(productName) ? 'calculate_monthly' : ''}"></span>
+              ${monthlyPrice ? `<sup>${monthlyPrice}</sup>` : ''}
             </div>
         </div>
       `;
+
+      if (billedPrice) {
+        billedPrice.innerHTML += `<span class="prod-newprice newprice-${selectorClass} billed-price"></span>`;
+      }
     }
   });
 
@@ -192,34 +203,22 @@ createNanoBlock('blueTag', renderBlueTag);
 createNanoBlock('radios', renderRadios);
 createNanoBlock('pricing', renderPricing);
 
-function replacePill(content, regExp, pillClass) {
-  const pillText = content.match(regExp);
+function replacePill(content) {
+  const pillPattern = /\?(blue|green)-pill\s+([^?]+?)(?:\s*(<span class="icon[^"]*">[\s\S]*?<\/span>))?(?=\s*\?(?:blue|green)-pill\s+|$)/g;
 
-  const icon = content.match(/(?<!<span[^>]*\b(?:blue-pill|green-pill)\b[^>]*>[^<]*?)<span class="[^"]*\bicon\b[^"]*">.*?<\/span>/g);
-  let updatedContent = content;
-
-  if (pillText) {
-    // Remove original icon if found
-    if (icon) {
-      updatedContent = updatedContent.replace(icon[0], '');
-    }
-
-    // Create the pill element
+  return content.replace(pillPattern, (match, pillType, pillText, icon) => {
     const pillElement = document.createElement('span');
-    pillElement.classList.add(pillClass);
-    pillElement.innerHTML = `${pillText[1]}${icon ? icon[0] : ''}`;
-
-    // Replace the ?pill or ?green-pill directive with the new pill HTML
-    updatedContent = updatedContent.replace(pillText[0], pillElement.outerHTML);
-  }
-
-  return updatedContent;
+    pillElement.classList.add(`${pillType}-pill`);
+    pillElement.innerHTML = `${pillText.trim()}${icon || ''}`;
+    return pillElement.outerHTML;
+  });
 }
 
 function selectRadioPricing(innerCard, selectedRadioIndex) {
   const radios = innerCard.querySelectorAll('.radio-wrapper');
   const pricingZones = innerCard.querySelectorAll('.pricing');
   const buyLinks = innerCard.querySelectorAll('.red-buy-button');
+  const billledPrices = innerCard.querySelectorAll('.billed-price');
 
   radios.forEach((radio, radioIndex) => {
     const input = radio.querySelector('input');
@@ -231,6 +230,10 @@ function selectRadioPricing(innerCard, selectedRadioIndex) {
 
   pricingZones.forEach((pricingZone, pricingIndex) => {
     pricingZone.style.display = pricingIndex === selectedRadioIndex ? 'grid' : 'none';
+  });
+
+  billledPrices.forEach((billedPrice, billedIndex) => {
+    billedPrice.style.display = billedIndex === selectedRadioIndex ? 'inline-block' : 'none';
   });
 
   buyLinks.forEach((buyLink, buyIndex) => {
@@ -314,14 +317,11 @@ export default async function decorate(block) {
     card.classList.add('prod_box');
     const innerCard = card.querySelector(':scope > div');
     if (innerCard) {
-      renderNanoBlocks(innerCard, undefined, idx);
-
       innerCard.classList.add('inner_prod_box');
 
       const listElements = innerCard.querySelectorAll('ul > li > ul > li');
       listElements.forEach((li) => {
-        li.innerHTML = replacePill(li.innerHTML, /\?green-pill (\w+)/, 'green-pill');
-        li.innerHTML = replacePill(li.innerHTML, /\?blue-pill (\w+)/, 'blue-pill');
+        li.innerHTML = replacePill(li.innerHTML);
       });
 
       const buyButtons = innerCard.querySelectorAll('a[href*="#buylink"]');
@@ -340,6 +340,13 @@ export default async function decorate(block) {
 
         button.closest('.button-container').replaceWith(buyLinksContainer);
       });
+
+      const paragraphs = card.querySelectorAll('p');
+      paragraphs.forEach((p) => {
+        p.innerHTML = p.innerHTML.replace(0, '<span class="billed-price-container"></span>');
+      });
+
+      renderNanoBlocks(innerCard, undefined, idx);
 
       const radios = innerCard.querySelectorAll('.radio-wrapper');
 

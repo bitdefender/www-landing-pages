@@ -137,6 +137,12 @@
                         color: #555;
                         margin-bottom: 8px;
                         margin-top: 0;
+
+                        .prod-newprice {
+                            font-size: 12px;
+                            line-height: 14px;
+                            color: #555;
+                        }
                     }
 
                     .green-tag {
@@ -331,6 +337,17 @@
 
                             .prices_box {
                                 text-align: left;
+                                display: flex;
+
+                                sup {
+                                    top: -4px;
+                                    font-size: 14px;
+                                    line-height: 16px;
+                                    color: #3D3D3D;
+                                    font-weight: bold;
+                                    margin: 10px 0 0 10px;
+                                    text-align: left;
+                                }
 
                                 .prod-newprice {
                                     font-size: var(--heading-font-size-l);
