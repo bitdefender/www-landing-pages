@@ -140,6 +140,9 @@ export default function decorate(block) {
   // apply discount
   contentEl.innerHTML = contentEl.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
 
+  // apply newprice
+  contentRightEl.innerHTML = contentRightEl.innerHTML.replace(/00/g, '<span class="newprice-vpn-101"></span>');
+
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (innerBackgroundColor) blockStyle.backgroundColor = innerBackgroundColor;
@@ -225,7 +228,7 @@ export default function decorate(block) {
 
       if (tableRadios && tablePrices) {
         const [radio1, radio2] = tableRadios.querySelectorAll('td');
-        const tablePricesText = tablePrices.textContent;
+        const tablePricesText = tablePrices.querySelector('tr').textContent;
         const tableBuyBtn = contentRightItem.querySelector('table:last-of-type');
         // radios
         if (!display) {
