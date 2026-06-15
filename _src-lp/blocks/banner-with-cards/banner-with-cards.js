@@ -141,7 +141,9 @@ export default function decorate(block) {
   contentEl.innerHTML = contentEl.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
 
   // apply newprice
-  contentRightEl.innerHTML = contentRightEl.innerHTML.replace(/xx/g, '<span class="newprice-vpn-101"></span>');
+  if (contentRightEl) {
+    contentRightEl.innerHTML = contentRightEl?.innerHTML.replace(/xx/g, '<span class="newprice-vpn-101"></span>');
+  }
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
