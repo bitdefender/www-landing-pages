@@ -223,7 +223,7 @@
                         padding-left: 0;
                         margin: 0;
 
-                        li {
+                        >li {
                             list-style: none;
                             padding-left: 0;
 
@@ -300,6 +300,17 @@
                                         justify-content: center;
                                     }
                                 }
+                            }
+
+                            &.has-arrow-left::before {
+                                position: relative;
+                                content: "";
+                                margin: 0 5px 20px 0;
+                                background: url("/_src-lp/icons/arrow-left-blue.png") no-repeat center transparent;
+                                width: 20px;
+                                height: 20px;
+                                background-size: 15px 12px;
+                                float: left;
                             }
                         }
                     }

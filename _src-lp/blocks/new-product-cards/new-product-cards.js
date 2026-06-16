@@ -253,6 +253,20 @@ function setSliderBoxVisibility(block, showFamilyBoxes) {
   updateTagsMargin(block);
 }
 
+function removeArrowMarker(element) {
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+
+  while (walker.nextNode()) {
+    const textNode = walker.currentNode;
+    const updatedText = textNode.textContent.replace(/\s*<-\s*/, '');
+
+    if (updatedText !== textNode.textContent) {
+      textNode.textContent = updatedText;
+      break;
+    }
+  }
+}
+
 export default async function decorate(block) {
   const section = block.closest('.section');
   const productCards = [...block.children];
@@ -323,9 +337,13 @@ export default async function decorate(block) {
       const [activeProductName, activeProductUsers, activeProductYears] = activeProduct.split('/');
       const activeProductSelectorClass = `${activeProductName}-${activeProductUsers}${activeProductYears}`;
 
-      const listElements = innerCard.querySelectorAll('ul > li > ul > li');
+      const listElements = innerCard.querySelectorAll('.inner_prod_box > ul > li');
       listElements.forEach((li) => {
         li.innerHTML = replacePill(li.innerHTML);
+        if (li.innerText.includes('<-')) {
+          li.classList.add('has-arrow-left');
+          removeArrowMarker(li);
+        }
       });
 
       const buyButtons = innerCard.querySelectorAll('a[href*="#buylink"]');
