@@ -714,6 +714,10 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   display: none;
 }
 
+.section.banner-with-cards-container.show-save[data-show="3-cols"] .banner-with-cards .prodBox .prices_box .prod-save {
+  display: flex;
+}
+
 @media (width <= 1225px) {
   .section.banner-with-cards-container.margin-0 .banner-with-cards .customWrapper {
     padding: 0 15px;
