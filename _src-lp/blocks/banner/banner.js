@@ -62,8 +62,6 @@ export default function decorate(block) {
   if (imageCover) parentBlock.classList.add(`bckimg-${imageCover}`);
   if (!hasContentEl) parentBlock.classList.add('full-width');
 
-  block.innerHTML = block.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
-
   // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     let prodName;
