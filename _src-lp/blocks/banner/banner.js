@@ -62,6 +62,8 @@ export default function decorate(block) {
   if (imageCover) parentBlock.classList.add(`bckimg-${imageCover}`);
   if (!hasContentEl) parentBlock.classList.add('full-width');
 
+  contentEl.innerHTML = contentEl.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
+
   // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     let prodName;
@@ -311,26 +313,6 @@ export default function decorate(block) {
 
       table.innerHTML = '';
       table.appendChild(greenCircleBox);
-    }
-
-    // GREEN_CIRCLE_BOX
-    if (aliasTr && aliasTr.textContent.trim() === 'percent_circle') {
-      // eslint-disable-next-line no-unused-vars
-      const textContent = table.querySelector('tr:nth-of-type(2)')?.innerText.trim();
-      const greenCircleBox = document.createElement('div');
-
-      greenCircleBox.id = 'buyBtnGreenCircleBox';
-      greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
-
-      if (textContent?.includes('0%') || textContent?.includes('0 %')) {
-        greenCircleBox.innerHTML = `
-          <span class='green_circle_box v2'>
-            ${textContent.replace(/0\s*%/g, '<strong class="max-discount"></strong>')}
-          </span>
-        `;
-      }
-
-      table.replaceChildren(greenCircleBox);
     }
 
     // GREEN_CIRCLE_BOX
