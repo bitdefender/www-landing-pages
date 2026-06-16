@@ -332,6 +332,21 @@ export default function decorate(block) {
 
       table.replaceChildren(greenCircleBox);
     }
+
+    // GREEN_CIRCLE_BOX
+    if (aliasTr && aliasTr.textContent.trim() === 'percent_text') {
+      // eslint-disable-next-line no-unused-vars
+      const textContent = table.querySelector('tr:nth-of-type(2)')?.innerHTML.trim();
+      const percentBox = document.createElement('div');
+
+      if (textContent?.includes('0%') || textContent?.includes('0 %')) {
+        percentBox.innerHTML = `
+           ${textContent.replace(/0\s*%/g, '<strong class="max-discount"></strong>')}
+        `;
+      }
+
+      table.replaceChildren(percentBox);
+    }
   });
 
   if (products) {
