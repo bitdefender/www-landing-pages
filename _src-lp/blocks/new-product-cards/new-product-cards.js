@@ -385,9 +385,9 @@ export default async function decorate(block) {
           <input type="checkbox" id="checkboxVPN-${activeProductSelectorClass.trim()}" class="checkboxVPN-${activeProductSelectorClass} checkboxVPN" value="">
           <label for="checkboxVPN-${activeProductSelectorClass.trim()}" class="add-on-label">
             ${addonContent.innerHTML
-    .replace('0%', `&nbsp;<span class="add-on-percent prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-percent percent-${addOnSelectorClass.trim()}"></span></span>`)
-    .replace('0', `<span class="add-on-price prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-newprice newprice-${addOnSelectorClass.trim()}"></span></span>`)
-    .replace('<del>0</del>', `&nbsp;<span class="add-on-percent prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-oldprice oldprice-${addOnSelectorClass.trim()}"></span></span>`)}
+    .replace('{PERCENT}', `&nbsp;<span class="add-on-percent prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-percent percent-${addOnSelectorClass.trim()}"></span></span>`)
+    .replace('{PRICE}', `<span class="add-on-price prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-newprice newprice-${addOnSelectorClass.trim()}"></span></span>`)
+    .replace('{OLD_PRICE}', `&nbsp;<span class="add-on-percent prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-oldprice oldprice-${addOnSelectorClass.trim()}"></span></span>`)}
           </label>
           </div>
         `;

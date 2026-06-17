@@ -117,6 +117,8 @@
                 grid-row: span 50;
                 gap: 0;
                 margin-top: var(--green-tag-height);
+                margin-left: 15px;
+                margin-right: 15px;
 
                .inner_prod_box {
                     display: grid;
@@ -468,12 +470,14 @@
                     }
                 }
 
-                &:not(:first-of-type) {
-                    margin-left: 15px;
+                &.individual-box:not(.individual-box ~ .individual-box),
+                &.family-box:not(.family-box ~ .family-box) {
+                    margin-left: 0;
                 }
 
-                &:not(:last-of-type) {
-                    margin-right: 15px;
+                &.individual-box:not(:has(~ .individual-box)),
+                &.family-box:not(:has(~ .family-box)) {
+                    margin-right: 0;
                 }
             }
         }
