@@ -1,5 +1,5 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { updateProductsList, getDatasetFromSection } from '../../scripts/utils.js';
+import { updateProductsList, getDatasetFromSection, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 import Constants from '../../scripts/constants.js';
 
 const nanoBlocks = new Map();
@@ -109,17 +109,12 @@ function updateTagsMargin(block) {
   });
 }
 
-function renderGreenTag(text, ...params) {
+function renderGreenTag(text) {
   const root = document.createElement('div');
-  const cardIndex = params[params.length - 2];
-  const card = params[params.length - 1];
 
-  // eslint-disable-next-line no-unsafe-optional-chaining
-  const [product, productUsers, productYears] = card?.closest('.section')?.dataset?.[`pricing${cardIndex + 1}`]?.split(',')?.[0]?.split('/');
-  const selectorClass = `${product}-${productUsers}${productYears}`;
   root.classList.add('green-tag');
-  root.innerHTML = text.replace('PERCENT', `&nbsp;<span class="percent-${selectorClass.trim()}"></span>`);
-
+  root.innerHTML = text.replace('PERCENT', '&nbsp;<span data-store-render data-store-discount="percentage"></span>');
+  root.setAttribute('data-store-hide', '!it.option.price.discounted ');
   if (!text) root.classList.add('hidden');
 
   return root;
@@ -136,6 +131,10 @@ function renderRadios(...radios) {
   const cardIndex = radios[radios.length - 2];
   const root = document.createElement('div');
   root.classList.add('radios-container');
+  const productCard = radios[radios.length - 1];
+  const section = productCard.closest('.section');
+  const products = section.dataset[`pricing${cardIndex + 1}`]?.split(',') || [];
+  const checkedRadio = section.dataset.checkedRadio;
 
   radios.forEach((radio, idx) => {
     if (typeof radio === 'string') {
@@ -148,6 +147,11 @@ function renderRadios(...radios) {
       radioElement.name = `radio-card-${cardIndex}`;
       radioElement.value = `radio-card-${cardIndex}-${idx}`;
       radioElement.id = `radio-card-${cardIndex}-${idx}`;
+      radioElement.setAttribute('data-store-action', '');
+      radioElement.setAttribute('data-store-set-id', `${products[idx]?.split('/')[0].trim()}`);
+      radioElement.setAttribute('data-store-set-devices', `${products[idx]?.split('/')[1].trim()}`);
+      radioElement.setAttribute('data-store-set-subscription', `${products[idx]?.split('/')[2].trim()}`);
+      if (checkedRadio && idx + 1 === Number(checkedRadio)) radioElement.checked = true;
 
       const radioLabel = document.createElement('label');
       radioLabel.setAttribute('for', `radio-card-${cardIndex}-${idx}`);
@@ -165,35 +169,34 @@ function renderPricing(...products) {
   const root = document.createElement('div');
   root.classList.add('pricing-container');
   const productCard = products[products.length - 1];
+
   const section = productCard.closest('.section');
   const monthlyPrice = section.dataset.monthlyPrice;
   const billedPrice = productCard.querySelector('.billed-price-container');
   console.log(billedPrice);
 
-  products.forEach((product) => {
-    if (typeof product === 'string') {
-      updateProductsList(product);
-      const [productName, productUsers, productYears] = product.split('/');
-      const selectorClass = `${productName}-${productUsers}${productYears}`;
+  const productName = products[0].split('/')[0];
 
-      root.innerHTML += `
+  root.innerHTML += `
         <div class="pricing">
-           <div class="save_price_box await-loader prodload prodload-${selectorClass}">
-              <span class="prod-oldprice oldprice-${selectorClass}"></span>
-              <strong class="save prod-percent">Save <span class="percent-${selectorClass}"></span></strong>
+           <div class="save_price_box await-loader new-store" data-store-render data-store-hide="!it.option.price.discounted">
+              <span class="prod-oldprice" data-store-render data-store-price="full"></span>
+              <strong class="save prod-percent">Save <span data-store-render data-store-discount="percentage"></span></strong>
             </div>
-            <div class="prices_box await-loader prodload prodload-${selectorClass}">
-              <span class="prod-newprice newprice-${selectorClass} ${monthlyPrice && !Constants.MONTHLY_PRODUCTS.includes(productName) ? 'calculate_monthly' : ''}"></span>
+            <div class="prices_box await-loader new-store">
+              <span class="prod-newprice" data-store-render
+              ${monthlyPrice && !Constants.MONTHLY_PRODUCTS.includes(productName)
+    ? 'data-store-price="discounted-monthly||full-monthly"'
+    : 'data-store-price="discounted||full"'}">
+              </span>
               ${monthlyPrice ? `<sup>${monthlyPrice}</sup>` : ''}
             </div>
         </div>
       `;
 
-      if (billedPrice) {
-        billedPrice.innerHTML += `<span class="prod-newprice newprice-${selectorClass} billed-price"></span>`;
-      }
-    }
-  });
+  if (billedPrice) {
+    billedPrice.innerHTML += '<span class="prod-newprice billed-price" data-store-render data-store-price="discounted||full"></span>';
+  }
 
   return root;
 }
@@ -211,33 +214,6 @@ function replacePill(content) {
     pillElement.classList.add(`${pillType}-pill`);
     pillElement.innerHTML = `${pillText.trim()}${icon || ''}`;
     return pillElement.outerHTML;
-  });
-}
-
-function selectRadioPricing(innerCard, selectedRadioIndex) {
-  const radios = innerCard.querySelectorAll('.radio-wrapper');
-  const pricingZones = innerCard.querySelectorAll('.pricing');
-  const buyLinks = innerCard.querySelectorAll('.red-buy-button');
-  const billledPrices = innerCard.querySelectorAll('.billed-price');
-
-  radios.forEach((radio, radioIndex) => {
-    const input = radio.querySelector('input');
-    if (!input) return;
-
-    input.checked = radioIndex === selectedRadioIndex;
-    input.toggleAttribute('checked', radioIndex === selectedRadioIndex);
-  });
-
-  pricingZones.forEach((pricingZone, pricingIndex) => {
-    pricingZone.style.display = pricingIndex === selectedRadioIndex ? 'grid' : 'none';
-  });
-
-  billledPrices.forEach((billedPrice, billedIndex) => {
-    billedPrice.style.display = billedIndex === selectedRadioIndex ? 'inline-block' : 'none';
-  });
-
-  buyLinks.forEach((buyLink, buyIndex) => {
-    buyLink.style.display = buyIndex === selectedRadioIndex ? 'inline-block' : 'none';
   });
 }
 
@@ -310,21 +286,6 @@ export default async function decorate(block) {
     block.parentElement.prepend(switchBox);
   }
 
-  block.addEventListener('click', (event) => {
-    const radio = event.target.closest('.radio-wrapper');
-    if (!radio || !block.contains(radio)) return;
-
-    const innerCard = radio.closest('.inner_prod_box');
-    const radios = [...innerCard.querySelectorAll('.radio-wrapper')];
-    const radioIndex = radios.indexOf(radio);
-    if (radioIndex === -1) return;
-    const input = radio.querySelector('input');
-    const pricingZone = innerCard.querySelectorAll('.pricing')[radioIndex];
-    if (input?.checked && pricingZone?.style.display === 'grid') return;
-
-    selectRadioPricing(innerCard, radioIndex);
-  });
-
   productCards.forEach((card, idx) => {
     if (idx >= limit) card.classList.add('family-box');
     else card.classList.add('individual-box');
@@ -335,7 +296,12 @@ export default async function decorate(block) {
       const products = block.closest('.section').dataset[`pricing${idx + 1}`]?.split(',') || [];
       const activeProduct = products[checkedRadio - 1] || products[0];
       const [activeProductName, activeProductUsers, activeProductYears] = activeProduct.split('/');
-      const activeProductSelectorClass = `${activeProductName}-${activeProductUsers}${activeProductYears}`;
+      wrapChildrenWithStoreContext(innerCard, {
+        productId: activeProductName,
+        devices: activeProductUsers,
+        subscription: activeProductYears,
+        storeEvent: 'info',
+      });
 
       const listElements = innerCard.querySelectorAll('.inner_prod_box > ul > li');
       listElements.forEach((li) => {
@@ -349,17 +315,9 @@ export default async function decorate(block) {
       const buyButtons = innerCard.querySelectorAll('a[href*="#buylink"]');
 
       buyButtons.forEach((button) => {
-        const buyLinksContainer = document.createElement('div');
-        buyLinksContainer.classList.add('buylinks-container');
-        buyLinksContainer.innerHTML = `${products.map((product) => {
-          const [productName, productUsers, productYears] = product.split('/');
-          const selectorClass = `${productName}-${productUsers}${productYears}`;
-          return `
-            <a class="red-buy-button buylink-${selectorClass.trim()}" href="#">Buy Now</a>
-          `;
-        }).join('')}`;
-
-        button.closest('.button-container').replaceWith(buyLinksContainer);
+        button.classList.add('red-buy-button');
+        button.setAttribute('data-store-render', '');
+        button.setAttribute('data-store-buy-link', '');
       });
 
       const paragraphs = card.querySelectorAll('p');
@@ -367,7 +325,7 @@ export default async function decorate(block) {
         p.innerHTML = p.innerHTML.replace(0, '<span class="billed-price-container"></span>');
       });
 
-      const addOnList = card.querySelector(':scope > div > ol');
+      const addOnList = card.querySelector(':scope  div  ol');
       if (addOnList) {
         const items = addOnList.querySelectorAll(':scope > li');
 
@@ -375,34 +333,40 @@ export default async function decorate(block) {
 
         if (isCheckbox.textContent.toLowerCase().includes('add-on-checkbox') && addonProduct) {
           updateProductsList(addonProduct.textContent.trim());
-
           const [addOnProductName, addOnProductUsers, addOnProductYears] = addonProduct.textContent.trim().split('/');
-          const addOnSelectorClass = `${addOnProductName}-${addOnProductUsers}${addOnProductYears}`;
           isCheckbox.remove();
           addonProduct.remove();
 
-          addonContent.innerHTML = ` <div class= "vpn_box prodload prodload-${activeProductSelectorClass.trim()}">
-          <input type="checkbox" id="checkboxVPN-${activeProductSelectorClass.trim()}" class="checkboxVPN-${activeProductSelectorClass} checkboxVPN" value="">
-          <label for="checkboxVPN-${activeProductSelectorClass.trim()}" class="add-on-label">
+          const addOnLabel = document.createElement('label');
+          addOnLabel.setAttribute('for', `addon-checkBox-${idx}`);
+          addOnLabel.innerHTML = `
             ${addonContent.innerHTML
-    .replace('{PERCENT}', `&nbsp;<span class="add-on-percent prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-percent percent-${addOnSelectorClass.trim()}"></span></span>`)
-    .replace('{PRICE}', `<span class="add-on-price prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-newprice newprice-${addOnSelectorClass.trim()}"></span></span>`)
-    .replace('{OLD_PRICE}', `&nbsp;<span class="add-on-percent prodload prodload-${addOnSelectorClass.trim()}"><span class="prod-oldprice oldprice-${addOnSelectorClass.trim()}"></span></span>`)}
-          </label>
+    .replace('{PERCENT}', '&nbsp;<span class="add-on-percent"><span class="prod-percent" data-store-render data-store-discount="percentage"></span></span>')
+    .replace('{PRICE}', '<span class="add-on-price"><span class="prod-newprice" data-store-render data-store-price="discounted||full"></span></span>')
+    .replace('{OLD_PRICE}', '&nbsp;<span class="add-on-percent"><span class="prod-oldprice" data-store-render data-store-price="full"></span></span>')}
+    `;
+
+          wrapChildrenWithStoreContext(addOnLabel, {
+            productId: addOnProductName,
+            devices: addOnProductUsers,
+            subscription: addOnProductYears,
+            ignoreEventsParent: true,
+            storeEvent: 'info',
+          });
+          addonContent.innerHTML = ` <div class= "vpn_box">
+          <input type="checkbox" id="addon-checkBox-${idx}" name="addon-checkbox-${idx}"
+          data-store-action data-store-set-bundle 
+          data-store-set-id="${addOnProductName}"
+          data-store-set-devices="${addOnProductUsers}"
+          data-store-set-subscription="${addOnProductYears}"
+          class="checkboxVPN" value="">
+          ${addOnLabel.outerHTML}
           </div>
         `;
         }
       }
 
       renderNanoBlocks(innerCard, undefined, idx);
-
-      const radios = innerCard.querySelectorAll('.radio-wrapper');
-
-      radios.forEach((radio, radioIndex) => {
-        if (radioIndex + 1 === Number(checkedRadio)) {
-          selectRadioPricing(innerCard, radioIndex);
-        }
-      });
     }
   });
 

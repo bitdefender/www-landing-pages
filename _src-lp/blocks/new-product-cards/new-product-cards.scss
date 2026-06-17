@@ -126,6 +126,12 @@
                     grid-row: span 50;
                     gap: 0;
 
+                    bd-context, bd-option, bd-product {
+                        display: grid;
+                        grid-template-rows: subgrid;
+                        grid-row: span 50;
+                    }
+
                     h3 {
                         font-weight: bold;
                         font-size: var(--body-font-size-m);
@@ -352,6 +358,10 @@
                         gap: 12px;
                         margin: 0;
 
+                        bd-context, bd-option, bd-product {
+                            display: block;
+                        }
+
                         li {
                             display: flex;
                             gap: 5px;
@@ -386,6 +396,10 @@
                                 font-weight: unset;
                             }
 
+                            .prod-percent {
+                                visibility: visible;
+                            }
+
                             .prod-oldprice {
                                 color: #000;
                             }
@@ -403,11 +417,25 @@
                         line-height: 14px;
                         font-weight: bold;
                         transition: background-color 0.2s;
-                        width: 94%;
+                        width: 100%;
                         border-style: none;
                         cursor: pointer;
                         margin: 0;
                         text-decoration: none !important;
+                        border: none !important;
+                    }
+
+                    .button.primary {
+                        background: #fff;
+                        color: #000;
+                        border: 1px solid #000;
+                        width: 100%;
+                        margin-top: 8px;
+                        padding: 12px 3% !important;
+                        
+                        &:hover {
+                            filter: brightness(0.9);
+                        }
                     }
 
                     .pricing-container {
@@ -465,7 +493,9 @@
                                 }
                             }
 
-                            
+                            .prod-percent {
+                                visibility: visible;
+                            }
                         }
                     }
                 }
@@ -498,6 +528,7 @@
                                             padding: 3px 7px;
                                             border-radius: 16px;
                                             font-size: 14px;
+                                            visibility: visible;
                                     }
                                 }
                             }
