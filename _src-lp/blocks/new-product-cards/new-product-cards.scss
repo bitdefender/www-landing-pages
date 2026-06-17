@@ -258,11 +258,31 @@
                                                 padding: 10px;
                                                 border-radius: 10px;      
                                                 left: 0;
-                                                top: -32px;
+                                                bottom: calc(100% + 5px);
                                                 z-index: 1;
                                                 font-size: 12px;
                                                 box-shadow: 4px 4px 7px -8px #000;
                                                 border: 1px solid #adacac;
+
+                                                &::before {
+                                                    content: "";
+                                                    position: absolute;
+                                                    left: 17px;
+                                                    bottom: -20px;
+                                                    border-width: 10px;
+                                                    border-style: solid;
+                                                    border-color: #adacac transparent transparent;
+                                                }
+
+                                                &::after {
+                                                    content: "";
+                                                    position: absolute;
+                                                    left: 17px;
+                                                    bottom: -19px;
+                                                    border-width: 10px;
+                                                    border-style: solid;
+                                                    border-color: white transparent transparent;
+                                                }
                                             }
                                         }
                                     }
