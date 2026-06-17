@@ -212,19 +212,19 @@
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li > ul {
   display: none;
+  margin-top: 0;
 }
-.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li:hover ul {
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li:hover > ul {
   display: block;
 }
-.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li:hover li {
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li:hover > ul li {
   position: absolute;
   background: none;
   background-color: white;
   padding: 10px;
   border-radius: 10px;
-  margin-bottom: 28px;
   left: 0;
-  bottom: 12px;
+  top: -32px;
   z-index: 1;
   font-size: 12px;
   box-shadow: 4px 4px 7px -8px #000;
@@ -264,6 +264,7 @@
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li.has-arrow-left::before {
   position: relative;
   content: "";
+  top: 2px;
   margin: 0 5px 20px 0;
   background: url("/_src-lp/icons/arrow-left-blue.png") no-repeat center transparent;
   width: 20px;
