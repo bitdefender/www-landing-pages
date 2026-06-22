@@ -274,6 +274,7 @@
 }
 
 .c-icon-box-grid-container.center .icon-box-grid-column {
+  height: 100%;
   align-items: center;
   text-align: center;
 }
@@ -631,6 +632,22 @@
 .c-icon-box-grid-container.top-image-version .quotebox p {
   padding: 0;
   margin: 5px 0;
+}
+
+.c-icon-box-grid-container.new-june-26 h4 {
+  margin: 0;
+  padding: 0;
+}
+
+.c-icon-box-grid-container.new-june-26 .buttons {
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.c-icon-box-grid-container.new-june-26 .buttons .icon {
+  height: 20px;
+  width: auto;
+  margin-right: 3px;
 }
 
 @media screen and (width >= 992px) {

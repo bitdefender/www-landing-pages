@@ -28,6 +28,7 @@
   --baby-blue-color: #EDF9FF;
   --dark-blue-color: #0853C5;
   --darker-blue-color: #016FFF;
+  --grey-color: #F6F6F6;
   --light-grey-color: #FAFAFA;
   --text-color: #000;
 
@@ -332,6 +333,10 @@ button:hover {
 
 .dark-blue-bck {
   background-color: var(--dark-blue-color);
+}
+
+.grey-bck {
+  background-color: var(--grey-color);
 }
 
 .light-grey-bck {
@@ -656,7 +661,8 @@ main .section.width-smaller .default-content-wrapper {
   margin: 0 auto;
 }
 
-main .section.width-smaller2 .block {
+main .section.width-smaller2 .block,
+main .section.width-smaller2 .default-content-wrapper {
   max-width: 500px;
   margin: 0 auto;
 }

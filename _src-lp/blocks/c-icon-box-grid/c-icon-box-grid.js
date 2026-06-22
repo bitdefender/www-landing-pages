@@ -156,7 +156,7 @@ export default function decorate(block) {
                   <div class="icon-box-grid-column d-flex flex-column justify-content-start">
                     ${hasOldSvgImplementation(col.svgNameEl) ? new SvgLoaderComponent(col.svgNameEl.innerText, svgColor, svgSize).render() : col.svgNameEl.innerHTML}
                     ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
-                    ${col.subtitle ? `<div class="subtitle">${col.subtitle}</div>` : ''}
+                    ${col.subtitle ? `4<div class="subtitle">${col.subtitle}</div>` : ''}
                     ${col.buttons ? `<div class="buttons">${col.buttons}</div>` : ''}
                   </div>
                 </div>
@@ -168,6 +168,7 @@ export default function decorate(block) {
       </div>
     `;
   } else {
+    console.log('col ', formattedDataColumns);
     htmlContent = `
       <div class="container rounded-bottom">
         ${upperText ? `${upperText.innerHTML}` : ''}

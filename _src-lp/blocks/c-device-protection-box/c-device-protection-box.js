@@ -32,10 +32,11 @@ export default function decorate(block) {
         <div class="col-12 col-lg-6 mt-3">
           ${rowText.map((row) => `
             <div class="d-flex row-box">
-              <div>${new SvgLoaderComponent(row.children[0].innerText, svgColor, svgSize).render()}</div>
-              <div class="ms-3">${row.children[1].innerHTML}</div>
-            </div>
-          `).join('')}
+              ${row.children[1] ? `
+                <div>${new SvgLoaderComponent(row.children[0].innerText, svgColor, svgSize).render()}</div>
+                <div class="ms-3 item">${row.children[1].innerHTML}</div>` : `<div class="item">${row.children[0].innerHTML}</div>`}
+            </div >
+    `).join('')}
            ${linkEl.outerHTML}
         </div>
       </div>

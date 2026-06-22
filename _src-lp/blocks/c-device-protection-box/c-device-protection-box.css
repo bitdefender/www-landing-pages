@@ -16,6 +16,52 @@
   font-size: 12px;
 }
 
+.c-device-protection-box-container.new-june-26 .c-device-protection-box-wrapper {
+  margin-top: 0 !important;
+}
+
+.c-device-protection-box-container.new-june-26 .row {
+  gap: 38px;
+}
+
+.c-device-protection-box-container.new-june-26 :not(.image-container) {
+  flex: 1;
+}
+
+.c-device-protection-box-container.new-june-26 .image-container, .c-device-protection-box-container.new-june-26 :not(.image-container) {
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.c-device-protection-box-container.new-june-26 .item {
+  border-radius: 13px;
+  background: #FFF;
+  box-shadow: 0 1px 6px 0 #C1C1C1;
+  padding: 26px;
+  margin: 7.5px 0;
+}
+
+.c-device-protection-box-container.new-june-26 .item h6 {
+  color: #161616;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0 0 17px;
+  padding: 0;
+}
+
+.c-device-protection-box-container.new-june-26 .item p {
+  color: #3D3D3D;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+}
+
 @media screen and (width >= 992px) {
   /* heading */
   .c-device-protection-box-container .row-box > :nth-child(2) > *:first-child {
