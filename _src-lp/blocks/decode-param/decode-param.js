@@ -52,5 +52,5 @@ export default function decorate(block) {
 
   setTimeout(() => {
     window.location.href = redirectUrl;
-  }, 8000);
+  }, 10000);
 }
