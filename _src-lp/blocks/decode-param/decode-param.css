@@ -68,7 +68,7 @@
     height: 100%;
     background: #1a73e8;
     border-radius: 10px;
-    transition: width `0s linear;
+    transition: width 10s linear;
 }
 
 @media (width < 767px) {
