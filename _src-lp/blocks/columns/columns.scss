@@ -158,6 +158,10 @@ main .columns-container.padding-0 .columns-wrapper {
   width: unset;
 }
 
+.columns.bradius-top-20  img{
+  border-radius: 20px 20px 0 0;
+}
+
 .columns>div {
   display: flex;
   flex-direction: column;
