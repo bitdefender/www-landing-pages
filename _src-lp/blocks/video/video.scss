@@ -15,6 +15,11 @@
     justify-content: center;
   }
 
+  &rounded > div {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
   &.left {
     margin-right: auto;
   }

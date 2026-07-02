@@ -13,6 +13,10 @@
   display: flex;
   justify-content: center;
 }
+.videorounded > div {
+  border-radius: 20px;
+  overflow: hidden;
+}
 .video.left {
   margin-right: auto;
 }
