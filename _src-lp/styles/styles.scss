@@ -24,6 +24,8 @@
   --background-color-black: #000;
   --overlay-background-color: #eee;
   --highlight-background-color: #ececec;
+  --highlight-background-color-v2: #F6F6F6;
+  --highlight-background-color-v3: #F2F2F2;
   --background-color-light-sky-blue: #e4f2ff;
   --baby-blue-color: #EDF9FF;
   --dark-blue-color: #0853C5;
@@ -338,8 +340,25 @@ button:hover {
   background-color: var(--light-grey-color);
 }
 
+.dark-blue-bck-2 {
+  background-color: var(--link-hover-color);
+
+  * {
+    color: white;
+  }
+}
+
 .bradius-20 {
   border-radius: 20px;
+}
+
+.bradius-top-20 {
+  border-radius: 20px 20px 0 0;
+}
+
+
+.bradius-bottom-20 {
+  border-radius: 0 0 20px 20px;
 }
 
 [data-button-color="blue"] a.button:any-link,
@@ -638,6 +657,10 @@ main .section .block.rounded {
   border-radius: 20px;
 }
 
+main .section .block.light-sky-blue {
+  background-color: var(--background-color-light-sky-blue);
+}
+
 main .section.width-medium .block,
 main .section.width-medium .default-content-wrapper {
   width: 940px;
@@ -656,7 +679,8 @@ main .section.width-smaller .default-content-wrapper {
   margin: 0 auto;
 }
 
-main .section.width-smaller2 .block {
+main .section.width-smaller2 .block,
+main .section.width-smaller2 .default-content-wrapper {
   max-width: 500px;
   margin: 0 auto;
 }
@@ -899,9 +923,17 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
 }
 
 /* section metadata */
-.section[data-backgroundcolor="grey"] {
+.section[data-backgroundcolor="grey"], section.bck-grey {
   background: var(--highlight-background-color);
   padding: 2em 0;
+}
+
+.section[data-backgroundcolor="light-grey"], section.bck-light-grey {
+  background: var(--highlight-background-color-v2);
+}
+
+.section[data-backgroundcolor="dark-grey"], section.bck-dark-grey {
+  background: var(--highlight-background-color-v3);
 }
 
 .section[data-backgroundcolor="black"] {
@@ -913,11 +945,11 @@ main .section.highlight {
   background-color: var(--highlight-background-color);
 }
 
-main .section.light-sky-blue-bck{
+main .section.light-sky-blue-bck {
   background-color: var(--background-color-light-sky-blue);
 }
 
-main .section.light-sky-blue>* {
+main .section.light-sky-blue > * {
   /* apply to all children wrapper */
   background-color: var(--background-color-light-sky-blue);
 }
@@ -2409,7 +2441,7 @@ main .section.they-wear-our-faces {
     margin: 0;
   }
 
-  main .blue-box-rounded>div {
+  main .blue-box-rounded > div {
     padding: 0;
   }
 }

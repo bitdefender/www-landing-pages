@@ -15,6 +15,11 @@
     justify-content: center;
   }
 
+  &.rounded > div {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
   &.left {
     margin-right: auto;
   }
@@ -106,5 +111,12 @@
     background-size: contain;   
     background-position: center;
     background-repeat: no-repeat;
+  }
+}
+
+@media (width <= 767px) {
+  .video-container .default-content-wrapper {
+    width: auto;
+    max-width: unset;
   }
 }
