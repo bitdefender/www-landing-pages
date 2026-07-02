@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
 }
-.videorounded > div {
+.video.rounded > div {
   border-radius: 20px;
   overflow: hidden;
 }
