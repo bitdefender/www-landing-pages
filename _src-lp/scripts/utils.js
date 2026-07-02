@@ -688,6 +688,18 @@ export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = un
   }
 }
 
+const DSN_FALLBACK = 'https://esm.sh/@repobit/dex-system-design@0.23.40/';
+
+export const getDsnBase = () => {
+  try {
+    const map = document.querySelector('script[type="importmap"]');
+    const imports = JSON.parse(map?.textContent || '{}').imports || {};
+    return imports['@repobit/dex-system-design/'] || DSN_FALLBACK;
+  } catch {
+    return DSN_FALLBACK;
+  }
+};
+
 // display prices
 export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '', trialPeriod = '') {
   const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;

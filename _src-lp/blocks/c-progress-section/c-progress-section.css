@@ -156,6 +156,9 @@
     width: 830px;
     margin: 0 auto;
   }
+  .c-progress-section-container.full-width .row {
+    width: 100%;
+  }
 }
 @media screen and (width <= 767px) {
   .c-progress-section-container .heading {

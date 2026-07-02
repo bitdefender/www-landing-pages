@@ -94,3 +94,9 @@
     background-repeat: no-repeat;
   }
 }
+@media (width <= 767px) {
+  .video-container .default-content-wrapper {
+    width: auto;
+    max-width: unset;
+  }
+}
