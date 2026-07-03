@@ -766,14 +766,24 @@ main .columns-container.padding-0 .columns-wrapper {
   margin: 0;
 }
 
+.columns.img-full-width > div > div:last-of-type {
+  height: 23em;
+  padding-bottom: 0;
+}
+
 .columns.img-full-width p:last-of-type {
-  margin-top: -36px;
+  position: absolute;
+  bottom: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
 }
 
 .columns.img-full-width p u {
+  display: inline-block;
   background: #1C7928 0% 0% no-repeat padding-box;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
   color: white;
   border-radius: 20px 20px 0 0;
@@ -785,8 +795,17 @@ main .columns-container.padding-0 .columns-wrapper {
   color: white;
 }
 
+.columns-container.v-jul26 .columns .icon {
+  height: 30px;
+  width: auto;
+}
+
 .columns-container.v-jul26 .columns .columns-wrapper {
   margin-bottom: -60px;
+}
+
+.columns-container.v-jul26-3 .columns {
+  padding-top: 12px;
 }
 
 .columns-container.v-nov25 .columns > div:first-of-type .text-content {
@@ -809,6 +828,12 @@ main .columns-container.padding-0 .columns-wrapper {
   border-radius: 20px;
   list-style-type: none;
   padding: 2px 30px;
+}
+
+.columns-container.v-jul26-mobile .default-content-wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: -40px;
 }
 
 .columns-container.v-jul26 .columns > div:first-of-type .text-content ul li {
@@ -1231,6 +1256,9 @@ main .columns-container.padding-0 .columns-wrapper {
     padding: 0;
     margin: 0 0 1em;
   }
+  main .section.v-jul26 {
+    padding: 0;
+  }
 }
 @media (width >= 768px) {
   .mobile-only {
@@ -1625,25 +1653,13 @@ main .columns-container.padding-0 .columns-wrapper {
     line-height: 19px;
     padding: 10px 45px;
   }
-  .columns.img-full-width p:last-of-type {
-    position: absolute;
-    bottom: 8px;
-    margin: auto;
-    left: 0;
-    right: 0;
-  }
-  .columns-container.v-jul26-mobile .default-content-wrapper {
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: -40px;
-  }
   .columns-container.v-jul26 .default-content-wrapper p a {
     font-size: 18px;
     line-height: 20px;
     padding: 14px 30px;
   }
   .columns-container.v-jul26-mobile .columns {
-    padding-bottom: 3em;
+    padding: 0 0 3em;
   }
   .columns-container.v-jul26 .columns > div:first-of-type .text-content ul {
     width: 360px;
@@ -1858,5 +1874,16 @@ main .columns-container.padding-0 .columns-wrapper {
   }
   .section.banner-container.new-2024.v2 p {
     text-align: left;
+  }
+  .columns-container.v-jul26 .columns > div:first-of-type .text-content ul li {
+    width: 138px;
+  }
+}
+@media (width <= 400px) {
+  .columns-container.v-jul26 .columns > div:first-of-type .text-content ul li {
+    width: 100%;
+  }
+  .columns-container.v-jul26 .columns > div:first-of-type .text-content ul {
+    width: auto;
   }
 }
