@@ -17,7 +17,6 @@
 
 .columns-container.csam-design-v3 .block {
   border: 1px solid #183C6C;
-  border-radius: 20px 0 20px 20px;
 }
 
 .columns-container.csam-design .block h2 {
@@ -1756,6 +1755,12 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.compare .columns .icon {
   height: 13px;
+}
+
+@media (width <=989px) {
+  .columns.img-full-width > div > div:last-of-type {
+    height: auto;
+  }
 }
 
 @media (width <=768px) {
