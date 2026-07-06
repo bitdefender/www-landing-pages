@@ -133,6 +133,9 @@
   line-height: 14px;
   color: #555;
 }
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box p:has(.blue-pill) {
+  display: flex;
+}
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .green-tag {
   position: absolute;
   justify-self: center;
