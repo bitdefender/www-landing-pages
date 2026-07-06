@@ -179,7 +179,7 @@
                         }
                     }
 
-                    .blue-tag {
+                    .blue-pill {
                         font-size: var(--body-font-size-xs);
                         font-family: Arial, sans-serif;
                         color: white;
@@ -190,13 +190,30 @@
                         border-radius: 20px;
                         padding: 1px 12px;
                         margin-bottom: 5px;
+                        min-height: 28px;
+                        align-items: center;
+                        margin-right: 8px;
                         width: fit-content;
 
                         .icon {
                             height: 14px;
                             width: 12px;
                             fill: #FFF;
+                            margin-top: -4px;
                         }
+                    }
+
+                    .green-pill {
+                        background-color: #68ba68;
+                        padding: 1px 6.7px;
+                        border-radius: 20px;
+                        color: white;
+                        font-style: normal;
+                        font-size: 11px;
+                        letter-spacing: 0;
+                        font-weight: bold;
+                        display: inline-flex;
+                        justify-content: center;
                     }
 
                     .radios-container {
@@ -314,20 +331,11 @@
                                         display: inline-flex;
                                         justify-content: center;
                                         height: fit-content;
-                                    }
-
-                                    .green-pill {
-                                        background-color: #68ba68;
-                                        padding: 1px 6.7px;
-                                        border-radius: 20px;
-                                        color: white;
-                                        font-style: normal;
-                                        font-size: 11px;
-                                        letter-spacing: 0;
-                                        font-weight: bold;
-                                        display: inline-flex;
-                                        justify-content: center;
-                                    }
+                                        min-height: unset;
+                                        gap: 0;
+                                        margin-right: 4px;
+                                        margin-bottom: 0;
+                                    }   
                                 }
                             }
 

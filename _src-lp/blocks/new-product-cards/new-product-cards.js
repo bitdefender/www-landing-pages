@@ -120,13 +120,6 @@ function renderGreenTag(text) {
   return root;
 }
 
-function renderBlueTag(text, icon) {
-  const root = document.createElement('div');
-  root.classList.add('blue-tag-container');
-  root.innerHTML = `<div class="blue-tag">${icon ? `<span class="icon icon-${icon}"></span>` : ''}${text}</div>`;
-  return root;
-}
-
 function renderRadios(...radios) {
   const cardIndex = radios[radios.length - 2];
   const root = document.createElement('div');
@@ -202,18 +195,83 @@ function renderPricing(...products) {
 }
 
 createNanoBlock('greenTag', renderGreenTag);
-createNanoBlock('blueTag', renderBlueTag);
 createNanoBlock('radios', renderRadios);
 createNanoBlock('pricing', renderPricing);
 
-function replacePill(content) {
-  const pillPattern = /\?(blue|green)-pill\s+([^?]+?)(?:\s*(<span class="icon[^"]*">[\s\S]*?<\/span>))?(?=\s*\?(?:blue|green)-pill\s+|$)/g;
+function isIconElement(node) {
+  return node?.nodeType === Node.ELEMENT_NODE && node.classList.contains('icon');
+}
 
-  return content.replace(pillPattern, (match, pillType, pillText, icon) => {
-    const pillElement = document.createElement('span');
-    pillElement.classList.add(`${pillType}-pill`);
-    pillElement.innerHTML = `${pillText.trim()}${icon || ''}`;
-    return pillElement.outerHTML;
+function createPill(type, text) {
+  const pillElement = document.createElement('span');
+  pillElement.classList.add(`${type}-pill`);
+  if (text.trim()) pillElement.append(text.trim());
+  return pillElement;
+}
+
+function moveLeadingTextToPill(textNode, pillElement) {
+  if (textNode?.nodeType !== Node.TEXT_NODE) return;
+
+  const nextMarkerIndex = textNode.textContent.search(/\?(?:blue|green)-pill/);
+  const textEndIndex = nextMarkerIndex === -1 ? textNode.textContent.length : nextMarkerIndex;
+  const pillText = textNode.textContent.slice(0, textEndIndex).trim();
+
+  if (!pillText) return;
+
+  pillElement.append(pillText);
+  textNode.textContent = textNode.textContent.slice(textEndIndex);
+}
+
+function replacePills(root) {
+  const pillPattern = /\?(blue|green)-pill\s*([^?]*)/g;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.textContent.includes('?blue-pill') && !node.textContent.includes('?green-pill')) {
+        return NodeFilter.FILTER_REJECT;
+      }
+
+      if (node.parentElement.closest('.blue-pill, .green-pill')) {
+        return NodeFilter.FILTER_REJECT;
+      }
+
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  });
+  const textNodes = [];
+
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  textNodes.forEach((textNode) => {
+    const fragment = document.createDocumentFragment();
+    const text = textNode.textContent;
+    let currentIndex = 0;
+    let lastPill;
+
+    [...text.matchAll(pillPattern)].forEach((match) => {
+      const [matchedText, pillType, pillText] = match;
+      const matchIndex = match.index;
+
+      fragment.append(text.slice(currentIndex, matchIndex));
+
+      lastPill = createPill(pillType, pillText);
+      fragment.append(lastPill);
+      currentIndex = matchIndex + matchedText.length;
+    });
+
+    fragment.append(text.slice(currentIndex));
+
+    if (lastPill) {
+      const hasPillText = lastPill.textContent.trim();
+      const nextNode = textNode.nextSibling;
+
+      if (isIconElement(nextNode)) {
+        const textAfterIcon = nextNode.nextSibling;
+        lastPill.append(nextNode);
+        if (!hasPillText) moveLeadingTextToPill(textAfterIcon, lastPill);
+      }
+    }
+
+    textNode.replaceWith(fragment);
   });
 }
 
@@ -303,9 +361,10 @@ export default async function decorate(block) {
         storeEvent: 'info',
       });
 
-      const listElements = innerCard.querySelectorAll('.inner_prod_box > ul > li');
+      replacePills(innerCard);
+
+      const listElements = innerCard.querySelectorAll('.inner_prod_box ul li');
       listElements.forEach((li) => {
-        li.innerHTML = replacePill(li.innerHTML);
         if (li.innerText.includes('<-')) {
           li.classList.add('has-arrow-left');
           removeArrowMarker(li);
