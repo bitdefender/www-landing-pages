@@ -232,9 +232,12 @@ export default async function decorate(block) {
   const metadata = getDatasetFromSection(block);
   const {
     desktopAlign,
+    autoplay,
     // extragem DOAR ce folosim ca să evităm no-unused-vars
     backgroundImage,
   } = metadata;
+
+  const shouldAutoplay = autoplay === undefined ? true : autoplay === 'true';
 
   // ia link-ul (dacă există) înainte de a goli block-ul
   const linkEl = block.querySelector('a');
@@ -254,7 +257,7 @@ export default async function decorate(block) {
     wrapper.innerHTML = '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>';
     wrapper.prepend(placeholder);
     wrapper.addEventListener('click', () => {
-      loadVideoEmbed(block, videoLink, true);
+      loadVideoEmbed(block, videoLink, shouldAutoplay);
     });
     block.append(wrapper);
   } else if (videoLink) {
@@ -262,7 +265,7 @@ export default async function decorate(block) {
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
         observer.disconnect();
-        loadVideoEmbed(block, videoLink, true);
+        loadVideoEmbed(block, videoLink, shouldAutoplay);
         block.classList.remove('lazy-loading');
       }
     });

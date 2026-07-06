@@ -18,7 +18,14 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
   let prevArrow;
   let nextArrow;
 
-  const visibleSlides = 3; // IMPORTANT: ai 3 carduri vizibile
+  let visibleSlides = getVisibleSlides();
+
+  function getVisibleSlides() {
+    if (window.innerWidth < 450) return 1;
+    if (window.innerWidth < 768) return 2;
+
+    return 3;
+  }
 
   items.forEach((html, i) => {
     const slide = document.createElement('div');
