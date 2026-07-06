@@ -514,15 +514,17 @@
                     }
                 }
 
-                &.individual-box:not(.individual-box ~ .individual-box),
-                &.family-box:not(.family-box ~ .family-box) {
-                    margin-left: 0;
-                }
+               @media (width > 768px) {
+                    &.individual-box:not(.individual-box ~ .individual-box),
+                    &.family-box:not(.family-box ~ .family-box) {
+                        margin-left: 0;
+                    }
 
-                &.individual-box:not(:has(~ .individual-box)),
-                &.family-box:not(:has(~ .family-box)) {
-                    margin-right: 0;
-                }
+                    &.individual-box:not(:has(~ .individual-box)),
+                    &.family-box:not(:has(~ .family-box)) {
+                        margin-right: 0;
+                    }
+               }
             }
         }
     }

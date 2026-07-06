@@ -105,7 +105,7 @@ function updateTagsMargin(block) {
   let greenTagsHeight = 0;
   greenTags.forEach((tag) => {
     if (greenTagsHeight < tag.offsetHeight) greenTagsHeight = tag.offsetHeight;
-    block.style.setProperty('--green-tag-height', `${greenTagsHeight}px`);
+    block.style.setProperty('--green-tag-height', `${greenTagsHeight + 15}px`);
   });
 }
 

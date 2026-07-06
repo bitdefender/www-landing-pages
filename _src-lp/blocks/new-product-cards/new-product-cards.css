@@ -439,11 +439,13 @@
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .pricing-container .pricing .prod-percent {
   visibility: visible;
 }
-.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.individual-box:not(.individual-box ~ .individual-box), .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.family-box:not(.family-box ~ .family-box) {
-  margin-left: 0;
-}
-.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.individual-box:not(:has(~ .individual-box)), .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.family-box:not(:has(~ .family-box)) {
-  margin-right: 0;
+@media (width > 768px) {
+  .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.individual-box:not(.individual-box ~ .individual-box), .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.family-box:not(.family-box ~ .family-box) {
+    margin-left: 0;
+  }
+  .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.individual-box:not(:has(~ .individual-box)), .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.family-box:not(:has(~ .family-box)) {
+    margin-right: 0;
+  }
 }
 .new-product-cards-container.green-pill .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .pricing-container .pricing .save_price_box .prod-percent {
   color: #EDF9FF;
