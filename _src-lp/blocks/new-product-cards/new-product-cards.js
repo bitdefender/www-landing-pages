@@ -304,7 +304,9 @@ function removeArrowMarker(element) {
 export default async function decorate(block) {
   const section = block.closest('.section');
   const productCards = [...block.children];
-  const { checkedRadio, slider, sliderIcons } = section.dataset;
+  const {
+    checkedRadio, slider, sliderIcons, titleProduct,
+  } = section.dataset;
   let limit = productCards.length;
   let switchCheckbox;
   if (slider) {
@@ -433,7 +435,20 @@ export default async function decorate(block) {
     setSliderBoxVisibility(block, switchCheckbox?.checked);
   }
 
-  await decorateIcons(block.closest('.section'));
+  await decorateIcons(section);
+
+  const sectionTitle = section.querySelector('h1');
+  const [titleProductName, titleProductUsers, titleProductYears] = titleProduct?.split('/') || [];
+  if (sectionTitle) {
+    wrapChildrenWithStoreContext(sectionTitle, {
+      productId: titleProductName,
+      devices: titleProductUsers,
+      subscription: titleProductYears,
+      storeEvent: 'info',
+    });
+
+    sectionTitle.innerHTML = sectionTitle.innerHTML.replace('0%', '<span data-store-render data-store-discount="percentage"></span>');
+  }
 
   const resizeObserver = new ResizeObserver(() => {
     updateTagsMargin(block);
