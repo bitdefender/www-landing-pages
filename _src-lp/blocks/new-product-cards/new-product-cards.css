@@ -85,7 +85,7 @@
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-content: center;
   gap: 0;
   text-align: left;

@@ -230,7 +230,7 @@ function replacePills(root) {
         return NodeFilter.FILTER_REJECT;
       }
 
-      if (node.parentElement.closest('.blue-pill, .green-pill')) {
+      if (node.parentElement.closest('span.blue-pill, span.green-pill')) {
         return NodeFilter.FILTER_REJECT;
       }
 
