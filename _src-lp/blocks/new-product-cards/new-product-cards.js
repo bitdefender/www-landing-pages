@@ -166,7 +166,6 @@ function renderPricing(...products) {
   const section = productCard.closest('.section');
   const monthlyPrice = section.dataset.monthlyPrice;
   const billedPrice = productCard.querySelector('.billed-price-container');
-  console.log(billedPrice);
 
   const productName = products[0].split('/')[0];
 
