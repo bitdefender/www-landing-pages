@@ -1659,8 +1659,16 @@
     padding-top: 2em !important;
   }
 
-  .section.banner-container.bckimg-small-right .banner .text-center {
+  .section.banner-container.bckimg-small-right .banner .text-center * {
     text-align: left !important;
+  }
+
+  .section.banner-container.bckimg-small-right .banner  p {
+    font-size: 16px;
+  }
+
+  .section.banner-container.bckimg-small-right .banner p.button-container a {
+    width: 100%;
   }
 
   .section.banner-container.new-2024.data-breaches-design .banner h1 {

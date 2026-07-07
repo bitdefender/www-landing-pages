@@ -86,4 +86,9 @@
   .c-device-protection-box-wrapper {
     margin: 1em auto !important;
   }
+  .c-device-protection-box-container.new-june-26 .row {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 }

@@ -340,7 +340,23 @@
   .awards-affiliate .columns-class > div {
     max-width: unset;
   }
-  .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class {
+  .awards-affiliate-container.blue-boxes.mobile-blue-boxes-row .columns-class > div {
+    min-width: unset !important;
+    padding: 10px 15px;
+  }
+  .awards-affiliate-container.blue-boxes.mobile-blue-boxes-row .awards-affiliate .columns-class {
+    flex-direction: row;
+    align-items: stretch;
     width: 100%;
+  }
+  .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class h4 {
+    min-height: auto !important;
+    color: #006DFF;
+    font-size: 30px;
+    line-height: 30px;
+    margin: 0;
+  }
+  .awards-affiliate-container.mobile-full-img .awards-affiliate img {
+    max-width: 100%;
   }
 }

@@ -2041,6 +2041,9 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
     padding: 8px 3%;
     font-size: 14px;
   }
+  .centered.mobile-aligned-left {
+    text-align: left !important;
+  }
   .selectorBox {
     margin: 6px 0;
     padding: 5px;
