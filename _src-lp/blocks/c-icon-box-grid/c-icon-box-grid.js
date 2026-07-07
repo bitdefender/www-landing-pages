@@ -12,7 +12,7 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html
 */
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
-import { getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
+import { getDatasetFromSection, matchHeights, updateProductsList } from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 function initializeSlider(block) {
@@ -80,7 +80,7 @@ function getColumnClasses(index, layout, columnsAlignment, type) {
 }
 
 export default function decorate(block) {
-  const { type } = block.closest('.section').dataset;
+  const { type, products } = block.closest('.section').dataset;
   const metaData = getDatasetFromSection(block);
 
   const svgColor = metaData.svgcolor;
@@ -168,7 +168,6 @@ export default function decorate(block) {
       </div>
     `;
   } else {
-    console.log('col ', formattedDataColumns);
     htmlContent = `
       <div class="container rounded-bottom">
         ${upperText ? `${upperText.innerHTML}` : ''}
@@ -194,6 +193,19 @@ export default function decorate(block) {
   }
 
   block.innerHTML = htmlContent;
+
+  // if we have products we create buy links
+  const productsAsList = products && products.split(',');
+  if (productsAsList && productsAsList.length) {
+    productsAsList.forEach((prod) => updateProductsList(prod));
+
+    block.querySelectorAll('.quotebox').forEach((item, key) => {
+      const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
+      const selectorClass = `${prodName.trim()}-${prodUsers}${prodYears}`;
+
+      item.querySelector('.buttons a').classList.add(`buylink-${selectorClass}`);
+    });
+  }
 
   if (type === 'mobileSlider') {
     const arrowsSlider = document.createElement('div');

@@ -629,6 +629,10 @@
   padding: 0;
 }
 
+.c-icon-box-grid-container.new-june-26 a.button:any-link {
+  min-width: 185px;
+}
+
 .c-icon-box-grid-container.new-june-26 .buttons {
   margin-top: auto;
   padding-top: 10px;
