@@ -163,12 +163,12 @@
   font-size: var(--body-font-size-xs);
   font-family: Arial, sans-serif;
   color: white;
-  text-align: center;
+  text-align: left;
   background-color: #026DFF;
   display: inline-flex;
   gap: 5px;
   border-radius: 20px;
-  padding: 1px 12px;
+  padding: 6px 12px;
   margin-bottom: 5px;
   min-height: 28px;
   align-items: center;
@@ -179,19 +179,40 @@
   height: 14px;
   width: 12px;
   fill: #FFF;
-  margin-top: -4px;
+  position: relative;
+}
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .blue-pill .icon svg {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .green-pill {
-  background-color: #68ba68;
-  padding: 1px 6.7px;
-  border-radius: 20px;
+  font-size: var(--body-font-size-xs);
+  font-family: Arial, sans-serif;
   color: white;
-  font-style: normal;
-  font-size: 11px;
-  letter-spacing: 0;
-  font-weight: bold;
+  text-align: center;
+  background-color: #68ba68;
   display: inline-flex;
-  justify-content: center;
+  gap: 5px;
+  border-radius: 20px;
+  padding: 1px 12px;
+  margin-bottom: 5px;
+  min-height: 28px;
+  align-items: center;
+  margin-right: 8px;
+  width: fit-content;
+}
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .green-pill .icon {
+  height: 14px;
+  width: 12px;
+  fill: #FFF;
+  margin-top: -4px;
+  position: relative;
+}
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .green-pill .icon svg {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .radios-container {
   display: flex;
@@ -282,20 +303,11 @@
   fill: #fff;
   margin-left: 5px;
 }
-.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li .blue-pill {
-  background-color: #026DFF;
-  padding: 1px 6.7px;
-  border-radius: 20px;
-  color: white;
-  font-style: normal;
-  font-size: 11px;
-  letter-spacing: 0;
-  font-weight: bold;
-  display: inline-flex;
-  justify-content: center;
-  height: fit-content;
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li .blue-pill, .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li .green-pill {
   min-height: unset;
   gap: 0;
+  font-size: 11px;
+  padding: 1px 6.7px;
   margin-right: 4px;
   margin-bottom: 0;
 }

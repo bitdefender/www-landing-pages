@@ -189,8 +189,38 @@
                         font-size: var(--body-font-size-xs);
                         font-family: Arial, sans-serif;
                         color: white;
-                        text-align: center;
+                        text-align: left;
                         background-color: #026DFF;
+                        display: inline-flex;
+                        gap: 5px;
+                        border-radius: 20px;
+                        padding: 6px 12px;
+                        margin-bottom: 5px;
+                        min-height: 28px;
+                        align-items: center;
+                        margin-right: 8px;
+                        width: fit-content;
+
+                        .icon {
+                            height: 14px;
+                            width: 12px;
+                            fill: #FFF;
+                            position: relative;
+
+                            svg {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                            }
+                        }
+                    }
+
+                    .green-pill {
+                        font-size: var(--body-font-size-xs);
+                        font-family: Arial, sans-serif;
+                        color: white;
+                        text-align: center;
+                        background-color: #68ba68;
                         display: inline-flex;
                         gap: 5px;
                         border-radius: 20px;
@@ -205,21 +235,14 @@
                             height: 14px;
                             width: 12px;
                             fill: #FFF;
-                            margin-top: -4px;
-                        }
-                    }
+                            margin-top: -4px;                            position: relative;
 
-                    .green-pill {
-                        background-color: #68ba68;
-                        padding: 1px 6.7px;
-                        border-radius: 20px;
-                        color: white;
-                        font-style: normal;
-                        font-size: 11px;
-                        letter-spacing: 0;
-                        font-weight: bold;
-                        display: inline-flex;
-                        justify-content: center;
+                            svg {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                            }
+                        }
                     }
 
                     .radios-container {
@@ -325,20 +348,11 @@
                                         margin-left: 5px;
                                     }
 
-                                    .blue-pill {
-                                        background-color: #026DFF;
-                                        padding: 1px 6.7px;
-                                        border-radius: 20px;
-                                        color: white;
-                                        font-style: normal;
-                                        font-size: 11px;
-                                        letter-spacing: 0;
-                                        font-weight: bold;
-                                        display: inline-flex;
-                                        justify-content: center;
-                                        height: fit-content;
+                                    .blue-pill, .green-pill {
                                         min-height: unset;
                                         gap: 0;
+                                        font-size: 11px;
+                                        padding: 1px 6.7px;
                                         margin-right: 4px;
                                         margin-bottom: 0;
                                     }   
