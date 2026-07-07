@@ -135,9 +135,14 @@ export default function decorate(block) {
   const prodBoxesParent = document.createElement('div');
 
   // config based on Metadatas
-  if (block.querySelector('h1')) {
-    if (headerColor) block.querySelector('h1').style.color = headerColor;
-    block.querySelector('h1').innerHTML = block.querySelector('h1').innerHTML.replace('xx%', '<span class="max-discount"></span>');
+  if (block.querySelector('h1') && headerColor) block.querySelector('h1').style.color = headerColor;
+
+  // apply discount
+  contentEl.innerHTML = contentEl.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
+
+  // apply newprice
+  if (contentRightEl) {
+    contentRightEl.innerHTML = contentRightEl?.innerHTML.replace(/xx/g, '<span class="newprice-vpn-101"></span>');
   }
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
@@ -225,7 +230,7 @@ export default function decorate(block) {
 
       if (tableRadios && tablePrices) {
         const [radio1, radio2] = tableRadios.querySelectorAll('td');
-        const tablePricesText = tablePrices.textContent;
+        const tablePricesText = tablePrices.querySelector('tr').textContent;
         const tableBuyBtn = contentRightItem.querySelector('table:last-of-type');
         // radios
         if (!display) {

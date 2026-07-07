@@ -62,6 +62,8 @@ export default function decorate(block) {
   if (imageCover) parentBlock.classList.add(`bckimg-${imageCover}`);
   if (!hasContentEl) parentBlock.classList.add('full-width');
 
+  contentEl.innerHTML = contentEl.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
+
   // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     let prodName;
@@ -222,7 +224,7 @@ export default function decorate(block) {
 
         pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
         pricesBox.innerHTML += `<div class="buy_box">
-          <a class="red-buy-button" ${hardcodedLinks ? '' : `await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`} 
+          <a class="red-buy-button ${hardcodedLinks ? '' : `await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`}" 
             href="${hardcodedLinks ? buybtn.querySelector('a')?.href : '#'}" referrerpolicy="no-referrer-when-downgrade">${(hardcodedLinks ? buybtn.innerText : buybtn.innerHTML) ?? 'Get it now'}
           </a>
         </div>`;
@@ -311,26 +313,6 @@ export default function decorate(block) {
 
       table.innerHTML = '';
       table.appendChild(greenCircleBox);
-    }
-
-    // GREEN_CIRCLE_BOX
-    if (aliasTr && aliasTr.textContent.trim() === 'percent_circle') {
-      // eslint-disable-next-line no-unused-vars
-      const textContent = table.querySelector('tr:nth-of-type(2)')?.innerText.trim();
-      const greenCircleBox = document.createElement('div');
-
-      greenCircleBox.id = 'buyBtnGreenCircleBox';
-      greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
-
-      if (textContent?.includes('0%') || textContent?.includes('0 %')) {
-        greenCircleBox.innerHTML = `
-          <span class='green_circle_box v2'>
-            ${textContent.replace(/0\s*%/g, '<strong class="max-discount"></strong>')}
-          </span>
-        `;
-      }
-
-      table.replaceChildren(greenCircleBox);
     }
   });
 
@@ -574,14 +556,18 @@ export default function decorate(block) {
   if (redirectCampaign) {
     const campaign = getParam('vcampaign');
     if (campaign) localStorage.setItem('campaign', campaign);
+    const locale = getParam('locale');
+    if (locale) localStorage.setItem('locale', locale);
+
     const buttons = block.querySelectorAll('a');
     buttons.forEach((button) => {
       const url = new URL(button.href);
       const cachedCampaign = localStorage.getItem('campaign');
-      if (url.searchParams.has('vcampaign') && cachedCampaign) {
-        url.searchParams.set('vcampaign', cachedCampaign);
-        button.href = url.toString();
-      }
+      const cachedLocale = localStorage.getItem('locale');
+      if (cachedLocale) url.searchParams.set('locale', cachedLocale);
+      if (url.searchParams.has('vcampaign') && cachedCampaign) url.searchParams.set('vcampaign', cachedCampaign);
+
+      button.href = url.toString();
     });
   }
 

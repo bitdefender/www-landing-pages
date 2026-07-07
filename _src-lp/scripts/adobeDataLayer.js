@@ -1,7 +1,6 @@
 import {
   AdobeDataLayerService, CdpEvent, PageLoadedEvent, PageLoadStartedEvent,
 } from '@repobit/dex-data-layer';
-import { getUserVisitorId } from '@repobit/dex-utils';
 import userPromise from './user.js';
 import { targetPromise, getPageNameAndSections, getDefaultLanguage } from './target.js';
 import pagePromise from './page.js';
@@ -118,7 +117,8 @@ export async function sendAnalyticsUserInfo() {
     }
   }
 
-  user.visitorID = await getUserVisitorId() || undefined;
+  // TODO: uncomment this after consent is given
+  // user.visitorID = await getUserVisitorId() || undefined;
 
   // Remove properties that are undefined
   Object.keys(user).forEach((key) => user[key] === undefined && delete user[key]);

@@ -218,6 +218,29 @@
 	margin-bottom: 1em;
 }
 
+.banner-with-form-container.v2 .banner-with-form-wrapper #formBox {
+	width: auto;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	gap: 0;
+}
+
+.banner-with-form-container.v2 .banner-with-form-wrapper #formBox input {
+	width: 250px;
+}
+
+.banner-with-form-container.v2 .banner-with-form-wrapper #formBox button.green-buy-button {
+	width: max-content;
+	padding: 10px 20px;
+	margin-left: 10px;
+}
+
+.banner-with-form-container.v2 #captchaBox {
+	flex: 0 1 auto;
+	margin-top: 0;
+}
+
 .banner-with-form-container .banner-with-form-wrapper #formBox label {
 	display: none;
 	font-size: 11px;
