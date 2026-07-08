@@ -74,12 +74,25 @@
   padding: 0;
 }
 
+.columns-container.full .block > div {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .columns-container.csam-design .block div.columns-img-col img {
   padding-right: 1em;
   max-width: 300px;
   height: 100%;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.columns-container.csam-design-v4 .block div.columns-img-col img {
+  max-width: 335px;
+  background-color: #E4F2FF;
+  padding: 0;
+  margin: 0 2em 0 auto
 }
 
 .columns-container.csam-design-v3 .block div.columns-img-col img {
@@ -1812,11 +1825,19 @@ main .columns-container.padding-0 .columns-wrapper {
     flex-direction: column;
   }
 
+  .columns-container.csam-design .block div.columns-img-col img {
+    max-width: 100%;
+  }
+
   .columns-container.csam-design .block table tr > td:first-of-type {
     background-color: #1C314A;
     overflow: hidden;
     margin-left: -17px;
     margin-top: -18px;
+  }
+
+  .columns-container.csam-design-v4 .block table tr > td:first-of-type {
+    background-color: transparent;
   }
 
   .columns-container.csam-design .block h2 {
