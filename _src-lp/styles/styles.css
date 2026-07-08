@@ -1477,10 +1477,10 @@ main .section.light-sky-blue > * {
   border: 2px solid #ccc;
   border-top: 2px solid #333;
   border-radius: 50%;
-  animation: buyLinkSpin 0.8s linear infinite;
+  animation: buy-link-spin 0.8s linear infinite;
 }
 
-@keyframes buyLinkSpin {
+@keyframes buy-link-spin {
   from {
     transform: rotate(0deg);
   }
