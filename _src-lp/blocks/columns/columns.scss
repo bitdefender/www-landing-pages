@@ -13,10 +13,15 @@
 
 .columns-container.csam-design .block {
   border-radius: 20px;
+  overflow: hidden;
 }
 
 .columns-container.csam-design-v3 .block {
   border: 1px solid #183C6C;
+}
+
+.columns-container.csam-design-v4.blue-v2 .block {
+  border: 1px solid #E4F2FF;
 }
 
 .columns-container.csam-design .block h2 {
@@ -88,13 +93,6 @@
   border-bottom-right-radius: 0;
 }
 
-.columns-container.csam-design-v4 .block div.columns-img-col img {
-  max-width: 335px;
-  background-color: #E4F2FF;
-  padding: 0;
-  margin: 0 2em 0 auto
-}
-
 .columns-container.csam-design-v3 .block div.columns-img-col img {
   max-width: 300px;
   height: stretch;
@@ -102,6 +100,29 @@
   display: inline;
   border-radius: 16px 0 0 16px;
   padding: 0;
+}
+
+.columns-container.csam-design-v4 .block div.columns-img-col table tr > td:first-of-type {
+  background-color: #146BAB;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.columns-container.csam-design-v4.blue-v2 .block div.columns-img-col table tr > td:first-of-type {
+  background-color: #E4F2FF;
+}
+
+.columns-container.img-bottom .block div.columns-img-col table tr > td:first-of-type {
+  align-items: flex-end;
+  padding-bottom: 0;
+}
+
+.columns-container.csam-design-v4 .block div.columns-img-col img {
+  width: 100%;
+  height: auto;
 }
 
 .columns-container.new .columns h2 {
@@ -1816,10 +1837,6 @@ main .columns-container.padding-0 .columns-wrapper {
     justify-content: center;
   }
 
-  .columns-container.csam-design .block {
-    overflow: hidden;
-  }
-
   .columns-container.csam-design .block table tr {
     display: flex;
     flex-direction: column;
@@ -1832,10 +1849,6 @@ main .columns-container.padding-0 .columns-wrapper {
     margin-top: -18px;
   }
 
-  .columns-container.csam-design-v4 .block table tr > td:first-of-type {
-    background-color: transparent;
-  }
-
   .columns-container.csam-design .block h2 {
     font-size: 24px;
     line-height: 1.25;
@@ -1843,11 +1856,28 @@ main .columns-container.padding-0 .columns-wrapper {
 
   .columns-container.csam-design .block div.columns-img-col img {
     max-width: 100%;
+    min-width: 100%;
     border-radius: 10px;
     padding: 0;
     margin-bottom: -2em;
     margin-top: -2em;
-    min-width: 100%;
+  }
+
+  .columns-container.csam-design-v4 .block div.columns-img-col img {
+    padding: 0;
+    margin: 0;
+  }
+
+  .columns-container.csam-design-v4 .block div.columns-img-col table tr > td:first-of-type {
+    width: 100%;
+    min-height: 140px;
+    padding: 10px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  .columns-container.img-bottom .block div.columns-img-col table tr > td:first-of-type {
+    padding-bottom: 0;
   }
 
   .columns-container.v-nov25 .columns {
