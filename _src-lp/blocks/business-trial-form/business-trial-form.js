@@ -751,9 +751,6 @@ export default function decorate(block) {
     // Gather form data
     const form = event.target;
     const formData = new FormData(form);
-
-    console.log(formData);
-
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://www.bitdefender.com/content/bitdefender/us/en/business/products/free-trials/gravityzone-small-business-security-free-trial/jcr:content/root/container/free_trail_form_tbd.trial.json', true);
 

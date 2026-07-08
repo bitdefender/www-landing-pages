@@ -1,0 +1,54 @@
+.accordion details {
+  margin-bottom: 16px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  background-color: #f0f7ff;
+  border-radius: 10px;
+}
+
+.accordion.tos details {
+  background-color: transparent;
+}
+
+.accordion summary {
+  cursor: pointer;
+  color: #151719;
+  padding: 1rem 0;
+  font-weight: 600;
+  list-style: none;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  line-height: 23px;
+}
+
+.accordion.tos summary {
+  font-size: 16px;
+  line-height: 19px;
+  color: #006DFF;
+  padding: 5px 0;
+}
+
+.accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion summary::before {
+  content: "+";
+  float: left;
+  margin-right: 10px;
+  color: #006DFF;
+  font-size: 22px;
+}
+
+.accordion details[open] summary, .accordion details summary:hover {
+  color: #0059d6;
+  transition: all 0.3s ease;
+}
+
+.accordion details[open] summary::before {
+  content: "−";
+}
+
+.accordion-content {
+  padding: 0 0 1rem;
+}
