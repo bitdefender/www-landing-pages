@@ -155,7 +155,7 @@
                             color: #555;
                         }
 
-                        &:has(.blue-pill) {
+                        &:has(.blue-pill), &:has(.green-pill) {
                             display: flex;
                         }
                     }
@@ -425,10 +425,6 @@
                                 font-weight: unset;
                             }
 
-                            .prod-percent {
-                                visibility: visible;
-                            }
-
                             .prod-oldprice {
                                 color: #000;
                             }
@@ -523,7 +519,7 @@
                             }
 
                             .prod-percent {
-                                visibility: visible;
+                                visibility: inherit;
                             }
                         }
                     }
@@ -559,7 +555,6 @@
                                             padding: 3px 7px;
                                             border-radius: 16px;
                                             font-size: 14px;
-                                            visibility: visible;
                                     }
                                 }
                             }
