@@ -858,6 +858,13 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     text-align: center;
     width: 100%;
   }
+  .section.banner-with-cards-container[data-show="3-cols"].list-under-title .banner-with-cards .customWrapper > div:nth-of-type(2) {
+    order: 2;
+    width: 220px;
+  }
+  .section.banner-with-cards-container[data-show="3-cols"].list-under-title .banner-with-cards .customWrapper > div:nth-of-type(2) ul {
+    margin: 0;
+  }
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(2) {
     order: 1;
     flex: unset;

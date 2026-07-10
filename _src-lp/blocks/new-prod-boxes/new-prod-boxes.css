@@ -4,6 +4,19 @@
   display: flex;
   flex-direction: column;
 }
+.new-prod-boxes-container.selected-family .subtitle-blue.subtitle-family {
+  display: block;
+}
+.new-prod-boxes-container .subtitle-blue {
+  color: #234cff;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  margin: -1em 0 2em;
+}
+.new-prod-boxes-container .subtitle-blue.subtitle-family {
+  display: none;
+}
 
 .new-prod-boxes-container .icon {
   height: 14px;
@@ -80,6 +93,7 @@
 
 .new-prod-boxes-container.reversed-switcher .switchBox .switch {
   background-color: #EFEFEF;
+  border-radius: 66px;
 }
 
 .new-prod-boxes-container .switchBox .switch input {
@@ -100,6 +114,8 @@
 
 .new-prod-boxes-container.reversed-switcher .switchBox .slider {
   background-color: #006DFF;
+  color: white;
+  border-radius: 66px;
 }
 
 .new-prod-boxes-container .switchBox .switch input:checked + .slider {
@@ -217,6 +233,10 @@
   color: white !important;
 }
 
+.new-prod-boxes-container.reversed-switcher .switchBox .switch input:checked ~ .label.right {
+  color: black !important;
+}
+
 .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box hr {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -242,6 +262,16 @@
 .switchBox .switch input:checked ~ .label.left {
   transition: color 0.4s;
   color: black;
+}
+
+.new-prod-boxes-container.reversed-switcher .switchBox .switch input:checked ~ .label.left {
+  color: white;
+  fill: white;
+}
+
+.new-prod-boxes-container.reversed-switcher .switchBox .switch input:not(:checked) ~ .label.left {
+  color: black;
+  fill: black;
 }
 
 .switchBox .switch input:checked ~ .label.left hr {

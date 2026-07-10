@@ -153,7 +153,7 @@ export default function decorate(block) {
   const parentSection = block.closest('.section');
   const metaData = parentSection.dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks,
+    products, priceType, optionsType, type, textBulina, individual, titleText, subtitleFamily, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks,
   } = metaData;
   const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
@@ -242,11 +242,13 @@ export default function decorate(block) {
           });
 
           const individualBoxes = block.querySelectorAll('.individual-box');
+          if (subtitleFamily) block.closest('.section').classList.add('selected-family');
           individualBoxes.forEach((box) => {
             box.style.display = 'none';
           });
         } else {
           const familyBoxes = block.querySelectorAll('.family-box');
+          if (subtitleFamily) block.closest('.section').classList.remove('selected-family');
           familyBoxes.forEach((box) => {
             box.style.display = 'none';
           });
@@ -263,6 +265,13 @@ export default function decorate(block) {
 
     if (individualSwitchText && familySwitchText) {
       block.parentNode.insertBefore(switchBox, block);
+    }
+
+    if (subtitleFamily) {
+      const subtitle = document.createElement('div');
+      subtitle.className = 'subtitle-blue subtitle-family';
+      subtitle.innerText = subtitleFamily;
+      block.parentNode.insertBefore(subtitle, block);
     }
 
     if (type === 'mobileSlider') {
