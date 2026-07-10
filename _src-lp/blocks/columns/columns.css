@@ -823,6 +823,10 @@ main .columns-container.padding-0 .columns-wrapper {
   padding: 12px 45px;
 }
 
+.hide-green-badge .columns.img-full-width p u {
+  display: none;
+}
+
 .columns-container.v-jul26 .columns h3 {
   font-weight: normal;
   color: white;
