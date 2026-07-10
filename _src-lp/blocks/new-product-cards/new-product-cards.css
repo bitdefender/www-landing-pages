@@ -230,6 +230,7 @@
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .radios-container .radio-wrapper label {
   min-width: fit-content;
   font-size: 13px;
+  font-weight: 700;
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box hr {
   margin-top: 1em;
@@ -469,4 +470,8 @@
 }
 .new-product-cards-container.width-smaller .new-product-cards-wrapper .new-product-cards {
   grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+}
+.new-product-cards-container.vertical-radios .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .radios-container {
+  flex-direction: column;
+  gap: 5px;
 }
