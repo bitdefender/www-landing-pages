@@ -94,6 +94,10 @@
     border-radius: 22px;
 }
 
+.new-prod-boxes-container.smaller-switcher .switchBox .switch, .new-prod-boxes-container.smaller-switcher .switchBox .slider {
+    height: 40px;
+}
+
 .new-prod-boxes-container.reversed-switcher .switchBox .switch {
     background-color: #EFEFEF;
     border-radius: 66px;
@@ -154,6 +158,10 @@
     color: white;
     transition: color 0.4s;
     cursor: pointer;
+}
+
+.new-prod-boxes-container .smaller-switcher.switchBox .label {
+    font-size: 15px;
 }
 
 .new-prod-boxes-container.reversed-switcher .switchBox .label, .new-prod-boxes-container.reversed-switcher .switchBox .label .icon svg {
@@ -1762,12 +1770,25 @@
         width: 440px;
     }
 
+    .new-prod-boxes-container.smaller-switcher .switchBox .switch {
+        width: 340px;
+    }
+
+
     .new-prod-boxes-container .switchBox .slider {
         width: 220px;
     }
 
+    .new-prod-boxes-container.smaller-switcher  .switchBox .slider {
+        width: 165px;
+    }
+
     .new-prod-boxes-container .switchBox .switch input:checked + .slider {
         transform: translateX(215px);
+    }
+
+    .new-prod-boxes-container.smaller-switcher .switchBox .switch input:checked + .slider {
+        transform: translateX(170px);
     }
 
     .slider-container .arrow {
