@@ -60,27 +60,27 @@
   margin-bottom: 16px;
 }
 
-.tos-container.blue-accordion .tos > div {
+.tos-container.blue-style .tos > div {
   background-color: #F4F8FF;
   padding: 20px;
   border-radius: 10px;
 }
-.tos-container.blue-accordion .tos div:first-of-type {
+.tos-container.blue-style .tos div:first-of-type {
   display: none;
 }
-.tos-container.blue-accordion h3 {
+.tos-container.blue-style h3 {
   color: #006EFF;
   font-size: 21px;
 }
-.tos-container.blue-accordion h3 svg {
+.tos-container.blue-style h3 svg {
   display: none;
 }
-.tos-container.blue-accordion h3 strong {
+.tos-container.blue-style h3 strong {
   display: inline-flex;
   align-content: center;
   gap: 10px;
 }
-.tos-container.blue-accordion h3 ::before {
+.tos-container.blue-style h3 ::before {
   content: url("/_src-lp/icons/minus.svg");
   font-size: 20px;
   width: 14px;
@@ -88,7 +88,7 @@
   display: inline-block;
   filter: invert(25%) sepia(100%) saturate(10000%) hue-rotate(200deg) brightness(100%) contrast(100%);
 }
-.tos-container.blue-accordion li {
+.tos-container.blue-style li {
   list-style: none;
 }
 
