@@ -21,6 +21,8 @@
   --background-color-black: #000;
   --overlay-background-color: #eee;
   --highlight-background-color: #ececec;
+  --highlight-background-color-v2: #F6F6F6;
+  --highlight-background-color-v3: #F2F2F2;
   --background-color-light-sky-blue: #e4f2ff;
   --baby-blue-color: #EDF9FF;
   --dark-blue-color: #0853C5;
@@ -347,8 +349,23 @@ button:hover {
   background-color: var(--light-grey-color);
 }
 
+.dark-blue-bck-2 {
+  background-color: var(--link-hover-color);
+}
+.dark-blue-bck-2 * {
+  color: white;
+}
+
 .bradius-20 {
   border-radius: 20px;
+}
+
+.bradius-top-20 {
+  border-radius: 20px 20px 0 0;
+}
+
+.bradius-bottom-20 {
+  border-radius: 0 0 20px 20px;
 }
 
 [data-button-color=blue] a.button:any-link,
@@ -642,6 +659,11 @@ main .section .block.light-blue-bck {
 
 main .section .block.rounded {
   border-radius: 20px;
+  overflow: hidden;
+}
+
+main .section .block.light-sky-blue {
+  background-color: var(--background-color-light-sky-blue);
 }
 
 main .section.width-medium .block,
@@ -905,9 +927,17 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
   }
 }
 /* section metadata */
-.section[data-backgroundcolor=grey] {
+.section[data-backgroundcolor=grey], section.bck-grey {
   background: var(--highlight-background-color);
   padding: 2em 0;
+}
+
+.section[data-backgroundcolor=light-grey], section.bck-light-grey {
+  background: var(--highlight-background-color-v2);
+}
+
+.section[data-backgroundcolor=dark-grey], section.bck-dark-grey {
+  background: var(--highlight-background-color-v3);
 }
 
 .section[data-backgroundcolor=black] {
@@ -1044,6 +1074,20 @@ main .section.light-sky-blue > * {
 .section.red-circles .prod-percent.green_bck_circle,
 .section.red-circles .green_circle_box {
   background: #e72325 !important;
+}
+
+.section.bottom-green-bundle {
+  margin-bottom: -30px;
+}
+.section.bottom-green-bundle u {
+  display: inline-block;
+  background: #1C7928 0% 0% no-repeat padding-box;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 20px;
+  color: white;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 45px;
 }
 
 .prod-percent.green_bck_circle.medium span:first-of-type {
@@ -1247,6 +1291,12 @@ main .section.light-sky-blue > * {
   transition: 0.4s all ease-in-out;
   padding: 10px 3em;
   margin: 0;
+}
+
+.bigger-btn a.button:any-link {
+  padding: 20px 3em;
+  font-size: 18px;
+  line-height: 21px;
 }
 
 .green-buy-button {
@@ -1461,10 +1511,10 @@ main .section.light-sky-blue > * {
   border: 2px solid #ccc;
   border-top: 2px solid #333;
   border-radius: 50%;
-  animation: buyLinkSpin 0.8s linear infinite;
+  animation: buy-link-spin 0.8s linear infinite;
 }
 
-@keyframes buyLinkSpin {
+@keyframes buy-link-spin {
   from {
     transform: rotate(0deg);
   }

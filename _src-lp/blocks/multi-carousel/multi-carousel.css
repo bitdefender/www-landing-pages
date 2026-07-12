@@ -1,0 +1,176 @@
+.multi-carousel-container {
+  background-color: #F6F6F6;
+}
+
+.multi-carousel-container .carousel-arrows-container {
+  gap: 21px;
+  display: flex;
+}
+
+.multi-carousel-container.hide-arrows .carousel-arrows-container {
+  display: none;
+}
+
+.multi-carousel-container .carousel-arrows-container button {
+  width: 18px;
+  height: 32px;
+  background: transparent;
+  border: 0 none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: #006DFF;
+  position: absolute;
+  top: 18em;
+}
+
+.multi-carousel-container .carousel-arrows-container button.inactive {
+  cursor: default;
+  display: none;
+}
+
+.multi-carousel-container .carousel-arrows-container button.carousel-prev {
+  left: -50px;
+}
+
+.multi-carousel-container .carousel-arrows-container button.carousel-next {
+  right: -50px;
+}
+
+.multi-carousel {
+  position: relative;
+}
+
+.multi-carousel .carousel-container {
+  padding: 0;
+  display: flex;
+  justify-content: right;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.multi-carousel .carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: left;
+  transition: transform 0.5s ease;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  padding: 0;
+  gap: 25px;
+}
+
+.multi-carousel .carousel-el {
+  width: 369px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0 15px 15px;
+}
+
+.multi-carousel .carousel-el img {
+  margin: 0 -15px 10px;
+  width: calc(100% + 30px);
+  max-width: calc(100% + 30px);
+}
+
+.multi-carousel .carousel-el p {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.multi-carousel .carousel-el .carousel-content {
+  height: 100%;
+}
+
+.multi-carousel .video-thumbnail {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.multi-carousel .video-thumbnail img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.multi-carousel .video-thumbnail .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  color: white;
+  opacity: 0.8;
+}
+
+.multi-carousel .video-title {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 10px;
+  color: #333;
+}
+
+.multi-carousel .carousel-navigation {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.multi-carousel .carousel-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.multi-carousel .carousel-dot.active {
+  background-color: #006EFF;
+}
+
+@media (width <= 1355px) {
+  .multi-carousel .carousel-el {
+    width: 360px;
+  }
+  .multi-carousel-container .carousel-arrows-container button {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background: var(--highlight-background-color-v2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .multi-carousel-container .carousel-arrows-container button img {
+    max-width: 15px;
+    display: block;
+  }
+  .multi-carousel-container .carousel-arrows-container button.carousel-prev {
+    left: 5px;
+  }
+  .multi-carousel-container .carousel-arrows-container button.carousel-next {
+    right: 5px;
+  }
+}
+@media (width <= 989px) {
+  .multi-carousel .carousel-el {
+    width: 42vw;
+  }
+}
+@media (width <= 767px) {
+  .multi-carousel .carousel-el {
+    width: 42vw;
+  }
+}
+@media (width <= 450px) {
+  .multi-carousel .carousel-el {
+    width: 70vw;
+  }
+}
