@@ -106,6 +106,14 @@
 .tos-container.blue-style.v2 .tos > div a {
   color: var(--link-hover-color);
 }
+.tos-container.blue-style.v2 .tos > div.open h3 {
+  color: #0059d6;
+}
+.tos-container.blue-style.v2 .tos > div.open h3::before {
+  content: "-";
+  font-size: 38px;
+  margin-top: -6px;
+}
 .tos-container.blue-style.v2 .tos > div.open > div:last-of-type {
   display: block;
 }
@@ -139,14 +147,6 @@
   margin-right: 10px;
   color: #006DFF;
   font-size: 22px;
-}
-.tos-container.blue-style.v2 .tos > div > div.open h3 {
-  color: #0059d6;
-}
-.tos-container.blue-style.v2 .tos > div > div.open h3::before {
-  content: "-";
-  font-size: 38px;
-  margin-top: -6px;
 }
 .tos-container.blue-style.v2 .tos > div > div:last-of-type {
   display: none;
