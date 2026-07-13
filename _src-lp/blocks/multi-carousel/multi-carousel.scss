@@ -1,5 +1,6 @@
 .multi-carousel-container {
     background-color: #F6F6F6;
+    padding-top: 2em !important;
 }
 
 .multi-carousel-container .carousel-arrows-container {
@@ -65,10 +66,20 @@
 }
 
 .multi-carousel .carousel-el {
-    width: 369px;
+    width: 384px;
     background-color: white;
     border-radius: 20px;
-    padding: 0 15px 15px;
+    padding: 15px;
+}
+
+.multi-carousel .carousel-el picture {
+    max-height: 200px;
+    overflow: hidden;
+    display: block;
+    margin: -15px -15px 10px;
+    width: calc(100% + 30px);
+    max-width: calc(100% + 30px);
+    border-radius: 10px 10px 0 0;
 }
 
 .multi-carousel .carousel-el img {
@@ -84,6 +95,21 @@
 
 .multi-carousel .carousel-el .carousel-content {
     height: 100%;
+}
+
+.multi-carousel .carousel-el .carousel-content > div {
+    height: stretch;
+    display: flex;
+    flex-direction: column;
+}
+
+.multi-carousel .carousel-el .carousel-content > div > :last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.multi-carousel .carousel-el .carousel-content > div p.button-container {
+    margin-top: auto;
 }
 
 .multi-carousel .video-thumbnail {
