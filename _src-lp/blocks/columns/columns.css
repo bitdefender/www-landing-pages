@@ -192,6 +192,10 @@ main .columns-container.padding-0 .columns-wrapper {
   width: unset;
 }
 
+.v-jul26 .columns img {
+  width: 100%;
+}
+
 .columns.bradius-top-20 img {
   border-radius: 20px 20px 0 0;
 }
