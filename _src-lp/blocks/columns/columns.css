@@ -192,7 +192,7 @@ main .columns-container.padding-0 .columns-wrapper {
   width: unset;
 }
 
-.v-jul26 .columns img {
+.columns-container.v-jul26 .columns img {
   width: 100%;
 }
 
