@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { matchHeights } from '../../scripts/utils.js';
+
 function createCarousel(block, autoplay = false, startFrom = 0) {
   const section = block.closest('.section');
   const items = [...block.children].map((el) => el.innerHTML);
@@ -18,8 +20,6 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
   let prevArrow;
   let nextArrow;
 
-  let visibleSlides = getVisibleSlides();
-
   function getVisibleSlides() {
     if (window.innerWidth < 450) return 1;
     if (window.innerWidth < 768) return 2;
@@ -27,10 +27,19 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
     return 3;
   }
 
+  let visibleSlides = getVisibleSlides();
+
+  function hasNavigation() {
+    return items.length > visibleSlides;
+  }
+
   items.forEach((html, i) => {
     const slide = document.createElement('div');
     slide.className = 'carousel-el';
-    if (i === 0) slide.classList.add('active');
+
+    if (i === 0) {
+      slide.classList.add('active');
+    }
 
     slide.innerHTML = `<div class="carousel-content">${html}</div>`;
 
@@ -41,22 +50,29 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
   container.append(track);
   block.append(container);
 
-  const nav = document.createElement('div');
-  nav.className = 'carousel-navigation';
+  // Bullets
+  if (hasNavigation()) {
+    const nav = document.createElement('div');
+    nav.className = 'carousel-navigation';
 
-  const maxIndex = Math.max(0, items.length - visibleSlides);
-  for (let i = 0; i <= maxIndex; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'carousel-dot';
-    if (i === 0) dot.classList.add('active');
+    const maxIndex = Math.max(0, items.length - visibleSlides);
 
-    dot.onclick = () => goTo(i);
+    for (let i = 0; i <= maxIndex; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'carousel-dot';
 
-    dots.push(dot);
-    nav.append(dot);
+      if (i === 0) {
+        dot.classList.add('active');
+      }
+
+      dot.onclick = () => goTo(i);
+
+      dots.push(dot);
+      nav.append(dot);
+    }
+
+    block.append(nav);
   }
-
-  block.append(nav);
 
   function updateArrows() {
     if (!prevArrow) return;
@@ -78,22 +94,24 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
 
     current = Math.max(0, Math.min(index, maxIndex));
 
-    const width = slides[0].offsetWidth;
+    const slideWidth = slides[0].offsetWidth;
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
 
-    track.style.transform = `translateX(-${width * current}px)`;
+    track.style.transform = `translateX(-${(slideWidth + gap) * current}px)`;
 
-    slides.forEach((s, i) =>
-      s.classList.toggle('active', i === current),
-    );
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+    });
 
-    dots.forEach((d, i) =>
-      d.classList.toggle('active', i === current),
-    );
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
 
     updateArrows();
   }
 
-  if (items.length > 1) {
+  // Arrows
+  if (hasNavigation()) {
     const arrows = document.createElement('div');
     arrows.className = 'carousel-arrows-container';
 
@@ -103,8 +121,10 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
     prevArrow.className = 'carousel-prev';
     nextArrow.className = 'carousel-next';
 
-    prevArrow.innerHTML = '<img src="/_src-lp/images/icons/blue-arrowleft.svg" alt="Bitdefender">';
-    nextArrow.innerHTML = '<img src="/_src-lp/images/icons/blue-arrowright.svg" alt="Bitdefender">';
+    prevArrow.innerHTML =
+      '<img src="/_src-lp/images/icons/blue-arrowleft.svg" alt="Bitdefender">';
+    nextArrow.innerHTML =
+      '<img src="/_src-lp/images/icons/blue-arrowright.svg" alt="Bitdefender">';
 
     prevArrow.onclick = () => goTo(current - 1);
     nextArrow.onclick = () => goTo(current + 1);
@@ -124,17 +144,29 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
 
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => goTo(current), 150);
+
+    resizeTimer = setTimeout(() => {
+      const newVisibleSlides = getVisibleSlides();
+
+      if (newVisibleSlides !== visibleSlides) {
+        visibleSlides = newVisibleSlides;
+
+        // Dacă se schimbă breakpoint-ul, refacem carousel-ul
+        createCarousel(block, autoplay, startFrom);
+      } else {
+        goTo(current);
+      }
+    }, 150);
   });
 
-  if (autoplay) {
+  if (autoplay && hasNavigation()) {
     setInterval(() => {
       const maxIndex = Math.max(0, items.length - visibleSlides);
       goTo(current >= maxIndex ? 0 : current + 1);
     }, 3000);
   }
 
-  if (startFrom > 0) {
+  if (startFrom > 0 && hasNavigation()) {
     requestAnimationFrame(() => goTo(startFrom - 1));
   }
 }

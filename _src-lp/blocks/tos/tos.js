@@ -12,14 +12,6 @@ export default function decorate(block) {
 
       svg.classList.toggle('tos__link--active');
       parent.parentElement.classList.toggle('open');
-
-      const children1st = parent.parentElement.children[1];
-
-      if (children1st.children[0]) {
-        children1st.children[0].classList.toggle('d-block');
-      } else {
-        children1st.classList.toggle('d-block');
-      }
     });
   }
 
