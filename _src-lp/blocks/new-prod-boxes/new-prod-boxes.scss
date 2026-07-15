@@ -3,6 +3,22 @@
     padding: 0 15px;
     display: flex;
     flex-direction: column;
+
+    &.selected-family .subtitle-blue.subtitle-family {
+        display: block;
+    }
+
+    .subtitle-blue {
+        color: #234cff;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        margin: -1em 0 2em;
+
+        &.subtitle-family {
+            display: none;
+        }
+    }
 }
 
 .new-prod-boxes-container .icon {
@@ -36,6 +52,10 @@
 .new-prod-boxes-container .titleBox h2 {
     color: #006dff;
     margin: 0 0 15px;
+}
+
+.new-prod-boxes-container.title-black .titleBox h2 {
+    color: black;
 }
 
 .new-prod-boxes-container.bf-2025 .titleBox h2 {
@@ -74,6 +94,15 @@
     border-radius: 22px;
 }
 
+.new-prod-boxes-container.smaller-switcher .switchBox .switch, .new-prod-boxes-container.smaller-switcher .switchBox .slider {
+    height: 40px;
+}
+
+.new-prod-boxes-container.reversed-switcher .switchBox .switch {
+    background-color: #EFEFEF;
+    border-radius: 66px;
+}
+
 .new-prod-boxes-container .switchBox .switch input {
     display: none;
 }
@@ -88,6 +117,12 @@
     background-color: white;
     border-radius: 20px;
     transition: all 0.4s;
+}
+
+.new-prod-boxes-container.reversed-switcher .switchBox .slider {
+    background-color: #006DFF;
+    color: white;
+    border-radius: 66px;
 }
 
 .new-prod-boxes-container .switchBox .switch input:checked + .slider {
@@ -123,6 +158,15 @@
     color: white;
     transition: color 0.4s;
     cursor: pointer;
+}
+
+.new-prod-boxes-container .smaller-switcher.switchBox .label {
+    font-size: 15px;
+}
+
+.new-prod-boxes-container.reversed-switcher .switchBox .label, .new-prod-boxes-container.reversed-switcher .switchBox .label .icon svg {
+    color: #161616;
+    fill: #161616;
 }
 
 .new-prod-boxes-container .switchBox .switch-text {
@@ -178,6 +222,11 @@
     color: black;
 }
 
+.new-prod-boxes-container.reversed-switcher .switchBox .label.right, .new-prod-boxes-container.reversed-switcher .switchBox .label.right .icon svg {
+    color: white;
+    fill: white;
+}
+
 .new-prod-boxes-container .switchBox .label.right hr {
     border-color: #016DFF;
 }
@@ -193,6 +242,10 @@
 .switchBox .switch input:checked ~ .label.right {
     transition: color 0.4s;
     color: white !important;
+}
+
+.new-prod-boxes-container.reversed-switcher .switchBox .switch input:checked ~ .label.right {
+    color: black !important;
 }
 
 .new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box hr{
@@ -220,6 +273,16 @@
 .switchBox .switch input:checked ~ .label.left {
     transition: color 0.4s;
     color: black;
+}
+
+.new-prod-boxes-container.reversed-switcher .switchBox .switch input:checked ~ .label.left {
+    color: white;
+    fill: white;
+}
+
+.new-prod-boxes-container.reversed-switcher .switchBox .switch input:not(:checked) ~ .label.left {
+    color: black;
+    fill: black;
 }
 
 .switchBox .switch input:checked ~ .label.left hr {
@@ -1607,7 +1670,7 @@
     text-decoration: none;
 }
 
-.new-prod-boxes-container .additional-price-info{
+.new-prod-boxes-container .additional-price-info {
     color: #1c7928;
     font-size: 12px;
     font-weight: 700;
@@ -1631,6 +1694,16 @@
 
     .new-prod-boxes-container .block {
         gap: 20px;
+    }
+
+    .new-prod-boxes-container.mobile-title-align-left .titleBox {
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .new-prod-boxes-container.mobile-title-align-left .switchBox {
+        text-align: left;
+        margin-left: 15px;
     }
 
     .slider-container .slides-wrapper.new-prod-boxes {
@@ -1697,12 +1770,25 @@
         width: 440px;
     }
 
+    .new-prod-boxes-container.smaller-switcher .switchBox .switch {
+        width: 340px;
+    }
+
+
     .new-prod-boxes-container .switchBox .slider {
         width: 220px;
     }
 
+    .new-prod-boxes-container.smaller-switcher  .switchBox .slider {
+        width: 165px;
+    }
+
     .new-prod-boxes-container .switchBox .switch input:checked + .slider {
         transform: translateX(215px);
+    }
+
+    .new-prod-boxes-container.smaller-switcher .switchBox .switch input:checked + .slider {
+        transform: translateX(170px);
     }
 
     .slider-container .arrow {

@@ -27,6 +27,7 @@
   --baby-blue-color: #EDF9FF;
   --dark-blue-color: #0853C5;
   --darker-blue-color: #016FFF;
+  --grey-color: #F6F6F6;
   --light-grey-color: #FAFAFA;
   --text-color: #000;
   /* fonts */
@@ -268,6 +269,21 @@ button {
   cursor: pointer;
 }
 
+.new-jul26-btn a.button:any-link,
+.new-jul26-btn button,
+.new-jul26-btn .red-buy-button {
+  height: 36px !important;
+  width: auto;
+  background: #F00 !important;
+  font-size: 14px !important;
+  font-weight: 700;
+  padding: 0 23px !important;
+  line-height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pb-0 {
   padding-bottom: 0 !important;
 }
@@ -323,6 +339,10 @@ button:hover {
 
 .dark-blue-bck {
   background-color: var(--dark-blue-color);
+}
+
+.grey-bck {
+  background-color: var(--grey-color);
 }
 
 .light-grey-bck {
@@ -2070,6 +2090,9 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   .red-buy-button {
     padding: 8px 3%;
     font-size: 14px;
+  }
+  .centered.mobile-aligned-left {
+    text-align: left !important;
   }
   .selectorBox {
     margin: 6px 0;

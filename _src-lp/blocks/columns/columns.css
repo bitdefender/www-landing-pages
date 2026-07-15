@@ -194,6 +194,7 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.v-jul26 .columns img {
   width: 100%;
+  margin: 0;
 }
 
 .columns.bradius-top-20 img {
@@ -808,6 +809,11 @@ main .columns-container.padding-0 .columns-wrapper {
   padding-bottom: 0;
 }
 
+.columns.full-banner > div > div:last-of-type {
+  height: auto;
+  margin-bottom: -20px;
+}
+
 .columns.img-full-width p:last-of-type {
   position: absolute;
   bottom: 0;
@@ -836,9 +842,9 @@ main .columns-container.padding-0 .columns-wrapper {
   color: white;
 }
 
-.columns-container.v-jul26 .columns .icon {
-  height: 30px;
-  width: auto;
+.columns-container.v-jul26 .columns .icon, .columns-container.v-jul26 .columns .icon svg {
+  height: 30px !important;
+  width: auto !important;
 }
 
 .columns-container.v-jul26 .columns .columns-wrapper {

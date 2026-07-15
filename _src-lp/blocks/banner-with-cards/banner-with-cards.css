@@ -675,6 +675,66 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   margin-bottom: 5px;
 }
 
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards {
+  padding: 25px;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards .customWrapper {
+  padding: 0;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards .imgBox {
+  align-self: center;
+  text-align: left;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards .imgBox ul li {
+  background-image: url("/_src-lp/icons/checkmark_solid-circle_2.svg");
+  color: #161616;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 4px 0;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards h4 {
+  color: #1C7829;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards h2 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
+  margin: 0;
+  padding: 0;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards .prodBox-wrapper .prodBox {
+  text-align: center;
+  background: transparent;
+  border-radius: unset;
+  padding: 0;
+  align-self: center;
+  box-shadow: none;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards .prodBox-wrapper .prodBox * {
+  text-align: center;
+  justify-content: center;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards .prodBox-wrapper .prodBox .red-buy-button {
+  width: 200px;
+  margin: 10px auto;
+}
+
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards .prodBox table:first-of-type {
+  display: none;
+}
+
 .section.banner-with-cards-container.free-size[data-show="2-cols"] .banner-with-cards .hasProds > div:first-of-type {
   flex: 0 0 50%;
 }
@@ -797,6 +857,13 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     order: 2;
     text-align: center;
     width: 100%;
+  }
+  .section.banner-with-cards-container[data-show="3-cols"].list-under-title .banner-with-cards .customWrapper > div:nth-of-type(2) {
+    order: 2;
+    width: 220px;
+  }
+  .section.banner-with-cards-container[data-show="3-cols"].list-under-title .banner-with-cards .customWrapper > div:nth-of-type(2) ul {
+    margin: 0;
   }
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(2) {
     order: 1;
