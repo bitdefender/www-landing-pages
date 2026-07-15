@@ -341,7 +341,7 @@
 
 .b-dropdownbox-container.dropdownSlider {
   position: relative;
-  margin-bottom: 2em;
+  margin-bottom: 7em;
 }
 .b-dropdownbox-container.dropdownSlider::after {
   content: "";
@@ -444,6 +444,9 @@
   .b-dropdownbox-container {
     clear: both;
     padding: 0 15px 5px;
+  }
+  .b-dropdownbox-container.dropdownSlider {
+    margin-bottom: 2em;
   }
   .b-dropdownbox-container.dropdownSlider:not(.no-loader) .b-dropdownbox-wrapper {
     display: block;
