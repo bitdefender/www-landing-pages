@@ -808,6 +808,11 @@ main .columns-container.padding-0 .columns-wrapper {
   padding-bottom: 0;
 }
 
+.columns.full-banner > div > div:last-of-type {
+  height: auto;
+  margin-bottom: -20px;
+}
+
 .columns.img-full-width p:last-of-type {
   position: absolute;
   bottom: 0;
