@@ -1528,9 +1528,6 @@
   .section.banner-container.bckimg-small-right[data-image-cover=small-right] .banner {
     padding-top: 2em !important;
   }
-  .section.banner-container.bckimg-small-right .banner .text-center * {
-    text-align: left !important;
-  }
   .section.banner-container.bckimg-small-right .banner p {
     font-size: 16px;
   }
