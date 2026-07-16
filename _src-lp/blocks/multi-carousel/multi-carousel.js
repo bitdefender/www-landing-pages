@@ -43,6 +43,13 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
     return items.length > visibleSlides;
   }
 
+  // check if we have images:
+  const hasAnyPicture = items.some((html) => {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.querySelector('picture');
+  });
+
   items.forEach((html, i) => {
     const slide = document.createElement('div');
     slide.className = 'carousel-el';
@@ -51,7 +58,12 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
       slide.classList.add('active');
     }
 
-    slide.innerHTML = `<div class="carousel-content">${html}</div>`;
+    const hasPicture = html.includes("<picture");
+    slide.innerHTML = `
+      <div class="carousel-content ${hasAnyPicture && !hasPicture ? 'no-img' : ''}">
+        ${html}
+      </div>
+    `;
 
     slides.push(slide);
     track.append(slide);

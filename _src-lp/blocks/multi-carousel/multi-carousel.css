@@ -22,7 +22,7 @@
   cursor: pointer;
   color: #006DFF;
   position: absolute;
-  top: 18em;
+  top: 40%;
   opacity: 0.8;
 }
 
@@ -102,6 +102,10 @@
 
 .multi-carousel .carousel-el .carousel-content {
   height: 100%;
+}
+
+.multi-carousel .carousel-el .carousel-content.no-img {
+  padding-top: 210px;
 }
 
 .multi-carousel .carousel-el .carousel-content > div {
