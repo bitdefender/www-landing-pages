@@ -47,8 +47,10 @@
   padding: 0;
 }
 
-.columns-container.csam-design .columns table tr {
-  align-items: center;
+.columns-container.csam-design .columns table tr td:last-of-type {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .columns-container.new-list .columns table {
