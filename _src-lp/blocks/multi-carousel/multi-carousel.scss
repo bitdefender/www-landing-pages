@@ -22,7 +22,12 @@
     cursor: pointer;
     color: #006DFF;
     position: absolute;
-    top: 18em;
+    top: 40%;
+    opacity: 0.8;
+}
+
+.multi-carousel-container .carousel-arrows-container button:hover {
+    opacity: 1;
 }
 
 .multi-carousel-container .carousel-arrows-container button.inactive {
@@ -47,6 +52,7 @@
     display: flex;
     justify-content: right;
     overflow: hidden;
+    touch-action: pan-y;
     position: relative;
     width: 100%;
     margin: 0 auto;
@@ -56,13 +62,14 @@
     display: grid;
     grid-auto-flow: column;
     justify-content: left;
-    transition: transform 0.5s ease;
     min-height: 100%;
     width: 100%;
     height: 100%;
     overflow: visible;
     padding: 0;
     gap: 25px;
+    transition: transform .4s ease-in-out;
+    will-change: transform;
 }
 
 .multi-carousel .carousel-el {
@@ -95,6 +102,10 @@
 
 .multi-carousel .carousel-el .carousel-content {
     height: 100%;
+}
+
+.multi-carousel .carousel-el .carousel-content.no-img {
+    padding-top: 210px;
 }
 
 .multi-carousel .carousel-el .carousel-content > div {
@@ -199,6 +210,10 @@
 @media (width <= 767px) {
     .multi-carousel .carousel-el {
         width: 42vw;
+    }
+
+    .multi-carousel-container.hide-arrows-mobile .carousel-arrows-container {
+        display: none;
     }
 }
 
