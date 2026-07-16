@@ -17,8 +17,18 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
   const dots = [];
 
   let current = 0;
+  let startX = 0;
+  let currentTranslate = 0;
+  let isDragging = false;
   let prevArrow;
   let nextArrow;
+
+  function getCurrentTranslate() {
+    const slideWidth = slides[0].offsetWidth;
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+
+    return -((slideWidth + gap) * current);
+  }
 
   function getVisibleSlides() {
     if (window.innerWidth < 450) return 1;
@@ -49,6 +59,49 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
 
   container.append(track);
   block.append(container);
+
+  function touchStart(e) {
+    if (!hasNavigation()) return;
+
+    isDragging = true;
+    startX = e.touches[0].clientX;
+
+    track.style.transition = 'none';
+  }
+
+  function touchMove(e) {
+    if (!isDragging) return;
+
+    const currentX = e.touches[0].clientX;
+    const delta = currentX - startX;
+
+    track.style.transform = `translateX(${currentTranslate + delta}px)`;
+  }
+
+  function touchEnd(e) {
+    if (!isDragging) return;
+
+    isDragging = false;
+
+    track.style.transition = 'transform .4s ease-in-out';
+
+    const endX = e.changedTouches[0].clientX;
+    const delta = endX - startX;
+
+    if (Math.abs(delta) > 50) {
+      if (delta < 0) {
+        goTo(current + 1);
+      } else {
+        goTo(current - 1);
+      }
+    } else {
+      goTo(current);
+    }
+  }
+
+  container.addEventListener('touchstart', touchStart, { passive: true });
+  container.addEventListener('touchmove', touchMove, { passive: true });
+  container.addEventListener('touchend', touchEnd);
 
   // Bullets
   if (hasNavigation()) {
@@ -97,7 +150,8 @@ function createCarousel(block, autoplay = false, startFrom = 0) {
     const slideWidth = slides[0].offsetWidth;
     const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
 
-    track.style.transform = `translateX(-${(slideWidth + gap) * current}px)`;
+    currentTranslate = -((slideWidth + gap) * current);
+    track.style.transform = `translateX(${currentTranslate}px)`;
 
     slides.forEach((s, i) => {
       s.classList.toggle('active', i === current);
