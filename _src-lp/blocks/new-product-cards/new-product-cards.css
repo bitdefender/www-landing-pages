@@ -449,7 +449,7 @@
   font-weight: bold;
   font-size: calc(14px + 2 * (100vw - 768px) / 680);
 }
-.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .pricing-container .pricing .prod-percent {
+.new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .prod-percent {
   visibility: inherit;
 }
 @media (width > 768px) {
