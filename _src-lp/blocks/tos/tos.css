@@ -30,7 +30,6 @@
 }
 
 .tos ul {
-  display: none;
   padding: 0;
   margin-top: 0;
 }
@@ -54,33 +53,46 @@
   margin-bottom: 1em;
 }
 
+.tos > div > div:last-of-type {
+  display: none;
+}
+
+.tos .open > div:last-of-type, .tos > div > div:first-of-type {
+  display: block;
+}
+
 .tos > div:nth-child(1) {
   font-size: 18px;
   color: #234cff;
   margin-bottom: 16px;
 }
 
-.tos-container.blue-accordion .tos > div {
+.tos-container.blue-style .tos > div:not(:first-of-type) {
   background-color: #F4F8FF;
   padding: 20px;
   border-radius: 10px;
 }
-.tos-container.blue-accordion .tos div:first-of-type {
-  display: none;
+.tos-container.blue-style .tos div:first-of-type > div {
+  margin: 0;
+  padding: 0;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  display: block !important;
 }
-.tos-container.blue-accordion h3 {
+.tos-container.blue-style h3 {
   color: #006EFF;
   font-size: 21px;
 }
-.tos-container.blue-accordion h3 svg {
+.tos-container.blue-style h3 svg {
   display: none;
 }
-.tos-container.blue-accordion h3 strong {
+.tos-container.blue-style h3 strong {
   display: inline-flex;
   align-content: center;
   gap: 10px;
 }
-.tos-container.blue-accordion h3 ::before {
+.tos-container.blue-style h3 ::before {
   content: url("/_src-lp/icons/minus.svg");
   font-size: 20px;
   width: 14px;
@@ -88,12 +100,93 @@
   display: inline-block;
   filter: invert(25%) sepia(100%) saturate(10000%) hue-rotate(200deg) brightness(100%) contrast(100%);
 }
-.tos-container.blue-accordion li {
+.tos-container.blue-style li {
   list-style: none;
+}
+.tos-container.blue-style.v2 .tos > div a {
+  color: var(--link-hover-color);
+}
+.tos-container.blue-style.v2 .tos > div.open h3 {
+  color: #0059d6;
+}
+.tos-container.blue-style.v2 .tos > div.open h3::before {
+  content: "-";
+  font-size: 38px;
+  margin-top: -3px;
+}
+.tos-container.blue-style.v2 .tos > div.open > div:last-of-type {
+  display: block;
+}
+.tos-container.blue-style.v2 .tos > div {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.tos-container.blue-style.v2 .tos > div > div h3 {
+  margin: 0;
+  cursor: pointer;
+  color: #151719;
+  padding: 1rem 0;
+  font-weight: 600;
+  list-style: none;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  line-height: 23px;
+}
+.tos-container.blue-style.v2 .tos > div > div h3 svg {
+  display: none;
+}
+.tos-container.blue-style.v2 .tos > div > div h3:hover {
+  color: #0059d6;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+.tos-container.blue-style.v2 .tos > div > div h3::before {
+  content: "+";
+  float: left;
+  margin-right: 10px;
+  color: #006DFF;
+  font-size: 22px;
+}
+.tos-container.blue-style.v2 .tos > div > div:last-of-type {
+  display: none;
+  padding-bottom: 15px;
+}
+.tos-container.blue-style.v2.v3 .tos > div {
+  background-color: transparent;
+}
+.tos-container.blue-style.v2.v3 .tos > div > div:last-of-type {
+  padding-bottom: 0;
+}
+.tos-container.blue-style.v2.v3 .tos > div h3 {
+  color: #006DFF;
+  padding: 5px 0;
+}
+.tos-container.blue-style.v2.v3 .tos > div h3:hover {
+  color: #0059d6;
+}
+.tos-container.blue-style.v2.v3 .tos > div ul {
+  margin-bottom: 0;
+}
+.tos-container.blue-style.v2.v3 .tos > div ul li {
+  list-style-type: disc;
+}
+.tos-container.blue-style.v2.v3 .tos > div.open > div:last-of-type {
+  display: block;
+}
+.tos-container.blue-style.v2.v3 .tos > div.open > div:last-of-type p {
+  margin: 5px 0 10px;
 }
 
 .tos-container.new-tos2024 .tos > div:not(:first-child) {
   margin-bottom: 2em;
+}
+
+.tos-container.new-tos2024 .tos > div:not(:first-child) svg {
+  display: none;
+}
+
+.tos-container.new-tos2024 .tos > div:not(:first-child) > div:last-of-type {
+  display: block;
 }
 
 .tos-container.new-tos2024 .tos > div:nth-child(1) {
@@ -107,10 +200,6 @@
   color: black;
   opacity: 1;
   cursor: default;
-}
-
-.tos-container.new-tos2024 .tos svg {
-  display: none;
 }
 
 .tos-container.new-tos2024 .tos ul {

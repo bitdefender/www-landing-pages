@@ -7,9 +7,11 @@ export default function decorate(block) {
     }
 
     links[i].addEventListener('click', () => {
-      const svg = links[i].parentElement.querySelector('svg');
+      const parent = links[i].parentElement;
+      const svg = parent.querySelector('svg');
+
       svg.classList.toggle('tos__link--active');
-      links[i].parentElement.parentElement.children[1].children[0].classList.toggle('d-block');
+      parent.parentElement.classList.toggle('open');
     });
   }
 

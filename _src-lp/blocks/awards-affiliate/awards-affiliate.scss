@@ -92,6 +92,14 @@
   width: 125px;
 }
 
+.awards-affiliate .columns-title {
+  margin: 10px 0;
+}
+
+.awards-affiliate .columns-subtitle {
+  margin-bottom: 10px;
+}
+
 .awards-affiliate.black-heading {
   .columns-class {
     margin-top: 5px;
@@ -254,6 +262,39 @@
   }
 }
 
+.awards-affiliate-container.blue-boxes .awards-affiliate .columns-class {
+  width: 580px;
+  gap: 10px;
+  text-align: center;
+  justify-content: center;
+}
+
+.awards-affiliate-container.blue-boxes .awards-affiliate .columns-class h4 {
+  min-height: auto !important;
+  color: #006DFF;
+  font-size: 34px;
+  line-height: 36px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.awards-affiliate-container.blue-boxes .awards-affiliate .columns-class > div {
+  flex: 1;
+  background-color: #D6F0FF;
+  padding: 15px 20px;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.awards-affiliate-container.blue-boxes .awards-affiliate .columns-class > div p {
+  margin: 0;
+  padding: 0;
+}
+
 @media screen and (width >=768px) {
   .smaller-imgs .awards-affiliate>div:last-of-type img {
     height: 65px;
@@ -284,6 +325,10 @@
   .awards-affiliate h3 {
     max-width: 726px;
     margin-top: 15px;
+  }
+
+  .centered .awards-affiliate h3 {
+    margin: 15px auto 0;
   }
 
   .awards-affiliate .columns-class div {
@@ -349,5 +394,28 @@
 @media screen and (width < 768px) {
   .awards-affiliate .columns-class > div {
     max-width: unset;
+  }
+
+  .awards-affiliate-container.blue-boxes.mobile-blue-boxes-row .columns-class > div {
+    min-width: unset!important;
+    padding: 10px 15px;
+  }
+
+  .awards-affiliate-container.blue-boxes.mobile-blue-boxes-row .awards-affiliate .columns-class {
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class h4 {
+    min-height: auto !important;
+    color: #006DFF;
+    font-size: 30px;
+    line-height: 30px;
+    margin: 0;
+  }
+
+  .awards-affiliate-container.mobile-full-img .awards-affiliate img {
+    max-width: 100%;
   }
 }

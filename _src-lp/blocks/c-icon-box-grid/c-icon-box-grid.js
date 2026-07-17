@@ -12,7 +12,7 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html
 */
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
-import { getDatasetFromSection, matchHeights } from '../../scripts/utils.js';
+import { getDatasetFromSection, matchHeights, updateProductsList } from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 function initializeSlider(block) {
@@ -80,7 +80,7 @@ function getColumnClasses(index, layout, columnsAlignment, type) {
 }
 
 export default function decorate(block) {
-  const { type } = block.closest('.section').dataset;
+  const { type, products } = block.closest('.section').dataset;
   const metaData = getDatasetFromSection(block);
 
   const svgColor = metaData.svgcolor;
@@ -156,7 +156,7 @@ export default function decorate(block) {
                   <div class="icon-box-grid-column d-flex flex-column justify-content-start">
                     ${hasOldSvgImplementation(col.svgNameEl) ? new SvgLoaderComponent(col.svgNameEl.innerText, svgColor, svgSize).render() : col.svgNameEl.innerHTML}
                     ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
-                    ${col.subtitle ? `<div class="subtitle">${col.subtitle}</div>` : ''}
+                    ${col.subtitle ? `4<div class="subtitle">${col.subtitle}</div>` : ''}
                     ${col.buttons ? `<div class="buttons">${col.buttons}</div>` : ''}
                   </div>
                 </div>
@@ -193,6 +193,19 @@ export default function decorate(block) {
   }
 
   block.innerHTML = htmlContent;
+
+  // if we have products we create buy links
+  const productsAsList = products && products.split(',');
+  if (productsAsList && productsAsList.length) {
+    productsAsList.forEach((prod) => updateProductsList(prod));
+
+    block.querySelectorAll('.quotebox').forEach((item, key) => {
+      const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
+      const selectorClass = `${prodName.trim()}-${prodUsers}${prodYears}`;
+
+      item.querySelector('.buttons a').classList.add(`buylink-${selectorClass}`);
+    });
+  }
 
   if (type === 'mobileSlider') {
     const arrowsSlider = document.createElement('div');

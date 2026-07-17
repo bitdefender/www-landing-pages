@@ -48,6 +48,12 @@
   padding: 0;
 }
 
+.columns-container.csam-design .columns table tr td:last-of-type {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .columns-container.new-list .columns table {
   width: 85%;
   margin-left: 10px;
@@ -95,9 +101,10 @@
 }
 
 .columns-container.csam-design-v3 .block div.columns-img-col img {
+  width: 300px;
   max-width: 300px;
   height: stretch;
-  margin: -1px;
+  margin: -1px 0 -1px -1px;
   display: inline;
   border-radius: 16px 0 0 16px;
   padding: 0;
@@ -190,6 +197,11 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns img {
   border-radius: 20px;
   width: unset;
+}
+
+.columns-container.v-jul26 .columns img {
+  width: 100%;
+  margin: 0;
 }
 
 .columns.bradius-top-20 img {
@@ -804,6 +816,11 @@ main .columns-container.padding-0 .columns-wrapper {
   padding-bottom: 0;
 }
 
+.columns.full-banner > div > div:last-of-type {
+  height: auto;
+  margin-bottom: -20px;
+}
+
 .columns.img-full-width p:last-of-type {
   position: absolute;
   bottom: 0;
@@ -823,14 +840,18 @@ main .columns-container.padding-0 .columns-wrapper {
   padding: 12px 45px;
 }
 
+.hide-green-badge .columns.img-full-width p u {
+  display: none;
+}
+
 .columns-container.v-jul26 .columns h3 {
   font-weight: normal;
   color: white;
 }
 
-.columns-container.v-jul26 .columns .icon {
-  height: 30px;
-  width: auto;
+.columns-container.v-jul26 .columns .icon, .columns-container.v-jul26 .columns .icon svg {
+  height: 30px !important;
+  width: auto !important;
 }
 
 .columns-container.v-jul26 .columns .columns-wrapper {
