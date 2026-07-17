@@ -239,6 +239,9 @@
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul {
   padding-left: 0;
   margin: 0;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 10;
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li {
   list-style: none;
@@ -247,6 +250,7 @@
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul {
   padding-left: 0;
   margin-top: 12px;
+  display: block;
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box ul > li > ul li {
   min-height: 19px;
