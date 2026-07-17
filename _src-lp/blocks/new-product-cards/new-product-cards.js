@@ -171,7 +171,7 @@ function renderPricing(...products) {
 
   root.innerHTML += `
         <div class="pricing">
-           <div class="save_price_box await-loader new-store" data-store-render data-store-hide="!it.option.price.discounted">
+           <div class="save_price_box await-loader new-store" data-store-render data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility">
               <span class="prod-oldprice" data-store-render data-store-price="full"></span>
               <strong class="save prod-percent">Save <span data-store-render data-store-discount="percentage"></span></strong>
             </div>
