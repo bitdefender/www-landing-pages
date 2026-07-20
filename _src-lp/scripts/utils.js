@@ -1500,11 +1500,11 @@ export const wrapChildrenWithStoreContext = (element, {
   }
 
   const product = document.createElement('bd-product');
-  product.setAttribute('product-id', productId);
+  product.setAttribute('product-id', productId?.trim());
 
   const option = document.createElement('bd-option');
-  option.setAttribute('devices', devices);
-  option.setAttribute('subscription', subscription);
+  option.setAttribute('devices', devices?.trim());
+  option.setAttribute('subscription', subscription?.trim());
   if (storeEvent) {
     option.setAttribute('data-layer-event', storeEvent);
   }

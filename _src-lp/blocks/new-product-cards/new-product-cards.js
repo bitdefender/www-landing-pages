@@ -418,8 +418,7 @@ export default async function decorate(block) {
           data-store-action data-store-set-bundle 
           data-store-set-id="${addOnProductName}"
           data-store-set-devices="${addOnProductUsers}"
-          data-store-set-subscription="${addOnProductYears}"
-          class="checkboxVPN" value="">
+          data-store-set-subscription="${addOnProductYears}" value="">
           ${addOnLabel.outerHTML}
           </div>
         `;
@@ -438,7 +437,7 @@ export default async function decorate(block) {
 
   const sectionTitle = section.querySelector('h1');
   const [titleProductName, titleProductUsers, titleProductYears] = titleProduct?.split('/') || [];
-  if (sectionTitle) {
+  if (sectionTitle && titleProduct) {
     wrapChildrenWithStoreContext(sectionTitle, {
       productId: titleProductName,
       devices: titleProductUsers,
