@@ -232,6 +232,12 @@ main .columns-container.padding-0 .columns-wrapper {
   margin-left: -12px;
 }
 
+.columns-container.margin-left-0 .columns > div > .columns-img-col img {
+  display: block;
+  max-width: 100%;
+  margin-left: 0;
+}
+
 .columns-container.bigger-imgs .columns > div > .columns-img-col img {
   width: 100%;
 }
@@ -1348,6 +1354,9 @@ main .columns-container.padding-0 .columns-wrapper {
   }
   .padding-0 .columns > div > div {
     padding-bottom: 0;
+  }
+  .columns-container.full-width .columns > div {
+    padding: 0;
   }
   .columns > div > .columns-img-col--left img {
     max-width: 100%;

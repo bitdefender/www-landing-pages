@@ -424,6 +424,13 @@
   margin: 6px;
 }
 
+.c-icon-box-grid-container.dark-blue-background .col-lg {
+  background-color: var(--darker-blue-color);
+  border-radius: 20px;
+  padding: 32px;
+  margin: 6px;
+}
+
 .c-icon-box-grid-container.white-background .col-lg {
   background-color: #FFF;
 }
@@ -687,6 +694,9 @@
     flex-direction: column;
     justify-content: space-between;
     color: #161616;
+  }
+  .c-icon-box-grid-container.text-white .title, .c-icon-box-grid-container.text-white .subtitle {
+    color: white;
   }
   .c-icon-box-grid-container.full-images .subtitle {
     font-size: var(--body-font-size-s);

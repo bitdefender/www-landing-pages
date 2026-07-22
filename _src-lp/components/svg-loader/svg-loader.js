@@ -7,7 +7,7 @@ export default class SvgLoaderComponent {
   /*
   * @svgName {String} svg name
   * @svgColor {String} "blue" | 'rgb()' | '#dsa213'
-  * @svgSize {String} small or medium
+  * @svgSize {String} small, medium or large
   * */
   constructor(svgName, svgColor = 'black', svgSize = 'small') {
     this.#svgName = svgName;
@@ -26,8 +26,12 @@ export default class SvgLoaderComponent {
 
       case 'medium':
         return {
-          width: '60px',
-          height: '60px',
+          height: '50px',
+        };
+
+      case 'large':
+        return {
+          height: '88px',
         };
 
       default: return defaultSmall;

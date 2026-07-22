@@ -29,9 +29,10 @@
   --background-color-light-sky-blue: #e4f2ff;
   --baby-blue-color: #EDF9FF;
   --dark-blue-color: #0853C5;
-  --darker-blue-color: #016FFF;
+  --darker-blue-color: #006DFF;
   --grey-color: #F6F6F6;
   --light-grey-color: #FAFAFA;
+  --light-grey-color-2: #F5F5F7;
   --text-color: #000;
 
   /* fonts */
@@ -110,7 +111,7 @@ body [data-desktop-detector] {
 }
 
 .phishing .heading-content u {
-  color: #006DFF;
+  color: var(--darker-blue-color);
   text-decoration: none;
   font-weight: 600;
   margin-bottom: 10px;
@@ -360,6 +361,10 @@ button:hover {
   background-color: var(--light-grey-color);
 }
 
+.light-grey-bck-2 {
+  background-color: var(--light-grey-color-2);
+}
+
 .dark-blue-bck-2 {
   background-color: var(--link-hover-color);
 
@@ -383,7 +388,7 @@ button:hover {
 
 [data-button-color="blue"] a.button:any-link,
 [data-button-color="blue"] button {
-  background: #006DFF;
+  background: var(--darker-blue-color);
 }
 
 [data-button-color="blue"] a.button:any-link:hover,
@@ -665,6 +670,20 @@ main .section.size-18-normal .default-content-wrapper p {
   font-weight: normal;
 }
 
+main .section.h1-60px h1 {
+  font-size: 60px!important;
+  line-height: 66px;
+}
+
+main .section.h2-48px h2 {
+  font-size: 48px;
+  line-height: 48px;
+}
+
+main .section.heading-no-margin :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+}
+
 main .section[data-textcolor='grey'] .default-content-wrapper p {
   color: #6F6F6F;
 }
@@ -893,7 +912,7 @@ main .blue-heading h2 {
 }
 
 main .blue-paragraph p:first-of-type {
-  color: #006DFF;
+  color: var(--darker-blue-color);
 }
 
 .red-buy-button p em {
@@ -1315,6 +1334,10 @@ main .section.light-sky-blue > * {
   padding: 20px 3em;
   font-size: 18px;
   line-height: 21px;
+}
+
+.new-red-btn a.button:any-link {
+  background-color: #F33;
 }
 
 .green-buy-button {

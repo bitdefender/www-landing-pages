@@ -207,28 +207,34 @@ main .columns-container.padding-0 .columns-wrapper {
   border-radius: 20px 20px 0 0;
 }
 
-.columns>div {
+.columns > div {
   display: flex;
   flex-direction: column;
   padding: 15px;
 }
 
-.columns>div>div {
+.columns > div > div {
   order: 1;
 }
 
-.columns-container.new .columns>div {
+.columns-container.new .columns > div {
   padding: 15px 0;
 }
 
-.columns>div>.columns-img-col {
+.columns > div > .columns-img-col {
   order: 0;
 }
 
-.columns>div>.columns-img-col img {
+.columns > div > .columns-img-col img {
   display: block;
   max-width: 100%;
   margin-left: -12px;
+}
+
+.columns-container.margin-left-0 .columns > div > .columns-img-col img {
+  display: block;
+  max-width: 100%;
+  margin-left: 0;
 }
 
 .columns-container.bigger-imgs .columns > div > .columns-img-col img {
@@ -1449,7 +1455,7 @@ main .columns-container.padding-0 .columns-wrapper {
     font-size: var(--heading-font-size-m);
   }
 
-  .columns>div>div {
+  .columns > div > div {
     flex: 1;
     order: unset;
     padding: 0.5rem;
@@ -1467,16 +1473,20 @@ main .columns-container.padding-0 .columns-wrapper {
     }
   }
 
-  .columns>div>.columns-img-col--left img {
+  .columns-container.full-width .columns > div {
+    padding: 0;
+  }
+
+  .columns > div > .columns-img-col--left img {
     max-width: 100%;
     margin-left: auto;
   }
 
-  .columns-container.csam-design-v2 .columns >div > .columns-img-col img {
+  .columns-container.csam-design-v2 .columns > div > .columns-img-col img {
     max-width: 450px;
   }
 
-  .columns-container.csam-design-v2 .columns >div > .columns-img-col--right {
+  .columns-container.csam-design-v2 .columns > div > .columns-img-col--right {
     padding-left: 6em;
   }
 
