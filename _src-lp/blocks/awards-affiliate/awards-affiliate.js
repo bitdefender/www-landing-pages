@@ -32,5 +32,6 @@ export default function decorate(block) {
   }
 
   matchHeights(block, 'h4');
+  matchHeights(block, '.columns-class h4');
   matchHeights(block, '.columns-class img');
 }

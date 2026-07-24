@@ -4,18 +4,27 @@
     display: flex;
     flex-direction: column;
 
-    &.selected-family .subtitle-blue.subtitle-family {
-        display: block;
-    }
-
     .subtitle-blue {
         color: #234cff;
         width: 100%;
         text-align: center;
-        font-weight: bold;
+        font-weight: 700;
         margin: -1em 0 2em;
 
         &.subtitle-family {
+            display: none;
+        }
+    }
+
+    &.selected-family,
+    &.reversed-switcher {
+        .subtitle-blue.subtitle-family {
+            display: block;
+        }
+    }
+
+    &.selected-individual {
+        .subtitle-blue.subtitle-family {
             display: none;
         }
     }
@@ -289,10 +298,15 @@
     border-color: #016DFF;
 }
 
-.switchBox .switch input:checked ~ .label.left .icon svg {
-    fill: #026DFF;
+.reversed-switcher .switchBox .switch input:checked ~ .label.right .icon svg {
+    fill: black;
 }
 
+.reversed-switcher .switchBox .switch input:checked ~ .label.left .icon svg {
+    fill: white;
+}
+
+.switchBox .switch input:checked ~ .label.left .icon svg
 
 .prod-box.individual-box {
     transition: all 0.4s;

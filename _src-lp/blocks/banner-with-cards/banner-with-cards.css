@@ -90,6 +90,7 @@
   display: flex;
   flex-direction: column;
   align-self: stretch;
+  justify-content: center;
 }
 
 .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper .prod-box-green-tag p {
@@ -140,7 +141,6 @@
   display: flex;
   flex-direction: column;
   background: #FFF;
-  color: black;
   border-radius: 20px;
   padding: 1.5em;
   align-self: flex-start;
@@ -688,12 +688,8 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   text-align: left;
 }
 
-.section.banner-with-cards-container.simple-new-26 .banner-with-cards .imgBox ul li {
-  background-image: url("/_src-lp/icons/checkmark_solid-circle_2.svg");
-  color: #161616;
-  font-size: 14px;
-  line-height: 20px;
-  margin: 4px 0;
+.section.banner-with-cards-container.simple-new-26 .banner-with-cards > div:first-of-type img {
+  height: 200px;
 }
 
 .section.banner-with-cards-container.simple-new-26 .banner-with-cards h4 {
@@ -774,7 +770,7 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   display: none;
 }
 
-.section.banner-with-cards-container.show-save[data-show="3-cols"] .banner-with-cards .prodBox .prices_box .prod-save {
+.section.banner-with-cards-container.show-save[data-show="3-cols"] .banner-with-cards .prodBox .prices_box .prod-save, .section.banner-with-cards-container.simple-new-26 .banner-with-cards .prodBox .prices_box .prod-save {
   display: flex;
 }
 

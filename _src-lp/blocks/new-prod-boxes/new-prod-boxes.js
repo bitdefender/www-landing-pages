@@ -224,42 +224,40 @@ export default function decorate(block) {
       const switchCheckbox = switchBox.querySelector('#switchCheckbox');
 
       // Check if individualSwitchText includes 'reverted'
-      if (individual === 'reverted') switchCheckbox.checked = true;
+      const updateSwitchState = () => {
+        const isFamily = switchCheckbox.checked;
 
-      // Add an event listener to the checkbox
+        block.querySelectorAll('.family-box').forEach((box) => {
+          box.style.display = isFamily ? 'block' : 'none';
+        });
+
+        block.querySelectorAll('.individual-box').forEach((box) => {
+          box.style.display = isFamily ? 'none' : 'block';
+        });
+
+        const section = block.closest('.section');
+
+        section.classList.toggle('selected-family', isFamily);
+        section.classList.toggle('selected-individual', !isFamily);
+
+        updateTagsMargin(block);
+      };
+
+      if (individual === 'reverted') {
+        switchCheckbox.checked = true;
+      }
+
+      // aplică starea inițială
+      updateSwitchState();
+
       switchCheckbox.addEventListener('change', () => {
-        if (set && set === 'height') {
+        if (set === 'height') {
           [1, 2, 3].forEach((i) => {
-            // eslint-disable-next-line no-use-before-define
             matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
           });
         }
 
-        if (switchCheckbox.checked) {
-          const familyBoxes = block.querySelectorAll('.family-box');
-          familyBoxes.forEach((box) => {
-            box.style.display = 'block';
-          });
-
-          const individualBoxes = block.querySelectorAll('.individual-box');
-          if (subtitleFamily) block.closest('.section').classList.add('selected-family');
-          individualBoxes.forEach((box) => {
-            box.style.display = 'none';
-          });
-        } else {
-          const familyBoxes = block.querySelectorAll('.family-box');
-          if (subtitleFamily) block.closest('.section').classList.remove('selected-family');
-          familyBoxes.forEach((box) => {
-            box.style.display = 'none';
-          });
-
-          const individualBoxes = block.querySelectorAll('.individual-box');
-          individualBoxes.forEach((box) => {
-            box.style.display = 'block';
-          });
-        }
-
-        updateTagsMargin(block);
+        updateSwitchState();
       });
     }
 

@@ -156,7 +156,7 @@ export default function decorate(block) {
                   <div class="icon-box-grid-column d-flex flex-column justify-content-start">
                     ${hasOldSvgImplementation(col.svgNameEl) ? new SvgLoaderComponent(col.svgNameEl.innerText, svgColor, svgSize).render() : col.svgNameEl.innerHTML}
                     ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
-                    ${col.subtitle ? `4<div class="subtitle">${col.subtitle}</div>` : ''}
+                    ${col.subtitle ? `<div class="subtitle">${col.subtitle}</div>` : ''}
                     ${col.buttons ? `<div class="buttons">${col.buttons}</div>` : ''}
                   </div>
                 </div>
@@ -218,5 +218,6 @@ export default function decorate(block) {
 
   decorateIcons(block);
   matchHeights(block, 'h6');
+  matchHeights(block, 'h4');
   if (block.closest('.top-image-version') || block.closest('.full-images')) matchHeights(block, 'picture');
 }
