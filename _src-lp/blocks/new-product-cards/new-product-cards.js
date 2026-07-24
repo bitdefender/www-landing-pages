@@ -164,16 +164,18 @@ function renderPricing(...products) {
   const productCard = products[products.length - 1];
 
   const section = productCard.closest('.section');
-  const monthlyPrice = section.dataset.monthlyPrice;
+  const { monthlyPrice, saveText } = section.dataset;
   const billedPrice = productCard.querySelector('.billed-price-container');
 
   const productName = products[0].split('/')[0];
+  const saveHtml = saveText ? saveText.replace('0%', '<span data-store-render data-store-discount="percentage"></span>')
+    : 'Save <span data-store-render data-store-discount="percentage"></span>';
 
   root.innerHTML += `
         <div class="pricing">
            <div class="save_price_box await-loader new-store" data-store-render data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility">
               <span class="prod-oldprice" data-store-render data-store-price="full"></span>
-              <strong class="save prod-percent">Save <span data-store-render data-store-discount="percentage"></span></strong>
+              <strong class="save prod-percent">${saveHtml}</strong>
             </div>
             <div class="prices_box await-loader new-store">
               <span class="prod-newprice" data-store-render
