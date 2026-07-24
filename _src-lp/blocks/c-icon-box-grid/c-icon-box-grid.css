@@ -172,6 +172,10 @@
   position: relative;
 }
 
+.c-icon-box-grid-container.new-jul-26 .subtitle {
+  line-height: 23px;
+}
+
 .c-icon-box-grid-container.has-icons .subtitle img {
   position: absolute;
   right: -15px;
@@ -274,9 +278,53 @@
   background: url("../../images/baby-blue-quote.svg") no-repeat top 2em left 20px #F6F6F6;
 }
 
+.c-icon-box-grid-container.text-margin-top-16px .subtitle {
+  margin-top: 16px;
+}
+
 .c-icon-box-grid-container.top-author .quotes .icon-box-grid-column {
   background: url("../../images/baby-blue-quote-small.svg") no-repeat top 5.5em left 20px #EDF9FF;
   background-size: auto 28px;
+}
+
+.c-icon-box-grid-container.new-jul-26 .quotes .icon-box-grid-column {
+  background: #F0F7FF;
+  padding: 1.4em;
+}
+
+.c-icon-box-grid-container.new-jul-26 .quotes .icon-box-grid-column > p:first-of-type {
+  font-size: 14px;
+  color: #6F6F6F;
+  margin: 0 0 16px;
+}
+
+.c-icon-box-grid-container.new-jul-26 .quotes .icon-box-grid-column > p:first-of-type strong {
+  color: black;
+}
+
+.c-icon-box-grid-container.new-jul-26 .quotes .icon-box-grid-column > p:first-of-type u {
+  width: 48px;
+  height: 48px;
+  background-color: var(--dark-blue-color);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 50%;
+  float: left;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 12px;
+}
+
+.c-icon-box-grid-container.new-jul-26 .quotes .icon-box-grid-column > table:first-of-type tr {
+  display: flex;
+}
+
+.c-icon-box-grid-container.new-jul-26 .quotes .icon-box-grid-column > table:first-of-type tr .icon {
+  width: 24px;
+  height: auto;
 }
 
 .c-icon-box-grid-container.trustpilot-design-v2 .quotes .quotebox {
@@ -305,6 +353,13 @@
   line-height: 19px;
   font-family: var(--body-font-family);
   font-weight: bold;
+}
+
+.c-icon-box-grid-container.new-jul-26 .quotes h6 {
+  font-size: 18px;
+  line-height: 21px;
+  margin: 16px 0;
+  padding: 0;
 }
 
 .c-icon-box-grid-container.box-shadow .col-lg .icon-box-grid-column {
@@ -348,6 +403,10 @@
 
 .c-icon-box-grid-container .quotes .quotebox {
   margin: 1em 0;
+}
+
+.c-icon-box-grid-container.new-jul-26 .quotes .quotebox {
+  padding: 0;
 }
 
 .c-icon-box-grid-container .new-blue {
@@ -422,6 +481,14 @@
   border-radius: 20px;
   padding: 32px;
   margin: 6px;
+}
+
+.c-icon-box-grid-container.light-yellow-background .col-lg {
+  background-color: var(--light-yellow-color);
+}
+
+.c-icon-box-grid-container.radius-20px .col-lg {
+  border-radius: 20px;
 }
 
 .c-icon-box-grid-container.dark-blue-background .col-lg {
@@ -651,6 +718,14 @@
   margin-right: 3px;
 }
 
+.c-icon-box-grid-container.new-jul-26 .block {
+  font-size: 18px;
+}
+
+.c-icon-box-grid-container.four-columns .col-lg-4 {
+  padding: 15px;
+}
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-xs);
@@ -665,8 +740,16 @@
     font-size: var(--body-font-size-s);
     line-height: var(--body-font-size-m);
   }
+  .c-icon-box-grid-container.bigger-title2 .title {
+    font-size: var(--heading-font-size-m);
+    line-height: var(--heading-font-size-l);
+  }
   .c-icon-box-grid-container.smaller-text .subtitle {
     font-size: 14px;
+    line-height: var(--body-font-size-m);
+  }
+  .c-icon-box-grid-container.bigger-text .subtitle {
+    font-size: var(--body-font-size-s);
     line-height: var(--body-font-size-m);
   }
   .c-icon-box-grid-container.items-smaller .row {
@@ -854,6 +937,12 @@
   }
   .c-icon-box-grid-container div.subtitle {
     font-size: 14px;
+  }
+  .c-icon-box-grid-container .block > div > .row {
+    gap: 15px;
+  }
+  .c-icon-box-grid-container.bordered .block > div > .row {
+    gap: 0;
   }
   .c-icon-box-grid-container .slider-container .container > div:last-of-type {
     font-size: 8px;

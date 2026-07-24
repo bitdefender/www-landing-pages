@@ -27,6 +27,11 @@
   --baby-blue-color: #EDF9FF;
   --dark-blue-color: #0853C5;
   --darker-blue-color: #006DFF;
+  --orange-color: #F83;
+  --light-yellow-color: #FFFBF0;
+  --dark-yellow-color: #855F00;
+  --light-green-color: #EDFDF1;
+  --dark-green-color: #0B6A26;
   --grey-color: #F6F6F6;
   --light-grey-color: #FAFAFA;
   --light-grey-color-2: #F5F5F7;
@@ -43,12 +48,16 @@
   --body-font-size-xs: 16px;
   --body-line-height-xs: 20px;
   /* heading sizes */
+  --heading-font-size-xxl3: 60px;
+  --heading-line-height-xxl3: 66px;
   --heading-font-size-xxl2: 50px;
   --heading-line-height-xxl2: 60px;
   --heading-font-size-xxl: 48px;
   --heading-line-height-xsl: 52px;
   --heading-font-size-xl: 40px;
   --heading-line-height-xl: 45px;
+  --heading-font-size-l2: 36px;
+  --heading-line-height-l2: 42px;
   --heading-font-size-l: 32px;
   --heading-line-height-l: 36px;
   --heading-font-size-m: 24px;
@@ -373,6 +382,32 @@ button:hover {
   border-radius: 0 0 20px 20px;
 }
 
+.section.gap-10px .row {
+  gap: 10px !important;
+}
+
+.section.gap-24px .row {
+  gap: 24px !important;
+}
+
+.section[data-svgsize=large] .icon, .section[data-svgsize=large] .icon svg {
+  width: auto;
+  height: 120px;
+}
+
+.section[data-svgsize=medium] .icon, .section[data-svgsize=medium] .icon svg {
+  width: auto;
+  height: 65px;
+}
+
+.section.v-align-center .row {
+  align-items: center;
+}
+
+.section.v-align-bottom .row {
+  align-items: flex-end;
+}
+
 [data-button-color=blue] a.button:any-link,
 [data-button-color=blue] button {
   background: var(--darker-blue-color);
@@ -655,17 +690,41 @@ main .section.size-18-normal .default-content-wrapper p {
 }
 
 main .section.h1-60px h1 {
-  font-size: 60px !important;
-  line-height: 66px;
+  font-size: var(--heading-font-size-xxl3) !important;
+  line-height: var(--heading-line-height-xxl3);
 }
 
 main .section.h2-48px h2 {
-  font-size: 48px;
-  line-height: 48px;
+  font-size: var(--heading-font-size-xxl);
+  line-height: var(--heading-line-height-xsl);
+}
+
+main .section.h2-36px h2 {
+  font-size: var(--heading-font-size-l2);
+  line-height: var(--heading-line-height-l2);
+}
+
+main .section.h2-24px h2 {
+  font-size: var(--heading-font-size-m);
+  line-height: var(--heading-line-height-m);
 }
 
 main .section.heading-no-margin :is(h1, h2, h3, h4, h5, h6) {
   margin: 0;
+}
+
+main .section.heading-smaller-margin :is(h1, h2, h3, h4, h5, h6) {
+  margin: 10px 0;
+}
+
+main .section.orange-underlined u {
+  color: var(--orange-color);
+  text-decoration: none;
+}
+
+main .section.blue-underlined u, main .section.blue-title :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--darker-blue-color);
+  text-decoration: none;
 }
 
 main .section[data-textcolor=grey] .default-content-wrapper p {
@@ -2113,6 +2172,29 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   .red-buy-button {
     padding: 8px 3%;
     font-size: 14px;
+  }
+  .new-red-btn a.button:any-link {
+    padding: 13px 1.5em;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .section.gap-24px .row {
+    gap: 0 !important;
+  }
+  main .section.h1-60px h1 {
+    font-size: var(--heading-font-size-xl) !important;
+    line-height: var(--heading-line-height-xl);
+  }
+  main .section.h2-48px h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-line-height-l);
+  }
+  main .section.h2-36px h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-line-height-l);
+  }
+  .section[data-svgsize=large] .icon, .section[data-svgsize=large] .icon svg, .section[data-svgsize=medium] .icon, .section[data-svgsize=medium] .icon svg {
+    height: 55px;
   }
   .centered.mobile-aligned-left {
     text-align: left !important;

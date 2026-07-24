@@ -162,6 +162,11 @@ main .columns-container.padding-0 .columns-wrapper {
   line-height: 24px;
 }
 
+.columns-container.smaller-text .columns p {
+  font-size: 18px;
+  line-height: 24px;
+}
+
 .columns-container.new .columns p {
   color: black;
   font-family: Arial, sans-serif;
@@ -212,6 +217,65 @@ main .columns-container.padding-0 .columns-wrapper {
   display: flex;
   flex-direction: column;
   padding: 15px;
+}
+
+.columns-container.compare-columns .columns > div {
+  gap: 24px;
+}
+
+.columns-container.compare-columns .columns div {
+  padding: 0;
+}
+
+.columns-container.compare-columns .columns div.text-content > p:first-of-type {
+  margin: 0;
+}
+
+.columns-container.compare-columns .columns div.text-content > p:first-of-type em {
+  background-color: var(--light-yellow-color);
+  color: var(--dark-yellow-color);
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  padding: 8px 24px;
+  border-radius: 40px;
+  display: block;
+  width: max-content;
+  margin: 0 0 8px;
+  float: right;
+}
+
+.columns-container.compare-columns .columns > div > div:last-of-type > div.text-content > p:first-of-type em {
+  background-color: var(--light-green-color);
+  color: var(--dark-green-color);
+  float: none;
+}
+
+.columns-container.compare-columns .columns > div ul {
+  padding-left: 0;
+  margin-top: 8px;
+  clear: both;
+}
+
+.columns-container.compare-columns .columns > div ul li {
+  list-style-type: none;
+  background-color: var(--light-yellow-color);
+  padding: 24px 5px 24px 24px;
+  margin: 4px 0;
+  border-radius: 8px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.columns-container.compare-columns .columns > div > div:last-of-type ul li {
+  background-color: var(--light-green-color);
+}
+
+.columns-container.compare-columns .columns > div ul li .icon {
+  width: 24px;
+  height: auto;
+  margin-right: 8px;
 }
 
 .columns > div > div {
@@ -1236,6 +1300,40 @@ main .columns-container.padding-0 .columns-wrapper {
   display: block;
 }
 
+.columns-container.blue-version.v2 .columns > div {
+  padding: 0;
+  gap: 24px;
+}
+
+.columns-container.blue-version.v2 table tr {
+  background-color: transparent;
+  border: 0 none;
+  padding: 0;
+  gap: 24px;
+  display: flex;
+}
+
+.columns-container.blue-version.v2 table tr p {
+  margin-bottom: 0;
+  font-size: var(--heading-font-size-s);
+  line-height: var(--heading-font-size-m);
+}
+
+.columns-container.blue-version.v2 .block > div > div:not(:first-of-type) table tr p {
+  font-size: var(--heading-font-size-m);
+  line-height: var(--heading-font-size-l);
+}
+
+.columns-container.blue-version.v2 .block > div > div:not(:first-of-type) table tr td {
+  background-color: var(--light-yellow-color);
+  border: 0 none;
+  padding: 2em;
+  border-radius: 24px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
 .columns-container.blue-version table tr p {
   font-size: 18px;
   line-height: 22px;
@@ -1907,6 +2005,17 @@ main .columns-container.padding-0 .columns-wrapper {
   }
   .columns-container.csam-design-v3 .columns table tr td:last-of-type {
     padding: 0 20px 10px;
+  }
+  .columns-container.blue-version.v2 table tr {
+    flex-direction: column;
+  }
+  .columns-container.blue-version.v2 .block > div > div:not(:first-of-type) table tr p {
+    font-size: var(--heading-font-size-s);
+    line-height: var(--heading-line-height-s);
+  }
+  .columns-container.compare-columns .columns div.text-content > p:first-of-type em {
+    float: none;
+    font-weight: bold;
   }
 }
 @media (width <= 500px) {
