@@ -229,7 +229,7 @@
 }
 
 .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class {
-  width: 580px;
+  width: 645px;
   gap: 10px;
   text-align: center;
   justify-content: center;
@@ -243,6 +243,9 @@
   font-style: normal;
   font-weight: 700;
   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class > div {
