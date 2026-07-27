@@ -238,10 +238,11 @@
 .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class h4 {
   min-height: auto;
   color: #006DFF;
-  font-size: 34px;
-  line-height: 36px;
+  font-size: 32px;
+  line-height: 35px;
   font-style: normal;
   font-weight: 700;
+  margin-bottom: 5px;
 }
 
 .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class > div {
@@ -272,7 +273,7 @@
     margin: 1em 0.5em 0;
   }
   .awards-affiliate img {
-    max-width: none;
+    max-width: 100%;
   }
   .awards-affiliate div {
     font-size: 18px;
@@ -350,7 +351,7 @@
     padding: 10px 15px;
   }
   .awards-affiliate-container.blue-boxes.mobile-blue-boxes-row .awards-affiliate .columns-class {
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
     width: 100%;
   }
@@ -363,5 +364,6 @@
   }
   .awards-affiliate-container.mobile-full-img .awards-affiliate img {
     max-width: 100%;
+    height: auto;
   }
 }

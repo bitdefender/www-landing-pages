@@ -167,6 +167,9 @@
     color: white;
     transition: color 0.4s;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .new-prod-boxes-container .smaller-switcher.switchBox .label {
@@ -191,7 +194,7 @@
 
 .new-prod-boxes-container .switchBox .label .icon {
     width: 14px;
-    height: 16px;
+    height: auto;
 }
 
 .new-prod-boxes-container .switchBox .label .blue-pill .icon {
@@ -206,7 +209,7 @@
 
 .new-prod-boxes-container .switchBox .label .blue-pill svg {
     width: 9px;
-    height: 9px;
+    height: auto;
 }
 
 .new-prod-boxes-container .switchBox .label .switch input ~ .label .icon {
@@ -268,7 +271,7 @@
 
 .switchBox .switch input ~ .label .icon svg {
     width: 14px;
-    height: 16px;
+    height: auto;
 }
 
 .switchBox .switch input ~ .label.right .icon svg {
