@@ -141,6 +141,7 @@
   display: flex;
   flex-direction: column;
   background: #FFF;
+  color: black;
   border-radius: 20px;
   padding: 1.5em;
   align-self: flex-start;
