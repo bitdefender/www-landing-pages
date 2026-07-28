@@ -1,6 +1,6 @@
 .section.banner-with-cards-container {
   background-color: white;
-  color: white;
+  color: inherit;
   padding: 0;
 }
 
