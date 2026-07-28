@@ -161,6 +161,8 @@ export default function decorate(block) {
   let trialLinks = false;
   if (parentSection.classList.contains('trial-links')) trialLinks = true;
 
+  let switchCheckbox;
+
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
@@ -221,7 +223,7 @@ export default function decorate(block) {
       `;
 
       // Get the checkbox inside the switchBox
-      const switchCheckbox = switchBox.querySelector('#switchCheckbox');
+      switchCheckbox = switchBox.querySelector('#switchCheckbox');
 
       // Check if individualSwitchText includes 'reverted'
       const updateSwitchState = () => {
@@ -907,6 +909,11 @@ export default function decorate(block) {
 
   window.addEventListener('resize', updateMargin());
   setTimeout(() => updateMargin(), 0);
+
+  if (switchCheckbox && individual === 'reverted') {
+    switchCheckbox.checked = true;
+    switchCheckbox.dispatchEvent(new Event('change'));
+  }
 
   block.addEventListener('click', (e) => {
     const clickedButton = e.target.closest('.list-toggle');
