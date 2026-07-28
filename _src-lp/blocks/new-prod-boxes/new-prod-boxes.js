@@ -253,7 +253,7 @@ export default function decorate(block) {
       switchCheckbox.addEventListener('change', () => {
         if (set === 'height') {
           [1, 2, 3].forEach((i) => {
-            matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
+            matchHeights(block, `.benefitsLists > ul:nth-of-type(${i})`);
           });
         }
 
