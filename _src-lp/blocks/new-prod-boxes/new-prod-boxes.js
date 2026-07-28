@@ -209,12 +209,12 @@ export default function decorate(block) {
           <span class="slider round">
           </span>
           <span class="label right">
-            ${partsIndividual[0]}
+            <span class="d-flex">${partsIndividual[0]}</span>
             ${partsIndividual[1] ? `<hr><p>${partsIndividual[1]}</p>` : ''}
           </span>
 
           <span class="label left">
-            ${partsFamily[0]}
+            <span class="d-flex">${partsFamily[0]}</span>
             ${partsFamily[1] ? `<hr><p>${partsFamily[1]}</p>` : ''}
           </span>
         </label>
