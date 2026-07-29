@@ -435,6 +435,12 @@ export class DecorateLink {
     const channel = page.getParamValue('channel') || 'LP';
     this.#params.set('REF', `${channel}_${this.#campaign}`);
   }
+  
+  #addControllerId() {
+    if (window.UC_UI) {
+			this.#params.set('ucControllerId', window.UC_UI.getControllerId());
+		}
+  }
 
   #cleanSection() {
     if (!this.#params.has('section')) {
@@ -475,6 +481,7 @@ export class DecorateLink {
     this.#addREF();
     this.#cleanSection();
     this.#addExtraParametersFromTarget();
+    this.#addControllerId();
     this.#urlObj.search = this.#params.toString();
     return await this.#appendAdobeMc(this.#urlObj.toString());
   }

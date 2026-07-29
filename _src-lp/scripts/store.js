@@ -19,6 +19,9 @@ export default new Store({
       const products = (await target.configMbox)?.products;
       const { buyLink, product, option } = param;
       const buyLinkURL = new URL(buyLink);
+      if (window.UC_UI) {
+        buyLinkURL.searchParams.set('ucControllerId', window.UC_UI.getControllerId());
+      }
       buyLinkURL.searchParams.set('REF', `${channel}_${product.campaign}`);
       if (products) {
         const monthsToYears = option.subscription / (option.subscription === 1 ? 1 : 12);

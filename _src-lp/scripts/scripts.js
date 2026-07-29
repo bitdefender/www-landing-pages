@@ -1327,6 +1327,17 @@ async function loadPage() {
 
   go2Anchor();
 
+  window.addEventListener('UC_UI_INITIALIZED', () => {
+    if (window.UC_UI) {
+      const controllerId = window.UC_UI.getControllerId();
+      document.querySelectorAll('a[data-buy-price]').forEach((button) => {
+        const buyLink = new URL(button.getAttribute('href'));
+        buyLink.searchParams.set('ucControllerId', controllerId);
+        button.href = buyLink.toString();
+      });
+    }
+  });
+
   document.dispatchEvent(new Event('bd_page_ready'));
   window.bd_page_ready = true;
 }
