@@ -229,19 +229,23 @@
 }
 
 .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class {
-  width: 580px;
+  width: 645px;
   gap: 10px;
   text-align: center;
   justify-content: center;
 }
 
 .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class h4 {
-  min-height: auto !important;
+  min-height: auto;
   color: #006DFF;
-  font-size: 34px;
-  line-height: 36px;
+  font-size: 32px;
+  line-height: 35px;
   font-style: normal;
   font-weight: 700;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .awards-affiliate-container.blue-boxes .awards-affiliate .columns-class > div {
@@ -249,7 +253,7 @@
   background-color: #D6F0FF;
   padding: 15px 20px;
   border-radius: 13px;
-  display: flex;
+  display: block;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -261,13 +265,18 @@
   padding: 0;
 }
 
+.blue-boxes .awards-affiliate img {
+  height: 100px;
+  margin: 10px;
+}
+
 @media screen and (width >= 768px) {
   .smaller-imgs .awards-affiliate > div:last-of-type img {
     height: 65px;
     margin: 1em 0.5em 0;
   }
   .awards-affiliate img {
-    max-width: none;
+    max-width: 100%;
   }
   .awards-affiliate div {
     font-size: 18px;
@@ -282,12 +291,15 @@
   .awards-affiliate .columns-subtitle {
     max-width: 628px;
   }
+  .awards-affiliate-container.full-width-text .awards-affiliate .columns-subtitle {
+    max-width: 90%;
+  }
   .awards-affiliate h3 {
     max-width: 726px;
     margin-top: 15px;
   }
   .centered .awards-affiliate h3 {
-    margin: 15px auto 0;
+    margin: 15px auto;
   }
   .awards-affiliate .columns-class div {
     padding: 34px;
@@ -342,7 +354,7 @@
     padding: 10px 15px;
   }
   .awards-affiliate-container.blue-boxes.mobile-blue-boxes-row .awards-affiliate .columns-class {
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
     width: 100%;
   }
@@ -355,5 +367,6 @@
   }
   .awards-affiliate-container.mobile-full-img .awards-affiliate img {
     max-width: 100%;
+    height: auto;
   }
 }

@@ -789,6 +789,10 @@ main .section[data-textcolor=white] * {
   line-height: 11px;
 }
 
+.p-lh-1-1 p {
+  line-height: 1.1;
+}
+
 main .default-content-wrapper p {
   font-size: 20px;
   font-weight: normal;
