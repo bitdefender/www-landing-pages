@@ -812,6 +812,10 @@ main .default-content-wrapper p.button-container {
   margin: 1em 0;
 }
 
+main .btn-more-down .default-content-wrapper p.button-container {
+  margin-top: 1.5em;
+}
+
 main .default-content-wrapper img {
   margin-top: 2rem;
 }
@@ -1376,13 +1380,21 @@ main .section.light-sky-blue > * {
 }
 
 .bigger-btn a.button:any-link {
-  padding: 20px 3em;
+  padding: 17px 3em;
   font-size: 18px;
   line-height: 21px;
 }
 
 .new-red-btn a.button:any-link {
   background-color: #F33;
+}
+
+.new-red-btn-bigger a.button:any-link {
+  min-height: 55px;
+  padding: 0 3em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .green-buy-button {

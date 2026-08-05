@@ -66,6 +66,10 @@
   margin-bottom: 0;
 }
 
+.c-device-protection-box-container.bigger-text .col-lg-6:not(.image-container) {
+  margin: 0 !important;
+}
+
 .c-device-protection-box-container.bigger-text .item {
   font-size: 20px;
   font-style: normal;
@@ -79,7 +83,8 @@
 
 .c-device-protection-box-container.right-smaller .col-lg-6:not(.image-container) {
   width: 35%;
-  margin: 0;
+  margin: 0 !important;
+  line-height: 1.45;
 }
 
 .c-device-protection-box-container.left-smaller .col-lg-6.image-container {
@@ -89,6 +94,10 @@
 .c-device-protection-box-container.left-smaller .col-lg-6:not(.image-container) {
   width: 55%;
   margin: 0;
+}
+
+.c-device-protection-box-container.left-smaller .col-lg-6:not(.image-container) a.button:any-link {
+  float: right;
 }
 
 @media screen and (width >= 992px) {
@@ -122,5 +131,8 @@
   }
   .c-device-protection-box-container.left-smaller .col-lg-6, .c-device-protection-box-container.right-smaller .col-lg-6 {
     width: 100% !important;
+  }
+  .c-device-protection-box-container.left-smaller .col-lg-6:not(.image-container) a.button:any-link {
+    float: unset;
   }
 }
