@@ -39,7 +39,9 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
       <div class="display-flex">
         <span class="prod-oldprice oldprice-${selectorClass}"></span>
         <span class="prod-save" ${trialText ? 'style="display: none;"' : ''}> ${tablePricesText} <span class="save-${selectorClass}"></span></span>
-        <span class="d-none percent percent-${selectorClass}">0%</span>
+        <div class="prod-percent">
+          <span class="d-none percent percent-${selectorClass}"></span>
+        </div>
       </div>
       <div class="display-flex">
         <span class="prod-newprice${trialText ? ' newprice-0' : ''} newprice-${selectorClass}${showPrice && showPrice === 'per-month' ? '-monthly' : ''}"></span>
@@ -265,6 +267,7 @@ export default function decorate(block) {
         tosButton.classList.add('tos-button');
         prodBox.insertAdjacentElement('beforeend', tosButton);
       }
+
       prodBox.innerHTML = prodBox.innerHTML.replace(/0\s*%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
       prodBoxesParent.appendChild(prodBox);
     });
