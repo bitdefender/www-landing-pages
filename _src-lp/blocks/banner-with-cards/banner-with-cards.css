@@ -174,7 +174,7 @@
   flex-direction: column;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type {
+.section.banner-with-cards-container .banner-with-cards > div:first-of-type table:first-of-type, .section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type {
   font-size: 16px;
   line-height: 18px;
   font-weight: normal;
@@ -188,7 +188,7 @@
   margin-bottom: 5px;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type td {
+.section.banner-with-cards-container .banner-with-cards > div:first-of-type table:first-of-type td, .section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type td {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -514,7 +514,7 @@
 }
 
 .section.banner-with-cards-container.trial-banner.v2 .banner-with-cards-wrapper .hasProds .prodBox {
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2509803922);
+  box-shadow: 0 4px 10px 0 rgb(0 0 0 / 25.1%);
   z-index: 2;
 }
 
@@ -544,6 +544,7 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   background: linear-gradient(180deg, #000 0%, #006DFF 100%);
   border: none !important;
 }
+
 .section.banner-with-cards-container.they-wear-our-faces::after {
   content: "";
   position: absolute;
@@ -556,40 +557,50 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
   transform: rotate(170deg);
 }
+
 .section.banner-with-cards-container.they-wear-our-faces h4 {
   font-style: normal;
   font-weight: 400;
   font-family: "IBM Plex Sans", sans-serif;
 }
+
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards {
   display: flex;
   justify-content: center;
 }
+
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds {
   justify-content: center;
 }
+
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p {
   position: relative;
 }
+
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p:has(.icon) {
   padding-left: 60px;
 }
+
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p .icon {
   position: absolute;
 }
+
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p .icon svg {
   left: -48px;
   top: 0;
 }
+
 @media (width < 992px) {
   .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child {
     max-width: 446px;
   }
 }
+
 .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds .prodBox {
   margin: 0 auto;
   max-width: 446px;
 }
+
 @media (width < 768px) {
   .section.banner-with-cards-container.they-wear-our-faces .default-content-wrapper {
     text-align: left;
@@ -597,24 +608,30 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     padding-bottom: 0;
     gap: 0;
   }
+
   .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds {
     padding: 0 30px;
   }
+
   .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p:has(.icon) {
     padding-left: 37px;
   }
+
   .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .banner-with-cards > div.hasProds > div:first-child p:has(.icon) .icon svg {
     left: -35px;
   }
+
   .section.banner-with-cards-container.they-wear-our-faces .banner-with-cards-wrapper .prodBox-wrapper {
     margin: 0;
   }
 }
+
 @media (width >= 768px) {
   .section.banner-with-cards-container.they-wear-our-faces h4 {
     padding-left: 60px;
   }
 }
+
 @media (width >= 991px) {
   .section.banner-with-cards-container.they-wear-our-faces::after {
     height: 55%;
@@ -780,94 +797,117 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     padding: 0 15px;
   }
 }
+
 @media (width <= 1100px) {
   .section.banner-with-cards-container .banner-with-cards .hasProds > div {
     flex: unset;
   }
 }
+
 @media (width <= 992px) {
   .section.banner-with-cards-container.hide-tablet {
     background: none !important;
   }
+
   .section.banner-with-cards-container .banner-with-cards {
     padding-top: 1em !important;
     padding-bottom: 1em !important;
     margin-bottom: 1em !important;
   }
+
   .section.banner-with-cards-container.bigger-title .banner-with-cards h1 {
     font-size: var(--heading-font-size-xl);
     line-height: var(--heading-line-height-xl);
   }
+
   .section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type {
     flex: 1;
     width: 500px;
     margin: 0 auto;
   }
+
   .section.banner-with-cards-container .banner-with-cards .hasProds {
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1em;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox {
     max-width: unset;
     width: 400px;
     margin: 1em auto !important;
   }
+
   .section.banner-with-cards-container .banner-with-cards.edeka .prodBox {
     max-width: unset;
     width: unset;
     margin: 0;
     margin-top: 0 !important;
   }
+
   .section.banner-with-cards-container .banner-with-cards.edeka .hasProds {
     align-items: center;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox:first-of-type {
     margin-top: 0 !important;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox-wrapper:last-of-type {
     margin-bottom: 0 !important;
   }
+
   .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds > div:first-child {
     width: unset;
   }
+
   .section.banner-with-cards-container.trial-banner .banner-with-cards-wrapper .banner-with-cards .hasProds > div:first-child p:last-of-type {
     width: unset;
   }
+
   .section.banner-with-cards-container.rounded .banner-with-cards {
     margin-left: 0;
   }
+
   .section.banner-with-cards-container.rounded .banner-with-cards .hasProds > div:first-of-type {
     margin-left: 0;
   }
+
   .columns-container.v-nov25 .columns {
     padding: 2em 1em 1em;
   }
+
   .section.banner-with-cards-container.free-size[data-show="2-cols"] .banner-with-cards .hasProds > div:first-of-type {
     flex: unset;
   }
+
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards {
     padding-top: 3em !important;
   }
+
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(1) {
     order: 2;
     text-align: center;
     width: 100%;
   }
+
   .section.banner-with-cards-container[data-show="3-cols"].list-under-title .banner-with-cards .customWrapper > div:nth-of-type(2) {
     order: 2;
     width: 220px;
   }
+
   .section.banner-with-cards-container[data-show="3-cols"].list-under-title .banner-with-cards .customWrapper > div:nth-of-type(2) ul {
     margin: 0;
   }
+
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(2) {
     order: 1;
     flex: unset;
     width: 350px;
     margin: 0 auto;
   }
+
   .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(3) {
     order: 3;
     flex: unset;
@@ -875,56 +915,70 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     margin: 0 auto;
   }
 }
+
 @media (width <= 768px) {
   .section.banner-with-cards-container.hide-mobile {
     background: none !important;
   }
+
   .section.banner-with-cards-container {
     padding: 0 15px;
   }
+
   .section.banner-with-cards-container .banner-with-cards h1 {
     font-size: 28px;
     line-height: 34px;
   }
+
   .section.banner-with-cards-container .banner-with-cards h2 {
     font-size: 24px;
     line-height: 28px;
   }
+
   .section.banner-with-cards-container .banner-with-cards ul li {
     text-align: left;
   }
+
   .section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type {
     flex: 1;
     width: 100%;
     margin: 0 auto;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox {
     width: 100%;
     padding: 10px;
     border-radius: 10px;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox h3 {
     font-size: 22px;
     line-height: 26px;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox .red-buy-button {
     font-size: 17px;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .prod-newprice {
     font-size: 35px;
     line-height: 23px;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox ul {
     padding: 10px 0;
   }
+
   .section.banner-with-cards-container .banner-with-cards .prodBox ul li {
     font-size: 14px;
     line-height: 21px;
   }
+
   .section.banner-with-cards-container .banner-with-cards.edeka .prodBox h3 {
     font-size: 24px;
     margin-top: 5px;
   }
+
   .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper {
     margin-top: 25px;
   }
