@@ -24,7 +24,7 @@ function resolveFragmentUrl(path) {
     if (aemLiveHost) {
       if (isPreview) {
         url.hostname = aemLiveHost;
-        url.pathname = url.pathname.replace(/^\/pages/, '');
+        url.pathname = url.pathname.replace(/^\/pages(?=\/|$)/, '');
       } else if (!url.pathname.startsWith('/pages')) {
         url.pathname = `/pages${url.pathname}`;
       }
@@ -49,7 +49,7 @@ async function loadFragment(path) {
   if (resp.ok) {
     const url = new URL(path, window.location.origin);
     const baseUrl = `${url.protocol}//${url.hostname}`;
-    const codeBaseUrl = `${baseUrl}/_src`;
+    const codeBaseUrl = `${baseUrl}${window.hlx.codeBasePath}`;
 
     const main = document.createElement('main');
     main.innerHTML = await resp.text();
