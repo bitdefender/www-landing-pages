@@ -49,7 +49,8 @@ async function loadFragment(path) {
   if (resp.ok) {
     const url = new URL(path, window.location.origin);
     const baseUrl = `${url.protocol}//${url.hostname}`;
-    const codeBaseUrl = `${baseUrl}${window.hlx.codeBasePath}`;
+    const isExternalHost = url.hostname !== window.location.hostname;
+    const codeBaseUrl = isExternalHost ? `${baseUrl}/_src` : `${baseUrl}${window.hlx.codeBasePath}`;
 
     const main = document.createElement('main');
     main.innerHTML = await resp.text();
