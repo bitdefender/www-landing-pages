@@ -1466,7 +1466,7 @@
   align-content: center;
 }
 
-.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
+.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists > ul > li:first-of-type {
   margin-top: 22px;
 }
 
@@ -1625,7 +1625,7 @@
   min-height: unset;
 }
 
-.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists ul:first-of-type li:first-of-type {
+.new-prod-boxes-container.show-more-show-less .block .prod_box .inner_prod_box .benefitsLists > ul:first-of-type li:first-of-type {
   background: url("../../icons/arrow-left-blue.png") top 4px left no-repeat transparent;
   background-size: 16px 12px;
   min-height: 21px;
@@ -1635,7 +1635,7 @@
   font-size: 13px;
 }
 
-.new-prod-boxes-container.show-more-show-less .block .index0 .inner_prod_box .benefitsLists ul:first-of-type li:first-of-type {
+.new-prod-boxes-container.show-more-show-less .block .index0 .inner_prod_box .benefitsLists > ul:first-of-type li:first-of-type {
   background: none !important;
   padding-left: 0;
 }
