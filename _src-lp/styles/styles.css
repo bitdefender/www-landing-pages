@@ -2512,3 +2512,9 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
     font-size: 24px;
   }
 }
+@media (width <= 500px) {
+  main .section.h1-60px h1 {
+    font-size: 30px !important;
+    line-height: 35px;
+  }
+}

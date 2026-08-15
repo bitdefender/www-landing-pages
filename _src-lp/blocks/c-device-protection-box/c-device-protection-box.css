@@ -135,4 +135,11 @@
   .c-device-protection-box-container.left-smaller .col-lg-6:not(.image-container) a.button:any-link {
     float: unset;
   }
+  .c-device-protection-box-container.right-smaller .col-lg-6.image-container {
+    margin-bottom: 10px;
+  }
+  .c-device-protection-box-container.right-smaller .col-lg-6:not(.image-container) p.button-container a {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
