@@ -176,7 +176,7 @@
   flex-direction: column;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type {
+.section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type table:first-of-type, .section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type {
   font-size: 16px;
   line-height: 18px;
   font-weight: normal;
@@ -190,7 +190,7 @@
   margin-bottom: 5px;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type td {
+.section.banner-with-cards-container .banner-with-cards .hasProds > div:first-of-type table:first-of-type td, .section.banner-with-cards-container .banner-with-cards .prodBox table:first-of-type td {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,7 +223,7 @@
   font-style: normal;
 }
 
-.section.banner-with-cards-container .banner-with-cards .prodBox p a {
+.section.banner-with-cards-container .banner-with-cards .prodBox p a:not(.button) {
   color: #006EFF;
 }
 
@@ -754,7 +754,7 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
 }
 
 .section.banner-with-cards-container.simple-new-26 .banner-with-cards .prodBox table:first-of-type {
-  display: none;
+  margin: 0 auto;
 }
 
 .section.banner-with-cards-container.free-size[data-show="2-cols"] .banner-with-cards .hasProds > div:first-of-type {
