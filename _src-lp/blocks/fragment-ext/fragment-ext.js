@@ -12,17 +12,45 @@ import {
   loadCSS,
 } from '../../scripts/lib-franklin.js';
 
+const PROD_TO_AEM_LIVE = {
+  'www.bitdefender.com': 'main--www-websites--bitdefender.aem.live',
+};
+
+function resolveFragmentUrl(path) {
+  const isPreview = ['.hlx.', '.aem.', 'localhost'].some((d) => window.location.hostname.includes(d));
+  try {
+    const url = new URL(path, window.location.origin);
+    const aemLiveHost = PROD_TO_AEM_LIVE[url.hostname];
+    if (aemLiveHost) {
+      if (isPreview) {
+        url.hostname = aemLiveHost;
+        url.pathname = url.pathname.replace(/^\/pages(?=\/|$)/, '');
+      } else if (!url.pathname.startsWith('/pages')) {
+        url.pathname = `/pages${url.pathname}`;
+      }
+      return url.href;
+    }
+  } catch {
+    // relative path, return as-is
+  }
+  return path;
+}
+
 /**
    * Loads a fragment.
    * @param {string} path The path to the fragment
    * @returns {HTMLElement} The root element of the fragment
    */
 async function loadFragment(path) {
+  if (!path) return null;
+  // eslint-disable-next-line no-param-reassign
+  path = resolveFragmentUrl(path);
   const resp = await fetch(`${path}.plain.html`);
   if (resp.ok) {
-    const url = new URL(path);
+    const url = new URL(path, window.location.origin);
     const baseUrl = `${url.protocol}//${url.hostname}`;
-    const codeBaseUrl = `${baseUrl}/_src`; // specific to www-websites
+    const isExternalHost = url.hostname !== window.location.hostname;
+    const codeBaseUrl = isExternalHost ? `${baseUrl}/_src` : `${baseUrl}${window.hlx.codeBasePath}`;
 
     const main = document.createElement('main');
     main.innerHTML = await resp.text();
@@ -113,7 +141,15 @@ async function loadFragment(path) {
 
 export default async function decorate(block) {
   const link = block.querySelector('a');
-  const path = link ? link.getAttribute('href') : block.textContent.trim();
+  let path;
+  if (link) {
+    const text = link.textContent.trim();
+    const href = (link.getAttribute('href') || '').trim();
+    path = (text.startsWith('http://') || text.startsWith('https://')) ? text : href;
+  } else {
+    path = block.textContent.trim();
+  }
+  path = path.split('?')[0].split('#')[0].replace(/\.html$/, '');
   const fragment = await loadFragment(path);
   if (fragment) {
     const fragmentSection = fragment.querySelector(':scope .section');
