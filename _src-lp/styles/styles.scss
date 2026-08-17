@@ -2258,6 +2258,14 @@ main .section.they-wear-our-faces {
   }
 }
 
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
 @media (width <=768px) {
   header {
     border-bottom: 1px solid white;
@@ -2281,6 +2289,14 @@ main .section.they-wear-our-faces {
     padding: 13px 1.5em;
     font-size: 14px;
     line-height: 20px;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
   }
 
   .section.gap-24px .row {
