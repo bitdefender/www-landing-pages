@@ -91,9 +91,20 @@ export default async function decorate(block) {
       }
 
       block.innerHTML = html;
+      const partnerLink = block.querySelector('.section-metadata')?.textContent?.match(/https?:\/\/\S+/)?.[0];
+
       const logoEl = block.querySelector('p');
+      logoEl.classList.add('main-logo');
       const imgEl = block.querySelectorAll('img');
       let anchorEl = `<a title="Bitdefender" href="${linklessNav ? '#' : homeUrl}">${imgEl[0].cloneNode(true).outerHTML}</a>`;
+      if (partnerLink) {
+        const partnerEl = block.querySelector('p:not(.main-logo)');
+        partnerEl.classList.add('partner-logo');
+        const partnerImg = partnerEl.querySelector('img');
+        if (partnerImg) {
+          partnerEl.innerHTML = `<a title="Partner" ${partnerLink ? 'target=_blank' : ''} href="${partnerLink ?? '#'}">${partnerImg.cloneNode(true).outerHTML}</a>`;
+        }
+      }
 
       if (html.indexOf('no-link') !== -1) {
         headerWrapper.classList.add('no-link');
