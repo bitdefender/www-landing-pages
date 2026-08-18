@@ -102,7 +102,7 @@ export default async function decorate(block) {
         partnerEl.classList.add('partner-logo');
         const partnerImg = partnerEl.querySelector('img');
         if (partnerImg) {
-          partnerEl.innerHTML = `<a title="Partner" href="${partnerLink ?? '#'}">${partnerImg.cloneNode(true).outerHTML}</a>`;
+          partnerEl.innerHTML = `<a title="Partner" ${partnerLink ? 'target=_blank' : ''} href="${partnerLink ?? '#'}">${partnerImg.cloneNode(true).outerHTML}</a>`;
         }
       }
 
