@@ -719,6 +719,11 @@
   margin-right: 3px;
 }
 
+.c-icon-box-grid-container.new-june-26 .buttons .icon svg {
+  height: 20px;
+  width: auto;
+}
+
 .c-icon-box-grid-container.new-jul-26 .block {
   font-size: 18px;
 }
