@@ -29,9 +29,15 @@
   --background-color-light-sky-blue: #e4f2ff;
   --baby-blue-color: #EDF9FF;
   --dark-blue-color: #0853C5;
-  --darker-blue-color: #016FFF;
+  --darker-blue-color: #006DFF;
+  --orange-color: #F83;
+  --light-yellow-color: #FFFBF0;
+  --dark-yellow-color: #855F00;
+  --light-green-color: #EDFDF1;
+  --dark-green-color: #0B6A26;
   --grey-color: #F6F6F6;
   --light-grey-color: #FAFAFA;
+  --light-grey-color-2: #F5F5F7;
   --text-color: #000;
 
   /* fonts */
@@ -48,12 +54,16 @@
   --body-line-height-xs: 20px;
 
   /* heading sizes */
+  --heading-font-size-xxl3: 60px;
+  --heading-line-height-xxl3: 66px;
   --heading-font-size-xxl2: 50px;
   --heading-line-height-xxl2: 60px;
   --heading-font-size-xxl: 48px;
   --heading-line-height-xsl: 52px;
   --heading-font-size-xl: 40px;
   --heading-line-height-xl: 45px;
+  --heading-font-size-l2: 36px;
+  --heading-line-height-l2: 42px;
   --heading-font-size-l: 32px;
   --heading-line-height-l: 36px;
   --heading-font-size-m: 24px;
@@ -110,7 +120,7 @@ body [data-desktop-detector] {
 }
 
 .phishing .heading-content u {
-  color: #006DFF;
+  color: var(--darker-blue-color);
   text-decoration: none;
   font-weight: 600;
   margin-bottom: 10px;
@@ -360,6 +370,10 @@ button:hover {
   background-color: var(--light-grey-color);
 }
 
+.light-grey-bck-2 {
+  background-color: var(--light-grey-color-2);
+}
+
 .dark-blue-bck-2 {
   background-color: var(--link-hover-color);
 
@@ -376,14 +390,39 @@ button:hover {
   border-radius: 20px 20px 0 0;
 }
 
-
 .bradius-bottom-20 {
   border-radius: 0 0 20px 20px;
 }
 
+.section.gap-10px .row {
+  gap: 10px!important;
+}
+
+.section.gap-24px .row {
+  gap: 24px!important;
+}
+
+.section[data-svgsize="large"] .icon, .section[data-svgsize="large"] .icon svg {
+  width: auto;
+  height: 120px;
+}
+
+.section[data-svgsize="medium"] .icon, .section[data-svgsize="medium"] .icon svg {
+  width: auto;
+  height: 65px;
+}
+
+.section.v-align-center .row {
+  align-items: center;
+}
+
+.section.v-align-bottom .row {
+  align-items: flex-end;
+}
+
 [data-button-color="blue"] a.button:any-link,
 [data-button-color="blue"] button {
-  background: #006DFF;
+  background: var(--darker-blue-color);
 }
 
 [data-button-color="blue"] a.button:any-link:hover,
@@ -665,6 +704,44 @@ main .section.size-18-normal .default-content-wrapper p {
   font-weight: normal;
 }
 
+main .section.h1-60px h1 {
+  font-size: var(--heading-font-size-xxl3)!important;
+  line-height: var(--heading-line-height-xxl3);
+}
+
+main .section.h2-48px h2 {
+  font-size: var(--heading-font-size-xxl);
+  line-height: var(--heading-line-height-xsl);
+}
+
+main .section.h2-36px h2 {
+  font-size: var(--heading-font-size-l2);
+  line-height: var(--heading-line-height-l2);
+}
+
+main .section.h2-24px h2 {
+  font-size: var(--heading-font-size-m);
+  line-height: var(--heading-line-height-m);
+}
+
+main .section.heading-no-margin :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+}
+
+main .section.heading-smaller-margin :is(h1, h2, h3, h4, h5, h6) {
+  margin: 10px 0;
+}
+
+main .section.orange-underlined u {
+  color: var(--orange-color);
+  text-decoration: none;
+}
+
+main .section.blue-underlined u, main .section.blue-title :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--darker-blue-color);
+  text-decoration: none;
+}
+
 main .section[data-textcolor='grey'] .default-content-wrapper p {
   color: #6F6F6F;
 }
@@ -748,6 +825,10 @@ main .text-spaced .default-content-wrapper p:first-of-type {
 
 main .default-content-wrapper p.button-container {
   margin: 1em 0;
+}
+
+main .btn-more-down .default-content-wrapper p.button-container {
+  margin-top: 1.5em;
 }
 
 main .default-content-wrapper img {
@@ -897,7 +978,7 @@ main .blue-heading h2 {
 }
 
 main .blue-paragraph p:first-of-type {
-  color: #006DFF;
+  color: var(--darker-blue-color);
 }
 
 .red-buy-button p em {
@@ -1316,9 +1397,21 @@ main .section.light-sky-blue > * {
 }
 
 .bigger-btn a.button:any-link {
-  padding: 20px 3em;
+  padding: 17px 3em;
   font-size: 18px;
   line-height: 21px;
+}
+
+.new-red-btn a.button:any-link {
+  background-color: #F33;
+}
+
+.new-red-btn-bigger a.button:any-link {
+  min-height: 55px;
+  padding: 0 3em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .green-buy-button {
@@ -2165,6 +2258,14 @@ main .section.they-wear-our-faces {
   }
 }
 
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
 @media (width <=768px) {
   header {
     border-bottom: 1px solid white;
@@ -2183,6 +2284,46 @@ main .section.they-wear-our-faces {
     padding: 8px 3%;
     font-size: 14px;
   }
+
+  .new-red-btn a.button:any-link {
+    padding: 13px 1.5em;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .section.gap-24px .row {
+    gap: 0!important;
+  }
+
+  main .section.h1-60px h1 {
+    font-size: var(--heading-font-size-xl)!important;
+    line-height: var(--heading-line-height-xl);
+  }
+
+  main .section.h2-48px h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-line-height-l);
+  }
+
+  main .section.h2-36px h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-line-height-l);
+  }
+
+  .section[data-svgsize="large"], .section[data-svgsize="medium"] {
+    .icon, .icon svg {
+      height: 55px;
+    }
+  }
+
 
   .centered.mobile-aligned-left {
     text-align: left !important;
@@ -2552,5 +2693,12 @@ main .section.they-wear-our-faces {
 
   .green-arrow-and-title .default-content-wrapper p {
     font-size: 24px;
+  }
+}
+
+@media (width <=500px) {
+  main .section.h1-60px h1 {
+    font-size: 30px !important;
+    line-height: 35px;
   }
 }
