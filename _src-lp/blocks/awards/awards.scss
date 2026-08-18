@@ -91,21 +91,21 @@
 }
 
 .no-award.awards-container .row > div:nth-child(1) .text-center > div:nth-child(1) {
-    text-align: left;
-    font-size: 22px;
-    line-height: 30px;
-    font-weight: bold;
-    margin-bottom: 15px !important;
-    margin-top: 0;
-  }
+  text-align: left;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: bold;
+  margin-bottom: 15px !important;
+  margin-top: 0;
+}
 
 
-  .no-award.awards-container .title{
-    text-align: left;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 24px;
-  }
+.no-award.awards-container .title{
+  text-align: left;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+}
 
 @media screen and (width >= 992px) {
   .awards img {
@@ -127,15 +127,15 @@
   }
 
   .one-award.eu-fragment.awards-container{
-  .row > div:nth-child(1) {
-    display: block;
+    .row > div:nth-child(1) {
+      display: block;
     }
   }
 
   .no-award {
     .row{
-    padding-left: 5%;
-    padding-right: 5%;
+      padding-left: 5%;
+      padding-right: 5%;
     }
   }
 
@@ -144,8 +144,8 @@
 @media screen and (width >= 768px) {
   .awards {
     border-radius: 20px;
-    padding: 2rem 0;
-    margin: 3rem 0;
+    padding: 1rem 0;
+    margin: 0;
   }
 
   .awards img {

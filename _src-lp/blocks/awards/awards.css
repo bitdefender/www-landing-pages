@@ -117,8 +117,8 @@
 @media screen and (width >= 768px) {
   .awards {
     border-radius: 20px;
-    padding: 2rem 0;
-    margin: 3rem 0;
+    padding: 1rem 0;
+    margin: 0;
   }
   .awards img {
     width: auto;

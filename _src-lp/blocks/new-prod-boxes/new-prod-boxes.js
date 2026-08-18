@@ -161,6 +161,8 @@ export default function decorate(block) {
   let trialLinks = false;
   if (parentSection.classList.contains('trial-links')) trialLinks = true;
 
+  let switchCheckbox;
+
   if (productsAsList.length) {
     productsAsList.forEach((prod) => updateProductsList(prod));
 
@@ -209,57 +211,55 @@ export default function decorate(block) {
           <span class="slider round">
           </span>
           <span class="label right">
-            ${partsIndividual[0]}
+            <span class="d-flex">${partsIndividual[0]}</span>
             ${partsIndividual[1] ? `<hr><p>${partsIndividual[1]}</p>` : ''}
           </span>
 
           <span class="label left">
-            ${partsFamily[0]}
+            <span class="d-flex">${partsFamily[0]}</span>
             ${partsFamily[1] ? `<hr><p>${partsFamily[1]}</p>` : ''}
           </span>
         </label>
       `;
 
       // Get the checkbox inside the switchBox
-      const switchCheckbox = switchBox.querySelector('#switchCheckbox');
+      switchCheckbox = switchBox.querySelector('#switchCheckbox');
 
       // Check if individualSwitchText includes 'reverted'
-      if (individual === 'reverted') switchCheckbox.checked = true;
+      const updateSwitchState = () => {
+        const isFamily = switchCheckbox.checked;
 
-      // Add an event listener to the checkbox
-      switchCheckbox.addEventListener('change', () => {
-        if (set && set === 'height') {
-          [1, 2, 3].forEach((i) => {
-            // eslint-disable-next-line no-use-before-define
-            matchHeights(targetNode, `.benefitsLists > ul:nth-of-type(${i})`);
-          });
-        }
+        block.querySelectorAll('.family-box').forEach((box) => {
+          box.style.display = isFamily ? 'block' : 'none';
+        });
 
-        if (switchCheckbox.checked) {
-          const familyBoxes = block.querySelectorAll('.family-box');
-          familyBoxes.forEach((box) => {
-            box.style.display = 'block';
-          });
+        block.querySelectorAll('.individual-box').forEach((box) => {
+          box.style.display = isFamily ? 'none' : 'block';
+        });
 
-          const individualBoxes = block.querySelectorAll('.individual-box');
-          if (subtitleFamily) block.closest('.section').classList.add('selected-family');
-          individualBoxes.forEach((box) => {
-            box.style.display = 'none';
-          });
-        } else {
-          const familyBoxes = block.querySelectorAll('.family-box');
-          if (subtitleFamily) block.closest('.section').classList.remove('selected-family');
-          familyBoxes.forEach((box) => {
-            box.style.display = 'none';
-          });
+        const section = block.closest('.section');
 
-          const individualBoxes = block.querySelectorAll('.individual-box');
-          individualBoxes.forEach((box) => {
-            box.style.display = 'block';
-          });
-        }
+        section.classList.toggle('selected-family', isFamily);
+        section.classList.toggle('selected-individual', !isFamily);
 
         updateTagsMargin(block);
+      };
+
+      if (individual === 'reverted') {
+        switchCheckbox.checked = true;
+      }
+
+      // aplică starea inițială
+      updateSwitchState();
+
+      switchCheckbox.addEventListener('change', () => {
+        if (set === 'height') {
+          [1, 2, 3].forEach((i) => {
+            matchHeights(block, `.benefitsLists > ul:nth-of-type(${i})`);
+          });
+        }
+
+        updateSwitchState();
       });
     }
 
@@ -909,6 +909,11 @@ export default function decorate(block) {
 
   window.addEventListener('resize', updateMargin());
   setTimeout(() => updateMargin(), 0);
+
+  if (switchCheckbox && individual === 'reverted') {
+    switchCheckbox.checked = true;
+    switchCheckbox.dispatchEvent(new Event('change'));
+  }
 
   block.addEventListener('click', (e) => {
     const clickedButton = e.target.closest('.list-toggle');

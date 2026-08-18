@@ -423,6 +423,7 @@
   border-radius: 20px;
   background-color: #1C7928;
   font-style: normal;
+  font-size: 13px;
   color: white;
   padding: 5px 10px;
   display: inline-block;
@@ -630,6 +631,19 @@
   margin-left: 0 !important;
   font-size: 18px;
   padding: 2px 11px;
+}
+
+.section.banner-container #transparentBluePillBox {
+  background-color: transparent;
+  display: inline-block;
+  color: #006DFF;
+  border: 1px solid #006DFF;
+  border-radius: 15px;
+  margin-top: 15px;
+  margin-left: 0 !important;
+  font-size: 18px;
+  padding: 2px 11px;
+  margin-bottom: 8px;
 }
 
 .section.banner-container.red-pill #greenPillBox {
