@@ -123,7 +123,7 @@ export default function decorate(block) {
             <div class="row">
               <div class="${getColumnClasses(0, layout, columnsAlignment, type)}">
                 <div class="icon-box-grid-column d-flex flex-column justify-content-start">
-                  <div class="icon">
+                  <div class="icon-box">
                     ${hasOldSvgImplementation(firstFourCards[0].svgNameEl) ? new SvgLoaderComponent(firstFourCards[0].svgNameEl.innerText, svgColor, svgSize).render() : firstFourCards[0].svgNameEl.innerHTML}
                   </div>
                   ${firstFourCards[0].title ? `<h6 class="title">${firstFourCards[0].title}</h6> ` : ''}
@@ -134,7 +134,7 @@ export default function decorate(block) {
               ${firstFourCards.slice(1).map((col, index) => `
                 <div class="${getColumnClasses(index + 1, layout, columnsAlignment, type)}">
                   <div class="icon-box-grid-column d-flex flex-column justify-content-start">
-                    <div class="icon">
+                    <div class="icon-box">
                       ${hasOldSvgImplementation(col.svgNameEl) ? new SvgLoaderComponent(col.svgNameEl.innerText, svgColor, svgSize).render() : col.svgNameEl.innerHTML}
                     </div>
                     ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
@@ -149,7 +149,7 @@ export default function decorate(block) {
             <div class="row">
               <div class="${getColumnClasses(4, layout, columnsAlignment, type)}">
                 <div class="icon-box-grid-column d-flex flex-column justify-content-start">
-                  <div class="icon">
+                  <div class="icon-box">
                     ${hasOldSvgImplementation(fifthCard.svgNameEl) ? new SvgLoaderComponent(fifthCard.svgNameEl.innerText, svgColor, svgSize).render() : fifthCard.svgNameEl.innerHTML}
                   </div>
                   ${fifthCard.title ? `<h6 class="title">${fifthCard.title}</h6> ` : ''}
@@ -160,7 +160,7 @@ export default function decorate(block) {
               ${remainingCards.map((col, index) => `
                 <div class="${getColumnClasses(index + 5, layout, columnsAlignment, type)}">
                   <div class="icon-box-grid-column d-flex flex-column justify-content-start">
-                    <div class="icon">
+                    <div class="icon-box">
                       ${hasOldSvgImplementation(col.svgNameEl) ? new SvgLoaderComponent(col.svgNameEl.innerText, svgColor, svgSize).render() : col.svgNameEl.innerHTML}
                     </div>
                     ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
@@ -183,7 +183,7 @@ export default function decorate(block) {
           ${formattedDataColumns.map((col, index) => `
             <div class="${getColumnClasses(index, layout, columnsAlignment, type)}">
               <div class="icon-box-grid-column d-flex flex-column justify-content-start">
-                <div class="icon">
+                <div class="icon-box">
                   ${hasOldSvgImplementation(col.svgNameEl) ? new SvgLoaderComponent(col.svgNameEl.innerText, svgColor, svgSize).render() : col.svgNameEl.innerHTML}
                 </div>
                 ${col.title ? `<h6 class="title">${col.title}</h6> ` : ''}
