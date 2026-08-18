@@ -256,6 +256,27 @@ export default function decorate(block) {
       parentElement.replaceChild(greenPillBox, table);
     }
 
+    if (aliasTr && aliasTr.textContent.trim() === 'transparent_blue_pill') {
+      const [, text] = [...table.querySelectorAll('tr')];
+      const bluePillBox = document.createElement('div');
+
+      if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
+        const link = text.querySelector('a');
+        if (text.innerText.includes('-')) bluePillBox.classList.add('d-flex');
+        (link || text).innerHTML = text.innerHTML.replace(
+          /0\s*%/g,
+          '<span class="max-discount"></span>',
+        );
+      }
+
+      bluePillBox.id = 'transparentBluePillBox';
+      bluePillBox.innerHTML += `<span>${text.innerHTML}</span>`;
+
+      // replace the table with greenPillBox in the exact same position
+      const parentElement = table.parentElement;
+      parentElement.replaceChild(bluePillBox, table);
+    }
+
     // RED_PILL_BOX
     if (aliasTr && aliasTr.textContent.trim() === 'red_pill') {
       const [, text] = [...table.querySelectorAll('tr')];
