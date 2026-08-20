@@ -351,6 +351,13 @@ export function decorateSections(main) {
       });
       sectionMeta.parentNode.remove();
     }
+
+    if (section.dataset.linksOpenInNewTab) {
+      section.querySelectorAll('a:not(.modal):not(.red-buy-button)').forEach((anchorEl) => {
+        anchorEl.target = '_blank';
+        anchorEl.rel = 'noopener noreferrer';
+      });
+    }
   });
 }
 
