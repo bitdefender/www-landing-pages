@@ -151,6 +151,10 @@ header#headerBlue {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    &:has(.partner-logo) {
+      justify-content: flex-start;
+    }
   }
 
   &.no-link img {
@@ -183,6 +187,10 @@ header#headerBlue {
         margin-left: 20px;
         position: relative;
       }
+    }
+
+    &.partner-logo {
+      display: block; 
     }
   }
 
