@@ -280,6 +280,10 @@
   color: black;
 }
 
+.switchBox .switch input:checked ~ .label.left .icon svg {
+  fill: #026DFF;
+}
+
 .new-prod-boxes-container.reversed-switcher .switchBox .switch input:checked ~ .label.left {
   color: white;
   fill: white;
