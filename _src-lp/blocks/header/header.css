@@ -122,6 +122,9 @@ header#headerBlue .block div {
   justify-content: space-between;
   align-items: center;
 }
+header#headerBlue .block div:has(.partner-logo) {
+  justify-content: flex-start;
+}
 header#headerBlue.no-link img {
   height: 26px;
   display: inline-block;
@@ -147,6 +150,9 @@ header#headerBlue p picture img {
   width: auto;
   margin-left: 20px;
   position: relative;
+}
+header#headerBlue p.partner-logo {
+  display: block;
 }
 header#headerBlue .section-metadata {
   display: none;
