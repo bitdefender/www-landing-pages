@@ -24,7 +24,12 @@
   --highlight-background-color-v2: #F6F6F6;
   --highlight-background-color-v3: #F2F2F2;
   --background-color-light-sky-blue: #e4f2ff;
+  --light-pink-color: #fdf3f3;
+  --red-color: #e72325;
   --baby-blue-color: #EDF9FF;
+  --baby-blue-color-v2: #f6f9fd;
+  --navy-color: #07142f;
+  --navy-color-v2: #405173;
   --dark-blue-color: #0853C5;
   --darker-blue-color: #006DFF;
   --orange-color: #F83;
@@ -347,6 +352,10 @@ button:hover {
   background-color: var(--baby-blue-color);
 }
 
+.bblue-bck-2 {
+  background-color: var(--baby-blue-color-v2);
+}
+
 .dark-blue-bck {
   background-color: var(--dark-blue-color);
 }
@@ -368,6 +377,10 @@ button:hover {
 }
 .dark-blue-bck-2 * {
   color: white;
+}
+
+.white-bck {
+  background-color: white;
 }
 
 .bradius-20 {
@@ -689,9 +702,31 @@ main .section.size-18-normal .default-content-wrapper p {
   font-weight: normal;
 }
 
+main .section.size-22-normal p {
+  font-size: 22px;
+  line-height: 27px;
+}
+
+main .section.text-navy-color-2 p {
+  color: var(--navy-color-v2);
+}
+
+main .section.bold-blue-color p strong {
+  color: var(--link-hover-color);
+}
+
+main .section.h1-navy-color h1 {
+  color: var(--navy-color);
+}
+
 main .section.h1-60px h1 {
   font-size: var(--heading-font-size-xxl3) !important;
   line-height: var(--heading-line-height-xxl3);
+}
+
+main .section.h1-36px h1 {
+  font-size: var(--heading-font-size-l2) !important;
+  line-height: var(--heading-line-height-l2);
 }
 
 main .section.h2-48px h2 {
@@ -707,6 +742,10 @@ main .section.h2-36px h2 {
 main .section.h2-24px h2 {
   font-size: var(--heading-font-size-m);
   line-height: var(--heading-line-height-m);
+}
+
+main .section.p-margin-top-5 p {
+  margin-top: 5px;
 }
 
 main .section.heading-no-margin :is(h1, h2, h3, h4, h5, h6) {
@@ -1389,6 +1428,14 @@ main .section.light-sky-blue > * {
   background-color: #F33;
 }
 
+.new-red-btn-2 a.button:any-link, .new-red-btn-2 .button-container a {
+  background: #e72325;
+  color: #fff;
+  font-weight: 700;
+  padding: 1em 2em;
+  border-radius: 10px;
+}
+
 .new-red-btn-bigger a.button:any-link {
   min-height: 55px;
   padding: 0 3em;
@@ -1940,7 +1987,7 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   }
 }
 
-.section.ibm-plex-sans * {
+.section.ibm-plex-sans *, .section.ibm-plex * {
   font-family: "IBM Plex Sans", sans-serif;
 }
 

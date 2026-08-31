@@ -1,0 +1,195 @@
+.custom-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  align-items: start;
+}
+.custom-columns > div {
+  min-width: 0;
+  width: 100%;
+  align-self: start;
+}
+.custom-columns {
+  /*
+   * Only the column containing the standalone image
+   */
+}
+.custom-columns > div:has(> div > picture) {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-columns > div:has(> div > picture) > div {
+  width: 100%;
+}
+.custom-columns picture {
+  display: block;
+  max-width: 100%;
+}
+.custom-columns img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.custom-columns {
+  /*
+   * Tables
+   */
+}
+.custom-columns table {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: auto;
+}
+.custom-columns table p, .custom-columns table td {
+  font-size: 15px;
+  line-height: 1.35;
+}
+.custom-columns table tr,
+.custom-columns table td,
+.custom-columns table th {
+  border: 0;
+}
+.custom-columns table td,
+.custom-columns table th {
+  vertical-align: top;
+}
+.custom-columns p {
+  margin: 0;
+}
+.custom-columns {
+  /*
+   * Table styles
+   */
+}
+.custom-columns table.white-style {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.custom-columns table.white-style td {
+  padding: 16px;
+}
+.custom-columns table.white-style td:first-of-type {
+  padding-right: 0;
+}
+.custom-columns table.blue-style {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.custom-columns table.blue-style .table-heading {
+  color: var(--darker-blue-color);
+}
+.custom-columns table.blue-style .cell-text strong {
+  font-size: 24px;
+}
+.custom-columns table.blue-style td {
+  padding: 16px;
+}
+.custom-columns table.red-style {
+  background: var(--light-pink-color);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.custom-columns table.red-style .table-heading {
+  color: var(--red-color);
+}
+.custom-columns table.red-style td {
+  padding: 16px;
+}
+.custom-columns {
+  /*
+   * Icon + text
+   */
+}
+.custom-columns .cell-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+.custom-columns .cell-icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  justify-content: center;
+}
+.custom-columns .cell-icon .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.custom-columns .cell-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.custom-columns {
+  /*
+   * NEW badge
+   */
+}
+.custom-columns .badge-new {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 0;
+  border-radius: 999px;
+  background: #d7f7df;
+  color: #16803a;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.custom-columns {
+  /*
+   * Multiple tables
+   */
+}
+.custom-columns > div > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.custom-columns {
+  /*
+   * Mobile
+   */
+}
+@media (width <= 599px) {
+  .custom-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .custom-columns > div {
+    width: 100%;
+    align-self: start;
+  }
+  .custom-columns {
+    /*
+     * Only image column
+     */
+  }
+  .custom-columns > div:has(> div > picture) {
+    align-self: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .custom-columns > div:has(> div > picture) > div {
+    width: 100%;
+  }
+  .custom-columns > div > div {
+    width: 100%;
+  }
+}

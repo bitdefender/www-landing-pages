@@ -1,0 +1,216 @@
+.custom-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+    align-items: start;
+
+    > div {
+        min-width: 0;
+        width: 100%;
+        align-self: start;
+    }
+
+    /*
+     * Only the column containing the standalone image
+     */
+
+    > div:has(> div > picture) {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    > div:has(> div > picture) > div {
+        width: 100%;
+    }
+
+    picture {
+        display: block;
+        max-width: 100%;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    /*
+     * Tables
+     */
+
+    table {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        border: 0;
+        border-collapse: collapse;
+        border-spacing: 0;
+        table-layout: auto;
+
+        p, td {
+            font-size: 15px;
+            line-height: 1.35;
+        }
+
+        tr,
+        td,
+        th {
+            border: 0;
+        }
+
+        td,
+        th {
+            vertical-align: top;
+        }
+    }
+
+    p {
+        margin: 0;
+    }
+
+    /*
+     * Table styles
+     */
+
+    table.white-style {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+
+        td {
+            padding: 16px;
+
+            &:first-of-type {
+                padding-right: 0;
+            }
+        }
+    }
+
+    table.blue-style {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+
+        .table-heading {
+            color: var(--darker-blue-color);
+        }
+
+        .cell-text strong {
+            font-size: 24px;
+        }
+
+        td {
+            padding: 16px;
+        }
+    }
+
+    table.red-style {
+        background: var(--light-pink-color);
+        border-radius: 16px;
+        overflow: hidden;
+
+        .table-heading {
+            color: var(--red-color);
+        }
+
+        td {
+            padding: 16px;
+        }
+    }
+
+    /*
+     * Icon + text
+     */
+
+    .cell-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .cell-icon {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .cell-icon .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+    }
+
+    .cell-text {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    /*
+     * NEW badge
+     */
+
+    .badge-new {
+        display: inline-block;
+        padding: 2px 8px;
+        border: 0;
+        border-radius: 999px;
+        background: #d7f7df;
+        color: #16803a;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.4;
+        text-decoration: none;
+        vertical-align: middle;
+    }
+
+    /*
+     * Multiple tables
+     */
+
+    > div > div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    /*
+     * Mobile
+     */
+
+    @media (width <= 599px) {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        > div {
+            width: 100%;
+            align-self: start;
+        }
+
+        /*
+         * Only image column
+         */
+
+        > div:has(> div > picture) {
+            align-self: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        > div:has(> div > picture) > div {
+            width: 100%;
+        }
+
+        > div > div {
+            width: 100%;
+        }
+    }
+}
