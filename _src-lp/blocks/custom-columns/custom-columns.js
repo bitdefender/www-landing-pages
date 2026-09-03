@@ -21,7 +21,7 @@ export default function decorate(block) {
     }
 
     table.querySelectorAll('td').forEach((cell) => {
-      const icon = cell.querySelector('.icon');
+      const icon = cell.querySelector('.icon') || cell.querySelector('picture');
 
       if (!icon) return;
 
@@ -31,18 +31,24 @@ export default function decorate(block) {
       const iconWrapper = document.createElement('div');
       iconWrapper.className = 'cell-icon';
 
-      const textWrapper = document.createElement('div');
-      textWrapper.className = 'cell-text';
-
       iconWrapper.appendChild(icon);
 
-      [...cell.children].forEach((element) => {
-        if (!element.contains(icon)) {
-          textWrapper.appendChild(element);
-        }
-      });
+      const textElements = [...cell.children].filter(
+        (element) => !element.contains(icon) && element.textContent.trim(),
+      );
 
-      content.append(iconWrapper, textWrapper);
+      content.appendChild(iconWrapper);
+
+      if (textElements.length) {
+        const textWrapper = document.createElement('div');
+        textWrapper.className = 'cell-text';
+
+        textElements.forEach((element) => {
+          textWrapper.appendChild(element);
+        });
+
+        content.appendChild(textWrapper);
+      }
       cell.replaceChildren(content);
     });
 

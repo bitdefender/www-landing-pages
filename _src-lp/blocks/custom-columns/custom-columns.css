@@ -24,14 +24,9 @@
 .custom-columns > div:has(> div > picture) > div {
   width: 100%;
 }
-.custom-columns picture {
+.custom-columns picture, .custom-columns img {
   display: block;
-  max-width: 100%;
-}
-.custom-columns img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+  max-width: max-content;
 }
 .custom-columns {
   /*
@@ -68,6 +63,13 @@
    * Table styles
    */
 }
+.custom-columns .table-heading {
+  color: var(--darker-blue-color);
+}
+.custom-columns .table-heading td {
+  font-size: 17px;
+  padding-bottom: 0 !important;
+}
 .custom-columns table.white-style {
   background: #fff;
   border-radius: 16px;
@@ -75,9 +77,6 @@
 }
 .custom-columns table.white-style td {
   padding: 16px;
-}
-.custom-columns table.white-style td:first-of-type {
-  padding-right: 0;
 }
 .custom-columns table.blue-style {
   background: white;
@@ -122,6 +121,8 @@
   justify-content: center;
 }
 .custom-columns .cell-icon .icon {
+  width: auto;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,6 +131,9 @@
 .custom-columns .cell-text {
   flex: 1 1 auto;
   min-width: 0;
+}
+.custom-columns .cell-text > p > strong {
+  font-size: 17px;
 }
 .custom-columns {
   /*

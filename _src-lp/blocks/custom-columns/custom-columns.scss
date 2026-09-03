@@ -26,15 +26,9 @@
         width: 100%;
     }
 
-    picture {
+    picture,  img {
         display: block;
-        max-width: 100%;
-    }
-
-    img {
-        display: block;
-        max-width: 100%;
-        height: auto;
+        max-width: max-content;
     }
 
     /*
@@ -75,6 +69,15 @@
      * Table styles
      */
 
+    .table-heading {
+        color: var(--darker-blue-color);
+
+        td {
+            font-size: 17px;
+            padding-bottom: 0 !important;
+        }
+    }
+
     table.white-style {
         background: #fff;
         border-radius: 16px;
@@ -82,10 +85,6 @@
 
         td {
             padding: 16px;
-
-            &:first-of-type {
-                padding-right: 0;
-            }
         }
     }
 
@@ -140,6 +139,8 @@
     }
 
     .cell-icon .icon {
+        width: auto;
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -149,6 +150,10 @@
     .cell-text {
         flex: 1 1 auto;
         min-width: 0;
+
+        > p > strong {
+            font-size: 17px;
+        }
     }
 
     /*

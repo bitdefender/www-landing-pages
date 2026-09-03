@@ -748,6 +748,10 @@ main .section.p-margin-top-5 p {
   margin-top: 5px;
 }
 
+main .section.p-margin-top-0 p {
+  margin-top: 0;
+}
+
 main .section.heading-no-margin :is(h1, h2, h3, h4, h5, h6) {
   margin: 0;
 }
@@ -777,6 +781,11 @@ main .section .block.light-blue-bck {
 main .section .block.rounded {
   border-radius: 20px;
   overflow: hidden;
+}
+
+main .section .block.padding-left-right {
+  padding-left: 3em;
+  padding-right: 3em;
 }
 
 main .section .block.light-sky-blue {
@@ -1432,7 +1441,7 @@ main .section.light-sky-blue > * {
   background: #e72325;
   color: #fff;
   font-weight: 700;
-  padding: 1em 2em;
+  padding: 1em 2.5em;
   border-radius: 10px;
 }
 
@@ -2254,6 +2263,10 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   }
   .desktop-only {
     display: none;
+  }
+  main .section .block.padding-left-right {
+    padding-left: 1em;
+    padding-right: 1em;
   }
   .section.gap-24px .row {
     gap: 0 !important;
