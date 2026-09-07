@@ -99,6 +99,12 @@
   width: 45%;
 }
 
+.c-device-protection-box-container.custom-icon .col-lg-6.image-container .icon {
+  width: auto;
+  height: auto;
+  margin-right: 1em;
+}
+
 .c-device-protection-box-container.left-smaller .col-lg-6:not(.image-container) {
   width: 55%;
   margin: 0;
