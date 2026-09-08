@@ -1,0 +1,246 @@
+.section.custom-content-container {
+  padding: 10px 0;
+}
+
+.custom-content-wrapper {
+  padding: 0 var(--body-padding);
+}
+
+@media (width <= 1399px) {
+  .custom-content-wrapper {
+    padding: 0 var(--section-large-desktop-padding);
+  }
+}
+
+@media (width <= 767px) {
+  .custom-content-wrapper {
+    padding: var(--body-padding) var(--body-padding) 0;
+  }
+}
+
+@media (width >= 992px) {
+  .custom-content-wrapper {
+    max-width: var(--section-desktop-max-width);
+    padding: 0 var(--section-desktop-padding);
+    margin: 0 auto;
+  }
+}
+
+@media (width >= 1600px) {
+  .custom-content-wrapper {
+    max-width: var(--section-large-desktop-max-width);
+    padding: 0 var(--section-large-desktop-padding);
+  }
+}
+
+/* =========================================
+   Logo
+========================================= */
+
+.custom-content-container.logo .custom-content-wrapper .custom-content > div {
+  padding: 0;
+}
+
+.custom-content-container.logo .custom-content-wrapper [data-valign='middle'] {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.custom-content-container.logo picture {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.custom-content-container.logo picture img {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.custom-content-container.logo .icon-bitdefender-logo {
+  width: 100px;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.custom-content-container.logo .icon-bitdefender-logo svg {
+  display: block;
+  width: 110px;
+  height: auto;
+}
+
+/* =========================================
+   Title-subtitle
+========================================= */
+
+.custom-content-container.title-subtitle .custom-content-wrapper .custom-content {
+  padding: 0;
+}
+
+.custom-content-container.title-subtitle .custom-content-wrapper .custom-content > div {
+  padding: 0;
+}
+
+.custom-content-container.title-subtitle h1 {
+  margin: 0 0 5px;
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.custom-content-container.title-subtitle p {
+  margin: 0;
+  color: #404b66;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   Info message
+========================================= */
+
+.custom-content-container.gray-bck .custom-content-wrapper .custom-content {
+  padding: 16px 18px;
+  border-radius: 10px;
+  background: #f3f3f5;
+}
+
+.custom-content-container.gray-bck .custom-content-wrapper .custom-content > div {
+  margin: 0;
+  padding: 0;
+}
+
+.custom-content-container.gray-bck .custom-content-wrapper .custom-content [data-valign='middle'] {
+  color: #17171a;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.custom-content-container.red-color-bold .custom-content-wrapper .custom-content strong {
+  color: #ed1f24;
+  font-weight: 700;
+}
+
+/* =========================================
+   Tracking preferences
+========================================= */
+
+.custom-content-wrapper .custom-content .tracking-options {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-bottom: 34px;
+}
+
+.custom-content-wrapper .custom-content .tracking-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 58px;
+  padding: 0 18px;
+  border: 1px solid #d9d9df;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.custom-content-wrapper .custom-content .tracking-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-content-wrapper .custom-content .tracking-option .tracking-radio {
+  position: relative;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  margin-right: 13px;
+  border: 2px solid #9295a1;
+  border-radius: 50%;
+}
+
+.custom-content-wrapper .custom-content .tracking-option .tracking-radio::after {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  content: '';
+}
+
+.custom-content-wrapper .custom-content .tracking-option .tracking-option-text {
+  color: #111;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.custom-content-wrapper .custom-content .tracking-option:has(input:checked) {
+  border-color: #ed1f24;
+  background: #fdf3f3;
+}
+
+.custom-content-wrapper .custom-content .tracking-option:has(input:checked) .tracking-radio {
+  border-color: #ed1f24;
+}
+
+.custom-content-wrapper .custom-content .tracking-option:has(input:checked) .tracking-radio::after {
+  background: #ed1f24;
+}
+
+/* =========================================
+   Confirm button
+========================================= */
+
+.custom-content-wrapper .custom-content .tracking-confirm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 215px;
+  min-height: 51px;
+  padding: 12px 28px;
+  border: 0;
+  border-radius: 6px;
+  background: #1ea05a;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.custom-content-wrapper .custom-content .tracking-confirm:hover {
+  background: #178047;
+}
+
+.custom-content-wrapper .custom-content .tracking-confirm:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+}
+
+/* =========================================
+   Confirmation message
+========================================= */
+
+.custom-content-wrapper .custom-content .tracking-saved {
+  padding: 16px 0;
+  background: transparent;
+  color: #20a35a;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.custom-content-wrapper .custom-content [hidden] {
+  display: none;
+}
