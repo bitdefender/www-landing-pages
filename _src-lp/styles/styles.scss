@@ -2299,6 +2299,10 @@ main .section.they-wear-our-faces {
     display: none;
   }
 
+  main .section.heading-no-margin :is(h1, h2, h3, h4, h5, h6) {
+    margin-bottom: 15px;
+  }
+
   .section.gap-24px .row {
     gap: 0!important;
   }

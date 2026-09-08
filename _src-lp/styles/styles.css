@@ -2208,6 +2208,9 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   .desktop-only {
     display: none;
   }
+  main .section.heading-no-margin :is(h1, h2, h3, h4, h5, h6) {
+    margin-bottom: 15px;
+  }
   .section.gap-24px .row {
     gap: 0 !important;
   }

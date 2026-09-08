@@ -591,10 +591,14 @@
   line-height: var(--body-font-size-s);
 }
 
-.c-icon-box-grid-container.full-images .col-lg > div > picture img {
+.c-icon-box-grid-container.full-images .icon-box picture img {
   width: calc(100% + 40px);
-  margin: 0 -20px 15px;
+  margin: 0 -20px;
   max-width: unset;
+}
+
+.c-icon-box-grid-container.full-images .col-lg > div .subtitle {
+  margin-top: 20px;
 }
 
 .c-icon-box-grid-container.full-images .col-lg > div .subtitle * {

@@ -968,20 +968,25 @@ export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', 
       });
     }
 
-    const saveBox = document.querySelector(`.save-${onSelectorClass}`);
-    if (saveBox) {
-      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p')) saveBox.closest('p').remove();
-      const siblingElements = saveBox.parentNode.querySelectorAll('div');
+    const saveBoxes = document.querySelectorAll(`.save-${onSelectorClass}`);
+    saveBoxes.forEach((saveBox) => {
+      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p')) {
+        saveBox.closest('p').remove();
+        return;
+      }
+
+      const siblingElements = saveBox.parentNode.querySelectorAll('div, span');
+
       siblingElements.forEach((element) => {
         element.style.visibility = 'hidden';
       });
-      if (saveBox.closest('.prod-save')) {
-        saveBox.closest('.prod-save').remove();
-        if (saveBox.parentNode?.nodeName === 'P') {
-          saveBox.parentNode.remove();
-        }
+
+      const prodSave = saveBox.closest('.prod-save');
+
+      if (prodSave) {
+        prodSave.style.visibility = 'hidden';
       }
-    }
+    });
 
     const percentBox = document.querySelector(`.percent-${onSelectorClass}`);
     if (percentBox) {
