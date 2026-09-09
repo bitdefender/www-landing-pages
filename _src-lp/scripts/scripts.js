@@ -195,7 +195,7 @@ export async function detectModalButtons(element) {
 export async function go2Anchor() {
   if (window.location.hash) {
     const hash = window.location.hash.substring(1);
-    const element = document.getElementById(hash);
+    const element = document.getElementById(hash) || document.querySelector(`[data-id="${hash}"]`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
