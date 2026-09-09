@@ -1,81 +1,77 @@
 export default function decorate(block) {
-  const section = block.closest('.section');
   const columns = [...block.children];
 
-  // Info message
-  if (columns.length === 1 && section?.classList.contains('gray-bck')) {
-    return;
-  }
-
-  // Tracking preferences
   if (columns.length !== 4) {
     return;
   }
 
-  const yesText = columns[0].textContent.trim();
-  const noText = columns[1].textContent.trim();
-  const confirmText = columns[2].textContent.trim();
-  const savedText = columns[3].textContent.trim();
-
-  const yesSelected = yesText.includes('[selected]');
-  const noSelected = noText.includes('[selected]');
-
   const options = document.createElement('div');
-  options.className = 'tracking-options';
+  options.className = 'custom-options';
 
-  const createOption = (text, value, checked = false, disabled = false) => {
+  const createOption = (column, value) => {
+    const content = column.querySelector('[data-valign="middle"]');
+    const paragraphs = [...content.querySelectorAll('p')];
+    const isSelected = content.textContent.includes('[selected]');
+
     const label = document.createElement('label');
-    label.className = 'tracking-option';
+    label.className = `custom-option ${isSelected ? 'active' : 'inactive'}`;
 
     const input = document.createElement('input');
     input.type = 'radio';
     input.name = 'email-tracking';
     input.value = value;
-    input.checked = checked;
-    input.disabled = disabled;
+    input.checked = isSelected;
 
     const radio = document.createElement('span');
-    radio.className = 'tracking-radio';
+    radio.className = 'custom-radio';
 
-    const textElement = document.createElement('span');
-    textElement.className = 'tracking-option-text';
-    textElement.textContent = text.replace('[selected]', '').trim();
+    const text = document.createElement('div');
+    text.className = 'custom-option-text';
 
-    label.append(input, radio, textElement);
+    paragraphs.forEach((paragraph) => {
+      const p = paragraph.cloneNode(true);
+      p.textContent = p.textContent.replace('[selected]', '').trim();
+
+      if (p.textContent) {
+        text.appendChild(p);
+      }
+    });
+
+    label.append(input, radio, text);
+
+    input.addEventListener('change', () => {
+      options.querySelectorAll('.custom-option').forEach((option) => {
+        const optionInput = option.querySelector('input');
+
+        option.classList.toggle('active', optionInput.checked);
+        option.classList.toggle('inactive', !optionInput.checked);
+      });
+    });
 
     return label;
   };
 
   options.append(
-    createOption(
-      yesText,
-      'yes',
-      yesSelected,
-      noSelected,
-    ),
-    createOption(
-      noText,
-      'no',
-      noSelected,
-      yesSelected,
-    ),
+    createOption(columns[0], 'yes'),
+    createOption(columns[1], 'no'),
   );
+
+  const actions = document.createElement('div');
+  actions.className = 'custom-actions';
 
   const confirmButton = document.createElement('button');
   confirmButton.type = 'button';
-  confirmButton.className = 'tracking-confirm';
-  confirmButton.textContent = confirmText;
+  confirmButton.className = 'custom-confirm';
+  confirmButton.textContent = columns[2].textContent.trim();
 
   const savedMessage = document.createElement('div');
-  savedMessage.className = 'tracking-saved';
-  savedMessage.textContent = savedText;
+  savedMessage.className = 'custom-saved';
+  savedMessage.textContent = columns[3].textContent.trim();
   savedMessage.hidden = true;
 
-  block.replaceChildren(
-    options,
-    confirmButton,
-    savedMessage,
-  );
+  actions.append(confirmButton, savedMessage);
+
+  block.replaceChildren(options, actions);
 
   confirmButton.addEventListener('click', () => {
     const selected = block.querySelector(
