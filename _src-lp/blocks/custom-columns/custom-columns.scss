@@ -63,6 +63,14 @@
 
     p {
         margin: 0;
+
+        em {
+            vertical-align: super;
+            font-size: 0.75em;
+            line-height: 0;
+            font-style: normal;
+            font-weight: bold;
+        }
     }
 
     /*
@@ -102,7 +110,7 @@
         }
 
         td {
-            padding: 16px;
+            padding: 16px 10px;
         }
     }
 

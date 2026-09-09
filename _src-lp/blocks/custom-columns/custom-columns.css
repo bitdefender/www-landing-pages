@@ -58,6 +58,13 @@
 .custom-columns p {
   margin: 0;
 }
+.custom-columns p em {
+  vertical-align: super;
+  font-size: 0.75em;
+  line-height: 0;
+  font-style: normal;
+  font-weight: bold;
+}
 .custom-columns {
   /*
    * Table styles
@@ -90,7 +97,7 @@
   font-size: 24px;
 }
 .custom-columns table.blue-style td {
-  padding: 16px;
+  padding: 16px 10px;
 }
 .custom-columns table.red-style {
   background: var(--light-pink-color);
