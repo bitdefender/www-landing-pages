@@ -64,14 +64,18 @@ export default function decorate(block) {
   confirmButton.className = 'custom-confirm';
   confirmButton.textContent = columns[2].textContent.trim();
 
+  actions.append(confirmButton);
+
   const savedMessage = document.createElement('div');
   savedMessage.className = 'custom-saved';
   savedMessage.textContent = columns[3].textContent.trim();
   savedMessage.hidden = true;
 
-  actions.append(confirmButton, savedMessage);
-
-  block.replaceChildren(options, actions);
+  block.replaceChildren(
+    options,
+    actions,
+    savedMessage,
+  );
 
   confirmButton.addEventListener('click', () => {
     const selected = block.querySelector(
