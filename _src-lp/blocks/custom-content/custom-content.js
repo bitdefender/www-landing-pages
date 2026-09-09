@@ -83,7 +83,7 @@ export default function decorate(block) {
     }
 
     options.hidden = true;
-    confirmButton.hidden = true;
+    actions.hidden = true;
     savedMessage.hidden = false;
   });
 }

@@ -203,6 +203,19 @@
   display: none;
 }
 
+.custom-content-container.radio-options .custom-saved {
+  margin: 0;
+  color: #20a35a;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.custom-content-container.radio-options .custom-saved[hidden] {
+  display: none;
+}
+
 @media (width <= 767px) {
   .custom-content-container.radio-options .custom-options {
     grid-template-columns: 1fr;
