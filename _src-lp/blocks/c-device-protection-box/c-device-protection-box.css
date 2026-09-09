@@ -20,6 +20,10 @@
   margin-top: 0 !important;
 }
 
+.c-device-protection-box-container.mb-0 .c-device-protection-box-wrapper {
+  margin-bottom: 0 !important;
+}
+
 .c-device-protection-box-container.new-june-26 .row {
   gap: 38px;
 }
