@@ -26,7 +26,7 @@
 }
 .custom-columns picture, .custom-columns img {
   display: block;
-  max-width: max-content;
+  max-width: 100%;
 }
 .custom-columns {
   /*
@@ -41,6 +41,9 @@
   border-collapse: collapse;
   border-spacing: 0;
   table-layout: auto;
+}
+.custom-columns table.smaller-icons .cell-icon .icon {
+  width: 20px;
 }
 .custom-columns table p, .custom-columns table td {
   font-size: 15px;

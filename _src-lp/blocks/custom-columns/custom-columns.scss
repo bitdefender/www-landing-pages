@@ -28,7 +28,7 @@
 
     picture,  img {
         display: block;
-        max-width: max-content;
+        max-width: 100%;
     }
 
     /*
@@ -43,6 +43,10 @@
         border-collapse: collapse;
         border-spacing: 0;
         table-layout: auto;
+
+        &.smaller-icons .cell-icon .icon {
+            width: 20px;
+        }
 
         p, td {
             font-size: 15px;

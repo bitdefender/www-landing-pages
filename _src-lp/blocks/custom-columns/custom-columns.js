@@ -4,13 +4,15 @@ export default function decorate(block) {
 
     if (!firstRow) return;
 
-    const style = firstRow.textContent
+    const styles = firstRow.textContent
       .trim()
       .toLowerCase()
-      .replace(/\s+/g, '-');
+      .split(',')
+      .map((style) => style.trim())
+      .filter(Boolean);
 
-    if (style) {
-      table.classList.add(style);
+    if (styles.length) {
+      table.classList.add(...styles);
       firstRow.remove();
     }
 

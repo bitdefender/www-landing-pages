@@ -27,6 +27,7 @@
   --light-pink-color: #fdf3f3;
   --red-color: #e72325;
   --baby-blue-color: #EDF9FF;
+  --baby-blue-color-v2: #E6F2FF;
   --navy-color: #07142f;
   --navy-color-v2: #405173;
   --dark-blue-color: #0853C5;
@@ -349,6 +350,10 @@ button:hover {
 
 .bblue-bck {
   background-color: var(--baby-blue-color);
+}
+
+.bblue-bck-2 {
+  background-color: var(--baby-blue-color-v2);
 }
 
 .dark-blue-bck {
