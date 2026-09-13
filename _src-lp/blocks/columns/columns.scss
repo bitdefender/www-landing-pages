@@ -199,8 +199,11 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns img {
-  border-radius: 20px;
   width: unset;
+}
+
+.rpunded .columns img {
+  border-radius: 20px;
 }
 
 .columns-container.v-jul26 .columns img {
@@ -1472,6 +1475,11 @@ main .columns-container.padding-0 .columns-wrapper {
     padding-right: 0;
   }
 
+  .columns > div {
+    display: flex;
+    flex-direction: column!important;
+  }
+
   .columns-container.new-list .columns table {
     width: 100%;
     margin-left: 0;
@@ -1926,6 +1934,10 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns.img-full-width > div > div:last-of-type {
     height: auto;
   }
+
+  .columns-container.blue-version.v2 table tr {
+    flex-direction: column;
+  }
 }
 
 @media (width <=768px) {
@@ -2244,10 +2256,6 @@ main .columns-container.padding-0 .columns-wrapper {
 
   .columns-container.csam-design-v3 .columns table tr td:last-of-type {
     padding: 0 20px 10px;
-  }
-
-  .columns-container.blue-version.v2 table tr {
-    flex-direction: column;
   }
 
   .columns-container.blue-version.v2 .block > div > div:not(:first-of-type) table tr p {
