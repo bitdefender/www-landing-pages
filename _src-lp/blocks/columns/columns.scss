@@ -266,9 +266,14 @@ main .columns-container.padding-0 .columns-wrapper {
   padding: 24px 5px 24px 24px;
   margin: 4px 0;
   border-radius: 8px;
-  display: flex;
+  display: block;
   gap: 4px;
   align-items: center;
+}
+
+.columns-container.compare-columns .columns > div ul li img, .columns-container.compare-columns .columns > div ul li .icon {
+  height: 24px;
+  width: auto;
 }
 
 .columns-container.compare-columns .columns > div > div:last-of-type ul li {
@@ -1478,6 +1483,14 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns > div {
     display: flex;
     flex-direction: column!important;
+  }
+
+  .columns-container.compare-columns .columns div {
+    display: block;
+  }
+
+  .columns-container.compare-columns .columns div.text-content > p:first-of-type em {
+    float: left;
   }
 
   .columns-container.new-list .columns table {

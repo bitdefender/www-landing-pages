@@ -98,17 +98,18 @@ export default function decorate(block) {
           firstItem.style.minHeight = '';
           secondItem.style.minHeight = '';
 
-          const maxHeight = Math.max(
-            firstItem.offsetHeight,
-            secondItem.offsetHeight,
-          );
+          if (window.innerWidth >= 990) {
+            const maxHeight = Math.max(
+              firstItem.offsetHeight,
+              secondItem.offsetHeight,
+            );
 
-          firstItem.style.minHeight = `${maxHeight}px`;
-          secondItem.style.minHeight = `${maxHeight}px`;
+            firstItem.style.minHeight = `${maxHeight}px`;
+            secondItem.style.minHeight = `${maxHeight}px`;
+          }
         });
       };
 
-      // După ce layout-ul este randat
       requestAnimationFrame(() => {
         requestAnimationFrame(matchListItems);
       });
