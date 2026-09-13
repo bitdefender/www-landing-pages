@@ -71,23 +71,67 @@ export default function decorate(block) {
   savedMessage.textContent = columns[3].textContent.trim();
   savedMessage.hidden = true;
 
+  const errorMessage = document.createElement('div');
+  errorMessage.className = 'custom-error';
+  errorMessage.textContent = 'Please select an option.';
+  errorMessage.hidden = true;
+
   block.replaceChildren(
     options,
+    errorMessage,
     actions,
     savedMessage,
   );
 
-  confirmButton.addEventListener('click', () => {
-    const selected = block.querySelector(
-      'input[name="email-tracking"]:checked',
-    );
+  const { api } = block.closest('.section').dataset;
 
-    if (!selected) {
-      return;
-    }
+  if (api && api === 'yes') {
+    confirmButton.addEventListener('click', async () => {
+      const selected = block.querySelector(
+        'input[name="email-tracking"]:checked',
+      );
 
-    options.hidden = true;
-    actions.hidden = true;
-    savedMessage.hidden = false;
-  });
+      // Validation
+      if (!selected) {
+        errorMessage.hidden = false;
+        return;
+      }
+
+      errorMessage.hidden = true;
+
+      const opensTrackingConsent = selected.value === 'yes';
+
+      try {
+        const response = await fetch('API_ENDPOINT_HERE', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: 1521585009443,
+            jsonrpc: '2.0',
+            method: 'updateOpensTrackingConsent',
+            params: {
+              point: 'test',
+              email: 'adistrate+test1@bitdefender.com',
+              opensTrackingConsent,
+            },
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data?.result?.data?.success) {
+          options.hidden = true;
+          actions.hidden = true;
+          savedMessage.hidden = false;
+        }
+      } catch (error) {
+        console.error(
+          'Failed to update opens tracking consent:',
+          error,
+        );
+      }
+    });
+  }
 }
