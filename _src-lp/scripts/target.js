@@ -73,7 +73,11 @@ const target = await targetPromise;
  */
 function getPlainPageUrl(url) {
   const { pathname, search, hash } = new URL(url, window.location.href);
-  const plainPagePathname = pathname.endsWith('/') ? `${pathname}index.plain.html` : `${pathname}.plain.html`;
+  const localPathname = window.location.hostname.includes('.bitdefender.com')
+    ? pathname
+    : pathname.replace(/^\/pages(?=\/|$)/, '');
+  const pagePathname = localPathname.endsWith('/') ? `${localPathname}index` : localPathname;
+  const plainPagePathname = `${pagePathname}.plain.html`;
   return `${plainPagePathname}${search}${hash}`;
 }
 
