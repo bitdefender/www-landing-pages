@@ -102,7 +102,7 @@ export default function decorate(block) {
       const opensTrackingConsent = selected.value === 'yes';
 
       try {
-        const response = await fetch('API_ENDPOINT_HERE', {
+        const response = await fetch('https://belt.orion.bitdefender.com/2.1/emarsys', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -120,6 +120,7 @@ export default function decorate(block) {
         });
 
         const data = await response.json();
+        console.log('data ', data);
 
         if (data?.result?.data?.success) {
           options.hidden = true;
