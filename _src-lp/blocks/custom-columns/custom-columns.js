@@ -25,39 +25,102 @@ export default function decorate(block) {
     table.querySelectorAll('td').forEach((cell) => {
       const icon = cell.querySelector('.icon') || cell.querySelector('picture');
 
-      if (!icon) return;
+      // Save the original content before changing the cell
+      const originalContent = document.createElement('div');
+
+      while (cell.firstChild) {
+        originalContent.appendChild(cell.firstChild);
+      }
 
       const content = document.createElement('div');
       content.className = 'cell-content';
 
-      const iconWrapper = document.createElement('div');
-      iconWrapper.className = 'cell-icon';
+      // ICON
+      if (icon) {
+        const iconWrapper = document.createElement('div');
+        iconWrapper.className = 'cell-icon';
 
-      iconWrapper.appendChild(icon);
+        iconWrapper.appendChild(icon);
+        content.appendChild(iconWrapper);
+      }
 
-      const textElements = [...cell.children].filter(
-        (element) => !element.contains(icon) && element.textContent.trim(),
-      );
+      // TEXT
+      const textWrapper = document.createElement('div');
+      textWrapper.className = 'cell-text';
 
-      content.appendChild(iconWrapper);
+      /*
+       * The expected structure is:
+       *
+       * <p>
+       *   <strong>Title</strong>
+       *   <u>NEW</u>
+       * </p>
+       * <p>Description</p>
+       *
+       * If the authoring gives us:
+       *
+       * <strong>Title</strong>
+       * <br>
+       * Description
+       *
+       * we create the <p> elements ourselves.
+       */
 
-      if (textElements.length) {
-        const textWrapper = document.createElement('div');
-        textWrapper.className = 'cell-text';
+      const paragraphs = originalContent.querySelectorAll('p');
 
-        textElements.forEach((element) => {
-          textWrapper.appendChild(element);
+      if (paragraphs.length) {
+        paragraphs.forEach((paragraph) => {
+          textWrapper.appendChild(paragraph);
+        });
+      } else {
+        const firstParagraph = document.createElement('p');
+        const secondParagraph = document.createElement('p');
+
+        const elements = [...originalContent.childNodes];
+
+        let isFirst = true;
+
+        elements.forEach((node) => {
+          if (
+            node.nodeType === Node.TEXT_NODE
+            && !node.textContent.trim()
+          ) {
+            return;
+          }
+
+          if (
+            node.nodeType === Node.ELEMENT_NODE
+            && node.tagName === 'BR'
+          ) {
+            isFirst = false;
+            return;
+          }
+
+          if (isFirst) {
+            firstParagraph.appendChild(node);
+          } else {
+            secondParagraph.appendChild(node);
+          }
         });
 
-        content.appendChild(textWrapper);
-      }
-      cell.replaceChildren(content);
-    });
+        if (firstParagraph.childNodes.length) {
+          textWrapper.appendChild(firstParagraph);
+        }
 
-    table.querySelectorAll('u').forEach((element) => {
-      if (element.textContent.trim().toUpperCase() === 'NEW') {
-        element.classList.add('badge-new');
+        if (secondParagraph.childNodes.length) {
+          textWrapper.appendChild(secondParagraph);
+        }
       }
+
+      // Add NEW badge
+      textWrapper.querySelectorAll('u').forEach((element) => {
+        if (element.textContent.trim().toUpperCase() === 'NEW') {
+          element.classList.add('badge-new');
+        }
+      });
+
+      content.appendChild(textWrapper);
+      cell.appendChild(content);
     });
   });
 }
