@@ -991,19 +991,29 @@ function initSelectors(pid) {
 }
 
 function addIdsToEachSection() {
-  document.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
-    // Find the first sibling that is not a default-content-wrapper
-    let componentWrapper = item;
-    while (componentWrapper && componentWrapper.classList.contains('default-content-wrapper')) {
-      if (!componentWrapper.nextElementSibling) {
-        return;
-      }
+  document.querySelectorAll('main .section').forEach((section) => {
+    const { id: dataId } = section.dataset;
 
+    if (dataId) {
+      section.id = dataId;
+      section.removeAttribute('data-id');
+      return;
+    }
+
+    let componentWrapper = section.querySelector(':scope > div:first-of-type');
+
+    while (componentWrapper?.classList.contains('default-content-wrapper')) {
       componentWrapper = componentWrapper.nextElementSibling;
     }
 
+    if (!componentWrapper) {
+      return;
+    }
+
     const getIdentity = componentWrapper.className.split('-wrapper')[0];
-    componentWrapper.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
+    section.id = document.getElementById(getIdentity)
+      ? `${getIdentity}-2`
+      : getIdentity;
   });
 }
 
