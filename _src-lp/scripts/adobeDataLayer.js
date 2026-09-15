@@ -186,7 +186,7 @@ const buildAdobeProduct = (product, region) => {
       || product.product_id,
     name: productName,
     devices: product.selected_users,
-    subscription: product.selected_years * 12,
+    subscription: product.period,
     version: '',
     basePrice: price,
     discountValue: Math.round((price - discountVal) * 100) / 100,
