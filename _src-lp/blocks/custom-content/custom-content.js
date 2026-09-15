@@ -108,7 +108,7 @@ export default function decorate(block) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: 1521585009443,
+            id: Date.now(),
             jsonrpc: '2.0',
             method: 'updateOpensTrackingConsent',
             params: {
