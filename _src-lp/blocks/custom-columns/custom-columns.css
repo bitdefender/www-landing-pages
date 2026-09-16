@@ -148,9 +148,18 @@
   flex: 1 1 auto;
   min-width: 0;
 }
-.custom-columns .cell-text > p > strong {
+.custom-columns .cell-text .cell-title {
+  margin: 0 0 4px;
+}
+.custom-columns .cell-text .cell-title strong {
   font-size: 17px;
   display: inline-block;
+}
+.custom-columns .cell-text .cell-description {
+  margin: 0;
+}
+.custom-columns .cell-text .cell-description br {
+  display: none;
 }
 .custom-columns {
   /*

@@ -171,9 +171,21 @@
         flex: 1 1 auto;
         min-width: 0;
 
-        > p > strong {
-            font-size: 17px;
-            display: inline-block;
+        .cell-title {
+            margin: 0 0 4px;
+
+            strong {
+                font-size: 17px;
+                display: inline-block;
+            }
+        }
+
+        .cell-description {
+            margin: 0;
+
+            br {
+                display: none;
+            }
         }
     }
 
