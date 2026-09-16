@@ -2,7 +2,9 @@ import {
   AdobeDataLayerService, CdpEvent, PageLoadedEvent, PageLoadStartedEvent,
 } from '@repobit/dex-data-layer';
 import userPromise from './user.js';
-import { targetPromise, getPageNameAndSections, getDefaultLanguage } from './target.js';
+import {
+  targetPromise, getPageNameAndSections, getDefaultLanguage, getExperimentDetails, getTargetExperimentDetails,
+} from './target.js';
 import pagePromise from './page.js';
 import { getMetadata } from './lib-franklin.js';
 import {
@@ -31,6 +33,7 @@ export const sendAnalyticsPageEvent = async () => {
       geoRegion: await userObject.country,
       serverName: 'hlx.live',
       language: navigator.language || navigator.userLanguage || DEFAULT_LANGUAGE,
+      experimentDetails: (await getTargetExperimentDetails()) ?? getExperimentDetails(),
     },
   );
 
