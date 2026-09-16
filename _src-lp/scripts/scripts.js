@@ -5,7 +5,7 @@ import {
   registerContextNodes,
   registerRenderNodes,
 } from '@repobit/dex-store-elements';
-import { targetPromise, getDefaultLanguage } from './target.js';
+import { targetPromise, getDefaultLanguage, getPageExperimentKey } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
 import pagePromise from './page.js';
 import {
@@ -46,7 +46,6 @@ import {
   fetchGeoIP,
 } from './utils.js';
 import store from './store.js';
-import Constants from './constants.js';
 
 const page = await pagePromise;
 const target = await targetPromise;
@@ -244,7 +243,7 @@ async function loadEager(doc) {
     addScript(`${window.hlx.codeBasePath}/scripts/template-factories/${templateMetadata}/${templateMetadata}.js`, {}, 'defer', undefined, undefined, 'module');
   }
 
-  if (getMetadata(Constants.TARGET_EXPERIMENT_METADATA_KEY)) {
+  if (getPageExperimentKey()) {
     await loadTrackers();
     await sendAnalyticsPageEvent();
     await sendAnalyticsUserInfo();
@@ -292,7 +291,7 @@ export async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
 
-  if (!getMetadata(Constants.TARGET_EXPERIMENT_METADATA_KEY)) {
+  if (!getPageExperimentKey()) {
     loadTrackers();
     await sendAnalyticsPageEvent();
     await sendAnalyticsUserInfo();
