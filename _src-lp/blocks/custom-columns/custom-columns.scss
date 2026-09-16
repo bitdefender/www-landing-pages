@@ -42,10 +42,14 @@
         border: 0;
         border-collapse: collapse;
         border-spacing: 0;
-        table-layout: auto;
+        table-layout: fixed;
 
-        &.smaller-icons .cell-icon .icon {
+        &.smaller-icons .cell-icon .icon, &.smaller-icons .cell-icon img {
             width: 20px;
+        }
+
+        .cell-icon img {
+            width: 25px;
         }
 
         p, td {
@@ -202,6 +206,16 @@
     }
 
     /*
+     * Tablet
+     */
+
+    @media (width <= 998px) {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    /*
      * Mobile
      */
 
@@ -209,6 +223,11 @@
         display: flex;
         flex-direction: column;
         gap: 24px;
+
+        table td {
+            width: 100%;
+            display: block;
+        }
 
         > div {
             width: 100%;
