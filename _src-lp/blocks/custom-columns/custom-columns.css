@@ -102,7 +102,7 @@
 .custom-columns table.blue-style .table-heading {
   color: var(--darker-blue-color);
 }
-.custom-columns table.blue-style .cell-text strong {
+.custom-columns table.blue-style tr:not(.table-heading) .cell-text strong {
   font-size: 24px;
 }
 .custom-columns table.blue-style td {
