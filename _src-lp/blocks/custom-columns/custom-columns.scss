@@ -170,6 +170,7 @@
     .cell-text {
         flex: 1 1 auto;
         min-width: 0;
+        overflow-wrap: anywhere;
 
         .cell-title {
             margin: 0 0 4px;
@@ -177,11 +178,15 @@
             strong {
                 font-size: 17px;
                 display: inline-block;
+                overflow-wrap: anywhere;
+                word-break: break-word;
             }
         }
 
         .cell-description {
             margin: 0;
+            overflow-wrap: anywhere;
+            word-break: break-word;
 
             br {
                 display: none;
