@@ -114,9 +114,7 @@ export default function decorate(block) {
 
       // Add NEW badge
       textWrapper.querySelectorAll('u').forEach((element) => {
-        if (element.textContent.trim().toUpperCase() === 'NEW') {
-          element.classList.add('badge-new');
-        }
+        element.classList.add('badge-new');
       });
 
       content.appendChild(textWrapper);

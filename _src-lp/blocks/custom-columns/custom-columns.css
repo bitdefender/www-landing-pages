@@ -150,6 +150,7 @@
 }
 .custom-columns .cell-text > p > strong {
   font-size: 17px;
+  display: inline-block;
 }
 .custom-columns {
   /*

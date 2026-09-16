@@ -1643,11 +1643,6 @@
   font-size: 13px;
 }
 
-.new-prod-boxes-container.show-more-show-less.hide-arrow .block .prod_box .inner_prod_box .benefitsLists > ul:first-of-type li:first-of-type {
-  background: none;
-  padding: 0;
-}
-
 .new-prod-boxes-container.show-more-show-less .block .index0 .inner_prod_box .benefitsLists > ul:first-of-type li:first-of-type {
   background: none !important;
   padding-left: 0;
