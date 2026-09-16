@@ -117,8 +117,8 @@
             color: var(--darker-blue-color);
         }
 
-        .cell-text strong {
-            font-size: 24px;
+        tr:not(.table-heading) .cell-text strong {
+            font-size: 24px; 
         }
 
         td {
