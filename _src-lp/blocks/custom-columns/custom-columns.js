@@ -25,7 +25,7 @@ export default function decorate(block) {
     table.querySelectorAll('td').forEach((cell) => {
       const icon = cell.querySelector('.icon') || cell.querySelector('picture');
 
-      // Save the original content before changing the cell
+      // Save original content
       const originalContent = document.createElement('div');
 
       while (cell.firstChild) {
@@ -48,39 +48,115 @@ export default function decorate(block) {
       const textWrapper = document.createElement('div');
       textWrapper.className = 'cell-text';
 
-      /*
-       * The expected structure is:
-       *
-       * <p>
-       *   <strong>Title</strong>
-       *   <u>NEW</u>
-       * </p>
-       * <p>Description</p>
-       *
-       * If the authoring gives us:
-       *
-       * <strong>Title</strong>
-       * <br>
-       * Description
-       *
-       * we create the <p> elements ourselves.
-       */
-
-      const paragraphs = originalContent.querySelectorAll('p');
+      const paragraphs = [...originalContent.querySelectorAll('p')];
 
       if (paragraphs.length) {
         paragraphs.forEach((paragraph) => {
-          textWrapper.appendChild(paragraph);
+          // Ignore empty paragraphs
+          if (!paragraph.textContent.trim()) {
+            return;
+          }
+
+          const strong = paragraph.querySelector('strong');
+
+          /*
+           * Paragraph containing a title:
+           *
+           * <p>
+           *   <strong>Scamio Pro</strong>
+           *   Spezialisierter KI-Chatbot...
+           * </p>
+           *
+           * becomes:
+           *
+           * <p class="cell-title">
+           *   <strong>Scamio Pro</strong>
+           * </p>
+           *
+           * <p class="cell-description">
+           *   Spezialisierter KI-Chatbot...
+           * </p>
+           */
+          if (strong) {
+            const titleParagraph = document.createElement('p');
+            titleParagraph.className = 'cell-title';
+
+            const descriptionParagraph = document.createElement('p');
+            descriptionParagraph.className = 'cell-description';
+
+            let titleFound = false;
+
+            [...paragraph.childNodes].forEach((node) => {
+              // Ignore whitespace
+              if (
+                node.nodeType === Node.TEXT_NODE
+                && !node.textContent.trim()
+              ) {
+                return;
+              }
+
+              // STRONG = title
+              if (
+                node.nodeType === Node.ELEMENT_NODE
+                && node.tagName === 'STRONG'
+              ) {
+                titleParagraph.appendChild(node);
+                titleFound = true;
+                return;
+              }
+
+              // U = NEW badge
+              if (
+                node.nodeType === Node.ELEMENT_NODE
+                && node.tagName === 'U'
+              ) {
+                node.classList.add('badge-new');
+                titleParagraph.appendChild(node);
+                return;
+              }
+
+              // Everything else = description
+              if (titleFound) {
+                descriptionParagraph.appendChild(node);
+              }
+            });
+
+            if (titleParagraph.textContent.trim()) {
+              textWrapper.appendChild(titleParagraph);
+            }
+
+            if (descriptionParagraph.textContent.trim()) {
+              textWrapper.appendChild(descriptionParagraph);
+            }
+          } else {
+            /*
+             * Paragraph without a title
+             * stays as a description.
+             */
+            paragraph.classList.add('cell-description');
+            textWrapper.appendChild(paragraph);
+          }
         });
       } else {
-        const firstParagraph = document.createElement('p');
-        const secondParagraph = document.createElement('p');
+        /*
+         * Fallback when there are no <p> elements.
+         *
+         * Example:
+         *
+         * <strong>Scamio Pro</strong>
+         * <br>
+         * Description
+         */
+        const titleParagraph = document.createElement('p');
+        titleParagraph.className = 'cell-title';
 
-        const elements = [...originalContent.childNodes];
+        const descriptionParagraph = document.createElement('p');
+        descriptionParagraph.className = 'cell-description';
 
-        let isFirst = true;
+        let descriptionStarted = false;
 
-        elements.forEach((node) => {
+        [...originalContent.childNodes].forEach((node) => {
+          // Ignore whitespace
           if (
             node.nodeType === Node.TEXT_NODE
             && !node.textContent.trim()
@@ -88,36 +164,45 @@ export default function decorate(block) {
             return;
           }
 
+          // BR means description starts
           if (
             node.nodeType === Node.ELEMENT_NODE
             && node.tagName === 'BR'
           ) {
-            isFirst = false;
+            descriptionStarted = true;
             return;
           }
 
-          if (isFirst) {
-            firstParagraph.appendChild(node);
-          } else {
-            secondParagraph.appendChild(node);
+          // STRONG / U belong to title
+          if (
+            node.nodeType === Node.ELEMENT_NODE
+            && (
+              node.tagName === 'STRONG'
+              || node.tagName === 'U'
+            )
+            && !descriptionStarted
+          ) {
+            if (node.tagName === 'U') {
+              node.classList.add('badge-new');
+            }
+
+            titleParagraph.appendChild(node);
+            return;
           }
+
+          // Everything else = description
+          descriptionStarted = true;
+          descriptionParagraph.appendChild(node);
         });
 
-        if (firstParagraph.childNodes.length) {
-          textWrapper.appendChild(firstParagraph);
+        if (titleParagraph.textContent.trim()) {
+          textWrapper.appendChild(titleParagraph);
         }
 
-        if (secondParagraph.childNodes.length) {
-          textWrapper.appendChild(secondParagraph);
+        if (descriptionParagraph.textContent.trim()) {
+          textWrapper.appendChild(descriptionParagraph);
         }
       }
-
-      // Add NEW badge
-      textWrapper.querySelectorAll('u').forEach((element) => {
-        if (element.textContent.trim().toUpperCase() === 'NEW') {
-          element.classList.add('badge-new');
-        }
-      });
 
       content.appendChild(textWrapper);
       cell.appendChild(content);

@@ -147,9 +147,24 @@
 .custom-columns .cell-text {
   flex: 1 1 auto;
   min-width: 0;
+  overflow-wrap: anywhere;
 }
-.custom-columns .cell-text > p > strong {
+.custom-columns .cell-text .cell-title {
+  margin: 0 0 4px;
+}
+.custom-columns .cell-text .cell-title strong {
   font-size: 17px;
+  display: inline-block;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.custom-columns .cell-text .cell-description {
+  margin: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.custom-columns .cell-text .cell-description br {
+  display: none;
 }
 .custom-columns {
   /*
