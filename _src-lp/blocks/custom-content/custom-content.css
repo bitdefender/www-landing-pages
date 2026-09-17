@@ -43,7 +43,6 @@
 
 .custom-content-container.light-green-bck .custom-content p {
   margin: 0 0 20px;
-  font-weight: 700;
   font-size: 23px;
 }
 
@@ -170,6 +169,13 @@
 
 .custom-content-container.radio-options .custom-option.inactive .custom-option-text strong {
   color: #9aa0a6;
+}
+
+.custom-content-container.radio-options .custom-error {
+  width: 100%;
+  color: red;
+  text-align: center;
+  margin: 10px auto -2em;
 }
 
 .custom-content-container.radio-options .custom-actions {
