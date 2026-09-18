@@ -25,39 +25,187 @@ export default function decorate(block) {
     table.querySelectorAll('td').forEach((cell) => {
       const icon = cell.querySelector('.icon') || cell.querySelector('picture');
 
-      if (!icon) return;
+      // Save original content
+      const originalContent = document.createElement('div');
+
+      while (cell.firstChild) {
+        originalContent.appendChild(cell.firstChild);
+      }
 
       const content = document.createElement('div');
       content.className = 'cell-content';
 
-      const iconWrapper = document.createElement('div');
-      iconWrapper.className = 'cell-icon';
+      // ICON
+      if (icon) {
+        const iconWrapper = document.createElement('div');
+        iconWrapper.className = 'cell-icon';
 
-      iconWrapper.appendChild(icon);
+        iconWrapper.appendChild(icon);
+        content.appendChild(iconWrapper);
+      }
 
-      const textElements = [...cell.children].filter(
-        (element) => !element.contains(icon) && element.textContent.trim(),
-      );
+      // TEXT
+      const textWrapper = document.createElement('div');
+      textWrapper.className = 'cell-text';
 
-      content.appendChild(iconWrapper);
+      const paragraphs = [...originalContent.querySelectorAll('p')];
 
-      if (textElements.length) {
-        const textWrapper = document.createElement('div');
-        textWrapper.className = 'cell-text';
+      if (paragraphs.length) {
+        paragraphs.forEach((paragraph) => {
+          // Ignore empty paragraphs
+          if (!paragraph.textContent.trim()) {
+            return;
+          }
 
-        textElements.forEach((element) => {
-          textWrapper.appendChild(element);
+          const strong = paragraph.querySelector('strong');
+
+          /*
+           * Paragraph containing a title:
+           *
+           * <p>
+           *   <strong>Scamio Pro</strong>
+           *   Spezialisierter KI-Chatbot...
+           * </p>
+           *
+           * becomes:
+           *
+           * <p class="cell-title">
+           *   <strong>Scamio Pro</strong>
+           * </p>
+           *
+           * <p class="cell-description">
+           *   Spezialisierter KI-Chatbot...
+           * </p>
+           */
+          if (strong) {
+            const titleParagraph = document.createElement('p');
+            titleParagraph.className = 'cell-title';
+
+            const descriptionParagraph = document.createElement('p');
+            descriptionParagraph.className = 'cell-description';
+
+            let titleFound = false;
+
+            [...paragraph.childNodes].forEach((node) => {
+              // Ignore whitespace
+              if (
+                node.nodeType === Node.TEXT_NODE
+                && !node.textContent.trim()
+              ) {
+                return;
+              }
+
+              // STRONG = title
+              if (
+                node.nodeType === Node.ELEMENT_NODE
+                && node.tagName === 'STRONG'
+              ) {
+                titleParagraph.appendChild(node);
+                titleFound = true;
+                return;
+              }
+
+              // U = NEW badge
+              if (
+                node.nodeType === Node.ELEMENT_NODE
+                && node.tagName === 'U'
+              ) {
+                node.classList.add('badge-new');
+                titleParagraph.appendChild(node);
+                return;
+              }
+
+              // Everything else = description
+              if (titleFound) {
+                descriptionParagraph.appendChild(node);
+              }
+            });
+
+            if (titleParagraph.textContent.trim()) {
+              textWrapper.appendChild(titleParagraph);
+            }
+
+            if (descriptionParagraph.textContent.trim()) {
+              textWrapper.appendChild(descriptionParagraph);
+            }
+          } else {
+            /*
+             * Paragraph without a title
+             * stays as a description.
+             */
+            paragraph.classList.add('cell-description');
+            textWrapper.appendChild(paragraph);
+          }
+        });
+      } else {
+        /*
+         * Fallback when there are no <p> elements.
+         *
+         * Example:
+         *
+         * <strong>Scamio Pro</strong>
+         * <br>
+         * Description
+         */
+        const titleParagraph = document.createElement('p');
+        titleParagraph.className = 'cell-title';
+
+        const descriptionParagraph = document.createElement('p');
+        descriptionParagraph.className = 'cell-description';
+
+        let descriptionStarted = false;
+
+        [...originalContent.childNodes].forEach((node) => {
+          // Ignore whitespace
+          if (
+            node.nodeType === Node.TEXT_NODE
+            && !node.textContent.trim()
+          ) {
+            return;
+          }
+
+          // BR means description starts
+          if (
+            node.nodeType === Node.ELEMENT_NODE
+            && node.tagName === 'BR'
+          ) {
+            descriptionStarted = true;
+            return;
+          }
+
+          // STRONG / U belong to title
+          if (
+            node.nodeType === Node.ELEMENT_NODE
+            && (
+              node.tagName === 'STRONG'
+              || node.tagName === 'U'
+            )
+            && !descriptionStarted
+          ) {
+            if (node.tagName === 'U') {
+              node.classList.add('badge-new');
+            }
+
+            titleParagraph.appendChild(node);
+            return;
+          }
+
+          // Everything else = description
+          descriptionStarted = true;
+          descriptionParagraph.appendChild(node);
         });
 
-        content.appendChild(textWrapper);
-      }
-      cell.replaceChildren(content);
-    });
+        if (titleParagraph.textContent.trim()) {
+          textWrapper.appendChild(titleParagraph);
+        }
 
-    table.querySelectorAll('u').forEach((element) => {
-      if (element.textContent.trim().toUpperCase() === 'NEW') {
-        element.classList.add('badge-new');
+        if (descriptionParagraph.textContent.trim()) {
+          textWrapper.appendChild(descriptionParagraph);
+        }
       }
+
+      content.appendChild(textWrapper);
+      cell.appendChild(content);
     });
   });
 }
