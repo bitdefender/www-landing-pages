@@ -175,7 +175,7 @@
   width: 100%;
   color: red;
   text-align: center;
-  margin: 10px auto -2em;
+  margin: 11px auto -2em;
 }
 
 .custom-content-container.radio-options .custom-actions {
@@ -210,11 +210,23 @@
 .custom-content-container.radio-options .custom-saved {
   width: 100%;
   margin: 0;
-  color: #20a35a;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 15px;
   line-height: 1.4;
   text-align: center;
+}
+
+.custom-content-container.radio-options .custom-saved p {
+  margin: 0;
+}
+
+.custom-content-container.radio-options .custom-saved p:first-of-type {
+  color: #20a35a;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.custom-content-container.radio-options .custom-saved a {
+  color: #0d6efd;
 }
 
 .custom-content-container.radio-options .custom-saved[hidden] {
