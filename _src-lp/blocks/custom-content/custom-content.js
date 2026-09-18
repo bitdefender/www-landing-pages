@@ -147,9 +147,9 @@ export default function decorate(block) {
 
         const data = await response.json();
 
-        console.log('data log ', data);
+        const requestSuccess = data?.result?.result?.data?.success;
 
-        if (data?.result?.data?.success) {
+        if (requestSuccess === true) {
           options.hidden = true;
           actions.hidden = true;
           errorMessage.hidden = true;
