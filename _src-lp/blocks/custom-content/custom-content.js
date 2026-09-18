@@ -1,7 +1,7 @@
 export default function decorate(block) {
   const columns = [...block.children];
 
-  if (columns.length !== 5) {
+  if (columns.length !== 4) {
     return;
   }
 
@@ -66,31 +66,19 @@ export default function decorate(block) {
 
   actions.append(confirmButton);
 
-  // Errors from column 4, separated by "|"
-  const errorMessages = columns[3].textContent
-    .split('|')
-    .map((message) => message.trim());
+  const savedMessage = document.createElement('div');
+  savedMessage.className = 'custom-saved';
+  savedMessage.textContent = columns[3].textContent.trim();
+  savedMessage.hidden = true;
 
   const errorMessage = document.createElement('div');
   errorMessage.className = 'custom-error';
-  errorMessage.textContent = errorMessages[0] || '';
+  errorMessage.textContent = 'Please select an option.';
   errorMessage.hidden = true;
-
-  const apiErrorMessage = document.createElement('div');
-  apiErrorMessage.className = 'custom-error';
-  apiErrorMessage.textContent = errorMessages[1] || '';
-  apiErrorMessage.hidden = true;
-
-  // Success message from column 5
-  const savedMessage = document.createElement('div');
-  savedMessage.className = 'custom-saved';
-  savedMessage.textContent = columns[4].textContent.trim();
-  savedMessage.hidden = true;
 
   block.replaceChildren(
     options,
     errorMessage,
-    apiErrorMessage,
     actions,
     savedMessage,
   );
@@ -98,71 +86,52 @@ export default function decorate(block) {
   const { api } = block.closest('.section').dataset;
 
   if (api && api === 'yes') {
-    const queryString = window.location.search.substring(1);
-
-    const emailParam = queryString
-      .split('&')
-      .find((param) => param.startsWith('email='));
-
-    const email = emailParam
-      ? decodeURIComponent(emailParam.substring('email='.length))
-      : null;
-
-    if (!email) {
-      console.error('Email parameter is missing.');
-      return;
-    }
-
     confirmButton.addEventListener('click', async () => {
       const selected = block.querySelector(
         'input[name="email-tracking"]:checked',
       );
 
+      // Validation
       if (!selected) {
         errorMessage.hidden = false;
-        apiErrorMessage.hidden = true;
         return;
       }
 
       errorMessage.hidden = true;
-      apiErrorMessage.hidden = true;
 
       const opensTrackingConsent = selected.value === 'yes';
 
       try {
-        const encodedEmail = encodeURIComponent(email);
-
-        const url = new URL(
-          'https://www.bitdefender.com/site/Main/openTrackingConsent',
-        );
-
-        url.search = `email=${encodedEmail}&otc=${opensTrackingConsent}`;
-
-        const response = await fetch(url, {
-          method: 'GET',
+        const response = await fetch('https://belt.orion.bitdefender.com/2.1/emarsys', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: Date.now(),
+            jsonrpc: '2.0',
+            method: 'updateOpensTrackingConsent',
+            params: {
+              point: 'test',
+              email: 'adistrate+test1@bitdefender.com',
+              opensTrackingConsent,
+            },
+          }),
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-
         const data = await response.json();
-        console.log(data);
+        console.log('data ', data);
 
         if (data?.result?.data?.success) {
           options.hidden = true;
           actions.hidden = true;
           savedMessage.hidden = false;
-        } else {
-          apiErrorMessage.hidden = false;
         }
       } catch (error) {
         console.error(
           'Failed to update opens tracking consent:',
           error,
         );
-
-        apiErrorMessage.hidden = false;
       }
     });
   }
