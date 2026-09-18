@@ -98,8 +98,15 @@ export default function decorate(block) {
   const { api } = block.closest('.section').dataset;
 
   if (api && api === 'yes') {
-    const urlParams = new URLSearchParams(window.location.search);
-    const email = urlParams.get('email');
+    const queryString = window.location.search.substring(1);
+
+    const emailParam = queryString
+      .split('&')
+      .find((param) => param.startsWith('email='));
+
+    const email = emailParam
+      ? decodeURIComponent(emailParam.substring('email='.length))
+      : null;
 
     if (!email) {
       console.error('Email parameter is missing.');
@@ -111,7 +118,6 @@ export default function decorate(block) {
         'input[name="email-tracking"]:checked',
       );
 
-      // No option selected
       if (!selected) {
         errorMessage.hidden = false;
         apiErrorMessage.hidden = true;
@@ -124,32 +130,24 @@ export default function decorate(block) {
       const opensTrackingConsent = selected.value === 'yes';
 
       try {
-        const response = await fetch(
-          'https://orion.bitdefender.com/2.1/emarsys',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              id: Date.now(),
-              jsonrpc: '2.0',
-              method: 'updateOpensTrackingConsent',
-              params: {
-                point: 'live',
-                email,
-                opensTrackingConsent,
-              },
-            }),
-          },
+        const encodedEmail = encodeURIComponent(email);
+
+        const url = new URL(
+          'https://www.bitdefender.com/site/Main/openTrackingConsent',
         );
+
+        url.search = `email=${encodedEmail}&otc=${opensTrackingConsent}`;
+
+        const response = await fetch(url, {
+          method: 'GET',
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('data ', data);
+        console.log(data);
 
         if (data?.result?.data?.success) {
           options.hidden = true;
