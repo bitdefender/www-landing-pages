@@ -120,7 +120,7 @@ export default function decorate(block) {
         });
 
         const data = await response.json();
-        console.log('data ', data);
+        console.log('data log ', data);
 
         if (data?.result?.data?.success) {
           options.hidden = true;
