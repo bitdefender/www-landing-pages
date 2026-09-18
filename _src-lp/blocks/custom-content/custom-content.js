@@ -159,11 +159,6 @@ export default function decorate(block) {
           errorMessage.hidden = false;
         }
       } catch (error) {
-        console.error(
-          'Failed to update opens tracking consent:',
-          error,
-        );
-
         errorMessage.textContent = errorTexts[1];
         errorMessage.hidden = false;
       }
