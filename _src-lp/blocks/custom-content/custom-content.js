@@ -70,12 +70,29 @@ export default function decorate(block) {
   const actions = document.createElement('div');
   actions.className = 'custom-actions';
 
+  const actionContent = columns[2].querySelector('[data-valign="middle"]');
+
+  const actionParts = actionContent.innerHTML
+    .split('|')
+    .map((text) => text.trim());
+
+  const buttonText = document.createElement('div');
+  buttonText.innerHTML = actionParts[0];
+
   const confirmButton = document.createElement('button');
   confirmButton.type = 'button';
   confirmButton.className = 'custom-confirm';
-  confirmButton.textContent = columns[2].textContent.trim();
+  confirmButton.textContent = buttonText.textContent.trim();
 
   actions.append(confirmButton);
+
+  if (actionParts[1]) {
+    const actionInfo = document.createElement('div');
+    actionInfo.className = 'custom-action-info';
+    actionInfo.innerHTML = actionParts[1];
+
+    actions.append(actionInfo);
+  }
 
   const errorTexts = columns[3].textContent
     .split('|')
@@ -103,6 +120,23 @@ export default function decorate(block) {
   if (!section) {
     return;
   }
+
+  const hideSectionsAbove = () => {
+    const sections = [...section.parentElement.children]
+      .filter((element) => element.classList.contains('section'));
+
+    const currentIndex = sections.indexOf(section);
+
+    if (currentIndex < 0) {
+      return;
+    }
+
+    sections
+      .slice(Math.max(0, currentIndex - 2), currentIndex)
+      .forEach((previousSection) => {
+        previousSection.hidden = true;
+      });
+  };
 
   const { api } = section.dataset;
 
@@ -145,6 +179,8 @@ export default function decorate(block) {
         actions.hidden = true;
         errorMessage.hidden = true;
         savedMessage.hidden = false;
+
+        hideSectionsAbove();
         return;
       }
 
@@ -176,6 +212,8 @@ export default function decorate(block) {
           actions.hidden = true;
           errorMessage.hidden = true;
           savedMessage.hidden = false;
+
+          hideSectionsAbove();
         } else {
           errorMessage.textContent = errorTexts[1];
           errorMessage.hidden = false;
