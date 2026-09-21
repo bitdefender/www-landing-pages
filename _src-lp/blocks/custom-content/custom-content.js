@@ -11,7 +11,10 @@ export default function decorate(block) {
   const createOption = (column, value) => {
     const content = column.querySelector('[data-valign="middle"]');
     const paragraphs = [...content.querySelectorAll('p')];
-    const isSelected = content.textContent.includes('[selected]');
+    const contentText = content.textContent;
+
+    const isSelected = contentText.includes('[selected]');
+    const isSkip = contentText.includes('[skip]');
 
     const label = document.createElement('label');
     label.className = `custom-option ${isSelected ? 'active' : 'inactive'}`;
@@ -30,7 +33,11 @@ export default function decorate(block) {
 
     paragraphs.forEach((paragraph) => {
       const p = paragraph.cloneNode(true);
-      p.textContent = p.textContent.replace('[selected]', '').trim();
+
+      p.textContent = p.textContent
+        .replace('[selected]', '')
+        .replace('[skip]', '')
+        .trim();
 
       if (p.textContent) {
         text.appendChild(p);
@@ -38,6 +45,10 @@ export default function decorate(block) {
     });
 
     label.append(input, radio, text);
+
+    if (isSkip) {
+      label.dataset.skip = 'true';
+    }
 
     input.addEventListener('change', () => {
       options.querySelectorAll('.custom-option').forEach((option) => {
@@ -124,6 +135,19 @@ export default function decorate(block) {
 
       errorMessage.hidden = true;
 
+      const selectedOption = selected.closest('.custom-option');
+
+      const isSkip = selectedOption?.dataset.skip === 'true';
+
+      // Skip API call
+      if (isSkip) {
+        options.hidden = true;
+        actions.hidden = true;
+        errorMessage.hidden = true;
+        savedMessage.hidden = false;
+        return;
+      }
+
       const opensTrackingConsent = selected.value === 'yes';
 
       try {
@@ -134,8 +158,6 @@ export default function decorate(block) {
         );
 
         url.search = `email=${encodedEmail}&otc=${opensTrackingConsent}`;
-
-        console.log('Request URL:', url.toString());
 
         const response = await fetch(url, {
           method: 'GET',
