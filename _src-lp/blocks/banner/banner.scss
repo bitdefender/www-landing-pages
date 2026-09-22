@@ -171,7 +171,7 @@
   background-color: #F6F6F6;
 }
 
-.section.banner-container.bckimg-small-right .banner::before {
+.section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before,  {
   content: 'Trusted. Always.';
   font-size: 23px;
   line-height: 29px;
@@ -182,8 +182,16 @@
   margin: 0 0 1em 1em;
 }
 
+.section.banner-container.text-center-bottom .banner::before {
+  text-align: center;
+}
+
 .section.banner-container.remove-trusted .banner::before {
   display: none;
+}
+
+.section.banner-container[data-text-color="white"] .banner::before {
+  color: white;
 }
 
 .section.banner-container.bck-inner-full .banner {
