@@ -271,8 +271,8 @@
   width: 100%;
   border-radius: 10px;
   margin-bottom: 0;
-  background: url("../../images/dark-blue-quote.svg") no-repeat top 2em left 20px #FFF;
-  background-size: 50px;
+  background: url("../../images/baby-blue-quote.svg") no-repeat top 1em left 20px #FFF;
+  background-size: 34px;
   margin-top: 0;
   height: 100%;
 }
@@ -420,14 +420,15 @@
 }
 
 .c-icon-box-grid-container .new-blue {
-  background: #d9eeff;
+  background: var(--baby-blue-color);
   border-radius: 20px;
   padding: 1em;
 }
 
 .c-icon-box-grid-container h3 {
   font-size: 32px;
-  font-weight: 500;
+  line-height: 37px;
+  font-weight: bold;
 }
 
 .c-icon-box-grid-container.dotted-lines .block .container {
@@ -743,6 +744,12 @@
   padding: 15px;
 }
 
+.c-icon-box-grid-container .container > div:last-of-type {
+  font-size: 12px;
+  line-height: 20px;
+  color: #7E7E7E;
+}
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-xs);
@@ -798,8 +805,8 @@
   }
 
   .c-icon-box-grid-container .subtitle {
-    font-size: var(--body-font-size-xs);
-    line-height: var(--body-font-size-m);
+    font-size: var(--body-font-size-xs2);
+    line-height: var(--body-line-height-xs2);
     height: 100%;
     display: flex;
     flex-direction: column;

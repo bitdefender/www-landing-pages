@@ -29,7 +29,7 @@
   --background-color-light-sky-blue: #e4f2ff;
   --light-pink-color: #fdf3f3;
   --red-color: #e72325;
-  --baby-blue-color: #EDF9FF;
+  --baby-blue-color: #F6F9FD;
   --baby-blue-color-v2: #E6F2FF;
   --navy-color: #07142f;
   --navy-color-v2: #405173;
@@ -46,17 +46,25 @@
   --text-color: #000;
 
   /* fonts */
-  --body-font-family: "Arial", sans-serif;
+  --body-font-family: "IBM Plex Sans", sans-serif;
   --heading-font-family: var(--body-font-family);
-  --fixed-font-family: "Arial", sans-serif;
+  --fixed-font-family: "IBM Plex Sans", sans-serif;
 
   /* body sizes */
+  --body-font-size-l: 32px;
+  --body-line-height-l: 38px;
+  --body-font-size-m2: 24px;
+  --body-line-height-m2: 28px;
   --body-font-size-m: 22px;
-  --body-line-height-m: 27px;
+  --body-line-height-m: 25px;
   --body-font-size-s: 18px;
   --body-line-height-s: 22px;
   --body-font-size-xs: 16px;
   --body-line-height-xs: 20px;
+  --body-font-size-xs2: 14px;
+  --body-line-height-xs2: 18px;
+  --body-font-size-xs3: 12px;
+  --body-line-height-xs3: 15px;
 
   /* heading sizes */
   --heading-font-size-xxl3: 60px;
@@ -71,7 +79,7 @@
   --heading-line-height-l2: 42px;
   --heading-font-size-l: 32px;
   --heading-line-height-l: 36px;
-  --heading-font-size-m: 24px;
+  --heading-font-size-m: 22px;
   --heading-line-height-m: 30px;
   --heading-font-size-s: 20px;
   --heading-line-height-s: 25px;
@@ -87,7 +95,7 @@ header {
 }
 
 body {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-s);
   margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.6;
@@ -174,7 +182,6 @@ h6 {
 
 h1 {
   font-size: var(--heading-font-size-xxl);
-  font-family: "IBM Plex Sans", sans-serif;
 }
 
 h2 {
@@ -248,10 +255,6 @@ a:any-link {
 
 .underlined a:any-link {
   text-decoration: underline;
-}
-
-main .section.ibmplex-font * {
-  font-family: "IBM Plex Sans", sans-serif !important;
 }
 
 main .section.blue-slogan * {
@@ -359,12 +362,8 @@ button:hover {
   background: #b33027;
 }
 
-.bblue-bck {
+.bblue-bck, .bblue-bck-2  {
   background-color: var(--baby-blue-color);
-}
-
-.bblue-bck-2 {
-  background-color: var(--baby-blue-color-v2);
 }
 
 .dark-blue-bck {
@@ -1942,7 +1941,6 @@ main .section.light-sky-blue > * {
 
 .bluetag {
   font-size: var(--body-font-size-xs);
-  font-family: Arial, sans-serif;
   color: white;
   text-align: center;
   background-color: #026DFF;
@@ -1961,7 +1959,6 @@ main .section[data-textcolor="grey"] .default-content-wrapper * {
 }
 
 main .section.they-wear-our-faces {
-  font-family: "IBM Plex Sans", sans-serif;
   box-sizing: unset;
 
   &.columns-container.banner-with-cards-container {
@@ -1976,10 +1973,6 @@ main .section.they-wear-our-faces {
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-
-  h2 {
-    font-family: "IBM Plex Sans", sans-serif;
   }
 
   p {
@@ -2007,7 +2000,6 @@ main .section.they-wear-our-faces {
   width: 100%;
   z-index: 101;
   background: white;
-  font-family: "IBM Plex Sans", sans-serif;
 
   .default-content-wrapper {
     display: flex;
@@ -2032,12 +2024,6 @@ main .section.they-wear-our-faces {
 
   @media screen and (width >= 576px) {
     display: none;
-  }
-}
-
-.section.ibm-plex-sans, .section.ibm-plex {
-  * {
-    font-family: "IBM Plex Sans", sans-serif;
   }
 }
 

@@ -51,7 +51,6 @@
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
-  font-family: Arial, sans-serif;
   height: 44px;
   display: inline-flex;
   align-items: center;
@@ -119,7 +118,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .section.banner-container .banner h1 a:hover {
@@ -128,6 +127,10 @@
 
 .section.banner-container .banner img {
   width: auto;
+}
+
+.section.banner-container .banner table img {
+  height: 55px;
 }
 
 .section.banner-container .banner .img-right picture {
@@ -165,6 +168,21 @@
 .section.banner-container.new-2024 .banner {
   overflow: hidden;
   background-color: #F6F6F6;
+}
+
+.section.banner-container.bckimg-small-right .banner::before {
+  content: "Trusted. Always.";
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #006EFF;
+  display: block;
+  margin: 0 0 1em 1em;
+}
+
+.section.banner-container.remove-trusted .banner::before {
+  display: none;
 }
 
 .section.banner-container.bck-inner-full .banner {
@@ -438,7 +456,6 @@
   width: 235px;
   font-size: 12px;
   line-height: 14px;
-  font-family: Arial, sans-serif;
   margin: 0 auto 15px;
 }
 
@@ -862,7 +879,6 @@
   border: 2px solid #006DFF;
   background-color: #016DFF;
   color: white;
-  font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 18px;
   font-weight: bold;

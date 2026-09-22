@@ -138,7 +138,6 @@
   line-height: var(--heading-font-size-m);
   font-weight: bold;
   color: black;
-  font-family: Arial, sans-serif;
 }
 
 .columns-container.new .columns h4 {
@@ -169,7 +168,6 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.new .columns p {
   color: black;
-  font-family: Arial, sans-serif;
 }
 
 .columns-container.csam-design-v2 .columns p {
@@ -331,6 +329,21 @@ main .columns-container.padding-0 .columns-wrapper {
   margin-top: 16px;
 }
 
+.columns-container .columns.align-left * {
+  align-items: flex-start !important;
+  text-align: left;
+}
+.columns-container .columns.align-left * h3 {
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
+}
+.columns-container .columns.align-left * p {
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
+}
+.columns-container .columns.align-left * svg {
+  height: 30px;
+}
 .columns-container .columns.blue-cards > div {
   gap: 30px;
   justify-content: center;
@@ -555,12 +568,6 @@ main .columns-container.padding-0 .columns-wrapper {
     display: flex;
     gap: 20px;
   }
-}
-.columns-container .columns.ibm-plex-sans {
-  font-family: "IBM Plex Sans", sans-serif;
-}
-.columns-container .columns.ibm-plex-sans h3 {
-  font-family: "IBM Plex Sans", sans-serif;
 }
 .columns-container .columns.icons-48 .icon {
   width: 48px !important;

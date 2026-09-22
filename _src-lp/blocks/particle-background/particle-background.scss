@@ -1,24 +1,24 @@
 .particle-background {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 400px;
-    border-radius: 25px;
-    color: white;
-    text-align: center;
-    overflow: hidden;
-    max-width: 1332px;
-    z-index: 1;
-    margin: 48px 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 340px;
+  border-radius: 25px;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  max-width: 1332px;
+  z-index: 1;
+  margin: 48px 0;
 }
 
 .we-container {
-    margin: 0 auto;
-    padding: 0 20px;
-    max-width: 1330px;
-    position: relative;
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 1330px;
+  position: relative;
 }
 
 .particle-background-container.no-padding .we-container {
@@ -26,21 +26,22 @@
 }
 
 .particle-background #ts-particles {
-    position: absolute;
-    inset: 0;
-    padding: 0;
-    margin: 0;
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .particle-background h2 {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    margin: 0 auto;
-    line-height: 42px;
-    max-width: 80%;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
+  margin: 0 auto;
+  max-width: 80%;
 }
 
 .particle-background p {
-  font-size: 18px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
 }
 
 .usbs-brand .particle-background div:last-of-type p {
@@ -52,26 +53,20 @@
   padding: 24px;
 }
 
-@media (width <= 768px) {
-  .particle-background h2 {
-    line-height: 30px;
-  }
-}
-
 @media screen and (width >= 768px) {
-    .particle-background h2 {
-        font-size: 40px;
-        line-height: 40px;
-    }
+  .particle-background h2 {
+    font-size: var(--body-font-size-l);
+    line-height: var(--body-line-height-l);
+  }
 
-    .particle-background #ts-particles {
-        display: block;
-    }
+  .particle-background #ts-particles {
+    display: block;
+  }
 
 
-    .usbs-brand .particle-background div:last-of-type p {
-       width: 100%;
-    }
+  .usbs-brand .particle-background div:last-of-type p {
+    width: 100%;
+  }
 }
 
 @media (width >= 1200px) {
