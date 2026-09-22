@@ -53,6 +53,16 @@
   padding: 24px;
 }
 
+@media (width <= 768px) {
+  .particle-background div {
+    padding: 0 10px;
+  }
+
+  .particle-background h2 {
+    max-width: 100%;
+  }
+}
+
 @media screen and (width >= 768px) {
   .particle-background h2 {
     font-size: var(--body-font-size-l);

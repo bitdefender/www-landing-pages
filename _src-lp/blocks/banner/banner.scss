@@ -119,7 +119,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
 }
 
 .section.banner-container .banner h1 a:hover {
@@ -191,7 +192,7 @@
 }
 
 .section.banner-container[data-text-color="white"] .banner::before {
-  color: white;
+  color: white!important;
 }
 
 .section.banner-container.bck-inner-full .banner {
@@ -265,8 +266,8 @@
   margin: 0;
 }
 
-.section.banner-container.new-2024.mobile-content-left .banner div.col-lg-7 {
-  text-align: left;
+.section.banner-container.mobile-content-left .banner div.col-lg-6 * {
+  text-align: left!important;
 }
 
 .section.banner-container.new-2024.v2 .banner h1 {
@@ -1801,8 +1802,14 @@
 
   .section.banner-container .banner h1 {
     margin-top: 0;
-    font-size: 30px;
+    font-size: var(--body-font-size-m3);
+    line-height: var(--body-line-height-m3);
     text-align: center;
+  }
+
+  .section.banner-container .banner h4 {
+    font-size: var(--body-font-size-s2);
+    line-height: var(--body-line-height-s2);
   }
 
   .section.lp-brand .banner h1 {

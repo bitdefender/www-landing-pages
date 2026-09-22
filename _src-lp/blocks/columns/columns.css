@@ -371,6 +371,11 @@ main .columns-container.padding-0 .columns-wrapper {
   gap: 30px;
   margin: 30px;
 }
+@media (width <= 768px) {
+  .columns-container .columns.gray-cards > div {
+    margin: 0;
+  }
+}
 .columns-container .columns.gray-cards > div > div {
   padding: 0;
 }

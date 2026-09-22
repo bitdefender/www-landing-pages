@@ -27,7 +27,7 @@
   --light-pink-color: #fdf3f3;
   --red-color: #e72325;
   --baby-blue-color: #F6F9FD;
-  --baby-blue-color-v2: #E6F2FF;
+  --baby-blue-color-v2: #E4F2FF;
   --navy-color: #07142f;
   --navy-color-v2: #405173;
   --dark-blue-color: #0853C5;
@@ -50,10 +50,14 @@
   --body-line-height-xl: 55px;
   --body-font-size-l: 32px;
   --body-line-height-l: 38px;
+  --body-font-size-m3: 28px;
+  --body-line-height-m3: 32px;
   --body-font-size-m2: 24px;
   --body-line-height-m2: 28px;
   --body-font-size-m: 22px;
   --body-line-height-m: 25px;
+  --body-font-size-s2: 20px;
+  --body-line-height-s2: 27px;
   --body-font-size-s: 18px;
   --body-line-height-s: 22px;
   --body-font-size-xs: 16px;
@@ -91,9 +95,9 @@ header {
 
 body {
   font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
   margin: 0;
   font-family: var(--body-font-family);
-  line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
   display: none;
@@ -468,7 +472,7 @@ main input:hover {
 }
 
 main .blue-box-rounded > div {
-  background-color: #E4F2FF;
+  background-color: var(--baby-blue-color-v2);
   border-radius: 20px;
   padding: 2em 0;
 }
@@ -2345,10 +2349,12 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
     width: auto;
   }
   main .default-content-wrapper h1 {
-    font-size: 25px;
+    font-size: var(--body-font-size-m2);
+    line-height: var(--body-line-height-m2);
   }
   main .default-content-wrapper h2 {
-    font-size: 23px;
+    font-size: var(--body-font-size-m);
+    line-height: var(--body-line-height-m);
   }
   main .netgear .default-content-wrapper h2 {
     color: #21375E !important;
@@ -2366,16 +2372,17 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
     padding-top: 0;
   }
   main .section.blue-slogan * {
-    font-size: 32px;
-    line-height: 37px;
+    font-size: var(--body-font-size-l);
+    line-height: var(--body-line-height-l);
     padding: 0;
   }
   main .default-content-wrapper h3 {
-    font-size: 21px;
+    font-size: var(--body-font-size-m2);
+    line-height: var(--body-line-height-m2);
   }
   main .title-small-mobile .default-content-wrapper h3 {
-    font-size: 17px;
-    line-height: 22px;
+    font-size: var(--body-font-size-m);
+    line-height: var(--body-line-height-m);
   }
   main .title-small-mobile .default-content-wrapper {
     margin-bottom: 0;
@@ -2383,45 +2390,55 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   }
   main .title-small-mobile .default-content-wrapper p {
     font-weight: normal;
-    font-size: 13px;
-    line-height: 17px;
+    font-size: var(--body-font-size-xs2);
+    line-height: var(--body-line-height-xs2);
   }
   main .default-content-wrapper h4 {
-    font-size: 19px;
+    font-size: var(--body-font-size-s2);
+    line-height: var(--body-line-height-s2);
   }
   main .default-content-wrapper h5 {
-    font-size: 17px;
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-line-height-s);
   }
   main .default-content-wrapper h6 {
-    font-size: 15px;
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-line-height-xs);
   }
   .section.logos h4 {
-    font-size: 30px;
-    line-height: 32px;
+    font-size: var(--body-font-size-m3);
+    line-height: var(--body-line-height-m3);
   }
   .section.logos p:last-of-type img {
     max-width: 43%;
   }
   main .section[data-size=bigger] .default-content-wrapper h1 {
-    font-size: 31px;
+    font-size: var(--body-font-size-l);
+    line-height: var(--body-line-height-l);
   }
   main .section[data-size=bigger] .default-content-wrapper h2 {
-    font-size: 29px;
+    font-size: var(--body-font-size-m3);
+    line-height: var(--body-line-height-m3);
   }
   main .section[data-size=bigger] .default-content-wrapper h3 {
-    font-size: 27px;
+    font-size: var(--body-font-size-m2);
+    line-height: var(--body-line-height-m2);
   }
   main .section[data-size=bigger] .default-content-wrapper h4 {
-    font-size: 25px;
+    font-size: var(--body-font-size-m);
+    line-height: var(--body-line-height-m);
   }
   main .section[data-size=bigger] .default-content-wrapper h5 {
-    font-size: 23px;
+    font-size: var(--body-font-size-s2);
+    line-height: var(--body-line-height-s2);
   }
   main .section[data-size=bigger] .default-content-wrapper h6 {
-    font-size: 21px;
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-line-height-s);
   }
   main .default-content-wrapper p {
-    font-size: 16px;
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-line-height-xs);
   }
   .below-form-banner {
     width: 95%;
@@ -2431,18 +2448,19 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
     width: 100%;
   }
   .below-form-banner > div:nth-child(1) p:nth-child(1) {
-    font-size: 24px;
-    line-height: 32px;
+    font-size: var(--body-font-size-m2);
+    line-height: var(--body-line-height-m2);
   }
   .red-buy-button p em {
-    font-size: 13px;
+    font-size: var(--body-font-size-xs3);
+    line-height: var(--body-line-height-xs3);
   }
   .topHeader .heading {
     margin-bottom: 0;
   }
   .topHeader .subheading {
-    font-size: 27px;
-    line-height: 30px;
+    font-size: var(--body-font-size-m3);
+    line-height: var(--body-line-height-m3);
     margin-top: 10px;
   }
   #flipdown .flip-clock-wrapper {

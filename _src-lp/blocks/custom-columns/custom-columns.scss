@@ -8,8 +8,16 @@
     &.gradient-dark-blue-bck {
         padding: 0 3em;
 
+        @media (width <= 768px) {
+            padding: 0 1em;
+        }
+
         table tr td:last-of-type {
             width: 30em;
+
+            @media (width <= 989px) {
+                width: 100%;
+            }
         }
 
         h3 {
@@ -17,11 +25,22 @@
             line-height: var(--body-line-height-xl);
             font-weight: normal;
             margin: 0;
+
+            @media (width <= 768px) {
+                font-size: var(--body-font-size-l);
+                line-height: var(--body-line-height-l);
+            }
         }
 
         img {
             height: 99px;
             margin-bottom: 1em;
+
+            @media (width <= 768px) {
+                height: auto;
+                width: 200px;
+                margin: 1em 0;
+            }
         }
 
         p {
