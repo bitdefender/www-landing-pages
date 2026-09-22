@@ -5,6 +5,26 @@
   width: 100%;
   align-items: start;
 }
+.custom-columns.gradient-dark-blue-bck {
+  padding: 0 3em;
+}
+.custom-columns.gradient-dark-blue-bck table tr td:last-of-type {
+  width: 30em;
+}
+.custom-columns.gradient-dark-blue-bck h3 {
+  font-size: var(--body-font-size-xl);
+  line-height: var(--body-line-height-xl);
+  font-weight: normal;
+  margin: 0;
+}
+.custom-columns.gradient-dark-blue-bck img {
+  height: 99px;
+  margin-bottom: 1em;
+}
+.custom-columns.gradient-dark-blue-bck p {
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+}
 .custom-columns > div {
   min-width: 0;
   width: 100%;

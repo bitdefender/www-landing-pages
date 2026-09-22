@@ -48,6 +48,37 @@
   text-align: left;
 }
 
+.c-icon-box-grid-container.blue-style .quotebox > div {
+  border: 2px solid #2E6BF6;
+  border-radius: 20px;
+  padding: 3em 2em 2em;
+  height: 100%;
+}
+
+.c-icon-box-grid-container.blue-style .quotebox .icon-box {
+  margin: 0 auto 4em;
+}
+
+.c-icon-box-grid-container.blue-style .quotebox .icon-box .icon, .c-icon-box-grid-container.blue-style .quotebox .icon-box svg, .c-icon-box-grid-container.blue-style .quotebox .icon-box img {
+  height: 72px;
+}
+
+.c-icon-box-grid-container.blue-style .quotebox .title {
+  min-height: auto !important;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
+}
+
+.c-icon-box-grid-container.blue-style .quotebox .subtitle {
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
+  padding: 0 1em;
+}
+
+.c-icon-box-grid-container.centered .quotebox * {
+  text-align: center;
+}
+
 .c-icon-box-grid-container:not(.top-image-version, .full-images, [data-layout=featured-left]) .quotebox img {
   max-height: 40px;
 }

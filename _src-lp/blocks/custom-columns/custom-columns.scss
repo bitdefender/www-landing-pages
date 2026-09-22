@@ -5,6 +5,31 @@
     width: 100%;
     align-items: start;
 
+    &.gradient-dark-blue-bck {
+        padding: 0 3em;
+
+        table tr td:last-of-type {
+            width: 30em;
+        }
+
+        h3 {
+            font-size: var(--body-font-size-xl);
+            line-height: var(--body-line-height-xl);
+            font-weight: normal;
+            margin: 0;
+        }
+
+        img {
+            height: 99px;
+            margin-bottom: 1em;
+        }
+
+        p {
+            font-size: var(--body-font-size-s);
+            line-height: var(--body-line-height-s);
+        }
+    }
+
     > div {
         min-width: 0;
         width: 100%;

@@ -369,6 +369,10 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container .columns.gray-cards > div {
   gap: 30px;
+  margin: 30px;
+}
+.columns-container .columns.gray-cards > div > div {
+  padding: 0;
 }
 .columns-container .columns.gray-cards > div > div > div {
   display: flex;

@@ -51,6 +51,8 @@
   --fixed-font-family: "IBM Plex Sans", sans-serif;
 
   /* body sizes */
+  --body-font-size-xl: 44px;
+  --body-line-height-xl: 55px;
   --body-font-size-l: 32px;
   --body-line-height-l: 38px;
   --body-font-size-m2: 24px;
@@ -370,6 +372,10 @@ button:hover {
   background-color: var(--dark-blue-color);
 }
 
+.gradient-dark-blue-bck {
+  background: linear-gradient(87.6deg, #006DFF 0%, #0C3451 100%);
+}
+
 .grey-bck {
   background-color: var(--grey-color);
 }
@@ -474,7 +480,7 @@ main input:hover {
 }
 
 main .blue-box-rounded>div {
-  background-color: #d9eeff;
+  background-color: #E4F2FF;
   border-radius: 20px;
   padding: 2em 0;
 }
