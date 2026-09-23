@@ -173,12 +173,29 @@
   color: #9aa0a6;
 }
 
+.custom-content-container.radio-options .custom-error {
+  width: 100%;
+  color: red;
+  text-align: center;
+  margin: 11px auto -2em;
+}
+
 .custom-content-container.radio-options .custom-actions {
   width: 100%;
   margin-top: 48px;
   padding-top: 48px;
   border-top: 1px solid #e5e5e5;
   text-align: center;
+}
+
+.custom-content-container.radio-options .custom-actions .custom-action-info  {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.custom-content-container.radio-options .custom-actions .custom-action-info a {
+  color: #0d6efd;
+  text-decoration: underline;
 }
 
 .custom-content-container.radio-options .custom-confirm {
@@ -205,11 +222,18 @@
 .custom-content-container.radio-options .custom-saved {
   width: 100%;
   margin: 0;
-  color: #20a35a;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.4;
   text-align: center;
+  color: #20a35a;
+  font-size: 25px;
+  line-height: 1.4;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-content-container.radio-options .custom-saved a {
+  color: #0d6efd;
 }
 
 .custom-content-container.radio-options .custom-saved[hidden] {
@@ -229,6 +253,12 @@
 
   .custom-content-container.radio-options .custom-confirm {
     width: 100%;
+  }
+
+  .custom-content-container.radio-options .custom-saved {
+    min-height: 40vh;
+    font-size: 20px;
+    line-height: 1.4;
   }
 }
 
