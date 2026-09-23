@@ -229,5 +229,9 @@ export default function decorate(block) {
   decorateIcons(block);
   matchHeights(block, 'h6');
   matchHeights(block, 'h4');
+  matchHeights(block.closest('.full-images'), '.icon-box');
+  if (block.classList.contains('quotes')) {
+    matchHeights(block, '.icon-box > p:first-of-type');
+  }
   if (block.closest('.top-image-version') || block.closest('.full-images')) matchHeights(block, 'picture');
 }
