@@ -464,9 +464,9 @@
   padding: 1em;
 }
 
-.c-icon-box-grid-container h3 {
-  font-size: 32px;
-  line-height: 37px;
+.c-icon-box-grid-container h2 {
+  font-size: var(--body-font-size-m3);
+  line-height: var(--body-line-height-m3);
   font-weight: bold;
 }
 
@@ -872,7 +872,7 @@
 
   .c-icon-box-grid-container.full-images .subtitle {
     font-size: var(--body-font-size-s);
-    line-height: var(--body-font-size-l);
+    line-height: var(--body-line-height-s);
   }
 
   .c-icon-box-grid-container.trustpilot-design .subtitle p:last-of-type::before {
@@ -1057,6 +1057,11 @@
     font-size: 14px;
   }
 
+  .c-icon-box-grid-container .new-blue h2 {
+    font-size: var(--body-font-size-m3);
+    line-height: var(--body-line-height-m3);
+  }
+
   .c-icon-box-grid-container .new-blue .title {
     margin: 0 0 5px;
   }
@@ -1070,6 +1075,7 @@
 
   .c-icon-box-grid-container .new-blue .quotebox {
     padding: 0;
+    margin-bottom: 0;
   }
 
   .c-icon-box-grid-container .new-blue .container > div:last-of-type {

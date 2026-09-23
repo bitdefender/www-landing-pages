@@ -172,7 +172,7 @@
   background-color: #F6F6F6;
 }
 
-.section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before,  {
+.section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before {
   content: 'Trusted. Always.';
   font-size: 23px;
   line-height: 29px;
@@ -183,11 +183,7 @@
   margin: 0 0 1em 1em;
 }
 
-.section.banner-container.text-center-bottom .banner::before {
-  text-align: center;
-}
-
-.section.banner-container.remove-trusted .banner::before {
+.section.banner-container.remove-trusted .banner::before, .section.banner-container.text-center-bottom .banner::before {
   display: none;
 }
 
@@ -909,8 +905,6 @@
   background-size: auto 100% !important;
   display: inline-block;
 }
-
-
 
 .section.banner-container.hasslide .block table tr td .icon {
   width: 18px;
@@ -1695,7 +1689,7 @@
   }
 
   .section.banner-container.bckimg-small-right[data-image-cover="small-right"] .banner {
-    padding-top: 2em !important;
+    padding-top: 0 !important;
   }
 
   .section.banner-container.bckimg-small-right .banner  p {
@@ -1704,6 +1698,22 @@
 
   .section.banner-container.bckimg-small-right .banner p.button-container a {
     width: 100%;
+  }
+
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before,  {
+    display: none;
+  }
+
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner .bck-img::after  {
+    content: 'Trusted. Always.';
+    font-size: 23px;
+    line-height: 29px;
+    font-weight: bold;
+    letter-spacing: 0;
+    color: #006EFF;
+    display: block;
+    text-align: left;
+    margin: 1em 0 0 calc(var(--bs-gutter-x) * .5);
   }
 
   .section.banner-container.new-2024.data-breaches-design .banner h1 {

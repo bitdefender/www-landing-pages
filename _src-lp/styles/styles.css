@@ -633,18 +633,21 @@ main .pb-0-title .default-content-wrapper h2 {
 main .default-content-wrapper h1,
 main .default-content-wrapper h2,
 main .default-content-wrapper h3 {
-  font-size: 32px;
+  font-size: var(--body-font-size-m3);
+  line-height: var(--body-line-height-m3);
   color: #111;
   font-weight: 600;
   margin: 0 0 5px;
 }
 
 main .default-content-wrapper h2 {
-  font-size: 32px;
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height-l);
 }
 
 main .default-content-wrapper h3 {
-  font-size: 28px;
+  font-size: var(--body-font-size-m3);
+  line-height: var(--body-line-height-m3);
 }
 
 main .default-content-wrapper h4 {
@@ -652,11 +655,13 @@ main .default-content-wrapper h4 {
 }
 
 main .default-content-wrapper h5 {
-  font-size: 24px;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
 }
 
 main .default-content-wrapper h6 {
-  font-size: 22px;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height-m);
 }
 
 main .section.opaque {
@@ -2349,18 +2354,19 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
     width: auto;
   }
   main .default-content-wrapper h1 {
-    font-size: var(--body-font-size-m2);
-    line-height: var(--body-line-height-m2);
+    font-size: var(--body-font-size-l);
+    line-height: var(--body-line-height-l);
   }
   main .default-content-wrapper h2 {
-    font-size: var(--body-font-size-m);
-    line-height: var(--body-line-height-m);
+    font-size: var(--body-font-size-m3);
+    line-height: var(--body-line-height-m3);
   }
   main .netgear .default-content-wrapper h2 {
     color: #21375E !important;
   }
   h3 {
-    font-size: var(--heading-font-size-m);
+    font-size: var(--heading-font-size-m2);
+    line-height: var(--body-line-height-m2);
   }
   main .section.bold-anchor a.button:any-link {
     width: 100%;
