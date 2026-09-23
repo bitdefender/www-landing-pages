@@ -172,7 +172,7 @@
   background-color: #F6F6F6;
 }
 
-.section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before {
+.section.banner-container.bckimg-small-right:not(.right-content-v2) .container-fluid::before {
   content: 'Trusted. Always.';
   font-size: 23px;
   line-height: 29px;
@@ -1704,7 +1704,7 @@
     display: none;
   }
 
-  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner .bck-img::after  {
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) .container-fluid::after, .section.banner-container.hide-mobile .container-fluid::before  {
     content: 'Trusted. Always.';
     font-size: 23px;
     line-height: 29px;
@@ -1714,6 +1714,10 @@
     display: block;
     text-align: left;
     margin: 1em 0 0 calc(var(--bs-gutter-x) * .5);
+  }
+
+  .section.banner-container.hide-mobile .container-fluid::before {
+    margin: 1em 0;
   }
 
   .section.banner-container.new-2024.data-breaches-design .banner h1 {
