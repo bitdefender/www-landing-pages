@@ -1061,7 +1061,7 @@
     padding-bottom: 0 !important;
   }
   .section.banner-with-dropdown-container .banner-with-dropdown > div > div {
-    justify-content: center;
+    justify-content: left !important;
   }
   .section.banner-with-dropdown-container .banner-with-dropdown > div > div .prices_box {
     justify-items: flex-start;

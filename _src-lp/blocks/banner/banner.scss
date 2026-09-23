@@ -172,7 +172,7 @@
   background-color: #F6F6F6;
 }
 
-.section.banner-container.bckimg-small-right:not(.right-content-v2) .container-fluid::before {
+.section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before {
   content: 'Trusted. Always.';
   font-size: 23px;
   line-height: 29px;
@@ -180,14 +180,14 @@
   letter-spacing: 0;
   color: #006EFF;
   display: block;
-  margin: 0 0 1em 1em;
+  margin: 0 0 1em;
 }
 
-.section.banner-container.remove-trusted .banner::before, .section.banner-container.text-center-bottom .banner::before {
+.section.banner-container.remove-trusted h1::before, .section.banner-container.text-center-bottom h1::before {
   display: none!important;
 }
 
-.section.banner-container[data-text-color="white"] .banner::before {
+.section.banner-container[data-text-color="white"] h1::before {
   color: white!important;
 }
 
@@ -1462,6 +1462,11 @@
     margin-top: 1em;
   }
 
+  .section.banner-container .container-fluid {
+    padding-left: 2em;
+    padding-right: 1em;
+  }
+
   .section.banner-container.full-width-headings .banner h1 {
     margin-right: -40vw;
     border-bottom: 0;
@@ -1704,19 +1709,17 @@
     display: none;
   }
 
-  .section.banner-container.bckimg-small-right:not(.right-content-v2) .container-fluid::after, .section.banner-container.hide-mobile .container-fluid::before  {
-    content: 'Trusted. Always.';
-    font-size: 23px;
-    line-height: 29px;
-    font-weight: bold;
-    letter-spacing: 0;
-    color: #006EFF;
-    display: block;
-    text-align: left;
-    margin: 1em 0 0 calc(var(--bs-gutter-x) * .5);
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner * {
+    text-align: left!important;
   }
 
-  .section.banner-container.hide-mobile .container-fluid::before {
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before {
+    content: 'Trusted. Always.';
+    text-align: left;
+    margin: 1em 0 10px;
+  }
+
+  .section.banner-container.hide-mobile .h1::before {
     margin: 1em 0;
   }
 

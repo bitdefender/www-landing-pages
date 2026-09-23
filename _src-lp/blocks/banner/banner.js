@@ -451,12 +451,12 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
-          ${hasContentEl ? `<div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>` : ''}
-          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
+          ${hasContentEl ? `<div class="col-12 ${defaultSize}">${contentEl.innerHTML}</div>` : ''}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize}">${contentRightEl.innerHTML}</div>` : ''}
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
            ${hasContentEl ? `<div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>` : ''}
-          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize}">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
         </div>
       </div>
     `;
