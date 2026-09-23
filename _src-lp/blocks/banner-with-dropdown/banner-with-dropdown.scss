@@ -48,6 +48,21 @@
   margin: 0 auto 15px;
 }
 
+.section.banner-with-dropdown-container.bckimg-small-right .container-fluid::before,  {
+  content: 'Trusted. Always.';
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #006EFF;
+  display: block;
+  margin: 0 0 1em 10px;
+}
+
+.section.banner-with-dropdown-container.remove-trusted .container-fluid::before {
+  display: none;
+}
+
 .section.banner-with-dropdown-container.new-2024.v2 p, .section.banner-with-dropdown-container.dropdown.v2 p {
   font-size: 13px;
   line-height: 15px;
