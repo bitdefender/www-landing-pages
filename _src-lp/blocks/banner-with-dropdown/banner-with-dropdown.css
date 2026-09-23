@@ -867,7 +867,7 @@
     margin-bottom: 2em !important;
   }
   .section.banner-with-dropdown-container.bckimg-small-right .container-fluid::before {
-    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: 0;
     margin-left: 0;
   }
   .section.lp-brand .banner-with-dropdown {
