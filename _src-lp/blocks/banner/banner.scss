@@ -184,7 +184,7 @@
 }
 
 .section.banner-container.remove-trusted .banner::before, .section.banner-container.text-center-bottom .banner::before {
-  display: none;
+  display: none!important;
 }
 
 .section.banner-container[data-text-color="white"] .banner::before {
