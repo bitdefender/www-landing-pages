@@ -73,6 +73,10 @@
     picture,  img {
         display: block;
         max-width: 100%;
+
+        @media (width <= 768px) {
+            margin: 0 auto;
+        }
     }
 
     /*

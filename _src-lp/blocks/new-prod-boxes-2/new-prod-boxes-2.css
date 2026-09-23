@@ -16,6 +16,17 @@
   width: 9px;
 }
 
+.new-prod-boxes-2-container .bundle_box .icon {
+  width: auto;
+  height: 32px;
+  margin-right: 5px;
+}
+
+.new-prod-boxes-2-container .bundle_box .icon svg, .new-prod-boxes-2-container .bundle_box img {
+  width: auto;
+  height: 32px;
+}
+
 .new-prod-boxes-2-container .icon svg {
   fill: #fff;
 }

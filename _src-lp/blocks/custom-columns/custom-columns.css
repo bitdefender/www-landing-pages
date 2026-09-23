@@ -71,6 +71,11 @@
   display: block;
   max-width: 100%;
 }
+@media (width <= 768px) {
+  .custom-columns picture, .custom-columns img {
+    margin: 0 auto;
+  }
+}
 .custom-columns {
   /*
    * Tables
