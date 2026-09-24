@@ -2320,9 +2320,6 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
   .section[data-backgroundcolor=grey] {
     padding: 1em 0;
   }
-  .awards img {
-    height: 65px;
-  }
   .awards .title {
     margin-bottom: 0 !important;
   }
