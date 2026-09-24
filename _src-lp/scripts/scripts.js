@@ -5,7 +5,7 @@ import {
   registerContextNodes,
   registerRenderNodes,
 } from '@repobit/dex-store-elements';
-import { targetPromise, getDefaultLanguage } from './target.js';
+import { targetPromise, getDefaultLanguage, getPageExperimentKey } from './target.js';
 // import { VisitorIdEvent, AdobeDataLayerService } from '@repobit/dex-data-layer';
 import pagePromise from './page.js';
 import {
@@ -46,7 +46,6 @@ import {
   fetchGeoIP,
 } from './utils.js';
 import store from './store.js';
-import Constants from './constants.js';
 
 const page = await pagePromise;
 const target = await targetPromise;
@@ -244,7 +243,7 @@ async function loadEager(doc) {
     addScript(`${window.hlx.codeBasePath}/scripts/template-factories/${templateMetadata}/${templateMetadata}.js`, {}, 'defer', undefined, undefined, 'module');
   }
 
-  if (getMetadata(Constants.TARGET_EXPERIMENT_METADATA_KEY)) {
+  if (getPageExperimentKey()) {
     await loadTrackers();
     await sendAnalyticsPageEvent();
     await sendAnalyticsUserInfo();
@@ -292,7 +291,7 @@ export async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
 
-  if (!getMetadata(Constants.TARGET_EXPERIMENT_METADATA_KEY)) {
+  if (!getPageExperimentKey()) {
     loadTrackers();
     await sendAnalyticsPageEvent();
     await sendAnalyticsUserInfo();
@@ -897,6 +896,7 @@ function initSelectors(pid) {
     const fakeSelectorsBottom = document.createElement('div');
     fakeSelectorsBottom.id = 'fakeSelectors_bottom';
     document.querySelector('footer').before(fakeSelectorsBottom);
+
     productsList.forEach((prod) => {
       if (!prod) return;
       const prodSplit = prod.split('/');
@@ -991,19 +991,29 @@ function initSelectors(pid) {
 }
 
 function addIdsToEachSection() {
-  document.querySelectorAll('main .section > div:first-of-type').forEach((item) => {
-    // Find the first sibling that is not a default-content-wrapper
-    let componentWrapper = item;
-    while (componentWrapper && componentWrapper.classList.contains('default-content-wrapper')) {
-      if (!componentWrapper.nextElementSibling) {
-        return;
-      }
+  document.querySelectorAll('main .section').forEach((section) => {
+    const { id: dataId } = section.dataset;
 
+    if (dataId) {
+      section.id = dataId;
+      section.removeAttribute('data-id');
+      return;
+    }
+
+    let componentWrapper = section.querySelector(':scope > div:first-of-type');
+
+    while (componentWrapper?.classList.contains('default-content-wrapper')) {
       componentWrapper = componentWrapper.nextElementSibling;
     }
 
+    if (!componentWrapper) {
+      return;
+    }
+
     const getIdentity = componentWrapper.className.split('-wrapper')[0];
-    componentWrapper.parentElement.id = document.getElementById(getIdentity) ? `${getIdentity}-2` : getIdentity;
+    section.id = document.getElementById(getIdentity)
+      ? `${getIdentity}-2`
+      : getIdentity;
   });
 }
 

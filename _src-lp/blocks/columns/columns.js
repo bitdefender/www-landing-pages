@@ -80,4 +80,41 @@ export default function decorate(block) {
 
   matchHeights(block, 'h4');
   matchHeights(block, '.feature-cards img');
+
+  // match height for each li in compare-columns
+  if (block.closest('.section')?.classList.contains('compare-columns')) {
+    const lists = block.querySelectorAll('ul');
+
+    if (lists.length === 2) {
+      const firstItems = lists[0].querySelectorAll('li');
+      const secondItems = lists[1].querySelectorAll('li');
+
+      const matchListItems = () => {
+        firstItems.forEach((firstItem, index) => {
+          const secondItem = secondItems[index];
+
+          if (!secondItem) return;
+
+          firstItem.style.minHeight = '';
+          secondItem.style.minHeight = '';
+
+          if (window.innerWidth >= 990) {
+            const maxHeight = Math.max(
+              firstItem.offsetHeight,
+              secondItem.offsetHeight,
+            );
+
+            firstItem.style.minHeight = `${maxHeight}px`;
+            secondItem.style.minHeight = `${maxHeight}px`;
+          }
+        });
+      };
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(matchListItems);
+      });
+
+      window.addEventListener('resize', matchListItems);
+    }
+  }
 }

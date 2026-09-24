@@ -41,4 +41,9 @@ export default class Constants {
   static DEFAULT_LANGUAGE = 'en';
 
   static TARGET_EXPERIMENT_METADATA_KEY = 'target-experiment-location';
+
+  static DISABLE_TARGET_PARAMS = {
+    key: 'dotest',
+    value: '1',
+  };
 }
