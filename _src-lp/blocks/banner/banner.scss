@@ -172,7 +172,17 @@
   background-color: #F6F6F6;
 }
 
-.section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before {
+.section.banner-container.bck-half .block {
+  background-position: right center !important;
+  background-size: 50% auto !important;
+}
+
+.section.banner-container.bck-half2 .block {
+  background-position: right center !important;
+  background-size: 60% auto !important;
+}
+
+.section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
   content: 'Trusted. Always.';
   font-size: 23px;
   line-height: 29px;
@@ -1705,18 +1715,37 @@
     width: 100%;
   }
 
-  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before,  {
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before {
     display: none;
   }
 
-  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner * {
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner *, .section.banner-container.bck-half .banner *, .section.banner-container.bck-half2 .banner * {
     text-align: left!important;
   }
 
-  .section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before {
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
     content: 'Trusted. Always.';
     text-align: left;
     margin: 1em 0 10px;
+  }
+
+  .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+    margin-top: 0;
+  }
+
+  .section.banner-container.bck-half .block, .section.banner-container.bck-half2 .block {
+    background-image: unset!important;
+  }
+
+  .section.banner-container.bck-mobile-transparent .block {
+    background-color: transparent!important;
+  }
+
+  .section.banner-container .bck-img {
+    border-radius: 20px;
+    width: 96%;
+    overflow: hidden;
+    margin: 0 auto;
   }
 
   .section.banner-container.hide-mobile .h1::before {
