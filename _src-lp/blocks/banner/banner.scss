@@ -1725,13 +1725,19 @@
     display: none;
   }
 
+  .section.banner-container.bck-half2 .banner {
+    margin-top: 0!important;
+  }
+
   .section.banner-container.bck-half2.bck-mobile-img-left .banner .bck-img img {
     transform: translateX(-1.9em);
   }
 
   .section.banner-container.bck-half2.bck-mobile-img-bblue .banner .bck-img {
+    margin: 0;
+    width: 100vw;
     background-color: #D5E8FF;
-    border-radius: 16px;
+    border-radius: unset;
   }
 
   .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner *, .section.banner-container.bck-half .banner *, .section.banner-container.bck-half2 .banner * {
