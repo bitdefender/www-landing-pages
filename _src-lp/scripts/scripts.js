@@ -896,6 +896,7 @@ function initSelectors(pid) {
     const fakeSelectorsBottom = document.createElement('div');
     fakeSelectorsBottom.id = 'fakeSelectors_bottom';
     document.querySelector('footer').before(fakeSelectorsBottom);
+
     productsList.forEach((prod) => {
       if (!prod) return;
       const prodSplit = prod.split('/');

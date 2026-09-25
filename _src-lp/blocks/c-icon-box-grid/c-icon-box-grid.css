@@ -621,10 +621,14 @@
   line-height: var(--body-font-size-s);
 }
 
-.c-icon-box-grid-container.full-images .col-lg > div > picture img {
+.c-icon-box-grid-container.full-images .icon-box picture img {
   width: calc(100% + 40px);
-  margin: 0 -20px 15px;
+  margin: 0 -20px;
   max-width: unset;
+}
+
+.c-icon-box-grid-container.full-images .col-lg > div .subtitle {
+  margin-top: 20px;
 }
 
 .c-icon-box-grid-container.full-images .col-lg > div .subtitle * {
@@ -1129,5 +1133,430 @@
   .c-icon-box-grid-container[data-layout=featured-left] .col-lg-8 .quotebox {
     display: block !important;
     flex: 1 1 auto;
+  }
+}
+/* ===== installForFamily: "Why try Family?" cards (values from XD) ===== */
+.c-icon-box-grid-container.installforfamily .default-content-wrapper h2,
+.c-icon-box-grid-container.installforfamily .title,
+.c-icon-box-grid-container.installforfamily .subtitle {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+.c-icon-box-grid-container.installforfamily .default-content-wrapper {
+  padding-bottom: 0;
+}
+.c-icon-box-grid-container.installforfamily .default-content-wrapper h2 {
+  margin: 0 0 24px;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+.c-icon-box-grid-container.installforfamily .block .row {
+  justify-content: center;
+  gap: 20px;
+  margin: 0;
+}
+.c-icon-box-grid-container.installforfamily .block .quotebox {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 300px;
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamily .icon-box-grid-column {
+  height: 100%;
+  padding: 28px 37px 24px 25px;
+  background-color: #f8f8f8;
+  border-radius: 20px;
+}
+.c-icon-box-grid-container.installforfamily .icon-box .icon,
+.c-icon-box-grid-container.installforfamily .icon-box svg {
+  width: 40px;
+  height: 40px;
+}
+.c-icon-box-grid-container.installforfamily .title,
+.c-icon-box-grid-container.installforfamily .title strong {
+  font-weight: 700;
+}
+.c-icon-box-grid-container.installforfamily .title {
+  max-width: 226px;
+  margin: 23px 0 0;
+  font-size: 18px;
+  line-height: 22px;
+  color: #006eff;
+}
+.c-icon-box-grid-container.installforfamily .subtitle {
+  margin-top: 11px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000;
+}
+@media (width >= 992px) {
+  .c-icon-box-grid-container.installforfamily .default-content-wrapper h2 {
+    margin-bottom: 34px;
+    font-size: 32px;
+  }
+  .c-icon-box-grid-container.installforfamily .block .row {
+    flex-wrap: nowrap;
+    gap: 30px;
+  }
+  .c-icon-box-grid-container.installforfamily .block .quotebox {
+    width: 300px;
+  }
+  .c-icon-box-grid-container.installforfamily .icon-box-grid-column {
+    min-height: 253px;
+  }
+}
+
+/* ===== installForFamilyNext: "What happens next?" steps (values from XD) ===== */
+.c-icon-box-grid-container.installforfamilynext {
+  margin: 0 16px 32px;
+  padding: 32px 16px;
+  background-color: #e8f2e9;
+  border-radius: 20px;
+}
+.c-icon-box-grid-container.installforfamilynext .default-content-wrapper h2,
+.c-icon-box-grid-container.installforfamilynext .title,
+.c-icon-box-grid-container.installforfamilynext .subtitle {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+.c-icon-box-grid-container.installforfamilynext .default-content-wrapper {
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilynext .default-content-wrapper h2 {
+  margin: 0 0 24px;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+.c-icon-box-grid-container.installforfamilynext .block .container {
+  max-width: none;
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilynext .block .row {
+  position: relative;
+  justify-content: center;
+  gap: 20px;
+  margin: 0;
+}
+.c-icon-box-grid-container.installforfamilynext .block .quotebox {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 220px;
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilynext .icon-box-grid-column {
+  height: 100%;
+  min-height: 220px;
+  padding: 22px 16px 20px 18px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+.c-icon-box-grid-container.installforfamilynext .icon-box {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 41px;
+}
+.c-icon-box-grid-container.installforfamilynext .icon-box .icon,
+.c-icon-box-grid-container.installforfamilynext .icon-box svg {
+  width: auto;
+  height: auto;
+}
+.c-icon-box-grid-container.installforfamilynext .title,
+.c-icon-box-grid-container.installforfamilynext .title strong {
+  font-weight: 700;
+}
+.c-icon-box-grid-container.installforfamilynext .title {
+  max-width: 186px;
+  margin: 13px 0 0;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000;
+}
+.c-icon-box-grid-container.installforfamilynext .subtitle {
+  max-width: 178px;
+  margin-top: 9px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000;
+}
+@media (width >= 992px) {
+  .c-icon-box-grid-container.installforfamilynext .default-content-wrapper h2 {
+    margin-bottom: 40px;
+    font-size: 32px;
+  }
+}
+@media (width >= 1322px) {
+  .c-icon-box-grid-container.installforfamilynext {
+    max-width: 1290px;
+    margin: 0 auto 32px;
+    padding: 47px 55px 35px;
+  }
+  .c-icon-box-grid-container.installforfamilynext .block .row {
+    flex-wrap: nowrap;
+  }
+  .c-icon-box-grid-container.installforfamilynext .block .row::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 220px;
+    right: 220px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #1c7928 0 2px, transparent 2px 4px);
+  }
+}
+
+/* ===== installForFamilyToday: "Today vs. with Family" comparison (values from XD) ===== */
+.c-icon-box-grid-container.installforfamilytoday {
+  padding: 5px 16px 0;
+}
+.c-icon-box-grid-container.installforfamilytoday .default-content-wrapper {
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilytoday .default-content-wrapper h2 {
+  margin: 0 0 24px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+.c-icon-box-grid-container.installforfamilytoday .block .container {
+  max-width: none;
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilytoday .block .row {
+  position: relative;
+  justify-content: center;
+  gap: 20px;
+  margin: 0;
+}
+.c-icon-box-grid-container.installforfamilytoday .block .quotebox {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 350px;
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilytoday .icon-box-grid-column {
+  height: 100%;
+  min-height: 215px;
+  padding: 0 16px 31px 38px;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.c-icon-box-grid-container.installforfamilytoday .quotebox:nth-child(2) .icon-box-grid-column {
+  padding-left: 33px;
+  border-color: #e7f1e9;
+}
+.c-icon-box-grid-container.installforfamilytoday .icon-box {
+  display: none;
+}
+.c-icon-box-grid-container.installforfamilytoday .title {
+  min-height: 0 !important;
+  margin: 0;
+  padding-top: 20px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 14px;
+  line-height: 27px;
+  font-weight: 400;
+  color: #000;
+}
+.c-icon-box-grid-container.installforfamilytoday .title p {
+  margin: 0;
+}
+.c-icon-box-grid-container.installforfamilytoday .title > p:first-child:has(> strong:only-child) {
+  height: 50px;
+  margin: -22px -16px 24px -38px;
+  padding: 13px 16px;
+  background-color: #e0e0e0;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+}
+.c-icon-box-grid-container.installforfamilytoday .quotebox:nth-child(2) .title > p:first-child:has(> strong:only-child) {
+  margin-left: -33px;
+  background-color: #e7f1e9;
+  color: #1c7928;
+}
+.c-icon-box-grid-container.installforfamilytoday .title > p:first-child:has(> strong:only-child) strong {
+  font-weight: 700;
+}
+.c-icon-box-grid-container.installforfamilytoday .title .icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 9px;
+  vertical-align: -4px;
+}
+.c-icon-box-grid-container.installforfamilytoday .title .icon svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+.c-icon-box-grid-container.installforfamilytoday .title .icon svg path {
+  fill: #e0e0e0;
+}
+.c-icon-box-grid-container.installforfamilytoday .quotebox:nth-child(2) .title .icon svg path {
+  fill: #1c7928;
+}
+@media (width >= 992px) {
+  .c-icon-box-grid-container.installforfamilytoday .default-content-wrapper h2 {
+    margin-bottom: 40px;
+    font-size: 32px;
+  }
+  .c-icon-box-grid-container.installforfamilytoday .block .row {
+    flex-wrap: nowrap;
+    gap: 60px;
+  }
+  .c-icon-box-grid-container.installforfamilytoday .block .quotebox {
+    width: 350px;
+  }
+  .c-icon-box-grid-container.installforfamilytoday .block .row::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 36px;
+    height: 36px;
+    transform: translate(-50%, -50%);
+    background: url("../../icons/circle-arrow-right.svg") center/contain no-repeat;
+  }
+}
+
+/* ===== installForFamilyBefore: "Before you continue" cards (values from XD) ===== */
+.c-icon-box-grid-container.installforfamilybefore {
+  padding: 17px 16px 0;
+}
+.c-icon-box-grid-container.installforfamilybefore .default-content-wrapper {
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilybefore .default-content-wrapper h2 {
+  margin: 0 0 24px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+.c-icon-box-grid-container.installforfamilybefore .block .container {
+  max-width: none;
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilybefore .block .row {
+  justify-content: center;
+  gap: 20px;
+  margin: 0;
+}
+.c-icon-box-grid-container.installforfamilybefore .block .quotebox {
+  flex: 0 0 auto;
+  width: 220px;
+  padding: 0;
+}
+.c-icon-box-grid-container.installforfamilybefore .icon-box-grid-column {
+  height: 100%;
+  min-height: 170px;
+  padding: 24px 24px 20px 18px;
+  background-color: #f8f8f8;
+  border-radius: 20px;
+}
+.c-icon-box-grid-container.installforfamilybefore .icon-box {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 37px;
+}
+.c-icon-box-grid-container.installforfamilybefore .icon-box .icon,
+.c-icon-box-grid-container.installforfamilybefore .icon-box svg {
+  width: auto;
+  height: auto;
+}
+.c-icon-box-grid-container.installforfamilybefore .title {
+  max-width: 178px;
+  margin: 20px 0 0;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #000;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta {
+  margin-top: 40px;
+  font-family: "IBM Plex Sans", sans-serif;
+  text-align: center;
+  color: #000;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta p {
+  margin: 0;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta p:first-child {
+  max-width: 512px;
+  margin: 0 auto;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta p:has(> a) {
+  margin-top: 18px;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta p > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 48px;
+  padding: 0 12px;
+  background-color: #1c7928;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta p > a:hover,
+.c-icon-box-grid-container.installforfamilybefore .cta p > a:focus-visible {
+  background-color: #2a9a39;
+  color: #fff;
+  text-decoration: none;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta p > a:focus-visible {
+  outline: 2px solid #1c7928;
+  outline-offset: 2px;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta p:has(> .icon) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 19px;
+  font-size: 14px;
+  line-height: 18px;
+}
+.c-icon-box-grid-container.installforfamilybefore .cta .icon,
+.c-icon-box-grid-container.installforfamilybefore .cta .icon svg {
+  width: auto;
+  height: auto;
+}
+@media (width >= 992px) {
+  .c-icon-box-grid-container.installforfamilybefore .default-content-wrapper h2 {
+    margin-bottom: 40px;
+    font-size: 32px;
+  }
+  .c-icon-box-grid-container.installforfamilybefore .cta p:first-child {
+    font-size: 32px;
+    line-height: 41px;
+  }
+}
+@media (width >= 1212px) {
+  .c-icon-box-grid-container.installforfamilybefore .block .row {
+    flex-wrap: nowrap;
   }
 }
