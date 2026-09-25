@@ -1592,6 +1592,13 @@
   .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before {
     display: none;
   }
+  .section.banner-container.bck-half2.bck-mobile-img-left .banner .bck-img img {
+    transform: translateX(-1.9em);
+  }
+  .section.banner-container.bck-half2.bck-mobile-img-bblue .banner .bck-img {
+    background-color: #D5E8FF;
+    border-radius: 16px;
+  }
   .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner *, .section.banner-container.bck-half .banner *, .section.banner-container.bck-half2 .banner * {
     text-align: left !important;
   }

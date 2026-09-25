@@ -64,6 +64,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: var(--baby-blue-color-v3);
+        border-radius: 16px;
     }
 
     > div:has(> div > picture) > div {
