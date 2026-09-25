@@ -1606,6 +1606,7 @@
   }
   .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner *, .section.banner-container.bck-half .banner *, .section.banner-container.bck-half2 .banner * {
     text-align: left !important;
+    border-radius: unset;
   }
   .section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
     content: "Trusted. Always.";
