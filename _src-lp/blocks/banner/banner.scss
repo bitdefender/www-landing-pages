@@ -2234,3 +2234,137 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+
+/* ===== installForFamily banner design ===== */
+.section.banner-container.installforfamily .banner-wrapper {
+  max-width: 1290px;
+}
+
+.section.banner-container.installforfamily .banner {
+  background-color: #e4f2ff;
+  border-radius: 20px;
+  padding: 18px 42px;
+}
+
+.section.banner-container.installforfamily .banner h1 {
+  font-size: 40px;
+  line-height: 41px;
+  color: #006eff;
+  font-weight: 400;
+  margin: 0;
+}
+
+.section.banner-container.installforfamily .banner h1 strong {
+  font-weight: 700;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .content-column {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .content-column p:first-of-type {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+  line-height: 18px;
+  margin: 26px 0 0;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .content-column p:not(:first-of-type) {
+  font-size: 14px;
+  line-height: 14px;
+  margin: 13px 0 0 28px;
+  position: relative;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .content-column p:nth-of-type(2) {
+  margin-top: 16px;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .content-column p:not(:first-of-type) .icon {
+  position: absolute;
+  left: -28px;
+  top: -2px;
+  width: 18px;
+  height: 18px;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .content-column .icon svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .content-column .icon svg path {
+  fill: #1c7928;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .img-right {
+  padding-left: 24px;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .img-right picture {
+  left: 0;
+}
+
+.section.banner-container.installforfamily .banner > div > .row > .img-right img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (width >= 768px) {
+  .section.banner-container.installforfamily .banner > div > .row {
+    flex-wrap: nowrap;
+  }
+
+  /* XD: artwork starts 740px from the banner edge (42px padding + 698px text column) */
+  .section.banner-container.installforfamily .banner > div > .row > .content-column {
+    flex: 0 1 698px;
+  }
+
+  .section.banner-container.installforfamily .banner > div > .row > .img-right {
+    flex: 0 0 auto;
+    width: auto;
+    padding-left: 0;
+  }
+
+  .section.banner-container.installforfamily .banner h1 {
+    max-width: 460px;
+  }
+}
+
+@media screen and (width <= 767px) {
+  .section.banner-container.installforfamily .banner {
+    padding: 16px 16px 24px;
+  }
+
+  .section.banner-container.installforfamily .banner h1 {
+    font-size: 28px;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  .section.banner-container.installforfamily .banner > div > .row > .content-column p:first-of-type {
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .section.banner-container.installforfamily .banner > div > .row > .content-column p:not(:first-of-type) {
+    font-size: 14px;
+    line-height: 19px;
+    margin: 13px 0 0;
+    text-align: center;
+  }
+
+  .section.banner-container.installforfamily .banner > div > .row > .content-column p:not(:first-of-type) .icon {
+    position: static;
+    display: block;
+    margin: 0 auto 7px;
+  }
+
+  .section.banner-container.installforfamily .banner > div > .row > .bck-img:first-child {
+    display: none !important;
+  }
+}

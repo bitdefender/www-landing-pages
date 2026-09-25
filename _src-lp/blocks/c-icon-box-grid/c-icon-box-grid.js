@@ -63,6 +63,51 @@ function sanitiseStrongItalic(el) {
   return el.firstElementChild?.tagName === 'STRONG' ? el.firstElementChild : el;
 }
 
+// one <p> per visual line, whether authors used paragraphs or line breaks,
+// and an icon left alone on its line is joined to the text that follows it
+function splitIntoLinePerParagraph(el) {
+  const lines = [[]];
+  [...el.childNodes].forEach((node) => {
+    const isParagraph = node.nodeName === 'P';
+    if (isParagraph && lines.at(-1).length) lines.push([]);
+    (isParagraph ? [...node.childNodes] : [node]).forEach((child) => {
+      if (child.nodeName === 'BR') lines.push([]);
+      else lines.at(-1).push(child);
+    });
+    if (isParagraph) lines.push([]);
+  });
+
+  const hasText = (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim();
+  const isIconOnly = (line) => line.every((node) => !hasText(node) && (node.nodeType !== Node.ELEMENT_NODE || node.matches('.icon')));
+  const merged = [];
+  lines
+    .filter((line) => line.some((node) => node.nodeType === Node.ELEMENT_NODE || hasText(node)))
+    .forEach((line) => {
+      const previous = merged.at(-1);
+      if (previous && isIconOnly(previous)) previous.push(...line);
+      else merged.push(line);
+    });
+
+  el.replaceChildren(...merged.map((line) => {
+    const p = document.createElement('p');
+    p.append(...line);
+    return p;
+  }));
+}
+
+// Word often saves one hyperlink as several adjacent <a> with the same href
+function mergeAdjacentLinks(el) {
+  el.querySelectorAll('a').forEach((link) => {
+    let next = link.nextSibling;
+    while (next?.nodeName === 'A' && next.href === link.href) {
+      link.textContent = `${link.textContent} ${next.textContent}`.replace(/\s+/g, ' ').trim();
+      next.remove();
+      next = link.nextSibling;
+    }
+    link.title = link.textContent;
+  });
+}
+
 function getColumnClasses(index, layout, columnsAlignment, type) {
   let classes = `quotebox col-md-12 col-lg ${columnsAlignment === 'center' ? 'col-lg-4' : ''}${type === 'mobileSlider' ? 'slide' : ''}`;
 
@@ -89,15 +134,25 @@ export default function decorate(block) {
   const upperTextWidth = metaData.upperTextWidth;
   const layout = metaData.layout;
 
+  // a merged (single-cell) third row is a call-to-action shown below the cards, not a subtitle
+  const ctaRow = block.closest('.installforfamilybefore')
+    && block.children[0].children.length > 1
+    && block.children[2]?.children.length === 1 ? block.children[2] : null;
+  if (ctaRow) {
+    ctaRow.firstElementChild.classList.add('cta');
+    mergeAdjacentLinks(ctaRow.firstElementChild);
+    splitIntoLinePerParagraph(ctaRow.firstElementChild);
+  }
+
   const formattedDataColumns = [...block.children[0].children].map((svgNameEl, tableIndex) => ({
     svgNameEl: sanitiseStrongItalic(svgNameEl),
     title: block.children[1]?.children[tableIndex]?.innerHTML,
-    subtitle: block.children[2]?.children[tableIndex]?.innerHTML,
+    subtitle: ctaRow ? undefined : block.children[2]?.children[tableIndex]?.innerHTML,
     buttons: block.children[5]?.children[tableIndex]?.innerHTML,
   }));
 
   const upperText = block.children[3];
-  const bottomText = block.children[4];
+  const bottomText = ctaRow || block.children[4];
 
   if (upperTextWidth === '2/3') {
     upperText.firstElementChild.classList.add('w-lg-65');
@@ -224,6 +279,18 @@ export default function decorate(block) {
     block.parentNode.appendChild(arrowsSlider);
 
     initializeSlider(block);
+  }
+
+  // the first (icon) row holds the column headers ("Today" / "With Family") in this variant
+  if (block.closest('.installforfamilytoday')) {
+    block.querySelectorAll('.title').forEach((title, index) => {
+      splitIntoLinePerParagraph(title);
+      const headerText = formattedDataColumns[index]?.svgNameEl.textContent.trim();
+      if (!headerText) return;
+      const header = document.createElement('p');
+      header.append(Object.assign(document.createElement('strong'), { textContent: headerText }));
+      title.prepend(header);
+    });
   }
 
   decorateIcons(block);
