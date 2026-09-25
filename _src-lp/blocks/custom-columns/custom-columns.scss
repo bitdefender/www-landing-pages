@@ -5,6 +5,50 @@
     width: 100%;
     align-items: start;
 
+    &.gradient-dark-blue-bck {
+        padding: 0 3em;
+
+        @media (width <= 768px) {
+            padding: 0 1em;
+        }
+
+        table tr td:last-of-type {
+            width: 30em;
+
+            @media (width <= 989px) {
+                width: 100%;
+            }
+        }
+
+        h2 {
+            font-size: var(--body-font-size-xl);
+            line-height: var(--body-line-height-xl);
+            font-weight: normal;
+            margin: 0;
+
+            @media (width <= 768px) {
+                font-size: var(--body-font-size-m3);
+                line-height: var(--body-line-height-m3);
+            }
+        }
+
+        img {
+            height: 99px;
+            margin-bottom: 1em;
+
+            @media (width <= 768px) {
+                height: auto;
+                width: 200px;
+                margin: 1em 0;
+            }
+        }
+
+        p {
+            font-size: var(--body-font-size-s);
+            line-height: var(--body-line-height-s);
+        }
+    }
+
     > div {
         min-width: 0;
         width: 100%;
@@ -20,6 +64,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: var(--baby-blue-color-v3);
+        border-radius: 16px;
     }
 
     > div:has(> div > picture) > div {
@@ -29,6 +75,11 @@
     picture,  img {
         display: block;
         max-width: 100%;
+        border-radius: 16px;
+
+        @media (width <= 768px) {
+            margin: 0 auto;
+        }
     }
 
     /*
@@ -53,8 +104,8 @@
         }
 
         p, td {
-            font-size: 15px;
-            line-height: 22px;
+            font-size: var(--body-font-size-xs);
+            line-height: var(--body-line-height-xs);
         }
 
         tr,
@@ -176,7 +227,8 @@
             margin: 0 0 4px;
 
             strong {
-                font-size: 17px;
+                font-size: var(--body-font-size-s);
+                line-height: var(--body-line-height-s);
                 display: inline-block;
                 overflow-wrap: anywhere;
                 word-break: break-word;

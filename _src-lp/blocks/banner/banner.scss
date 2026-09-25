@@ -12,6 +12,12 @@
   padding-bottom: 3rem;
 }
 
+.section.banner-container p:not(.button-container) {
+  width: 90%;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
+}
+
 .section.banner-container[data-text-color='white'] .block .container-fluid > .row > div:first-of-type * {
   color: white;
 }
@@ -52,7 +58,6 @@
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
-  font-family: Arial, sans-serif;
   height: 44px;
   display: inline-flex;
   align-items: center;
@@ -120,7 +125,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
 }
 
 .section.banner-container .banner h1 a:hover {
@@ -129,6 +135,10 @@
 
 .section.banner-container .banner img {
   width: auto;
+}
+
+.section.banner-container .banner table img {
+  height: 55px;
 }
 
 .section.banner-container .banner .img-right picture {
@@ -166,6 +176,35 @@
 .section.banner-container.new-2024 .banner {
   overflow: hidden;
   background-color: #F6F6F6;
+}
+
+.section.banner-container.bck-half .block {
+  background-position: right center !important;
+  background-size: 50% auto !important;
+}
+
+.section.banner-container.bck-half2 .block {
+  background-position: right center !important;
+  background-size: 60% auto !important;
+}
+
+.section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+  content: 'Trusted. Always.';
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #006EFF;
+  display: block;
+  margin: 0 0 1em;
+}
+
+.section.banner-container.remove-trusted h1::before, .section.banner-container.text-center-bottom h1::before {
+  display: none!important;
+}
+
+.section.banner-container[data-text-color="white"] h1::before {
+  color: white!important;
 }
 
 .section.banner-container.bck-inner-full .banner {
@@ -239,8 +278,8 @@
   margin: 0;
 }
 
-.section.banner-container.new-2024.mobile-content-left .banner div.col-lg-7 {
-  text-align: left;
+.section.banner-container.mobile-content-left .banner div.col-lg-6 * {
+  text-align: left!important;
 }
 
 .section.banner-container.new-2024.v2 .banner h1 {
@@ -440,7 +479,6 @@
   width: 235px;
   font-size: 12px;
   line-height: 14px;
-  font-family: Arial, sans-serif;
   margin: 0 auto 15px;
 }
 
@@ -865,7 +903,6 @@
   border: 2px solid #006DFF;
   background-color: #016DFF;
   color: white;
-  font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 18px;
   font-weight: bold;
@@ -884,8 +921,6 @@
   background-size: auto 100% !important;
   display: inline-block;
 }
-
-
 
 .section.banner-container.hasslide .block table tr td .icon {
   width: 18px;
@@ -1443,6 +1478,11 @@
     margin-top: 1em;
   }
 
+  .section.banner-container .container-fluid {
+    padding-left: 2em;
+    padding-right: 1em;
+  }
+
   .section.banner-container.full-width-headings .banner h1 {
     margin-right: -40vw;
     border-bottom: 0;
@@ -1670,15 +1710,68 @@
   }
 
   .section.banner-container.bckimg-small-right[data-image-cover="small-right"] .banner {
-    padding-top: 2em !important;
+    padding-top: 0 !important;
   }
 
   .section.banner-container.bckimg-small-right .banner  p {
     font-size: 16px;
   }
 
-  .section.banner-container.bckimg-small-right .banner p.button-container a {
+  .section.banner-container.bckimg-small-right .banner p.button-container a, .section.banner-container.bckimg-small .banner p.button-container a {
     width: 100%;
+  }
+
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before {
+    display: none;
+  }
+
+  .section.banner-container.bck-half2 .banner {
+    margin-top: 0!important;
+  }
+
+  .section.banner-container.bck-half2.bck-mobile-img-left .banner .bck-img img {
+    transform: translateX(-1.9em);
+  }
+
+  .section.banner-container.bck-half2.bck-mobile-img-bblue .banner .bck-img {
+    margin: 0;
+    width: 100vw;
+    background-color: #D5E8FF;
+    border-radius: unset;
+  }
+
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner *, .section.banner-container.bck-half .banner *, .section.banner-container.bck-half2 .banner * {
+    text-align: left!important;
+    border-radius: unset;
+  }
+
+  .section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+    content: 'Trusted. Always.';
+    text-align: left;
+    margin: 1em 0 10px;
+  }
+
+  .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+    margin-top: 0;
+  }
+
+  .section.banner-container.bck-half .block, .section.banner-container.bck-half2 .block {
+    background-image: unset!important;
+  }
+
+  .section.banner-container.bck-mobile-transparent .block {
+    background-color: transparent!important;
+  }
+
+  .section.banner-container .bck-img {
+    border-radius: 20px;
+    width: 96%;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  .section.banner-container.hide-mobile .h1::before {
+    margin: 1em 0;
   }
 
   .section.banner-container.new-2024.data-breaches-design .banner h1 {
@@ -1777,8 +1870,14 @@
 
   .section.banner-container .banner h1 {
     margin-top: 0;
-    font-size: 30px;
+    font-size: var(--body-font-size-m3);
+    line-height: var(--body-line-height-m3);
     text-align: center;
+  }
+
+  .section.banner-container .banner h4 {
+    font-size: var(--body-font-size-s2);
+    line-height: var(--body-line-height-s2);
   }
 
   .section.lp-brand .banner h1 {

@@ -44,8 +44,22 @@
   width: 235px;
   font-size: 12px;
   line-height: 14px;
-  font-family: Arial, sans-serif;
   margin: 0 auto 15px;
+}
+
+.section.banner-with-dropdown-container.bckimg-small-right .container-fluid::before {
+  content: "Trusted. Always.";
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #006EFF;
+  display: block;
+  margin: 0 0 1em 10px;
+}
+
+.section.banner-with-dropdown-container.remove-trusted .container-fluid::before {
+  display: none;
 }
 
 .section.banner-with-dropdown-container.new-2024.v2 p, .section.banner-with-dropdown-container.dropdown.v2 p {
@@ -852,6 +866,10 @@
     padding: 1em 0 !important;
     margin-bottom: 2em !important;
   }
+  .section.banner-with-dropdown-container.bckimg-small-right .container-fluid::before {
+    padding-left: 0;
+    margin-left: 0;
+  }
   .section.lp-brand .banner-with-dropdown {
     padding-bottom: 5.5rem;
     border-radius: 10px;
@@ -872,7 +890,7 @@
   .section.banner-with-dropdown-container .banner-with-dropdown h1 {
     margin-top: 0;
     font-size: 30px;
-    text-align: center;
+    text-align: left;
   }
   .section.lp-brand .banner-with-dropdown h1 {
     text-align: center;
@@ -897,9 +915,9 @@
     font-size: 14px;
     line-height: 19px;
   }
-  .section.banner-with-dropdown-container.new-2024.v2 .banner-with-dropdown ul {
+  .section.banner-with-dropdown-container.new-2024.v2 .banner-with-dropdown ul, .section.banner-with-dropdown-container.new-2024.v2 .banner-with-dropdown p {
     text-align: left;
-    max-width: 400px;
+    max-width: 100%;
     margin: 0 auto;
   }
   .section.banner-with-dropdown-container.dropdown.v2 .banner-with-dropdown ul {
@@ -1043,7 +1061,7 @@
     padding-bottom: 0 !important;
   }
   .section.banner-with-dropdown-container .banner-with-dropdown > div > div {
-    justify-content: center;
+    justify-content: left !important;
   }
   .section.banner-with-dropdown-container .banner-with-dropdown > div > div .prices_box {
     justify-items: flex-start;

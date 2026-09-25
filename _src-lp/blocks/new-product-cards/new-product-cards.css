@@ -118,7 +118,6 @@
   font-weight: bold;
   font-size: var(--body-font-size-m);
   line-height: var(--body-font-size-m);
-  font-family: Arial, sans-serif;
   margin-top: 10px;
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box p {
@@ -144,7 +143,6 @@
   font-size: 14px;
   line-height: 15px;
   padding: 5px;
-  font-family: Arial, sans-serif;
   color: white;
   text-align: center;
   font-weight: bold;
@@ -161,7 +159,6 @@
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .blue-pill {
   font-size: var(--body-font-size-xs);
-  font-family: Arial, sans-serif;
   color: white;
   text-align: left;
   background-color: #026DFF;
@@ -188,7 +185,6 @@
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box .green-pill {
   font-size: var(--body-font-size-xs);
-  font-family: Arial, sans-serif;
   color: white;
   text-align: center;
   background-color: #68ba68;

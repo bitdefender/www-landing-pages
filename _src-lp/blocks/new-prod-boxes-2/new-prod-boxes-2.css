@@ -16,6 +16,17 @@
   width: 9px;
 }
 
+.new-prod-boxes-2-container .bundle_box .icon {
+  width: auto;
+  height: 32px;
+  margin-right: 5px;
+}
+
+.new-prod-boxes-2-container .bundle_box .icon svg, .new-prod-boxes-2-container .bundle_box img {
+  width: auto;
+  height: 32px;
+}
+
 .new-prod-boxes-2-container .icon svg {
   fill: #fff;
 }
@@ -361,9 +372,8 @@
   height: fit-content;
   bottom: 100.2%;
   font-size: 14px;
-  line-height: 15px;
+  line-height: 18px;
   padding: 5px;
-  font-family: Arial, sans-serif;
   color: white;
   text-align: center;
   font-weight: bold;
@@ -404,7 +414,6 @@
   margin-bottom: 0;
   font-size: 10px;
   background-color: #1C7928;
-  font-family: Arial, sans-serif;
   color: white;
   font-weight: bold;
   margin-top: -64px;
@@ -421,8 +430,7 @@
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box h2 {
   font-weight: bold;
   font-size: var(--body-font-size-m);
-  line-height: var(--body-font-size-m);
-  font-family: Arial, sans-serif;
+  line-height: var(--body-line-height-m);
   margin-top: 10px;
 }
 
@@ -467,7 +475,6 @@
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .underBuyLink {
   font-size: 12px;
-  font-family: Arial, sans-serif;
   line-height: 13px;
   margin: 7px 0;
   color: #000;
@@ -505,7 +512,6 @@
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .blueTag {
   font-size: var(--body-font-size-xs);
-  font-family: Arial, sans-serif;
   color: white;
   text-align: center;
   background-color: #026DFF;
@@ -556,10 +562,9 @@
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .subtitle {
   min-height: 35px;
-  font-size: 13px;
-  font-family: Arial, sans-serif;
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
   margin-bottom: 0;
-  line-height: 1.25;
 }
 
 .new-prod-boxes-2-container.business .block .prod_box .inner_prod_box .subtitle {
@@ -685,7 +690,7 @@
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .prices_box .prod-newprice {
   font-size: var(--heading-font-size-l);
-  line-height: var(--heading-font-size-l);
+  line-height: var(--heading-line-height-l2);
 }
 
 .new-prod-boxes-2-container.veepee .block .prod_box .inner_prod_box .subtitle ul li {
@@ -781,8 +786,8 @@
 }
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .save_price_box .prod-oldprice {
-  font-size: var(--heading-font-size-xs);
-  line-height: var(--heading-font-size-xs);
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   text-decoration: line-through;
   margin-right: 10px;
 }
@@ -792,10 +797,10 @@
 }
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .save_price_box .prod-percent {
-  line-height: 15px;
   color: #1C7928;
   font-weight: bold;
-  font-size: calc(14px + 2 * (100vw - 768px) / 680);
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   visibility: visible;
 }
 
@@ -858,8 +863,7 @@
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed {
   font-size: 12px;
-  font-family: Arial, sans-serif;
-  line-height: 16px;
+  line-height: 15px;
   margin: 7px 0;
   min-height: 25px;
 }
@@ -1058,8 +1062,8 @@
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .buy-btn a.red-buy-button {
   width: 100%;
   text-transform: none;
-  font-size: 14px;
-  line-height: 14px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   font-weight: 600 !important;
   padding: 10px 1% !important;
 }
@@ -1092,7 +1096,6 @@
 }
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .benefitsLists {
-  font-family: Arial, sans-serif;
   color: transparent;
 }
 
@@ -1122,19 +1125,23 @@
 }
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .benefitsLists ul li:first-of-type {
-  font-size: var(--body-font-size-xs);
-  line-height: var(--heading-font-size-s);
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
   text-decoration: none;
   list-style-type: none;
-  font-weight: 500;
-  font-family: Arial, sans-serif;
+  font-weight: bold;
   margin-bottom: 1em;
+}
+
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .benefitsLists ul li .tag {
+  font-size: 8px;
+  line-height: 10px;
 }
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .benefitsLists ul li:not(:first-of-type) {
   min-height: 19px;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
   margin-bottom: 8px;
   list-style-type: none;
   background: url("../../icons/circle-check-sharp-solid.png") top 2px left no-repeat transparent;
