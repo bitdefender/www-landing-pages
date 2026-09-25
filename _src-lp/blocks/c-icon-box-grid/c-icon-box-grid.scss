@@ -123,6 +123,7 @@
   margin-bottom: 0;
   color: #006DFF;
   font-size: 5rem;
+  line-height: 5.5rem;
   text-align: center;
   font-weight: 500;
 }
@@ -974,6 +975,11 @@
   .c-icon-box-grid-container.dotted-lines .block .container .row {
     gap: 0;
   }
+
+  .c-icon-box-grid-container.phishing h2 {
+    font-size: 4rem;
+    line-height: 4.5rem;
+  }
 }
 
 @media (width >= 768px) {
@@ -1206,6 +1212,11 @@
 
   .c-icon-box-grid-container.blue-style .quotebox .icon-box .icon, .c-icon-box-grid-container.blue-style .quotebox .icon-box svg, .c-icon-box-grid-container.blue-style .quotebox .icon-box img {
     height: 68px;
+  }
+
+  .c-icon-box-grid-container.phishing h2 {
+    font-size: var(--body-font-size-xl);
+    line-height: var(--body-line-height-xl);
   }
 }
 
