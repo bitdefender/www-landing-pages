@@ -41,6 +41,21 @@ const toSafeUrl = (value) => {
   }
 };
 
+// the encoded cart URL doesn't carry the page's SRC, so forward it unless the cart URL already sets one
+const withSrc = (value) => {
+  const src = getParam('SRC');
+  if (!src) return value;
+  try {
+    // appended as a string so the rest of the query (e.g. ORDERSTYLE=...=) is not re-encoded
+    if (new URL(value, window.location.href).searchParams.has('SRC')) return value;
+    const [base, hash] = value.split('#');
+    const separator = base.includes('?') ? '&' : '?';
+    return `${base}${separator}SRC=${encodeURIComponent(src)}${hash !== undefined ? `#${hash}` : ''}`;
+  } catch (error) {
+    return value;
+  }
+};
+
 const isTryFamilyButton = (link) => link.textContent.replace(/\s+/g, '').toLowerCase() === 'tryfamilyforfree';
 
 const setTryFamilyLinks = (root, url) => {
@@ -69,8 +84,9 @@ export default function decorate(block) {
   const upgrade = getParam('upgrade');
   if (!upgrade) return;
 
-  const redirectUrl = decodeUpgrade(upgrade);
-  if (!redirectUrl) return;
+  const decoded = decodeUpgrade(upgrade);
+  if (!decoded) return;
+  const redirectUrl = withSrc(decoded);
 
   // superapp: no auto-redirect, the decoded URL goes on every "Try Family for Free" button instead,
   // including buttons of sections decorated after this block
