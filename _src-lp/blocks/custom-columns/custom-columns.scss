@@ -73,6 +73,7 @@
     picture,  img {
         display: block;
         max-width: 100%;
+        border-radius: 16px;
 
         @media (width <= 768px) {
             margin: 0 auto;
@@ -101,8 +102,8 @@
         }
 
         p, td {
-            font-size: 15px;
-            line-height: 22px;
+            font-size: var(--body-font-size-xs);
+            line-height: var(--body-line-height-xs);
         }
 
         tr,
@@ -224,7 +225,8 @@
             margin: 0 0 4px;
 
             strong {
-                font-size: 17px;
+                font-size: var(--body-font-size-s);
+                line-height: var(--body-line-height-s);
                 display: inline-block;
                 overflow-wrap: anywhere;
                 word-break: break-word;

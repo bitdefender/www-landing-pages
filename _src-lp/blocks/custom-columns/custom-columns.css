@@ -70,6 +70,7 @@
 .custom-columns picture, .custom-columns img {
   display: block;
   max-width: 100%;
+  border-radius: 16px;
 }
 @media (width <= 768px) {
   .custom-columns picture, .custom-columns img {
@@ -97,8 +98,8 @@
   width: 25px;
 }
 .custom-columns table p, .custom-columns table td {
-  font-size: 15px;
-  line-height: 22px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
 }
 .custom-columns table tr,
 .custom-columns table td,
@@ -201,7 +202,8 @@
   margin: 0 0 4px;
 }
 .custom-columns .cell-text .cell-title strong {
-  font-size: 17px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
   display: inline-block;
   overflow-wrap: anywhere;
   word-break: break-word;

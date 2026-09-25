@@ -12,6 +12,12 @@
   padding-bottom: 3rem;
 }
 
+.section.banner-container p:not(.button-container) {
+  width: 90%;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
+}
+
 .section.banner-container[data-text-color='white'] .block .container-fluid > .row > div:first-of-type * {
   color: white;
 }
