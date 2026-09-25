@@ -1193,8 +1193,8 @@ export function debounce(func, wait) {
 // General function to match the height of elements based on a selector
 export async function matchHeights(targetNode, selector, onMobile = undefined) {
   const resetHeights = () => {
-    const elements = targetNode.querySelectorAll(selector);
-    elements.forEach((element) => {
+    const elements = targetNode?.querySelectorAll(selector);
+    elements?.forEach((element) => {
       element.style.minHeight = '';
     });
   };
@@ -1202,7 +1202,8 @@ export async function matchHeights(targetNode, selector, onMobile = undefined) {
   const adjustHeights = () => {
     if (onMobile || window.innerWidth >= 768) {
       resetHeights();
-      const elements = targetNode.querySelectorAll(selector);
+      const elements = targetNode?.querySelectorAll(selector);
+      if (!elements) return;
       const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
       const maxHeight = Math.max(...elementsHeight);
 
@@ -1238,8 +1239,8 @@ export async function matchHeights(targetNode, selector, onMobile = undefined) {
     adjustHeights();
   });
 
-  const elements = targetNode.querySelectorAll(selector);
-  elements.forEach((element) => {
+  const elements = targetNode?.querySelectorAll(selector);
+  elements?.forEach((element) => {
     resizeObserver.observe(element);
   });
 

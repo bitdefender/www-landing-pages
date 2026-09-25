@@ -1,0 +1,151 @@
+.card-with-switcher {
+  display: grid;
+  grid-template-columns: 25% 40% 30%;
+  gap: 30px;
+  align-items: center;
+  padding: 28px 32px;
+  position: relative;
+}
+
+.card-with-switcher > div {
+  min-width: 0;
+}
+
+.card-with-switcher h2 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.18;
+  color: #10141c;
+  margin: 0;
+  padding: 0;
+}
+
+.card-with-switcher h4 {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #006dff;
+  margin-bottom: 8px;
+}
+
+.card-with-switcher > div:first-of-type table:first-of-type {
+  display: inline-block;
+  margin-top: 12px;
+  background: #006dff;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 5px;
+}
+
+.card-with-switcher ul li {
+  font-size: 14px;
+  color: #10141c;
+  line-height: 1.5;
+  list-style-type: none;
+  padding-left: 25px;
+  margin: 9px 0 -2px;
+  background-image: url("/_src-lp/icons/circle-check-sharp-solid.png");
+  background-repeat: no-repeat;
+  background-size: 15px;
+  background-position: left top 4px;
+}
+
+/* Switcher */
+.card-with-switcher > div:last-child {
+  position: relative;
+}
+
+.card-with-switcher > div:last-child table:first-child {
+  width: fit-content;
+  margin-left: auto;
+  position: absolute;
+  left: 120px;
+}
+
+.card-with-switcher > div:last-child p {
+  font-size: 11px;
+  color: #6c7a8c;
+  margin-top: 4px;
+}
+.card-with-switcher > div:last-child p a {
+  color: #0057cc;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.card-with-switcher > div:last-child table:first-child tr {
+  display: inline-flex;
+  border: 1px solid #d2d2d2;
+  border-radius: 6px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.card-with-switcher > div:last-child table:first-child td {
+  padding: 5px 12px;
+  font-size: 11.5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.card-with-switcher > div:last-child table:first-child td.active {
+  background: #087cff;
+  color: #fff;
+}
+
+/* Product */
+.card-switcher-value[hidden],
+.card-switcher-price[hidden],
+.card-switcher-save[hidden],
+.card-switcher-buy[hidden] {
+  display: none;
+}
+
+/* Price */
+.card-switcher-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.card-switcher-price .prod-newprice {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #10141c;
+}
+
+.card-switcher-price .prod-oldprice {
+  text-decoration: line-through;
+}
+
+/* Buy */
+.card-switcher-buy .red-buy-button {
+  width: max-content;
+  display: flex;
+  margin-top: 0;
+  align-self: center;
+  justify-content: center;
+  background: #f00;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 26px !important;
+}
+
+@media (width <= 900px) {
+  .card-with-switcher {
+    grid-template-columns: 1fr;
+  }
+  .card-with-switcher > div:last-child table:first-child {
+    margin-left: 0;
+  }
+}
