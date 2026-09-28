@@ -517,6 +517,7 @@
 .section.banner-container.partnerportale .banner table tr td:first-of-type img {
   min-width: 83px;
   width: 255px;
+  height: auto;
 }
 
 .section.banner-container .banner .blue-box tr td p {
@@ -1470,6 +1471,10 @@
   }
 }
 
+.section.banner-container #pricesBox .d-flex {
+  width: max-content;
+}
+
 @media (width >= 768px) {
   .section.lp-brand .banner h1 {
     font-weight: lighter;
@@ -1522,13 +1527,13 @@
   }
 
   .section.banner-container #pricesBox .d-flex span.prod-newprice {
-    font-size: var(--heading-font-size-xl);
-    line-height: var(--heading-font-size-xl);
+    font-size: var(--heading-font-size-l);
+    line-height: var(--heading-font-size-l);
     font-weight: bold;
   }
 
   .section.banner-container #pricesBox .d-flex .variation {
-    font-size: var(--body-font-size-xs);
+    font-size: var(--body-font-size-xs2);
     line-height: 19px;
     font-weight: bold;
   }
