@@ -124,7 +124,7 @@ export default function decorate(block) {
       table.appendChild(titleBox);
     }
 
-    // BUTTONS_BOX
+    // alias BUTTONS_BOX
     if (aliasTr && (aliasTr.textContent.trim() === 'buttons_box' || aliasTr.textContent.trim() === 'Buttons_table')) {
       const [, buttonsRow] = [...table.querySelectorAll('tr')];
       const buttonsCells = buttonsRow.querySelectorAll('td');
