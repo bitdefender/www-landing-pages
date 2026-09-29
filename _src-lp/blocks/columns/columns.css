@@ -8,6 +8,10 @@
   margin-top: 0;
 }
 
+.columns.rounded .columns-img-col picture img {
+  border-radius: 20px;
+}
+
 .columns-container.narrow-columns .columns-wrapper {
   max-width: 800px;
 }
