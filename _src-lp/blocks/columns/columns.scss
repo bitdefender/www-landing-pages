@@ -11,6 +11,10 @@
   max-width: 800px;
 }
 
+.narrow-section .columns-wrapper {
+  max-width: 1000px;
+}
+
 .columns-container.csam-design .block {
   border-radius: 20px;
   overflow: hidden;
@@ -1475,6 +1479,234 @@ main .columns-container.padding-0 .columns-wrapper {
   margin: 3em 0 0;
 }
 
+.columns-container.dynamic-awards {
+  .default-content-wrapper p {
+    font-size: 14px;
+    line-height: 1.31;
+    margin-bottom: 14px;
+  }
+
+  .columns.awards > div {
+    gap: 30px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    justify-content: center;
+    flex-direction: row !important;
+  }
+}
+
+main .section.wide .columns-wrapper {
+  padding: 0 var(--section-large-desktop-padding) 56px;
+}
+
+main .section.wide.hide-images-mobile .columns-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+
+  .columns > div {
+    padding: 0;
+    column-gap: 58px;
+    row-gap: 20px;
+
+    .columns-img-col img {
+      width: 100%;
+    }
+  }
+
+  .text-content {
+    h2 {
+      font-size: var(--heading-font-size-l);
+      line-height: 1.2;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    p:first-of-type {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 20px;
+    }
+  }
+}
+
+
+main .section.business-needs .columns-wrapper {
+  padding: 20px 0 0;
+}
+
+
+.columns-container.business-needs {
+
+  p {
+    margin-top: 24px;
+  }
+
+  .button-container {
+    margin-top: 56px;
+  }
+
+  .benefits-cards {
+
+    > div {
+      padding: 0;
+      margin-bottom: 20px;
+      gap: 20px;
+
+      .text-content {
+        padding: 24px;
+        border: 1px solid rgb(197, 201, 206);
+        border-radius: 20px;
+        text-align: left;
+        height: stretch;
+        min-height: 100%;
+
+        p:first-of-type {
+          margin-top: 0;
+
+          .icon {
+            width: 48px;
+            height: 48px;
+          }
+        }
+
+        h3 {
+          font-size: 18px;
+          margin-bottom: 12px;
+          color: black;
+          text-transform: initial;
+        }
+
+        p:last-of-type {
+          margin: 0;
+          font-size: 14px;
+          line-height: 1.31;
+        }
+      }
+    }
+  }
+}
+
+.columns-container.hide-images-mobile {
+
+  .columns > div > div:first-of-type {
+    order: 1;
+  }
+}
+
+.columns-container.small-business {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  .default-content-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+
+    h3 {
+      color: #006EFF;
+      font-size: 22px;
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 32px;
+    }
+  }
+
+  .columns-wrapper {
+    .text-content {
+      p:nth-of-type(1) {
+        position: relative;
+
+        .icon, svg {
+          position: absolute;
+          left: 0;
+          height: 56px !important;
+          width: 50px !important;
+        }
+      }
+      p:not(:first-of-type) {
+        padding-left: 76px;
+        text-align: left;
+      }
+    }
+  }
+
+}
+
+.columns-container.blue-heading h5 {
+  color: #006DFF;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.columns-container.faded-heading h5 {
+  color: rgb(197, 201, 206);
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.columns-container.blue-heading .columns > div {
+  align-items: flex-start;
+}
+
+.columns.benefits-cards.bordered-cards {
+  & > div {
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 20px;
+  }
+}
+
+.columns.benefits-cards.bordered-cards {
+  &.v2 {
+    & > div > div {
+      position: relative;
+      padding: 24px 24px 24px 80px;
+      min-height: 96px;
+      border: 1px solid rgb(0, 109, 255);
+      background-color: rgb(240, 247, 255);
+      width: 100%;
+      border-radius: 20px;
+      text-align: left;
+      height: stretch;
+
+      & p {
+        font-size: 14px;
+        margin: 0px;
+      }
+
+      & .icon {
+        justify-self: center;
+        left: 24px;
+        height: 48px;
+        width: 48px;
+        position: absolute;
+
+        svg {
+          height: 100% !important;
+          width: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.columns.benefits-cards.bordered-cards {
+  &.faded {
+    & > div > div {
+      border-color: rgb(197, 201, 206);
+      background-color: transparent;
+    }
+  }
+}
+
+.columns-container.faded p {
+  color: rgb(197, 201, 206);
+}
+
+
 @media (width <=991px) {
   .columns-container.csam-design .block > div {
     padding-right: 0;
@@ -1568,6 +1800,10 @@ main .columns-container.padding-0 .columns-wrapper {
     padding: 0 1em;
   }
 
+  .columns.benefits-cards.bordered-cards.v2 div.text-content {
+    padding: 0;
+  }
+
   .columns div.text-content h5 {
     font-size: var(--heading-font-size-l);
   }
@@ -1601,6 +1837,10 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns > div > .columns-img-col--left img {
     max-width: 100%;
     margin-left: auto;
+  }
+
+  .dynamic-awards .columns > div > .columns-img-col--left img {
+    margin-left: unset;
   }
 
   .columns-container.csam-design-v2 .columns > div > .columns-img-col img {
@@ -1669,6 +1909,24 @@ main .columns-container.padding-0 .columns-wrapper {
           max-width: 300px;
         }
       }
+    }
+  }
+
+  .columns-container.dynamic-awards {
+    .columns-img-col {
+      flex: initial;
+    }
+  }
+
+  .columns-container.business-needs .columns > div > div {
+    padding: 0;
+  }
+
+  main .section.wide.hide-images-mobile .columns-wrapper .columns > div {
+    align-items: stretch;
+
+    .columns-img-col img {
+      max-width: unset;
     }
   }
 }
@@ -2357,4 +2615,161 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns-container.v-jul26 .columns > div:first-of-type .text-content ul {
     width: auto;
   }
+}
+
+
+@media (min-width: 992px) {
+
+  .columns-container.dynamic-awards {
+    .columns-img-col {
+      flex: 1;
+    }
+  }
+
+  .columns-container.business-needs p {
+    font-size: 14px;
+  }
+
+  main .section.business-needs .columns-wrapper {
+    padding-top: 0;
+    max-width: 1290px;
+  }
+
+  .columns-container.business-needs .benefits-cards > div {
+    align-items: stretch;
+  }
+
+  main .section.wide.hide-images-mobile .columns-wrapper .columns > div {
+    align-items: center;
+
+    .columns-img-col {
+      order: 1;
+    }
+
+    .text-content {
+      text-align: left;
+
+      h2 {
+        font-size: 32px;
+        margin-bottom: 22px;
+      }
+    }
+  }
+
+  .columns-container.small-business {
+
+    .default-content-wrapper {
+
+      h3 {
+        font-size: 24px;
+      }
+
+      h2 {
+        font-size: 40px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+
+    .columns-wrapper {
+
+      .columns > div {
+        gap: 32px;
+      }
+
+      .columns > div:first-of-type {
+        margin-bottom: 32px;
+      }
+
+      .columns div {
+        padding: 0;
+      }
+
+      .text-content {
+
+        p:nth-of-type(1) {
+
+          .icon, svg {
+            position: relative;
+          }
+        }
+        p:not(:first-of-type) {
+          padding-left: 0;
+        }
+
+        p:nth-of-type(3) {
+          margin-top: 0;
+        }
+
+        p {
+          text-align: left;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .columns-container.blue-heading,
+  .columns-container.faded {
+
+    .default-content-wrapper {
+      padding-bottom: 0;
+    }
+
+    .columns-wrapper {
+      max-width: var(--section-desktop-max-width);
+      padding: 0 37px;
+    }
+
+    p {
+      line-height: 1.31;
+    }
+  }
+
+  .columns.benefits-cards.bordered-cards > div {
+    padding: 0;
+  }
+
+  .who-section .default-content-wrapper p {
+    font-size: 14px;
+  }
+
+}
+
+@media (min-width: 1400px) {
+
+  main .section.wide .columns-wrapper {
+    padding: 0 var(--section-large-desktop-padding) 56px;
+  }
+
+  main .section.business-needs .columns-wrapper {
+    padding: 0 20px 0;
+  }
+
+  main .section.wide.dynamic-awards .default-content-wrapper p {
+    font-size: var(--body-font-size-s);
+  }
+
+  .columns-container.small-business .default-content-wrapper h3 {
+    font-size: var(--heading-font-size-l);
+  }
+
+  .columns-container.small-business .columns-wrapper .text-content p,
+  .columns-container.small-business .default-content-wrapper p
+  .who-section .default-content-wrapper p {
+    font-size: var(--body-font-size-s);
+  }
+}
+
+@media (min-width: 1600px) {
+  .columns-container.blue-heading,
+  .columns-container.faded {
+    .columns-wrapper {
+      max-width: var(--section-large-desktop-max-width);
+      padding: 0 50px;
+    }
+  }
+
 }
