@@ -2311,6 +2311,10 @@ main .section.they-wear-our-faces {
   .prod-percent.green_bck_circle.bigger span:last-of-type {
     font-size: 10px;
   }
+
+  main .section.heading-no-margin :is(h1, h2, h3, h4, h5, h6) {
+    margin-bottom: 15px;
+  }
 }
 
 @media (width <=940px) {
