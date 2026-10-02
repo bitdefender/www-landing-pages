@@ -1,7 +1,7 @@
 const SNAPSHOTS_SUITE_ID = '64c8d884960593b38bb68331';
 const PATH_TO_BLOCKS = 'sidekick/blocks';
 const LOCAL_BLOCKS_PATH = '_src-lp/blocks';
-const FETCH_TIMEOUT = 1000 * 60 * 5; // 5 minutes
+const FETCH_TIMEOUT = 1000 * 60 * 10; // 10 minutes
 // todo add sidekick config for those
 const EXCLUDED_SNAPSHOT_BLOCKS = [
   'aem-banner',
