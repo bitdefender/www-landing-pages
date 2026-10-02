@@ -102,6 +102,8 @@ function updatePreloadLinks(doc, urls) {
     const link = doc.createElement('link');
     link.setAttribute('rel', 'modulepreload');
     link.setAttribute('href', url);
+    // Low priority so the preloads do not compete with render-blocking CSS.
+    link.setAttribute('fetchpriority', 'low');
     link.setAttribute(PRELOAD_MARKER, '');
     ref.after(link);
     link.before(doc.createTextNode('\n'));
