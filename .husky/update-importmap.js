@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-extraneous-dependencies */
 const { exec } = require('child_process');
-const { readdirSync, readFileSync, writeFileSync } = require('fs');
+const { readFileSync, writeFileSync } = require('fs');
 const { XMLSerializer, Window } = require('happy-dom');
 
 const window = new Window({
@@ -43,74 +43,6 @@ function collectDependencies(deps, result = {}) {
   return result;
 }
 
-// Packages imported statically by the core scripts load on every page, so their
-// whole esm.sh module graph is preloaded. Block-only packages (e.g. glide) are not.
-const ESM_ORIGIN = 'https://esm.sh';
-// esm.sh picks the build target from the User-Agent; modern browsers get es2022.
-const BROWSER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
-const PRELOAD_MARKER = 'data-esm-preload';
-
-function getEagerPackages(deps) {
-  const scriptsDir = '_src-lp/scripts';
-  const source = readdirSync(scriptsDir)
-    .filter((file) => file.endsWith('.js'))
-    .map((file) => readFileSync(`${scriptsDir}/${file}`, 'utf-8'))
-    .join('\n');
-  return Object.keys(deps).filter((name) => source.includes(`from '${name}'`));
-}
-
-// Walks the static imports of each esm.sh entry point and returns every module URL,
-// so the browser can fetch them in parallel instead of one import level at a time.
-async function crawlEsmGraph(entryUrls) {
-  const seen = new Set();
-  let queue = [...entryUrls];
-  while (queue.length) {
-    const batch = queue.filter((url) => !seen.has(url));
-    batch.forEach((url) => seen.add(url));
-    // eslint-disable-next-line no-await-in-loop
-    const sources = await Promise.all(batch.map(async (url) => {
-      const resp = await fetch(url, { headers: { 'User-Agent': BROWSER_UA } });
-      if (!resp.ok) throw new Error(`${resp.status} for ${url}`);
-      return resp.text();
-    }));
-    queue = sources.flatMap((source) => [...source.matchAll(/(?:\bimport|\bfrom)\s*["']((?:\/|https:\/\/esm\.sh\/)[^"']+)["']/g)]
-      .map(([, spec]) => new URL(spec, ESM_ORIGIN).href));
-  }
-  return [...seen];
-}
-
-let preloadUrlsPromise;
-function getPreloadUrls(deps) {
-  if (!preloadUrlsPromise) {
-    const entryUrls = getEagerPackages(deps).map((name) => `${ESM_ORIGIN}/${name}@${deps[name]}`);
-    preloadUrlsPromise = crawlEsmGraph(entryUrls).catch((err) => {
-      console.error('Could not crawl esm.sh, keeping existing modulepreload links:', err.message);
-      return null;
-    });
-  }
-  return preloadUrlsPromise;
-}
-
-function updatePreloadLinks(doc, urls) {
-  doc.querySelectorAll(`link[${PRELOAD_MARKER}]`).forEach((link) => {
-    if (link.nextSibling?.nodeType === 3 && !link.nextSibling.textContent.trim()) link.nextSibling.remove();
-    link.remove();
-  });
-  const anchor = doc.querySelector('link[href$="/styles/styles.css"]') || doc.querySelector('script[type="importmap"]');
-  let ref = anchor;
-  urls.forEach((url) => {
-    const link = doc.createElement('link');
-    link.setAttribute('rel', 'modulepreload');
-    link.setAttribute('href', url);
-    // Low priority so the preloads do not compete with render-blocking CSS.
-    link.setAttribute('fetchpriority', 'low');
-    link.setAttribute(PRELOAD_MARKER, '');
-    ref.after(link);
-    link.before(doc.createTextNode('\n'));
-    ref = link;
-  });
-}
-
 // Main function that updates the import map in an HTML file
 async function updateHtmlImportMap(htmlFilePath) {
   try {
@@ -150,9 +82,6 @@ async function updateHtmlImportMap(htmlFilePath) {
 
     // Update the script element's content with the new import map (formatted as JSON)
     scriptElement.textContent = JSON.stringify(importMap, null, 2);
-
-    const preloadUrls = await getPreloadUrls(deps);
-    if (preloadUrls) updatePreloadLinks(newDocument, preloadUrls);
 
     // Serialize the updated HTML and write it back to the file
     const serializer = new XMLSerializer();
