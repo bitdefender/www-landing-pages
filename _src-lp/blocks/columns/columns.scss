@@ -1982,6 +1982,10 @@ main .columns-container.padding-0 .columns-wrapper {
     font-size: 16px;
   }
 
+  .columns-container.round-corners .columns > div > div:has(.text-content) {
+    padding: 0;
+  }
+
   .columns-container.round-corners .columns div.text-content {
     padding: 0 20px;
   }
