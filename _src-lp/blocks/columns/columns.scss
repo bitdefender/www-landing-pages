@@ -137,7 +137,6 @@
   line-height: var(--heading-font-size-m);
   font-weight: bold;
   color: black;
-  font-family: Arial, sans-serif;
 }
 
 .columns-container.new .columns h4 {
@@ -168,7 +167,6 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.new .columns p {
   color: black;
-  font-family: Arial, sans-serif;
 }
 
 .columns-container.csam-design-v2 .columns p {
@@ -345,6 +343,25 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container {
+  .columns.align-left * {
+    align-items: flex-start !important;
+    text-align: left;
+
+    h3 {
+      font-size: var(--body-font-size-xs);
+      line-height: var(--body-line-height-xs);
+    }
+
+    p {
+      font-size: var(--body-font-size-xs2);
+      line-height: var(--body-line-height-xs2);
+    }
+
+    svg {
+      height: 30px;
+    }
+  }
+  
   .columns.blue-cards {
     >div {
       gap: 30px;
@@ -376,11 +393,20 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 
   .columns.gray-cards {
-    >div {
+    > div {
       gap: 30px;
+      margin: 30px;
+
+      @media (width <= 768px) {
+        margin: 0;
+      }
     }
 
-    >div>div>div {
+    > div > div {
+      padding: 0;
+    }
+
+    > div > div > div {
       display: flex;
       flex-direction: row;
       gap: 11px;
@@ -596,14 +622,6 @@ main .columns-container.padding-0 .columns-wrapper {
         display: flex;
         gap: 20px;
       }
-    }
-  }
-
-  .columns.ibm-plex-sans {
-    font-family: "IBM Plex Sans", sans-serif;
-
-    h3 {
-      font-family: "IBM Plex Sans", sans-serif;
     }
   }
 

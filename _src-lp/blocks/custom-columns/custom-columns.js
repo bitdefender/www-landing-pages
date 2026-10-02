@@ -1,4 +1,5 @@
 export default function decorate(block) {
+  console.log(block.closest('.section').innerHTML);
   block.querySelectorAll('table').forEach((table) => {
     const firstRow = table.querySelector('tr');
 
@@ -206,6 +207,26 @@ export default function decorate(block) {
 
       content.appendChild(textWrapper);
       cell.appendChild(content);
+    });
+  });
+
+  // CUSTOM COLUMNS
+  block.querySelectorAll('.custom-columns').forEach((columns) => {
+    const columnsWrapper = columns.querySelector(':scope > div');
+
+    if (!columnsWrapper) return;
+
+    const columnItems = [...columnsWrapper.children];
+
+    columnItems.forEach((column) => {
+      const content = document.createElement('div');
+      content.className = 'custom-column-content';
+
+      while (column.firstChild) {
+        content.appendChild(column.firstChild);
+      }
+
+      column.appendChild(content);
     });
   });
 }
