@@ -800,8 +800,6 @@ export default function decorate(block) {
   matchHeights(targetNode, '.underBuyLink');
   matchHeights(targetNode, '.save-trial-text');
   matchHeights(targetNode, '.vpn-info-container');
-  matchHeights(targetNode, '.underBuyLink');
-  matchHeights(targetNode, '.billed');
   matchHeights(targetNode, '.benefitsLists >  ul:first-of-type');
   matchHeights(targetNode, '.benefitsLists > ul:first-of-type > li:first-of-type');
 
@@ -902,12 +900,8 @@ export default function decorate(block) {
     updateMargin();
     updateTagsMargin(block);
   });
-  resizeObserver.observe(document.body);
-  window.addEventListener('resize', () => {
-    updateMargin();
-  });
-
-  window.addEventListener('resize', updateMargin());
+  resizeObserver.observe(block.parentElement || block);
+  window.addEventListener('resize', updateMargin);
   setTimeout(() => updateMargin(), 0);
 
   if (switchCheckbox && individual === 'reverted') {
