@@ -2,6 +2,8 @@
   "imports": {
     "@glidejs/glide": "https://esm.sh/@glidejs/glide@3.7.1",
     "@glidejs/glide/": "https://esm.sh/@glidejs/glide@3.7.1/",
+    "@repobit/dex-constants": "https://esm.sh/@repobit/dex-constants@2.1.126",
+    "@repobit/dex-constants/": "https://esm.sh/@repobit/dex-constants@2.1.126/",
     "@repobit/dex-data-layer": "https://esm.sh/@repobit/dex-data-layer@2.2.28",
     "@repobit/dex-data-layer/": "https://esm.sh/@repobit/dex-data-layer@2.2.28/",
     "@repobit/dex-launch": "https://esm.sh/@repobit/dex-launch@3.0.31",
@@ -13,30 +15,13 @@
     "@repobit/dex-target": "https://esm.sh/@repobit/dex-target@2.14.26",
     "@repobit/dex-target/": "https://esm.sh/@repobit/dex-target@2.14.26/",
     "@repobit/dex-utils": "https://esm.sh/@repobit/dex-utils@2.2.28",
-    "@repobit/dex-utils/": "https://esm.sh/@repobit/dex-utils@2.2.28/"
+    "@repobit/dex-utils/": "https://esm.sh/@repobit/dex-utils@2.2.28/",
+    "js-cookie": "https://esm.sh/js-cookie@3.0.8",
+    "js-cookie/": "https://esm.sh/js-cookie@3.0.8/"
   }
 }</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<script>
-  // Start the geo lookup in parallel with module loading instead of after it; user.js reuses it.
-  // Mirrors User.getGeolocation/getUserLocale from @repobit/dex-utils.
-  (function startGeoLookup() {
-    var host = window.location.hostname;
-    var geoOrigin = ['dev1.', 'dev2.', 'dev3.', 'dev4.', 'localhost', 'bitdefender.aem.', '.adobeaemcloud.com']
-      .some(function isNonProd(part) { return host.includes(part); }) ? 'https://www.bitdefender.com' : window.location.origin;
-    var wwwOrigin = host.includes('www.') ? '' : 'https://www.bitdefender.com';
-    var country = fetch(geoOrigin + '/geoip')
-      .then(function toJson(resp) { return resp.ok ? resp.json() : { error_code: resp.status }; })
-      .then(function toCountry(data) { return data.error_code ? 'us' : data.country.toLowerCase(); })
-      .catch(function fallback() { return 'us'; });
-    var locale = country
-      .then(function fetchLocales(code) { return fetch(wwwOrigin + '/p-api/v1/countries/' + code.toUpperCase() + '/locales'); })
-      .then(function toJson(resp) { return resp.json(); })
-      .then(function toLocale(data) { return data[0].locale.toLowerCase(); })
-      .catch(function fallback() { return 'en-us'; });
-    window.earlyGeo = { country: country, locale: locale };
-  }());
-</script>
+<script src="/_src-lp/scripts/vendor/dex-utils-early/early-geo.js" type="module"></script>
 <script src="/_src-lp/scripts/lib-franklin.js" type="module"></script>
 <script src="/_src-lp/scripts/scripts.js" type="module"></script>
 

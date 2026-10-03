@@ -1,0 +1,25 @@
+/**
+ * This class should hold all the page related information
+ */
+export default class Page {
+    country;
+    language;
+    locale;
+    name;
+    queryParams;
+    environment;
+    constructor(locale, name, environment) {
+        this.locale = locale;
+        this.name = name;
+        this.environment = environment;
+        this.country = this.locale.split('-')[1];
+        this.language = this.locale.split('-')[0];
+        this.queryParams = this.getQueryParams();
+    }
+    getQueryParams() {
+        return new URLSearchParams(window.location.search);
+    }
+    getParamValue(key) {
+        return this.queryParams.get(key);
+    }
+}

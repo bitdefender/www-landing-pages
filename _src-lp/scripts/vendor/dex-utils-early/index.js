@@ -1,0 +1,11 @@
+import Cookies from "./cookies.js";
+import Page from "./page.js";
+import User from "./user.js";
+import UserAgent from "./user-agent/index.js";
+export { getEarlyGeo, startGeoLookup } from "./geo.js";
+export { debounce, getUserVisitorId, loadScript, throttle } from "./utils.js";
+export { Cookies, Page, User, UserAgent };
+const w = window;
+w.BD = w.BD || {};
+w.BD.Cookies = Cookies;
+w.BD.UserAgent = UserAgent;
