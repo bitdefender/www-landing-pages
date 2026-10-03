@@ -1,3 +1,7 @@
+import { loadCSS } from '../../scripts/lib-franklin.js';
+
+loadCSS(new URL('./column.css', import.meta.url).pathname);
+
 export default class ColumnComponent {
   #el;
 
