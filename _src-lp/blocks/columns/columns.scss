@@ -7,6 +7,10 @@
   margin-top: 0;
 }
 
+.columns.rounded .columns-img-col picture img {
+  border-radius: 20px;
+}
+
 .columns-container.narrow-columns .columns-wrapper {
   max-width: 800px;
 }
@@ -1475,6 +1479,39 @@ main .columns-container.padding-0 .columns-wrapper {
   margin: 3em 0 0;
 }
 
+.columns-container.round-corners .columns div {
+  padding: 0;
+  align-items: unset;
+}
+
+.columns-container.round-corners .columns {
+  border-radius: 20px;
+}
+
+.columns-container.round-corners .columns img {
+  min-height: 100%;
+  margin-left: 0;
+  border-bottom-left-radius: 0!important;
+  border-bottom-right-radius: 0!important;
+}
+
+.columns-container.round-corners .columns > div > div:has(.text-content){
+  display: flex;
+  padding: 30px 0;
+  align-items: center;
+}
+
+.columns-container.round-corners .columns div.text-content {
+  padding: 0 60px;
+  align-self: center;
+}
+
+@media (width > 991px) {
+  .columns > div > .columns-img-col {
+    margin: -6px 0 !important;
+  }
+}
+
 @media (width <=991px) {
   .columns-container.csam-design .block > div {
     padding-right: 0;
@@ -1609,30 +1646,6 @@ main .columns-container.padding-0 .columns-wrapper {
 
   .columns-container.csam-design-v2 .columns > div > .columns-img-col--right {
     padding-left: 6em;
-  }
-
-  .columns-container.round-corners .columns {
-    border-radius: 20px;
-  }
-
-  .columns-container.round-corners .columns img {
-    min-height: 100%;
-  }
-
-  .columns-container.round-corners .columns div {
-    padding: 0;
-    align-items: unset;
-  }
-
-  .columns-container.round-corners .columns > div > div:has(.text-content){
-    display: flex;
-    padding: 30px 0;
-    align-items: center;
-  }
-
-  .columns-container.round-corners .columns div.text-content {
-    padding: 0 60px;
-    align-self: center;
   }
 
   .columns-container.new .columns>div {
@@ -1973,6 +1986,14 @@ main .columns-container.padding-0 .columns-wrapper {
 
   .columns p {
     font-size: 16px;
+  }
+
+  .columns-container.round-corners .columns > div > div:has(.text-content) {
+    padding: 0;
+  }
+
+  .columns-container.round-corners .columns div.text-content {
+    padding: 0 20px;
   }
 
   .columns>div>.columns-img-col img {
