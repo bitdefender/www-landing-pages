@@ -1411,6 +1411,11 @@ main .columns-container.padding-0 .columns-wrapper {
   align-self: center;
 }
 
+@media (width > 991px) {
+  .columns > div > .columns-img-col {
+    margin: -6px 0 !important;
+  }
+}
 @media (width <= 991px) {
   .columns-container.csam-design .block > div {
     padding-right: 0;
