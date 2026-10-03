@@ -17,6 +17,28 @@
   }
 }</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<script>
+  // Start the geo lookup before any module loads, so it runs in parallel with the esm.sh downloads.
+  // @repobit/dex-utils User reuses window.BD.earlyGeo (needs the dex-utils release with early geo support).
+  // Same contract as dex-utils geo.ts: country is null when geoip fails; locale is for (country || 'us').
+  (function startGeoLookup() {
+    var host = window.location.hostname;
+    var geoOrigin = ['dev1.', 'dev2.', 'dev3.', 'dev4.', 'localhost', 'bitdefender.aem.', '.adobeaemcloud.com']
+      .some(function isNonProd(part) { return host.includes(part); }) ? 'https://www.bitdefender.com' : window.location.origin;
+    var wwwOrigin = host.includes('www.') ? '' : 'https://www.bitdefender.com';
+    var country = fetch(geoOrigin + '/geoip')
+      .then(function toJson(resp) { return resp.ok ? resp.json() : { error_code: resp.status }; })
+      .then(function toCountry(data) { return data.error_code ? null : data.country.toLowerCase(); })
+      .catch(function fallback() { return null; });
+    var locale = country
+      .then(function fetchLocales(code) { return fetch(wwwOrigin + '/p-api/v1/countries/' + (code || 'us').toUpperCase() + '/locales'); })
+      .then(function toJson(resp) { return resp.json(); })
+      .then(function toLocale(data) { return data[0].locale.toLowerCase(); })
+      .catch(function fallback() { return 'en-us'; });
+    window.BD = window.BD || {};
+    window.BD.earlyGeo = window.BD.earlyGeo || { country: country, locale: locale };
+  }());
+</script>
 <script src="/_src-lp/scripts/lib-franklin.js" type="module"></script>
 <script src="/_src-lp/scripts/scripts.js" type="module"></script>
 
