@@ -17,6 +17,13 @@
                 padding: 0 1em;
             }
 
+            @media (width <= 998px) {
+                table tr td {
+                    width: 100%;
+                    display: block;
+                }
+            }
+
             table tr td:last-of-type {
                 width: 30em;
 
