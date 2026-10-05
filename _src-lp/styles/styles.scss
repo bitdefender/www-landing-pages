@@ -95,6 +95,16 @@
 
   /* nav height */
   --nav-height: 64px;
+
+  /* section sizes */
+
+  --section-desktop-max-width: 1290px;
+  --section-large-desktop-max-width: 1332px;
+  --section-desktop-padding-vertical: 48px;
+  --section-large-desktop-padding: 50px;
+
+  /* body width */
+  --body-padding: 20px;
 }
 
 header {
@@ -151,6 +161,30 @@ body [data-desktop-detector] {
   margin-top: 10px;
 }
 
+main .section.wide {
+  padding-left: var(--body-padding);
+  padding-right: var(--body-padding);
+}
+
+main .section.wide .default-content-wrapper {
+  padding: 56px 20px 15px;
+}
+
+main .section.business-needs .default-content-wrapper {
+  padding: 0 0 20px;
+}
+
+main .section.wide .columns-img-col {
+  padding: 0;
+}
+
+main .section.wide .columns-img-col.columns-col img {
+  height: 56px;
+  width: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
 @media (width >=500px) {
   body [data-only-mobile] {
     display: none;
@@ -170,6 +204,16 @@ body [data-desktop-detector] {
 @media (width >=992px) {
   body [data-desktop-detector] {
     display: block;
+  }
+
+  main .section.wide h2 {
+    font-size: var(--heading-font-size-xl);
+    margin-bottom: 22px;
+  }
+
+  main .section.setup-section .default-content-wrapper {
+    padding-left: 50px;
+    padding-right: 50px;
   }
 }
 
@@ -578,6 +622,12 @@ main .section.blue-h3 h3 {
 
   .affiliate .block div p:nth-of-type(3) {
     margin-left: auto !important;
+  }
+
+  .columns-container.dynamic-awards .columns-img-col img {
+    height: 56px;
+    width: auto;
+    object-fit: contain;
   }
 }
 
@@ -1113,6 +1163,10 @@ main .blue-quote .default-content-wrapper p:nth-of-type(1) em {
     max-width: 1200px;
     margin: auto;
   }
+
+  .section.wide > div {
+    max-width: 1332px;
+  }
 }
 
 /* section metadata */
@@ -1174,7 +1228,7 @@ main .section.light-sky-blue > * {
   display:inline-flex;
   vertical-align:middle;
   align-items: center;
-  height: fit-content; 
+  height: fit-content;
 }
 
 .greenTag {
@@ -1267,7 +1321,7 @@ main .section.light-sky-blue > * {
 
 .section.bottom-green-bundle {
   margin-bottom: -30px;
-      
+
   u {
     display: inline-block;
     background: #1C7928 0% 0% no-repeat padding-box;
@@ -2004,7 +2058,7 @@ main .section.they-wear-our-faces {
 
   p {
     font-size: 18px;
-    
+
     &:has(em) {
       line-height: 1.3;
       font-size: 13px;
@@ -2444,6 +2498,10 @@ main .section.they-wear-our-faces {
     height: 65px;
   }
 
+  .columns-container.dynamic-awards .columns-img-col img {
+    height: 56px;
+  }
+
   .awards .title {
     margin-bottom: 0 !important;
   }
@@ -2527,7 +2585,7 @@ main .section.they-wear-our-faces {
     font-size: var(--body-font-size-m);
     line-height: var(--body-line-height-m);
   }
-  
+
   main .title-small-mobile .default-content-wrapper {
     margin-bottom: 0;
     padding-bottom: 0;
@@ -2756,6 +2814,11 @@ main .section.they-wear-our-faces {
 }
 
 @media (width >=768px) {
+  main .section.wide {
+    padding-left: var(--section-desktop-padding-vertical);
+    padding-right: var(--section-desktop-padding-vertical);
+  }
+
   .w95 .block {
     width: 95%;
     margin-left: auto;
@@ -2799,6 +2862,15 @@ main .section.they-wear-our-faces {
 
   .green-arrow-and-title .default-content-wrapper p {
     font-size: 24px;
+  }
+}
+
+
+@media (width >= 1400px) {
+  .section.setup-section p:nth-of-type(2) {
+    margin-top: 32px;
+    margin-bottom: 32px;
+    font-size: 18px;
   }
 }
 

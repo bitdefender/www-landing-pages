@@ -951,6 +951,27 @@
     width: 30%;
     max-width: 300px;
   }
+
+  .c-icon-box-grid-container.trust-pills {
+    .block > div > .row {
+      align-items: unset;
+      justify-content: unset;
+    }
+
+    .quotebox {
+      flex: 1;
+      width: auto;
+
+      .subtitle {
+        max-width: unset;
+      }
+
+      &:not(:last-of-type) {
+        border-right: 1px solid rgb(214 232 255);
+      }
+    }
+
+  }
 }
 
 @media screen and (width <= 992px) {
