@@ -770,7 +770,7 @@ export default function decorate(block) {
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');
   matchHeights(targetNode, '.benefitsLists  > ul:first-of-type > li:first-of-type');
 
-  const storeRoot = block.closest('bd-root');
+  const storeRoot = block.closest('bd-context');
   storeRoot.updateComplete.then(() => {
     matchHeights(targetNode, '.save_price_box');
     matchHeights(targetNode, '.bundle_box');

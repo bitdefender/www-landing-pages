@@ -1288,9 +1288,9 @@ async function loadPage() {
   setBFCacheListener();
   const main = document.querySelector('main');
   /**
-   * @type {import('@repobit/dex-store-elements').RootNode}
+   * @type {import('@repobit/dex-store-elements').ContextNode}
    */
-  const storeRoot = document.createElement('bd-root');
+  const storeRoot = document.createElement('bd-context');
   storeRoot.dataLayer = ({ option, event }) => {
     AdobeDataLayerService.push(new ProductLoadedEvent(option, event, 'campaign product'));
   };
@@ -1324,7 +1324,7 @@ async function loadPage() {
   }
 
   // TODO: this needs to be removed after we finish implementing the new store in all the components
-  if (document.querySelector('bd-context') && productsList.length === 0) {
+  if (main.querySelector('bd-context') && productsList.length === 0) {
     maxDiscount();
   }
 
