@@ -384,16 +384,16 @@
 
     display: flex;
     flex-wrap: wrap;
-    margin-top: calc(-1* var(--bs-gutter-y));
-    margin-right: calc(-.5* var(--bs-gutter-x));
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
   }
 
   .row>* {
     flex-shrink: 0;
     width: 100%;
     max-width: 100%;
-    padding-right: calc(var(--bs-gutter-x)* .5);
-    padding-left: calc(var(--bs-gutter-x)* .5);
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
     margin-top: var(--bs-gutter-y);
   }
 
@@ -402,7 +402,7 @@
     width: 100%;
   }
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     .col-md-5 {
       flex: 0 0 auto;
       width: 41.6667%;
@@ -419,39 +419,39 @@
     --bs-gutter-y: 0;
 
     width: 100%;
-    padding-right: calc(var(--bs-gutter-x)* .5);
-    padding-left: calc(var(--bs-gutter-x)* .5);
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
     margin-right: auto;
     margin-left: auto;
 
-    @media (min-width: 576px) {
+    @media (width >= 576px) {
       max-width: 540px;
     }
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       max-width: 720px;
     }
 
-    @media (min-width: 992px) {
+    @media (width >= 992px) {
       max-width: 960px;
     }
 
-    @media (min-width: 1200px) {
+    @media (width >= 1200px) {
       max-width: 1140px;
     }
 
-    @media (min-width: 1400px) {
+    @media (width >= 1400px) {
       max-width: 1320px;
     }
   }
 
-  @media (min-width: 990px) {
+  @media (width >= 990px) {
     max-width: var(--section-desktop-max-width);
     padding: 0 var(--section-desktop-padding);
     margin: 0 auto;
   }
 
-  @media (min-width: 1600px) {
+  @media (width >= 1600px) {
     max-width: var(--section-large-desktop-max-width);
     padding: 0 var(--section-large-desktop-padding);
   }
@@ -707,10 +707,9 @@
   }
 }
 
-@media(min-width: 992px) {
+@media(width >= 992px) {
   .dropdown-box-container.new-tabs {
     .default-content-wrapper {
-
       h2 {
         font-size: 40px;
         margin-bottom: 22px;

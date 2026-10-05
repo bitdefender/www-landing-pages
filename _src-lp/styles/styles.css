@@ -73,7 +73,7 @@
   --heading-line-height-xs: 22px;
   /* nav height */
   --nav-height: 64px;
-  /*section sizes */
+  /* section sizes */
   --section-desktop-max-width: 1290px;
   --section-large-desktop-max-width: 1332px;
   --section-desktop-padding-vertical: 48px;
@@ -142,7 +142,7 @@ main .section.wide {
 }
 
 main .section.wide .default-content-wrapper {
-  padding: 56px 20px 15px 20px;
+  padding: 56px 20px 15px;
 }
 
 main .section.business-needs .default-content-wrapper {
@@ -2666,7 +2666,7 @@ main .section.they-wear-our-faces[data-maxwidth="1290px"] > div {
     font-size: 24px;
   }
 }
-@media (min-width: 1400px) {
+@media (width >= 1400px) {
   .section.setup-section p:nth-of-type(2) {
     margin-top: 32px;
     margin-bottom: 32px;

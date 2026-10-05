@@ -480,8 +480,7 @@ $desktop: 991px;
     display: flex;
 }
 
-@media (min-width: 768px) {
-
+@media (width >= 768px) {
     .box-carousel-container.testimonials {
         .testimonial-content  {
             .testimonial-author {
@@ -495,10 +494,8 @@ $desktop: 991px;
     }
 }
 
-@media (min-width: 992px) {
-
+@media (width >= 992px) {
     .box-carousel-container.testimonials {
-
         .default-content-wrapper h2 {
             font-size: var(--heading-font-size-xl);
             line-height: 1.2;
@@ -520,8 +517,7 @@ $desktop: 991px;
 
         .glide__slides {
             display: flex !important;
-            flex-direction: row;
-            flex-wrap: nowrap;
+            flex-flow: row nowrap;
             align-items: stretch;
             gap: 20px;
             width: 100%;

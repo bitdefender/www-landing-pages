@@ -1408,8 +1408,7 @@ main .section.wide.hide-images-mobile .columns-wrapper {
 }
 main .section.wide.hide-images-mobile .columns-wrapper .columns > div {
   padding: 0;
-  column-gap: 58px;
-  row-gap: 20px;
+  gap: 20px 58px;
 }
 main .section.wide.hide-images-mobile .columns-wrapper .columns > div .columns-img-col img {
   width: 100%;
@@ -1525,7 +1524,6 @@ main .section.business-needs .columns-wrapper {
   align-items: stretch;
   margin-bottom: 20px;
 }
-
 .columns.benefits-cards.bordered-cards.v2 > div > div {
   position: relative;
   padding: 24px 24px 24px 80px;
@@ -1539,7 +1537,7 @@ main .section.business-needs .columns-wrapper {
 }
 .columns.benefits-cards.bordered-cards.v2 > div > div p {
   font-size: 14px;
-  margin: 0px;
+  margin: 0;
 }
 .columns.benefits-cards.bordered-cards.v2 > div > div .icon {
   justify-self: center;
@@ -1552,7 +1550,9 @@ main .section.business-needs .columns-wrapper {
   height: 100% !important;
   width: 100% !important;
 }
-
+.columns.benefits-cards.bordered-cards.v2 div.text-content {
+  padding: 0;
+}
 .columns.benefits-cards.bordered-cards.faded > div > div {
   border-color: rgb(197, 201, 206);
   background-color: transparent;
@@ -1634,9 +1634,6 @@ main .section.business-needs .columns-wrapper {
   }
   .columns div.text-content {
     padding: 0 1em;
-  }
-  .columns.benefits-cards.bordered-cards.v2 div.text-content {
-    padding: 0;
   }
   .columns div.text-content h5 {
     font-size: var(--heading-font-size-l);
@@ -2203,8 +2200,7 @@ main .section.business-needs .columns-wrapper {
   .columns-container.comparison .columns > div:first-of-type > div:first-of-type, .columns-container.comparison .columns > div:last-of-type > div:first-of-type, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content {
     padding: 30px 30px 0 !important;
   }
-  .columns-container.comparison .columns > div:first-of-type > div:first-of-type::after, .columns-container.comparison .columns > div:first-of-type > div:first-of-type::before, .columns-container.comparison .columns > div:last-of-type > div:first-of-type::after,
-  .columns-container.comparison .columns > div:last-of-type > div:first-of-type::before, .columns-container.comparison .columns > div:first-of-type > div:nth-of-type(2) .text-content::after, .columns-container.comparison .columns > div:first-of-type > div:nth-of-type(2) .text-content::before, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content::after, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content::before {
+  .columns-container.comparison .columns > div:first-of-type > div:first-of-type::after, .columns-container.comparison .columns > div:first-of-type > div:first-of-type::before, .columns-container.comparison .columns > div:last-of-type > div:first-of-type::after, .columns-container.comparison .columns > div:last-of-type > div:first-of-type::before, .columns-container.comparison .columns > div:first-of-type > div:nth-of-type(2) .text-content::after, .columns-container.comparison .columns > div:first-of-type > div:nth-of-type(2) .text-content::before, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content::after, .columns-container.comparison .columns > div:last-of-type > div:nth-of-type(2) .text-content::before {
     background: none;
     background-color: transparent;
     border: 0 none;
@@ -2293,7 +2289,7 @@ main .section.business-needs .columns-wrapper {
     width: auto;
   }
 }
-@media (min-width: 992px) {
+@media (width >= 992px) {
   .columns-container.dynamic-awards .columns-img-col {
     flex: 1;
   }
@@ -2371,12 +2367,12 @@ main .section.business-needs .columns-wrapper {
     font-size: 14px;
   }
 }
-@media (min-width: 1400px) {
+@media (width >= 1400px) {
   main .section.wide .columns-wrapper {
     padding: 0 var(--section-large-desktop-padding) 56px;
   }
   main .section.business-needs .columns-wrapper {
-    padding: 0 20px 0;
+    padding: 0 20px;
   }
   main .section.wide.dynamic-awards .default-content-wrapper p {
     font-size: var(--body-font-size-s);
@@ -2389,7 +2385,7 @@ main .section.business-needs .columns-wrapper {
     font-size: var(--body-font-size-s);
   }
 }
-@media (min-width: 1600px) {
+@media (width >= 1600px) {
   .columns-container.blue-heading .columns-wrapper,
   .columns-container.faded .columns-wrapper {
     max-width: var(--section-large-desktop-max-width);

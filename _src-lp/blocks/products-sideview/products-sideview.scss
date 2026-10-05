@@ -204,7 +204,6 @@
 }
 
 .products-sideview-container.products-sideview-container-new-design {
-
   .products-sideview-selector::after {
     top: unset;
     bottom: 14px;
@@ -218,6 +217,151 @@
 
   .products-sideview-wrapper {
   padding: 0;
+  }
+
+  .products-sideview {
+    border-radius: 20px;
+    border: #C5C9CE 1px solid;
+
+    h4 {
+      font-size: var(--heading-font-size-xs);
+      line-height: 1.25;
+      margin-bottom: 9px;
+      color: #006DFF;
+      margin-top: 0;
+    }
+
+    h2 {
+      font-size: var(--heading-font-size-l);
+      margin-top: 0;
+    }
+
+    h4 + p {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 18px;
+    }
+
+    .pricing-wrapper {
+      background-color: #FAFAFA;
+
+      p:last-of-type {
+        text-align: center;
+        font-size: 18px;
+      }
+
+      ul {
+        display: flex;
+        justify-content: space-between;
+
+        li {
+          background-color: #F0F7FF;
+          padding: 8px;
+          border-radius: 20px;
+
+          &::before {
+            content: none;
+          }
+
+          .tag-blue {
+            display: none;
+          }
+
+          .benefits-placeholder {
+            font-weight: bold;
+          }
+
+        }
+      }
+
+      input[type="radio"] {
+        appearance: none;
+        border-radius: 50%;
+        border: 2px solid #88909B;
+        height: 20px;
+        width: 20px;
+        aspect-ratio: 1/1;
+        padding: 0;
+
+        &:checked {
+          border: 4px solid #006DFF;
+        }
+      }
+
+      .products-sideview-selector select {
+        border-color: #006DFF;
+      }
+
+      .prod-oldprice-container {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .prod-save {
+        background-color: #D1FADC;
+        border-radius: 20px;
+        color: #0B6A26;
+        padding: 4px 8px;
+      }
+    }
+
+    .features-wrapper {
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      background-color: #FAFAFA;
+      border-left: #C5C9CE 1px solid;
+
+      ul {
+        display: grid;
+        gap: 16px;
+
+        li {
+          position: relative;
+          display: flex;
+          padding-left: 32px;
+          font-size: 14px;
+          font-weight: var(--font-weight-regular);
+          color: black;
+
+          &::before {
+            content: url("/_src-lp/icons/checkmark_solid-circle_2.svg");
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 24px;
+            height: 24px;
+          }
+        }
+      }
+
+      table {
+        background-color: #F0F7FF;
+        padding: 24px;
+        border-radius: 20px;
+        border-collapse: unset;
+        margin-top: 20px;
+
+        tr {
+          display: flex;
+          align-items: flex-start;
+          gap: 16px;
+
+          .icon {
+            width: 32px;
+            height: 32px;
+          }
+        }
+
+        p {
+          font-size: 16px;
+
+          strong {
+            color: #006DFF;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -426,154 +570,6 @@
   }
 }
 
-
-.products-sideview-container.products-sideview-container-new-design {
-  .products-sideview {
-    border-radius: 20px;
-    border: #C5C9CE 1px solid;
-
-    h4 {
-      font-size: var(--heading-font-size-xs);
-      line-height: 1.25;
-      margin-bottom: 9px;
-      color: #006DFF;
-      margin-top: 0;
-    }
-
-    h2 {
-      font-size: var(--heading-font-size-l);
-      margin-top: 0;
-    }
-
-    h4 + p {
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 18px;
-    }
-
-    .pricing-wrapper {
-      background-color: #FAFAFA;
-
-      p:last-of-type {
-        text-align: center;
-        font-size: 18px;
-      }
-
-      ul {
-        display: flex;
-        justify-content: space-between;
-
-        li {
-          background-color: #F0F7FF;
-          padding: 8px;
-          border-radius: 20px;
-
-          &::before {
-            content: none;
-          }
-
-          .tag-blue {
-            display: none;
-          }
-
-          .benefits-placeholder {
-            font-weight: bold;
-          }
-
-        }
-      }
-
-      input[type="radio"] {
-        appearance: none;
-        border-radius: 50%;
-        border: 2px solid #88909B;
-        height: 20px;
-        width: 20px;
-        aspect-ratio: 1/1;
-        padding: 0;
-
-        &:checked {
-          border: 4px solid #006DFF;
-        }
-      }
-
-      .products-sideview-selector select {
-        border-color: #006DFF;
-      }
-
-      .prod-oldprice-container {
-        display: flex;
-        gap: 16px;
-        align-items: center;
-      }
-
-      .prod-save {
-        background-color: #D1FADC;
-        border-radius: 20px;
-        color: #0B6A26;
-        padding: 4px 8px;
-      }
-    }
-
-    .features-wrapper {
-      justify-content: center;
-      display: flex;
-      flex-direction: column;
-      background-color: #FAFAFA;
-      border-left: #C5C9CE 1px solid;
-
-      ul {
-        display: grid;
-        gap: 16px;
-
-        li {
-          position: relative;
-          display: flex;
-          padding-left: 32px;
-          font-size: 14px;
-          font-weight: var(--font-weight-regular);
-          color: black;
-
-          &::before {
-            content: url("/_src-lp/icons/checkmark_solid-circle_2.svg");
-            position: absolute;
-            left: 0;
-            top: 4px;
-            width: 24px;
-            height: 24px;
-          }
-        }
-      }
-
-      table {
-        background-color: #F0F7FF;
-        padding: 24px;
-        border-radius: 20px;
-        border-collapse: unset;
-        margin-top: 20px;
-
-        tr {
-          display: flex;
-          align-items: flex-start;
-          gap: 16px;
-
-          .icon {
-            width: 32px;
-            height: 32px;
-          }
-        }
-
-        p {
-          font-size: 16px;
-
-          strong {
-            color: #006DFF;
-          }
-        }
-      }
-    }
-  }
-}
-
 @media (width >= 480px) {
   .products-sideview .features-tabs li > a {
     font-size: 16px;
@@ -639,7 +635,6 @@
   }
 
   .products-sideview-container.products-sideview-container-new-design .products-sideview {
-
     h2 {
       font-size: 38px;
       line-height: 45.6px;

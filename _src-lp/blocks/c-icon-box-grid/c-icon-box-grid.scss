@@ -748,7 +748,6 @@
 }
 
 .c-icon-box-grid-container.trust-pills {
-
   .block > div > .row {
     gap: 20px;
   }
@@ -941,7 +940,6 @@
   }
 
   .c-icon-box-grid-container.trust-pills {
-
     .block > div > .row {
       align-items: unset;
       justify-content: unset;
@@ -956,7 +954,7 @@
       }
 
       &:not(:last-of-type) {
-        border-right: 1px solid rgb(214, 232, 255);
+        border-right: 1px solid rgb(214 232 255);
       }
     }
 

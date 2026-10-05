@@ -374,7 +374,7 @@
   display: flex;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .box-carousel-container.testimonials .testimonial-content .testimonial-author {
     font-size: 22px;
   }
@@ -382,7 +382,7 @@
     font-size: 12px;
   }
 }
-@media (min-width: 992px) {
+@media (width >= 992px) {
   .box-carousel-container.testimonials .default-content-wrapper h2 {
     font-size: var(--heading-font-size-xl);
     line-height: 1.2;
@@ -400,8 +400,7 @@
   }
   .box-carousel-container.testimonials .glide__slides {
     display: flex !important;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-flow: row nowrap;
     align-items: stretch;
     gap: 20px;
     width: 100%;
