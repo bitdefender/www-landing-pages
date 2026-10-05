@@ -1,3 +1,7 @@
+import { loadCSS } from '../../scripts/lib-franklin.js';
+
+loadCSS(new URL('./review.css', import.meta.url).pathname);
+
 export default class ReviewComponent {
   #rating;
 
