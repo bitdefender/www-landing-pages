@@ -306,28 +306,20 @@
   fill: white;
 }
 
-.switchBox .switch input:checked ~ .label.left .icon svg .prod-box.individual-box {
-  transition: all 0.4s;
-}
-
 .prod_box.family-box {
   display: none;
-  transition: all 0.4s;
 }
 
 .reverted .prod_box.family-box {
   display: block;
-  transition: all 0.4s;
 }
 
 .prod_box.individual-box {
   display: block;
-  transition: all 0.4s;
 }
 
 .reverted .prod_box.individual-box {
   display: none;
-  transition: all 0.4s;
 }
 
 .new-prod-boxes-container.bf-2025 {
