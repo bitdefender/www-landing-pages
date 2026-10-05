@@ -71,50 +71,13 @@ class TextScramble {
     }
 }
 
-/* ---------- Original slider arrows ---------- */
-
-const ARROW_SVG_LEFT = `
-<svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.34315 1.41419L7.92893 -2.2769e-05L0.857865 7.07104L2.27208 8.48526L9.34315 1.41419Z" fill="#A6ADB4"/>
-<path d="M2.27208 5.65683L0.857865 7.07104L7.92893 14.1421L9.34315 12.7279L2.27208 5.65683Z" fill="#A6ADB4"/>
-</svg>
-`;
-
-const ARROW_SVG_RIGHT = `
-<svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M0.656854 1.41419L2.07107 -2.2769e-05L9.14214 7.07104L7.72792 8.48526L0.656854 1.41419Z" fill="white"/>
-<path d="M7.72792 5.65683L9.14214 7.07104L2.07107 14.1421L0.656854 12.7279L7.72792 5.65683Z" fill="white"/>
-</svg>
-`;
-
-/* ---------- Testimonials slider arrows ---------- */
-
-const TESTIMONIAL_ARROW_PATH = `<path fill="#000" d="M4415 5430 c-92 -20 -148 -113 -125 -203 10 -37 83 -114 638 -669
-l627 -628 -2011 0 -2011 0 -43 -23 c-73 -38 -108 -129 -79 -204 15 -42 68 -92
-109 -103 22 -6 753 -10 2035 -10 l2000 0 -611 -604 c-354 -351 -618 -619 -628
--639 -70 -149 79 -302 222 -228 21 11 374 358 804 788 843 845 803 799 778
-896 -10 37 -95 125 -788 820 -427 428 -788 784 -802 791 -35 18 -79 24 -115
-16z"></path>`;
-
-const TESTIMONIAL_ARROW_RIGHT = `
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752 752" width="24" height="24" preserveAspectRatio="xMidYMid meet">
-  <g transform="translate(0,752) scale(0.1,-0.1)">${TESTIMONIAL_ARROW_PATH}</g>
-</svg>
-`;
-
-// Same icon, mirrored horizontally
-const TESTIMONIAL_ARROW_LEFT = `
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752 752" width="24" height="24" preserveAspectRatio="xMidYMid meet">
-  <g transform="translate(752,752) scale(-0.1,-0.1)">${TESTIMONIAL_ARROW_PATH}</g>
-</svg>
-`;
-
 const ANIMATION_TIMING = 'cubic-bezier(0.165, 0.840, 0.440, 1.000)';
 
 /**
  * Per-variant configuration.
  * - default: the original slider (slider below 991px)
- * - testimonials: slider below 992px, static row of cards above (handled in CSS)
+ * - testimonials: slider on every screen size
+ *   (1 slide on mobile, 2 on tablet, 4 on desktop)
  */
 const CAROUSEL_CONFIGS = {
     default: {
@@ -135,11 +98,11 @@ const CAROUSEL_CONFIGS = {
         },
     },
     testimonials: {
-        shouldUseCarousel: () => window.innerWidth < 992,
+        shouldUseCarousel: () => true,
         glideOptions: {
             type: 'slider',
             gap: 20,
-            perView: 2,
+            perView: 4,
             bound: true,
             rewind: false,
             touchRatio: 0.5,
@@ -149,7 +112,9 @@ const CAROUSEL_CONFIGS = {
             animationDuration: 400,
             animationTimingFunc: ANIMATION_TIMING,
             peek: 0,
+            // Glide breakpoints are max-width values
             breakpoints: {
+                991: { perView: 2 },
                 767: { perView: 1 },
             },
         },
@@ -236,20 +201,14 @@ function generateNavDotsHTML(slides) {
 }
 
 /**
- * Generates HTML for arrow navigation
- * @param {boolean} isTestimonials - Use testimonial arrow icons
+ * Generates HTML for arrow navigation.
+ * Icons are rendered via CSS (see .arrow::before in box-carousel.scss).
  * @returns {string} HTML string for arrows
  */
-function generateArrowsHTML(isTestimonials = false) {
-    const left = isTestimonials ? TESTIMONIAL_ARROW_LEFT : ARROW_SVG_LEFT;
-    const right = isTestimonials ? TESTIMONIAL_ARROW_RIGHT : ARROW_SVG_RIGHT;
+function generateArrowsHTML() {
     return `
-      <a href class="arrow disabled left-arrow" aria-label="Previous slide">
-        ${left}
-      </a>
-      <a href class="arrow right-arrow" aria-label="Next slide">
-        ${right}
-      </a>
+      <a href class="arrow disabled left-arrow" aria-label="Previous slide"></a>
+      <a href class="arrow right-arrow" aria-label="Next slide"></a>
   `;
 }
 
@@ -257,13 +216,12 @@ function generateArrowsHTML(isTestimonials = false) {
  * Builds the carousel HTML structure
  * @param {Array} slides - Array of slide elements
  * @param {Function} slidesGenerator - Function that turns slides into <li> HTML
- * @param {boolean} isTestimonials - Whether this is the testimonials variant
  * @returns {string} Complete carousel HTML
  */
-function buildCarouselHTML(slides, slidesGenerator = generateSlidesHTML, isTestimonials = false) {
+function buildCarouselHTML(slides, slidesGenerator = generateSlidesHTML) {
     const slidesHTML = slidesGenerator(slides);
     const navDotsHTML = generateNavDotsHTML(slides);
-    const arrowsHTML = generateArrowsHTML(isTestimonials);
+    const arrowsHTML = generateArrowsHTML();
 
     return `
     <div class="carousel-header">
@@ -471,6 +429,15 @@ function manageCarousel(block, slides, config = CAROUSEL_CONFIGS.default) {
 
     // Listen for resize events
     window.addEventListener('resize', handleResize);
+
+    // Recalculate slide widths whenever the block's own width changes
+    // (e.g. the section was still hidden while the slider was mounting)
+    if ('ResizeObserver' in window) {
+        const resizeObserver = new ResizeObserver(debounce(() => {
+            if (glide) glide.update();
+        }, 100));
+        resizeObserver.observe(block);
+    }
     window.dispatchEvent(new Event('resize'));
     return {
         glide,
@@ -520,7 +487,6 @@ export default async function decorate(block) {
     block.innerHTML = buildCarouselHTML(
         slides,
         isTestimonials ? generateTestimonialSlidesHTML : generateSlidesHTML,
-        isTestimonials,
     );
 
     // Decorate icons and replace dividers

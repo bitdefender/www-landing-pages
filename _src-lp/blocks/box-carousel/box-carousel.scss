@@ -26,14 +26,22 @@ $desktop: 991px;
         background: $arrow-bg;
         border-radius: 50%;
 
-        svg {
+        &::before {
+            content: "";
+            display: block;
             width: 10px;
             height: 10px;
-            fill: white;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
 
-            path {
-                fill: white;
-            }
+        &.left-arrow::before {
+            background-image: url("/_src-lp/icons/box-carousel-arrow-left.svg");
+        }
+
+        &.right-arrow::before {
+            background-image: url("/_src-lp/icons/box-carousel-arrow-right.svg");
         }
     }
 
@@ -295,76 +303,81 @@ $desktop: 991px;
     }
 
     @media screen and (min-width: $desktop) {
-        ul.glide__slides {
-            display: grid !important;
-            grid-auto-flow: row;
-            gap: 40px;
-            width: 100% !important;
-            transform: none !important;
-            padding: 0 20px;
-            padding-bottom: 50px;
+        // Static grid layout for the default variant only;
+        // the testimonials variant stays a slider on desktop.
+        // Scoped to the block class set in JS so it never leaks into testimonials.
+        .box-carousel:not(.box-carousel--testimonials) {
+            ul.glide__slides {
+                display: grid !important;
+                grid-auto-flow: row;
+                gap: 40px;
+                width: 100% !important;
+                transform: none !important;
+                padding: 0 20px;
+                padding-bottom: 50px;
 
-            // overflow: hidden;
-            // overflow-y: visible;
-        }
+                // overflow: hidden;
+                // overflow-y: visible;
+            }
 
-        .carousel-item {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            width: 100%;
-            margin: 0;
-            padding: 0;
+            .carousel-item {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                width: 100%;
+                margin: 0;
+                padding: 0;
 
-            &.odd {
-                flex-direction: row-reverse;
+                &.odd {
+                    flex-direction: row-reverse;
+
+                    .images-container {
+                        .image-2 {
+                            transform: translate(-75%, 30%);
+                        }
+                    }
+                }
+
+                &>:first-child {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    max-width: 410px;
+
+                    h3 {
+                        em {
+                            justify-content: flex-start;
+                        }
+                    }
+
+                    p.text-element {
+                        text-align: left;
+                        line-height: normal;
+                        margin-top: 30px;
+                    }
+                }
 
                 .images-container {
+                    display: block;
+                    width: 100%;
+                    max-width: 610px;
+
                     .image-2 {
-                        transform: translate(-75%, 30%);
+                        transform: translate(-25%, 30%);
+                    }
+
+                    &.mobile-images-container {
+                        display: none;
                     }
                 }
             }
 
-            &>:first-child {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                max-width: 410px;
-
-                h3 {
-                    em {
-                        justify-content: flex-start;
-                    }
-                }
-
-                p.text-element {
-                    text-align: left;
-                    line-height: normal;
-                    margin-top: 30px;
-                }
+            // Hide navigation elements on desktop
+            .carousel-header,
+            .carousel-nav {
+                display: none !important;
             }
-
-            .images-container {
-                display: block;
-                width: 100%;
-                max-width: 610px;
-
-                .image-2 {
-                    transform: translate(-25%, 30%);
-                }
-
-                &.mobile-images-container {
-                    display: none;
-                }
-            }
-        }
-
-        // Hide navigation elements on desktop
-        .carousel-header,
-        .carousel-nav {
-            display: none !important;
         }
     }
 }
@@ -396,13 +409,17 @@ $desktop: 991px;
             color: black;
             background: unset;
 
-            svg {
-                width: 100%;
+            &::before {
+                width: 50px;
                 height: 50px;
             }
 
-            svg path {
-                fill: black;
+            &.left-arrow::before {
+                background-image: url("/_src-lp/icons/testimonial-arrow-left.svg");
+            }
+
+            &.right-arrow::before {
+                background-image: url("/_src-lp/icons/testimonial-arrow-right.svg");
             }
         }
     }
@@ -511,27 +528,7 @@ $desktop: 991px;
             }
         }
 
-        .glide__track {
-            overflow: visible;
-        }
-
-        .glide__slides {
-            display: flex !important;
-            flex-flow: row nowrap;
-            align-items: stretch;
-            gap: 20px;
-            width: 100%;
-            transform: none;
-        }
-
-        .testimonial-item {
-            flex: 1 1 0;
-            min-width: 0;
-            width: auto;
-            margin: 0;
-        }
-
-        .carousel-header, .carousel-nav {
+        .carousel-header {
             display: none !important;
         }
     }
