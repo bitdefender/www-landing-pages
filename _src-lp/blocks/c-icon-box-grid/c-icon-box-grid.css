@@ -736,6 +736,33 @@
   padding: 15px;
 }
 
+.c-icon-box-grid-container.trust-pills .block > div > .row {
+  gap: 20px;
+}
+.c-icon-box-grid-container.trust-pills .container {
+  max-width: unset;
+}
+.c-icon-box-grid-container.trust-pills .new-blue {
+  background-color: #F0F7FF;
+  padding: 24px 12px;
+}
+.c-icon-box-grid-container.trust-pills .quotebox .icon-box {
+  position: absolute;
+}
+.c-icon-box-grid-container.trust-pills .quotebox .icon-box .icon {
+  height: 32px;
+  width: 32px;
+}
+.c-icon-box-grid-container.trust-pills .quotebox .title, .c-icon-box-grid-container.trust-pills .quotebox .subtitle {
+  padding-left: 40px;
+}
+.c-icon-box-grid-container.trust-pills .quotebox .title {
+  font-size: 18px;
+  color: #006DFF;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
 @media screen and (width >= 992px) {
   .c-icon-box-grid-container .title {
     font-size: var(--body-font-size-xs);
@@ -859,6 +886,20 @@
   .c-icon-box-grid-container .c-icon-box-grid.narrow-cards .quotebox {
     width: 30%;
     max-width: 300px;
+  }
+  .c-icon-box-grid-container.trust-pills .block > div > .row {
+    align-items: unset;
+    justify-content: unset;
+  }
+  .c-icon-box-grid-container.trust-pills .quotebox {
+    flex: 1;
+    width: auto;
+  }
+  .c-icon-box-grid-container.trust-pills .quotebox .subtitle {
+    max-width: unset;
+  }
+  .c-icon-box-grid-container.trust-pills .quotebox:not(:last-of-type) {
+    border-right: 1px solid rgb(214, 232, 255);
   }
 }
 @media screen and (width <= 992px) {
