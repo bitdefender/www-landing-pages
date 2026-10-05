@@ -1244,63 +1244,65 @@ export async function matchHeights(targetNode, selector, onMobile = undefined) {
     resizeObserver.observe(element);
   });
 
-  adjustHeights();
+    let newValue = '';
+    if (matcher.isEnabled() && elements.length) {
+      newValue = `${Math.max(...elements.map(measure))}px`;
+    }
+
+    elements.forEach((element) => {
+      element.style[property] = newValue;
+    });
+  };
+
+  const resizeObserver = new ResizeObserver(() => matcher.schedule());
+
+  const observeElements = () => {
+    targetNode.querySelectorAll(selector).forEach((element) => {
+      if (observedElements.has(element)) return;
+      observedElements.add(element);
+      resizeObserver.observe(element);
+    });
+  };
+
+  matcher.schedule = () => {
+    if (isScheduled) return;
+    isScheduled = true;
+    queueMicrotask(adjust);
+  };
+
+  const mutationObserver = new MutationObserver(() => {
+    observeElements();
+    matcher.schedule();
+  });
+  mutationObserver.observe(targetNode, { childList: true, characterData: true, subtree: true });
+
+  window.addEventListener('resize', matcher.schedule);
+  // text that shrinks after a font swap doesn't trigger the ResizeObserver,
+  // because the element is held by its min-height / min-width
+  document.fonts?.ready.then(matcher.schedule);
+  window.addEventListener('load', matcher.schedule, { once: true });
+
+  nodeMatchers.set(key, matcher);
+  observeElements();
+  adjust();
+}
+
+// General function to match the height of elements based on a selector
+export async function matchHeights(targetNode, selector, onMobile = undefined) {
+  matchDimension(targetNode, selector, {
+    property: 'minHeight',
+    measure: (element) => element.offsetHeight,
+    isEnabled: () => onMobile || window.innerWidth >= 768,
+  });
 }
 
 // General function to match the width of elements based on a selector
 export async function matchWidths(targetNode, selector, windowMaxInnerWidth = 768) {
-  const resetWidths = () => {
-    const elements = targetNode.querySelectorAll(selector);
-    elements.forEach((element) => {
-      element.style.minWidth = '';
-    });
-  };
-
-  const adjustWidths = () => {
-    if (window.innerWidth >= windowMaxInnerWidth) {
-      resetWidths();
-      const elements = targetNode.querySelectorAll(selector);
-      const elementsWidth = Array.from(elements).map((element) => element.offsetWidth);
-      const maxWidth = Math.max(...elementsWidth);
-
-      elements.forEach((element) => {
-        element.style.minWidth = `${maxWidth}px`;
-      });
-    } else {
-      resetWidths();
-    }
-  };
-
-  const matchWidthsCallback = (mutationsList) => {
-    Array.from(mutationsList).forEach((mutation) => {
-      if (mutation.type === 'childList') {
-        adjustWidths();
-      }
-    });
-  };
-
-  const observer = new MutationObserver(matchWidthsCallback);
-  const resizeObserver = new ResizeObserver(debounce((entries) => {
-    // eslint-disable-next-line no-unused-vars
-    entries.forEach((entry) => {
-      adjustWidths();
-    });
-  }), 100);
-
-  if (targetNode) {
-    observer.observe(targetNode, { childList: true, subtree: true });
-  }
-
-  window.addEventListener('resize', () => {
-    adjustWidths();
+  matchDimension(targetNode, selector, {
+    property: 'minWidth',
+    measure: (element) => element.offsetWidth,
+    isEnabled: () => window.innerWidth >= windowMaxInnerWidth,
   });
-
-  const elements = targetNode.querySelectorAll(selector);
-  elements.forEach((element) => {
-    resizeObserver.observe(element);
-  });
-
-  adjustWidths();
 }
 
 /**

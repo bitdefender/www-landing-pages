@@ -86,3 +86,188 @@
         width: 100%;
     }
 }
+
+/* ===== superapp: "Upgrade to Family at no extra cost today" offer band (values from XD) ===== */
+.decode-param-container.superapp .decode-param > div > div {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 2px solid #1c7928;
+    border-radius: 20px;
+    overflow: hidden;
+    font-family: "IBM Plex Sans", sans-serif;
+    text-align: center;
+    color: #000;
+}
+
+/* green panel behind the heading, button and secure-checkout line */
+.decode-param-container.superapp .decode-param > div > div::before {
+    content: '';
+    grid-column: 1;
+    grid-row: 1 / 3;
+    background-color: #1c7928;
+}
+
+.decode-param-container.superapp .decode-param h1 {
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 326px;
+    margin: 0 auto;
+    padding-top: 31px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.decode-param-container.superapp .decode-param h1 strong {
+    font-weight: 700;
+}
+
+.decode-param-container.superapp .decode-param > div > div > p {
+    position: relative;
+    grid-column: 1;
+    grid-row: 2;
+    margin: 26px 0 0;
+    padding-bottom: 33px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #fff;
+}
+
+.decode-param-container.superapp .decode-param > div > div > p br {
+    display: none;
+}
+
+.decode-param-container.superapp .decode-param > div > div > p a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 48px;
+    margin: 0 auto 31px;
+    padding: 0 12px;
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1c7928;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.decode-param-container.superapp .decode-param > div > div > p a:hover,
+.decode-param-container.superapp .decode-param > div > div > p a:focus-visible {
+    background-color: #e7f1e9;
+    color: #1c7928;
+    text-decoration: none;
+}
+
+.decode-param-container.superapp .decode-param > div > div > p a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.decode-param-container.superapp .decode-param > div > div > p .icon {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin-right: 12px;
+    vertical-align: -3px;
+}
+
+.decode-param-container.superapp .decode-param > div > div > p .icon svg {
+    display: block;
+}
+
+.decode-param-container.superapp .decode-param > div > div > p .icon svg path {
+    fill: #fff;
+}
+
+.decode-param-container.superapp .decode-param table {
+    grid-column: 1;
+    width: auto;
+    margin: 28px 24px 0;
+    text-align: left;
+}
+
+.decode-param-container.superapp .decode-param table tr {
+    align-items: center;
+    gap: 22px;
+    margin: 0 0 29px;
+    padding: 0;
+    border-bottom: 0 none;
+}
+
+.decode-param-container.superapp .decode-param table tr td {
+    padding: 0;
+    font-size: 16px;
+    line-height: 21px;
+    color: #000;
+}
+
+.decode-param-container.superapp .decode-param table tr td:first-child {
+    flex: 0 0 41px;
+    line-height: 0;
+}
+
+/* item title (text before the first <br>, wrapped in <strong> by decode-param.js) */
+.decode-param-container.superapp .decode-param table tr td:last-child > strong:first-child {
+    display: block;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 700;
+}
+
+.decode-param-container.superapp .decode-param table tr td:last-child > strong:first-child + br {
+    display: none;
+}
+
+.decode-param-container.superapp .decode-param table .icon {
+    display: block;
+    width: auto;
+}
+
+.decode-param-container.superapp .decode-param table .icon svg {
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.decode-param-container.superapp .decode-param table svg path {
+    fill: #1c7928;
+}
+
+@media (width >= 992px) {
+    /* XD: 60px below the hero banner, 54px above "Why try Family?" */
+    .decode-param-container.superapp {
+        padding-top: 28px;
+        padding-bottom: 23px;
+    }
+
+    .decode-param-container.superapp .decode-param > div > div {
+        grid-template-columns: 400px 1fr;
+        grid-template-rows: auto 1fr;
+        min-height: 267px;
+    }
+
+    .decode-param-container.superapp .decode-param h1 {
+        font-size: 32px;
+        line-height: 38px;
+    }
+
+    .decode-param-container.superapp .decode-param > div > div > p {
+        align-self: start;
+    }
+
+    .decode-param-container.superapp .decode-param table {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        margin: 28px 40px 0 34px;
+    }
+}

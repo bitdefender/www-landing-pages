@@ -64,6 +64,14 @@ export default function decorate(block) {
 
   contentEl.innerHTML = contentEl.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
 
+  // authors write the lead + icon bullets as one paragraph with line breaks; split so each line can be styled
+  if (parentBlock.classList.contains('installforfamily')) {
+    contentEl.querySelectorAll('p').forEach((p) => {
+      if (!p.querySelector('br + .icon')) return;
+      p.outerHTML = p.innerHTML.split(/<br\s*\/?>/i).map((line) => `<p>${line}</p>`).join('');
+    });
+  }
+
   // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     let prodName;
