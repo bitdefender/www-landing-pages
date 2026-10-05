@@ -71,6 +71,8 @@ class TextScramble {
     }
 }
 
+/* ---------- Original slider arrows ---------- */
+
 const ARROW_SVG_LEFT = `
 <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9.34315 1.41419L7.92893 -2.2769e-05L0.857865 7.07104L2.27208 8.48526L9.34315 1.41419Z" fill="#A6ADB4"/>
@@ -85,8 +87,77 @@ const ARROW_SVG_RIGHT = `
 </svg>
 `;
 
+/* ---------- Testimonials slider arrows ---------- */
+
+const TESTIMONIAL_ARROW_PATH = `<path fill="#000" d="M4415 5430 c-92 -20 -148 -113 -125 -203 10 -37 83 -114 638 -669
+l627 -628 -2011 0 -2011 0 -43 -23 c-73 -38 -108 -129 -79 -204 15 -42 68 -92
+109 -103 22 -6 753 -10 2035 -10 l2000 0 -611 -604 c-354 -351 -618 -619 -628
+-639 -70 -149 79 -302 222 -228 21 11 374 358 804 788 843 845 803 799 778
+896 -10 37 -95 125 -788 820 -427 428 -788 784 -802 791 -35 18 -79 24 -115
+16z"></path>`;
+
+const TESTIMONIAL_ARROW_RIGHT = `
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752 752" width="24" height="24" preserveAspectRatio="xMidYMid meet">
+  <g transform="translate(0,752) scale(0.1,-0.1)">${TESTIMONIAL_ARROW_PATH}</g>
+</svg>
+`;
+
+// Same icon, mirrored horizontally
+const TESTIMONIAL_ARROW_LEFT = `
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752 752" width="24" height="24" preserveAspectRatio="xMidYMid meet">
+  <g transform="translate(752,752) scale(-0.1,-0.1)">${TESTIMONIAL_ARROW_PATH}</g>
+</svg>
+`;
+
+const ANIMATION_TIMING = 'cubic-bezier(0.165, 0.840, 0.440, 1.000)';
+
 /**
- * Generates HTML for carousel slides
+ * Per-variant configuration.
+ * - default: the original slider (slider below 991px)
+ * - testimonials: slider below 992px, static row of cards above (handled in CSS)
+ */
+const CAROUSEL_CONFIGS = {
+    default: {
+        shouldUseCarousel: () => window.innerWidth < 991,
+        glideOptions: {
+            type: 'carousel',
+            gap: 20,
+            perView: 1,
+            focusAt: 'center',
+            touchRatio: 0.5,
+            touchAngle: 45,
+            dragThreshold: 120,
+            swipeThreshold: 80,
+            animationDuration: 400,
+            animationTimingFunc: ANIMATION_TIMING,
+            peek: 0,
+            bound: true,
+        },
+    },
+    testimonials: {
+        shouldUseCarousel: () => window.innerWidth < 992,
+        glideOptions: {
+            type: 'slider',
+            gap: 20,
+            perView: 2,
+            bound: true,
+            rewind: false,
+            touchRatio: 0.5,
+            touchAngle: 45,
+            dragThreshold: 120,
+            swipeThreshold: 80,
+            animationDuration: 400,
+            animationTimingFunc: ANIMATION_TIMING,
+            peek: 0,
+            breakpoints: {
+                767: { perView: 1 },
+            },
+        },
+    },
+};
+
+/**
+ * Generates HTML for carousel slides (original slider)
  * @param {Array} slides - Array of slide elements
  * @returns {string} HTML string for all slides
  */
@@ -113,6 +184,47 @@ function generateSlidesHTML(slides) {
 }
 
 /**
+ * Generates HTML for testimonial slides
+ * Expected structure per slide:
+ *   <div><div data-valign="middle">
+ *     <p>Name<br>---</p>
+ *     <table>...stars... | date</table>
+ *     <p>Review text</p>
+ *   </div></div>
+ * @param {Array} slides - Array of slide elements
+ * @returns {string} HTML string for all slides
+ */
+function generateTestimonialSlidesHTML(slides) {
+    return slides.map((slide) => {
+        const content = slide.querySelector('[data-valign]') || slide.firstElementChild || slide;
+        const paragraphs = content.querySelectorAll(':scope > p');
+
+        content.classList.add('testimonial-content');
+        paragraphs[0]?.classList.add('testimonial-author');
+        content.querySelector('table')?.classList.add('testimonial-rating');
+        if (paragraphs.length > 1) {
+            paragraphs[paragraphs.length - 1].classList.add('testimonial-text');
+        }
+
+        return `
+    <li class="carousel-item glide__slide testimonial-item">
+      ${slide.innerHTML}
+    </li>
+  `;
+    }).join('');
+}
+
+/**
+ * Removes empty rows (e.g. the empty first <div> authors leave in the doc)
+ * @param {Array} slides - Array of slide elements
+ * @returns {Array} Non-empty slides
+ */
+function filterEmptySlides(slides) {
+    return slides.filter((slide) => slide.textContent.trim() !== ''
+        || slide.querySelector('img, svg, picture'));
+}
+
+/**
  * Generates HTML for navigation dots
  * @param {Array} slides - Array of slide elements
  * @returns {string} HTML string for navigation dots
@@ -125,15 +237,18 @@ function generateNavDotsHTML(slides) {
 
 /**
  * Generates HTML for arrow navigation
+ * @param {boolean} isTestimonials - Use testimonial arrow icons
  * @returns {string} HTML string for arrows
  */
-function generateArrowsHTML() {
+function generateArrowsHTML(isTestimonials = false) {
+    const left = isTestimonials ? TESTIMONIAL_ARROW_LEFT : ARROW_SVG_LEFT;
+    const right = isTestimonials ? TESTIMONIAL_ARROW_RIGHT : ARROW_SVG_RIGHT;
     return `
-      <a href class="arrow disabled left-arrow">
-        ${ARROW_SVG_LEFT}
+      <a href class="arrow disabled left-arrow" aria-label="Previous slide">
+        ${left}
       </a>
-      <a href class="arrow right-arrow">
-        ${ARROW_SVG_RIGHT}
+      <a href class="arrow right-arrow" aria-label="Next slide">
+        ${right}
       </a>
   `;
 }
@@ -141,12 +256,14 @@ function generateArrowsHTML() {
 /**
  * Builds the carousel HTML structure
  * @param {Array} slides - Array of slide elements
+ * @param {Function} slidesGenerator - Function that turns slides into <li> HTML
+ * @param {boolean} isTestimonials - Whether this is the testimonials variant
  * @returns {string} Complete carousel HTML
  */
-function buildCarouselHTML(slides) {
-    const slidesHTML = generateSlidesHTML(slides);
+function buildCarouselHTML(slides, slidesGenerator = generateSlidesHTML, isTestimonials = false) {
+    const slidesHTML = slidesGenerator(slides);
     const navDotsHTML = generateNavDotsHTML(slides);
-    const arrowsHTML = generateArrowsHTML();
+    const arrowsHTML = generateArrowsHTML(isTestimonials);
 
     return `
     <div class="carousel-header">
@@ -170,14 +287,19 @@ function buildCarouselHTML(slides) {
 }
 
 /**
- * Updates navigation dots to reflect current slide
+ * Updates navigation dots to reflect current slide.
+ * Dots for positions that can't be reached (when perView > 1) are hidden.
  * @param {HTMLElement} block - The carousel block element
  * @param {Object} glide - Glide instance
  */
 function updateNav(block, glide) {
     const navDots = block.querySelectorAll('.navigation-item');
+    const perView = glide.settings.perView || 1;
+    const maxIndex = Math.max(navDots.length - perView, 0);
+
     navDots.forEach((dot, idx) => {
         dot.classList.toggle('active', idx === glide.index);
+        dot.style.display = idx > maxIndex ? 'none' : '';
     });
 }
 
@@ -248,14 +370,6 @@ function setupArrowHandlers(block, glide) {
 }
 
 /**
- * Checks if carousel should be active based on screen width
- * @returns {boolean} True if screen width is below 768px
- */
-function shouldUseCarousel() {
-    return window.innerWidth < 991;
-}
-
-/**
  * Shows or hides navigation elements based on carousel state
  * @param {HTMLElement} block - The carousel block element
  * @param {boolean} show - Whether to show navigation elements
@@ -276,29 +390,17 @@ function toggleNavigationVisibility(block, show) {
  * Manages carousel lifecycle based on screen size
  * @param {HTMLElement} block - The carousel block element
  * @param {Array} slides - Array of slide elements
+ * @param {Object} config - Variant config (see CAROUSEL_CONFIGS)
  * @returns {Object} Object containing glide instance and management functions
  */
-function manageCarousel(block, slides) {
+function manageCarousel(block, slides, config = CAROUSEL_CONFIGS.default) {
     let glide = null;
     let isCarouselActive = false;
 
     const initCarousel = () => {
-        if (!shouldUseCarousel() || isCarouselActive) return;
+        if (!config.shouldUseCarousel() || isCarouselActive) return;
 
-        glide = new Glide(block.querySelector('.glide'), {
-            type: 'carousel',
-            gap: 20,
-            perView: 1,
-            focusAt: 'center',
-            touchRatio: 0.5,
-            touchAngle: 45,
-            dragThreshold: 120,
-            swipeThreshold: 80,
-            animationDuration: 400,
-            animationTimingFunc: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)',
-            peek: 0,
-            bound: true,
-        });
+        glide = new Glide(block.querySelector('.glide'), { ...config.glideOptions });
 
         glide.mount();
         isCarouselActive = true;
@@ -307,8 +409,8 @@ function manageCarousel(block, slides) {
         updateNav(block, glide);
         updateArrows(block, glide, slides.length);
 
-        // Update on slide change
-        glide.on('run', () => {
+        // Update on slide change and when breakpoints change perView
+        glide.on(['run', 'update', 'resize'], () => {
             updateNav(block, glide);
             updateArrows(block, glide, slides.length);
         });
@@ -341,10 +443,15 @@ function manageCarousel(block, slides) {
             glideSlides.style.transform = '';
             glideSlides.style.width = '';
         }
+        block.querySelectorAll('.glide__slide').forEach((slide) => {
+            slide.style.width = '';
+            slide.style.marginLeft = '';
+            slide.style.marginRight = '';
+        });
     };
 
     const handleResize = debounce(() => {
-        if (shouldUseCarousel()) {
+        if (config.shouldUseCarousel()) {
             if (!isCarouselActive) {
                 initCarousel();
             } else if (glide) {
@@ -356,7 +463,7 @@ function manageCarousel(block, slides) {
     }, 250);
 
     // Initial setup
-    if (shouldUseCarousel()) {
+    if (config.shouldUseCarousel()) {
         initCarousel();
     } else {
         toggleNavigationVisibility(block, false);
@@ -401,20 +508,33 @@ function initializeTextScramble(block) {
 }
 
 export default async function decorate(block) {
+    const isTestimonials = !!block.closest('.section')?.classList.contains('testimonials');
+
     // Extract slides from block children
-    const [...slides] = [...block.children];
+    const [...allSlides] = [...block.children];
+    const slides = isTestimonials ? filterEmptySlides(allSlides) : allSlides;
+
+    if (isTestimonials) block.classList.add('box-carousel--testimonials');
 
     // Build and inject carousel HTML
-    block.innerHTML = buildCarouselHTML(slides);
+    block.innerHTML = buildCarouselHTML(
+        slides,
+        isTestimonials ? generateTestimonialSlidesHTML : generateSlidesHTML,
+        isTestimonials,
+    );
 
     // Decorate icons and replace dividers
     decorateIcons(block);
     block.innerHTML = block.innerHTML.replaceAll('---', '<hr />');
 
     // Manage carousel based on screen size
-    manageCarousel(block, slides);
+    manageCarousel(
+        block,
+        slides,
+        isTestimonials ? CAROUSEL_CONFIGS.testimonials : CAROUSEL_CONFIGS.default,
+    );
 
-    // Initialize text scramble effect
-    initializeTextScramble(block);
+    // Initialize text scramble effect (original slider only)
+    if (!isTestimonials) initializeTextScramble(block);
     detectModalButtons(block);
 }
