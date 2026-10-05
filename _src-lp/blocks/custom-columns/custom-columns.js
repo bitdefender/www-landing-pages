@@ -1,5 +1,4 @@
 export default function decorate(block) {
-  console.log(block.closest('.section').innerHTML);
   block.querySelectorAll('table').forEach((table) => {
     const firstRow = table.querySelector('tr');
 
