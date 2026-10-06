@@ -1,9 +1,11 @@
 class SnapshotBlockTest {
   #name;
   #startUrl;
-  constructor({ name, startUrl }) {
+  #importTestId;
+  constructor({ name, startUrl, importTestId }) {
     this.#name = name;
     this.#startUrl = startUrl;
+    this.#importTestId = importTestId;
   }
   generate() {
     return {
@@ -31,7 +33,18 @@ class SnapshotBlockTest {
       "region": "",
       "screenshotCompareEnabled": null,
       "screenshotCompareThreshold": 0.1,
-      "steps": [],
+      "steps": this.#importTestId ? [
+        {
+          "command": "execute",
+          "condition": null,
+          "optional": false,
+          "private": false,
+          "sequence": 0,
+          "target": "",
+          "value": this.#importTestId,
+          "variableName": ""
+        }
+      ] : [],
       "testFrequency": 0,
       "testFrequencyAdvanced": [],
       "viewportSize": null
