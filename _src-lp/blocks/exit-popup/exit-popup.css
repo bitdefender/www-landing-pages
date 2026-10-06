@@ -49,7 +49,6 @@
   line-height: 1;
   padding: 0;
   transition: background 0.2s ease;
-  font-family: Arial, sans-serif;
 }
 
 .exit-popup-close:hover {

@@ -26,14 +26,22 @@ $desktop: 991px;
         background: $arrow-bg;
         border-radius: 50%;
 
-        svg {
+        &::before {
+            content: "";
+            display: block;
             width: 10px;
             height: 10px;
-            fill: white;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
 
-            path {
-                fill: white;
-            }
+        &.left-arrow::before {
+            background-image: url("/_src-lp/icons/box-carousel-arrow-left.svg");
+        }
+
+        &.right-arrow::before {
+            background-image: url("/_src-lp/icons/box-carousel-arrow-right.svg");
         }
     }
 
@@ -295,75 +303,232 @@ $desktop: 991px;
     }
 
     @media screen and (min-width: $desktop) {
-        ul.glide__slides {
-            display: grid !important;
-            grid-auto-flow: row;
-            gap: 40px;
-            width: 100% !important;
-            transform: none !important;
-            padding: 0 20px;
-            padding-bottom: 50px;
+        // Static grid layout for the default variant only;
+        // the testimonials variant stays a slider on desktop.
+        // Scoped to the block class set in JS so it never leaks into testimonials.
+        .box-carousel:not(.box-carousel--testimonials) {
+            ul.glide__slides {
+                display: grid !important;
+                grid-auto-flow: row;
+                gap: 40px;
+                width: 100% !important;
+                transform: none !important;
+                padding: 0 20px;
+                padding-bottom: 50px;
 
-            // overflow: hidden;
-            // overflow-y: visible;
-        }
+                // overflow: hidden;
+                // overflow-y: visible;
+            }
 
-        .carousel-item {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            width: 100%;
-            margin: 0;
-            padding: 0;
+            .carousel-item {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                width: 100%;
+                margin: 0;
+                padding: 0;
 
-            &.odd {
-                flex-direction: row-reverse;
+                &.odd {
+                    flex-direction: row-reverse;
+
+                    .images-container {
+                        .image-2 {
+                            transform: translate(-75%, 30%);
+                        }
+                    }
+                }
+
+                &>:first-child {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    max-width: 410px;
+
+                    h3 {
+                        em {
+                            justify-content: flex-start;
+                        }
+                    }
+
+                    p.text-element {
+                        text-align: left;
+                        line-height: normal;
+                        margin-top: 30px;
+                    }
+                }
 
                 .images-container {
+                    display: block;
+                    width: 100%;
+                    max-width: 610px;
+
                     .image-2 {
-                        transform: translate(-75%, 30%);
+                        transform: translate(-25%, 30%);
+                    }
+
+                    &.mobile-images-container {
+                        display: none;
                     }
                 }
             }
 
-            &>:first-child {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                max-width: 410px;
+            // Hide navigation elements on desktop
+            .carousel-header,
+            .carousel-nav {
+                display: none !important;
+            }
+        }
+    }
+}
 
-                h3 {
-                    em {
-                        justify-content: flex-start;
-                    }
-                }
+.box-carousel-container.testimonials {
+    padding-top: 56px !important;
+    background-color: unset;
+    overflow: hidden;
 
-                p.text-element {
-                    text-align: left;
-                    line-height: normal;
-                    margin-top: 30px;
-                }
+    .box-carousel-wrapper {
+        max-width: 1292px;
+    }
+
+    .default-content-wrapper h2 {
+        font-size: var(--heading-font-size-l);
+        line-height: 1.2;
+    }
+
+    .carousel-header {
+        position: relative;
+
+        .arrows {
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .arrow {
+            width: 100px;
+            color: black;
+            background: unset;
+
+            &::before {
+                width: 50px;
+                height: 50px;
             }
 
-            .images-container {
-                display: block;
-                width: 100%;
-                max-width: 610px;
+            &.left-arrow::before {
+                background-image: url("/_src-lp/icons/testimonial-arrow-left.svg");
+            }
 
-                .image-2 {
-                    transform: translate(-25%, 30%);
-                }
+            &.right-arrow::before {
+                background-image: url("/_src-lp/icons/testimonial-arrow-right.svg");
+            }
+        }
+    }
 
-                &.mobile-images-container {
-                    display: none;
-                }
+    .carousel-nav {
+        display: none !important;
+    }
+
+    .testimonial-item {
+        height: auto;
+        background-color: unset;
+        padding: 0;
+    }
+
+    .box-carousel--testimonials {
+        padding: 20px;
+    }
+
+    .testimonial-content {
+        padding: 20px;
+        border-radius: 15px;
+        height: 100%;
+        border: 1px solid #ddd;
+
+        p {
+            text-align: left;
+        }
+
+        .testimonial-author {
+            color: black;
+            width: 100%;
+            font-size: 17px;
+            line-height: 26px;
+            margin-top: 0;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .testimonial-rating {
+            width: 100%;
+        }
+
+        .testimonial-rating tr  {
+            td:first-of-type {
+                text-align: left;
+            }
+
+            td:last-of-type {
+                text-align: right;
             }
         }
 
-        // Hide navigation elements on desktop
-        .carousel-header,
-        .carousel-nav {
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 16px;
+            color: #3C3C3C;
+            margin-bottom: 0;
+        }
+
+        .testimonial-rating .icon {
+            width: 19px;
+            height: 19px;
+        }
+
+        p, td {
+            color: black;
+        }
+    }
+
+}
+
+.box-carousel-container.testimonials .box-carousel--testimonials .carousel-header,
+.box-carousel-container.testimonials .box-carousel--testimonials .carousel-nav {
+    display: flex;
+}
+
+@media (width >= 768px) {
+    .box-carousel-container.testimonials {
+        .testimonial-content  {
+            .testimonial-author {
+                font-size: 22px;
+            }
+
+            .testimonial-text {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+@media (width >= 992px) {
+    .box-carousel-container.testimonials {
+        .default-content-wrapper h2 {
+            font-size: var(--heading-font-size-xl);
+            line-height: 1.2;
+            margin-bottom: 22px;
+        }
+
+        .testimonial-content  {
+            justify-content: flex-start;
+
+            .testimonial-text {
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
+
+        .carousel-header {
             display: none !important;
         }
     }

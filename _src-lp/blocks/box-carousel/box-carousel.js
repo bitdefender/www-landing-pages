@@ -71,22 +71,58 @@ class TextScramble {
     }
 }
 
-const ARROW_SVG_LEFT = `
-<svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.34315 1.41419L7.92893 -2.2769e-05L0.857865 7.07104L2.27208 8.48526L9.34315 1.41419Z" fill="#A6ADB4"/>
-<path d="M2.27208 5.65683L0.857865 7.07104L7.92893 14.1421L9.34315 12.7279L2.27208 5.65683Z" fill="#A6ADB4"/>
-</svg>
-`;
-
-const ARROW_SVG_RIGHT = `
-<svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M0.656854 1.41419L2.07107 -2.2769e-05L9.14214 7.07104L7.72792 8.48526L0.656854 1.41419Z" fill="white"/>
-<path d="M7.72792 5.65683L9.14214 7.07104L2.07107 14.1421L0.656854 12.7279L7.72792 5.65683Z" fill="white"/>
-</svg>
-`;
+const ANIMATION_TIMING = 'cubic-bezier(0.165, 0.840, 0.440, 1.000)';
 
 /**
- * Generates HTML for carousel slides
+ * Per-variant configuration.
+ * - default: the original slider (slider below 991px)
+ * - testimonials: slider on every screen size
+ *   (1 slide on mobile, 2 on tablet, 4 on desktop)
+ */
+const CAROUSEL_CONFIGS = {
+    default: {
+        shouldUseCarousel: () => window.innerWidth < 991,
+        glideOptions: {
+            type: 'carousel',
+            gap: 20,
+            perView: 1,
+            focusAt: 'center',
+            touchRatio: 0.5,
+            touchAngle: 45,
+            dragThreshold: 120,
+            swipeThreshold: 80,
+            animationDuration: 400,
+            animationTimingFunc: ANIMATION_TIMING,
+            peek: 0,
+            bound: true,
+        },
+    },
+    testimonials: {
+        shouldUseCarousel: () => true,
+        glideOptions: {
+            type: 'slider',
+            gap: 20,
+            perView: 4,
+            bound: true,
+            rewind: false,
+            touchRatio: 0.5,
+            touchAngle: 45,
+            dragThreshold: 120,
+            swipeThreshold: 80,
+            animationDuration: 400,
+            animationTimingFunc: ANIMATION_TIMING,
+            peek: 0,
+            // Glide breakpoints are max-width values
+            breakpoints: {
+                991: { perView: 2 },
+                767: { perView: 1 },
+            },
+        },
+    },
+};
+
+/**
+ * Generates HTML for carousel slides (original slider)
  * @param {Array} slides - Array of slide elements
  * @returns {string} HTML string for all slides
  */
@@ -113,6 +149,47 @@ function generateSlidesHTML(slides) {
 }
 
 /**
+ * Generates HTML for testimonial slides
+ * Expected structure per slide:
+ *   <div><div data-valign="middle">
+ *     <p>Name<br>---</p>
+ *     <table>...stars... | date</table>
+ *     <p>Review text</p>
+ *   </div></div>
+ * @param {Array} slides - Array of slide elements
+ * @returns {string} HTML string for all slides
+ */
+function generateTestimonialSlidesHTML(slides) {
+    return slides.map((slide) => {
+        const content = slide.querySelector('[data-valign]') || slide.firstElementChild || slide;
+        const paragraphs = content.querySelectorAll(':scope > p');
+
+        content.classList.add('testimonial-content');
+        paragraphs[0]?.classList.add('testimonial-author');
+        content.querySelector('table')?.classList.add('testimonial-rating');
+        if (paragraphs.length > 1) {
+            paragraphs[paragraphs.length - 1].classList.add('testimonial-text');
+        }
+
+        return `
+    <li class="carousel-item glide__slide testimonial-item">
+      ${slide.innerHTML}
+    </li>
+  `;
+    }).join('');
+}
+
+/**
+ * Removes empty rows (e.g. the empty first <div> authors leave in the doc)
+ * @param {Array} slides - Array of slide elements
+ * @returns {Array} Non-empty slides
+ */
+function filterEmptySlides(slides) {
+    return slides.filter((slide) => slide.textContent.trim() !== ''
+        || slide.querySelector('img, svg, picture'));
+}
+
+/**
  * Generates HTML for navigation dots
  * @param {Array} slides - Array of slide elements
  * @returns {string} HTML string for navigation dots
@@ -124,27 +201,25 @@ function generateNavDotsHTML(slides) {
 }
 
 /**
- * Generates HTML for arrow navigation
+ * Generates HTML for arrow navigation.
+ * Icons are rendered via CSS (see .arrow::before in box-carousel.scss).
  * @returns {string} HTML string for arrows
  */
 function generateArrowsHTML() {
     return `
-      <a href class="arrow disabled left-arrow">
-        ${ARROW_SVG_LEFT}
-      </a>
-      <a href class="arrow right-arrow">
-        ${ARROW_SVG_RIGHT}
-      </a>
+      <a href class="arrow disabled left-arrow" aria-label="Previous slide"></a>
+      <a href class="arrow right-arrow" aria-label="Next slide"></a>
   `;
 }
 
 /**
  * Builds the carousel HTML structure
  * @param {Array} slides - Array of slide elements
+ * @param {Function} slidesGenerator - Function that turns slides into <li> HTML
  * @returns {string} Complete carousel HTML
  */
-function buildCarouselHTML(slides) {
-    const slidesHTML = generateSlidesHTML(slides);
+function buildCarouselHTML(slides, slidesGenerator = generateSlidesHTML) {
+    const slidesHTML = slidesGenerator(slides);
     const navDotsHTML = generateNavDotsHTML(slides);
     const arrowsHTML = generateArrowsHTML();
 
@@ -170,14 +245,19 @@ function buildCarouselHTML(slides) {
 }
 
 /**
- * Updates navigation dots to reflect current slide
+ * Updates navigation dots to reflect current slide.
+ * Dots for positions that can't be reached (when perView > 1) are hidden.
  * @param {HTMLElement} block - The carousel block element
  * @param {Object} glide - Glide instance
  */
 function updateNav(block, glide) {
     const navDots = block.querySelectorAll('.navigation-item');
+    const perView = glide.settings.perView || 1;
+    const maxIndex = Math.max(navDots.length - perView, 0);
+
     navDots.forEach((dot, idx) => {
         dot.classList.toggle('active', idx === glide.index);
+        dot.style.display = idx > maxIndex ? 'none' : '';
     });
 }
 
@@ -248,14 +328,6 @@ function setupArrowHandlers(block, glide) {
 }
 
 /**
- * Checks if carousel should be active based on screen width
- * @returns {boolean} True if screen width is below 768px
- */
-function shouldUseCarousel() {
-    return window.innerWidth < 991;
-}
-
-/**
  * Shows or hides navigation elements based on carousel state
  * @param {HTMLElement} block - The carousel block element
  * @param {boolean} show - Whether to show navigation elements
@@ -276,29 +348,17 @@ function toggleNavigationVisibility(block, show) {
  * Manages carousel lifecycle based on screen size
  * @param {HTMLElement} block - The carousel block element
  * @param {Array} slides - Array of slide elements
+ * @param {Object} config - Variant config (see CAROUSEL_CONFIGS)
  * @returns {Object} Object containing glide instance and management functions
  */
-function manageCarousel(block, slides) {
+function manageCarousel(block, slides, config = CAROUSEL_CONFIGS.default) {
     let glide = null;
     let isCarouselActive = false;
 
     const initCarousel = () => {
-        if (!shouldUseCarousel() || isCarouselActive) return;
+        if (!config.shouldUseCarousel() || isCarouselActive) return;
 
-        glide = new Glide(block.querySelector('.glide'), {
-            type: 'carousel',
-            gap: 20,
-            perView: 1,
-            focusAt: 'center',
-            touchRatio: 0.5,
-            touchAngle: 45,
-            dragThreshold: 120,
-            swipeThreshold: 80,
-            animationDuration: 400,
-            animationTimingFunc: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)',
-            peek: 0,
-            bound: true,
-        });
+        glide = new Glide(block.querySelector('.glide'), { ...config.glideOptions });
 
         glide.mount();
         isCarouselActive = true;
@@ -307,8 +367,8 @@ function manageCarousel(block, slides) {
         updateNav(block, glide);
         updateArrows(block, glide, slides.length);
 
-        // Update on slide change
-        glide.on('run', () => {
+        // Update on slide change and when breakpoints change perView
+        glide.on(['run', 'update', 'resize'], () => {
             updateNav(block, glide);
             updateArrows(block, glide, slides.length);
         });
@@ -341,10 +401,15 @@ function manageCarousel(block, slides) {
             glideSlides.style.transform = '';
             glideSlides.style.width = '';
         }
+        block.querySelectorAll('.glide__slide').forEach((slide) => {
+            slide.style.width = '';
+            slide.style.marginLeft = '';
+            slide.style.marginRight = '';
+        });
     };
 
     const handleResize = debounce(() => {
-        if (shouldUseCarousel()) {
+        if (config.shouldUseCarousel()) {
             if (!isCarouselActive) {
                 initCarousel();
             } else if (glide) {
@@ -356,7 +421,7 @@ function manageCarousel(block, slides) {
     }, 250);
 
     // Initial setup
-    if (shouldUseCarousel()) {
+    if (config.shouldUseCarousel()) {
         initCarousel();
     } else {
         toggleNavigationVisibility(block, false);
@@ -364,6 +429,15 @@ function manageCarousel(block, slides) {
 
     // Listen for resize events
     window.addEventListener('resize', handleResize);
+
+    // Recalculate slide widths whenever the block's own width changes
+    // (e.g. the section was still hidden while the slider was mounting)
+    if ('ResizeObserver' in window) {
+        const resizeObserver = new ResizeObserver(debounce(() => {
+            if (glide) glide.update();
+        }, 100));
+        resizeObserver.observe(block);
+    }
     window.dispatchEvent(new Event('resize'));
     return {
         glide,
@@ -401,20 +475,32 @@ function initializeTextScramble(block) {
 }
 
 export default async function decorate(block) {
+    const isTestimonials = !!block.closest('.section')?.classList.contains('testimonials');
+
     // Extract slides from block children
-    const [...slides] = [...block.children];
+    const [...allSlides] = [...block.children];
+    const slides = isTestimonials ? filterEmptySlides(allSlides) : allSlides;
+
+    if (isTestimonials) block.classList.add('box-carousel--testimonials');
 
     // Build and inject carousel HTML
-    block.innerHTML = buildCarouselHTML(slides);
+    block.innerHTML = buildCarouselHTML(
+        slides,
+        isTestimonials ? generateTestimonialSlidesHTML : generateSlidesHTML,
+    );
 
     // Decorate icons and replace dividers
     decorateIcons(block);
     block.innerHTML = block.innerHTML.replaceAll('---', '<hr />');
 
     // Manage carousel based on screen size
-    manageCarousel(block, slides);
+    manageCarousel(
+        block,
+        slides,
+        isTestimonials ? CAROUSEL_CONFIGS.testimonials : CAROUSEL_CONFIGS.default,
+    );
 
-    // Initialize text scramble effect
-    initializeTextScramble(block);
+    // Initialize text scramble effect (original slider only)
+    if (!isTestimonials) initializeTextScramble(block);
     detectModalButtons(block);
 }

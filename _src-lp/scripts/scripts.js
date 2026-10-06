@@ -122,11 +122,23 @@ export function getParam(param) {
 const LCP_BLOCKS = ['banner', 'b-banner', 'c-banner']; // add your LCP blocks to the list
 
 /**
+ * Word/SharePoint turns in-page anchors like "#summary" into "https://#summary".
+ * Rewrite them back to relative anchors so they work on any page/locale.
+ * @param {Element} main The container element
+ */
+export function decorateAnchorLinks(main) {
+  main.querySelectorAll('a[href^="http://#"], a[href^="https://#"]').forEach((link) => {
+    link.setAttribute('href', link.getAttribute('href').replace(/^https?:\/\//, ''));
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
+  decorateAnchorLinks(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
   // decorateIcons2(main);
@@ -1276,9 +1288,9 @@ async function loadPage() {
   setBFCacheListener();
   const main = document.querySelector('main');
   /**
-   * @type {import('@repobit/dex-store-elements').RootNode}
+   * @type {import('@repobit/dex-store-elements').ContextNode}
    */
-  const storeRoot = document.createElement('bd-root');
+  const storeRoot = document.createElement('bd-context');
   storeRoot.dataLayer = ({ option, event }) => {
     AdobeDataLayerService.push(new ProductLoadedEvent(option, event, 'campaign product'));
   };
@@ -1312,7 +1324,7 @@ async function loadPage() {
   }
 
   // TODO: this needs to be removed after we finish implementing the new store in all the components
-  if (document.querySelector('bd-context') && productsList.length === 0) {
+  if (main.querySelector('bd-context') && productsList.length === 0) {
     maxDiscount();
   }
 

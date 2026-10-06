@@ -1,7 +1,7 @@
 const SNAPSHOTS_SUITE_ID = '64c8d884960593b38bb68331';
 const PATH_TO_BLOCKS = 'sidekick/blocks';
 const LOCAL_BLOCKS_PATH = '_src-lp/blocks';
-const FETCH_TIMEOUT = 1000 * 60 * 5; // 5 minutes
+const FETCH_TIMEOUT = 1000 * 60 * 25; // 25 minutes
 // todo add sidekick config for those
 const EXCLUDED_SNAPSHOT_BLOCKS = [
   'aem-banner',
@@ -17,6 +17,10 @@ const EXCLUDED_SNAPSHOT_BLOCKS = [
   'video',
 ];
 const MANDATORY_TESTS_SUITE_ID = '68516672e5aac3e52897827d';
+const TESTS_VIEWPORTS = ['1920x1080', '1024x1366', '375x812'];
+// AEM rate limit for the tested host vs. resources one page loads
+const MAX_REQUESTS_PER_SECOND = 200;
+const MAX_REQUESTS_PER_PAGE = 150;
 const JIRA_BASE_URL = 'https://bitdefender.atlassian.net';
 
 function logError(message) {
@@ -37,6 +41,9 @@ module.exports = {
   FETCH_TIMEOUT,
   EXCLUDED_SNAPSHOT_BLOCKS,
   MANDATORY_TESTS_SUITE_ID,
+  TESTS_VIEWPORTS,
+  MAX_REQUESTS_PER_SECOND,
+  MAX_REQUESTS_PER_PAGE,
   JIRA_BASE_URL,
   logError,
   logSuccess,
