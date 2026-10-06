@@ -167,7 +167,7 @@
   content: "";
   background: url("/_src-lp/icons/tabs_arrow.svg") no-repeat;
   position: absolute;
-  top: 40px;
+  top: 43%;
   right: 10px;
   transform: rotate(180deg) translateY(50%);
   pointer-events: none;

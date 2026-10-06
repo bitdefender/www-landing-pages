@@ -337,3 +337,8 @@
         }
     }
 }
+
+html[lang="de"] .custom-columns-container .custom-columns .cell-text .cell-title strong, html[lang="nl"] .custom-columns-container .custom-columns .cell-text .cell-title strong {
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-line-height-xs);
+}
