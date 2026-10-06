@@ -81,6 +81,7 @@ jobs:
         run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
+          GI_IMPORT_TEST_ID: ${{ vars.GI_IMPORT_TEST_ID }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
           CHANGED_FILES: ${{ needs.detect-changes.outputs.changed_components }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
