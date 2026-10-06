@@ -363,7 +363,7 @@ function updateBenefits(block, selectEl, metadata) {
 function renderSelector(block, ...options) {
   const metadata = block.parentElement.parentElement.dataset;
   const membersText = metadata.membersText ?? ',';
-  const labelText = metadata.labelText ?? ',';
+  const labelText = metadata.labelText;
   const selectorOptions = options
     .filter((option) => option && !Number.isNaN(Number(option)))
     .map((opt) => Number(opt));
@@ -372,7 +372,7 @@ function renderSelector(block, ...options) {
   const selectId = `members-select-${Math.random().toString(36).substr(2, 9)}`;
   el.classList.add('products-sideview-selector');
   el.innerHTML = `
-      <label for="${selectId}">${labelText ?? 'Choose number of members'}</label>
+      ${labelText ? `<label for="${selectId}">${labelText}</label>` : ''}
       <select id="${selectId}">
           ${selectorOptions.sort((first, second) => first - second).map((opt) => `
             <option value="${opt}" ${opt === defaultSelection ? 'selected' : ''}>${opt} ${opt === 1 ? membersText.split(',')[0] : membersText.split(',')[1]}</option>
