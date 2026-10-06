@@ -45,7 +45,7 @@ const featureBranchEnvironmentBaseUrl = `https://${BRANCH_NAME || 'main'}--www-l
 
   const executeTestOnViewports = (testId, startUrl) => Promise.all(TESTS_VIEWPORTS.map(async (viewport) => {
     await waitForPageSlot();
-    return fetch(`https://api.ghostinspector.com/v1/tests/${testId}/execute/?apiKey=${GI_KEY}&startUrl=${startUrl}&viewport=${viewport}`, {
+    return fetch(`https://api.ghostinspector.com/v1/tests/${testId}/execute/?apiKey=${GI_KEY}&startUrl=${encodeURIComponent(startUrl)}&viewport=${viewport}`, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT)
     }).then((res) => res.json());
   }));
@@ -142,7 +142,7 @@ const featureBranchEnvironmentBaseUrl = `https://${BRANCH_NAME || 'main'}--www-l
   try {
     const allTestResults = (await Promise.all([runComponentTests(), runMandatoryTests()])).flat(1);
     // Once all batches are processed, show the full logs of the snapshot tests
-    showSnapshotTestsFullLogs(allTestResults);
+    await showSnapshotTestsFullLogs(allTestResults);
   } catch (err) {
     console.error(err);
     process.exit(1);
