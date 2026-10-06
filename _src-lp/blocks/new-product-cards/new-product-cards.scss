@@ -128,10 +128,10 @@
                     grid-row: span 50;
                     gap: 0;
 
+                    // store wrappers are layout-transparent so their children
+                    // (including radios split between bd-options) are subgrid rows
                     bd-context, bd-option, bd-product {
-                        display: grid;
-                        grid-template-rows: subgrid;
-                        grid-row: span 50;
+                        display: contents;
                     }
 
                     h3 {
