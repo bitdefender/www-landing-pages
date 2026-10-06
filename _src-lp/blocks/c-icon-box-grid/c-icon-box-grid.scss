@@ -816,12 +816,12 @@
 
   .c-icon-box-grid-container.smaller-title .title, .c-icon-box-grid-container.smaller-title .subtitle {
     font-size: var(--body-font-size-xs);
-    line-height: var(--body-font-size-m);
+    line-height: var(--body-line-height-xs);
   }
 
   .c-icon-box-grid-container.bigger-title .title {
     font-size: var(--body-font-size-s);
-    line-height: var(--body-font-size-m);
+    line-height: var(--body-line-height-s);
   }
 
   .c-icon-box-grid-container.bigger-title2 .title {
@@ -830,13 +830,13 @@
   }
 
   .c-icon-box-grid-container.smaller-text .subtitle {
-    font-size: 14px;
-    line-height: var(--body-font-size-m);
+    font-size: var(--body-font-size-xs2);
+    line-height: var(--body-line-height-xs2);
   }
 
   .c-icon-box-grid-container.bigger-text .subtitle {
     font-size: var(--body-font-size-s);
-    line-height: var(--body-font-size-m);
+    line-height: var(--body-line-height-s);
   }
   
   .c-icon-box-grid-container.items-smaller .row {
@@ -907,7 +907,7 @@
   }
 
   .c-icon-box-grid-container.affiliate .quotebox .subtitle {
-    max-width: 250px;
+    max-width: 315px;
   }
 
   .c-icon-box-grid-container.smaller-text-width .quotebox .subtitle {
