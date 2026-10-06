@@ -59,7 +59,7 @@ jobs:
             const files = [...new Set(
               githubData
               .map(githubInfo => githubInfo.filename)
-              .filter(filePath => filePath.includes('block'))
+              .filter(filePath => filePath.startsWith('_src-lp/blocks/'))
               .map(filePath => filePath.split('/')[2])
             )];
             return files;
