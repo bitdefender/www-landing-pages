@@ -875,12 +875,28 @@
   transition: opacity 0.2s;
 }
 
+.section.banner-container.add-trusted h1::before {
+  content: "Trusted. Always.";
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #006EFF;
+  display: block;
+  margin: 0 0 1em;
+}
+
+.section.banner-container[data-align=left] .block div {
+  width: 100%;
+}
+
 .section.banner-container.hasslide {
   z-index: 9;
 }
 
 .section.banner-container.hasslide .block div {
   margin: 0 auto;
+  padding: 0;
 }
 
 .section.banner-container.hasslide .block div.animated_text {
