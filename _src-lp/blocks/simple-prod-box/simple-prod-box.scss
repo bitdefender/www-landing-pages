@@ -26,7 +26,6 @@
             }
 
             .subtitle {
-                font-family: Arial, sans-serif;
                 font-size: 12px;
                 line-height: 14px;
                 width: auto;
@@ -35,7 +34,6 @@
             }
 
             .subsubtitle {
-                font-family: Arial, sans-serif;
                 font-size: 12px;
                 line-height: 14px;
                 margin: 1em 0;
@@ -67,7 +65,6 @@
             .prices_box {
                 display: flex;
                 justify-content: center;
-                font-family: Arial, sans-serif;
 
                 .prod-newprice {
                     font-size: var(--heading-font-size-xl);
@@ -94,7 +91,6 @@
 
             .buy-btn {
                 a.red-buy-button {
-                    font-family: Arial, sans-serif;
                     width: 220px;
                     text-transform: none;
                     font-size: var(--body-font-size-xs);
@@ -170,7 +166,6 @@
                 }
 
                 .subsubtitle {
-                    font-family: Arial, sans-serif;
                     font-size: var(--body-font-size-xs);
                     line-height: var(--body-font-size-xs);
                 }

@@ -372,11 +372,11 @@ function renderSelector(block, ...options) {
   const selectId = `members-select-${Math.random().toString(36).substr(2, 9)}`;
   el.classList.add('products-sideview-selector');
   el.innerHTML = `
-      ${labelText ? `<label for="${selectId}">${labelText}</label>` : ''}
+      ${labelText ? `<label for="${selectId}">${labelText.trim() !== ',' ? labelText : 'Choose number of members'}</label>` : ''}
       <select id="${selectId}">
           ${selectorOptions.sort((first, second) => first - second).map((opt) => `
             <option value="${opt}" ${opt === defaultSelection ? 'selected' : ''}>${opt} ${opt === 1 ? membersText.split(',')[0] : membersText.split(',')[1]}</option>
-          `).join('/n')}
+          `).join('')}
       </select>
     `;
   const selectEl = el.querySelector('select');
