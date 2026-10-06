@@ -110,9 +110,7 @@
   gap: 0;
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box bd-context, .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box bd-option, .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box bd-product {
-  display: grid;
-  grid-template-rows: subgrid;
-  grid-row: span 50;
+  display: contents;
 }
 .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box .inner_prod_box h3 {
   font-weight: bold;

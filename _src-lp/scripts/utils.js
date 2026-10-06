@@ -1458,13 +1458,98 @@ export async function submitWithTurnstile({
 }
 
 /**
+ * Moves all of element's children into wrapper, then appends wrapper to element.
+ * @param {HTMLElement} element
+ * @param {HTMLElement} wrapper
+ * @returns {HTMLElement} wrapper
+ */
+const wrapChildren = (element, wrapper) => {
+  while (element.firstChild) {
+    wrapper.appendChild(element.firstChild);
+  }
+
+  element.appendChild(wrapper);
+  return wrapper;
+};
+
+/**
+ * @param {HTMLElement} element
+ * @param {object} storeProperties
+ * @param {number} storeProperties.devices
+ * @param {number} storeProperties.subscription
+ * @param {string} storeProperties.storeEvent
+ * @returns {HTMLElement|undefined} the created bd-option
+ * @summary
+ * Modifies element into the following structure:
+ * ```html
+ * <bd-option>
+ *   initial element's children
+ * </bd-option>
+ * ```
+ */
+export const wrapChildrenWithOption = (element, {
+  devices,
+  subscription,
+  storeEvent = '',
+}) => {
+  if (!element || element.firstElementChild?.matches('bd-option')) {
+    return undefined;
+  }
+
+  const option = document.createElement('bd-option');
+  option.setAttribute('devices', devices?.trim());
+  option.setAttribute('subscription', subscription?.trim());
+  if (storeEvent) {
+    option.setAttribute('data-layer-event', storeEvent);
+  }
+
+  return wrapChildren(element, option);
+};
+
+/**
+ * @param {HTMLElement} element
+ * @param {object} storeProperties
+ * @param {string} storeProperties.productId
+ * @param {number} storeProperties.devices
+ * @param {number} storeProperties.subscription
+ * @param {string} storeProperties.storeEvent
+ * @returns {HTMLElement|undefined} the created bd-product
+ * @summary
+ * Modifies element into the following structure:
+ * ```html
+ * <bd-product>
+ *   <bd-option>
+ *     initial element's children
+ *   </bd-option>
+ * </bd-product>
+ * ```
+ */
+export const wrapChildrenWithProduct = (element, {
+  productId,
+  devices,
+  subscription,
+  storeEvent = '',
+}) => {
+  if (!element || element.firstElementChild?.matches('bd-product')) {
+    return undefined;
+  }
+
+  wrapChildrenWithOption(element, { devices, subscription, storeEvent });
+
+  const product = document.createElement('bd-product');
+  product.setAttribute('product-id', productId?.trim());
+
+  return wrapChildren(element, product);
+};
+
+/**
  * @param {HTMLElement} element
  * @param {object} storeProperties
  * @param {string} storeProperties.productId
  * @param {number} storeProperties.devices
  * @param {number} storeProperties.subscription
  * @param {boolean} storeProperties.ignoreEventsParent
- * @param {boolean} storeProperties.storeEvent
+ * @param {string} storeProperties.storeEvent
  * @summary
  * Modifies element into the following structure:
  * ```html
@@ -1488,26 +1573,14 @@ export const wrapChildrenWithStoreContext = (element, {
     return;
   }
 
+  wrapChildrenWithProduct(element, {
+    productId, devices, subscription, storeEvent,
+  });
+
   const context = document.createElement('bd-context');
   if (ignoreEventsParent) {
     context.setAttribute('ignore-events-parent', '');
   }
 
-  const product = document.createElement('bd-product');
-  product.setAttribute('product-id', productId?.trim());
-
-  const option = document.createElement('bd-option');
-  option.setAttribute('devices', devices?.trim());
-  option.setAttribute('subscription', subscription?.trim());
-  if (storeEvent) {
-    option.setAttribute('data-layer-event', storeEvent);
-  }
-
-  while (element.firstChild) {
-    option.appendChild(element.firstChild);
-  }
-
-  product.appendChild(option);
-  context.appendChild(product);
-  element.appendChild(context);
+  wrapChildren(element, context);
 };
