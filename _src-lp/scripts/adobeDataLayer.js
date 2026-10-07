@@ -106,6 +106,9 @@ export async function sendAnalyticsUserInfo() {
         method: 'POST',
         headers,
       });
+      // Chrome keeps this cross-origin request open until its body is read,
+      // which stops Lighthouse/PSI from ever seeing the network go idle.
+      await response.text();
 
       if (response.ok) {
         const rhv = response.headers.get('BDUSRH_8D053E77FD604F168345E0F77318E993');
