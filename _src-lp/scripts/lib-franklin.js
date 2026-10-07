@@ -607,8 +607,9 @@ export async function waitForLCP(lcpBlocks) {
   updateSectionsStatus(document.querySelector('main'));
 
   document.body.style.display = null;
-  // only wait for an image in the first section, not one further down the page
-  const lcpCandidate = document.querySelector('main .section')?.querySelector('img');
+  // wait for the LCP block's image, or for one in the first section's default content
+  const lcpScope = hasLCPBlock ? block : document.querySelector('main .section');
+  const lcpCandidate = lcpScope?.querySelector('img');
   await new Promise((resolve) => {
     if (lcpCandidate && !lcpCandidate.complete) {
       lcpCandidate.setAttribute('loading', 'eager');
