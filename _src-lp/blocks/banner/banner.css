@@ -638,12 +638,16 @@
   display: inline-block;
 }
 
+.section.banner-container[data-align=left] .animated_text span {
+  top: 59px;
+}
+
 .section.banner-container .animated_text span {
   width: 100%;
   position: absolute;
   display: block;
   box-sizing: border-box;
-  top: 59px;
+  top: 50px;
   padding-bottom: 15px;
   padding-left: 0;
   margin-left: 0;
@@ -892,6 +896,7 @@
 
 .section.banner-container[data-align=left] .block div {
   width: 100%;
+  padding: 0 5px !important;
 }
 
 .section.banner-container.hasslide {
