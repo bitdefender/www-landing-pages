@@ -630,10 +630,13 @@
 /* animated text */
 .section.banner-container .animated_text {
   height: 40px;
-  max-width: 400px !important;
   position: relative;
   overflow: hidden;
   margin-top: 6px;
+}
+
+.section.banner-container[data-align="left"] .animated_text {
+  max-width: 400px !important;
   display: inline-block;
 }
 
