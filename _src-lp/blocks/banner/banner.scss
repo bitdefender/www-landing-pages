@@ -630,10 +630,11 @@
 /* animated text */
 .section.banner-container .animated_text {
   height: 40px;
-  width: 100%;
+  max-width: 400px !important;
   position: relative;
   overflow: hidden;
   margin-top: 6px;
+  display: inline-block;
 }
 
 .section.banner-container .animated_text span {
@@ -641,7 +642,7 @@
   position: absolute;
   display: block;
   box-sizing: border-box;
-  top: 50px;
+  top: 59px;
   padding-bottom: 15px;
   padding-left: 0;
   margin-left: 0;
