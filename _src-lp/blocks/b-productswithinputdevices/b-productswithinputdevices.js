@@ -1,5 +1,5 @@
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
 
 /**
  * Update table element
@@ -56,7 +56,7 @@ export default function decorate(block) {
 
   if (backgroundImage) {
     parentSelectorStyle.backgroundSize = 'cover';
-    parentSelectorStyle.backgroundImage = `url(${backgroundImage.split('?')[0]})`;
+    parentSelectorStyle.backgroundImage = `url(${getBackgroundImageUrl(backgroundImage)})`;
     parentSelectorStyle.backgroundPosition = '0 0';
     parentSelectorStyle.backgroundBlendMode = 'unset';
 
