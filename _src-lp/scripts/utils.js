@@ -1083,6 +1083,19 @@ export function getLocalizedResourceUrl(resourceName) {
   return `${pathnameAsArray.join('/')}/${resourceName}`;
 }
 
+/**
+ * Image URL for a CSS background. EDS media_ images keep the resize/WebP params;
+ * without them the CDN serves the original upload. Other URLs (SVG, external) are returned
+ * without their query string, as before.
+ * @param {String} src - img src or image URL from metadata
+ */
+export function getBackgroundImageUrl(src) {
+  if (!src) return src;
+  const [path] = src.split('?');
+  if (!/\/media_[^/]+\.(jpe?g|png)$/i.test(path)) return path;
+  return `${path}?width=2000&format=webply&optimize=medium`;
+}
+
 export function generateUuidv4() {
   // eslint-disable-next-line no-bitwise,no-mixed-operators
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
@@ -1190,29 +1203,47 @@ export function debounce(func, wait) {
   };
 }
 
-// General function to match the height of elements based on a selector
-const matchDimension = (targetNode, selector, {
-  property,
-  measure,
-  isEnabled,
-}) => {
+// Registry of active matchers, so repeated calls for the same node + selector
+// re-run the existing matcher instead of stacking new observers and listeners.
+const dimensionMatchers = new WeakMap();
+
+// Keeps the given dimension of all elements matching a selector in sync.
+// All triggers (DOM changes, resizes, font loading) are batched into a single
+// microtask, which runs before the next paint and, unlike requestAnimationFrame,
+// also in hidden tabs and headless screenshots. The reset + re-apply happens in
+// one synchronous pass, so the ResizeObserver only fires on real size changes
+// instead of feeding back into itself and causing layout shifts.
+function matchDimension(targetNode, selector, { property, measure, isEnabled }) {
+  if (!targetNode) return;
+
+  let nodeMatchers = dimensionMatchers.get(targetNode);
+  if (!nodeMatchers) {
+    nodeMatchers = new Map();
+    dimensionMatchers.set(targetNode, nodeMatchers);
+  }
+
+  const key = `${property}|${selector}`;
+  const existingMatcher = nodeMatchers.get(key);
+  if (existingMatcher) {
+    existingMatcher.isEnabled = isEnabled;
+    existingMatcher.schedule();
+    return;
+  }
+
+  const matcher = { isEnabled };
   const observedElements = new Set();
   let isScheduled = false;
 
-  const matcher = {
-    isEnabled,
-    schedule: () => {},
-  };
-
   const adjust = () => {
     isScheduled = false;
+    const elements = Array.from(targetNode.querySelectorAll(selector));
 
-    const elements = Array.from(
-      targetNode?.querySelectorAll(selector) || [],
-    );
+    // reset, measure and apply in one pass, so the reset is never painted
+    elements.forEach((element) => {
+      element.style[property] = '';
+    });
 
     let newValue = '';
-
     if (matcher.isEnabled() && elements.length) {
       newValue = `${Math.max(...elements.map(measure))}px`;
     }
@@ -1225,9 +1256,8 @@ const matchDimension = (targetNode, selector, {
   const resizeObserver = new ResizeObserver(() => matcher.schedule());
 
   const observeElements = () => {
-    targetNode?.querySelectorAll(selector).forEach((element) => {
+    targetNode.querySelectorAll(selector).forEach((element) => {
       if (observedElements.has(element)) return;
-
       observedElements.add(element);
       resizeObserver.observe(element);
     });
@@ -1235,7 +1265,6 @@ const matchDimension = (targetNode, selector, {
 
   matcher.schedule = () => {
     if (isScheduled) return;
-
     isScheduled = true;
     queueMicrotask(adjust);
   };
@@ -1244,26 +1273,18 @@ const matchDimension = (targetNode, selector, {
     observeElements();
     matcher.schedule();
   });
-
-  if (targetNode) {
-    mutationObserver.observe(targetNode, {
-      childList: true,
-      characterData: true,
-      subtree: true,
-    });
-  }
+  mutationObserver.observe(targetNode, { childList: true, characterData: true, subtree: true });
 
   window.addEventListener('resize', matcher.schedule);
-
-  // Text that shrinks after a font swap doesn't trigger the ResizeObserver,
-  // because the element is held by its min-height / min-width.
+  // text that shrinks after a font swap doesn't trigger the ResizeObserver,
+  // because the element is held by its min-height / min-width
   document.fonts?.ready.then(matcher.schedule);
-
   window.addEventListener('load', matcher.schedule, { once: true });
 
+  nodeMatchers.set(key, matcher);
   observeElements();
   adjust();
-};
+}
 
 // General function to match the height of elements based on a selector
 export async function matchHeights(targetNode, selector, onMobile = undefined) {
