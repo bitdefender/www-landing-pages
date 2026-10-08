@@ -2,10 +2,10 @@ import { decorateButtons, decorateIcons } from '../../scripts/lib-franklin.js';
 import {
   detectModalButtons, productAliases, isView, getParam,
 } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
 
 // Helper function to get image source safely
-const getImageSrc = (pictureEl) => pictureEl?.querySelector('img')?.getAttribute('src')?.split('?')[0];
+const getImageSrc = (pictureEl) => getBackgroundImageUrl(pictureEl?.querySelector('img')?.getAttribute('src'));
 
 // Helper function to get content size CSS classes
 const getContentSizeClasses = (size) => {
