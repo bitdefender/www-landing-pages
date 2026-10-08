@@ -2,17 +2,17 @@ import { decorateButtons, decorateIcons } from '../../scripts/lib-franklin.js';
 import {
   detectModalButtons, productAliases, isView, getParam,
 } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
 
 // Helper function to get image source safely
-const getImageSrc = (pictureEl) => pictureEl?.querySelector('img')?.getAttribute('src')?.split('?')[0];
+const getImageSrc = (pictureEl) => getBackgroundImageUrl(pictureEl?.querySelector('img')?.getAttribute('src'));
 
 // Helper function to get content size CSS classes
 const getContentSizeClasses = (size) => {
   const sizeMap = {
     full: 'col-sm-12 col-md-12 col-lg-12',
     larger: 'col-sm-12 col-md-7 col-lg-7',
-    half: 'col-sm-13 col-md-6 col-lg-6',
+    half: 'col-sm-12 col-md-6 col-lg-6',
     fourth: '', // Special case handled separately
     'they-wear-our-faces': 'col-sm-12 col-md-6 col-lg-6 col-xl-7',
   };
@@ -124,7 +124,7 @@ export default function decorate(block) {
       table.appendChild(titleBox);
     }
 
-    // alias BUTTONS_BOX
+    // BUTTONS_BOX
     if (aliasTr && (aliasTr.textContent.trim() === 'buttons_box' || aliasTr.textContent.trim() === 'Buttons_table')) {
       const [, buttonsRow] = [...table.querySelectorAll('tr')];
       const buttonsCells = buttonsRow.querySelectorAll('td');
@@ -459,12 +459,12 @@ export default function decorate(block) {
     block.innerHTML = `
     <div class="container-fluid">
         <div class="row d-none d-md-flex d-lg-flex position-relative">
-          ${hasContentEl ? `<div class="col-12 ${defaultSize}">${contentEl.innerHTML}</div>` : ''}
-          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize}">${contentRightEl.innerHTML}</div>` : ''}
+          ${hasContentEl ? `<div class="col-12 ${defaultSize} ps-4">${contentEl.innerHTML}</div>` : ''}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : ''}
         </div>
         <div class="row d-md-none d-lg-none justify-content-center">
            ${hasContentEl ? `<div class="col-12 ${defaultSize} text-center">${contentEl.innerHTML}</div>` : ''}
-          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize}">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
+          ${contentRightEl && contentRightEl.innerText.trim() ? `<div class="col-12 ${hasContentEl && defaultSize} ps-4">${contentRightEl.innerHTML}</div>` : `<div class="col-12 p-0 text-center bck-img">${pictureEl.innerHTML}</div>`}
         </div>
       </div>
     `;

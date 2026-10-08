@@ -1083,6 +1083,19 @@ export function getLocalizedResourceUrl(resourceName) {
   return `${pathnameAsArray.join('/')}/${resourceName}`;
 }
 
+/**
+ * Image URL for a CSS background. EDS media_ images keep the resize/WebP params;
+ * without them the CDN serves the original upload. Other URLs (SVG, external) are returned
+ * without their query string, as before.
+ * @param {String} src - img src or image URL from metadata
+ */
+export function getBackgroundImageUrl(src) {
+  if (!src) return src;
+  const [path] = src.split('?');
+  if (!/\/media_[^/]+\.(jpe?g|png)$/i.test(path)) return path;
+  return `${path}?width=2000&format=webply&optimize=medium`;
+}
+
 export function generateUuidv4() {
   // eslint-disable-next-line no-bitwise,no-mixed-operators
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
