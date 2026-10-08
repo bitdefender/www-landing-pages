@@ -1126,6 +1126,10 @@
     gap: 15px;
   }
 
+  .c-icon-box-grid-container .block > div > .row:not(.slides-wrapper) * {
+    flex-shrink: unset;
+  }
+
   .c-icon-box-grid-container.bordered .block > div > .row {
     gap: 0;
   }
