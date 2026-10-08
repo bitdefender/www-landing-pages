@@ -628,10 +628,18 @@
 /* animated text */
 .section.banner-container .animated_text {
   height: 40px;
-  width: 100%;
   position: relative;
   overflow: hidden;
   margin-top: 6px;
+}
+
+.section.banner-container[data-align=left] .animated_text {
+  max-width: 400px !important;
+  display: inline-block;
+}
+
+.section.banner-container[data-align=left] .animated_text span {
+  top: 59px;
 }
 
 .section.banner-container .animated_text span {
@@ -875,12 +883,29 @@
   transition: opacity 0.2s;
 }
 
+.section.banner-container.add-trusted h1::before {
+  content: "Trusted. Always.";
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #006EFF;
+  display: block;
+  margin: 0 0 1em;
+}
+
+.section.banner-container[data-align=left] .block div {
+  width: 100%;
+  padding: 0 5px !important;
+}
+
 .section.banner-container.hasslide {
   z-index: 9;
 }
 
 .section.banner-container.hasslide .block div {
   margin: 0 auto;
+  padding: 0;
 }
 
 .section.banner-container.hasslide .block div.animated_text {
@@ -1707,6 +1732,7 @@
   .section.section.banner-container.hasslide .block > div {
     text-align: left;
     width: 100%;
+    padding: 0 16px;
   }
   .section.banner-container.hasslide .block div * {
     text-align: left !important;
