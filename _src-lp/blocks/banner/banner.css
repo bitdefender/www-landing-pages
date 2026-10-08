@@ -1732,6 +1732,7 @@
   .section.section.banner-container.hasslide .block > div {
     text-align: left;
     width: 100%;
+    padding: 0 16px;
   }
   .section.banner-container.hasslide .block div * {
     text-align: left !important;
