@@ -55,18 +55,6 @@
   background-position: left top 4px;
 }
 
-/* Switcher */
-.card-with-switcher > div:last-child {
-  position: relative;
-}
-
-.card-with-switcher > div:last-child table:first-child {
-  width: fit-content;
-  margin-left: auto;
-  position: absolute;
-  left: 120px;
-}
-
 .card-with-switcher > div:last-child p {
   font-size: 11px;
   color: #6c7a8c;
@@ -78,22 +66,31 @@
   text-underline-offset: 2px;
 }
 
-.card-with-switcher > div:last-child table:first-child tr {
-  display: inline-flex;
+/* Switcher */
+.card-with-switcher .card-switcher-price-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.card-with-switcher .card-switcher-price-row .card-switcher {
   border: 1px solid #d2d2d2;
   border-radius: 6px;
   background: #fff;
   overflow: hidden;
+  display: flex;
+  gap: 0;
+  align-items: center;
 }
 
-.card-with-switcher > div:last-child table:first-child td {
+.card-with-switcher .card-switcher-price-row .card-switcher > div {
   padding: 5px 12px;
   font-size: 11.5px;
   cursor: pointer;
   text-align: center;
 }
 
-.card-with-switcher > div:last-child table:first-child td.active {
+.card-with-switcher .card-switcher-price-row .card-switcher > div.active {
   background: #087cff;
   color: #fff;
 }
