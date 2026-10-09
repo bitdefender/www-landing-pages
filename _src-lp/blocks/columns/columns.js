@@ -30,7 +30,7 @@ export default function decorate(block) {
     [...row.children].forEach((col, idx) => {
       const pic = col.querySelector('picture');
 
-      if (pic) {
+      if (pic && !block.closest('.section')?.classList.contains('compare-columns')) {
         const picWrapper = pic.closest('div');
 
         if (picWrapper && picWrapper.children.length === 1) {
