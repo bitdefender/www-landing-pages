@@ -782,7 +782,7 @@ main .section.text-navy-color-2 p {
   color: var(--navy-color-v2);
 }
 
-main .section.bold-blue-color p strong {
+main .section.bold-blue-color p strong, main .section.bold-blue-color p strong a {
   color: var(--link-hover-color);
 }
 
