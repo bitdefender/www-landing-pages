@@ -6,6 +6,12 @@
   padding: 0;
 }
 
+/* store scopes must not affect the layout (e.g. the flex column of .prodBox) */
+.section.banner-with-cards-container .banner-with-cards bd-product,
+.section.banner-with-cards-container .banner-with-cards bd-option {
+  display: contents;
+}
+
 .section.banner-with-cards-container.borders-rounded .banner-with-cards {
   border-radius: 10px;
 }

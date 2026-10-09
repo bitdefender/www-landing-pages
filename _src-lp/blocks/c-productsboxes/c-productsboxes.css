@@ -7,6 +7,12 @@
   font-size: 18px;
 }
 
+/* store scopes wrap the box content and the tag, keep their children as grid items */
+.c-productsboxes bd-product,
+.c-productsboxes bd-option {
+  display: contents;
+}
+
 .c-productsboxes hr {
   border-top: 1px solid #DEE2E6;
   margin: 10px 0;

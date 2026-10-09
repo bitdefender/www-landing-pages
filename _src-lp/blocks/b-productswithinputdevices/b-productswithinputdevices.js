@@ -1,5 +1,6 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
+import { getBackgroundImageUrl, parseStoreProduct, wrapChildrenWithProduct } from '../../scripts/utils.js';
+
+const NO_DISCOUNT = '!it.option.price.discounted';
 
 /**
  * Update table element
@@ -113,25 +114,22 @@ export default function decorate(block) {
     block.before(divBulina);
   }
 
-  if (productsAsList.length) {
-    /// ///////////////////////////////////////////////////////////////////////
-    // check and add products into the final array
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
+  if (productsAsList?.length) {
     /// ///////////////////////////////////////////////////////////////////////
     // adding input devices
+    // the input is a store action: on change it sets the devices of every product in the block
     const inputFieldset = document.createElement('fieldset');
     inputFieldset.classList = 'd-flex';
     inputFieldset.innerHTML += '<button>-</button>';
     inputFieldset.innerHTML += '<label for="devicesInput" style="display: none;">Number of Devices</label>';
-    inputFieldset.innerHTML += `<input type="text" name="devicesInput" min=${devicesMin}" max="${devicesMax}" value="${devicesSelected}" id="devicesInput">`;
+    inputFieldset.innerHTML += `<input type="text" name="devicesInput" min="${devicesMin}" max="${devicesMax}" value="${devicesSelected}" id="devicesInput"
+      data-store-action data-store-set-type="devices" data-store-set-delta="0" data-store-set-min="${devicesMin}" data-store-set-max="${devicesMax}">`;
     inputFieldset.innerHTML += '<button>+</button>';
     // add fieldset
     const tableEl = parent1ndDiv.querySelector('table');
     tableEl?.before(inputFieldset);
 
     const devicesInput = block.querySelector('#devicesInput');
-    const prodiId = productAliases(productsAsList[0].split('/')[0]);
 
     const emElements = tableEl?.querySelectorAll('em');
     const deviceValues = [30, 150, 150];
@@ -168,53 +166,44 @@ export default function decorate(block) {
           currentdevices = updateCurrentDevices(skipUnwantedSelectorsArray, currentdevices, incrementalCounterValue, devicesInput, action);
         }
 
-        // trigger selector
-        const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
-        devicesSelector?.forEach((selector) => {
-          selector.value = devicesInput.value;
-          selector.dispatchEvent(new Event('change'));
-        });
+        // let the store action of the input pick up the new value
+        devicesInput.dispatchEvent(new Event('change'));
 
         updateTableElement(tableElServers, currentdevices, 30);
         updateTableElement(tableElMailboxes, currentdevices, 150);
       });
     });
 
-    // change directly input number
-    block.querySelector('#devicesInput')?.addEventListener('input', (event) => {
-      const devicesSelector = document.querySelectorAll(`.users_${prodiId}`);
-      if (devicesSelector.length > 0) {
-        devicesSelector.forEach((selector) => {
-          selector.value = event.target.value;
-          selector.dispatchEvent(new Event('change', { bubbles: true }));
-        });
-      }
+    // change directly input number: update the prices while typing, not only on blur
+    devicesInput?.addEventListener('input', () => {
+      devicesInput.dispatchEvent(new Event('change'));
     });
 
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const {
+        productId, devices, subscription: prodYears, trialDuration,
+      } = parseStoreProduct(item);
 
       const pricesDiv = document.createElement('div');
 
-      pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+      pricesDiv.classList = 'prices_box await-loader';
       pricesDiv.setAttribute('data-testid', 'prod_box');
       if (bulinaText) {
-        pricesDiv.innerHTML += `<div class="prod-percent green_bck_circle small has${bulinaText.split(',').length}txt"><b class="percent percent-${onSelectorClass}">10%</b><p>${bulinaText.split(',')[1]}</p></div>`;
+        pricesDiv.innerHTML += `<div class="prod-percent green_bck_circle small has${bulinaText.split(',').length}txt" data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility"><b class="percent" data-store-render data-store-discount="percentage"></b><p>${bulinaText.split(',')[1]}</p></div>`;
       }
 
       if (monthlyText) {
         const [monthlyText1, monthlyText2] = monthlyText.split(',');
-        const monthlytext2updated = monthlyText1.replace('0', `<span class="newprice-${onSelectorClass}-monthly"></span>`);
+        const monthlytext2updated = monthlyText1.replace('0', '<span data-store-render data-store-price="discounted-monthly||full-monthly"></span>');
         if (reverseMonthlyTextWithPrice) {
           pricesDiv.innerHTML += `<div class="blue-monthly-tag">
-                                    <span style="color: white; font-size: 24px" class="prod-newprice newprice-${onSelectorClass}"></span>
-                                    <p style="color: white;" class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText}
-                                      <span class="oldprice-${onSelectorClass}"></span>
+                                    <span style="color: white; font-size: 24px" class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
+                                    <p style="color: white;" class="prod-oldprice" data-store-hide="${NO_DISCOUNT}">${oldpriceText}
+                                      <span data-store-render data-store-price="full"></span>
                                     </p>
-                                    <p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>
+                                    <p class="prod-save" data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility">${savingText} <span data-store-render data-store-discount="value"></span></p>
                                   </div>`;
         } else {
           pricesDiv.innerHTML += `<div class="blue-monthly-tag"><strong>${monthlytext2updated}</strong> ${monthlyText2}</div>`;
@@ -230,11 +219,13 @@ export default function decorate(block) {
           selectElement.innerHTML = `${subscribeTexts} <i style="font-weight: bold; font-style: normal">${prodYears} ${prodYears > 1 ? yearsText : yearText}</i>`;
           selectorBox.appendChild(selectElement);
         } else {
+          // store action: sets the subscription of this box's product
           const selectElement = document.createElement('select');
+          selectElement.setAttribute('data-store-action', '');
           selectElement.innerHTML = `
-            <option value="1">${subscribeTexts} <i style="font-weight: bold; font-style: normal">1 ${yearText}</i></option>
-            <option value="2">${subscribeTexts} <i style="font-weight: bold; font-style: normal">2 ${yearsText}</i></option>
-            <option value="3">${subscribeTexts} <i style="font-weight: bold; font-style: normal">3 ${yearsText}</i></option>
+            <option value="1" data-store-set-subscription="1">${subscribeTexts} <i style="font-weight: bold; font-style: normal">1 ${yearText}</i></option>
+            <option value="2" data-store-set-subscription="2">${subscribeTexts} <i style="font-weight: bold; font-style: normal">2 ${yearsText}</i></option>
+            <option value="3" data-store-set-subscription="3">${subscribeTexts} <i style="font-weight: bold; font-style: normal">3 ${yearsText}</i></option>
           `;
           selectElement.id = 'selectYears';
           selectorBox.appendChild(selectElement);
@@ -246,30 +237,20 @@ export default function decorate(block) {
       }
       if (monthlyText && reverseMonthlyTextWithPrice) {
         const [monthlyText1, monthlyText2] = monthlyText.split(',');
-        const monthlytext2updated = monthlyText1.replace('0', `<strong class="newprice-${onSelectorClass}-monthly"></strong>`);
+        const monthlytext2updated = monthlyText1.replace('0', '<strong data-store-render data-store-price="discounted-monthly||full-monthly"></strong>');
         pricesDiv.innerHTML += `<div style="font-size: 20px;"><strong>${monthlytext2updated}</strong> ${monthlyText2}</div>`;
       } else {
-        pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
-        pricesDiv.innerHTML += `<p class="prod-oldprice d-flex justify-content-center align-items-center">${oldpriceText} <span class="oldprice-${onSelectorClass}"></span></p>`;
-        pricesDiv.innerHTML += `<p class="prod-save">${savingText} <span class="save-${onSelectorClass}"></span></p>`;
+        pricesDiv.innerHTML += '<span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>';
+        pricesDiv.innerHTML += `<p class="prod-oldprice" data-store-hide="${NO_DISCOUNT}">${oldpriceText} <span data-store-render data-store-price="full"></span></p>`;
+        pricesDiv.innerHTML += `<p class="prod-save" data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility">${savingText} <span data-store-render data-store-discount="value"></span></p>`;
       }
 
-      // buylinkText = buylinkText.replace('0', `<span class="save-${onSelectorClass}"></span>`);
-      pricesDiv.innerHTML += `<p class="percent percent-${onSelectorClass}" style="display: none;"></p>`;
-      pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">${buylinkText}</a></div>`;
+      pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}"><a class="red-buy-button await-loader" data-store-render data-store-buy-link="${trialDuration}" referrerpolicy="no-referrer-when-downgrade">${buylinkText}</a></div>`;
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
 
       parent2ndDiv.appendChild(pricesDiv);
-
-      const selectElement = block.querySelector('#selectYears');
-      // eslint-disable-next-line no-unused-expressions
-      selectElement && selectElement.addEventListener('change', (event) => {
-        const triggerValue = event.target.value;
-        if (document.querySelector(`.years_${onSelectorClass}_fake`)) {
-          const fakeSelector = document.querySelector(`.years_${onSelectorClass}_fake`);
-          fakeSelector.value = triggerValue;
-          fakeSelector.dispatchEvent(new Event('change'));
-        }
+      wrapChildrenWithProduct(pricesDiv, {
+        productId, devices, subscription: prodYears, storeEvent: 'info',
       });
 
       /// ///////////////////////////////////////////////////////////////////////
@@ -290,5 +271,11 @@ export default function decorate(block) {
         table.before(breakDiv);
       }
     });
+
+    // the devices input (first row) and the price boxes (second row) need a common store scope,
+    // and the block's own children can't be wrapped without breaking its `> div` styles
+    const storeContext = document.createElement('bd-context');
+    block.before(storeContext);
+    storeContext.append(block);
   }
 }

@@ -15,26 +15,20 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer-opt/ - http://localhost:3000/consumer/en/new/cl-offer-opt
 */
 
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, GLOBAL_EVENTS, matchHeights } from '../../scripts/utils.js';
+import { matchHeights, parseStoreProduct, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+
+// the VPN that can be added as a bundle to each product box
+const VPN_BUNDLE = { productId: 'vpn', devices: '10', subscription: '1' };
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
   // get data attributes set in metaData
   const parentSelector = block.closest('.section');
   const metaData = parentSelector.dataset;
-  const {
-    products, bulinaText, upTo, userText, yearText,
-  } = metaData;
+  const { products, bulinaText } = metaData;
   const productsAsList = products && products.split(',');
 
   if (productsAsList.length) {
-    // check and add products into the final array
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
-    // add VPN
-    updateProductsList('vpn/10/1');
-
     /// ///////////////////////////////////////////////////////////////////////
     // set top class with numbers of products
     parentSelector.classList.add(`has${productsAsList.length}boxes`);
@@ -42,35 +36,45 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((product, idx) => {
-      // eslint-disable-next-line prefer-const
-      let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      prodName = prodName.trim();
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const storeProduct = parseStoreProduct(productsAsList[idx]);
+      const {
+        productId, devices, subscription, trialDuration,
+      } = storeProduct;
+      const onSelectorClass = `${productId}-${devices}${subscription}`;
+      // the column holding the box content, the store scope of this product box
+      const boxContent = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) > div`);
 
       // adding prices
       const pricesSections = block.querySelectorAll(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:first-of-type p`);
       block.querySelectorAll(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:first-of-type`).forEach((item) => {
-        item.classList = `await-loader prodload prodload-${onSelectorClass}`;
+        item.classList = 'await-loader prices_table';
       });
       // old price:
-      pricesSections[0].innerHTML += `<span class='prod-oldprice oldprice-${onSelectorClass}'></span>`;
-      // vpn:
-      pricesSections[1].className = `show_vpn_box show_vpn-${onSelectorClass}`;
-      pricesSections[1].style.display = 'none';
-      pricesSections[1].innerHTML += '<i><span class="prod-oldprice oldprice-vpn-101"></span><span class="prod-newprice newprice-vpn-101"></span>';
+      pricesSections[0].innerHTML += "<span class='prod-oldprice' data-store-render data-store-price='full'></span>";
+      pricesSections[0].setAttribute('data-store-render', '');
+      pricesSections[0].setAttribute('data-store-hide', '!it.option.price.discounted');
+      // vpn, shown while the VPN bundle is checked:
+      const showVpnBox = pricesSections[1];
+      showVpnBox.className = 'show_vpn_box';
+      showVpnBox.style.display = 'none';
+      showVpnBox.innerHTML += '<i><span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span><span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>';
+      wrapChildrenWithStoreContext(showVpnBox.querySelector('i'), { ...VPN_BUNDLE, storeEvent: '' });
       // new price:
-      pricesSections[2].innerHTML += `<span class='prod-save save-${onSelectorClass}'></span>`;
+      pricesSections[2].innerHTML += "<span class='prod-save' data-store-render data-store-discount='value'></span>";
+      pricesSections[2].setAttribute('data-store-render', '');
+      pricesSections[2].setAttribute('data-store-hide', '!it.option.price.discounted');
       // total:
-      pricesSections[3].innerHTML += `<span class='prod-newprice newprice-${onSelectorClass}'></span>`;
+      pricesSections[3].innerHTML += "<span class='prod-newprice' data-store-render data-store-price='discounted||full'></span>";
 
       // create procent - bulina
       if (typeof bulinaText !== 'undefined') {
         const bulinaSplitted = bulinaText.split(',');
-        let divBulina = `<div class="prod-percent green_bck_circle medium bulina-${onSelectorClass} has${bulinaSplitted.length}txt">`;
+        // hidden until the store shows it, only when the product has a discount
+        let divBulina = `<div class="prod-percent green_bck_circle medium has${bulinaSplitted.length}txt" style="visibility: hidden" data-store-render data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility">`;
         bulinaSplitted.forEach((item, key) => {
           let newItem = item;
           if (item.indexOf('0%') !== -1) {
-            newItem = item.replace(/0%/g, `<b class='percent percent-${onSelectorClass}'></b>`);
+            newItem = item.replace(/0%/g, "<b class='percent' data-store-render data-store-discount='percentage'></b>");
           }
           divBulina += `<span class="bulina_text${key + 1}">${newItem}</span>`;
         });
@@ -83,15 +87,15 @@ export default function decorate(block) {
       /// ///////////////////////////////////////////////////////////////////////
       // add buybtn div & anchor
       const tableBuybtn = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:nth-of-type(2) td`);
-      tableBuybtn.innerHTML = `<div class="buy_box buy_box${idx + 1}"><a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
+      tableBuybtn.innerHTML = `<div class="buy_box buy_box${idx + 1}"><a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader' data-store-render data-store-buy-link='${trialDuration}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.innerText}</a></div>`;
 
       /// ///////////////////////////////////////////////////////////////////////
       // adding vpn input checkbox
       const tableVpn = block.querySelector(`.c-productswithvpn2 > div:nth-child(${idx + 1}) table:nth-of-type(3)`);
       if (tableVpn.innerText.indexOf('0') !== -1) {
-        const vpnPrices = '<b><span class="prod-oldprice oldprice-vpn-101">$0</span><span class="prod-newprice newprice-vpn-101">$0</span></b>';
+        const vpnPrices = '<b><span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span><span class="prod-newprice" data-store-render data-store-price="discounted||full"></span></b>';
         const vpnDiv = document.createElement('div');
-        vpnDiv.classList = `vpn_box await-loader prodload prodload-${onSelectorClass}`;
+        vpnDiv.classList = 'vpn_box await-loader';
 
         let labelId = `checkboxVPN-${onSelectorClass}`;
         if (document.getElementById(labelId)) {
@@ -99,10 +103,16 @@ export default function decorate(block) {
         }
 
         if (tableVpn.querySelector('td')?.innerText) {
-          let vpnContent = `<input id='${labelId}' class='${labelId} checkboxVPN' type='checkbox' value=''>`;
+          // checking it adds the VPN as a bundle to this box: prices and buy link become the bundle's
+          let vpnContent = `<input id='${labelId}' type='checkbox' value='' data-store-action data-store-set-bundle data-store-set-id='${VPN_BUNDLE.productId}' data-store-set-devices='${VPN_BUNDLE.devices}' data-store-set-subscription='${VPN_BUNDLE.subscription}'>`;
           vpnContent += `<label for='${labelId}'>${tableVpn.querySelector('td').innerHTML.replace(/0/g, vpnPrices)}</label>`;
 
           vpnDiv.innerHTML = vpnContent;
+          // the label shows the prices of the VPN alone
+          wrapChildrenWithStoreContext(vpnDiv.querySelector('label'), { ...VPN_BUNDLE, storeEvent: '' });
+          vpnDiv.querySelector('input').addEventListener('change', (e) => {
+            showVpnBox.style.display = e.target.checked ? 'block' : 'none';
+          });
 
           tableVpn.before(vpnDiv);
         }
@@ -117,35 +127,14 @@ export default function decorate(block) {
       priceBoxSelector.classList.add(`${onSelectorClass}_box`, 'prod_box');
       priceBoxSelector.setAttribute('data-testid', 'prod_box');
 
-      // const prodDescription = block.querySelector(`.${prodName}-${prodUsers}${prodYears}_box > div > p:nth-child(4)`);
-      // prodDescription.classList.add(`${prodName}_description`);
-
-      if (userText && yearText) {
-        document.addEventListener(GLOBAL_EVENTS.PAGE_LOADED, () => {
-          const users = StoreProducts?.product[prodName]?.selected_users;
-          const years = StoreProducts?.product[prodName]?.selected_years;
-          const textUser = userText.split(',');
-          const textYear = yearText.split(',');
-          let upText = '';
-          let devicesText = '';
-          let yearsText = '';
-          if (users !== '1') {
-            upText = `${upTo}`;
-            devicesText = `${textUser[1]}`;
-          } else {
-            devicesText = `${textUser[0]}`;
-          }
-          if (years !== '1') {
-            yearsText = `${textYear[1]}`;
-          } else {
-            yearsText = `${textYear[0]}`;
-          }
-          const devicesDesc = block.querySelector(`.${prodName}_description`);
-          if (devicesDesc) devicesDesc.innerHTML = `${upText} ${users} ${devicesText} / ${years} ${yearsText}`;
+      // each product box gets its own store scope (prices, buy link and VPN bundle)
+      if (productId) {
+        wrapChildrenWithStoreContext(boxContent, {
+          productId, devices, subscription, storeEvent: 'info',
         });
       }
     });
   }
 
-  matchHeights(block, 'table.prodload tbody');
+  matchHeights(block, 'table.prices_table tbody');
 }

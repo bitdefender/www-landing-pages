@@ -7,10 +7,7 @@ import {
 } from './target.js';
 import pagePromise from './page.js';
 import { getMetadata } from './lib-franklin.js';
-import {
-  GLOBAL_EVENTS, getCookie,
-  productsList,
-} from './utils.js';
+import { GLOBAL_EVENTS, getCookie } from './utils.js';
 
 const page = await pagePromise;
 const target = await targetPromise;
@@ -135,171 +132,10 @@ export async function sendAnalyticsUserInfo() {
   });
 }
 
-const analyticsProducts = [];
-const productsInAdobe = [];
-let switcherListenerInitialized = false;
-
-const isProductVisible = (productAlias) => {
-  const productElement = document
-    .querySelector(`[class*="prodload-${productAlias}-"]`)
-    ?.closest('.prod_box');
-
-  return (
-    !productElement
-    || window.getComputedStyle(productElement).display !== 'none'
-  );
-};
-
-const getVisibleProducts = () => productsInAdobe.filter(Boolean).map(({ productAlias, ...product }) => product);
-
-const pushCampaignProduct = () => {
-  const campaignProduct = window.adobeDataLayer.find(
-    (item) => item?.event === 'campaign product',
-  );
-
-  const info = getVisibleProducts();
-
-  if (campaignProduct) {
-    campaignProduct.product.info = info;
-  } else {
-    window.adobeDataLayer.push({
-      event: 'campaign product',
-      product: { info },
-    });
-  }
-};
-
-const buildAdobeProduct = (product, region) => {
-  const productID = product.selected_variation.product_id;
-  const productData = StoreProducts.product[productID];
-
-  let productName = productData.product_name;
-
-  if (productData.product_alias.includes('_f')) {
-    productName = productName.replace(' Individual', ' Family');
-  }
-
-  if (region === 'nl') {
-    productName = product.config.name;
-  }
-
-  const price = product.selected_variation.price;
-  const discountVal = product.selected_variation.discount?.discounted_price || 0;
-
-  return {
-    ID: product.selected_variation.platform_product_id
-      || product.platformProductID
-      || product.product_id,
-    name: productName,
-    devices: product.selected_users,
-    subscription: product.period,
-    version: '',
-    basePrice: price,
-    discountValue: Math.round((price - discountVal) * 100) / 100,
-    discountRate: Math.round(
-      ((price - discountVal) * 100) / price,
-    ).toString(),
-    currency: product.selected_variation.currency_iso,
-    grossPrice: discountVal,
-    discountCoupon: product.campaignType
-      ? `${product.campaignType}|${product.campaign}`
-      : (product.campaign || product?.config?.extra_params?.pid || ''),
-    productAlias: productData.product_alias,
-  };
-};
-
-const refreshAdobeProducts = () => {
-  productsInAdobe.length = 0;
-
-  analyticsProducts.forEach(({ product, region }) => {
-    if (!product) {
-      return;
-    }
-
-    const adobeProduct = buildAdobeProduct(product, region);
-
-    if (
-      isProductVisible(adobeProduct.productAlias)
-      && !productsInAdobe.some((item) => item?.ID === adobeProduct.ID)
-    ) {
-      productsInAdobe.push(adobeProduct);
-    }
-  });
-
-  pushCampaignProduct();
-};
-
-const initSwitcherListener = () => {
-  if (switcherListenerInitialized) {
-    return;
-  }
-
-  const switchCheckbox = document.getElementById('switchCheckbox');
-
-  if (!switchCheckbox) {
-    return;
-  }
-
-  switcherListenerInitialized = true;
-
-  switchCheckbox.addEventListener('change', () => {
-    requestAnimationFrame(() => {
-      refreshAdobeProducts();
-    });
-  });
-};
-
-export async function sendAnalyticsProducts(product, region) {
-  let initCount = StoreProducts.initCount;
-
-  if (!product) {
-    productsInAdobe.push(product);
-  } else {
-    analyticsProducts.push({ product, region });
-
-    const productID = product.selected_variation.product_id;
-    const productData = StoreProducts.product[productID];
-
-    if (region === 'nl') {
-      initCount = window.productsListCount;
-    }
-
-    const adobeProduct = buildAdobeProduct(product, region);
-
-    const isDuplicate = productsInAdobe.some(
-      (item) => item?.ID === adobeProduct.ID,
-    );
-
-    if (isProductVisible(productData.product_alias) && !isDuplicate) {
-      productsInAdobe.push(adobeProduct);
-    } else {
-      productsInAdobe.push(false);
-    }
-  }
-
-  initSwitcherListener();
-
-  if (
-    productsInAdobe.length === initCount
-    && (
-      getMetadata('allowdatracking')
-      || !(getMetadata('trialbuylinks') || window.trialLinksExist)
-    )
-  ) {
-    pushCampaignProduct();
-
-    const cdpData = await target.cdpData;
-
-    if (cdpData) {
-      AdobeDataLayerService.push(new CdpEvent(cdpData));
-    }
-
-    AdobeDataLayerService.push(new PageLoadedEvent());
-    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
-  }
-}
-
-export async function sendAnalyticsPageLoadedEvent(force = false) {
+/**
+ * Sends the page loaded event, after the store pushed the 'campaign product' events
+ */
+export async function sendAnalyticsPageLoadedEvent() {
   if (!Array.isArray(window.adobeDataLayer)) {
     return;
   }
@@ -309,19 +145,12 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
     return;
   }
 
-  if (
-    (typeof StoreProducts === 'undefined' && !productsList.length)
-    || (typeof StoreProducts !== 'undefined' && StoreProducts.initCount === 0)
-    || getMetadata('free-product')
-    || (getMetadata('trialbuylinks') && !getMetadata('allowdatatracking'))
-    || force) {
-    const cdpData = await target.cdpData; // wait for CDP data to finalize
-    if (cdpData) {
-      AdobeDataLayerService.push(new CdpEvent(cdpData));
-    }
-    AdobeDataLayerService.push(new PageLoadedEvent());
-    document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
+  const cdpData = await target.cdpData; // wait for CDP data to finalize
+  if (cdpData) {
+    AdobeDataLayerService.push(new CdpEvent(cdpData));
   }
+  AdobeDataLayerService.push(new PageLoadedEvent());
+  document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
 }
 
 export async function sendTrialDownloadedEvent() {

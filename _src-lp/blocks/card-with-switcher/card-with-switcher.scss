@@ -101,6 +101,12 @@
 
 /* Product */
 
+/* store wrappers inside the price, save and buy elements must not affect their flex layout */
+.card-with-switcher bd-product,
+.card-with-switcher bd-option {
+    display: contents;
+}
+
 .card-switcher-value[hidden],
 .card-switcher-price[hidden],
 .card-switcher-save[hidden],

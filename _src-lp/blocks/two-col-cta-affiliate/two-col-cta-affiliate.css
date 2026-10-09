@@ -8,6 +8,9 @@
   margin-top: 24px;
   margin-bottom: 0;
 }
+.two-col-cta-affiliate bd-context, .two-col-cta-affiliate bd-product, .two-col-cta-affiliate bd-option {
+  display: contents;
+}
 .two-col-cta-affiliate.typev2 h4 {
   color: #006EFF;
   margin-bottom: 8px;

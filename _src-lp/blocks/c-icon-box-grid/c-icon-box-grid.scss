@@ -244,6 +244,12 @@
   margin-top: 10px;
 }
 
+/* the store scope of the buy links must not change the buttons layout */
+.c-icon-box-grid .buttons bd-product,
+.c-icon-box-grid .buttons bd-option {
+  display: contents;
+}
+
 .c-icon-box-grid-container.new p {
   font-size: 12px;
   line-height: 14px;

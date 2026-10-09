@@ -1192,3 +1192,10 @@
     justify-content: center !important;
   }
 }
+
+/* store scopes around the priced elements must not affect the layout */
+.section.banner-with-dropdown-container .banner-with-dropdown bd-context,
+.section.banner-with-dropdown-container .banner-with-dropdown bd-product,
+.section.banner-with-dropdown-container .banner-with-dropdown bd-option {
+  display: contents;
+}

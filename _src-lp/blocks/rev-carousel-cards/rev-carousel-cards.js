@@ -1,5 +1,4 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.js';
+import { getDatasetFromSection, parseStoreProduct, wrapChildrenWithProduct } from '../../scripts/utils.js';
 
 /*
   Information:
@@ -11,11 +10,26 @@ import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.j
   Samples:
   - https://main--www-landing-pages--bitdefender.aem.page/drafts/test-page/consumer/en/new/ps-ts-vpn-opt/
 */
+
+/**
+ * Wraps the element itself (not its children) in bd-product > bd-option,
+ * so the carousel item keeps its own classes and children for the carousel and the CSS.
+ * @param {HTMLElement} element
+ * @param {object} storeProperties
+ */
+function wrapWithProduct(element, storeProperties) {
+  const holder = document.createElement('div');
+  element.before(holder);
+  holder.append(element);
+  const product = wrapChildrenWithProduct(holder, storeProperties);
+  holder.replaceWith(product);
+}
+
 export default function decorate(block) {
   const carouselSlides = [...block.children];
   const metaData = getDatasetFromSection(block);
   const { products, tagText } = metaData;
-  const productsAsList = products && products.split(',');
+  const productsAsList = products ? products.split(',') : [];
   block.innerHTML = `
       <div class="py-5">
         <div class="row">
@@ -75,39 +89,46 @@ export default function decorate(block) {
       </div>
     `;
 
-  const prices = block.querySelectorAll('.rev-carousel-cards hr + p.button-container');
+  const mobileCards = block.querySelectorAll('.d-lg-none .carousel-item');
+  const desktopCards = block.querySelectorAll('.d-lg-flex .carousel-item');
   if (productsAsList.length) {
-    // check and add products into the final array
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
-      // add prices
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const pricesDivLeftCard = document.createElement('div');
-      pricesDivLeftCard.classList = `prices_box await-loader prodload prodload-${onSelectorClass} d-flex justify-content-center`;
-      pricesDivLeftCard.innerHTML = `
-                                      <div>
-                                          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-                                          <span class="prod-newprice newprice-${onSelectorClass} mt-2"></span>
-                                      </div>`;
-      const pricesDivLeftCard2 = document.createElement('div');
-      pricesDivLeftCard2.classList = `prices_box await-loader prodload prodload-${onSelectorClass} d-flex justify-content-center`;
-      pricesDivLeftCard2.innerHTML = `
-                                      <div>
-                                          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-                                          <span class="prod-newprice newprice-${onSelectorClass} mt-2"></span>
-                                      </div>`;
-      prices[idx + 3].before(pricesDivLeftCard);
-      prices[idx].before(pricesDivLeftCard2);
+      const {
+        productId, devices, subscription, trialDuration,
+      } = parseStoreProduct(item);
 
-      // add buybtn div & anchor
-      const tableBuybtn = block.querySelectorAll('p.button-container > strong > a')[idx];
-      const tableBuybtn2 = block.querySelectorAll('p.button-container > strong > a')[idx + 3];
-      tableBuybtn.classList.add(`buylink-${onSelectorClass}`, 'await-loader', 'prodload', `prodload-${onSelectorClass}`);
-      tableBuybtn2.classList.add(`buylink-${onSelectorClass}`, 'await-loader', 'prodload', `prodload-${onSelectorClass}`);
+      // the same product is shown in the mobile carousel and in the desktop row
+      [desktopCards[idx], mobileCards[idx]].forEach((card, cardIdx) => {
+        if (!card) return;
+
+        // add prices
+        const pricesDiv = document.createElement('div');
+        pricesDiv.classList = 'prices_box await-loader d-flex justify-content-center';
+        pricesDiv.innerHTML = `
+                                      <div>
+                                          <span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span>
+                                          <span class="prod-newprice mt-2" data-store-render data-store-price="discounted||full"></span>
+                                      </div>`;
+        card.querySelector('hr + p.button-container')?.before(pricesDiv);
+
+        // add buybtn div & anchor
+        const tableBuybtn = card.querySelector('p.button-container > strong > a');
+        if (tableBuybtn) {
+          tableBuybtn.classList.add('await-loader');
+          tableBuybtn.setAttribute('data-store-render', '');
+          tableBuybtn.setAttribute('data-store-buy-link', trialDuration);
+        }
+
+        wrapWithProduct(card, {
+          productId,
+          devices,
+          subscription,
+          // the mobile card duplicates the desktop one
+          storeEvent: cardIdx === 0 ? 'info' : '',
+        });
+      });
     });
   }
 }

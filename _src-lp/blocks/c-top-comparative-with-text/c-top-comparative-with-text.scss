@@ -16,6 +16,12 @@
   font-size: 18px;
 }
 
+/* store scopes wrap the card content, keep the card children as grid items */
+.c-top-comparative-with-text bd-product,
+.c-top-comparative-with-text bd-option {
+  display: contents;
+}
+
 .c-top-comparative-with-text-container.netgear .c-top-comparative-with-text {
   gap: 30px;
   display: grid;

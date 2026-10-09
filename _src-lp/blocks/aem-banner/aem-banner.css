@@ -1,3 +1,8 @@
+.aem-banner-container .aem-banner bd-context,
+.aem-banner-container .aem-banner bd-product,
+.aem-banner-container .aem-banner bd-option {
+  display: contents;
+}
 .aem-banner-container .aem-banner p:first-of-type {
   margin: 0;
 }

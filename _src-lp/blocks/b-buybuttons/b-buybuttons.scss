@@ -9,6 +9,12 @@
   flex-grow: 1;
 }
 
+/* store scope around the buy buttons, it must not affect the layout */
+.b-buybuttons bd-product,
+.b-buybuttons bd-option {
+  display: contents;
+}
+
 .b-buybuttons > div div {
   flex: 1;
   position: relative;

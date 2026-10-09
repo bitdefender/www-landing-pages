@@ -23,8 +23,36 @@
 */
 
 import { debounce } from '@repobit/dex-utils';
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import {
+  maxDiscountHtml,
+  parseStoreProduct,
+  wrapChildrenWithStoreContext,
+} from '../../scripts/utils.js';
+
+// the VPN that can be added as a bundle to each product box
+const VPN_BUNDLE = { productId: 'vpn', devices: '10', subscription: '1' };
+
+/**
+ * Legacy `parent-no-hide no-price-show` behaviour: when the product has no discount
+ * the button text (e.g. BUY NOW FOR 0% OFF) falls back to a plain BUY NOW.
+ * @param {HTMLElement} button
+ */
+function buyNowWithoutDiscount(button) {
+  const parents = new Set([...button.querySelectorAll('.no-price-show')].map((span) => span.parentElement));
+  parents.forEach((parent) => {
+    const withDiscount = document.createElement('span');
+    withDiscount.setAttribute('data-store-render', '');
+    withDiscount.setAttribute('data-store-hide', '!it.option.price.discounted');
+    withDiscount.append(...parent.childNodes);
+
+    const withoutDiscount = document.createElement('span');
+    withoutDiscount.setAttribute('data-store-render', '');
+    withoutDiscount.setAttribute('data-store-hide', 'it.option.price.discounted');
+    withoutDiscount.textContent = 'BUY NOW';
+
+    parent.append(withDiscount, withoutDiscount);
+  });
+}
 
 export default function decorate(block) {
   /// ////////////////////////////////////////////////////////////////////////
@@ -76,13 +104,6 @@ export default function decorate(block) {
     }
 
     /// ///////////////////////////////////////////////////////////////////////
-    // check and add products into the final array
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
-    // add VPN
-    updateProductsList('vpn/10/1');
-
-    /// ///////////////////////////////////////////////////////////////////////
     // set top class with numbers of products
     parentSelector.classList.add(`has${productsAsList.length}boxes`);
 
@@ -90,11 +111,11 @@ export default function decorate(block) {
     // create procent - bulina
     if (typeof bulinaText !== 'undefined') {
       const bulinaSplitted = bulinaText.split(',');
-      let divBulina = `<div class='prod-percent green_bck_circle bigger has${bulinaSplitted.length}txt'>`;
+      let divBulina = `<div class='prod-percent green_bck_circle bigger has${bulinaSplitted.length}txt' data-store-render data-store-hide='!it.state.discount.percentage.max'>`;
       bulinaSplitted.forEach((item, idx) => {
         let newItem = item;
         if (item.indexOf('0%') !== -1) {
-          newItem = item.replace(/0%/g, '<b class=\'max-discount\'></b>');
+          newItem = item.replace(/0%/g, maxDiscountHtml('b'));
         }
         divBulina += `<span class='bulina_text${idx + 1}'>${newItem}</span>`;
       });
@@ -124,28 +145,32 @@ export default function decorate(block) {
     }
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
+    const storeBoxes = [];
     productsAsList.forEach((item, idx) => {
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-      const percent = 0;
+      const storeProduct = parseStoreProduct(productsAsList[idx]);
+      const { productId, devices, subscription } = storeProduct;
+      const onSelectorClass = `${productId}-${devices}${subscription}`;
+      // the column holding the box content, the store scope of this product box
+      const boxContent = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) > div`);
+      storeBoxes.push({ boxContent, storeProduct });
 
       const pricesDiv = document.createElement('div');
-      pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+      pricesDiv.classList = 'prices_box await-loader';
 
       // if has harcoded prices
       const tablePriceBox = block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table`);
       const tablePriceTexts = tablePriceBox.querySelectorAll('p');
       if (tablePriceTexts.length > 0) {
         tablePriceBox.className = 'prices_box';
-        tablePriceTexts[0].className = 'prod-oldprice oldprice-custom';
-        tablePriceTexts[1].className = 'prod-newprice newprice-custom';
+        tablePriceTexts[0].className = 'prod-oldprice';
+        tablePriceTexts[1].className = 'prod-newprice';
       } else {
         let percentSelector = '';
         if (percentText) {
-          percentSelector = `<p class="save-green-pill">${percentText.replace('0%', `<span class="prod-percent percent-${onSelectorClass}"></span>`)}</p>`;
+          percentSelector = `<p class="save-green-pill" data-store-render data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility">${percentText.replace('0%', '<span class="prod-percent" data-store-render data-store-discount="percentage"></span>')}</p>`;
         }
-        pricesDiv.innerHTML += `<div class="oldprice_percent"><span class="prod-oldprice oldprice-${onSelectorClass}"></span> ${percentSelector}</div>`;
-        pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
+        pricesDiv.innerHTML += `<div class="oldprice_percent"><span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span> ${percentSelector}</div>`;
+        pricesDiv.innerHTML += '<span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>';
       }
 
       block.querySelector(`.c-productswithvpn > div:nth-child(${idx + 1}) table`).after(pricesDiv);
@@ -170,15 +195,21 @@ export default function decorate(block) {
       const tableBuybtnHref = tableBuybtn?.querySelector('a');
       const aBuybtn = document.createElement('a');
 
+      const percentSpan = '<span class="parent-no-hide no-price-show percent" data-store-render data-store-discount="percentage"></span>';
       // if already has a link attached
       if (tableBuybtnHref) {
-        aBuybtn.innerHTML = tableBuybtnHref?.innerHTML.replace(/0%/g, `<span class="parent-no-hide no-price-show percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
-        aBuybtn.className = 'red-buy-button buylink-custom';
+        aBuybtn.innerHTML = tableBuybtnHref?.innerHTML.replace(/0%/g, percentSpan);
+        aBuybtn.className = 'red-buy-button';
+        // the authored link is kept, only the discount in its text comes from the store
+        if (aBuybtn.querySelector('.percent')) aBuybtn.classList.add('await-loader');
         aBuybtn.href = tableBuybtnHref.href;
       } else {
-        aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
-        aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="parent-no-hide no-price-show percent percent-${percent ? '' : onSelectorClass}">${percent}</span>`);
+        aBuybtn.className = 'red-buy-button await-loader';
+        aBuybtn.setAttribute('data-store-render', '');
+        aBuybtn.setAttribute('data-store-buy-link', storeProduct.trialDuration);
+        aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, percentSpan);
       }
+      buyNowWithoutDiscount(aBuybtn);
 
       aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
@@ -201,18 +232,19 @@ export default function decorate(block) {
       // adding input vpn
       if (hasVPN) { // has VPN
         // table_vpn.className = 'vpn_box'
-        // replace in vpn box
+        // replace in vpn box: X - VPN price, Y - VPN full price, Z - VPN discount
         const replaceData = {
-          X: '<span class="newprice-vpn-101"></span>',
-          Y: '<span class="oldprice-vpn-101"></span>',
-          Z: '<span class="percent-vpn-101"></span>',
+          X: '<span data-store-render data-store-price="discounted||full"></span>',
+          Y: '<span data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span>',
+          Z: '<span data-store-render data-store-discount="percentage" data-store-hide="!it.option.price.discounted"></span>',
         };
 
         let labelId = `checkboxVPN-${onSelectorClass}`;
         if (document.getElementById(labelId)) {
           labelId = `${labelId}-1`;
         }
-        let vpnContent = `<input id="${labelId}" class="${labelId} checkboxVPN" type="checkbox" value="">`;
+        // checking it adds the VPN as a bundle to this box: prices and buy link become the bundle's
+        let vpnContent = `<input id="${labelId}" type="checkbox" value="" data-store-action data-store-set-bundle data-store-set-id="${VPN_BUNDLE.productId}" data-store-set-devices="${VPN_BUNDLE.devices}" data-store-set-subscription="${VPN_BUNDLE.subscription}">`;
         vpnContent += `<label for="${labelId}">`;
         tableVpn?.querySelectorAll('td').forEach((td) => {
           vpnContent += `<span>${td.innerHTML.replace(/[XYZ]/g, (m) => replaceData[m])}</span>`;
@@ -220,8 +252,10 @@ export default function decorate(block) {
         vpnContent += '</label>';
 
         const vpnBox = document.createElement('div');
-        vpnBox.classList = `vpn_box await-loader prodload prodload-${onSelectorClass} ${tableBuybtnHref ? 'hide_vpn' : ''}`;
+        vpnBox.classList = `vpn_box await-loader${tableBuybtnHref ? ' hide_vpn' : ''}`;
         vpnBox.innerHTML = `<div>${vpnContent}</div>`;
+        // the label shows the prices of the VPN alone
+        wrapChildrenWithStoreContext(vpnBox.querySelector('label'), { ...VPN_BUNDLE, storeEvent: '' });
 
         tableVpn?.before(vpnBox);
         tableVpn?.remove();
@@ -242,7 +276,7 @@ export default function decorate(block) {
     });
 
     // if there is no vpn on all prod-boxes
-    if (!block.querySelector('.checkboxVPN')) {
+    if (!block.querySelector('.vpn_box input')) {
       parentSelector.classList.add('no_vpn_table');
     }
 
@@ -361,6 +395,16 @@ export default function decorate(block) {
           }
         });
       }
+    });
+
+    /// ///////////////////////////////////////////////////////////////////////
+    // each product box gets its own store scope (prices, buy link and VPN bundle)
+    storeBoxes.forEach(({ boxContent, storeProduct }) => {
+      const { productId, devices, subscription } = storeProduct;
+      if (!productId) return;
+      wrapChildrenWithStoreContext(boxContent, {
+        productId, devices, subscription, storeEvent: 'info',
+      });
     });
   }
 

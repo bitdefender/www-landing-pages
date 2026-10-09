@@ -1,8 +1,40 @@
 import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
+import { getBackgroundImageUrl, parseStoreProduct, wrapChildrenWithProduct } from '../../scripts/utils.js';
+
+const NO_DISCOUNT = '!it.option.price.discounted';
+// the block is rebuilt from innerHTML, so the store scopes are added at the end, where this attribute says
+const STORE_PRODUCT_ATTRIBUTE = 'data-spb-store-product';
+const STORE_EVENT_ATTRIBUTE = 'data-spb-store-event';
 
 let counter = 0;
+
+/**
+ * @param {HTMLElement} element
+ * @param {string} product e.g. ps/10/1
+ * @param {string} storeEvent
+ */
+function markStoreProduct(element, product, storeEvent = '') {
+  element.setAttribute(STORE_PRODUCT_ATTRIBUTE, product.trim());
+  if (storeEvent) element.setAttribute(STORE_EVENT_ATTRIBUTE, storeEvent);
+}
+
+/**
+ * @param {HTMLElement} block
+ */
+function wrapMarkedStoreProducts(block) {
+  const markedElements = [block, ...block.querySelectorAll(`[${STORE_PRODUCT_ATTRIBUTE}]`)]
+    .filter((element) => element.hasAttribute(STORE_PRODUCT_ATTRIBUTE));
+
+  markedElements.forEach((element) => {
+    const { productId, devices, subscription } = parseStoreProduct(element.getAttribute(STORE_PRODUCT_ATTRIBUTE));
+    wrapChildrenWithProduct(element, {
+      productId, devices, subscription, storeEvent: element.getAttribute(STORE_EVENT_ATTRIBUTE) || '',
+    });
+    element.removeAttribute(STORE_PRODUCT_ATTRIBUTE);
+    element.removeAttribute(STORE_EVENT_ATTRIBUTE);
+  });
+}
 
 export default function decorate(block) {
   counter += 1;
@@ -60,13 +92,12 @@ export default function decorate(block) {
     const selectorBoxOptions = ['yearly', 'monthly'];
     const selectorBoxTexts = Array.from(tablePrices.querySelectorAll('td')).map((td) => td.innerHTML);
 
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
     productsAsList.forEach((item, idx) => {
       // eslint-disable-next-line prefer-const
       let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
       prodName = prodName.trim();
       const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const { trialDuration } = parseStoreProduct(item);
       const pricesBox = document.createElement('div');
       let show;
       let checkedOption = 0;
@@ -83,33 +114,34 @@ export default function decorate(block) {
       // prices
       let billed = '';
       if (billedYearly) {
-        billed = billedYearly.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
+        billed = billedYearly.replace('XX', '<span class=\'d-inline-flex\' data-store-render data-store-price="discounted||full"></span>');
       }
 
       let priceFull = '';
       if (type && type === 'slide') {
         priceFull = `
           <div class="priced">
-            <span class='prod-newprice newprice-${onSelectorClass}'></span>
-            <span class='prod-oldprice oldprice-${onSelectorClass}'></span>
-            <span class='prod-save save-${onSelectorClass} greenTag d-inline'></span>
+            <span class='prod-newprice' data-store-render data-store-price="discounted||full"></span>
+            <span class='prod-oldprice' data-store-render data-store-price="full" data-store-hide="${NO_DISCOUNT}"></span>
+            <span class='prod-save greenTag d-inline' data-store-render data-store-discount="value" data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility"></span>
           </div>`;
       } else {
         priceFull = `
           <div class="d-flex justify-content-center priced">
-            <span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> ${per ? `/${per}` : ''}</span>
+            <span class='prod-newprice' data-store-render data-store-price="discounted-monthly||full-monthly"></span><span class="per-month"> ${per ? `/${per}` : ''}</span>
           </div>`;
       }
 
       if (Constants.MONTHLY_PRODUCTS.includes(prodName)) {
-        billed = billedMonthly?.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
+        billed = billedMonthly?.replace('XX', '<span class=\'d-inline-flex\' data-store-render data-store-price="discounted||full"></span>');
         priceFull = `
         <div class="d-flex justify-content-center priced">
-        <span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month">  ${per ? `/${per}` : ''}</span>
+        <span class='prod-newprice' data-store-render data-store-price="discounted||full"></span><span class="per-month">  ${per ? `/${per}` : ''}</span>
         </div>`;
       }
 
-      pricesBox.className = `${prodName}_box prices_box ${idx === 0 ? 'yearly' : 'monthly'} ${show} await-loader prodload prodload-${onSelectorClass}`;
+      pricesBox.className = `${prodName}_box prices_box ${idx === 0 ? 'yearly' : 'monthly'} ${show} await-loader`;
+      markStoreProduct(pricesBox, item, 'info');
       pricesBox.innerHTML = `<div>
         ${priceFull}
         ${billed ? `<div class="d-flex justify-content-center billed">${billed}</div>` : ''}
@@ -120,14 +152,15 @@ export default function decorate(block) {
       let saveText = selectorBoxTexts[idx];
       if (saveText) {
         if (saveText.indexOf('<strong>')) selectorBox.classList.add('bigger');
-        saveText = saveText.replace(/<strong>/g, '<span class="greenTag">').replace(/<\/strong>/g, '</span>').replace(/0/g, `<b class='save-${onSelectorClass}'></b>`);
+        saveText = saveText.replace(/<strong>/g, `<span class="greenTag" data-store-hide="${NO_DISCOUNT}">`).replace(/<\/strong>/g, '</span>').replace(/0/g, '<b data-store-render data-store-discount="value"></b>');
       }
 
       if (selectorBoxTexts.length >= 2 && saveText.trim() !== '') {
+        const hasStoreRender = saveText.includes('data-store-render');
         selectorBox.innerHTML += `
           <div class="d-flex ${idx === 0 ? 'active' : ''}">
             <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === checkedOption ? 'checked="check"' : ''}>
-              <label for="pay_${selectorBoxOptions[idx]}_${counter}">${saveText}</label>
+              <label for="pay_${selectorBoxOptions[idx]}_${counter}" ${hasStoreRender ? `${STORE_PRODUCT_ATTRIBUTE}="${item.trim()}"` : ''}>${saveText}</label>
           </div>
         `;
       }
@@ -142,37 +175,43 @@ export default function decorate(block) {
       // buylink
       const buyButton = document.createElement('div');
       buyButton.className = `buy_box buy_box_${prodName} ${idx === 0 ? 'yearly' : 'monthly'} ${show}`;
-      buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${buyButtonText}</a>`;
+      buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader' data-store-render data-store-buy-link="${trialDuration}" referrerpolicy="no-referrer-when-downgrade">${buyButtonText}</a>`;
+      markStoreProduct(buyButton, item);
       tableBuybtn.appendChild(buyButton);
     });
   } else {
     if (!product) return;
 
     block.classList.add('single-prod');
-    updateProductsList(product);
 
     const [prodName, prodUsers, prodYears] = product.split('/');
     const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    const { trialDuration } = parseStoreProduct(product);
     const pricesBox = document.createElement('div');
 
     // prices
-    pricesBox.className = `pricesBox await-loader prodload prodload-${onSelectorClass}`;
-    pricesBox.innerHTML = `<div class='prod-oldprice oldprice-${onSelectorClass}'></div>`;
-    pricesBox.innerHTML += `<div class='prod-newprice newprice-${onSelectorClass}'></div>`;
+    pricesBox.className = 'pricesBox await-loader';
+    pricesBox.innerHTML = `<div class='prod-oldprice' data-store-render data-store-price="full" data-store-hide="${NO_DISCOUNT}"></div>`;
+    pricesBox.innerHTML += '<div class=\'prod-newprice\' data-store-render data-store-price="discounted||full"></div>';
     tablePrices.appendChild(pricesBox);
 
     // buylink
     const buyButton = document.createElement('div');
-    buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass} buylink-${prodName}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.textContent}</a>`;
+    buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader' data-store-render data-store-buy-link="${trialDuration}" referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.textContent}</a>`;
     tableBuybtn.appendChild(buyButton);
     tableBuybtn.style.display = 'none';
 
     // discount bulina:
-    const percentCircle = boxEl.querySelector('strong');
+    const percentCircle = boxEl?.querySelector('strong');
     if (percentCircle) {
-      percentCircle.className = `prod-percent green_bck_circle bigger await-loader prodload prodload-${onSelectorClass}`;
-      percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', `<span class='prod-percent percent-${onSelectorClass}'></span>`);
+      percentCircle.className = 'prod-percent green_bck_circle bigger await-loader';
+      percentCircle.innerHTML = percentCircle.innerHTML.replace('0%', '<span class=\'prod-percent\' data-store-render data-store-discount="percentage"></span>');
+      (percentCircle.closest('p') || percentCircle).setAttribute('data-store-hide', NO_DISCOUNT);
+      (percentCircle.closest('p') || percentCircle).setAttribute('data-store-hide-type', 'visibility');
     }
+
+    // prices, buy link and discount bulina are spread over the whole block
+    markStoreProduct(block, product, 'info');
   }
 
   if (boxEl) {
@@ -216,4 +255,6 @@ export default function decorate(block) {
       });
     });
   }
+
+  wrapMarkedStoreProducts(block);
 }

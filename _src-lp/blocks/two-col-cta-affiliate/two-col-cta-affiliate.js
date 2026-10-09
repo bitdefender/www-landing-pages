@@ -1,31 +1,47 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { matchHeights } from '../../scripts/utils.js';
+import { matchHeights, parseStoreProduct, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+
+/**
+ * Points the link to the product's buy link (or trial link, when the page has one).
+ * The product is usually shown by another block of the page as well, so it is not
+ * counted again in analytics.
+ * @param {HTMLAnchorElement} link
+ * @param {string} product e.g. tsmd/5/1
+ */
+function setStoreBuyLink(link, product) {
+  const {
+    productId, devices, subscription, trialDuration,
+  } = parseStoreProduct(product);
+
+  link.setAttribute('data-store-render', '');
+  link.setAttribute('data-store-buy-link', link.classList.contains('no-trial') ? '' : trialDuration);
+  wrapChildrenWithStoreContext(link.parentElement, {
+    productId, devices, subscription, storeEvent: '',
+  });
+}
 
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
   const {
     product, buttonText, buttonLink, type,
   } = metaData;
-  const [prodName, prodUsers, prodYears] = product ? product.split('/') : '';
-  const onSelectorClass = product ? `${productAliases(prodName)}-${prodUsers}${prodYears}` : '';
 
   if (type && type === 'v2') {
     block.classList.add('typev2');
-    if (block.querySelector('a')) {
-      block.querySelector('a').classList.add(`buylink-${onSelectorClass}`);
-      block.querySelector('a').setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+    const link = block.querySelector('a');
+    if (link) {
+      link.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      if (product) setStoreBuyLink(link, product);
     }
   } else {
     const [title, subtitle, ...rightColumns] = block.children;
     const buyBtn = document.createElement('span');
 
     if (buttonText) {
-      const cls = onSelectorClass ? ` buylink-${onSelectorClass}` : '';
       const href = buttonLink || '#';
 
       buyBtn.innerHTML = `
         <a
-          class="button primary${cls}"
+          class="button primary"
           referrerpolicy="no-referrer-when-downgrade"
           href="${href}"
           title="${buttonText.trim()} Bitdefender"
@@ -33,6 +49,9 @@ export default function decorate(block) {
           <strong>${buttonText}</strong>
         </a>
       `;
+
+      // an authored button link is kept as it is
+      if (product && !buttonLink) setStoreBuyLink(buyBtn.querySelector('a'), product);
     }
 
     const leftColumn = document.createElement('div');

@@ -2,6 +2,11 @@ $rev-cards-grey: #616161;
 $rev-save-box: #68BA68;
 
 .rev-cards {
+    // store wrappers around each card must not become the column's flex item
+    bd-product, bd-option {
+        display: contents;
+    }
+
     > p:nth-of-type(3) {
         color: $rev-cards-grey;
         font-size: 14px;

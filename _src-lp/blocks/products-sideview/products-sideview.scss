@@ -9,6 +9,13 @@
   position: relative;
 }
 
+/* store wrappers (around the block, the prices and the trial button) must not create boxes */
+.products-sideview-wrapper > bd-product,
+.products-sideview bd-product,
+.products-sideview bd-option {
+  display: contents;
+}
+
 .products-sideview:has(.green-tag) {
   margin-top: 85px;
 }

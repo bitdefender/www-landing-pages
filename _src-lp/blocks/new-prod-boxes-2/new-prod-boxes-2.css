@@ -792,7 +792,7 @@
   margin-right: 10px;
 }
 
-.new-prod-boxes-2-container .block .prod_box .inner_prod_box .save_price_box.await-loader.new-store .prod-percent {
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .save_price_box.await-loader .prod-percent {
   visibility: hidden;
 }
 

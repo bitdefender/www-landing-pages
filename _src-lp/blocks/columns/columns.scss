@@ -2779,3 +2779,10 @@ main .section.business-needs .columns-wrapper {
   }
 
 }
+
+/* store elements wrapping the product button must not affect the layout */
+.columns bd-context,
+.columns bd-product,
+.columns bd-option {
+  display: contents;
+}

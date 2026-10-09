@@ -1,11 +1,8 @@
-import { targetPromise, getDefaultLanguage } from './target.js';
+import { targetPromise } from './target.js';
 import { getMetadata } from './lib-franklin.js';
 import userPromise from './user.js';
-import { Bundle } from './vendor/product.js';
-import pagePromise from './page.js';
 
 const target = await targetPromise;
-const page = await pagePromise;
 const user = await userPromise;
 
 export const IANA_BY_REGION_MAP = new Map([
@@ -75,57 +72,6 @@ export const IANA_BY_REGION_MAP = new Map([
   [70, { locale: 'en-UY', label: 'en Uruguay' }],
   [72, { locale: 'en-JP', label: 'en Japan' }],
 ]);
-
-const VALICU_PRODS = {
-  av: 'com.bitdefender.cl.av',
-  is: 'com.bitdefender.cl.is',
-  tsmd: 'com.bitdefender.cl.tsmd',
-  fp: 'com.bitdefender.fp',
-  ps: 'com.bitdefender.premiumsecurity',
-  psm: 'com.bitdefender.premiumsecurity',
-  psp: 'com.bitdefender.premiumsecurityplus',
-  pspm: 'com.bitdefender.premiumsecurityplus',
-  soho: 'com.bitdefender.soho',
-  mac: 'com.bitdefender.avformac',
-  vpn: 'com.bitdefender.vpn',
-  'vpn-monthly': 'com.bitdefender.vpn',
-  pass: 'com.bitdefender.passwordmanager',
-  passm: 'com.bitdefender.passwordmanager',
-  pass_sp: 'com.bitdefender.passwordmanager',
-  pass_spm: 'com.bitdefender.passwordmanager',
-  bms: 'com.bitdefender.bms',
-  mobile: 'com.bitdefender.bms',
-  ios: 'com.bitdefender.iosprotection',
-  mobileios: 'com.bitdefender.iosprotection',
-  dip: 'com.bitdefender.dataprivacy',
-  dipm: 'com.bitdefender.dataprivacy',
-  ts_i: 'com.bitdefender.tsmd.v2',
-  ts_f: 'com.bitdefender.tsmd.v2',
-  ps_i: 'com.bitdefender.premiumsecurity.v2',
-  ps_f: 'com.bitdefender.premiumsecurity.v2',
-  us_i: 'com.bitdefender.ultimatesecurityeu.v2',
-  us_i_m: 'com.bitdefender.ultimatesecurityeu.v2',
-  us_f: 'com.bitdefender.ultimatesecurityeu.v2',
-  us_f_m: 'com.bitdefender.ultimatesecurityeu.v2',
-  us_pi: 'com.bitdefender.ultimatesecurityus.v2',
-  us_pi_m: 'com.bitdefender.ultimatesecurityus.v2',
-  us_pf: 'com.bitdefender.ultimatesecurityus.v2',
-  us_pf_m: 'com.bitdefender.ultimatesecurityus.v2',
-  us_pie: 'com.bitdefender.ultimatesecurityplusus.v2',
-  us_pie_m: 'com.bitdefender.ultimatesecurityplusus.v2',
-  us_pfe: 'com.bitdefender.ultimatesecurityplusus.v2',
-  us_pfe_m: 'com.bitdefender.ultimatesecurityplusus.v2',
-  avpm: 'com.bitdefender.cl.avplus.v2',
-  ultsec: 'com.bitdefender.ultimatesecurityus',
-  secpass: 'com.bitdefender.securepass',
-  secpassm: 'com.bitdefender.securepass',
-  vsb: 'com.bitdefender.vsb',
-  vsbm: 'com.bitdefender.vsb',
-  sc: 'com.bitdefender.ccp',
-  scm: 'com.bitdefender.ccp',
-  idtheftp: 'com.bitdefender.idtheftpremium',
-  idthefts: 'com.bitdefender.idtheftstandard',
-};
 
 /**
  * Returns the instance name based on the hostname
@@ -285,78 +231,6 @@ export function adobeMcAppendVisitorId(selector) {
   }
 }
 
-export const productsList = [];
-
-export function updateProductsList(product) {
-  const productTrim = product.trim();
-  if (productsList.indexOf(productTrim) === -1) {
-    productsList.push(productTrim);
-  }
-  window.productsListCount = productsList.length;
-}
-
-// DEX-14692 - set data on buy links
-export function setDataOnBuyLinks(dataInfo) {
-  try {
-    const { buyLinkSelector, productId, variation } = dataInfo;
-    const btnElelemts = document.querySelectorAll(`.${buyLinkSelector}`);
-
-    if (btnElelemts !== undefined && btnElelemts.length > 0) {
-      Array.from(btnElelemts).forEach((element) => {
-        if (productId) element.dataset.product = productId;
-
-        element.dataset.buyPrice = variation.discounted_price || variation.price || 0;
-
-        if (variation.price) element.dataset.oldPrice = variation.price;
-        if (variation.currency_label) element.dataset.dataCurrency = variation.currency_label;
-        if (variation.region_id) element.dataset.dataRegion = variation.region_id;
-        if (variation.variation_name) element.dataset.variation = variation.variation_name;
-      });
-    }
-  } catch (error) {
-    console.error('An error occurred:', error);
-  }
-}
-
-export function checkIfLocaleCanSupportInitSelector() {
-  const forceLocale = page.getParamValue('locale');
-
-  if (forceLocale && ['de-de', 'de-at', 'nl-nl', 'nl-be'].some((locale) => forceLocale.toLowerCase() === locale)) {
-    return false;
-  }
-
-  if (!forceLocale && getDefaultLanguage() === 'nl') {
-    return false;
-  }
-
-  return true;
-}
-
-export function isZuoraForNetherlandsLangMode() {
-  return getDefaultLanguage() === 'nl' && getDefaultSection() === 'consumer';
-}
-
-// showLoaderSpinner
-export function showLoaderSpinner(showSpinner = true, pid = null) {
-  if (showSpinner) {
-    const prodLoadBox = document.querySelectorAll('.prodload');
-    prodLoadBox.forEach((item) => {
-      item.classList.add('await-loader');
-    });
-    document.querySelectorAll('.checkboxVPN').forEach((checkbox) => {
-      checkbox.setAttribute('disabled', 'true');
-    });
-  } else {
-    const prodLoadBox = document.querySelectorAll(pid ? `.prodload-${pid}` : '.prodload');
-    prodLoadBox.forEach((item) => {
-      item.classList.remove('await-loader');
-    });
-    document.querySelectorAll('.checkboxVPN').forEach((checkbox) => {
-      checkbox.removeAttribute('disabled');
-    });
-  }
-}
-
 // DEX-17703 - replacing VAT INFO text for en regions
 export function updateVATinfo(countryCode, selector) {
   const skipVATinfo = getMetadata('skip-vatinfo-logic');
@@ -364,701 +238,26 @@ export function updateVATinfo(countryCode, selector) {
     return;
   }
 
-  const prodloadElements = document.querySelectorAll(selector);
-  prodloadElements.forEach((element) => {
-    const prodloadElement = element.closest('[data-testid="prod_box"]') || element.closest('.prices_box') || element.closest('.prod_box') || element.closest('.hasProds');
+  const vat2replace = [
+    'Taxes not included',
+    'Sales tax included',
+    'Plus applicable sales tax',
+    'Tax included',
+  ];
+  const taxText = countryCode === 8 ? 'Plus applicable sales tax' : 'Sales tax included';
+  const containers = new Set([...document.querySelectorAll(selector)]
+    .map((element) => element.closest('[data-testid="prod_box"], .prices_box, .prod_box, .hasProds'))
+    .filter(Boolean));
 
-    if (prodloadElement) {
-      const vat2replace = [
-        'Taxes not included',
-        'Sales tax included',
-        'Plus applicable sales tax',
-        'Tax included',
-      ];
-
-      vat2replace.forEach((text) => {
-        let taxText = 'Sales tax included';
-        if (countryCode === 8) taxText = 'Plus applicable sales tax';
-
-        if (prodloadElement.innerHTML.includes(text)) {
-          const currentText = prodloadElement.innerHTML;
-          const newText = currentText.replace(text, taxText);
-          // before replacing check if the text is already correct
-          if (currentText !== newText) {
-            prodloadElement.innerHTML = newText;
-          }
-        }
-      });
+  // only text nodes are changed, so store nodes and their renders are left untouched
+  containers.forEach((container) => {
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const text = vat2replace.find((vatText) => node.textContent.includes(vatText));
+      if (text && text !== taxText) node.textContent = node.textContent.replace(text, taxText);
     }
   });
-}
-
-export function formatPrice(price, currency) {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(price);
-}
-
-// get max discount
-export function maxDiscount() {
-  const selectors = ['.prod-percent', '.percent', '[class^="percent-"]'];
-  const discountAmounts = [];
-
-  // Collect all discount values
-  selectors.forEach((selector) => {
-    if (document.querySelector(selector)) {
-      document.querySelectorAll(selector).forEach((item) => {
-        const match = item.textContent.match(/\d+/);
-        const discount = match ? parseInt(match[0], 10) : 0;
-        if (!Number.isNaN(discount)) {
-          discountAmounts.push(discount);
-        }
-      });
-    }
-  });
-
-  const maxDiscountValue = Math.max(...discountAmounts);
-  if (!maxDiscountValue) {
-    document.querySelectorAll('.max-discount')?.forEach((el) => {
-      el.closest('table').style.display = 'none';
-    });
-  } else {
-    const discountText = `${maxDiscountValue}%`;
-    document.querySelectorAll('.max-discount-content .block, .max-discount-content .default-content-wrapper').forEach((link) => {
-      link.innerHTML = link.innerHTML.replace(/0%/g, discountText);
-    });
-
-    const maxDiscountElements = document.querySelectorAll('.max-discount');
-    if (maxDiscountElements.length && maxDiscountValue) {
-      maxDiscountElements.forEach((item) => {
-        item.textContent = discountText;
-
-        const closestEm = item.closest('em');
-        if (closestEm) closestEm.style.display = 'inline-block';
-
-        const closestDiv = item.closest('div');
-        if (closestDiv) closestDiv.style.visibility = 'visible';
-      });
-    } else {
-      // Remove surrounding element if no discounts found
-      maxDiscountElements.forEach((item) => {
-        const closestEm = item.closest('em') || item.closest('table');
-        if (closestEm) closestEm.remove();
-      });
-    }
-  }
-}
-
-async function fetchTrialLinks() {
-  // If cached data exists, return it directly
-  if (window.cachedTrialLInks) {
-    return window.cachedTrialLInks;
-  }
-
-  const defaultJsonFilePath = '/triallinks.json';
-  const jsonFilePath = window.location.hostname === 'www.bitdefender.com'
-    ? `https://${window.location.hostname}/pages/triallinks.json`
-    : defaultJsonFilePath;
-
-  try {
-    const response = await fetch(jsonFilePath);
-
-    if (!response.ok) {
-      console.error(`Failed to fetch data. Status: ${response.status}`);
-      return {};
-    }
-
-    const { data = [] } = await response.json();
-    // Cache the fetched data
-    window.cachedZuoraConfig = data;
-
-    return data;
-  } catch (error) {
-    console.error(`Error fetching Zuora config: ${error.message}`);
-    return {};
-  }
-}
-
-// DEX-23043
-export function getParamByName(name, link = window.location.href) {
-  const escapedName = name.replace(/[[\]]/g, '\\$&');
-  const regex = new RegExp(`[?&]${escapedName}=([^&#]*)`);
-  const results = regex.exec(link);
-  return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
-}
-
-async function fetchProductInfo(productId, prodUsers, prodYears, mode = 'buyLink') {
-  try {
-    const prodName = VALICU_PRODS[productId];
-    if (!prodName) return null;
-
-    const campaignParam = getMetadata('vcampaign') || getParamByName('vcampaign');
-    const campaignSegment = campaignParam ? `/campaign/${campaignParam}` : '';
-
-    let localeSegment = page.locale;
-    if (mode === 'coupon' && !['au', 'gb'].includes(page.country)) localeSegment = 'en-mt';
-
-    const response = await fetch(`https://www.bitdefender.com/p-api/v1/products/${prodName}/locale/${localeSegment}${campaignSegment}`);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    // years to months if between 1 and 3
-    const durationInMonths = (prodYears >= 1 && prodYears <= 3)
-      ? prodYears * 12
-      : prodYears;
-
-    // if it's truesubs
-    const infoArr = [];
-    const dataMatch = data.product.options.find((item) => item.slots === Number(prodUsers)
-      && item.months === durationInMonths);
-
-    if (getParamByName('theme', dataMatch.buyLink) === 'truesubs' && dataMatch.coupon && dataMatch.currency) {
-      infoArr.push(dataMatch.currency);
-      infoArr.push(dataMatch.coupon);
-      infoArr.push(dataMatch.buyLink);
-
-      return infoArr;
-    }
-
-    // if it's NOT truesubs
-    const match = data.product.options.find((item) => item.slots === Number(prodUsers)
-      && item.months === durationInMonths
-      && (mode !== 'coupon' || getParamByName('COUPON', item.buyLink)));
-    if (match) return mode === 'coupon' ? getParamByName('COUPON', match.buyLink) : match.buyLink;
-
-    return null;
-  } catch (error) {
-    throw new Error(`Fetch error! ${error.message}`);
-  }
-}
-
-export async function setTrialLinks(onSelector = undefined, storeObjBuyLink = undefined, trialPeriod = undefined) {
-  const trialLinkValue = trialPeriod || getMetadata('trialbuylinks');
-  if (!trialLinkValue) return;
-
-  const trialLinks = await fetchTrialLinks(trialLinkValue);
-  if (!trialLinks) return;
-
-  const setLocale = () => {
-    let raw = (page.getParamValue('locale')?.split('-')[1] || page.country || getDefaultLanguage() || 'com').toLowerCase();
-    if (raw === 'gb') raw = 'uk';
-    if (['en', 'de', 'nl'].includes(raw)) raw = 'com';
-
-    return raw;
-  };
-
-  const buildUpdatedUrl = async (oldUrl, newUrl, productId, prodUsers, prodYears) => {
-    const locale = page.country;
-    const oldParams = new URL(oldUrl).searchParams;
-    const isCouponCountry = ['de', 'nl', 'au', 'gb'].includes(page.country);
-    const isEuroFixedCountry = ['de', 'nl'].includes(page.country);
-    const mode = isCouponCountry ? 'coupon' : 'buylink';
-    const productInfo = await fetchProductInfo(productId, prodUsers, prodYears, mode);
-
-    const updatedUrl = new URL(newUrl);
-    const newParams = updatedUrl.searchParams;
-    const getParamOrDefault = (param, fallback) => oldParams.get(param) || fallback;
-    const extractCoupon = (value) => {
-      if (!value || typeof value !== 'string') return '';
-
-      try {
-        return new URL(value).searchParams.get('COUPON') || '';
-      } catch (error) {
-        // If value is already a coupon code, use it directly.
-        return value;
-      }
-    };
-
-    // if: de || nl || noParam - we set locale / EUR
-    const lang = isEuroFixedCountry ? locale : getParamOrDefault('LANG', locale);
-    let currency = isEuroFixedCountry ? 'EUR' : getParamOrDefault('CURRENCY', 'EUR');
-    let dcurrency = isEuroFixedCountry ? 'EUR' : getParamOrDefault('DCURRENCY', 'EUR');
-    let campaign = '';
-
-    if (Array.isArray(productInfo)) {
-      currency = productInfo[0] || currency;
-      dcurrency = productInfo[0] || dcurrency;
-      campaign = productInfo[1] || '';
-    } else {
-      campaign = extractCoupon(productInfo);
-    }
-
-    if (lang) newParams.set('LANG', lang);
-    if (currency) newParams.set('CURRENCY', currency);
-    if (dcurrency) newParams.set('DCURRENCY', dcurrency);
-    if (campaign) newParams.set('COUPON', campaign);
-    newParams.set('SRC', window.location.origin + window.location.pathname);
-
-    updatedUrl.href = await target.appendVisitorIDsTo(updatedUrl.href);
-    if (window.UC_UI) {
-      updatedUrl.searchParams.set('ucControllerId', window.UC_UI.getControllerId());
-    }
-
-    return updatedUrl.toString();
-  };
-
-  let locale = setLocale();
-  // if in the file there is no match for locale, than we use com
-  locale = trialLinks.find((item) => item.locale.toLowerCase() === locale.toLowerCase()) ? locale : 'com';
-
-  // if using normal buttons in the content
-  if (!onSelector) {
-    const sections = document.querySelectorAll('[data-trial-link-prod]');
-    await Promise.all([...sections].map(async (section) => {
-      const buttonContainerLinks = section.querySelectorAll('p.button-container a');
-      const primaryButtonLinks = section.querySelectorAll('a.button.primary');
-
-      // Apply loading effect (reduced opacity + wait cursor + freeze click)
-      [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
-        if (btn) {
-          btn.style.opacity = '0.5';
-          btn.style.cursor = 'wait';
-          btn.style.pointerEvents = 'none';
-        }
-      });
-
-      try {
-        const { trialLinkProd } = section.dataset;
-        const [productId, prodUsers, prodYearsRaw] = trialLinkProd.split('/');
-
-        const prodYearsInt = parseInt(prodYearsRaw, 10);
-        const prodYears = (prodYearsInt >= 1 && prodYearsInt <= 3)
-          ? prodYearsInt * 12
-          : prodYearsInt;
-
-        const match = trialLinks.find((item) => (
-          item.locale.toLowerCase() === locale
-          && item.product === productId
-          && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-          && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
-        ));
-
-        if (match) {
-          let oldUrl = await fetchProductInfo(productId, prodUsers, prodYears, 'buyLink');
-          if (Array.isArray(oldUrl)) {
-            oldUrl = oldUrl[2];
-          }
-
-          const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYears);
-
-          // Update hrefs and restore button state
-          [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
-            if (btn) {
-              btn.classList.add(`buylink-${productId}-${prodUsers}${Math.floor(prodYears / 12)}`);
-              btn.setAttribute('href', updatedUrl);
-              btn.style.opacity = '1';
-              btn.style.cursor = 'pointer';
-              btn.style.pointerEvents = 'auto';
-            }
-          });
-        }
-      } catch (error) {
-        [...buttonContainerLinks, ...primaryButtonLinks].forEach((btn) => {
-          if (btn) {
-            btn.style.opacity = '1';
-            btn.style.cursor = 'pointer';
-            btn.style.pointerEvents = 'auto';
-          }
-        });
-      }
-    }));
-  } else {
-    const [productId, prodUsers, prodYears] = onSelector.split('/');
-    const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
-
-    const prodYearsInt = parseInt(prodYears, 10);
-    const prodYearsConv = (prodYearsInt >= 1 && prodYearsInt <= 3)
-      ? prodYearsInt * 12
-      : prodYearsInt;
-
-    const match = trialLinks.find((item) => (
-      item.locale.toLowerCase() === locale
-      && item.product === productId
-      && parseInt(item.devices, 10) === parseInt(prodUsers, 10)
-      && parseInt(item.duration, 10) === parseInt(trialLinkValue, 10)
-    ));
-
-    if (match) {
-      const oldUrl = storeObjBuyLink;
-      const updatedUrl = await buildUpdatedUrl(oldUrl, match.buy_link, productId, prodUsers, prodYearsConv);
-      document.querySelectorAll(`.buylink-${onSelectorClass}:not(.no-trial)`).forEach((link) => link.setAttribute('href', updatedUrl));
-    }
-  }
-}
-
-// display prices
-export async function showPrices(storeObj, triggerVPN = false, checkboxId = '', defaultSelector = '', paramCoupon = '', trialPeriod = '') {
-  const { currency_label: currencyLabel, currency_iso: currencyIso } = storeObj.selected_variation;
-  const { region_id: regionId } = storeObj.selected_variation;
-  const { selected_users: prodUsers, selected_years: prodYears } = storeObj;
-  const { product_id: productId } = storeObj.config;
-  const comparativeTextBox = document.querySelector('.c-top-comparative-with-text');
-  const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
-
-  // DEX-23043
-  const trialLinkValue = getMetadata('trialbuylinks');
-  if (trialPeriod) window.trialLinksExist = true;
-  if (trialLinkValue || trialPeriod) setTrialLinks(`${productId}/${prodUsers}/${prodYears}`, storeObj.buy_link, trialPeriod);
-
-  if (getDefaultLanguage() === 'en' && regionId) updateVATinfo(Number(regionId), `.buylink-${onSelectorClass}`);
-
-  let parentDiv = '';
-
-  // DEX-17862 - add new coupon based on param
-  let buyLink = paramCoupon ? `${storeObj.buy_link}?COUPON=${paramCoupon}` : storeObj.buy_link;
-  let selectedVarPrice = storeObj.selected_variation.price;
-  let selectedVarDiscount = storeObj.selected_variation.discount?.discounted_price;
-  const selectedVarDiscountValue = storeObj.selected_variation.discount?.discount_value;
-
-  const showVpnBox = document.querySelector(`.show_vpn_${productId}`) || document.querySelector(`.show_vpn-${productId}`) || document.querySelector(`.show_vpn-${productId}-${prodUsers}${prodYears}`);
-  if (showVpnBox) showVpnBox.remove();
-
-  const storeObjVPN = StoreProducts.product.vpn;
-  if (triggerVPN) {
-    parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
-    buyLink += '&bundle_id=com.bitdefender.vpn&bundle_payment_period=10d1y';
-    selectedVarPrice += storeObjVPN.selected_variation.discount.discounted_price || storeObjVPN.selected_variation.price;
-    selectedVarPrice = selectedVarPrice.toFixed(2);
-
-    if (window.isVlaicu) {
-      showLoaderSpinner(true);
-      const bundles = new Bundle(storeObj, storeObjVPN);
-      const bundleBuyLinkBody = await bundles.getBuyLink();
-      if (bundleBuyLinkBody) {
-        buyLink = bundleBuyLinkBody.buyLink;
-      }
-      showLoaderSpinner(false);
-    }
-
-    if (showVpnBox) showVpnBox.style.display = 'block';
-  }
-
-  const fullPrice = formatPrice(selectedVarPrice, currencyIso, regionId);
-  const fullPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
-  const fullPriceYearly = formatPrice((selectedVarPrice * 12).toFixed(2), currencyIso, regionId);
-
-  const oldPriceClass = `.oldprice-${onSelectorClass}`;
-  if (document.querySelector(oldPriceClass)) {
-    const allOldPriceBox = document.querySelectorAll(oldPriceClass);
-    if (triggerVPN) {
-      if (parentDiv) parentDiv.querySelector(oldPriceClass).innerHTML = fullPrice;
-      if (comparativeTextBox) {
-        allOldPriceBox.forEach((item) => {
-          item.innerHTML = fullPrice;
-        });
-      }
-    } else {
-      allOldPriceBox.forEach((item) => {
-        if (item.classList.contains('calculate_monthly')) {
-          item.innerHTML = fullPriceMonthly;
-        } else if (item.classList.contains('calculate_yearly')) {
-          item.innerHTML = fullPriceYearly;
-        } else {
-          item.innerHTML = fullPrice;
-        }
-      });
-    }
-  }
-
-  if (storeObj.selected_variation.discount && storeObj.selected_variation.discount?.discount_value) {
-    if (triggerVPN) {
-      selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
-      selectedVarDiscount = selectedVarDiscount.toFixed(2);
-    }
-
-    const offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
-    const offerPriceMonthly = formatPrice((selectedVarDiscount / 12).toFixed(2), currencyIso, regionId);
-    const offerPriceYearly = formatPrice((selectedVarDiscount * 12).toFixed(2), currencyIso, regionId);
-    const savingsPrice = selectedVarPrice - selectedVarDiscount;
-    const savings = formatPrice(savingsPrice.toFixed(0), currencyIso, regionId);
-    const percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
-
-    const onewPriceClass = `.newprice-${onSelectorClass}`;
-    if (document.querySelector(onewPriceClass)) {
-      const allNewPriceBox = document.querySelectorAll(onewPriceClass);
-      if (triggerVPN) {
-        if (parentDiv) parentDiv.querySelector(onewPriceClass).innerHTML = offerPrice;
-        if (comparativeTextBox) {
-          allNewPriceBox.forEach((item) => {
-            if (item.classList.contains('calculate_monthly')) {
-              item.innerHTML = offerPriceMonthly;
-            } else {
-              item.innerHTML = offerPrice;
-            }
-          });
-        }
-      } else {
-        allNewPriceBox.forEach((item) => {
-          if (item.classList.contains('calculate_monthly')) {
-            item.innerHTML = offerPriceMonthly;
-          } else if (item.classList.contains('calculate_yearly')) {
-            item.innerHTML = offerPriceYearly;
-          } else {
-            item.innerHTML = item.classList.contains('newprice-0') ? offerPrice.replace(/[\d,]+(\.\d+)?/, '0') : offerPrice;
-          }
-        });
-      }
-    }
-
-    const oldPriceMonthlyClass = `.oldprice-${onSelectorClass}-monthly`;
-    if (document.querySelector(oldPriceMonthlyClass)) {
-      const allOldPriceBox = document.querySelectorAll(oldPriceMonthlyClass);
-      if (triggerVPN) {
-        if (parentDiv) parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
-        if (comparativeTextBox) {
-          allOldPriceBox.forEach((item) => {
-            item.innerHTML = fullPriceMonthly;
-          });
-        }
-      } else {
-        allOldPriceBox.forEach((item) => {
-          item.innerHTML = fullPriceMonthly;
-        });
-      }
-    }
-
-    const onewPriceMonthlyClass = `.newprice-${onSelectorClass}-monthly`;
-    if (document.querySelector(onewPriceMonthlyClass)) {
-      const allNewPriceBox = document.querySelectorAll(onewPriceMonthlyClass);
-      if (triggerVPN) {
-        if (parentDiv) parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
-        if (comparativeTextBox) {
-          allNewPriceBox.forEach((item) => {
-            item.innerHTML = offerPriceMonthly;
-          });
-        }
-      } else {
-        allNewPriceBox.forEach((item) => {
-          item.innerHTML = offerPriceMonthly;
-        });
-      }
-    }
-
-    const saveClass = document.querySelector(`.save-${onSelectorClass}`);
-    if (saveClass) {
-      if (triggerVPN) {
-        const parentSaveBox = parentDiv?.querySelector(`.save-${onSelectorClass}`);
-        if (parentSaveBox) {
-          parentSaveBox.innerHTML = savings;
-          parentSaveBox.style.visibility = 'visible';
-          const saveElement = parentSaveBox.closest('.save');
-          if (saveElement) saveElement.style.visibility = 'visible';
-        }
-      } else {
-        document.querySelectorAll(`.save-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = savings;
-          item.style.visibility = 'visible';
-          const saveElement = item.closest('.save');
-          if (saveElement) saveElement.style.visibility = 'visible';
-        });
-      }
-    }
-
-    if (document.querySelector(`.percent-${onSelectorClass}`)) {
-      if (triggerVPN) {
-        const parentPercentBox = parentDiv?.querySelector(`.percent-${onSelectorClass}`);
-        if (parentPercentBox) {
-          parentPercentBox.innerHTML = `${percentageSticker}%`;
-          parentPercentBox.style.visibility = 'visible';
-          parentPercentBox.parentNode.style.visibility = 'visible';
-        }
-      } else {
-        document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = `${percentageSticker}%`;
-          item.style.visibility = 'visible';
-          if (!item.parentNode) return;
-          item.parentNode.style.visibility = 'visible';
-          item.parentNode.parentNode.style.visibility = 'visible';
-        });
-      }
-    }
-
-    if (document.querySelector(`.bulina-${onSelectorClass}`)) {
-      const bulinaElement = document.querySelector(`.bulina-${onSelectorClass}`);
-      bulinaElement.closest('div').style.visibility = 'visible';
-    }
-
-    const showSaveBox = document.querySelector(`.show_save_${onSelectorClass}`);
-    if (showSaveBox) {
-      showSaveBox.style.visibility = 'visible';
-    }
-  } else {
-    let vpnHasDiscount = false;
-    let offerPrice = 0;
-    const offerPriceMonthly = formatPrice((selectedVarPrice / 12).toFixed(2), currencyIso, regionId);
-    let percentageSticker = 0;
-
-    const oldPriceMonthlyClass = `.oldprice-${onSelectorClass}-monthly`;
-    if (document.querySelector(oldPriceMonthlyClass)) {
-      const allOldPriceBox = document.querySelectorAll(oldPriceMonthlyClass);
-      if (triggerVPN) {
-        if (parentDiv) parentDiv.querySelector(oldPriceMonthlyClass).innerHTML = fullPriceMonthly;
-        if (comparativeTextBox) {
-          allOldPriceBox.forEach((item) => {
-            item.innerHTML = fullPriceMonthly;
-          });
-        }
-      } else {
-        allOldPriceBox.forEach((item) => {
-          item.innerHTML = fullPriceMonthly;
-        });
-      }
-    }
-
-    const onewPriceMonthlyClass = `.newprice-${onSelectorClass}-monthly`;
-    if (document.querySelector(onewPriceMonthlyClass)) {
-      const allNewPriceBox = document.querySelectorAll(onewPriceMonthlyClass);
-      if (triggerVPN) {
-        if (parentDiv) parentDiv.querySelector(onewPriceMonthlyClass).innerHTML = offerPriceMonthly;
-        if (comparativeTextBox) {
-          allNewPriceBox.forEach((item) => {
-            item.innerHTML = offerPriceMonthly;
-          });
-        }
-      } else {
-        allNewPriceBox.forEach((item) => {
-          item.innerHTML = offerPriceMonthly;
-        });
-      }
-    }
-
-    if (productId === 'vpn' && storeObj.selected_variation.discount) {
-      vpnHasDiscount = true;
-      if (storeObj.selected_variation.discount) {
-        if (triggerVPN) {
-          selectedVarDiscount += storeObjVPN.selected_variation.discount.discounted_price || 0;
-        }
-        offerPrice = formatPrice(selectedVarDiscount, currencyIso, regionId);
-        percentageSticker = (((selectedVarPrice - selectedVarDiscount) / selectedVarPrice) * 100).toFixed(0);
-      }
-    }
-
-    const newPriceBox = document.querySelector(`.newprice-${onSelectorClass}`);
-    if (newPriceBox) {
-      newPriceBox.innerHTML = fullPrice;
-      if (vpnHasDiscount) {
-        document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = offerPrice;
-        });
-      } else {
-        document.querySelectorAll(`.newprice-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = item.classList.contains('newprice-0') ? fullPrice.replace(/[\d,]+(\.\d+)?/, '0') : fullPrice;
-        });
-      }
-    }
-
-    const oldPriceBox = document.querySelector(`.oldprice-${onSelectorClass}`);
-    if (oldPriceBox) {
-      if (productId === 'vpn') {
-        document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
-          item.innerHTML = fullPrice;
-        });
-      }
-
-      document.querySelectorAll(`.oldprice-${onSelectorClass}`).forEach((item) => {
-        const parent = item.parentNode;
-        const sibling = parent.querySelector(`.oldprice-${onSelectorClass}`);
-        if (item.closest('p') && !item.closest('label') && item.closest('p')) item.closest('p').remove();
-        if (sibling && !parent.classList.contains('billed')) {
-          item.remove();
-          sibling.remove();
-        } else if (!parent.classList.contains('billed')) parent.remove();
-      });
-    }
-
-    const saveBoxes = document.querySelectorAll(`.save-${onSelectorClass}`);
-    saveBoxes.forEach((saveBox) => {
-      if (selectedVarDiscountValue === 0 && !saveBox.closest('label') && saveBox.closest('p')) {
-        saveBox.closest('p').remove();
-        return;
-      }
-
-      const siblingElements = saveBox.parentNode.querySelectorAll('div, span');
-
-      siblingElements.forEach((element) => {
-        element.style.visibility = 'hidden';
-      });
-
-      const prodSave = saveBox.closest('.prod-save');
-
-      if (prodSave) {
-        prodSave.style.visibility = 'hidden';
-      }
-    });
-
-    const percentBox = document.querySelector(`.percent-${onSelectorClass}`);
-    if (percentBox) {
-      if (vpnHasDiscount && percentageSticker > 0) {
-        if (triggerVPN) {
-          const parentPercentBox = parentDiv.querySelector(`.percent-${onSelectorClass}`);
-          parentPercentBox.innerHTML = `${percentageSticker}%`;
-          parentPercentBox.parentNode.style.visibility = 'visible';
-        } else {
-          document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
-            item.innerHTML = `${percentageSticker}%`;
-            item.parentNode.style.visibility = 'visible';
-          });
-        }
-      } else {
-        // If no discount, hide the percentBox or its container
-        document.querySelectorAll(`.percent-${onSelectorClass}`).forEach((item) => {
-          const container = item.closest('p') || item.parentNode;
-          if (container && !item.classList.contains('parent-no-hide')) {
-            container.style.visibility = 'hidden';
-          }
-          // if we have parent-no-hide and no-price-show, we only show BUY NOW instead of BUY NOW FOR + price + OFF
-          if (item.classList.contains('parent-no-hide') && item.classList.contains('no-price-show')) {
-            item.parentElement.innerHTML = 'BUY NOW';
-          }
-        });
-      }
-    }
-
-    const showSaveBox = document.querySelector(`.show_save_${onSelectorClass}`);
-    if (showSaveBox) {
-      showSaveBox.style.visibility = 'hidden';
-    }
-
-    const bulinaBox = document.querySelector(`.bulina-${onSelectorClass}`);
-    if (bulinaBox) {
-      bulinaBox.style.visibility = 'hidden';
-    }
-  }
-
-  if (document.querySelector(`.buylink-${onSelectorClass}`)) {
-    const allBuyLinkBox = document.querySelectorAll(`.buylink-${onSelectorClass}`);
-    if (triggerVPN) {
-      parentDiv.querySelector(`.buylink-${onSelectorClass}`).href = buyLink;
-      if (comparativeTextBox) {
-        allBuyLinkBox.forEach((item) => {
-          item.href = item.getAttribute('data-href') || buyLink;
-          item.removeAttribute('data-href');
-        });
-      }
-    } else {
-      allBuyLinkBox.forEach((item) => {
-        item.href = item.getAttribute('data-href') || buyLink;
-        item.removeAttribute('data-href');
-      });
-    }
-  }
-
-  const dataInfo = {
-    buyLinkSelector: `${defaultSelector ? `buylink-${defaultSelector}` : `buylink-${onSelectorClass}`}`,
-    productId,
-    variation: {
-      price: selectedVarPrice,
-      discounted_price: selectedVarDiscount,
-      variation_name: `${prodUsers}u-${prodYears}y`,
-      currency_label: currencyLabel,
-      region_id: regionId,
-    },
-  };
-
-  setDataOnBuyLinks(dataInfo);
-  maxDiscount();
 }
 
 export function getDatasetFromSection(block) {
@@ -1597,3 +796,59 @@ export const wrapChildrenWithStoreContext = (element, {
 
   wrapChildren(element, context);
 };
+
+/**
+ * Legacy product aliases still used in content
+ * @param {string} name
+ * @returns {string}
+ */
+export function productAliases(name) {
+  let newName = name.trim();
+  if (newName === 'elite') {
+    newName = 'elite_1000';
+  } else if (newName === 'bs') {
+    newName = 'bus-security';
+  }
+
+  return newName;
+}
+
+/**
+ * Trial duration as keyed in triallinks.json ('30 days').
+ * Falls back to the page's `trialbuylinks` metadata, which turns every buy link into a trial link.
+ * @param {string} [trialPeriod] e.g. '30' or '30 days'
+ * @returns {string} '' when there is no trial
+ */
+export function getTrialDuration(trialPeriod = '') {
+  const days = parseInt(trialPeriod || getMetadata('trialbuylinks'), 10);
+  return days ? `${days} days` : '';
+}
+
+/**
+ * Parses an authored product, e.g. `tsmd/5/1` or `tsmd/5/1/30`
+ * (alias / devices / years / optional trial period).
+ * Devices and years are passed to the store as authored, the store maps them to vlaicu options.
+ * @param {string} productString
+ * @returns {{productId: string, devices: string, subscription: string, trialDuration: string}}
+ */
+export function parseStoreProduct(productString = '') {
+  const [alias = '', devices = '', subscription = '', trialPeriod = ''] = productString
+    .split('/')
+    .map((part) => part.trim());
+
+  return {
+    productId: productAliases(alias),
+    devices,
+    subscription,
+    trialDuration: getTrialDuration(trialPeriod),
+  };
+}
+
+/**
+ * Max discount of all the products on the page, rendered by the root bd-context.
+ * @param {string} [tag]
+ * @returns {string}
+ */
+export function maxDiscountHtml(tag = 'span') {
+  return `<${tag} class="max-discount" data-store-render data-store-context-discount="max-percentage"></${tag}>`;
+}

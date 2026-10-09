@@ -49,6 +49,18 @@
   gap: 0;
 }
 
+/* store scopes wrap the box content, keep the box children as grid items */
+.c-productswithvpn2 bd-context,
+.c-productswithvpn2 bd-product,
+.c-productswithvpn2 bd-option {
+  display: contents;
+}
+
+/* the global .prod_box .prod-percent rule hides the bulina, the store hides it when there is no discount */
+.c-productswithvpn2 .prod_box .prod-percent {
+  visibility: inherit;
+}
+
 .c-productswithvpn2 hr {
   border-bottom: 1px dashed #ccc;
   opacity: 1;
@@ -223,7 +235,7 @@
   display: block;
 }
 
-.c-productswithvpn2 > div table.prodload tbody {
+.c-productswithvpn2 > div table.prices_table tbody {
   width: 100%;
   display: block;
   align-content: end;

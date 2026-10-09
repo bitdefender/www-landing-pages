@@ -24,26 +24,19 @@ import {
   decorateTags,
 } from './lib-franklin.js';
 import {
-  sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsProducts, sendAnalyticsPageLoadedEvent,
+  sendAnalyticsPageEvent, sendAnalyticsUserInfo, sendAnalyticsPageLoadedEvent,
   sendTrialDownloadedEvent,
   sendAnalyticsErrorEvent,
 } from './adobeDataLayer.js';
 import {
   addScript,
-  getDefaultSection,
-  isZuoraForNetherlandsLangMode,
-  checkIfLocaleCanSupportInitSelector,
-  productsList,
-  showLoaderSpinner,
-  setDataOnBuyLinks,
-  showPrices,
   GLOBAL_EVENTS,
   adobeMcAppendVisitorId,
-  formatPrice,
   getInstance,
-  setTrialLinks,
-  maxDiscount,
-  fetchGeoIP,
+  getTrialDuration,
+  parseStoreProduct,
+  updateVATinfo,
+  wrapChildrenWithProduct,
 } from './utils.js';
 import store from './store.js';
 
@@ -53,18 +46,7 @@ const DEFAULT_LANGUAGE = getDefaultLanguage();
 window.DEFAULT_LANGUAGE = DEFAULT_LANGUAGE;
 window.ADOBE_MC_EVENT_LOADED = false;
 
-const defaultBuyLinks = {};
-
-export function productAliases(name) {
-  let newName = name.trim();
-  if (newName === 'elite') {
-    newName = 'elite_1000';
-  } else if (newName === 'bs') {
-    newName = 'bus-security';
-  }
-
-  return newName;
-}
+export { productAliases } from './utils.js';
 
 export function productAliasesNames(name) {
   let newName = name.trim();
@@ -322,7 +304,6 @@ export async function loadLazy(doc) {
   go2Anchor();
 
   if (getMetadata('free-product')) sendTrialDownloadedEvent();
-  if (getMetadata('trialbuylinks')) setTrialLinks();
 
   // Get the visitorId when you need it.
   // await fpPromise
@@ -387,621 +368,6 @@ export async function loadFragment(path) {
   return null;
 }
 
-// trigger for VPN checkbox click - not for ZuoraNL
-function changeCheckboxVPN(checkboxId, pid) {
-  const parentDiv = document.getElementById(checkboxId).closest('div.prod_box');
-  const comparativeDiv = document.querySelector('.c-top-comparative-with-text');
-  const productId = checkboxId.split('-')[1];
-  const prodVariation = checkboxId.split('-')[2];
-  const onSelectorClass = `${productId}-${prodVariation}`;
-  const discPriceClass = `.newprice-${onSelectorClass}`;
-  const priceClass = `.oldprice-${onSelectorClass}`;
-  const saveClass = `.save-${onSelectorClass}`;
-  const percentClass = `.percent-${onSelectorClass}`;
-  let fullPrice = '';
-  const selectedUsers = document.querySelector(`.users_${onSelectorClass}_fake`).value;
-  const selectedYears = document.querySelector(`.years_${onSelectorClass}_fake`).value;
-  const selectedVariation = StoreProducts.product[productId].variations[selectedUsers][selectedYears];
-
-  // buy btn
-  const buyClass = `.buylink-${onSelectorClass}`;
-  let buyLink = '';
-  if (typeof defaultBuyLinks[onSelectorClass] === 'undefined') {
-    defaultBuyLinks[onSelectorClass] = parentDiv.querySelector(buyClass).href;
-  }
-  const buyLinkDefault = defaultBuyLinks[onSelectorClass];
-
-  // vpn
-  const vpnId = 'vpn';
-  const showVpnBox = document.querySelector(`.show_vpn-${onSelectorClass}`);
-  const savevpnClass = `savevpn-${vpnId}`;
-  const vpnObj = StoreProducts.product[vpnId].variations[10][1];
-  const priceVpn = vpnObj.price;
-  let linkRef = '';
-
-  // missing params
-  let currency = 'USD';
-  let save = '';
-  let justVpn = '';
-  let newPrice = '';
-  let percentageVal = '';
-  let ref = '';
-
-  const paramCoupon = getParam('coupon');
-
-  let promoPid = pid;
-  if (promoPid) {
-    promoPid = promoPid.split('_PGEN')[0];
-  }
-
-  let pidUrlBundle = `/pid.${promoPid}`;
-  if (pid === 'ignore' || paramCoupon) {
-    pidUrlBundle = '';
-  }
-
-  let renewLps = false;
-  if (getParam('renew_lps') || (pid && pid.toLowerCase().indexOf('renew') !== -1)) {
-    renewLps = true;
-  }
-  // const v = StoreProducts.getBundleProductsInfo(selectedVariation, vpnObj);
-
-  // if is checked
-  if (document.getElementById(checkboxId).checked) {
-    if (showVpnBox) {
-      showVpnBox.style.display = 'block';
-    }
-
-    const saveVpnEl = parentDiv.querySelector(`.${savevpnClass}`);
-    if (saveVpnEl) {
-      saveVpnEl.style.display = 'block';
-    }
-
-    if (productId === 'av') {
-      if (DEFAULT_LANGUAGE === 'uk') {
-        linkRef = 'WEBSITE_UK_AVBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'de') {
-        linkRef = 'WEBSITE_DE_AVBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'ro') {
-        linkRef = 'WEBSITE_RO_AVBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'es') {
-        linkRef = 'WEBSITE_ES_AVBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'fr') {
-        linkRef = 'WEBSITE_FR_AVBUNDLE';
-      } else {
-        linkRef = 'WEBSITE_COM_AVBUNDLE';
-      }
-    }
-    if (productId === 'is') {
-      if (DEFAULT_LANGUAGE === 'uk') {
-        linkRef = 'WEBSITE_UK_ISBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'de') {
-        linkRef = 'WEBSITE_DE_ISBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'ro') {
-        linkRef = 'WEBSITE_RO_ISBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'es') {
-        linkRef = 'WEBSITE_ES_ISBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'fr') {
-        linkRef = 'WEBSITE_FR_ISBUNDLE';
-      } else {
-        linkRef = 'WEBSITE_COM_ISBUNDLE';
-      }
-    }
-    if (productId === 'tsmd') {
-      if (DEFAULT_LANGUAGE === 'uk') {
-        linkRef = 'WEBSITE_UK_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'de') {
-        linkRef = 'WEBSITE_DE_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'ro') {
-        linkRef = 'WEBSITE_RO_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'es') {
-        linkRef = 'WEBSITE_ES_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'fr') {
-        linkRef = 'WEBSITE_FR_TSMULTIBUNDLE';
-      } else {
-        linkRef = 'WEBSITE_COM_TSMULTIBUNDLE';
-      }
-    }
-    if (productId === 'fp') {
-      if (DEFAULT_LANGUAGE === 'uk') {
-        linkRef = 'WEBSITE_UK_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'de') {
-        linkRef = 'WEBSITE_DE_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'ro') {
-        linkRef = 'WEBSITE_RO_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'es') {
-        linkRef = 'WEBSITE_ES_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'fr') {
-        linkRef = 'WEBSITE_FR_TSMULTIBUNDLE';
-      } else {
-        linkRef = 'WEBSITE_COM_TSMULTIBUNDLE';
-      }
-    }
-    if (productId === 'soho') {
-      if (DEFAULT_LANGUAGE === 'uk') {
-        linkRef = 'WEBSITE_UK_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'de') {
-        linkRef = 'WEBSITE_DE_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'ro') {
-        linkRef = 'WEBSITE_RO_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'es') {
-        linkRef = 'WEBSITE_ES_TSMULTIBUNDLE';
-      } else if (DEFAULT_LANGUAGE === 'fr') {
-        linkRef = 'WEBSITE_FR_TSMULTIBUNDLE';
-      } else {
-        linkRef = 'WEBSITE_COM_TSMULTIBUNDLE';
-      }
-    }
-    if (linkRef.length > 0) ref = `/REF.${linkRef}`;
-    if (DEFAULT_LANGUAGE === 'au') currency = 'AUD';
-    else currency = selectedVariation.currency_iso;
-
-    const coupon = renewLps ? {
-      8: {
-        USD: ['RENEW_UPGRADE_ADN2'],
-        CAD: ['RENEW_UPGRADE_ADN2'],
-        EUR: ['RENEW_UPGRADE_ADN'],
-        ZAR: ['RENEW_UPGRADE_ADN'],
-        MXN: ['RENEW_UPGRADE_ADN'],
-        ALL: ['RENEW_UPGRADE_ADN'],
-      },
-      2: {
-        USD: ['RENEW_UPGRADE_ADN2'],
-        CAD: ['RENEW_UPGRADE_ADN2'],
-        EUR: ['RENEW_UPGRADE_ADN'],
-        ZAR: ['RENEW_UPGRADE_ADN'],
-        MXN: ['RENEW_UPGRADE_ADN'],
-        ALL: ['RENEW_UPGRADE_ADN'],
-      },
-      16: {
-        USD: ['RENEW_UPGRADE_ADN'],
-        CAD: ['RENEW_UPGRADE_ADN'],
-        EUR: ['RENEW_UPGRADE_ADN'],
-        ZAR: ['RENEW_UPGRADE_ADN'],
-        MXN: ['RENEW_UPGRADE_ADN'],
-        ALL: ['RENEW_UPGRADE_ADN'],
-      },
-      10: {
-        CAD: ['RENEW_UPGRADE_ADN'],
-        ALL: ['RENEW_UPGRADE_ADN'],
-      },
-      4: {
-        AUD: ['RENEW_UPGRADE_ADN'],
-        NZD: ['RENEW_UPGRADE_ADN'],
-      },
-      3: {
-        GBP: ['RENEW_UPGRADE_ADN'],
-        EUR: ['RENEW_UPGRADE_ADN'],
-      },
-      14: {
-        EUR: ['RENEW_UPGRADE_ADN'],
-        ALL: ['RENEW_UPGRADE_ADN'],
-      },
-      22: {
-        EUR: ['RENEW_UPGRADE_ADN'],
-      },
-      9: {
-        EUR: ['RENEW_UPGRADE_ADN'],
-      },
-      7: {
-        EUR: ['RENEW_UPGRADE_ADN'],
-      },
-      6: {
-        RON: ['RENEW_UPGRADE_ADN'],
-        ALL: ['RENEW_UPGRADE_ADN'],
-      },
-      13: { BRL: ['RENEW_UPGRADE_ADN'] },
-      5: { EUR: ['63372958410'], CHF: ['63372958410'] },
-      12: { EUR: ['RENEW_UPGRADE_ADN'] },
-      19: {
-        ZAR: ['RENEW_UPGRADE_ADN'],
-      },
-      17: { EUR: ['63372958410'], CHF: ['63372958410'] },
-      72: {
-        JPY: ['RENEW_UPGRADE_ADN'],
-      },
-      26: {
-        SEK: ['RENEW_UPGRADE_ADN'],
-      },
-      28: {
-        HUF: ['RENEW_UPGRADE_ADN'],
-      },
-      20: {
-        MXN: ['RENEW_UPGRADE_ADN'],
-      },
-    } : {
-      8: {
-        USD: ['VPN_XNA2'],
-        CAD: ['VPN_XNA2'],
-        EUR: ['VPN_XNA'],
-        ZAR: ['VPN_XNA'],
-        MXN: ['VPN_XNA'],
-        ALL: ['VPN_XNA'],
-      },
-      2: {
-        USD: ['VPN_XNA2'],
-        CAD: ['VPN_XNA2'],
-        EUR: ['VPN_XNA'],
-        ZAR: ['VPN_XNA'],
-        MXN: ['VPN_XNA'],
-        ALL: ['VPN_XNA'],
-      },
-      16: {
-        USD: ['VPN_XNA'],
-        CAD: ['VPN_XNA'],
-        EUR: ['VPN_XNA'],
-        ZAR: ['VPN_XNA'],
-        MXN: ['VPN_XNA'],
-        ALL: ['VPN_XNA'],
-      },
-      10: {
-        CAD: ['VPN_XNA'],
-        ALL: ['VPN_XNA'],
-      },
-      4: {
-        AUD: ['VPN_XNA'],
-        NZD: ['VPN_XNA'],
-      },
-      3: {
-        GBP: ['VPN_XNA'],
-        EUR: ['VPN_XNA'],
-      },
-      14: {
-        EUR: ['VPN_XNA'],
-        ALL: ['VPN_XNA'],
-      },
-      22: {
-        EUR: ['VPN_XNA'],
-      },
-      9: {
-        EUR: ['VPN_XNA'],
-      },
-      7: {
-        EUR: ['VPN_XNA'],
-      },
-      6: {
-        RON: ['VPN_XNA'],
-        ALL: ['VPN_XNA'],
-      },
-      13: { BRL: ['VPN_XNA'] },
-      5: { EUR: ['63372958210'], CHF: ['63372958210'] },
-      12: { EUR: ['VPN_XNA'] },
-      17: { EUR: ['63372958210'], CHF: ['63372958210'] },
-      72: { JPY: ['VPN_XNA'] },
-      // alea multe
-      11: { INR: ['VPN_XNA'] },
-      23: { KRW: ['VPN_XNA'] },
-      19: { ZAR: ['VPN_XNA'] },
-      20: { MXN: ['VPN_XNA'] },
-      21: { MXN: ['VPN_XNA'] },
-      25: { SGD: ['VPN_XNA'] },
-      26: { SEK: ['VPN_XNA'] },
-      27: { DKK: ['VPN_XNA'] },
-      28: { HUF: ['VPN_XNA'] },
-      29: { BGN: ['VPN_XNA'] },
-      31: { NOK: ['VPN_XNA'] },
-      36: { SAR: ['VPN_XNA'] },
-      38: { AED: ['VPN_XNA'] },
-      39: { ILS: ['VPN_XNA'] },
-      41: { HKD: ['VPN_XNA'] },
-      46: { PLN: ['VPN_XNA'] },
-      47: { CZK: ['VPN_XNA'] },
-      49: { TRY: ['VPN_XNA'] },
-      50: { IDR: ['VPN_XNA'] },
-      51: { PHP: ['VPN_XNA'] },
-      52: { TWD: ['VPN_XNA'] },
-      54: { CLP: ['VPN_XNA'] },
-      55: { MYR: ['VPN_XNA'] },
-      57: { PEN: ['VPN_XNA'] },
-      59: { HRK: ['VPN_XNA'] },
-      66: { THB: ['VPN_XNA'] },
-    };
-
-    // DEX-17862 - add new coupon based on param
-    let couponValue = '';
-    if (coupon[selectedVariation.region_id][currency] !== undefined) couponValue = coupon[selectedVariation.region_id][currency];
-    if (coupon[selectedVariation.region_id].ALL !== undefined) couponValue = coupon[selectedVariation.region_id].ALL;
-
-    if (paramCoupon) {
-      couponValue = `${paramCoupon},${couponValue}`;
-    }
-
-    if (DEFAULT_LANGUAGE === 'de') {
-      if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id][currency] !== 'undefined') {
-        buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/OfferID.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
-        // buyLink += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
-      } else if (typeof coupon[selectedVariation.region_id] !== 'undefined' && coupon[selectedVariation.region_id].ALL !== 'undefined') {
-        buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/OfferID.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
-        // buyLink += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
-      } else {
-        buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-        buyLink += `/${vpnId}/${10}/${1}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
-      }
-    } else if (coupon[selectedVariation.region_id][currency] !== 'undefined') {
-      buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/COUPON.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
-      // buylink_vpn += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
-    } else if (coupon[selectedVariation.region_id].ALL !== 'undefined') {
-      buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/COUPON.${couponValue}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
-      // buylink_vpn += '/' + product_vpn + '/' + 10 + '/' + 1 + '/platform.' + s_variation.platform_id + '/region.' + s_variation.region_id + '/CURRENCY.' + currency + '/DCURRENCY.' + currency;
-    } else {
-      buyLink = `${StoreProducts.product[productId].base_uri}/Store/buybundle/${productId}/${selectedUsers}/${selectedYears}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}${ref}${pidUrlBundle}/force.2`;
-      buyLink += `/${vpnId}/${10}/${1}/platform.${selectedVariation.platform_id}/region.${selectedVariation.region_id}/CURRENCY.${currency}/DCURRENCY.${currency}`;
-    }
-
-    /* this is a hack */
-    if (pidUrlBundle === '' && !paramCoupon) {
-      const regex = /COUPON\.[^/]+\//gi;
-      buyLink = buyLink.replace(regex, '');
-    }
-
-    if (selectedVariation.discount && vpnObj.discount) {
-      fullPrice = Math.round((parseFloat(selectedVariation.price) + parseFloat(priceVpn)) * 100) / 100;
-      newPrice = Math.round((parseFloat(selectedVariation.discount.discounted_price) + parseFloat(vpnObj.discount.discounted_price)) * 100) / 100;
-      save = Math.round(parseFloat(fullPrice) - parseFloat(priceVpn));
-      justVpn = parseFloat(
-        vpnObj.discount.discounted_price
-          .replace('$', '')
-          .replace('â‚¬', '')
-          .replace('Â£', '')
-          .replace('R$', '')
-          .replace('AUD', ''),
-      );
-    } else if (vpnObj.discount) {
-      fullPrice = Math.round((parseFloat(selectedVariation.price) + parseFloat(vpnObj.price)) * 100) / 100;
-      newPrice = Math.round((parseFloat(selectedVariation.price) + parseFloat(vpnObj.discount.discounted_price)) * 100) / 100;
-      save = Math.round(parseFloat(fullPrice) - parseFloat(priceVpn));
-      justVpn = parseFloat(
-        vpnObj.discount.discounted_price
-          .replace('$', '')
-          .replace('â‚¬', '')
-          .replace('Â£', '')
-          .replace('R$', '')
-          .replace('AUD', ''),
-      );
-
-      if (parentDiv.querySelector(`.show_save_${onSelectorClass}`)) {
-        parentDiv.querySelector(`.show_save_${onSelectorClass}`).style.display = 'block';
-      }
-    } else {
-      justVpn = parseFloat(
-        vpnObj.price
-          .replace('$', '')
-          .replace('â‚¬', '')
-          .replace('Â£', '')
-          .replace('R$', '')
-          .replace('AUD', ''),
-      );
-      fullPrice = Math.round((parseFloat(selectedVariation.price) + parseFloat(justVpn)) * 100) / 100;
-      save = Math.round(parseFloat(fullPrice) - parseFloat(priceVpn));
-      if (selectedVariation.discount) {
-        newPrice = Math.round((parseFloat(selectedVariation.discount.discounted_price) + justVpn) * 100) / 100;
-      } else {
-        newPrice = Math.round((parseFloat(selectedVariation.price) + justVpn) * 100) / 100;
-      }
-    }
-
-    if (parentDiv.querySelector(discPriceClass)) {
-      parentDiv.querySelector(discPriceClass).innerHTML = newPrice;
-    }
-
-    if (parentDiv.querySelector(`.price_vpn-${onSelectorClass}`)) {
-      parentDiv.querySelector(`.price_vpn-${onSelectorClass}`).innerHTML = justVpn;
-    }
-  } else {
-    // not checked
-    if (showVpnBox) {
-      showVpnBox.style.display = 'none';
-    }
-
-    if (selectedVariation.discount) {
-      fullPrice = Math.round(parseFloat(selectedVariation.price) * 100) / 100;
-      newPrice = Math.round(parseFloat(selectedVariation.discount.discounted_price) * 100) / 100;
-      save = Math.round(parseFloat(fullPrice) - parseFloat(newPrice));
-      if (parentDiv.querySelector(`.show_save_${onSelectorClass}`)) {
-        parentDiv.querySelector(`.show_save_${onSelectorClass}`).style.display = 'block';
-        /*
-        document.querySelectorAll(`.show_save_${onSelectorClass}`).forEach(item => {
-          item.style.display = 'block';
-        });
-        */
-      }
-    } else {
-      fullPrice = Math.round(parseFloat(selectedVariation.price) * 100) / 100;
-      newPrice = fullPrice;
-      save = 0;
-
-      if (parentDiv.querySelector(`.show_save_${onSelectorClass}`)) {
-        parentDiv.querySelector(`.show_save_${onSelectorClass}`).style.display = 'none';
-      }
-    }
-
-    buyLink = buyLinkDefault;
-  }
-
-  percentageVal = (((fullPrice - newPrice) / fullPrice) * 100).toFixed(0);
-  fullPrice = formatPrice(fullPrice, selectedVariation.currency_iso, selectedVariation.region_id);
-  save = formatPrice(save, selectedVariation.currency_iso, selectedVariation.region_id);
-  newPrice = formatPrice(newPrice, selectedVariation.currency_iso, selectedVariation.region_id);
-
-  if (parentDiv.querySelector(buyClass)) {
-    parentDiv.querySelector(buyClass).setAttribute('href', buyLink);
-    if (comparativeDiv && comparativeDiv.querySelector(buyClass)) {
-      comparativeDiv.querySelector(buyClass).setAttribute('href', buyLink);
-    }
-  }
-
-  if (parentDiv.querySelector(priceClass)) {
-    parentDiv.querySelector(priceClass).innerHTML = fullPrice;
-    if (comparativeDiv && comparativeDiv.querySelector(priceClass)) {
-      comparativeDiv.querySelector(priceClass).innerHTML = fullPrice;
-    }
-  }
-
-  if (parentDiv.querySelector(discPriceClass)) {
-    parentDiv.querySelector(discPriceClass).innerHTML = newPrice;
-    if (comparativeDiv && comparativeDiv.querySelector(discPriceClass)) {
-      comparativeDiv.querySelector(discPriceClass).innerHTML = newPrice;
-    }
-  }
-
-  if (parentDiv.querySelector(saveClass)) {
-    parentDiv.querySelector(saveClass).innerHTML = save;
-    if (comparativeDiv && comparativeDiv.querySelector(saveClass)) {
-      comparativeDiv.querySelector(saveClass).innerHTML = save;
-    }
-  }
-
-  if (parentDiv.querySelector(percentClass)) {
-    parentDiv.querySelector(percentClass).innerHTML = `${percentageVal}%`;
-    if (comparativeDiv && comparativeDiv.querySelector(percentClass)) {
-      comparativeDiv.querySelector(percentClass).innerHTML = `${percentageVal}%`;
-    }
-  }
-
-  const dataInfo = {
-    buyLinkSelector: `buylink-${onSelectorClass}`,
-    variation: {
-      discounted_price: newPrice.replace(selectedVariation.currency_label, '').trim(),
-      price: fullPrice.replace(selectedVariation.currency_label, '').trim(),
-    },
-  };
-
-  setDataOnBuyLinks(dataInfo);
-}
-
-const createFakeSelectors = () => {
-  const fakeSelectorsBottom = document.createElement('div');
-  fakeSelectorsBottom.id = 'fakeSelectors_bottom';
-  document.querySelector('footer').before(fakeSelectorsBottom);
-  if (!productsList.length) return;
-  productsList.forEach((prod) => {
-    if (!prod) return;
-    const prodSplit = prod.split('/');
-    const prodAlias = productAliases(prodSplit[0].trim());
-    const prodUsers = prodSplit[1].trim();
-    const prodYears = prodSplit[2].trim();
-    const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
-
-    ['u', 'y'].forEach((prefix) => {
-      const selectorId = `${prefix}_${onSelectorClass}`;
-      const prefixAlias = prefix === 'u' ? 'users' : 'years';
-      if (!document.getElementById(selectorId)) {
-        fakeSelectorsBottom.innerHTML += `<label for="${selectorId}">Fake ${prefix === 'u' ? 'Devices' : 'Years'} for ${onSelectorClass}: </label>`;
-        const createSelect = document.createElement('select');
-        createSelect.id = selectorId;
-        createSelect.name = selectorId;
-        createSelect.classList.add(`${prefixAlias}_${prodAlias}`, `${prefixAlias}_${onSelectorClass}_fake`);
-        document.getElementById('fakeSelectors_bottom').append(createSelect);
-      }
-    });
-  });
-};
-
-function initSelectors(pid) {
-  showLoaderSpinner();
-  const productsExistsOnPage = productsList.length;
-
-  if (productsExistsOnPage) {
-    const fakeSelectorsBottom = document.createElement('div');
-    fakeSelectorsBottom.id = 'fakeSelectors_bottom';
-    document.querySelector('footer').before(fakeSelectorsBottom);
-
-    productsList.forEach((prod) => {
-      if (!prod) return;
-      const prodSplit = prod.split('/');
-      const prodAlias = productAliases(prodSplit[0].trim());
-      const prodUsers = prodSplit[1].trim();
-      const prodYears = prodSplit[2].trim();
-      const prodTrialPeriod = prodSplit[3]?.trim();
-      const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
-
-      ['u', 'y'].forEach((prefix) => {
-        const selectorId = `${prefix}_${onSelectorClass}`;
-        const prefixAlias = prefix === 'u' ? 'users' : 'years';
-        if (!document.getElementById(selectorId)) {
-          fakeSelectorsBottom.innerHTML += `<label for="${selectorId}">Fake ${prefix === 'u' ? 'Devices' : 'Years'} for ${onSelectorClass}: </label>`;
-          const createSelect = document.createElement('select');
-          createSelect.id = selectorId;
-          createSelect.name = selectorId;
-          createSelect.classList.add(`${prefixAlias}_${prodAlias}`, `${prefixAlias}_${onSelectorClass}_fake`);
-          document.getElementById('fakeSelectors_bottom').append(createSelect);
-        }
-      });
-
-      const metaPID = getMetadata('pid');
-      // eslint-disable-next-line no-param-reassign
-      if (metaPID && metaPID !== '') pid = metaPID;
-
-      const initSelectorConfig = {
-        product_id: prodAlias,
-        full_price_class: `oldprice-${onSelectorClass}`,
-        full_price_monthly_class: `oldprice-${onSelectorClass}-monthly`,
-        discounted_price_class: `newprice-${onSelectorClass}`,
-        discounted_price_monthly_class: `newprice-${onSelectorClass}-monthly`,
-        price_class: `price-${onSelectorClass}`,
-        buy_class: `buylink-${onSelectorClass}`,
-        save_class: `save-${onSelectorClass}`,
-        percent_class: `percent-${onSelectorClass}`,
-        selected_users: prodUsers,
-        selected_years: prodYears,
-        users_class: `users_${onSelectorClass}_fake`,
-        years_class: `years_${onSelectorClass}_fake`,
-        method: 'POST',
-
-        ...(pid === 'ignore' ? { ignore_promotions: true } : {}),
-        ...(pid !== false && pid !== 'ignore' ? { extra_params: { pid } } : {}),
-
-        onSelectorLoad() {
-          sendAnalyticsProducts(this);
-          try {
-            const checkoutLinks = {
-              ultsec: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.ultimatesecurityus&payment_period=10d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ultsec',
-              ps: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.premiumsecurity&payment_period=10d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ps',
-              av: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.cl.av&payment_period=3d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-av',
-              tsmd: 'https://checkout.bitdefender.com/index.html:step=login?theme=truesubs&product_id=com.bitdefender.cl.tsmd&payment_period=5d1y&language=en_EN&country=US&provider=verifone&campaign=summermc-2024-subscription-ts',
-            };
-
-            if (window.location.href.includes('/lp-brand-4pr-1/')) {
-              this.buy_link = checkoutLinks[this.config.product_id];
-            }
-
-            const fp = this;
-            const paramCoupon = getParam('coupon');
-
-            // DEX-17703 - replacing VAT INFO text for en regions
-            showPrices(fp, false, null, onSelectorClass, paramCoupon, prodTrialPeriod);
-            adobeMcAppendVisitorId('main');
-            showLoaderSpinner(false, onSelectorClass);
-          } catch (ex) { console.log(ex); }
-        },
-        onChangeUsers() {
-          sendAnalyticsProducts(this);
-          try {
-            const fp = this;
-            showPrices(fp, false, null, onSelectorClass, undefined, prodTrialPeriod);
-            adobeMcAppendVisitorId('main');
-            showLoaderSpinner(false, onSelectorClass);
-          } catch (ex) { console.log(ex); }
-        },
-        onChangeYears() {
-          sendAnalyticsProducts(this);
-          try {
-            const fp = this;
-            showPrices(fp, false, null, onSelectorClass, undefined, prodTrialPeriod);
-            adobeMcAppendVisitorId('main');
-            showLoaderSpinner(false, onSelectorClass);
-          } catch (ex) { console.log(ex); }
-        },
-      };
-
-      StoreProducts.initSelector(initSelectorConfig);
-    });
-  }
-}
-
 function addIdsToEachSection() {
   document.querySelectorAll('main .section').forEach((section) => {
     const { id: dataId } = section.dataset;
@@ -1027,108 +393,6 @@ function addIdsToEachSection() {
       ? `${getIdentity}-2`
       : getIdentity;
   });
-}
-
-function addEventListenersOnVpnCheckboxes(pid) {
-  if (document.querySelector('.checkboxVPN')) {
-    document.querySelectorAll('.prod_box').forEach((item) => {
-      item.addEventListener('click', (e) => {
-        if (e.target.tagName === 'INPUT' && e.target.classList.contains('checkboxVPN')) {
-          const checkboxId = e.target.getAttribute('id');
-
-          if ((window.isVlaicu || isZuoraForNetherlandsLangMode()) && window.StoreProducts.product) {
-            const prodxId = e.target.getAttribute('id').split('-')[1];
-            const storeObjprod = window.StoreProducts.product[prodxId] || {};
-            showPrices(storeObjprod, e.target.checked, checkboxId);
-          } else {
-            changeCheckboxVPN(checkboxId, pid);
-          }
-        }
-      });
-    });
-  }
-}
-
-async function initVlaicuProductPriceLogic(campaign = undefined, targetBuylinks = {}) {
-  import('./vendor/product.js').then(async (module) => {
-    const ProductPrice = module.default;
-    showLoaderSpinner();
-
-    if (productsList.length) {
-      try {
-        await Promise.all(
-          productsList.map(async (item) => {
-            if (!item) return;
-            const prodSplit = item.split('/');
-            const prodAlias = prodSplit[0].trim();
-            const prodUsers = prodSplit[1].trim();
-            const prodYears = prodSplit[2].trim();
-            const prodTrialPeriod = prodSplit[3]?.trim();
-            const onSelectorClass = `${prodAlias}-${prodUsers}${prodYears}`;
-
-            const productPrice = new ProductPrice(item, campaign, targetBuylinks);
-            const vlaicuResult = await productPrice.getPrices();
-            const vlaicuVariation = productPrice.getVariation();
-            if (vlaicuVariation) {
-              showPrices(vlaicuVariation, false, null, onSelectorClass, undefined, prodTrialPeriod);
-              adobeMcAppendVisitorId('main');
-              showLoaderSpinner(false, onSelectorClass);
-            }
-            sendAnalyticsProducts(vlaicuResult);
-
-            // eslint-disable-next-line consistent-return
-            return vlaicuResult;
-          }),
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  });
-}
-
-/**
- * Price logic should start only after adobe target is loaded.
- */
-async function initializeProductsPriceLogic() {
-  let targetBuyLinkMappings = {};
-  const parameterPid = getParam('pid');
-  let targetPid;
-  let campaign = getParam('campaign');
-  let vlaicuCampaign = getParam('vcampaign') || getMetadata('vcampaign');
-
-  try {
-    const configMbox = await target.configMbox;
-    targetBuyLinkMappings = configMbox?.products ?? {};
-    if (configMbox) {
-      targetPid = configMbox?.promotion;
-      vlaicuCampaign = configMbox?.promotion || vlaicuCampaign;
-      campaign = configMbox?.promotion ?? campaign;
-      const promotionID = configMbox?.promotion;
-
-      if (promotionID) {
-        window.adobeDataLayer.push({
-          page: { attributes: { promotionID } },
-        });
-      }
-    }
-  } catch (ex) { /* empty */ }
-
-  const metaPID = getMetadata('pid');
-  const pid = targetPid || parameterPid || campaign || metaPID;
-
-  if ((!parameterPid || !checkIfLocaleCanSupportInitSelector()) && getDefaultSection() === 'consumer') {
-    window.isVlaicu = true;
-    initVlaicuProductPriceLogic(vlaicuCampaign || pid, targetBuyLinkMappings);
-    createFakeSelectors();
-  } else {
-    await fetchGeoIP();
-    addScript('/_src-lp/scripts/vendor/store2015.js', {}, 'async', () => {
-      initSelectors(pid);
-    }, {}, 'module');
-  }
-
-  addEventListenersOnVpnCheckboxes(pid);
 }
 
 function eventOnDropdownSlider() {
@@ -1284,6 +548,78 @@ function addTrackingEventListeners(selector, assetName, eventType = 'click') {
   return elements.length;
 }
 
+/**
+ * Sections with the `trial-link-prod` metadata (e.g. ts_i/5/1) point their buttons
+ * to the trial link set by the `trialbuylinks` metadata.
+ * @param {HTMLElement} main
+ */
+function decorateTrialLinkSections(main) {
+  const trialDuration = getTrialDuration();
+  if (!trialDuration) return;
+
+  main.querySelectorAll('[data-trial-link-prod]').forEach((section) => {
+    const { productId, devices, subscription } = parseStoreProduct(section.dataset.trialLinkProd);
+    section.querySelectorAll('p.button-container, a.button.primary').forEach((element) => {
+      const button = element.matches('a') ? element : element.querySelector('a');
+      if (!button || button.closest('bd-option')) return;
+
+      button.setAttribute('data-store-render', '');
+      button.setAttribute('data-store-buy-link', trialDuration);
+      wrapChildrenWithProduct(button.parentElement, { productId, devices, subscription });
+    });
+  });
+}
+
+/**
+ * `.max-discount` shows the biggest discount of all the products on the page,
+ * and its container is hidden when there is no discount.
+ * @param {HTMLElement} main
+ */
+function decorateMaxDiscount(main) {
+  main.querySelectorAll('.max-discount').forEach((element) => {
+    element.setAttribute('data-store-render', '');
+    element.setAttribute('data-store-context-discount', 'max-percentage');
+    element.closest('em, table')?.setAttribute('data-store-hide', '!it.state.discount.percentage.max');
+  });
+
+  main.querySelectorAll('.max-discount-content .block, .max-discount-content .default-content-wrapper').forEach((element) => {
+    element.innerHTML = element.innerHTML.replace(/0%/g, '<span data-store-render data-store-context-discount="max-percentage"></span>');
+  });
+}
+
+/**
+ * Values the store elements don't provide, available in templates and the hide DSL
+ * as `it.option.price.*`
+ * @type {import('@repobit/dex-store-elements').BdScopeDeriveFn}
+ */
+const deriveStoreValues = async ({ option }) => {
+  if (!option) return {};
+
+  const currency = option.getProduct().getCurrency();
+  const format = (price) => store.formatPrice({ price, currency, locale: page.locale });
+  const fullPrice = option.getPrice({ currency: false });
+  const discountedPrice = option.getDiscountedPrice({ currency: false }) || fullPrice;
+
+  return {
+    option: {
+      price: {
+        fullYearly: format(fullPrice * 12),
+        discountedYearly: format(discountedPrice * 12),
+        zero: format(0),
+      },
+    },
+  };
+};
+
+async function pushPromotionId() {
+  const promotionID = (await target.configMbox)?.promotion;
+  if (promotionID) {
+    window.adobeDataLayer.push({
+      page: { attributes: { promotionID } },
+    });
+  }
+}
+
 async function loadPage() {
   setBFCacheListener();
   const main = document.querySelector('main');
@@ -1294,6 +630,7 @@ async function loadPage() {
   storeRoot.dataLayer = ({ option, event }) => {
     AdobeDataLayerService.push(new ProductLoadedEvent(option, event, 'campaign product'));
   };
+  storeRoot.derived = deriveStoreValues;
   document.body.replaceChild(storeRoot, main);
   storeRoot.appendChild(main);
   storeRoot.store = store;
@@ -1303,32 +640,24 @@ async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
 
+  decorateTrialLinkSections(main);
+  decorateMaxDiscount(main);
+
   registerActionNodes(main);
   registerRenderNodes(main);
   await storeRoot.updateComplete;
 
-  sendAnalyticsPageLoadedEvent();
-
-  // TODO: remove new-store class once the store is used corretcly in the entire project
-  const awaitLoaderElements = document.querySelectorAll('.await-loader.new-store');
-  awaitLoaderElements.forEach((element) => {
-    element.classList.remove('await-loader', 'new-store');
+  document.querySelectorAll('.await-loader').forEach((element) => {
+    element.classList.remove('await-loader');
   });
 
+  // DEX-17703 - replacing VAT INFO text for en regions
+  if (DEFAULT_LANGUAGE === 'en') updateVATinfo(page.country === 'us' ? 8 : 0, '[data-store-buy-link]');
+
+  pushPromotionId();
+  sendAnalyticsPageLoadedEvent();
+
   addIdsToEachSection();
-
-  // in the drafts folder adobe target is not loaded, so the price logic should be executed
-  const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
-  if (!isPageNotInDraftsFolder) {
-    target.abort();
-  }
-
-  // TODO: this needs to be removed after we finish implementing the new store in all the components
-  if (main.querySelector('bd-context') && productsList.length === 0) {
-    maxDiscount();
-  }
-
-  initializeProductsPriceLogic();
 
   // Asset tracking - adding event listeners to all the links that contain the specified selector
   // this tracks links that are in the page, directing the user to a buy flow, like a product card
@@ -1352,8 +681,8 @@ async function loadPage() {
   window.addEventListener('UC_UI_INITIALIZED', () => {
     if (window.UC_UI) {
       const controllerId = window.UC_UI.getControllerId();
-      document.querySelectorAll('a[data-buy-price]').forEach((button) => {
-        const buyLink = new URL(button.getAttribute('href'));
+      document.querySelectorAll('a[data-store-buy-link]').forEach((button) => {
+        const buyLink = new URL(button.getAttribute('href'), window.location.href);
         buyLink.searchParams.set('ucControllerId', controllerId);
         button.href = buyLink.toString();
       });

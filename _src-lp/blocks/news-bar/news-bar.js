@@ -1,3 +1,5 @@
+import { maxDiscountHtml } from '../../scripts/utils.js';
+
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
   const parentBlockStyle = parentBlock.style;
@@ -8,7 +10,8 @@ export default function decorate(block) {
     type, backgroundColor, textColor,
   } = metaData;
 
-  block.innerHTML = block.innerHTML.replace('0%', '<span class="max-discount">$&</span>');
+  // the page's max discount, rendered by the store
+  block.innerHTML = block.innerHTML.replace('0%', maxDiscountHtml());
 
   // set the background
   if (backgroundEl) {

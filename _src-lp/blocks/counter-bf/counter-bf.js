@@ -1,8 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import { loadCSS } from '../../scripts/lib-franklin.js';
-import { productAliases } from '../../scripts/scripts.js';
 import {
-  addScript, GLOBAL_EVENTS, updateProductsList, getBackgroundImageUrl,
+  addScript, GLOBAL_EVENTS, getBackgroundImageUrl, maxDiscountHtml, parseStoreProduct, wrapChildrenWithProduct,
 } from '../../scripts/utils.js';
 
 export default function decorate(block) {
@@ -158,30 +157,19 @@ export default function decorate(block) {
   }
 
   if (products) {
-    const productsAsList = products && products.split(',');
+    block.innerHTML = block.innerHTML.replace(/0%/g, maxDiscountHtml());
 
-    productsAsList.forEach((prod, idx) => {
-      // eslint-disable-next-line prefer-const
-      let [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      prodName = prodName.trim();
-      updateProductsList(prod);
-      const selectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    // hidden products, they only feed the page max discount (.max-discount) shown in the text;
+    // they are not displayed (the page product boxes report them to analytics)
+    products.split(',').forEach((prod) => {
+      const {
+        productId, devices, subscription,
+      } = parseStoreProduct(prod);
 
       const pricesBox = document.createElement('div');
-      pricesBox.className = `${prodName}_box prices_box d-none prodload-${selectorClass}`;
-      pricesBox.innerHTML = `<div>
-        <div class="">
-          <span class="prod-oldprice oldprice-${selectorClass}"></span>
-          <span class="prod-save"><span class="save-${selectorClass}"></span></span>
-          <span class="d-none percent percent-${selectorClass}">0%</span>
-        </div>
-        <div class="">
-          <span class="prod-newprice newprice-${selectorClass}"></span>
-        </div>
-      </div>`;
+      pricesBox.className = `${productId}_box prices_box d-none`;
+      wrapChildrenWithProduct(pricesBox, { productId, devices, subscription });
       block.appendChild(pricesBox);
     });
-
-    block.innerHTML = block.innerHTML.replace(/0%/g, '<span class="max-discount"></span>');
   }
 }

@@ -1,5 +1,4 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { parseStoreProduct, wrapChildrenWithProduct } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const section = block.closest('.section');
@@ -12,15 +11,20 @@ export default function decorate(block) {
     .map((p) => p.trim())
     .filter(Boolean);
 
-  const productData = productList.map((product) => {
-    const [name, users, years] = product.split('/');
+  const productData = productList.map((product) => parseStoreProduct(product));
 
-    updateProductsList(product);
-
-    return {
-      selector: `${productAliases(name)}-${users}${years}`,
-    };
-  });
+  /**
+   * Each product has its own price, save and buy elements, toggled by the switcher.
+   * Only the price of the product visible by default is reported to analytics.
+   */
+  const wrapWithProduct = (element, index, storeEvent = '') => {
+    const {
+      productId, devices, subscription,
+    } = productData[index];
+    wrapChildrenWithProduct(element, {
+      productId, devices, subscription, storeEvent,
+    });
+  };
 
   const content = block.children[1];
   const right = block.children[2];
@@ -74,10 +78,13 @@ export default function decorate(block) {
       data-product="${index}"
       ${index ? 'hidden' : ''}
     >
-      <span class="prod-oldprice oldprice-${product.selector}"></span>
-      <span class="prod-newprice newprice-${product.selector}"></span>
+      <span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span>
+      <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
     </div>
   `).join('');
+  priceCell.querySelectorAll('.card-switcher-price').forEach((element, index) => {
+    wrapWithProduct(element, index, index === 0 ? 'info' : '');
+  });
 
   if (saveCell) {
     saveCell.innerHTML = productData.map((product, index) => `
@@ -86,9 +93,12 @@ export default function decorate(block) {
         data-product="${index}"
         ${index ? 'hidden' : ''}
       >
-        <span class="save-${product.selector}"></span>
+        <span data-store-render data-store-discount="value" data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility"></span>
       </div>
     `).join('');
+    saveCell.querySelectorAll('.card-switcher-save').forEach((element, index) => {
+      wrapWithProduct(element, index);
+    });
   }
 
   /* Buy buttons */
@@ -127,12 +137,15 @@ export default function decorate(block) {
       wrapper.innerHTML = `
       <a
         href="#"
-        class="red-buy-button await-loader prodload prodload-${product.selector} buylink-${product.selector}"
+        class="red-buy-button await-loader"
+        data-store-render
+        data-store-buy-link="${product.trialDuration}"
       >
         ${buttonText}
       </a>
     `;
 
+      wrapWithProduct(wrapper, index);
       buyCell.append(wrapper);
     });
   }

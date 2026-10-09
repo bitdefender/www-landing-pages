@@ -4,6 +4,11 @@
   position: relative;
 }
 
+/* store scope around the block, it must not affect the layout */
+.b-productswithinputdevices-container .b-productswithinputdevices-wrapper > bd-context {
+  display: contents;
+}
+
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .prod-percent.green_bck_circle {
   left: 5%;
   top: -3em;
@@ -189,6 +194,9 @@
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-oldprice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font: normal normal normal 18px/21px Roboto, sans-serif;
   color: #999;
   width: 100%;

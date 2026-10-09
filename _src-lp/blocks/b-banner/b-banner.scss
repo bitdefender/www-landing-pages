@@ -695,3 +695,10 @@
     width: 100% !important;
   }
 }
+
+/* store scopes (around the block content and the discount bubble) must not affect the layout */
+.b-banner-container bd-context,
+.b-banner-container bd-product,
+.b-banner-container bd-option {
+  display: contents;
+}

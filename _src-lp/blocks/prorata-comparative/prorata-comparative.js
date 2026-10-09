@@ -1,5 +1,4 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { parseStoreProduct, wrapChildrenWithProduct } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const parentSelector = block.closest('.section');
@@ -14,26 +13,58 @@ export default function decorate(block) {
 
   if (product) {
     // add the prod
-    updateProductsList(product);
-    const [prodName, prodUsers, prodYears] = product.split('/');
-    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    const {
+      productId, devices, subscription, trialDuration,
+    } = parseStoreProduct(product);
     const priceBoxTable = block.querySelector(`div div:nth-of-type(${activeProd + 1}) table strong`);
+    const productColumn = priceBoxTable?.closest('.prorata-comparative > div > div');
 
-    // create ProdBox
-    const prodBox = document.createElement('div');
-    prodBox.classList.add('prices_box', 'await-loader', 'prodload', `prodload-${onSelectorClass}`);
-    prodBox.innerHTML += `<span class="prod-save-box">${priceBoxTable.innerText.replace(' 0', '')} <b class="prod-save save-${onSelectorClass}"></b></span>`;
-    prodBox.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
-    prodBox.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
-    priceBoxTable.innerHTML = prodBox.outerHTML;
+    if (priceBoxTable) {
+      // create ProdBox
+      const prodBox = document.createElement('div');
+      prodBox.classList.add('prices_box', 'await-loader');
+      prodBox.innerHTML += `<span class="prod-save-box">${priceBoxTable.innerText.replace(' 0', '')} <b class="prod-save" data-store-render data-store-discount="value"></b></span>`;
+      prodBox.innerHTML += '<span class="prod-oldprice" data-store-render data-store-price="full"></span>';
+      prodBox.innerHTML += '<span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>';
+      priceBoxTable.innerHTML = prodBox.outerHTML;
+
+      // without a discount the whole price box was removed
+      const noDiscountHide = '!it.option.price.discounted';
+      const priceParagraph = priceBoxTable.closest('p');
+      if (priceParagraph) {
+        priceParagraph.setAttribute('data-store-hide', noDiscountHide);
+      } else {
+        priceBoxTable.querySelector('.prod-oldprice').setAttribute('data-store-hide', noDiscountHide);
+        priceBoxTable.querySelector('.prod-save-box').setAttribute('data-store-hide', noDiscountHide);
+        priceBoxTable.querySelector('.prod-save-box').setAttribute('data-store-hide-type', 'visibility');
+      }
+    }
 
     // replace anchor
     const anchorElement = block.querySelector(`div div:nth-of-type(${activeProd + 1}) table a`);
-    const newAnchorElement = document.createElement('a');
-    newAnchorElement.classList.add(`buylink-${onSelectorClass}`, 'await-loader', 'prodload', `prodload-${onSelectorClass}`);
-    newAnchorElement.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-    newAnchorElement.textContent = anchorElement.textContent;
-    anchorElement.replaceWith(newAnchorElement);
+    if (anchorElement) {
+      const newAnchorElement = document.createElement('a');
+      newAnchorElement.classList.add('await-loader');
+      newAnchorElement.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      newAnchorElement.setAttribute('data-store-render', '');
+      newAnchorElement.setAttribute('data-store-buy-link', trialDuration);
+      newAnchorElement.textContent = anchorElement.textContent;
+      anchorElement.replaceWith(newAnchorElement);
+    }
+
+    // the price box and the buy button live in the same column
+    const buyColumn = block.querySelector('[data-store-buy-link]')?.closest('.prorata-comparative > div > div');
+    const storeProperties = {
+      productId,
+      devices,
+      subscription,
+    };
+    if (productColumn) {
+      wrapChildrenWithProduct(productColumn, { ...storeProperties, storeEvent: 'info' });
+    }
+    if (buyColumn && buyColumn !== productColumn) {
+      wrapChildrenWithProduct(buyColumn, storeProperties);
+    }
   } else {
     block.innerHTML = 'Product metadata is mandatory';
   }

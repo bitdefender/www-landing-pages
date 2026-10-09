@@ -1,6 +1,7 @@
 import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, GLOBAL_EVENTS, getBackgroundImageUrl } from '../../scripts/utils.js';
+import {
+  GLOBAL_EVENTS, getBackgroundImageUrl, parseStoreProduct, wrapChildrenWithProduct,
+} from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
@@ -61,15 +62,11 @@ export default function decorate(block) {
       let htmlForm = '';
 
       if (product) {
-        const [prodName, prodUsers, prodYears] = product.split('/');
-        const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
-        updateProductsList(product);
-
+        // wrapped with the store product at the end, the block is rebuilt from innerHTML
         htmlForm += `
-          <div class="priceBox await-loader prodload prodload-${onSelectorClass}">
-            <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-            <span class="prod-newprice newprice-${onSelectorClass}"></span>
+          <div class="priceBox await-loader">
+            <span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span>
+            <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
           </div>
         `;
       }
@@ -249,5 +246,15 @@ export default function decorate(block) {
 
   if (imageAlign && block.querySelector('.img-right') && block.querySelector('.img-right').style.textAlign) {
     block.querySelector('.img-right').style.textAlign = imageAlign;
+  }
+
+  if (product) {
+    const { productId, devices, subscription } = parseStoreProduct(product);
+    // the content can be rendered twice (desktop / mobile), count the product only once
+    block.querySelectorAll('.priceBox').forEach((priceBox, idx) => {
+      wrapChildrenWithProduct(priceBox, {
+        productId, devices, subscription, storeEvent: idx === 0 ? 'info' : '',
+      });
+    });
   }
 }

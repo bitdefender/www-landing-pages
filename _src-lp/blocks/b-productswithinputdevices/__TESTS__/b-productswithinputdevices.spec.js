@@ -53,9 +53,26 @@ describe('b-productswithinputdevices block', () => {
       });
     });
 
-    test('check if products have been added to the window.productsListCount', async () => {
+    test('each product gets a store product/option around its prices box', async () => {
       await waitFor(() => {
-        expect(window.productsListCount).toBeTruthy();
+        const options = [...container.querySelectorAll('.prices_box > bd-product > bd-option')];
+        expect(options.map((option) => option.closest('bd-product').getAttribute('product-id')))
+          .toEqual(['smallbs', 'smallbs', 'smallbs']);
+        expect(options.map((option) => option.getAttribute('devices'))).toEqual(['10', '10', '10']);
+        expect(options.map((option) => option.getAttribute('subscription'))).toEqual(['1', '2', '3']);
+        expect(container.querySelectorAll('.prices_box a.red-buy-button[data-store-buy-link]').length).toBe(3);
+      });
+    });
+
+    test('devices input is a store action sharing a scope with the prices boxes', async () => {
+      await waitFor(() => {
+        const block = container.querySelector('.b-productswithinputdevices');
+        const input = block.querySelector('fieldset input');
+        expect(block.parentElement.matches('bd-context')).toBe(true);
+        expect(input.hasAttribute('data-store-action')).toBe(true);
+        expect(input.dataset.storeSetType).toBe('devices');
+        expect(input.dataset.storeSetMin).toBe('1');
+        expect(input.dataset.storeSetMax).toBe('100');
       });
     });
 

@@ -1,8 +1,48 @@
 import { decorateButtons, decorateIcons } from '../../scripts/lib-franklin.js';
+import { detectModalButtons, isView, getParam } from '../../scripts/scripts.js';
 import {
-  detectModalButtons, productAliases, isView, getParam,
-} from '../../scripts/scripts.js';
-import { updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
+  getBackgroundImageUrl, parseStoreProduct, wrapChildrenWithStoreContext,
+} from '../../scripts/utils.js';
+
+// hide rule for elements that only make sense when the product has a discount
+const NO_DISCOUNT = '!it.option.price.discounted';
+
+/**
+ * Wraps the element itself (bd-context > bd-product > bd-option > element),
+ * so the store rules on the element and on its children see the product.
+ * @param {HTMLElement} element
+ * @param {object} storeOptions options of wrapChildrenWithStoreContext
+ */
+const wrapWithStoreContext = (element, storeOptions) => {
+  const { parentNode, nextSibling } = element;
+  if (!parentNode) return;
+
+  const holder = document.createElement('div');
+  holder.appendChild(element);
+  wrapChildrenWithStoreContext(holder, storeOptions);
+  parentNode.insertBefore(holder.firstElementChild, nextSibling);
+};
+
+/**
+ * The block markup is rebuilt from strings (and duplicated for mobile), so priced elements are
+ * only marked with `data-product-scope` while decorating and get their store scope at the end.
+ * Each product is reported to analytics once.
+ * @param {HTMLElement} block
+ */
+const createStoreScopes = (block) => {
+  const reportedProducts = new Set();
+  block.querySelectorAll('[data-product-scope]').forEach((element) => {
+    const { productId, devices, subscription } = parseStoreProduct(element.dataset.productScope);
+    const productKey = `${productId}/${devices}/${subscription}`;
+    const storeEvent = reportedProducts.has(productKey) ? '' : 'info';
+    reportedProducts.add(productKey);
+
+    element.removeAttribute('data-product-scope');
+    wrapWithStoreContext(element, {
+      productId, devices, subscription, ignoreEventsParent: true, storeEvent,
+    });
+  });
+};
 
 // Helper function to get image source safely
 const getImageSrc = (pictureEl) => getBackgroundImageUrl(pictureEl?.querySelector('img')?.getAttribute('src'));
@@ -62,6 +102,13 @@ export default function decorate(block) {
   if (imageCover) parentBlock.classList.add(`bckimg-${imageCover}`);
   if (!hasContentEl) parentBlock.classList.add('full-width');
 
+  // store attributes are only rendered when the block has a product to price
+  const { trialDuration } = parseStoreProduct(product);
+  const withStore = (attributes) => (product ? attributes : '');
+  const scopeAttribute = withStore(`data-product-scope="${product}"`);
+  const percentAttributes = withStore('data-store-render data-store-discount="percentage"');
+  const hideWithoutDiscount = withStore(`data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility"`);
+
   contentEl.innerHTML = contentEl.innerHTML.replace(/xx%/g, '<span class="max-discount"></span>');
 
   // authors write the lead + icon bullets as one paragraph with line breaks; split so each line can be styled
@@ -74,17 +121,7 @@ export default function decorate(block) {
 
   // table from left content
   [...contentEl.querySelectorAll('table')].forEach((table) => {
-    let prodName;
-    let prodUsers;
-    let prodYears;
-    let onSelectorClass;
     const aliasTr = table.querySelector('tr'); // 1st tr should have an identifier alias
-
-    if (product && product.length) {
-      updateProductsList(product);
-      [prodName, prodUsers, prodYears] = product.split('/');
-      onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-    }
 
     // NORMAL DISPLAY
     if (aliasTr && aliasTr.textContent.trim() === 'display') {
@@ -104,20 +141,21 @@ export default function decorate(block) {
       const titleBox = document.createElement('div');
       if (titlePrices) {
         const replacements = {
-          XX: `newprice-${onSelectorClass}`,
-          YY: `save-${onSelectorClass}`,
-          ZZ: `oldprice-${onSelectorClass}`,
+          XX: withStore('data-store-render data-store-price="discounted||full"'),
+          YY: withStore(`data-store-render data-store-discount="value" data-store-hide="${NO_DISCOUNT}"`),
+          ZZ: withStore(`data-store-render data-store-price="full" data-store-hide="${NO_DISCOUNT}"`),
         };
 
         Object.keys(replacements).forEach((key) => {
           const value = replacements[key];
           if (titlePrices.textContent.indexOf(key) !== -1) {
             const regex = new RegExp(key, 'g');
-            titlePrices.innerHTML = titlePrices.innerHTML.replace(regex, `<span class="${value}"></span>`);
+            titlePrices.innerHTML = titlePrices.innerHTML.replace(regex, `<span ${value}></span>`);
           }
         });
 
         titleBox.innerHTML = titlePrices.innerHTML;
+        if (product) titleBox.dataset.productScope = product;
       }
 
       table.innerHTML = '';
@@ -155,10 +193,11 @@ export default function decorate(block) {
         let rightAdditionalText = rightAdditionalTexts.length > 0 ? rightAdditionalTexts[0].innerHTML : '';
 
         // Replace [discounted_price] with dynamic price span
-        if (rightAdditionalText.includes('[discounted_price]') && onSelectorClass) {
+        const rightTextHasPrice = rightAdditionalText.includes('[discounted_price]') && product;
+        if (rightTextHasPrice) {
           rightAdditionalText = rightAdditionalText.replace(
             '[discounted_price]',
-            `<span class="newprice-${onSelectorClass}"></span>`,
+            '<span data-store-render data-store-price="discounted||full"></span>',
           );
         }
 
@@ -175,7 +214,7 @@ export default function decorate(block) {
             
             <div class="col-12 col-xl-6">
               <a href="${rightButtonHref}" title="${rightButtonTitle}" class="btn btn-outline-primary w-100 mb-2">${rightButtonText}</a>
-              ${rightAdditionalText ? `<p class="text-muted d-block text-center">${rightAdditionalText}</p>` : ''}
+              ${rightAdditionalText ? `<p class="text-muted d-block text-center" ${rightTextHasPrice ? scopeAttribute : ''}>${rightAdditionalText}</p>` : ''}
             </div>
           </div>`;
 
@@ -210,29 +249,34 @@ export default function decorate(block) {
           <a class="red-buy-button" href="#c-productsboxes" referrerpolicy="no-referrer-when-downgrade">Get it now <span class="save">| Save 70%</span></a>
         </div>`;
       } else {
+        let buyTextHasPercent = false;
         if (buybtn && (buybtn.textContent.indexOf('0%') !== -1 || buybtn.innerHTML.indexOf('0 %') !== -1)) {
-          buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+          buybtn.innerHTML = buybtn.textContent.replace(/0\s*%/g, `<span ${percentAttributes}></span>`);
+          buyTextHasPercent = true;
         }
 
+        // without a discount the old price is removed, the save pill and a "save 0%" button are hidden
+        const buyLinkAttributes = hardcodedLinks ? '' : withStore(`data-store-render data-store-buy-link="${trialDuration}"`);
         pricesBox.id = 'pricesBox';
-        pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+        pricesBox.className = 'prices_box await-loader';
+        if (product) pricesBox.dataset.productScope = product;
         pricesBox.innerHTML += `<div class="d-flex">
           <p>
           <div>
             <div class="d-flex">
-              <span class="prod-oldprice oldprice-${onSelectorClass} mr-2"></span>
-              <span class="prod-save d-flex justify-content-center align-items-center save-class">${save.textContent} <span class="save-${onSelectorClass} "> </span></span>
+              <span class="prod-oldprice mr-2" ${withStore(`data-store-render data-store-price="full" data-store-hide="${NO_DISCOUNT}"`)}></span>
+              <span class="prod-save d-flex justify-content-center align-items-center save-class" ${hideWithoutDiscount}>${save.textContent} <span ${withStore('data-store-render data-store-discount="value"')}> </span></span>
             </div>
             </p>
             <div class="d-flex">
-              <span class="prod-newprice newprice-${onSelectorClass}"></span>
+              <span class="prod-newprice" ${withStore('data-store-render data-store-price="discounted||full"')}></span>
               <p class="variation">${prices.innerHTML}</p>
             </div>
         </div>`;
 
         pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
         pricesBox.innerHTML += `<div class="buy_box">
-          <a class="red-buy-button ${hardcodedLinks ? '' : `await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`}" 
+          <a class="red-buy-button ${hardcodedLinks ? '' : 'await-loader'}" ${buyLinkAttributes} ${buyTextHasPercent && !hardcodedLinks ? hideWithoutDiscount : ''}
             href="${hardcodedLinks ? buybtn.querySelector('a')?.href : '#'}" referrerpolicy="no-referrer-when-downgrade">${(hardcodedLinks ? buybtn.innerText : buybtn.innerHTML) ?? 'Get it now'}
           </a>
         </div>`;
@@ -289,14 +333,17 @@ export default function decorate(block) {
     if (aliasTr && aliasTr.textContent.trim() === 'red_pill') {
       const [, text] = [...table.querySelectorAll('tr')];
       const redPillBox = document.createElement('div');
+      let textHasPercent = false;
 
       if (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1) {
-        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong ${percentAttributes}></strong>`);
+        textHasPercent = true;
       }
 
       redPillBox.id = 'redPillBox';
-      redPillBox.className = `red_pill_box await-loader prodload prodload-${onSelectorClass}`;
-      redPillBox.innerHTML += `<span>${text.innerHTML}</span>`;
+      redPillBox.className = 'red_pill_box await-loader';
+      if (product) redPillBox.dataset.productScope = product;
+      redPillBox.innerHTML += `<span ${textHasPercent ? hideWithoutDiscount : ''}>${text.innerHTML}</span>`;
 
       // replace the table with redPillBox in the exact same position
       const parentElement = table.parentElement;
@@ -314,30 +361,35 @@ export default function decorate(block) {
       const [alias, buybtnText] = [...table.querySelectorAll('tr')];
       const [buybtn, text] = [...buybtnText.querySelectorAll('tr td')];
       const greenCircleBox = document.createElement('div');
+      let textHasPercent = false;
+      let buyTextHasPercent = false;
 
       if (text && text.innerText !== '' && (text.innerText.indexOf('0%') !== -1 || text.innerText.indexOf('0 %') !== -1)) {
-        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong class="percent-${onSelectorClass}"></strong>`);
+        text.innerHTML = text.innerText.replace(/0\s*%/g, `<strong ${percentAttributes}></strong>`);
+        textHasPercent = true;
       }
 
       if (buybtn && buybtn.innerText && buybtn.innerText !== '' && (buybtn.innerText.indexOf('0%') !== -1 || buybtn.innerText.indexOf('0 %') !== -1)) {
-        buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`);
+        buybtn.innerHTML = buybtn.innerText.replace(/0\s*%/g, `<span ${percentAttributes}></span>`);
+        buyTextHasPercent = true;
       }
 
       greenCircleBox.id = 'buyBtnGreenCircleBox';
-      greenCircleBox.className = `d-flex buybtn_green_circle_box await-loader prodload prodload-${onSelectorClass}`;
+      greenCircleBox.className = 'd-flex buybtn_green_circle_box await-loader';
+      if (product) greenCircleBox.dataset.productScope = product;
       if (buybtn) {
         if (buybtn.innerHTML.includes('<a')) {
           buybtn.querySelector('a').className = 'button primary';
           greenCircleBox.innerHTML += buybtn.innerHTML;
         } else {
-          greenCircleBox.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
-            <strong>${buybtn.innerHTML}</strong>
+          greenCircleBox.innerHTML += `<a class="button primary" ${withStore(`data-store-render data-store-buy-link="${trialDuration}"`)} referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">
+            <strong ${buyTextHasPercent ? hideWithoutDiscount : ''}>${buybtn.innerHTML}</strong>
           </a>`;
         }
       }
 
       if (text && text.innerHTML !== '') {
-        greenCircleBox.innerHTML += `<span class="green_circle_box">${text.innerHTML}</span>`;
+        greenCircleBox.innerHTML += `<span class="green_circle_box" ${textHasPercent ? hideWithoutDiscount : ''}>${text.innerHTML}</span>`;
       }
 
       table.innerHTML = '';
@@ -346,8 +398,6 @@ export default function decorate(block) {
   });
 
   if (products) {
-    const productsAsList = products.split(',');
-    productsAsList.forEach((prod) => updateProductsList(prod));
     const targetElement = Array.from(block.querySelectorAll('*')).find((el) => el.textContent.includes('0%'));
     if (targetElement) {
       targetElement.innerHTML = targetElement.innerHTML.replace('0%', '<span class="max-discount"></span>');
@@ -361,7 +411,7 @@ export default function decorate(block) {
       if (aliasTr && aliasTr.innerText.trim() === 'right_content_lidl') {
         // eslint-disable-next-line no-unused-vars
         const [alias, title, btn1, btn2] = table.querySelectorAll('tr');
-        const onSelectorClasses = [];
+        const productsAsList = products ? products.split(',').map((prod) => prod.trim()) : [];
 
         const lidlBox = document.createElement('div');
         lidlBox.id = 'lidlBox';
@@ -372,21 +422,14 @@ export default function decorate(block) {
           const link = anchor ? anchor.getAttribute('href') : '#';
           // const img = button.querySelector('img')?.getAttribute('src').split('?')[0];
           const text = anchor ? anchor.innerHTML : button.innerText.trim();
-          const onSelectorClass = onSelectorClasses[index];
+          const buttonProduct = productsAsList[index];
 
-          lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex ${anchor ? '' : 'buylink-'}${onSelectorClass}">${text}</a>`;
+          // authored links stay as they are, the others become the buy link of the matching product
+          const storeAttributes = !anchor && buttonProduct
+            ? `data-product-scope="${buttonProduct}" data-store-render data-store-buy-link="${parseStoreProduct(buttonProduct).trialDuration}"`
+            : '';
+          lidlBox.innerHTML += `<a href="${link}" title="Bitdefender" class="red-buy-button d-flex" ${storeAttributes}>${text}</a>`;
         };
-
-        if (products) {
-          const productsAsList = products.split(',');
-          productsAsList.forEach((prod) => updateProductsList(prod));
-
-          productsAsList.forEach((prod) => {
-            const [prodName, prodUsers, prodYears] = prod.split('/');
-            const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-            onSelectorClasses.push(onSelectorClass);
-          });
-        }
 
         createBuyLink(btn1, 0);
         createBuyLink(btn2, 1);
@@ -600,6 +643,7 @@ export default function decorate(block) {
     });
   }
 
+  createStoreScopes(block);
   detectModalButtons(block);
   decorateIcons(block);
 }

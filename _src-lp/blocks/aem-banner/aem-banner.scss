@@ -1,5 +1,12 @@
 .aem-banner-container {
   .aem-banner {
+    // store scope around the card content must not affect the layout
+    bd-context,
+    bd-product,
+    bd-option {
+      display: contents;
+    }
+
     p:first-of-type {
       margin: 0;
     }

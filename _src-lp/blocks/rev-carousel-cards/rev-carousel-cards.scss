@@ -2,6 +2,11 @@ $rev-cards-grey: #616161;
 $rev-save-box: #68BA68;
 
 .rev-carousel-cards {
+    // store wrappers around each card, the carousel items keep their layout
+    bd-product, bd-option {
+        display: contents;
+    }
+
     .card-shadow {
         box-shadow: 0 2px 10px 0 rgb(0 0 0 / 35%);
         border-radius: 8px;

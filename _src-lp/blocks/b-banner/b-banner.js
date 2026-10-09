@@ -19,8 +19,36 @@
  */
 
 import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { GLOBAL_EVENTS, parseStoreProduct, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+
+// hide rule for elements that only make sense when the product has a discount
+const NO_DISCOUNT = '!it.option.price.discounted';
+const PERCENT_ATTRIBUTES = 'data-store-render data-store-discount="percentage"';
+const HIDE_WITHOUT_DISCOUNT = `data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility"`;
+
+/**
+ * @param {HTMLElement} element
+ */
+const hideWithoutDiscount = (element) => {
+  element.setAttribute('data-store-hide', NO_DISCOUNT);
+  element.setAttribute('data-store-hide-type', 'visibility');
+};
+
+/**
+ * Wraps the element itself (bd-context > bd-product > bd-option > element),
+ * so the store rules on the element and on its children see the product.
+ * @param {HTMLElement} element
+ * @param {object} storeOptions options of wrapChildrenWithStoreContext
+ */
+const wrapWithStoreContext = (element, storeOptions) => {
+  const { parentNode, nextSibling } = element;
+  if (!parentNode) return;
+
+  const holder = document.createElement('div');
+  holder.appendChild(element);
+  wrapChildrenWithStoreContext(holder, storeOptions);
+  parentNode.insertBefore(holder.firstElementChild, nextSibling);
+};
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -105,51 +133,71 @@ export default function decorate(block) {
   }
 
   if (product) {
-    const [prodName, prodUsers, prodYears] = product.split('/');
-    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
-    updateProductsList(product);
+    const {
+      productId, devices, subscription, trialDuration,
+    } = parseStoreProduct(product);
+    const percentHtml = `<span ${PERCENT_ATTRIBUTES}>10%</span>`;
 
     const finalDiscountStyle = typeof discountStyle !== 'undefined' && discountStyle !== 'default' ? discountStyle : 'circle';
     let finalDiscountText = typeof discountText !== 'undefined' && discountText !== 'default' ? discountText : '';
 
     if (finalDiscountText.indexOf('0') !== -1) {
-      finalDiscountText = finalDiscountText.replace(/0/g, `<span class="percent-${onSelectorClass}">10%</span>`);
+      finalDiscountText = finalDiscountText.replace(/0/g, percentHtml);
     } else {
-      finalDiscountText = `<span class="percent-${onSelectorClass}">10%</span> ${finalDiscountText}`;
+      finalDiscountText = `${percentHtml} ${finalDiscountText}`;
     }
 
     if (finalDiscountStyle !== 'none') {
       let percentRadius;
       if (block.querySelector('.button-container')) {
         percentRadius = block.querySelector('.button-container');
+        // the pill is added to the button paragraph, which was hidden as well when there is no discount
+        if (percentRadius.tagName === 'P') hideWithoutDiscount(percentRadius);
       } else {
         percentRadius = document.createElement('div');
       }
 
-      percentRadius.innerHTML += ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2">${finalDiscountText}</span>`;
+      // the pill stays hidden until the store shows a discount
+      percentRadius.innerHTML += ` <span style="visibility: hidden" class="prod-percent strong green_bck_${finalDiscountStyle} mx-2" ${HIDE_WITHOUT_DISCOUNT}>${finalDiscountText}</span>`;
       block.appendChild(percentRadius);
     }
 
     if (bannerDiscount) {
       const discountDiv = document.createElement('div');
       parentSelector.querySelector('picture').classList.add('hasDiscount');
-      discountDiv.innerHTML = `<span class="percent-${onSelectorClass}"></span><span>${bannerDiscount.split(',')[1]}</span>`;
+      hideWithoutDiscount(discountDiv);
+      discountDiv.innerHTML = `<span ${PERCENT_ATTRIBUTES}></span><span>${bannerDiscount.split(',')[1]}</span>`;
       parentSelector.querySelector('picture').appendChild(discountDiv);
+      // the picture is outside the block, so the bubble gets its own scope
+      wrapWithStoreContext(discountDiv, {
+        productId, devices, subscription, ignoreEventsParent: true,
+      });
     }
 
     const priceTable = block.querySelector('table');
     if (priceTable) {
-      priceTable.querySelector('tr:nth-of-type(1) td:nth-of-type(1)').classList.add('oldprice', `oldprice-${onSelectorClass}`);
-      priceTable.querySelector('tr:nth-of-type(2) td:nth-of-type(1)').classList.add('newprice', `newprice-${onSelectorClass}`);
+      const oldPrice = priceTable.querySelector('tr:nth-of-type(1) td:nth-of-type(1)');
+      oldPrice.classList.add('oldprice');
+      oldPrice.setAttribute('data-store-render', '');
+      oldPrice.setAttribute('data-store-price', 'full');
+      oldPrice.setAttribute('data-store-hide', NO_DISCOUNT);
+
+      const newPrice = priceTable.querySelector('tr:nth-of-type(2) td:nth-of-type(1)');
+      newPrice.classList.add('newprice');
+      newPrice.setAttribute('data-store-render', '');
+      newPrice.setAttribute('data-store-price', 'discounted||full');
     }
 
     // check if there is an element with the href of #buylink
     const buyLink = block.querySelector('a[href="#buylink"]');
     if (buyLink) {
-      buyLink.classList.add('button', 'primary', `buylink-${onSelectorClass}`);
-      buyLink.innerHTML = buyLink.innerHTML.replace(/0%/g, `<span class="percent-${onSelectorClass}">10%</span>`);
-      buyLink.innerHTML = buyLink.innerHTML.replace(/0 %/g, `<span class="percent-${onSelectorClass}">10%</span>`);
+      buyLink.classList.add('button', 'primary');
+      buyLink.setAttribute('data-store-render', '');
+      buyLink.setAttribute('data-store-buy-link', trialDuration);
+      const buyLinkHtml = buyLink.innerHTML;
+      buyLink.innerHTML = buyLink.innerHTML.replace(/0%/g, percentHtml);
+      buyLink.innerHTML = buyLink.innerHTML.replace(/0 %/g, percentHtml);
+      if (buyLink.innerHTML !== buyLinkHtml) hideWithoutDiscount(buyLink.closest('p') || buyLink);
     }
 
     // add class to table if it contains oldprice or newprice
@@ -164,26 +212,26 @@ export default function decorate(block) {
 
   /// //////////////////////////////////////////////////////////////////////
   // create product box section
+  let productBoxDiv;
+  let greenBubble;
   if (productBox) {
     block.closest('.b-banner-wrapper').classList.add('flex-prod');
-    const [prodName, prodUsers, prodYears] = productBox.split('/');
-    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+    const { trialDuration } = parseStoreProduct(productBox);
 
-    updateProductsList(productBox);
-
-    block.children[2].id = 'productBoxDiv';
+    productBoxDiv = block.children[2];
+    productBoxDiv.id = 'productBoxDiv';
 
     if (block.querySelector('table:nth-of-type(2)')) {
-      block.querySelector('table:nth-of-type(2)').innerHTML = `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-        <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-        <span class="prod-newprice newprice-${onSelectorClass}"></span>
+      block.querySelector('table:nth-of-type(2)').innerHTML = `<div class="prices_box await-loader">
+        <span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="${NO_DISCOUNT}"></span>
+        <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
       </div>`;
     }
 
     const buyTable = block.querySelector('table:last-of-type');
     if (buyTable) {
       buyTable.innerHTML = `<div class="buybtn_box buy_box buy_box1">
-        <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
+        <a class="red-buy-button await-loader" data-store-render data-store-buy-link="${trialDuration}" referrerpolicy="no-referrer-when-downgrade" title="${buyTable.innerText.trim()} Bitdefender" href="#">
           <strong>${buyTable.innerText}</strong>
         </a>
       </div>`;
@@ -194,9 +242,10 @@ export default function decorate(block) {
       lastChild.style.position = 'relative';
       block.prepend(block.children[block.children.length - 1]);
 
-      const greenBubble = document.createElement('div');
+      greenBubble = document.createElement('div');
       greenBubble.classList.add('green-bubble');
-      greenBubble.innerHTML = `<span class="discount-percentage await-loader prodload prodload-${onSelectorClass} percent-${onSelectorClass}">10%</span> \n${discountText}`;
+      hideWithoutDiscount(greenBubble);
+      greenBubble.innerHTML = `<span class="discount-percentage await-loader" ${PERCENT_ATTRIBUTES}>10%</span> \n${discountText}`;
       lastChild.appendChild(greenBubble);
 
       const bannerWrapper = block.parentElement;
@@ -313,6 +362,26 @@ export default function decorate(block) {
         sendAnalyticsPageLoadedEvent(true);
       });
     }
+  }
+
+  // store scopes: the product box has its own product, nested in the banner's product
+  if (productBox) {
+    const { productId, devices, subscription } = parseStoreProduct(productBox);
+    const storeOptions = {
+      productId, devices, subscription, ignoreEventsParent: true,
+    };
+    wrapChildrenWithStoreContext(productBoxDiv, {
+      ...storeOptions,
+      storeEvent: productBox.trim() !== product?.trim() ? 'info' : '',
+    });
+    if (greenBubble && !productBoxDiv.contains(greenBubble)) wrapWithStoreContext(greenBubble, storeOptions);
+  }
+
+  if (product) {
+    const { productId, devices, subscription } = parseStoreProduct(product);
+    wrapChildrenWithStoreContext(block, {
+      productId, devices, subscription, ignoreEventsParent: true, storeEvent: 'info',
+    });
   }
 
   // TODO: Add logic betwen the card and banner component.

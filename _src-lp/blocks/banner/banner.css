@@ -2250,3 +2250,9 @@
     display: none !important;
   }
 }
+/* store scopes around the priced elements must not affect the layout */
+.section.banner-container .banner bd-context,
+.section.banner-container .banner bd-product,
+.section.banner-container .banner bd-option {
+  display: contents;
+}

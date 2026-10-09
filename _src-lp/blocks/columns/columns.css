@@ -2411,3 +2411,9 @@ main .section.business-needs .columns-wrapper {
     padding: 0 50px;
   }
 }
+/* store elements wrapping the product button must not affect the layout */
+.columns bd-context,
+.columns bd-product,
+.columns bd-option {
+  display: contents;
+}

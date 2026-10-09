@@ -1,8 +1,62 @@
 import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
 import {
-  matchHeights, updateProductsList, adobeMcAppendVisitorId, getBackgroundImageUrl,
+  matchHeights, adobeMcAppendVisitorId, getBackgroundImageUrl, parseStoreProduct, wrapChildrenWithProduct,
 } from '../../scripts/utils.js';
+
+const NO_DISCOUNT = '!it.option.price.discounted';
+// the block is rebuilt from innerHTML, so the store scopes are added at the end, where these attributes say:
+// the children of STORE_PRODUCT elements get wrapped, STORE_PRODUCT_ELEMENT elements get wrapped themselves
+const STORE_PRODUCT = 'data-bwc-store-product';
+const STORE_PRODUCT_ELEMENT = 'data-bwc-store-product-element';
+const STORE_EVENT = 'data-bwc-store-event';
+
+/**
+ * @param {string} attribute STORE_PRODUCT | STORE_PRODUCT_ELEMENT
+ * @param {string} product e.g. vsb/10/1
+ * @param {string} storeEvent
+ * @returns {string}
+ */
+function storeProductAttributes(attribute, product, storeEvent = '') {
+  return `${attribute}="${product.trim()}"${storeEvent ? ` ${STORE_EVENT}="${storeEvent}"` : ''}`;
+}
+
+/**
+ * Wraps the element itself (not only its children) with bd-product > bd-option
+ * @param {HTMLElement} element
+ * @param {object} storeProperties
+ */
+function wrapElementWithProduct(element, storeProperties) {
+  const { parentNode, nextSibling } = element;
+  const fragment = document.createDocumentFragment();
+  fragment.append(element);
+  wrapChildrenWithProduct(fragment, storeProperties);
+  parentNode.insertBefore(fragment, nextSibling);
+}
+
+/**
+ * @param {HTMLElement} block
+ */
+function wrapMarkedStoreProducts(block) {
+  block.querySelectorAll(`[${STORE_PRODUCT}], [${STORE_PRODUCT_ELEMENT}]`).forEach((element) => {
+    const isElementWrap = element.hasAttribute(STORE_PRODUCT_ELEMENT);
+    const product = element.getAttribute(isElementWrap ? STORE_PRODUCT_ELEMENT : STORE_PRODUCT);
+    const { productId, devices, subscription } = parseStoreProduct(product);
+    const storeProperties = {
+      productId, devices, subscription, storeEvent: element.getAttribute(STORE_EVENT) || '',
+    };
+
+    element.removeAttribute(STORE_PRODUCT);
+    element.removeAttribute(STORE_PRODUCT_ELEMENT);
+    element.removeAttribute(STORE_EVENT);
+
+    if (isElementWrap) {
+      wrapElementWithProduct(element, storeProperties);
+    } else {
+      wrapChildrenWithProduct(element, storeProperties);
+    }
+  });
+}
 
 function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, radio1, radio2) {
   const radioBoxParent = document.createElement('div');
@@ -24,7 +78,15 @@ function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, r
   tableRadios.appendChild(radioBoxParent);
 }
 
-function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display) {
+/**
+ * @param {HTMLElement} tablePrices
+ * @param {string} prodName
+ * @param {string} tablePricesText
+ * @param {string} product yearly product, e.g. vsb/10/1; the card is wrapped with it
+ * @param {string} [productM] monthly product, e.g. vsbm/10/1; its box gets its own store scope
+ * @param {string} [display]
+ */
+function updatePrices(tablePrices, prodName, tablePricesText, product, productM, display) {
   const trialText = tablePrices.closest('.section').dataset.trialText;
   const showPrice = tablePrices.closest('.section').dataset.showPrice;
   let showPriceText;
@@ -34,59 +96,90 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
   tablePrices.innerHTML = '';
 
   // Function to create and append price boxes
-  const createPriceBox = (className, selectorClass) => {
+  const createPriceBox = (className, isMonthly) => {
+    const boxProduct = isMonthly ? productM : product;
+    // without a product (e.g. no monthly variant) the box stays empty
+    const render = (attributes) => (boxProduct ? `data-store-render ${attributes}` : '');
+    const hide = (hideType = '') => (boxProduct ? `data-store-hide="${NO_DISCOUNT}"${hideType ? ` data-store-hide-type="${hideType}"` : ''}` : '');
+    let newPrice = render('data-store-price="discounted||full"');
+    let newPriceText = '';
+    if (showPrice && showPrice === 'per-month') {
+      newPrice = render('data-store-price="discounted-monthly||full-monthly"');
+    } else if (trialText && boxProduct) {
+      // trial: the price is shown as 0 in the product currency
+      newPrice = '';
+      newPriceText = '{{= it.option.price.zero }}';
+    }
+
     const pricesBox = document.createElement('div');
-    pricesBox.className = `${className} ${prodName}_box prices_box await-loader prodload prodload-${selectorClass}`;
+    pricesBox.className = `${className} ${prodName}_box prices_box await-loader`;
     pricesBox.innerHTML = `<div>
       <div class="display-flex">
-        <span class="prod-oldprice oldprice-${selectorClass}"></span>
-        <span class="prod-save" ${trialText ? 'style="display: none;"' : ''}> ${tablePricesText} <span class="save-${selectorClass}"></span></span>
-        <div class="prod-percent">
-          <span class="d-none percent percent-${selectorClass}"></span>
+        <span class="prod-oldprice" ${render('data-store-price="full"')} ${hide()}></span>
+        <span class="prod-save" ${trialText ? 'style="display: none;"' : ''} ${hide('visibility')}> ${tablePricesText} <span ${render('data-store-discount="value"')}></span></span>
+        <div class="prod-percent" ${hide('visibility')}>
+          <span class="d-none percent" ${render('data-store-discount="percentage"')}></span>
         </div>
       </div>
       <div class="display-flex">
-        <span class="prod-newprice${trialText ? ' newprice-0' : ''} newprice-${selectorClass}${showPrice && showPrice === 'per-month' ? '-monthly' : ''}"></span>
+        <span class="prod-newprice" ${newPrice}>${newPriceText}</span>
         ${showPriceText ? `<sup>${showPriceText}</sup>` : ''}
       </div>
     </div>
     `;
+    if (isMonthly && productM) pricesBox.setAttribute(STORE_PRODUCT_ELEMENT, productM.trim());
+    if (isMonthly && productM) pricesBox.setAttribute(STORE_EVENT, 'info');
 
     tablePrices.appendChild(pricesBox);
     if (trialText) {
       const pricesTrial = document.createElement('p');
       pricesTrial.className = 'pricesTrial';
-      pricesTrial.innerHTML = trialText.includes('no-trial-text') ? '' : trialText.replace('0', `<strong class="prod-newprice newprice-${selectorClass}"></strong>`);
+      pricesTrial.innerHTML = trialText.includes('no-trial-text') ? '' : trialText.replace('0', `<strong class="prod-newprice" ${render('data-store-price="discounted||full"')}></strong>`);
+      if (isMonthly && productM) pricesTrial.setAttribute(STORE_PRODUCT_ELEMENT, productM.trim());
       tablePrices.appendChild(pricesTrial);
     }
   };
 
   // Create yearly and monthly price boxes
   if (display) {
-    createPriceBox(display, display === 'monthly' ? onSelectorClassM : onSelectorClass);
+    createPriceBox(display, display === 'monthly');
   } else {
-    createPriceBox('monthly show', onSelectorClassM);
-    createPriceBox('yearly hide', onSelectorClass);
+    createPriceBox('monthly show', true);
+    createPriceBox('yearly hide', false);
   }
 }
 
-function createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display) {
+/**
+ * @param {HTMLElement} tableBuyBtn
+ * @param {string} prodName
+ * @param {string} product yearly product, e.g. vsb/10/1; the card is wrapped with it
+ * @param {string} [productM] monthly product, e.g. vsbm/10/1; its button gets its own store scope
+ * @param {string} [display]
+ */
+function createBuyButtons(tableBuyBtn, prodName, product, productM, display) {
   const trialText = tableBuyBtn.closest('.section').dataset.trialText;
   const hardcodedLink = tableBuyBtn.closest('.section').dataset.hardcodedLink;
   const btnText = trialText?.includes('no-trial-text') ? tableBuyBtn.textContent.replace('0%', '') : tableBuyBtn.textContent;
-  const createButton = (className, selectorClass) => {
+  const createButton = (className, isMonthly) => {
+    const buttonProduct = isMonthly ? productM : product;
+    let storeAttributes = '';
+    if (!hardcodedLink && buttonProduct) {
+      storeAttributes = `data-store-render data-store-buy-link="${parseStoreProduct(buttonProduct).trialDuration}"`;
+      if (isMonthly) storeAttributes += ` ${storeProductAttributes(STORE_PRODUCT_ELEMENT, buttonProduct)}`;
+    }
+
     const button = document.createElement('div');
-    button.innerHTML = `<a href='${hardcodedLink ?? '#'}' title='Bitdefender ${prodName}' class='${className} ${hardcodedLink ? '' : `await-loader prodload prodload-${selectorClass} buylink-${selectorClass}`} red-buy-button referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
+    button.innerHTML = `<a href='${hardcodedLink ?? '#'}' title='Bitdefender ${prodName}' ${storeAttributes} class='${className} ${hardcodedLink ? '' : 'await-loader'} red-buy-button referrerpolicy='no-referrer-when-downgrade'>${btnText}</a>`;
 
     return button.innerHTML;
   };
 
   if (display) {
-    const buyButton = createButton(display, display === 'monthly' ? onSelectorClassM : onSelectorClass);
+    const buyButton = createButton(display, display === 'monthly');
     tableBuyBtn.innerHTML = buyButton;
   } else {
-    const buyButtonYearly = createButton('yearly hide', onSelectorClass);
-    const buyButtonMonthly = createButton('monthly show', onSelectorClassM);
+    const buyButtonYearly = createButton('yearly hide', false);
+    const buyButtonMonthly = createButton('monthly show', true);
     tableBuyBtn.innerHTML = `${buyButtonYearly} ${buyButtonMonthly}`;
   }
 }
@@ -146,7 +239,7 @@ export default function decorate(block) {
 
   // apply newprice
   if (contentRightEl) {
-    contentRightEl.innerHTML = contentRightEl?.innerHTML.replace(/xx/g, '<span class="newprice-vpn-101"></span>');
+    contentRightEl.innerHTML = contentRightEl?.innerHTML.replace(/xx/g, `<span ${storeProductAttributes(STORE_PRODUCT, 'vpn/10/1')}><span data-store-render data-store-price="discounted||full"></span></span>`);
   }
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
@@ -197,22 +290,24 @@ export default function decorate(block) {
       let prodName;
       let prodUsers;
       let prodYears;
+      let product;
+      let productM;
       if (!manualProdFlag) {
         [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
         prodName = prodName.trim();
-        updateProductsList(prod);
+        product = prod;
         onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
         if (Constants.MONTHLY_PRODUCTS.includes(`${prodName}m`)) {
-          updateProductsList(prod.replace(prodName, `${prodName}m`));
+          productM = prod.replace(prodName, `${prodName}m`);
           onSelectorClassM = `${productAliases(`${prodName}m`)}-${prodUsers}${prodYears}`;
         }
       } else {
         [prodName, prodUsers, prodYears] = productsAsList[idx].split(',')[1].split('/');
         const [prodNameM, prodUsersM, prodYearsM] = productsAsList[idx].split(',')[0].split('/');
-        updateProductsList(productsAsList[idx].split(',')[1]);
+        product = productsAsList[idx].split(',')[1];
         onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
         if (Constants.MONTHLY_PRODUCTS.includes(prodNameM)) {
-          updateProductsList(productsAsList[idx].split(',')[0]);
+          productM = productsAsList[idx].split(',')[0];
           onSelectorClassM = `${productAliases(prodNameM)}-${prodUsersM}${prodYearsM}`;
         }
       }
@@ -244,15 +339,16 @@ export default function decorate(block) {
         }
 
         // prices:
-        updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display);
+        updatePrices(tablePrices, prodName, tablePricesText, product, productM, display);
 
         // buylink
-        createBuyButtons(tableBuyBtn, prodName, onSelectorClass, onSelectorClassM, display);
+        createBuyButtons(tableBuyBtn, prodName, product, productM, display);
       }
 
       const prodBox = document.createElement('div');
       prodBox.className = 'prodBox-wrapper';
-      prodBox.innerHTML = `<div class="prodBox box-${idx + 1}"> ${contentRightItem.innerHTML} </div>`;
+      // the whole card shares the (yearly) product, the monthly prices / button have their own scope
+      prodBox.innerHTML = `<div class="prodBox box-${idx + 1}" ${storeProductAttributes(STORE_PRODUCT, product, 'info')}> ${contentRightItem.innerHTML} </div>`;
       if (cardsColor && cardsColor === 'grey') {
         const prodBoxCard = prodBox.querySelector('.prodBox');
         prodBoxCard.style.backgroundColor = '#F6F6F6';
@@ -270,7 +366,14 @@ export default function decorate(block) {
         prodBox.insertAdjacentElement('beforeend', tosButton);
       }
 
-      prodBox.innerHTML = prodBox.innerHTML.replace(/0\s*%/g, `<span class="percent percent-${onSelectorClass}"></span>`);
+      prodBox.innerHTML = prodBox.innerHTML.replace(/0\s*%/g, '<span class="percent" data-store-render data-store-discount="percentage"></span>');
+      // no discount: hide the text around the percentage
+      prodBox.querySelectorAll('.percent[data-store-discount]').forEach((percent) => {
+        if (percent.closest('.prices_box')) return;
+        const container = percent.closest('p') || percent.parentElement;
+        container.setAttribute('data-store-hide', NO_DISCOUNT);
+        container.setAttribute('data-store-hide-type', 'visibility');
+      });
       prodBoxesParent.appendChild(prodBox);
     });
   }
@@ -291,6 +394,8 @@ export default function decorate(block) {
       ${products ? prodBoxesParent.innerHTML : ''}
     </div>
   `;
+
+  wrapMarkedStoreProducts(block);
 
   // activate radios
   if (!display) activateRadios(block, type);

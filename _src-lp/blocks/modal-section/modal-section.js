@@ -114,7 +114,10 @@ export default function decorate(block) {
   }
 
   function handleAdobeDataLayer() {
-    const campaignEvent = window.adobeDataLayer.find((item) => item.event === 'campaign product');
+    // the store pushes one 'campaign product' event per product option, with the platform IDs
+    const campaignInfo = (window.adobeDataLayer || [])
+      .filter((item) => item.event === 'campaign product')
+      .flatMap((item) => item.product?.info || []);
     const formFields = Array.from(document.querySelectorAll('.ag_dropdown, input, textarea, select'))
       .filter((field) => field.offsetParent !== null)
       .map((field) => field.value.trim())
@@ -126,19 +129,10 @@ export default function decorate(block) {
       })
       .join('|');
 
-    if (Array.isArray(campaignEvent.product.info)) {
-      campaignEvent.product.info.forEach((item) => {
-        const productData = window.StoreProducts.product[item.ID];
-        if (productData && productData.platformProductID) {
-          item.ID = productData.platformProductID;
-        }
-      });
-    }
-
-    if (campaignEvent.product.info && formFields) {
+    if (campaignInfo.length && formFields) {
       window.adobeDataLayer.push({
         event: 'discount unlocked',
-        product: { info: campaignEvent.product.info },
+        product: { info: campaignInfo },
         user: {
           form: 'discount unlocked',
           formFields,

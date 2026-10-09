@@ -11,15 +11,14 @@
   Samples:
   - https://main--www-landing-pages--bitdefender.aem.page/drafts/test-page/consumer/en/new/ps-ts-vpn-opt/
 */
-import { getDatasetFromSection, updateProductsList } from '../../scripts/utils.js';
-import { productAliases } from '../../scripts/scripts.js';
+import { getDatasetFromSection, parseStoreProduct, wrapChildrenWithProduct } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
   const {
     products, taxText, devicesTextCardTwo, devicesTextCardThree, savePillText,
   } = metaData;
-  const productsAsList = products && products.split(',');
+  const productsAsList = products ? products.split(',') : [];
 
   const [card1, card2, card3] = [...block.children];
 
@@ -44,46 +43,60 @@ export default function decorate(block) {
   `;
 
   if (productsAsList.length) {
-    // check and add products into the final array
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
+      const card = block.querySelector(`.card-${idx + 1}`);
+      if (!card) return;
+
+      const {
+        productId, devices, subscription, trialDuration,
+      } = parseStoreProduct(item);
+
       // add prices
-      // const prodName = productAliases(productsAsList[idx].split('/')[0]);
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
       const pricesDivLeftCard = document.createElement('div');
-      pricesDivLeftCard.classList = `prices_box await-loader prodload prodload-${onSelectorClass} d-flex justify-content-center`;
+      pricesDivLeftCard.classList = 'prices_box await-loader d-flex justify-content-center';
       pricesDivLeftCard.innerHTML = `<div class="me-2">
-                                      <div class="save-box">${savePillText} <span class="prod-percent percent-${onSelectorClass}"></span></div>
-                                      <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+                                      <div class="save-box" data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility">${savePillText} <span class="prod-percent" data-store-render data-store-discount="percentage"></span></div>
+                                      <span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span>
                                     </div>
                                     <div>
-                                        <span class="prod-newprice newprice-${onSelectorClass}"></span>
+                                        <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
                                         <span class="sales-tax">${taxText || 'Sales tax included'}</span>
                                     </div>`;
       const pricesDivRightCard = document.createElement('div');
-      pricesDivRightCard.classList = `prices_box await-loader prodload prodload-${onSelectorClass} d-flex flex-column justify-content-center`;
+      pricesDivRightCard.classList = 'prices_box await-loader d-flex flex-column justify-content-center';
       pricesDivRightCard.innerHTML = `<div class="me-2">
-                                        <div class="d-inline-block save-box">${savePillText} <span class="prod-percent percent-${onSelectorClass}"></span></div>
-                                        <span class="d-block my-2 prod-oldprice oldprice-${onSelectorClass}"></span>
+                                        <div class="d-inline-block save-box" data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility">${savePillText} <span class="prod-percent" data-store-render data-store-discount="percentage"></span></div>
+                                        <span class="d-block my-2 prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span>
                                     </div>
                                     <div>
-                                        <span class="prod-newprice newprice-${onSelectorClass}"></span>
+                                        <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
                                         <span class="devices">${idx === 1 ? devicesTextCardTwo : devicesTextCardThree}</span>
                                         <span class="sales-tax">${taxText || 'Sales tax included'}</span>
                                     </div>`;
+      const cardSeparator = card.querySelectorAll('hr')[1];
       if (idx === 0) {
-        block.querySelectorAll(`.rev-cards .card-${idx + 1} hr`)[1].after(pricesDivLeftCard);
+        cardSeparator?.after(pricesDivLeftCard);
       } else {
-        block.querySelectorAll(`.rev-cards .card-${idx + 1} hr`)[1].before(pricesDivRightCard);
+        cardSeparator?.before(pricesDivRightCard);
       }
 
       // add buybtn div & anchor
-      const tableBuybtn = block.querySelectorAll('p.button-container > strong > a')[idx];
-      tableBuybtn.classList.add(`buylink-${onSelectorClass}`, 'await-loader', 'prodload', `prodload-${onSelectorClass}`);
+      const tableBuybtn = card.querySelector('p.button-container > strong > a');
+      if (tableBuybtn) {
+        tableBuybtn.classList.add('await-loader');
+        tableBuybtn.setAttribute('data-store-render', '');
+        tableBuybtn.setAttribute('data-store-buy-link', trialDuration);
+      }
+
+      // the column holds only the card, so the card keeps its place in the layout
+      wrapChildrenWithProduct(card.parentElement, {
+        productId,
+        devices,
+        subscription,
+        storeEvent: 'info',
+      });
     });
   }
 }

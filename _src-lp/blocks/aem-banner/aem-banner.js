@@ -1,17 +1,20 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { parseStoreProduct, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
-function createPricesElement(onSelectorClass, conditionText, saveText) {
+// hide rule for elements that only make sense when the product has a discount
+const NO_DISCOUNT = '!it.option.price.discounted';
+
+function createPricesElement(conditionText, saveText) {
   const priceElement = document.createElement('div');
   priceElement.classList.add('aem-banner__prices');
+  // without a discount the old price is removed and the save text is hidden
   priceElement.innerHTML = `
     <div class="aem-banner__price mt-3">
       <div>
-          <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
-          <span class="prod-save">${saveText} <span class="save-${onSelectorClass}"></span></span>
+          <span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="${NO_DISCOUNT}"></span>
+          <span class="prod-save" data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility">${saveText} <span data-store-render data-store-discount="value"></span></span>
       </div>
       <div class="newprice-container mt-2">
-        <span class="prod-newprice newprice-${onSelectorClass}"></span>
+        <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
         <sup>${conditionText}</sup>
       </div>
     </div>`;
@@ -38,10 +41,18 @@ function createCardElementContainer(elements, mobileImage) {
   return cardElementContainer;
 }
 
-function decorateBuyLink(buyLink, onSelectorClass) {
+function decorateBuyLink(buyLink, trialDuration) {
   if (buyLink) {
-    buyLink.classList.add('button', 'primary', `buylink-${onSelectorClass}`);
-    buyLink.innerHTML = buyLink.innerHTML.replace(/0%/g, `<span class="percent-${onSelectorClass}">10%</span>`);
+    buyLink.classList.add('button', 'primary');
+    buyLink.setAttribute('data-store-render', '');
+    buyLink.setAttribute('data-store-buy-link', trialDuration);
+    if (buyLink.innerHTML.includes('0%')) {
+      buyLink.innerHTML = buyLink.innerHTML.replace(/0%/g, '<span data-store-render data-store-discount="percentage">10%</span>');
+      // a button showing the discount (with its paragraph) is hidden when there is none
+      const container = buyLink.closest('p') || buyLink;
+      container.setAttribute('data-store-hide', NO_DISCOUNT);
+      container.setAttribute('data-store-hide-type', 'visibility');
+    }
   }
 }
 
@@ -74,15 +85,20 @@ export default function decorate(block) {
   desktopImage.classList.add('aem-banner__desktop-image');
 
   if (product) {
-    const [prodName, prodUsers, prodYears] = product.split('/');
-    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
-    updateProductsList(product);
+    const {
+      productId, devices, subscription, trialDuration,
+    } = parseStoreProduct(product);
 
     const buyLink = block.querySelector('a[href*="#buylink"]');
-    decorateBuyLink(buyLink, onSelectorClass);
+    decorateBuyLink(buyLink, trialDuration);
 
-    const pricesBox = createPricesElement(onSelectorClass, conditionText, saveText);
+    const pricesBox = createPricesElement(conditionText, saveText);
     buyLink.parentNode.parentNode.insertBefore(pricesBox, buyLink.parentNode);
+
+    // the card holds the prices and the buy link
+    const storeScope = cardElementContainer.contains(buyLink) ? cardElementContainer : block;
+    wrapChildrenWithStoreContext(storeScope, {
+      productId, devices, subscription, ignoreEventsParent: true, storeEvent: 'info',
+    });
   }
 }

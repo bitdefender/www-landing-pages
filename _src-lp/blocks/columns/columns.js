@@ -1,6 +1,5 @@
 /* eslint-disable object-curly-newline */
-import { getDatasetFromSection, matchHeights, matchWidths, updateProductsList } from '../../scripts/utils.js';
-import { productAliases } from '../../scripts/scripts.js';
+import { getDatasetFromSection, matchHeights, matchWidths, parseStoreProduct, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
@@ -11,13 +10,14 @@ export default function decorate(block) {
   if (backgroundColor) block.style.backgroundColor = backgroundColor;
   if (textColor) block.style.color = textColor;
 
-  if (product && product.length) {
-    updateProductsList(product);
-    const [prodName, prodUsers, prodYears] = product.split('/');
-    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
+  const storeProduct = product && product.length ? parseStoreProduct(product) : null;
+  if (storeProduct) {
     const button = block.querySelector('p.button-container a');
-    if (button) button.className = `button primary await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`;
+    if (button) {
+      button.className = 'button primary await-loader';
+      button.setAttribute('data-store-render', '');
+      button.setAttribute('data-store-buy-link', storeProduct.trialDuration);
+    }
   }
 
   // if comparison table and mobile
@@ -116,5 +116,14 @@ export default function decorate(block) {
 
       window.addEventListener('resize', matchListItems);
     }
+  }
+
+  // added last: the columns are re-rendered above and some logic relies on the button's parent
+  const storeButton = storeProduct && block.querySelector('a[data-store-buy-link]');
+  if (storeButton) {
+    const { productId, devices, subscription } = storeProduct;
+    wrapChildrenWithStoreContext(storeButton.parentElement, {
+      productId, devices, subscription, storeEvent: 'info',
+    });
   }
 }

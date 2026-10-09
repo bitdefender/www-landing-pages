@@ -1,5 +1,4 @@
-import { updateProductsList } from '../../scripts/utils.js';
-import { productAliases } from '../../scripts/scripts.js';
+import { parseStoreProduct, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
 let exitPopupShown = false;
 let exitListenerAttached = false;
@@ -11,11 +10,9 @@ export default function decorate(block) {
 
   const { product, buttontext } = metaData;
 
-  const [productName, prodUsers, prodYears] = product.split('/');
-  const prodName = productName.trim();
-  const selectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
-  updateProductsList(product);
+  const {
+    productId, devices, subscription, trialDuration,
+  } = parseStoreProduct(product);
 
   const popupModal = block;
   popupModal.classList.add('exit-popup-modal');
@@ -62,22 +59,26 @@ export default function decorate(block) {
 
   if (!popupModal.querySelector('.prices_box')) {
     const priceBox = document.createElement('div');
-    priceBox.className = `prices_box await-loader prodload prodload-${selectorClass}`;
+    priceBox.className = 'prices_box await-loader';
     priceBox.innerHTML = `
       <div class="d-flex">
         <div>
-          <div class="d-flex">
-            <span class="prod-oldprice oldprice-${selectorClass} mr-2"></span>
+          <div class="d-flex" data-store-hide="!it.option.price.discounted">
+            <span class="prod-oldprice mr-2" data-store-render data-store-price="full"></span>
           </div>
           <div class="d-flex">
-            <span class="prod-newprice newprice-${selectorClass}"></span>
+            <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
           </div>
         </div>
       </div>
       <div class="buy_box">
-        <a class="red-buy-button buylink-${selectorClass}" href="#">${buttontext}</a>
+        <a class="red-buy-button" href="#" data-store-render data-store-buy-link="${trialDuration}">${buttontext}</a>
       </div>
     `;
+    // the popup is hidden until the exit intent, its product is not counted in analytics
+    wrapChildrenWithStoreContext(priceBox, {
+      productId, devices, subscription, storeEvent: '',
+    });
     popupModal.appendChild(priceBox);
   }
 
@@ -86,7 +87,8 @@ export default function decorate(block) {
     overlay = document.createElement('div');
     overlay.className = 'exit-popup-overlay';
     overlay.addEventListener('click', hideModal);
-    document.body.appendChild(overlay);
+    // inside main (the store root), not document.body
+    (block.closest('main') || document.body).appendChild(overlay);
   }
 
   document.addEventListener('keydown', (e) => {

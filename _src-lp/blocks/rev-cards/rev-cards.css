@@ -1,3 +1,6 @@
+.rev-cards bd-product, .rev-cards bd-option {
+  display: contents;
+}
 .rev-cards > p:nth-of-type(3) {
   color: #616161;
   font-size: 14px;

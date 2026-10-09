@@ -8,6 +8,18 @@
   margin-top: -43rem;
 }
 
+/* store scopes wrap the box content, keep the box children as grid items */
+.c-productswithvpn bd-context,
+.c-productswithvpn bd-product,
+.c-productswithvpn bd-option {
+  display: contents;
+}
+
+/* the global .prod_box .prod-percent rule hides it until prices load, the store hides it when there is no discount */
+.c-productswithvpn .prod_box .prod-percent {
+  visibility: inherit;
+}
+
 .c-productswithvpn > div {
   flex: 1 1 0;
   position: relative;
@@ -107,7 +119,8 @@
   margin: 0 0 0 7px;
 }
 
-.c-productswithvpn .vpn_box label > span {
+.c-productswithvpn .vpn_box label > span,
+.c-productswithvpn .vpn_box label bd-option > span {
   display: block;
   margin: 5px 0;
 }

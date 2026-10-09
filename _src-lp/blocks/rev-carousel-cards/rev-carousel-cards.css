@@ -1,3 +1,6 @@
+.rev-carousel-cards bd-product, .rev-carousel-cards bd-option {
+  display: contents;
+}
 .rev-carousel-cards .card-shadow {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
   border-radius: 8px;

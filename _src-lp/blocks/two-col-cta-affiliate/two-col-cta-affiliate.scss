@@ -9,6 +9,11 @@
         margin-bottom: 0;
     }
 
+    // store elements wrapping the buy link must not affect the layout
+    bd-context, bd-product, bd-option {
+        display: contents;
+    }
+
     &.typev2 {
         h4 {
             color: #006EFF;

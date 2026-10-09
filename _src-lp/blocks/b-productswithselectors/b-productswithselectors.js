@@ -1,5 +1,8 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { matchHeights, updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
+import {
+  matchHeights, getBackgroundImageUrl, parseStoreProduct, wrapChildrenWithProduct,
+} from '../../scripts/utils.js';
+
+const NO_DISCOUNT = '!it.option.price.discounted';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
@@ -34,11 +37,8 @@ export default function decorate(block) {
   }
 
   const productsAsList = products && products.split(',');
-  if (productsAsList.length) {
+  if (productsAsList?.length) {
     block.classList.add(`has${productsAsList.length}prods`);
-    /// ///////////////////////////////////////////////////////////////////////
-    // check and add products into the final array
-    productsAsList.forEach((prod) => updateProductsList(prod));
 
     /// ///////////////////////////////////////////////////////////////////////
     // devices
@@ -64,11 +64,12 @@ export default function decorate(block) {
         if (key === devicesSelected) { // default value selected = 10
           selected = ' selected';
         }
-        return `<option value="${key}" ${selected}>${key}</option>`;
+        return `<option value="${key}" data-store-set-devices="${key}" ${selected}>${key}</option>`;
       });
+      // the selectors are store actions: they set the devices / years of every product in the block
       block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox">
         <label for="select${labelName[0]}">${labelName[0]}</label>
-        <select id="select${labelName[0]}" data-trigger="users">${optionsDevices}</select>
+        <select id="select${labelName[0]}" data-trigger="users" data-store-action>${optionsDevices}</select>
       </div>`;
 
       // years
@@ -79,18 +80,18 @@ export default function decorate(block) {
         if (key === 1) { // default value selected = 1
           selected = ' selected';
         }
-        return `<option value="${key}" ${selected}>${key}</option>`;
+        return `<option value="${key}" data-store-set-subscription="${key}" ${selected}>${key}</option>`;
       });
 
       block.querySelector('p:nth-child(3)').innerHTML += `<div class="selectorBox">
         <label for="select${labelName[1].trim()}">${labelName[1].trim()}</label>
-        <select id="select${labelName[1].trim()}" data-trigger="years">${optionsYears}</select>
+        <select id="select${labelName[1].trim()}" data-trigger="years" data-store-action>${optionsYears}</select>
       </div>`;
 
       /// ///////////////////////////////////////////////////////////////////////
-      // add eventListener
-      if (document.querySelectorAll('.selectorBox')) {
-        document.querySelectorAll('.selectorBox').forEach((item) => {
+      // add eventListener: update the features lists (the prices are updated by the store)
+      if (block.querySelectorAll('.selectorBox')) {
+        block.querySelectorAll('.selectorBox').forEach((item) => {
           item.addEventListener('change', (e) => {
             const triggerType = item.children[1].getAttribute('data-trigger');
             const triggerValue = e.target.value;
@@ -117,20 +118,6 @@ export default function decorate(block) {
                 if (element) element.innerHTML = value;
               });
             }
-
-            productsAsList.forEach((prod) => {
-              const prodSplit = prod.split('/');
-              const prodName = productAliases(prodSplit[0]);
-              const prodUsers = prodSplit[1];
-              const prodYears = prodSplit[2];
-              const onSelectorClass = `${prodName}-${prodUsers}${prodYears}`;
-
-              if (document.querySelector(`.${triggerType}_${onSelectorClass}_fake`)) {
-                const fakeSelector = document.querySelector(`.${triggerType}_${onSelectorClass}_fake`);
-                fakeSelector.value = triggerValue;
-                fakeSelector.dispatchEvent(new Event('change'));
-              }
-            });
           });
         });
       }
@@ -147,8 +134,10 @@ export default function decorate(block) {
     /// ///////////////////////////////////////////////////////////////////////
     // create prices sections
     productsAsList.forEach((item, idx) => {
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const {
+        productId, devices, subscription, trialDuration,
+      } = parseStoreProduct(item);
+      const buyLinkAttributes = `data-store-render data-store-buy-link="${trialDuration}"`;
       const pricesDiv = document.createElement('div');
       let customPrice = 0;
 
@@ -163,30 +152,32 @@ export default function decorate(block) {
       }
 
       pricesDiv.id = 'pricesBox';
-      pricesDiv.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
-      pricesDiv.innerHTML = `<span class="prod-percent prod-percent-tag">
-          <span class="percent-${onSelectorClass}">0%</span>
+      pricesDiv.className = 'prices_box await-loader';
+      pricesDiv.innerHTML = `<span class="prod-percent prod-percent-tag" data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility">
+          <span data-store-render data-store-discount="percentage"></span>
           ${discountText ?? ''}
         </span>`;
 
       pricesDiv.innerHTML += `
         ${customPrice ? '<div class="custom_hide">' : ''}
-        <span class="prod-percent green_txt">
-          <b class="percent-${onSelectorClass}">0%</b>
+        <span class="prod-percent green_txt" data-store-hide="${NO_DISCOUNT}" data-store-hide-type="visibility">
+          <b data-store-render data-store-discount="percentage"></b>
           ${discountText ?? ''}
         </span>
         ${customPrice ? '</div>' : ''}
       `;
       pricesDiv.innerHTML += `
         ${customPrice ? '<div class="custom_hide">' : ''}
-        <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+        <span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="${NO_DISCOUNT}"></span>
         ${customPrice ? '</div>' : ''}
       `;
 
       if (customPrice === 'old_price') {
-        pricesDiv.innerHTML += `<span class="prod-newprice oldprice-${onSelectorClass}"></span>`;
+        pricesDiv.innerHTML += '<span class="prod-newprice" data-store-render data-store-price="full"></span>';
+      } else if (customPrice) {
+        pricesDiv.innerHTML += `<span class="prod-newprice">${customPrice}</span>`;
       } else {
-        pricesDiv.innerHTML += `<span class="prod-newprice newprice-${customPrice || onSelectorClass}">${customPrice || ''}</span>`;
+        pricesDiv.innerHTML += '<span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>';
       }
 
       pricesDiv.innerHTML += `<span class="prod-taxes">${taxesText}</span>`;
@@ -195,23 +186,23 @@ export default function decorate(block) {
         // btn 2
         const [btn2txt, btn2link] = buttonText2.split(',');
         pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
-        <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn2link ? `buylink-${onSelectorClass}` : ''}" ${btn2link ? `href="${btn2link}"` : ''} referrerpolicy="no-referrer-when-downgrade">${btn2txt}</a>
+        <a class="red-buy-button await-loader" ${btn2link ? `href="${btn2link}"` : buyLinkAttributes} referrerpolicy="no-referrer-when-downgrade">${btn2txt}</a>
         </div>`;
       } else if (idx === 2 && buttonText3) {
         // btn 3
         const [btn3txt, btn3link] = buttonText3.split(',');
         pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
-          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn3link ? `buylink-${onSelectorClass}` : ''}" ${btn3link ? `href="${btn3link}"` : ''} referrerpolicy="no-referrer-when-downgrade">${btn3txt}</a>
+          <a class="red-buy-button await-loader" ${btn3link ? `href="${btn3link}"` : buyLinkAttributes} referrerpolicy="no-referrer-when-downgrade">${btn3txt}</a>
         </div>`;
       } else if (buttonText) {
         // default
         const [btn1txt, btn1link] = buttonText.split(',');
         pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
-          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} ${!btn1link ? `buylink-${onSelectorClass}` : ''}" ${btn1link ? `href="${btn1link}"` : ''} referrerpolicy="no-referrer-when-downgrade">${btn1txt}</a>
+          <a class="red-buy-button await-loader" ${btn1link ? `href="${btn1link}"` : buyLinkAttributes} referrerpolicy="no-referrer-when-downgrade">${btn1txt}</a>
         </div>`;
       } else {
         pricesDiv.innerHTML += `<div class="buy_box buy_box${idx + 1}">
-          <a class="red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}" referrerpolicy="no-referrer-when-downgrade">Buy Now</a>
+          <a class="red-buy-button await-loader" ${buyLinkAttributes} referrerpolicy="no-referrer-when-downgrade">Buy Now</a>
         </div>`;
       }
 
@@ -225,6 +216,9 @@ export default function decorate(block) {
       } else {
         renderedProductSection.appendChild(pricesDiv);
       }
+      wrapChildrenWithProduct(pricesDiv, {
+        productId, devices, subscription, storeEvent: 'info',
+      });
 
       // add selected element
       const selectedProductSection = block.children[idx + 1].querySelector('p:first-of-type u');
@@ -235,6 +229,12 @@ export default function decorate(block) {
         }
       }
     });
+
+    // the selectors (first column) and the prices boxes (next columns) need a common store scope,
+    // and the block's own children can't be wrapped without breaking its `> div` styles
+    const storeContext = document.createElement('bd-context');
+    block.before(storeContext);
+    storeContext.append(block);
   }
 
   matchHeights(block, 'ul.featsList', true);

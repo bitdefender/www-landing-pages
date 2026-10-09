@@ -1,5 +1,4 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { matchHeights } from '../../scripts/utils.js';
+import { matchHeights, parseStoreProduct, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const metaData = block.closest('.section').dataset;
@@ -7,16 +6,21 @@ export default function decorate(block) {
   const [, iconSubtitle, , subtitle, , columnTitle, columnSubtitle, columns] = block.children;
 
   if (product) {
-    const [prodName, prodUsers, prodYears] = product.split('/');
-    const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
-
     const buybtn = document.createElement('div');
     buybtn.style.width = '100%';
     if (buttonText) {
       if (buttonLink) {
         buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="${buttonLink}">${buttonText}</a>`;
       } else {
-        buybtn.innerHTML += `<a class="buylink-${onSelectorClass} button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#">${buttonText}</a>`;
+        const {
+          productId, devices, subscription, trialDuration,
+        } = parseStoreProduct(product);
+
+        buybtn.innerHTML += `<a class="button primary" referrerpolicy="no-referrer-when-downgrade" title="${buybtn.innerText.trim()} Bitdefender" href="#" data-store-render data-store-buy-link="${trialDuration}">${buttonText}</a>`;
+        // the product is usually shown by another block of the page, so it is not counted again in analytics
+        wrapChildrenWithStoreContext(buybtn, {
+          productId, devices, subscription, storeEvent: '',
+        });
       }
     }
 

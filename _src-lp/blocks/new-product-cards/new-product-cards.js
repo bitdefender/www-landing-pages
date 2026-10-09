@@ -1,5 +1,5 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { updateProductsList, getDatasetFromSection, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+import { getDatasetFromSection, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 import Constants from '../../scripts/constants.js';
 
 const nanoBlocks = new Map();
@@ -173,11 +173,11 @@ function renderPricing(...products) {
 
   root.innerHTML += `
         <div class="pricing">
-           <div class="save_price_box await-loader new-store" data-store-render data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility">
+           <div class="save_price_box await-loader" data-store-render data-store-hide="!it.option.price.discounted" data-store-hide-type="visibility">
               <span class="prod-oldprice" data-store-render data-store-price="full"></span>
               <strong class="save prod-percent">${saveHtml}</strong>
             </div>
-            <div class="prices_box await-loader new-store">
+            <div class="prices_box await-loader">
               <span class="prod-newprice" data-store-render
               ${monthlyPrice && !Constants.MONTHLY_PRODUCTS.includes(productName)
     ? 'data-store-price="discounted-monthly||full-monthly"'
@@ -415,7 +415,6 @@ export default async function decorate(block) {
         const [isCheckbox, addonProduct, addonContent] = [...items];
 
         if (isCheckbox.textContent.toLowerCase().includes('add-on-checkbox') && addonProduct) {
-          updateProductsList(addonProduct.textContent.trim());
           const [addOnProductName, addOnProductUsers, addOnProductYears] = addonProduct.textContent.trim().split('/');
           isCheckbox.remove();
           addonProduct.remove();

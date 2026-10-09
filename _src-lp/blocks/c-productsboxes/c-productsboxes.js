@@ -1,5 +1,4 @@
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { maxDiscountHtml, parseStoreProduct, wrapChildrenWithProduct } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
@@ -38,10 +37,6 @@ export default function decorate(block) {
     if (paddingBottom) parentSelector.style.paddingBottom = `${paddingBottom}rem`;
 
     /// ///////////////////////////////////////////////////////////////////////
-    // check and add products into the final array
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
-    /// ///////////////////////////////////////////////////////////////////////
     // set top class with numbers of products
     parentSelector.classList.add(`has${productsAsList.length}boxes`);
 
@@ -49,11 +44,11 @@ export default function decorate(block) {
     // create procent - bulina
     if (typeof bulinaText !== 'undefined') {
       const bulinaSplitted = bulinaText.split(',');
-      let divBulina = `<div class='prod-percent green_bck_circle bigger has${bulinaSplitted.length}txt'>`;
+      let divBulina = `<div class='prod-percent green_bck_circle bigger has${bulinaSplitted.length}txt' data-store-render data-store-hide='!it.state.discount.percentage.max'>`;
       bulinaSplitted.forEach((item, idx) => {
         let newItem = item;
         if (item.indexOf('0%') !== -1) {
-          newItem = item.replace(/0%/g, '<b class=\'max-discount\'></b>');
+          newItem = item.replace(/0%/g, maxDiscountHtml('b'));
         }
         divBulina += `<span class='bulina_text${idx + 1}'>${newItem}</span>`;
       });
@@ -71,8 +66,11 @@ export default function decorate(block) {
     // create prices sections
     productsAsList.forEach((item, idx) => {
       const prodBox = block.children[idx];
-      const [prodName, prodUsers, prodYears] = productsAsList[idx].split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      const storeProduct = parseStoreProduct(productsAsList[idx]);
+      const {
+        productId, devices, subscription, trialDuration,
+      } = storeProduct;
+      const onSelectorClass = `${productId}-${devices}${subscription}`;
       const pricesDiv = document.createElement('div');
       const saveText = prodBox?.querySelector('table:nth-of-type(2)').innerText.trim();
       const firstYearText = prodBox?.querySelector('table:nth-of-type(3)').innerText.trim();
@@ -83,16 +81,16 @@ export default function decorate(block) {
         pricesDiv.innerHTML += '<span class="prod-newprice">$26.99</span>';
         pricesDiv.innerHTML += '<span class="prod-oldprice">$89.99</span>';
       } else {
-        pricesDiv.classList = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+        pricesDiv.classList = 'prices_box await-loader';
         if (saveText && saveText.indexOf('0') !== -1) {
-          pricesDiv.innerHTML += `<p class="save-green-pill">
-            ${saveText.replace(/0/g, `<span class="save-${onSelectorClass}"></span>`)}
+          pricesDiv.innerHTML += `<p class="save-green-pill" data-store-render data-store-hide="!it.option.price.discounted">
+            ${saveText.replace(/0/g, '<span data-store-render data-store-discount="value"></span>')}
           </p>`;
         } else {
           pricesDiv.innerHTML += `<span>${saveText}</span>`;
         }
-        pricesDiv.innerHTML += `<span class="prod-newprice newprice-${onSelectorClass}"></span>`;
-        pricesDiv.innerHTML += `<span class="prod-oldprice oldprice-${onSelectorClass}"></span>`;
+        pricesDiv.innerHTML += '<span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>';
+        pricesDiv.innerHTML += '<span class="prod-oldprice" data-store-render data-store-price="full" data-store-hide="!it.option.price.discounted"></span>';
       }
 
       if (firstYearText) pricesDiv.innerHTML += `<span class="first_year">${firstYearText}</span>`;
@@ -151,10 +149,23 @@ export default function decorate(block) {
       }
       if (metaData[tagTextKey]) {
         const divTag = document.createElement('div');
-        divTag.innerHTML = metaData[tagTextKey].indexOf('0%') !== -1 || metaData[tagTextKey].indexOf('0 %') !== -1 ? metaData[tagTextKey].replace(/0\s*%/g, `<span class="percent-${onSelectorClass}"></span>`) : metaData[tagTextKey];
+        divTag.innerHTML = metaData[tagTextKey].indexOf('0%') !== -1 || metaData[tagTextKey].indexOf('0 %') !== -1 ? metaData[tagTextKey].replace(/0\s*%/g, '<span data-store-render data-store-discount="percentage"></span>') : metaData[tagTextKey];
         divTag.className = 'tag';
         // prodBox.parentNode.querySelector(`p:nth-child(1)`).before(divTag);
-        prodBox?.querySelector('div').before(divTag);
+        let tagElement = divTag;
+        // the jamestowntribe tag is replaced below
+        if (divTag.querySelector('[data-store-discount]') && isCampaign !== 'jamestowntribe') {
+          // the whole tag is hidden when there is no discount, so it sits inside its own store scope
+          divTag.setAttribute('data-store-render', '');
+          divTag.setAttribute('data-store-hide', '!it.option.price.discounted');
+          divTag.setAttribute('data-store-hide-type', 'visibility');
+          tagElement = new DocumentFragment();
+          tagElement.append(divTag);
+          wrapChildrenWithProduct(tagElement, {
+            productId, devices, subscription, storeEvent: '',
+          });
+        }
+        prodBox?.querySelector('div').before(tagElement);
       } else {
         // if no tagText is set, add default tag
         const divTag = document.createElement('div');
@@ -169,8 +180,10 @@ export default function decorate(block) {
       const tableBuybtn = prodBox?.querySelector('table:last-of-type');
 
       const aBuybtn = document.createElement('a');
-      aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, `<span class="percent percent-${onSelectorClass} parent-no-hide"></span>`);
-      aBuybtn.className = `red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}`;
+      aBuybtn.innerHTML = tableBuybtn?.innerHTML.replace(/0%/g, '<span class="percent parent-no-hide" data-store-render data-store-discount="percentage"></span>');
+      aBuybtn.className = 'red-buy-button await-loader';
+      aBuybtn.setAttribute('data-store-render', '');
+      aBuybtn.setAttribute('data-store-buy-link', trialDuration);
       aBuybtn.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
       aBuybtn.setAttribute('title', 'Buy Now Bitdefender');
 
@@ -278,6 +291,13 @@ export default function decorate(block) {
           li.style.setProperty('text-align', 'left', 'important');
         });
       });
+
+      // the box content is the store scope of this product
+      if (productId) {
+        wrapChildrenWithProduct(firstContainer, {
+          productId, devices, subscription, storeEvent: 'info',
+        });
+      }
     });
   }
   // Event listener for form submission

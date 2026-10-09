@@ -10,6 +10,14 @@
   color: inherit;
 }
 
+/* store scopes must not affect the layout */
+.section.single-product-banner-container .single-product-banner bd-product,
+.section.single-product-banner-container .single-product-banner bd-option,
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector div bd-product,
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .productSelector div bd-option {
+  display: contents;
+}
+
 .section.single-product-banner-container table {
   display: none;
 }

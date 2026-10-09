@@ -1,8 +1,67 @@
 /* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
-import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, matchHeights } from '../../scripts/utils.js';
+import {
+  matchHeights,
+  maxDiscountHtml,
+  parseStoreProduct,
+  wrapChildrenWithProduct,
+  wrapChildrenWithStoreContext,
+} from '../../scripts/utils.js';
 import Constants from '../../scripts/constants.js';
+
+// the VPN that can be added to a product as a bundle
+const VPN_BUNDLE = { productId: 'vpn', devices: '10', subscription: '1' };
+
+const NO_DISCOUNT = '!it.option.price.discounted';
+
+// markup rendered by the store
+const storePrice = (price, className = '') => `<span${className ? ` class="${className}"` : ''} data-store-render data-store-price="${price}"></span>`;
+const storeDiscount = (discount, className = '') => `<span${className ? ` class="${className}"` : ''} data-store-render data-store-discount="${discount}"></span>`;
+// Eta templates are hidden by the await-loader until the store renders them (see the scss)
+const storeTemplate = (value, className) => `<span class="${className} await-loader">{{= it.option.price.${value} }}</span>`;
+
+const percentHtml = (className = '') => storeDiscount('percentage', className);
+const saveHtml = () => storeDiscount('value');
+const newPriceHtml = (className = '') => storePrice('discounted||full', className);
+const newPriceMonthlyHtml = (className = '') => storePrice('discounted-monthly||full-monthly', className);
+const oldPriceHtml = (className = '') => storePrice('full', className);
+const oldPriceMonthlyHtml = (className = '') => storePrice('full-monthly', className);
+
+function hideWhenNoDiscount(element, hideType = '') {
+  // the first rule wins, e.g. a paragraph removed because of its old price stays removed
+  if (!element || element.hasAttribute('data-store-hide')) return;
+  element.setAttribute('data-store-hide', NO_DISCOUNT);
+  if (hideType) element.setAttribute('data-store-hide-type', hideType);
+}
+
+/**
+ * Reproduces what the legacy price engine did to a product box without a discount:
+ * old prices (or their paragraph) are removed and discount texts are hidden.
+ * @param {HTMLElement} element
+ */
+function addNoDiscountRules(element) {
+  element.querySelectorAll('.prod-oldprice, .billed-oldprice').forEach((oldPrice) => {
+    const paragraph = !oldPrice.closest('label') && oldPrice.closest('p');
+    if (paragraph) {
+      hideWhenNoDiscount(paragraph);
+    } else if (!oldPrice.parentElement?.classList.contains('billed')) {
+      hideWhenNoDiscount(oldPrice);
+    }
+  });
+
+  element.querySelectorAll('[data-store-discount]').forEach((discount) => {
+    if (discount.closest('.red-buy-button')) {
+      // only the discount is hidden, the button keeps its text
+      hideWhenNoDiscount(discount);
+    } else if (discount.closest('.prod-percent')) {
+      hideWhenNoDiscount(discount.closest('.prod-percent'), 'visibility');
+    } else if (discount.dataset.storeDiscount === 'value' && discount.closest('.billed')) {
+      hideWhenNoDiscount(discount, 'visibility');
+    } else {
+      hideWhenNoDiscount(discount.closest('p') || discount.parentElement, 'visibility');
+    }
+  });
+}
 
 function updateTagsMargin(block) {
   const greenTags = block.querySelectorAll('.greenTag2');
@@ -164,8 +223,6 @@ export default function decorate(block) {
   let switchCheckbox;
 
   if (productsAsList.length) {
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
     const defaultContentWrapperElements = parentSection.querySelector('.default-content-wrapper')?.children;
     let individualSwitchText;
     let familySwitchText;
@@ -192,7 +249,7 @@ export default function decorate(block) {
       ${subText ? `<p>${subText}</p>` : ''}`;
 
       if (titleBox.innerHTML.includes('0%')) {
-        titleBox.innerHTML = titleBox.innerHTML.replace('0%', '<span class=\'max-discount\'></span>');
+        titleBox.innerHTML = titleBox.innerHTML.replace('0%', maxDiscountHtml());
       }
 
       block.parentNode.insertBefore(titleBox, block);
@@ -283,33 +340,42 @@ export default function decorate(block) {
     // clean up old elements before building the new prodcuct boxes
     block.innerHTML = '';
 
+    // the boxes hidden by the individual / family switch don't send analytics events
+    const familyFirst = individual === 'reverted' || parentSection.classList.contains('reverted');
+    const hiddenBoxClass = familyFirst ? 'individual-box' : 'family-box';
+
     children.forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
-      const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
-      const onSelectorClass = `${productAliases(prodName)}-${prodUsers}${prodYears}`;
+      // authors sometimes leave empty rows in the block
+      if (!buyLink) return;
+
+      const [prodName = '', prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
+      const {
+        productId, devices, subscription, trialDuration,
+      } = parseStoreProduct(productsAsList[key]);
+      const onSelectorClass = `${productId}-${prodUsers}${prodYears}`;
       const buyLinkText = buyLink.innerText.trim();
       const buyLinksObj = extractBuyLinks(buyLink);
       const disabled1stBox = parentSection.classList.contains('disable-first-box') && key === 0;
+      // products of the radio buttons / dropdown options, in the order of their price boxes
+      const optionProducts = [];
 
       // create procent - bulina
       let divBulina = '';
       let vpnInfoContent = '<div class="vpn-info-container"></div>';
       if (textBulina) {
         const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = textBulina.replace('0%', `<span class="percent-${onSelectorClass} div-percent"></span>`);
+        tempDiv.innerHTML = textBulina.replace('0%', percentHtml('div-percent'));
         divBulina = `<div class='bulina'>${tempDiv.innerHTML}</div>`;
       }
       // if we have vpn
 
       if (billed?.innerText.includes('[vpn_box]')) {
-        // add VPN
-        updateProductsList('vpn/10/1');
-
         const billedUL = billed.querySelector('ul');
         /* eslint-disable-next-line no-unused-vars */
         const [alias, text1, text2, vpnInfo] = billedUL.querySelectorAll('li');
-        const modifiedText1 = text1.innerHTML.replace('0', '<span class="newprice-vpn-101"></span>');
-        const modifiedText2 = text2.innerHTML.replace('0', '<span class="oldprice-vpn-101"></span>').replace('0%', '<span class="percent-vpn-101"></span>');
+        const modifiedText1 = text1?.innerHTML.replace('0', newPriceHtml('billed-newprice')) || '';
+        const modifiedText2 = text2?.innerHTML.replace('0', oldPriceHtml('billed-oldprice')).replace('0%', percentHtml()) || '';
         if (vpnInfo) {
           const vpnInfoText = vpnInfo.innerText;
           if (vpnInfoText.trim()) {
@@ -323,14 +389,14 @@ export default function decorate(block) {
         }
 
         const vpnContent = `
-          <input id="${labelId}" class="${labelId} checkboxVPN" type="checkbox" value="">
+          <input id="${labelId}" type="checkbox" value="">
           <label for="${labelId}">
             <span>${modifiedText1} ${modifiedText2}</span>
           </label>
         `;
 
         const vpnBox = document.createElement('div');
-        vpnBox.classList = `vpn_box prodload prodload-${onSelectorClass}`;
+        vpnBox.classList = 'vpn_box await-loader';
         vpnBox.innerHTML = `<div>${vpnContent}</div>`;
 
         billedUL.before(vpnBox);
@@ -409,16 +475,10 @@ export default function decorate(block) {
         const allPricesTdArr = Array.from(allPriceTd)[1];
         const [percentText, textUnder] = allPricesTdArr.innerHTML.split('||');
 
-        percentOff = percentText.replace(
-          '0%',
-          `<span class="percent-${onSelectorClass}"></span>`,
-        );
+        percentOff = percentText.replace('0%', percentHtml());
 
         if (!percentText.includes('0%') && allPricesTdArr.innerText.includes('0')) {
-          percentOff = percentText.replace(
-            '0',
-            `<span class="save-${onSelectorClass}"></span>`,
-          );
+          percentOff = percentText.replace('0', saveHtml());
         }
 
         if (!percentText.includes('0%') && !percentText.includes('0')) {
@@ -426,10 +486,7 @@ export default function decorate(block) {
         }
 
         if (textUnder) {
-          textUnderOldPrice = textUnder.replace(
-            '0',
-            `<span class="newprice-${onSelectorClass}"></span>`,
-          );
+          textUnderOldPrice = textUnder.replace('0', newPriceHtml());
         }
       }
 
@@ -443,12 +500,13 @@ export default function decorate(block) {
           const [pname, pusers, pyears] = variationText.split('/');
           const selectorClass = `${pname.trim()}-${pusers}${pyears}`;
           const value = variationText.trim();
+          optionProducts.push(parseStoreProduct(value));
 
           const isChecked = idx === 0 ? 'checked' : '';
 
-          percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', `<span class="percent-${selectorClass}"></span>`);
+          percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0%', percentHtml());
           if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
-            percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', `<span class="save-${selectorClass}"></span>`);
+            percentOff = Array.from(saveOldPrice.querySelectorAll('td'))[1].innerText.replace('0', saveHtml());
           }
           if (!saveOldPrice.querySelectorAll('td')[1].innerText.includes('0%') && !saveOldPrice.querySelectorAll('td')[1].innerText.includes('0')) {
             percentOff = saveOldPrice.querySelectorAll('td')[1].innerText;
@@ -464,7 +522,7 @@ export default function decorate(block) {
             optionSelector.innerHTML += `<option name="${pname.trim()}" id="${value}" value="${selectorClass}" data-selector-u="u_${selectorClass}" data-value-u="u_${pusers}" data-selector-y="y_${selectorClass}" data-value-y="u_${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
             const priceSpan = type === 'dropdown-benefits'
-              ? `<span class="prod-oldprice oldprice-${selectorClass}"></span><span class="prod-newprice newprice-${selectorClass} radio-price"></span>`
+              ? `${oldPriceHtml('prod-oldprice')}${newPriceHtml('prod-newprice radio-price')}`
               : '';
 
             if (type === 'dropdown-benefits') {
@@ -481,26 +539,26 @@ export default function decorate(block) {
           }
 
           combinedPricesBox.innerHTML += `<div class="combinedPricesBox combinedPricesBox-${selectorClass}" ${idx !== 0 ? 'style="display: none;"' : ''}>
-            <div class="save_price_box await-loader prodload prodload-${selectorClass}">
-              <span class="prod-oldprice oldprice-${selectorClass}"></span>
+            <div class="save_price_box await-loader">
+              ${oldPriceHtml('prod-oldprice')}
               <strong class="save prod-percent">${percentOff}</strong>
             </div>
-            <div class="prices_box await-loader prodload prodload-${selectorClass}">
-              <span class="prod-newprice newprice-${selectorClass}"></span>
+            <div class="prices_box await-loader">
+              ${newPriceHtml('prod-newprice')}
               <sup>${price.innerText.trim().replace('0', '')}</sup>
             </div>
 
               ${billed ? ` <div class="billed">
-                ${billed?.innerText.includes('0') ? billed?.innerHTML.replace('0', `<span class="newprice-${selectorClass}"></span>`) : billed.innerHTML}
+                ${billed?.innerText.includes('0') ? billed?.innerHTML.replace('0', newPriceHtml('billed-newprice')) : billed.innerHTML}
               </div>` : billed?.innerText}
 
               ${replaceBuyLinks ? `<div class="buy-btn${!buyLinkObj.text ? ' no-text' : ''}">
-                <a class="red-buy-button buylink-${selectorClass}" href="#" data-href="${buyLinkObj.href}"  title="Bitdefender">
-                  ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}
+                <a class="red-buy-button" ${buyLinkObj.href ? `href="${buyLinkObj.href}"` : `href="#" data-store-render data-store-buy-link="${optionProducts[idx].trialDuration}"`} title="Bitdefender">
+                  ${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', percentHtml()) : buyLinkObj.text}
                 </a>
               </div>` : `<div class="buy-btn${!buyLinkText ? ' no-text' : ''}">
-                <a class="red-buy-button buylink-${selectorClass} await-loader prodload prodload-${selectorClass}" href="#" title="Bitdefender">
-                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                <a class="red-buy-button await-loader" href="#" data-store-render data-store-buy-link="${optionProducts[idx].trialDuration}" title="Bitdefender">
+                  ${buyLinkText.includes('0%') ? buyLinkText.replace('0%', percentHtml()) : buyLinkText}
                 </a>
                 </div>`}
             </div>`;
@@ -532,7 +590,19 @@ export default function decorate(block) {
         demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
       }
 
-      block.innerHTML += `
+      let mainPriceHtml = newPriceHtml('prod-newprice');
+      if (priceType === 'monthly') {
+        mainPriceHtml = newPriceMonthlyHtml('prod-newprice');
+      } else if (priceType) {
+        // the legacy engine never filled a price for other price types
+        mainPriceHtml = '<span class="prod-newprice"></span>';
+      } else if (trialLinks) {
+        // trial: the price is shown as 0 in the product currency
+        mainPriceHtml = storeTemplate('zero', 'prod-newprice');
+      }
+
+      const cardWrapper = document.createElement('div');
+      cardWrapper.innerHTML = `
         <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
           ${divBulina}
@@ -548,67 +618,67 @@ export default function decorate(block) {
               <hr />
 
               ${combinedPricesBox && combinedPricesBox.innerText ? combinedPricesBox.innerHTML : `
-                ${saveOldPrice?.innerText.trim() && `<div class="save_price_box await-loader prodload prodload-${onSelectorClass}"">
-                  <span class="prod-oldprice oldprice-${onSelectorClass}"></span>
+                ${saveOldPrice?.innerText.trim() && `<div class="save_price_box await-loader">
+                  ${oldPriceHtml('prod-oldprice')}
                   <strong class="percent prod-percent">
                     ${percentOff}
                   </strong>
                 </div>`}
                 ${textUnderOldPrice ? `<div class="text_under_oldprice">${textUnderOldPrice}</div>` : ''}
 
-                ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                  <span class="prod-newprice${!onSelectorClass.includes('monthly') && !Constants.MONTHLY_PRODUCTS.includes(prodName) ? ' calculate_monthly' : ''} newprice-${onSelectorClass}"></span>
+                ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader">
+                  ${!onSelectorClass.includes('monthly') && !Constants.MONTHLY_PRODUCTS.includes(prodName.trim()) ? newPriceMonthlyHtml('prod-newprice') : newPriceHtml('prod-newprice')}
                   <sup>${price.innerHTML.trim().replace('0', '')}</sup>
-                </div>` : `<div class="prices_box await-loader prodload prodload-${onSelectorClass}">
-                  <span class="prod-newprice${trialLinks ? ' newprice-0' : ''} newprice-${onSelectorClass}${priceType ? `-${priceType}` : ''}"></span>
+                </div>` : `<div class="prices_box await-loader">
+                  ${mainPriceHtml}
                   <sup>${price?.innerHTML.trim().replace('0', '')}</sup>
                 </div>`}
 
           ${billed ? (() => {
             const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`);
+            tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, percentHtml());
             const firstP = tempDiv.querySelector('p');
             if (firstP) {
               firstP.innerHTML = firstP.innerHTML
-                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
-                .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
-                .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-                .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-                .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-                .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-                .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-                .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1${newPriceHtml('billed-newprice')}$2`)
+                .replace(/\[percent\]/g, percentHtml())
+                .replace(/\[discmonthly\]/g, newPriceMonthlyHtml('billed-newprice'))
+                .replace(/\[discyearly\]/g, storeTemplate('discountedYearly', 'billed-newprice'))
+                .replace(/\[fullmonthly\]/g, oldPriceMonthlyHtml('billed-oldprice'))
+                .replace(/\[fullyearly\]/g, storeTemplate('fullYearly', 'billed-oldprice'))
+                .replace(/\[fullprice\]/g, oldPriceHtml('billed-oldprice'))
+                .replace(/\[discprice\]/g, newPriceHtml('billed-newprice'))
+                .replace(/\[saveprice\]/g, saveHtml())
                 .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
             } else {
               tempDiv.innerHTML = tempDiv.innerHTML
-                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span class="newprice-${onSelectorClass}"></span>$2`)
-                .replace(/\[percent\]/g, `<span class="percent-${onSelectorClass}"></span>`)
-                .replace(/\[discmonthly\]/g, `<span class="newprice-${onSelectorClass} calculate_monthly"></span>`)
-                .replace(/\[discyearly\]/g, `<span class="newprice-${onSelectorClass} calculate_yearly"></span>`)
-                .replace(/\[fullmonthly\]/g, `<span class="oldprice-${onSelectorClass} calculate_monthly"></span>`)
-                .replace(/\[fullyearly\]/g, `<span class="oldprice-${onSelectorClass} calculate_yearly"></span>`)
-                .replace(/\[fullprice\]/g, `<span class="oldprice-${onSelectorClass}"></span>`)
-                .replace(/\[discprice\]/g, `<span class="newprice-${onSelectorClass}"></span>`)
-                .replace(/\[saveprice\]/g, `<span class="save-${onSelectorClass}"></span>`)
+                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1${newPriceHtml('billed-newprice')}$2`)
+                .replace(/\[percent\]/g, percentHtml())
+                .replace(/\[discmonthly\]/g, newPriceMonthlyHtml('billed-newprice'))
+                .replace(/\[discyearly\]/g, storeTemplate('discountedYearly', 'billed-newprice'))
+                .replace(/\[fullmonthly\]/g, oldPriceMonthlyHtml('billed-oldprice'))
+                .replace(/\[fullyearly\]/g, storeTemplate('fullYearly', 'billed-oldprice'))
+                .replace(/\[fullprice\]/g, oldPriceHtml('billed-oldprice'))
+                .replace(/\[discprice\]/g, newPriceHtml('billed-newprice'))
+                .replace(/\[saveprice\]/g, saveHtml())
                 .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
             }
             return `<div class="billed">${tempDiv.innerHTML}</div>`;
           })() : ''}
             </div><!-- end header-box --> 
 
-              ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, `<span class="percent-${onSelectorClass}"></span>`)}</div></div>` : ''}
+              ${trialSaveText ? `<div class="save-trial-text"><hr><div>${trialSaveText.replace(/0%/g, percentHtml())}</div></div>` : ''}
               ${vpnInfoContent && vpnInfoContent}
               
               ${disabled1stBox ? `<div class="buy-btn${!buyLinkText ? ' no-text' : ''}">
-                <button class="red-buy-button">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}
+                <button class="red-buy-button">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', percentHtml()) : buyLinkText}
                 </button>
               </div>`
             : replaceBuyLinks ? `<div class="buy-btn${!buyLinkObj.text ? ' no-text' : ''}">
-                <a class="red-buy-button buylink2-${onSelectorClass}" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkObj.text}</a>
+                <a class="red-buy-button" href="${buyLinkObj.href || '#'}" title="Bitdefender">${buyLinkObj.text.includes('0%') ? buyLinkObj.text.replace('0%', percentHtml()) : buyLinkObj.text}</a>
               </div>`
               : `<div class="buy-btn${!buyLinkText ? ' no-text' : ''}">
-                  <a class="red-buy-button buylink-${onSelectorClass} await-loader prodload prodload-${onSelectorClass}" href="#" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', `<span class="percent-${onSelectorClass}"></span>`) : buyLinkText}</a>
+                  <a class="red-buy-button await-loader" href="#" data-store-render data-store-buy-link="${trialDuration}" title="Bitdefender">${buyLinkText.includes('0%') ? buyLinkText.replace('0%', percentHtml()) : buyLinkText}</a>
                 </div>`}
 
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
@@ -619,6 +689,48 @@ export default function decorate(block) {
             ${benefitsLists?.innerText.trim() ? `<div class="benefitsLists">${featureList}</div>` : ''}
           </div>
       </div>`;
+      const card = cardWrapper.firstElementChild;
+
+      addNoDiscountRules(card);
+
+      // the VPN checkbox adds the VPN to the product as a bundle,
+      // the label shows the prices of the VPN alone
+      card.querySelectorAll('.vpn_box input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.setAttribute('data-store-action', '');
+        checkbox.setAttribute('data-store-set-bundle', '');
+        checkbox.setAttribute('data-store-set-id', VPN_BUNDLE.productId);
+        checkbox.setAttribute('data-store-set-devices', VPN_BUNDLE.devices);
+        checkbox.setAttribute('data-store-set-subscription', VPN_BUNDLE.subscription);
+      });
+      card.querySelectorAll('.vpn_box label').forEach((label) => {
+        wrapChildrenWithStoreContext(label, {
+          ...VPN_BUNDLE,
+          ignoreEventsParent: true,
+          storeEvent: '',
+        });
+      });
+
+      // each radio button / dropdown option has its own product
+      card.querySelectorAll('.combinedPricesBox').forEach((pricesBox, idx) => {
+        if (!optionProducts[idx]) return;
+        wrapChildrenWithProduct(pricesBox, { ...optionProducts[idx], storeEvent: '' });
+      });
+      [...(card.querySelector('.subtitle ul')?.children || [])].forEach((li, idx) => {
+        if (!optionProducts[idx] || !li.querySelector('.radio-price')) return;
+        wrapChildrenWithProduct(li, { ...optionProducts[idx], storeEvent: '' });
+      });
+
+      if (productId) {
+        wrapChildrenWithStoreContext(card, {
+          productId,
+          devices,
+          subscription,
+          ignoreEventsParent: true,
+          storeEvent: card.classList.contains(hiddenBoxClass) ? '' : 'info',
+        });
+      }
+
+      block.appendChild(card);
     });
 
     if (type === 'mobileSlider') {
@@ -690,7 +802,7 @@ export default function decorate(block) {
 
   function restoreCouponsToButtons() {
     const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || {};
-    block.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+    block.querySelectorAll('[data-store-buy-link]').forEach((button) => {
       const originalUrl = removedCoupons[button.href];
 
       if (originalUrl) {
@@ -762,7 +874,7 @@ export default function decorate(block) {
         const removedCoupons = {}; // Reset storage object
         let couponsWereRemoved = false;
 
-        document.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+        document.querySelectorAll('[data-store-buy-link]').forEach((button) => {
           const url = button.href;
           const couponMatch = url.match(/(COUPON=[^&]*&?)/);
 

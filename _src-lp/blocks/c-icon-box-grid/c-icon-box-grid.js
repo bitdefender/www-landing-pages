@@ -12,7 +12,9 @@
   - https://www.bitdefender.com/media/html/consumer/new/2020/cl-offer1-opt/ultimate-flv1.html
 */
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
-import { getDatasetFromSection, matchHeights, updateProductsList } from '../../scripts/utils.js';
+import {
+  getDatasetFromSection, matchHeights, parseStoreProduct, wrapChildrenWithProduct,
+} from '../../scripts/utils.js';
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 function initializeSlider(block) {
@@ -262,13 +264,20 @@ export default function decorate(block) {
   // if we have products we create buy links
   const productsAsList = products && products.split(',');
   if (productsAsList && productsAsList.length) {
-    productsAsList.forEach((prod) => updateProductsList(prod));
-
     block.querySelectorAll('.quotebox').forEach((item, key) => {
-      const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/');
-      const selectorClass = `${prodName.trim()}-${prodUsers}${prodYears}`;
+      const {
+        productId, devices, subscription, trialDuration,
+      } = parseStoreProduct(productsAsList[key]);
+      const buttons = item.querySelector('.buttons');
+      const buyLink = buttons?.querySelector('a');
+      if (!productId || !buyLink) return;
 
-      item.querySelector('.buttons a').classList.add(`buylink-${selectorClass}`);
+      buyLink.setAttribute('data-store-render', '');
+      buyLink.setAttribute('data-store-buy-link', trialDuration);
+      // the products are shown by other blocks, the buttons only link to them
+      wrapChildrenWithProduct(buttons, {
+        productId, devices, subscription, storeEvent: '',
+      });
     });
   }
 

@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+import { matchHeights, maxDiscountHtml, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
@@ -143,7 +143,7 @@ export default function decorate(block) {
   } = metaData;
   const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
-  const bundlesArray = bundles.split(',').map((entry) => entry.trim());
+  const bundlesArray = bundles?.split(',').map((entry) => entry.trim()) || [];
 
   if (productsAsList.length) {
     const defaultContentWrapperElements = parentSection.querySelector('.default-content-wrapper')?.children;
@@ -172,7 +172,7 @@ export default function decorate(block) {
       ${subText ? `<p>${subText}</p>` : ''}`;
 
       if (titleBox.innerHTML.includes('0%')) {
-        titleBox.innerHTML = titleBox.innerHTML.replace('0%', '<span class=\'max-discount\'></span>');
+        titleBox.innerHTML = titleBox.innerHTML.replace('0%', maxDiscountHtml());
       }
 
       block.parentNode.insertBefore(titleBox, block);
@@ -262,7 +262,7 @@ export default function decorate(block) {
       let bundleInfoContent = '';
       if (textBulina) {
         divBulina = `<div class='bulina' data-store-hide="!it.option.price.discounted">
-          ${textBulina.replace('0%', '<span data-store-render data-store-discount="percentage" div-percent"></span>')}
+          ${textBulina.replace('0%', '<span class="div-percent" data-store-render data-store-discount="percentage"></span>')}
         </div>`;
       }
 
@@ -285,8 +285,8 @@ export default function decorate(block) {
             ?.replace('0', '<span data-store-render data-store-price="discounted||full"></span>')
             || '';
           const modifiedText2 = text2?.innerHTML
-            ?.replace('0', '<span data-store-hide="!it.option.price.discounted" data-store-price="full"></span>')
-            ?.replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
+            ?.replace('0', '<span data-store-render data-store-hide="!it.option.price.discounted" data-store-price="full"></span>')
+            ?.replace('0%', '<span data-store-render data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
             || '';
           if (bundleInfo) {
             const bundleInfoText = bundleInfo.innerText;
@@ -304,7 +304,7 @@ export default function decorate(block) {
           bundleBox.className = 'bundle_box';
 
           const loaderWrapper = document.createElement('div');
-          loaderWrapper.className = 'await-loader new-store';
+          loaderWrapper.className = 'await-loader';
 
           // create the bundle Input
           const bundleInput = document.createElement('input');
@@ -435,7 +435,7 @@ export default function decorate(block) {
             optionSelector.innerHTML += `<option data-store-set-id="${pname}" data-store-set-devices="${pusers}" data-store-set-subscription="${pyears}" ${idx === 0 ? 'selected' : ''}>${labelText.trim()}</option>`;
           } else {
             const priceSpan = type === 'dropdown-benefits'
-              ? '<span class="prod-oldprice" data-store-hide="!it.option.price.discounted" data-store-price="full"></span><span class="prod-newprice radio-price" data-store-render data-store-price="discounted||full"></span>'
+              ? '<span class="prod-oldprice" data-store-render data-store-hide="!it.option.price.discounted" data-store-price="full"></span><span class="prod-newprice radio-price" data-store-render data-store-price="discounted||full"></span>'
               : '';
 
             if (type === 'dropdown-benefits') {
@@ -502,17 +502,17 @@ export default function decorate(block) {
               <hr />
 
               ${`
-                ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader new-store" data-store-hide="!it.option.price.discounted">
+                ${saveOldPrice.innerText.trim() && `<div class="save_price_box await-loader" data-store-hide="!it.option.price.discounted">
                   <span class="prod-oldprice" data-store-render data-store-price="full"></span>
                   <strong class="prod-percent">
                     ${percentOff}
                   </strong>
                 </div>`}
 
-                ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader new-store">
+                ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader">
                   <span class="prod-newprice" data-store-render data-store-price="discounted-monthly||full-monthly"></span>
                   <sup>${price.innerText.trim().replace('0', '')}</sup>
-                </div>` : `<div class="prices_box await-loader new-store">
+                </div>` : `<div class="prices_box await-loader">
                   <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
                   <sup>${price.innerText.trim().replace('0', '')}</sup>
                 </div>`}
@@ -560,14 +560,14 @@ export default function decorate(block) {
                       href="${buyLinkObj.href || '#'}"
                       title="Bitdefender">
                       ${buyLinkObj.text.includes('0%')
-                        ? buyLinkObj.text.replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
+                        ? buyLinkObj.text.replace('0%', '<span data-store-render data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
                         : buyLinkObj.text}
                     </a>
                   </div>`
                 : `<div class="buy-btn">
                     <a data-store-buy-link data-store-render class="red-buy-button" href="#" title="Bitdefender">
                       ${buyLinkText.includes('0%')
-                        ? buyLinkText.replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
+                        ? buyLinkText.replace('0%', '<span data-store-render data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
                         : buyLinkText}
                     </a>
                   </div>`
@@ -661,7 +661,7 @@ export default function decorate(block) {
 
   function restoreCouponsToButtons() {
     const removedCoupons = JSON.parse(localStorage.getItem('removedCoupons')) || {};
-    block.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+    block.querySelectorAll('[data-store-buy-link]').forEach((button) => {
       const originalUrl = removedCoupons[button.href];
 
       if (originalUrl) {
@@ -672,10 +672,10 @@ export default function decorate(block) {
 
   function applyDiscount(modalButtons, pricesBoxes, discountsBoxes, billedBoxes) {
     toggleElements(modalButtons, { display: 'none' });
-    toggleElements([...pricesBoxes, ...discountsBoxes], { addClass: ['await-loader', 'new-store'] });
+    toggleElements([...pricesBoxes, ...discountsBoxes], { addClass: ['await-loader'] });
 
     setTimeout(() => {
-      toggleElements([...pricesBoxes, ...discountsBoxes], { removeClass: ['await-loader', 'new-store'], display: 'flex' });
+      toggleElements([...pricesBoxes, ...discountsBoxes], { removeClass: ['await-loader'], display: 'flex' });
       toggleElements(billedBoxes, { display: 'block' });
 
       pricesBoxes.forEach((box) => {
@@ -733,7 +733,7 @@ export default function decorate(block) {
         const removedCoupons = {}; // Reset storage object
         let couponsWereRemoved = false;
 
-        document.querySelectorAll('[class*="buylink-"]').forEach((button) => {
+        document.querySelectorAll('[data-store-buy-link]').forEach((button) => {
           const url = button.href;
           const couponMatch = url.match(/(COUPON=[^&]*&?)/);
 
