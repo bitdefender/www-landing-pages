@@ -2,21 +2,21 @@ import { decorateButtons, decorateIcons } from '../../scripts/lib-franklin.js';
 import {
   detectModalButtons, productAliases, isView, getParam,
 } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
 
 // Helper function to get image source safely
-const getImageSrc = (pictureEl) => pictureEl?.querySelector('img')?.getAttribute('src')?.split('?')[0];
+const getImageSrc = (pictureEl) => getBackgroundImageUrl(pictureEl?.querySelector('img')?.getAttribute('src'));
 
 // Helper function to get content size CSS classes
 const getContentSizeClasses = (size) => {
   const sizeMap = {
     full: 'col-sm-12 col-md-12 col-lg-12',
     larger: 'col-sm-12 col-md-7 col-lg-7',
-    half: 'col-sm-13 col-md-6 col-lg-6',
+    half: 'col-sm-12 col-md-6 col-lg-6',
     fourth: '', // Special case handled separately
     'they-wear-our-faces': 'col-sm-12 col-md-6 col-lg-6 col-xl-7',
   };
-  return sizeMap[size] || 'col-sm-12 col-md-5 col-lg-5';
+  return sizeMap[size] || 'col-sm-12 col-md-6 col-lg-6';
 };
 
 // Helper function to apply background styles

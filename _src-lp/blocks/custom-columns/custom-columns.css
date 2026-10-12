@@ -1,39 +1,99 @@
-.custom-columns {
+.custom-columns-container.blue-gradient-gasa picture img {
+  border-radius: 0;
+}
+.custom-columns-container .custom-columns {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: 24px;
   width: 100%;
   align-items: start;
 }
-.custom-columns > div {
+.custom-columns-container .custom-columns.gradient-dark-blue-bck {
+  padding: 0 3em;
+}
+@media (width <= 768px) {
+  .custom-columns-container .custom-columns.gradient-dark-blue-bck {
+    padding: 0 1em;
+  }
+}
+@media (width <= 998px) {
+  .custom-columns-container .custom-columns.gradient-dark-blue-bck table tr td {
+    width: 100%;
+    display: block;
+  }
+}
+.custom-columns-container .custom-columns.gradient-dark-blue-bck table tr td:last-of-type {
+  width: 30em;
+}
+@media (width <= 989px) {
+  .custom-columns-container .custom-columns.gradient-dark-blue-bck table tr td:last-of-type {
+    width: 100%;
+  }
+}
+.custom-columns-container .custom-columns.gradient-dark-blue-bck h2 {
+  font-size: var(--body-font-size-xl);
+  line-height: var(--body-line-height-xl);
+  font-weight: normal;
+  margin: 0;
+}
+@media (width <= 768px) {
+  .custom-columns-container .custom-columns.gradient-dark-blue-bck h2 {
+    font-size: var(--body-font-size-m3);
+    line-height: var(--body-line-height-m3);
+  }
+}
+.custom-columns-container .custom-columns.gradient-dark-blue-bck img {
+  height: 99px;
+  margin-bottom: 1em;
+}
+@media (width <= 768px) {
+  .custom-columns-container .custom-columns.gradient-dark-blue-bck img {
+    height: auto;
+    width: 200px;
+    margin: 1em 0;
+  }
+}
+.custom-columns-container .custom-columns.gradient-dark-blue-bck p {
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+}
+.custom-columns-container .custom-columns > div {
   min-width: 0;
   width: 100%;
   align-self: start;
 }
-.custom-columns {
+.custom-columns-container .custom-columns {
   /*
-   * Only the column containing the standalone image
-   */
+  * Only the column containing the standalone image
+  */
 }
-.custom-columns > div:has(> div > picture) {
+.custom-columns-container .custom-columns > div:has(> div > picture) {
   align-self: stretch;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--baby-blue-color-v3);
+  border-radius: 16px;
 }
-.custom-columns > div:has(> div > picture) > div {
+.custom-columns-container .custom-columns > div:has(> div > picture) > div {
   width: 100%;
 }
-.custom-columns picture, .custom-columns img {
+.custom-columns-container .custom-columns picture, .custom-columns-container .custom-columns img {
   display: block;
   max-width: 100%;
+  border-radius: 16px;
 }
-.custom-columns {
+@media (width <= 768px) {
+  .custom-columns-container .custom-columns picture, .custom-columns-container .custom-columns img {
+    margin: 0 auto;
+  }
+}
+.custom-columns-container .custom-columns {
   /*
-   * Tables
-   */
+  * Tables
+  */
 }
-.custom-columns table {
+.custom-columns-container .custom-columns table {
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -42,101 +102,101 @@
   border-spacing: 0;
   table-layout: fixed;
 }
-.custom-columns table.smaller-icons .cell-icon .icon, .custom-columns table.smaller-icons .cell-icon img {
+.custom-columns-container .custom-columns table.smaller-icons .cell-icon .icon, .custom-columns-container .custom-columns table.smaller-icons .cell-icon img {
   width: 20px;
 }
-.custom-columns table .cell-icon img {
+.custom-columns-container .custom-columns table .cell-icon img {
   width: 25px;
 }
-.custom-columns table p, .custom-columns table td {
-  font-size: 15px;
-  line-height: 22px;
+.custom-columns-container .custom-columns table p, .custom-columns-container .custom-columns table td {
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
 }
-.custom-columns table tr,
-.custom-columns table td,
-.custom-columns table th {
+.custom-columns-container .custom-columns table tr,
+.custom-columns-container .custom-columns table td,
+.custom-columns-container .custom-columns table th {
   border: 0;
 }
-.custom-columns table td,
-.custom-columns table th {
+.custom-columns-container .custom-columns table td,
+.custom-columns-container .custom-columns table th {
   vertical-align: top;
 }
-.custom-columns p {
+.custom-columns-container .custom-columns p {
   margin: 0;
 }
-.custom-columns p em {
+.custom-columns-container .custom-columns p em {
   vertical-align: super;
   font-size: 0.75em;
   line-height: 0;
   font-style: normal;
   font-weight: bold;
 }
-.custom-columns p em a {
+.custom-columns-container .custom-columns p em a {
   color: blue;
 }
-.custom-columns {
+.custom-columns-container .custom-columns {
   /*
-   * Table styles
-   */
+  * Table styles
+  */
 }
-.custom-columns .table-heading {
+.custom-columns-container .custom-columns .table-heading {
   color: var(--darker-blue-color);
 }
-.custom-columns .table-heading td {
+.custom-columns-container .custom-columns .table-heading td {
   font-size: 17px;
   padding-bottom: 0 !important;
 }
-.custom-columns table.white-style {
+.custom-columns-container .custom-columns table.white-style {
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
 }
-.custom-columns table.white-style td {
+.custom-columns-container .custom-columns table.white-style td {
   padding: 16px;
 }
-.custom-columns table.blue-style {
+.custom-columns-container .custom-columns table.blue-style {
   background: white;
   border-radius: 16px;
   overflow: hidden;
 }
-.custom-columns table.blue-style .table-heading {
+.custom-columns-container .custom-columns table.blue-style .table-heading {
   color: var(--darker-blue-color);
 }
-.custom-columns table.blue-style tr:not(.table-heading) .cell-text strong {
+.custom-columns-container .custom-columns table.blue-style tr:not(.table-heading) .cell-text strong {
   font-size: 24px;
 }
-.custom-columns table.blue-style td {
+.custom-columns-container .custom-columns table.blue-style td {
   padding: 16px 10px;
 }
-.custom-columns table.red-style {
+.custom-columns-container .custom-columns table.red-style {
   background: var(--light-pink-color);
   border-radius: 16px;
   overflow: hidden;
 }
-.custom-columns table.red-style .table-heading {
+.custom-columns-container .custom-columns table.red-style .table-heading {
   color: var(--red-color);
 }
-.custom-columns table.red-style td {
+.custom-columns-container .custom-columns table.red-style td {
   padding: 16px;
 }
-.custom-columns {
+.custom-columns-container .custom-columns {
   /*
-   * Icon + text
-   */
+  * Icon + text
+  */
 }
-.custom-columns .cell-content {
+.custom-columns-container .custom-columns .cell-content {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   width: 100%;
 }
-.custom-columns .cell-icon {
+.custom-columns-container .custom-columns .cell-icon {
   display: flex;
   flex: 0 0 auto;
   align-items: flex-start;
   justify-content: center;
 }
-.custom-columns .cell-icon .icon {
+.custom-columns-container .custom-columns .cell-icon .icon {
   width: auto;
   height: auto;
   display: flex;
@@ -144,34 +204,35 @@
   justify-content: center;
   flex: 0 0 auto;
 }
-.custom-columns .cell-text {
+.custom-columns-container .custom-columns .cell-text {
   flex: 1 1 auto;
   min-width: 0;
   overflow-wrap: anywhere;
 }
-.custom-columns .cell-text .cell-title {
+.custom-columns-container .custom-columns .cell-text .cell-title {
   margin: 0 0 4px;
 }
-.custom-columns .cell-text .cell-title strong {
-  font-size: 17px;
+.custom-columns-container .custom-columns .cell-text .cell-title strong {
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
   display: inline-block;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
-.custom-columns .cell-text .cell-description {
+.custom-columns-container .custom-columns .cell-text .cell-description {
   margin: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
-.custom-columns .cell-text .cell-description br {
+.custom-columns-container .custom-columns .cell-text .cell-description br {
   display: none;
 }
-.custom-columns {
+.custom-columns-container .custom-columns {
   /*
-   * NEW badge
-   */
+  * NEW badge
+  */
 }
-.custom-columns .badge-new {
+.custom-columns-container .custom-columns .badge-new {
   display: inline-block;
   padding: 2px 8px;
   border: 0;
@@ -184,63 +245,68 @@
   text-decoration: none;
   vertical-align: middle;
 }
-.custom-columns {
+.custom-columns-container .custom-columns {
   /*
-   * Multiple tables
-   */
+  * Multiple tables
+  */
 }
-.custom-columns > div > div {
+.custom-columns-container .custom-columns > div > div {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-.custom-columns {
+.custom-columns-container .custom-columns {
   /*
-   * Tablet
-   */
+  * Tablet
+  */
 }
 @media (width <= 998px) {
-  .custom-columns {
+  .custom-columns-container .custom-columns {
     display: flex;
     flex-direction: column;
     gap: 24px;
   }
 }
-.custom-columns {
+.custom-columns-container .custom-columns {
   /*
-   * Mobile
-   */
+  * Mobile
+  */
 }
 @media (width <= 599px) {
-  .custom-columns {
+  .custom-columns-container .custom-columns {
     display: flex;
     flex-direction: column;
     gap: 24px;
   }
-  .custom-columns table td {
+  .custom-columns-container .custom-columns table td {
     width: 100%;
     display: block;
   }
-  .custom-columns > div {
+  .custom-columns-container .custom-columns > div {
     width: 100%;
     align-self: start;
   }
-  .custom-columns {
+  .custom-columns-container .custom-columns {
     /*
-     * Only image column
-     */
+    * Only image column
+    */
   }
-  .custom-columns > div:has(> div > picture) {
+  .custom-columns-container .custom-columns > div:has(> div > picture) {
     align-self: auto;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .custom-columns > div:has(> div > picture) > div {
+  .custom-columns-container .custom-columns > div:has(> div > picture) > div {
     width: 100%;
   }
-  .custom-columns > div > div {
+  .custom-columns-container .custom-columns > div > div {
     width: 100%;
   }
+}
+
+html[lang=de] .custom-columns-container .custom-columns .cell-text .cell-title strong, html[lang=nl] .custom-columns-container .custom-columns .cell-text .cell-title strong {
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
 }

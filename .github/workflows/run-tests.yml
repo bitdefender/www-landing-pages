@@ -8,6 +8,11 @@ on:
     types:
       - completed
 
+# A newer push replaces the run still in progress for the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.event.workflow_run.head_branch || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   setup-nodejs:
     runs-on: ubuntu-latest
@@ -56,12 +61,15 @@ jobs:
               github.rest.pulls.listFiles,
               { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
             );
+            const fs = require('fs');
             const files = [...new Set(
               githubData
               .map(githubInfo => githubInfo.filename)
-              .filter(filePath => filePath.includes('block'))
+              .filter(filePath => filePath.startsWith('_src-lp/blocks/'))
               .map(filePath => filePath.split('/')[2])
-            )];
+            )]
+              // skip blocks the PR deletes
+              .filter(blockName => fs.existsSync(`_src-lp/blocks/${blockName}`));
             return files;
 
   snapshots-tests:
@@ -81,6 +89,7 @@ jobs:
         run: npm run test:snapshots
         env:
           GI_KEY: ${{ secrets.GI_KEY }}
+          GI_IMPORT_TEST_ID: ${{ vars.GI_IMPORT_TEST_ID }}
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
           CHANGED_FILES: ${{ needs.detect-changes.outputs.changed_components }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}

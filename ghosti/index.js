@@ -7,6 +7,9 @@ const {
   FETCH_TIMEOUT,
   EXCLUDED_SNAPSHOT_BLOCKS,
   MANDATORY_TESTS_SUITE_ID,
+  TESTS_VIEWPORTS,
+  MAX_REQUESTS_PER_SECOND,
+  MAX_REQUESTS_PER_PAGE,
   logSuccess,
   logError,
   logWarning
@@ -18,12 +21,35 @@ const hlxEnv = {
 const BRANCH_NAME = process.env.BRANCH_NAME;
 const GI_KEY = process.env.GI_KEY;
 const CHANGED_FILES = process.env.CHANGED_FILES;
+const GI_IMPORT_TEST_ID = process.env.GI_IMPORT_TEST_ID;
 const GhostInspector = require('ghost-inspector')(GI_KEY);
 
 const featureBranchEnvironmentHostname = `${BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.STAGE}`
 const featureBranchEnvironmentBaseUrl = `https://${BRANCH_NAME || 'main'}--www-landing-pages--bitdefender.aem.${hlxEnv.PROD}`;
 
 (async () => {
+  const pagesPerSecond = Math.max(1, Math.floor(MAX_REQUESTS_PER_SECOND / MAX_REQUESTS_PER_PAGE));
+  let startedPages = 0;
+  let pageSlotQueue = Promise.resolve();
+
+  // Shared by all suites so their combined page loads stay under the rate limit
+  const waitForPageSlot = () => {
+    pageSlotQueue = pageSlotQueue.then(async () => {
+      if (startedPages > 0 && startedPages % pagesPerSecond === 0) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+      startedPages += 1;
+    });
+    return pageSlotQueue;
+  };
+
+  const executeTestOnViewports = (testId, startUrl) => Promise.all(TESTS_VIEWPORTS.map(async (viewport) => {
+    await waitForPageSlot();
+    return fetch(`https://api.ghostinspector.com/v1/tests/${testId}/execute/?apiKey=${GI_KEY}&startUrl=${encodeURIComponent(startUrl)}&viewport=${viewport}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT)
+    }).then((res) => res.json());
+  }));
+
   const snapshotIsPassing = ({ screenshotComparePassing }) => {
     return screenshotComparePassing === true;
   }
@@ -83,45 +109,40 @@ const featureBranchEnvironmentBaseUrl = `https://${BRANCH_NAME || 'main'}--www-l
     const snapshotSuiteTests = await GhostInspector.getSuiteTests(SNAPSHOTS_SUITE_ID);
 
     const snapshotsPromises = blockSnapshotsToTest.map((testName) => {
+      const startUrl = `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`;
       const testAlreadyExists = snapshotSuiteTests.find((originalTest) => originalTest.name === testName);
       if (testAlreadyExists) {
-        return fetch(`https://api.ghostinspector.com/v1/tests/${testAlreadyExists._id}/execute/?apiKey=${GI_KEY}&startUrl=${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testAlreadyExists.name}`, {
-          signal: AbortSignal.timeout(FETCH_TIMEOUT)
-        }).then((res) => res.json());
+        return executeTestOnViewports(testAlreadyExists._id, startUrl);
       }
 
       console.log('New test was imported', testName);
       return GhostInspector.importTest(SNAPSHOTS_SUITE_ID, new SnapshotBlockTest({
         name: testName,
-        startUrl: `${featureBranchEnvironmentBaseUrl}/${PATH_TO_BLOCKS}/${testName}`,
+        startUrl,
+        importTestId: GI_IMPORT_TEST_ID,
       }).generate())
-        .then(({ _id }) => fetch(`https://api.ghostinspector.com/v1/tests/${_id}/execute/?apiKey=${GI_KEY}`).then((res) => res.json()));
+        .then(({ _id }) => executeTestOnViewports(_id, startUrl));
     });
 
-    // Await the completion of all promises in the current batch before proceeding to the next
-    return await Promise.all(snapshotsPromises);
+    return (await Promise.all(snapshotsPromises)).flat();
   };
 
   const runMandatoryTests = async () => {
     const mandatoryTests = await GhostInspector.getSuiteTests(MANDATORY_TESTS_SUITE_ID);
-    const allMandatoryTestCalls = [];
-    mandatoryTests.forEach(test => {
+
+    const allMandatoryTestCalls = mandatoryTests.map((test) => {
       const url = new URL(test.startUrl);
       url.hostname = featureBranchEnvironmentHostname;
-
-      const testCall = fetch(`https://api.ghostinspector.com/v1/tests/${test._id}/execute/?apiKey=${GI_KEY}&startUrl=${url.toString()}`, {
-          signal: AbortSignal.timeout(FETCH_TIMEOUT)
-        }).then((res) => res.json())
-      allMandatoryTestCalls.push(testCall);
+      return executeTestOnViewports(test._id, url.toString());
     });
 
-    return await Promise.all(allMandatoryTestCalls);
+    return (await Promise.all(allMandatoryTestCalls)).flat();
   };
 
-  try {    
+  try {
     const allTestResults = (await Promise.all([runComponentTests(), runMandatoryTests()])).flat(1);
     // Once all batches are processed, show the full logs of the snapshot tests
-    showSnapshotTestsFullLogs(allTestResults);
+    await showSnapshotTestsFullLogs(allTestResults);
   } catch (err) {
     console.error(err);
     process.exit(1);

@@ -622,6 +622,22 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   }
 }
 
+.section.banner-with-cards-container-new {
+  max-width: 1332px;
+  margin: 0 auto;
+}
+.section.banner-with-cards-container-new > div {
+  max-width: 1332px;
+}
+.section.banner-with-cards-container-new .banner-with-cards-wrapper p:last-child {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.section.banner-with-cards-container-new .banner-with-cards-wrapper p:last-child img {
+  height: 46px;
+}
+
 .section.banner-with-cards-container .imgBox {
   position: relative;
   align-self: stretch;
@@ -927,5 +943,13 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   }
   .section.banner-with-cards-container .banner-with-cards.edeka .prodBox-wrapper {
     margin-top: 25px;
+  }
+  .section.banner-with-cards-container-new {
+    padding-left: var(--body-padding);
+    padding-right: var(--body-padding);
+  }
+  .section.banner-with-cards-container-new .customWrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }

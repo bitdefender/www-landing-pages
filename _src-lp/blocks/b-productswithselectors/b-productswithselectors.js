@@ -1,5 +1,5 @@
 import { productAliases } from '../../scripts/scripts.js';
-import { matchHeights, updateProductsList } from '../../scripts/utils.js';
+import { matchHeights, updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   /// ///////////////////////////////////////////////////////////////////////
@@ -13,7 +13,7 @@ export default function decorate(block) {
   } = metaData;
 
   if (backgroundImage) {
-    parentSelectorStyle.backgroundImage = `url(${backgroundImage.split('?')[0]})`;
+    parentSelectorStyle.backgroundImage = `url(${getBackgroundImageUrl(backgroundImage)})`;
     if (backgroundColor) {
       parentSelectorStyle.backgroundSize = '100% auto';
       parentSelectorStyle.backgroundColor = backgroundColor;

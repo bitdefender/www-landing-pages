@@ -1,6 +1,8 @@
 import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { matchHeights, updateProductsList, adobeMcAppendVisitorId } from '../../scripts/utils.js';
+import {
+  matchHeights, updateProductsList, adobeMcAppendVisitorId, getBackgroundImageUrl,
+} from '../../scripts/utils.js';
 
 function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, radio1, radio2) {
   const radioBoxParent = document.createElement('div');
@@ -161,12 +163,12 @@ export default function decorate(block) {
 
   if (!show && pictureEl && pictureEl.querySelector('img')) {
     if (blockBackground) {
-      block.style.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
+      block.style.background = `url(${getBackgroundImageUrl(pictureEl.querySelector('img').getAttribute('src'))}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
     } else {
-      parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+      parentBlockStyle.background = `url(${getBackgroundImageUrl(pictureEl.querySelector('img').getAttribute('src'))}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
       if (imageCover === 'full-right') {
-        parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
+        parentBlockStyle.background = `url(${getBackgroundImageUrl(pictureEl.querySelector('img').getAttribute('src'))}) no-repeat top right / auto ${imageHeight || '100%'} ${backgroundColor || '#000'}`;
       }
     }
   }

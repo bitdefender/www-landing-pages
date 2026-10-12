@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 400px;
+  min-height: 340px;
   border-radius: 25px;
   color: white;
   text-align: center;
@@ -33,14 +33,15 @@
 }
 
 .particle-background h2 {
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
   margin: 0 auto;
-  line-height: 42px;
   max-width: 80%;
 }
 
 .particle-background p {
-  font-size: 18px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
 }
 
 .usbs-brand .particle-background div:last-of-type p {
@@ -53,14 +54,17 @@
 }
 
 @media (width <= 768px) {
+  .particle-background div {
+    padding: 0 10px;
+  }
   .particle-background h2 {
-    line-height: 30px;
+    max-width: 100%;
   }
 }
 @media screen and (width >= 768px) {
   .particle-background h2 {
-    font-size: 40px;
-    line-height: 40px;
+    font-size: var(--body-font-size-l);
+    line-height: var(--body-line-height-l);
   }
   .particle-background #ts-particles {
     display: block;

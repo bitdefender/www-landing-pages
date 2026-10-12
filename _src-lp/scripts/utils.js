@@ -1083,6 +1083,19 @@ export function getLocalizedResourceUrl(resourceName) {
   return `${pathnameAsArray.join('/')}/${resourceName}`;
 }
 
+/**
+ * Image URL for a CSS background. EDS media_ images keep the resize/WebP params;
+ * without them the CDN serves the original upload. Other URLs (SVG, external) are returned
+ * without their query string, as before.
+ * @param {String} src - img src or image URL from metadata
+ */
+export function getBackgroundImageUrl(src) {
+  if (!src) return src;
+  const [path] = src.split('?');
+  if (!/\/media_[^/]+\.(jpe?g|png)$/i.test(path)) return path;
+  return `${path}?width=2000&format=webply&optimize=medium`;
+}
+
 export function generateUuidv4() {
   // eslint-disable-next-line no-bitwise,no-mixed-operators
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
@@ -1190,116 +1203,109 @@ export function debounce(func, wait) {
   };
 }
 
-// General function to match the height of elements based on a selector
-export async function matchHeights(targetNode, selector, onMobile = undefined) {
-  const resetHeights = () => {
-    const elements = targetNode.querySelectorAll(selector);
+// Registry of active matchers, so repeated calls for the same node + selector
+// re-run the existing matcher instead of stacking new observers and listeners.
+const dimensionMatchers = new WeakMap();
+
+// Keeps the given dimension of all elements matching a selector in sync.
+// All triggers (DOM changes, resizes, font loading) are batched into a single
+// microtask, which runs before the next paint and, unlike requestAnimationFrame,
+// also in hidden tabs and headless screenshots. The reset + re-apply happens in
+// one synchronous pass, so the ResizeObserver only fires on real size changes
+// instead of feeding back into itself and causing layout shifts.
+function matchDimension(targetNode, selector, { property, measure, isEnabled }) {
+  if (!targetNode) return;
+
+  let nodeMatchers = dimensionMatchers.get(targetNode);
+  if (!nodeMatchers) {
+    nodeMatchers = new Map();
+    dimensionMatchers.set(targetNode, nodeMatchers);
+  }
+
+  const key = `${property}|${selector}`;
+  const existingMatcher = nodeMatchers.get(key);
+  if (existingMatcher) {
+    existingMatcher.isEnabled = isEnabled;
+    existingMatcher.schedule();
+    return;
+  }
+
+  const matcher = { isEnabled };
+  const observedElements = new Set();
+  let isScheduled = false;
+
+  const adjust = () => {
+    isScheduled = false;
+    const elements = Array.from(targetNode.querySelectorAll(selector));
+
+    // reset, measure and apply in one pass, so the reset is never painted
     elements.forEach((element) => {
-      element.style.minHeight = '';
+      element.style[property] = '';
+    });
+
+    let newValue = '';
+    if (matcher.isEnabled() && elements.length) {
+      newValue = `${Math.max(...elements.map(measure))}px`;
+    }
+
+    elements.forEach((element) => {
+      element.style[property] = newValue;
     });
   };
 
-  const adjustHeights = () => {
-    if (onMobile || window.innerWidth >= 768) {
-      resetHeights();
-      const elements = targetNode.querySelectorAll(selector);
-      const elementsHeight = Array.from(elements).map((element) => element.offsetHeight);
-      const maxHeight = Math.max(...elementsHeight);
+  const resizeObserver = typeof ResizeObserver !== 'undefined'
+    ? new ResizeObserver(() => matcher.schedule())
+    : null;
 
-      elements.forEach((element) => {
-        element.style.minHeight = `${maxHeight}px`;
-      });
-    } else {
-      resetHeights();
-    }
-  };
-
-  const matchHeightsCallback = (mutationsList) => {
-    Array.from(mutationsList).forEach((mutation) => {
-      if (mutation.type === 'childList') {
-        adjustHeights();
+  const observeElements = () => {
+    targetNode.querySelectorAll(selector).forEach((element) => {
+      if (observedElements.has(element)) return;
+      observedElements.add(element);
+      if (resizeObserver) {
+        resizeObserver.observe(element);
       }
     });
   };
 
-  const observer = new MutationObserver(matchHeightsCallback);
-  const resizeObserver = new ResizeObserver(debounce((entries) => {
-    // eslint-disable-next-line no-unused-vars
-    entries.forEach((entry) => {
-      adjustHeights();
-    });
-  }), 100);
+  matcher.schedule = () => {
+    if (isScheduled) return;
+    isScheduled = true;
+    queueMicrotask(adjust);
+  };
 
-  if (targetNode) {
-    observer.observe(targetNode, { childList: true, subtree: true });
-  }
-
-  window.addEventListener('resize', () => {
-    adjustHeights();
+  const mutationObserver = new MutationObserver(() => {
+    observeElements();
+    matcher.schedule();
   });
+  mutationObserver.observe(targetNode, { childList: true, characterData: true, subtree: true });
 
-  const elements = targetNode.querySelectorAll(selector);
-  elements.forEach((element) => {
-    resizeObserver.observe(element);
+  window.addEventListener('resize', matcher.schedule);
+  // text that shrinks after a font swap doesn't trigger the ResizeObserver,
+  // because the element is held by its min-height / min-width
+  document.fonts?.ready.then(matcher.schedule);
+  window.addEventListener('load', matcher.schedule, { once: true });
+
+  nodeMatchers.set(key, matcher);
+  observeElements();
+  adjust();
+}
+
+// General function to match the height of elements based on a selector
+export async function matchHeights(targetNode, selector, onMobile = undefined) {
+  matchDimension(targetNode, selector, {
+    property: 'minHeight',
+    measure: (element) => element.offsetHeight,
+    isEnabled: () => onMobile || window.innerWidth >= 768,
   });
-
-  adjustHeights();
 }
 
 // General function to match the width of elements based on a selector
 export async function matchWidths(targetNode, selector, windowMaxInnerWidth = 768) {
-  const resetWidths = () => {
-    const elements = targetNode.querySelectorAll(selector);
-    elements.forEach((element) => {
-      element.style.minWidth = '';
-    });
-  };
-
-  const adjustWidths = () => {
-    if (window.innerWidth >= windowMaxInnerWidth) {
-      resetWidths();
-      const elements = targetNode.querySelectorAll(selector);
-      const elementsWidth = Array.from(elements).map((element) => element.offsetWidth);
-      const maxWidth = Math.max(...elementsWidth);
-
-      elements.forEach((element) => {
-        element.style.minWidth = `${maxWidth}px`;
-      });
-    } else {
-      resetWidths();
-    }
-  };
-
-  const matchWidthsCallback = (mutationsList) => {
-    Array.from(mutationsList).forEach((mutation) => {
-      if (mutation.type === 'childList') {
-        adjustWidths();
-      }
-    });
-  };
-
-  const observer = new MutationObserver(matchWidthsCallback);
-  const resizeObserver = new ResizeObserver(debounce((entries) => {
-    // eslint-disable-next-line no-unused-vars
-    entries.forEach((entry) => {
-      adjustWidths();
-    });
-  }), 100);
-
-  if (targetNode) {
-    observer.observe(targetNode, { childList: true, subtree: true });
-  }
-
-  window.addEventListener('resize', () => {
-    adjustWidths();
+  matchDimension(targetNode, selector, {
+    property: 'minWidth',
+    measure: (element) => element.offsetWidth,
+    isEnabled: () => window.innerWidth >= windowMaxInnerWidth,
   });
-
-  const elements = targetNode.querySelectorAll(selector);
-  elements.forEach((element) => {
-    resizeObserver.observe(element);
-  });
-
-  adjustWidths();
 }
 
 /**
@@ -1469,13 +1475,98 @@ export async function submitWithTurnstile({
 }
 
 /**
+ * Moves all of element's children into wrapper, then appends wrapper to element.
+ * @param {HTMLElement} element
+ * @param {HTMLElement} wrapper
+ * @returns {HTMLElement} wrapper
+ */
+const wrapChildren = (element, wrapper) => {
+  while (element.firstChild) {
+    wrapper.appendChild(element.firstChild);
+  }
+
+  element.appendChild(wrapper);
+  return wrapper;
+};
+
+/**
+ * @param {HTMLElement} element
+ * @param {object} storeProperties
+ * @param {number} storeProperties.devices
+ * @param {number} storeProperties.subscription
+ * @param {string} storeProperties.storeEvent
+ * @returns {HTMLElement|undefined} the created bd-option
+ * @summary
+ * Modifies element into the following structure:
+ * ```html
+ * <bd-option>
+ *   initial element's children
+ * </bd-option>
+ * ```
+ */
+export const wrapChildrenWithOption = (element, {
+  devices,
+  subscription,
+  storeEvent = '',
+}) => {
+  if (!element || element.firstElementChild?.matches('bd-option')) {
+    return undefined;
+  }
+
+  const option = document.createElement('bd-option');
+  option.setAttribute('devices', devices?.trim());
+  option.setAttribute('subscription', subscription?.trim());
+  if (storeEvent) {
+    option.setAttribute('data-layer-event', storeEvent);
+  }
+
+  return wrapChildren(element, option);
+};
+
+/**
+ * @param {HTMLElement} element
+ * @param {object} storeProperties
+ * @param {string} storeProperties.productId
+ * @param {number} storeProperties.devices
+ * @param {number} storeProperties.subscription
+ * @param {string} storeProperties.storeEvent
+ * @returns {HTMLElement|undefined} the created bd-product
+ * @summary
+ * Modifies element into the following structure:
+ * ```html
+ * <bd-product>
+ *   <bd-option>
+ *     initial element's children
+ *   </bd-option>
+ * </bd-product>
+ * ```
+ */
+export const wrapChildrenWithProduct = (element, {
+  productId,
+  devices,
+  subscription,
+  storeEvent = '',
+}) => {
+  if (!element || element.firstElementChild?.matches('bd-product')) {
+    return undefined;
+  }
+
+  wrapChildrenWithOption(element, { devices, subscription, storeEvent });
+
+  const product = document.createElement('bd-product');
+  product.setAttribute('product-id', productId?.trim());
+
+  return wrapChildren(element, product);
+};
+
+/**
  * @param {HTMLElement} element
  * @param {object} storeProperties
  * @param {string} storeProperties.productId
  * @param {number} storeProperties.devices
  * @param {number} storeProperties.subscription
  * @param {boolean} storeProperties.ignoreEventsParent
- * @param {boolean} storeProperties.storeEvent
+ * @param {string} storeProperties.storeEvent
  * @summary
  * Modifies element into the following structure:
  * ```html
@@ -1499,26 +1590,14 @@ export const wrapChildrenWithStoreContext = (element, {
     return;
   }
 
+  wrapChildrenWithProduct(element, {
+    productId, devices, subscription, storeEvent,
+  });
+
   const context = document.createElement('bd-context');
   if (ignoreEventsParent) {
     context.setAttribute('ignore-events-parent', '');
   }
 
-  const product = document.createElement('bd-product');
-  product.setAttribute('product-id', productId?.trim());
-
-  const option = document.createElement('bd-option');
-  option.setAttribute('devices', devices?.trim());
-  option.setAttribute('subscription', subscription?.trim());
-  if (storeEvent) {
-    option.setAttribute('data-layer-event', storeEvent);
-  }
-
-  while (element.firstChild) {
-    option.appendChild(element.firstChild);
-  }
-
-  product.appendChild(option);
-  context.appendChild(product);
-  element.appendChild(context);
+  wrapChildren(element, context);
 };

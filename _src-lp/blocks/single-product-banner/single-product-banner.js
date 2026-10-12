@@ -1,6 +1,6 @@
 import Constants from '../../scripts/constants.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList } from '../../scripts/utils.js';
+import { updateProductsList, getBackgroundImageUrl } from '../../scripts/utils.js';
 
 let counter = 0;
 
@@ -39,7 +39,7 @@ export default function decorate(block) {
   if (imageCover) {
     imgPosition = `top ${imageCover}`;
   }
-  if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat ${imgPosition} / cover ${backgroundColor || '#000'}`;
+  if (pictureEl && pictureEl.querySelector('img')) parentBlockStyle.background = `url(${getBackgroundImageUrl(pictureEl.querySelector('img').getAttribute('src'))}) no-repeat ${imgPosition} / cover ${backgroundColor || '#000'}`;
 
   [...contentEl.querySelectorAll('table')].forEach((table) => {
     const aliasTr = table.querySelector('tr');

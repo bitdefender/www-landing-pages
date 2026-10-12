@@ -276,6 +276,27 @@ function replacePills(root) {
   });
 }
 
+/**
+ * Radios set the product id, which only bd-product handles, so they must sit
+ * directly under bd-product. Splits the card's bd-option around the radios:
+ * bd-product > [bd-option, .radios-container, bd-option]
+ */
+function moveRadiosUnderProduct(innerCard) {
+  const radios = innerCard.querySelector('.radios-container');
+  const option = radios?.parentElement;
+  if (!option?.matches('bd-option') || !option.parentElement?.matches('bd-product')) return;
+
+  const optionAfter = option.cloneNode(false);
+  // keep a single data layer event per card
+  optionAfter.removeAttribute('data-layer-event');
+  while (radios.nextSibling) {
+    optionAfter.appendChild(radios.nextSibling);
+  }
+
+  option.after(radios);
+  if (optionAfter.hasChildNodes()) radios.after(optionAfter);
+}
+
 function setSliderBoxVisibility(block, showFamilyBoxes) {
   block.querySelectorAll('.family-box').forEach((box) => {
     box.style.display = showFamilyBoxes ? 'grid' : 'none';
@@ -428,6 +449,7 @@ export default async function decorate(block) {
       }
 
       renderNanoBlocks(innerCard, undefined, idx);
+      moveRadiosUnderProduct(innerCard);
     }
   });
 

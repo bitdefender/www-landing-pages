@@ -1,7 +1,9 @@
 /* eslint-disable no-template-curly-in-string */
 import { loadCSS } from '../../scripts/lib-franklin.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { addScript, GLOBAL_EVENTS, updateProductsList } from '../../scripts/utils.js';
+import {
+  addScript, GLOBAL_EVENTS, updateProductsList, getBackgroundImageUrl,
+} from '../../scripts/utils.js';
 
 export default function decorate(block) {
   // get data attributes set in metaData
@@ -44,7 +46,7 @@ export default function decorate(block) {
 
     let onePicture = false;
     if (pictureBF && !pictureCM) {
-      parentBlock.style.background = `url(${pictureBF.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat right top / 1400px 100% ${backgroundColor || '#000'}`;
+      parentBlock.style.background = `url(${getBackgroundImageUrl(pictureBF.querySelector('img').getAttribute('src'))}) no-repeat right top / 1400px 100% ${backgroundColor || '#000'}`;
       onePicture = true;
     }
 

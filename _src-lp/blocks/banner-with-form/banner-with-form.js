@@ -1,6 +1,6 @@
 import { sendAnalyticsPageLoadedEvent } from '../../scripts/adobeDataLayer.js';
 import { productAliases } from '../../scripts/scripts.js';
-import { updateProductsList, GLOBAL_EVENTS } from '../../scripts/utils.js';
+import { updateProductsList, GLOBAL_EVENTS, getBackgroundImageUrl } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const parentBlock = block.closest('.section');
@@ -183,10 +183,10 @@ export default function decorate(block) {
   }
 
   if (imageCover && imageCover.indexOf('small') !== -1) {
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
+    blockStyle.background = `url(${getBackgroundImageUrl(pictureEl.querySelector('img').getAttribute('src'))}) no-repeat 0 0 / cover ${backgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
-    blockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+    blockStyle.background = `url(${getBackgroundImageUrl(pictureEl.querySelector('img').getAttribute('src'))}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
 
     block.innerHTML = `
     <div class="container-fluid">
@@ -202,10 +202,10 @@ export default function decorate(block) {
       </div>
     `;
   } else if (imageCover) {
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
+    parentBlockStyle.background = `url(${getBackgroundImageUrl(pictureEl.querySelector('img').getAttribute('src'))}) no-repeat top center / 100% ${backgroundColor || '#000'}`;
 
     const imageCoverVar = imageCover.split('-')[1];
-    parentBlockStyle.background = `url(${pictureEl.querySelector('img').getAttribute('src').split('?')[0]}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
+    parentBlockStyle.background = `url(${getBackgroundImageUrl(pictureEl.querySelector('img').getAttribute('src'))}) no-repeat top ${imageCoverVar} / auto 100% ${backgroundColor || '#000'}`;
 
     if (contentSize === 'fourth') {
       block.innerHTML = `

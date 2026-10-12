@@ -7,3 +7,5 @@ node_modules/*
 helix-importer-ui
 .DS_Store
 .env
+# dependencies installed by agent skill scripts
+.agents/**/node_modules/

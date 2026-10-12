@@ -1,5 +1,6 @@
 import {
   addScript,
+  getBackgroundImageUrl,
   getLocalizedResourceUrl
 } from "../../_src-lp/scripts/utils.js";
 
@@ -80,6 +81,25 @@ describe('utils.js', () => {
       const footerPath = getLocalizedResourceUrl('footer');
 
       expect(footerPath).toEqual(`${regionPathNameBasePath}/footer`);
+    });
+  });
+
+  describe('getBackgroundImageUrl', () => {
+    it('should keep the EDS resize/WebP params for media_ images', () => {
+      expect(getBackgroundImageUrl('./media_1a2b.jpeg?width=750&format=jpeg&optimize=medium'))
+        .toEqual('./media_1a2b.jpeg?width=2000&format=webply&optimize=medium');
+      expect(getBackgroundImageUrl('/lp/media_1a2b.PNG'))
+        .toEqual('/lp/media_1a2b.PNG?width=2000&format=webply&optimize=medium');
+    });
+
+    it('should only strip the query string from other images', () => {
+      expect(getBackgroundImageUrl('./media_1a2b.svg?width=750')).toEqual('./media_1a2b.svg');
+      expect(getBackgroundImageUrl('https://example.com/bg.jpg?v=2')).toEqual('https://example.com/bg.jpg');
+    });
+
+    it('should return empty values unchanged', () => {
+      expect(getBackgroundImageUrl(undefined)).toBeUndefined();
+      expect(getBackgroundImageUrl(null)).toBeNull();
     });
   });
 });

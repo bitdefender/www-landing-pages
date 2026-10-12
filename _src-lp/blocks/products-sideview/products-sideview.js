@@ -319,6 +319,8 @@ function getBlueTagsAndListItems(block) {
 
 function updateBenefits(block, selectEl, metadata) {
   if (!metadata) return;
+  const { firstBenefitLabel, secondBenefitLabel, thirdBenefitLabel } = block.closest('.section').dataset;
+  const benefitLabels = [firstBenefitLabel, secondBenefitLabel, thirdBenefitLabel];
 
   // eslint-disable-next-line no-unused-vars
   const { blueTags, listItems } = getBlueTagsAndListItems(block);
@@ -353,6 +355,13 @@ function updateBenefits(block, selectEl, metadata) {
 
       // Update the benefits-placeholder span
       const placeholder = li.querySelector('.benefits-placeholder');
+      // Pick singular/plural label from section metadata, e.g. "server, servers"
+      const benefits = benefitLabels[i];
+      const [benefitsSingular, benefitsPlural] = benefits?.split(',').map((label) => label.trim()) ?? [];
+      const textNode = [...li.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+      if (textNode && benefits) {
+        textNode.textContent = Number(displayValue) === 1 ? ` ${benefitsSingular}` : ` ${benefitsPlural}`;
+      }
       if (placeholder) {
         placeholder.textContent = `${displayValue}`;
       }
@@ -363,17 +372,20 @@ function updateBenefits(block, selectEl, metadata) {
 function renderSelector(block, ...options) {
   const metadata = block.parentElement.parentElement.dataset;
   const membersText = metadata.membersText ?? ',';
+  const labelText = metadata.labelText;
   const selectorOptions = options
     .filter((option) => option && !Number.isNaN(Number(option)))
     .map((opt) => Number(opt));
   const defaultSelection = Number(state.blockDataset.defaultselection) || selectorOptions[1];
   const el = document.createElement('div');
+  const selectId = `members-select-${Math.random().toString(36).substr(2, 9)}`;
   el.classList.add('products-sideview-selector');
   el.innerHTML = `
-      <select>
+      ${labelText ? `<label for="${selectId}">${labelText.trim() !== ',' ? labelText : 'Choose number of members'}</label>` : ''}
+      <select id="${selectId}">
           ${selectorOptions.sort((first, second) => first - second).map((opt) => `
             <option value="${opt}" ${opt === defaultSelection ? 'selected' : ''}>${opt} ${opt === 1 ? membersText.split(',')[0] : membersText.split(',')[1]}</option>
-          `).join('/n')}
+          `).join('')}
       </select>
     `;
   const selectEl = el.querySelector('select');

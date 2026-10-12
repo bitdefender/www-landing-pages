@@ -6,7 +6,7 @@ const JIRA_EMAIL = process.env.JIRA_EMAIL;
 const LLM_API_KEY = process.env.LLM_API_KEY;
 const BRANCH_NAME = process.env.BRANCH_NAME;
 const TASK_NAME_REGEX = /\bdex-\d{4,}\b/gi;
-const TASK_NAME = BRANCH_NAME.match(TASK_NAME_REGEX)?.[0];
+const TASK_NAME = BRANCH_NAME?.match(TASK_NAME_REGEX)?.[0];
 const openai = new OpenAI({ apiKey: LLM_API_KEY });
 
 /**
@@ -64,7 +64,7 @@ const askWithImage = async (screenshotsInfo) => {
   } = screenshotsInfo;
 
   try {
-    const [description, comments] = await ticketData;
+    const [description, comments = []] = await ticketData;
     if (!description) {
       return 'Failed fetching Jira description. Final verdict: FAIL';
     }
