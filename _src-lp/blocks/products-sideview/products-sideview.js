@@ -319,6 +319,8 @@ function getBlueTagsAndListItems(block) {
 
 function updateBenefits(block, selectEl, metadata) {
   if (!metadata) return;
+  const { firstBenefitLabel, secondBenefitLabel, thirdBenefitLabel } = block.closest('.section').dataset;
+  const benefitLabels = [firstBenefitLabel, secondBenefitLabel, thirdBenefitLabel];
 
   // eslint-disable-next-line no-unused-vars
   const { blueTags, listItems } = getBlueTagsAndListItems(block);
@@ -353,6 +355,13 @@ function updateBenefits(block, selectEl, metadata) {
 
       // Update the benefits-placeholder span
       const placeholder = li.querySelector('.benefits-placeholder');
+      // Pick singular/plural label from section metadata, e.g. "server, servers"
+      const benefits = benefitLabels[i];
+      const [benefitsSingular, benefitsPlural] = benefits?.split(',').map((label) => label.trim()) ?? [];
+      const textNode = [...li.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+      if (textNode && benefits) {
+        textNode.textContent = Number(displayValue) === 1 ? ` ${benefitsSingular}` : ` ${benefitsPlural}`;
+      }
       if (placeholder) {
         placeholder.textContent = `${displayValue}`;
       }
