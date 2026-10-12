@@ -308,11 +308,14 @@ export async function loadLazy(doc) {
     await sendAnalyticsPageEvent();
     await sendAnalyticsUserInfo();
   }
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    'gtm.start': new Date().getTime(),
-    event: 'gtm.js',
-  });
+
+  if (typeof window !== 'undefined') {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    });
+  }
 
   loadFooter(doc.querySelector('footer'));
 

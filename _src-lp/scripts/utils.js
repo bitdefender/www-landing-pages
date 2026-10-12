@@ -1253,13 +1253,17 @@ function matchDimension(targetNode, selector, { property, measure, isEnabled }) 
     });
   };
 
-  const resizeObserver = new ResizeObserver(() => matcher.schedule());
+  const resizeObserver = typeof ResizeObserver !== 'undefined'
+    ? new ResizeObserver(() => matcher.schedule())
+    : null;
 
   const observeElements = () => {
     targetNode.querySelectorAll(selector).forEach((element) => {
       if (observedElements.has(element)) return;
       observedElements.add(element);
-      resizeObserver.observe(element);
+      if (resizeObserver) {
+        resizeObserver.observe(element);
+      }
     });
   };
 
