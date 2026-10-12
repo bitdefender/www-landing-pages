@@ -8,6 +8,10 @@
   margin-top: 0;
 }
 
+.columns.rounded .columns-img-col picture img {
+  border-radius: 20px;
+}
+
 .columns-container.narrow-columns .columns-wrapper {
   max-width: 800px;
 }
@@ -305,7 +309,6 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns > div > .columns-img-col img {
   display: block;
   max-width: 100%;
-  margin-left: -12px;
 }
 
 .columns-container.margin-left-0 .columns > div > .columns-img-col img {
@@ -1403,6 +1406,38 @@ main .columns-container.padding-0 .columns-wrapper {
   margin: 3em 0 0;
 }
 
+.columns-container.round-corners .columns div {
+  padding: 0;
+  align-items: unset;
+}
+
+.columns-container.round-corners .columns {
+  border-radius: 20px;
+}
+
+.columns-container.round-corners .columns img {
+  min-height: 100%;
+  margin-left: 0;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.columns-container.round-corners .columns > div > div:has(.text-content) {
+  display: flex;
+  padding: 30px 0;
+  align-items: center;
+}
+
+.columns-container.round-corners .columns div.text-content {
+  padding: 0 60px;
+  align-self: center;
+}
+
+@media (width > 991px) {
+  .columns > div > .columns-img-col {
+    margin: -6px 0 !important;
+  }
+}
 .columns-container.dynamic-awards .default-content-wrapper p {
   font-size: 14px;
   line-height: 1.31;
@@ -1985,6 +2020,10 @@ main .section.business-needs .columns-wrapper {
   .columns-container.blue-version.v2 table tr {
     flex-direction: column;
   }
+  .columns-container:not(.round-corners) .columns > div > .columns-img-col {
+    width: 100%;
+    margin: -8px 0 0 -46px !important;
+  }
 }
 @media (width <= 768px) {
   .columns h3 {
@@ -2003,6 +2042,15 @@ main .section.business-needs .columns-wrapper {
   }
   .columns p {
     font-size: 16px;
+  }
+  .columns-container:not(.round-corners) .columns > div > .columns-img-col {
+    margin: -15px 0 0 -15px !important;
+  }
+  .columns-container.round-corners .columns > div > div:has(.text-content) {
+    padding: 0;
+  }
+  .columns-container.round-corners .columns div.text-content {
+    padding: 0 20px;
   }
   .columns > div > .columns-img-col img {
     max-width: 100%;
