@@ -27,17 +27,79 @@ export default function decorate(block) {
 
   if (!content || !right) return;
 
-  const tables = right.querySelectorAll('table');
+  const tables = [...right.querySelectorAll('table')];
+
   const switcherTable = tables[0];
   const priceTable = tables[1];
   const buyTable = tables[2];
 
   if (!switcherTable || !priceTable || !buyTable) return;
 
-  /* Switcher */
-  const switcherCells = [...switcherTable.querySelectorAll('td')];
+  /*
+   * Convert table to div
+   */
+  const convertTable = (table, className) => {
+    const wrapper = document.createElement('div');
+
+    wrapper.className = className;
+
+    [...table.querySelectorAll(':scope > tbody > tr > td, :scope > tr > td')]
+      .forEach((td) => {
+        const cell = document.createElement('div');
+
+        cell.innerHTML = td.innerHTML;
+
+        wrapper.append(cell);
+      });
+
+    table.replaceWith(wrapper);
+
+    return wrapper;
+  };
+
+  /* Convert tables */
+
+  const switcher = convertTable(
+    switcherTable,
+    'card-switcher',
+  );
+
+  const price = convertTable(
+    priceTable,
+    'card-switcher-price-container',
+  );
+
+  const buy = convertTable(
+    buyTable,
+    'card-switcher-buy-container',
+  );
+
+  /*
+   * Price + switcher
+   */
+
+  const priceSwitcherRow = document.createElement('div');
+
+  priceSwitcherRow.className = 'card-switcher-price-row';
+
+  price.parentNode.insertBefore(
+    priceSwitcherRow,
+    price,
+  );
+
+  priceSwitcherRow.append(
+    price,
+    switcher,
+  );
+
+  /* =========================
+   * Switcher
+   * ========================= */
+
+  const switcherCells = [...switcher.children];
 
   switcherCells.forEach((cell, index) => {
+    cell.classList.add('card-switcher-cell');
     cell.dataset.product = index;
 
     if (index === 0) {
@@ -45,7 +107,10 @@ export default function decorate(block) {
     }
   });
 
-  /* Text variants */
+  /* =========================
+   * Text variants
+   * ========================= */
+
   content.querySelectorAll('li').forEach((li) => {
     if (!li.textContent.includes('|')) return;
 
@@ -62,11 +127,16 @@ export default function decorate(block) {
     `).join('');
   });
 
-  /* Prices */
-  const priceCells = priceTable.querySelectorAll('td');
+  /* =========================
+   * Prices
+   * ========================= */
+
+  const priceCells = [...price.children];
 
   const priceCell = priceCells[0];
   const saveCell = priceCells[1];
+
+  if (!priceCell) return;
 
   priceCell.innerHTML = productData.map((product, index) => `
     <div
@@ -91,12 +161,13 @@ export default function decorate(block) {
     `).join('');
   }
 
-  /* Buy buttons */
-  const buyCell = buyTable.querySelector('td');
+  /* =========================
+   * Buy buttons
+   * ========================= */
+  const existingButtons = [...buy.querySelectorAll('a')];
+  const buttonText = buy.textContent.trim();
 
-  if (!buyCell) return;
-
-  const existingButtons = [...buyCell.querySelectorAll('a')];
+  buy.innerHTML = '';
 
   if (existingButtons.length) {
     existingButtons.forEach((button, index) => {
@@ -106,17 +177,14 @@ export default function decorate(block) {
       wrapper.dataset.product = index;
       wrapper.hidden = index !== 0;
 
-      button.parentElement.replaceWith(wrapper);
+      const newButton = button.cloneNode(true);
 
-      button.classList.add('red-buy-button');
+      newButton.classList.add('red-buy-button');
 
-      wrapper.append(button);
+      wrapper.append(newButton);
+      buy.append(wrapper);
     });
   } else {
-    const buttonText = buyCell.textContent.trim();
-
-    buyCell.innerHTML = '';
-
     productData.forEach((product, index) => {
       const wrapper = document.createElement('div');
 
@@ -125,26 +193,29 @@ export default function decorate(block) {
       wrapper.hidden = index !== 0;
 
       wrapper.innerHTML = `
-      <a
-        href="#"
-        class="red-buy-button await-loader prodload prodload-${product.selector} buylink-${product.selector}"
-      >
-        ${buttonText}
-      </a>
-    `;
+        <a
+          href="#"
+          class="red-buy-button await-loader prodload prodload-${product.selector} buylink-${product.selector}"
+        >
+          ${buttonText}
+        </a>
+      `;
 
-      buyCell.append(wrapper);
+      buy.append(wrapper);
     });
   }
 
-  /* Switch */
-  switcherTable.addEventListener('click', (event) => {
-    const cell = event.target.closest('td[data-product]');
+  /* =========================
+   * Switch
+   * ========================= */
+  switcher.addEventListener('click', (event) => {
+    const cell = event.target.closest('.card-switcher-cell');
 
     if (!cell) return;
 
     const selected = Number(cell.dataset.product);
 
+    /* Active switcher */
     switcherCells.forEach((item) => {
       item.classList.toggle(
         'active',
@@ -152,25 +223,29 @@ export default function decorate(block) {
       );
     });
 
+    /* Text */
     block
       .querySelectorAll('.card-switcher-value')
       .forEach((item) => {
         item.hidden = Number(item.dataset.product) !== selected;
       });
 
+    /* Price */
     block
       .querySelectorAll('.card-switcher-price')
       .forEach((item) => {
         item.hidden = Number(item.dataset.product) !== selected;
       });
 
+    /* Save */
     block
       .querySelectorAll('.card-switcher-save')
       .forEach((item) => {
         item.hidden = Number(item.dataset.product) !== selected;
       });
 
-    buyCell
+    /* Buy */
+    buy
       .querySelectorAll('.card-switcher-buy')
       .forEach((item) => {
         item.hidden = Number(item.dataset.product) !== selected;
