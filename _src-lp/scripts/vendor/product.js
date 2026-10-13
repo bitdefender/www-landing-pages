@@ -54,6 +54,7 @@ export default class ProductPrice {
     scm: "com.bitdefender.ccp",
     idtheftp: 'com.bitdefender.idtheftpremium',
     idthefts: 'com.bitdefender.idtheftstandard',
+    smallbs: 'com.enterprise.core_online_product'
   }
 
   #locale;
@@ -435,11 +436,11 @@ export class DecorateLink {
     const channel = page.getParamValue('channel') || 'LP';
     this.#params.set('REF', `${channel}_${this.#campaign}`);
   }
-  
+
   #addControllerId() {
     if (window.UC_UI) {
-			this.#params.set('ucControllerId', window.UC_UI.getControllerId());
-		}
+      this.#params.set('ucControllerId', window.UC_UI.getControllerId());
+    }
   }
 
   #cleanSection() {
