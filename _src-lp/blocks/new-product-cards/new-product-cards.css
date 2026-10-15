@@ -50,12 +50,12 @@
   border-radius: 22px;
 }
 .new-product-cards-container .new-product-cards-wrapper .switchBox .switch .label {
-  font-family: Arial, Helvetica, sans-serif;
   width: 50%;
   height: 50px;
   text-align: center;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   font-weight: bold;
-  font-size: 16px;
   color: white;
   transition: color 0.4s;
   cursor: pointer;
@@ -99,7 +99,7 @@
   grid-template-rows: subgrid;
   grid-row: span 50;
   gap: 0;
-  margin-top: var(--green-tag-height);
+  margin-top: 10px;
   margin-left: 15px;
   margin-right: 15px;
 }

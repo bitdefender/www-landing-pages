@@ -170,6 +170,18 @@ function eventListener(ul) {
   };
 }
 
+function mergeFeatureLists(col) {
+  const lists = [...col.querySelectorAll(':scope > ul')];
+  if (lists.length < 2) return;
+
+  const firstList = lists[0];
+
+  lists.slice(1).forEach((list) => {
+    firstList.append(...list.querySelectorAll(':scope > li'));
+    list.remove();
+  });
+}
+
 function extractFeatures(col) {
   const ul = document.createElement('ul');
   ul.classList.add('features-tabs');
@@ -499,6 +511,8 @@ export default async function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`features-${cols.length}-cols`);
   const col = block.children[0].children[1];
+
+  mergeFeatureLists(col);
   col.appendChild(extractFeatures(col));
 
   if (block.classList.contains('trial') && pricingWrapper) {
