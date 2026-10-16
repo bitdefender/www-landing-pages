@@ -31,9 +31,12 @@
 }
 
 .b-dropdownbox-container .b-dropdownbox > div:nth-child(1) {
-  color: #fff;
-  background-color: #006DFF;
+  color: #161616;
+  background-color: var(--highlight-background-color-v2);
   padding: 0;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
+  position: relative;
 }
 
 .b-dropdownbox-container.rounded .b-dropdownbox > div:nth-child(1) {
@@ -159,6 +162,8 @@
 .b-dropdownbox-container.right-arrow .b-dropdownbox > div:nth-child(1) > div::before {
   position: absolute;
   right: 9px;
+  top: 50%;
+  margin-top: -4px !important;
 }
 
 .b-dropdownbox-container .b-dropdownbox.inactive > div:nth-child(1) > div::before,
@@ -169,7 +174,7 @@
   content: "";
   margin-right: 10px;
   margin-top: 10px;
-  border: solid white;
+  border: solid black;
   border-width: 0 2px 2px 0;
   transform: rotate(-135deg);
   padding: 4px;
@@ -199,7 +204,7 @@
   content: "";
   margin-right: 10px;
   margin-top: 4px;
-  border: solid white;
+  border: solid black;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
   padding: 4px;
@@ -230,11 +235,10 @@
 }
 
 .b-dropdownbox-container .default-content-wrapper h5 {
-  font-size: 40px;
-  line-height: 1.2;
+  font-size: var(--body-font-size-l3);
+  line-height: var(--body-line-height-l3);
   font-weight: 500;
   color: #000;
-  font-family: roboto, sans-serif;
   margin-bottom: 22px;
   text-align: left;
 }
@@ -346,7 +350,7 @@
 .b-dropdownbox-container.dropdownSlider::after {
   content: "";
   position: absolute;
-  top: 16px;
+  top: 0;
   right: 0;
   width: 196px;
   height: 90pt;
@@ -360,7 +364,7 @@
   position: initial;
 }
 .b-dropdownbox-container.dropdownSlider .slider_box .title {
-  padding: 1em;
+  padding: 1em 2em 1em 1em;
   cursor: pointer;
   box-shadow: 0 3px 8px 0 #E5E5E5;
   position: relative;
@@ -473,11 +477,8 @@
     gap: 0;
     justify-content: space-between;
   }
-  .b-dropdownbox-container .b-dropdownbox > div:nth-child(1) > div::before, .b-dropdownbox-container .b-dropdownbox.closed.inactive > div:nth-child(1) > div::before {
-    margin-top: 1px !important;
-  }
   .b-dropdownbox-container .b-dropdownbox > div:nth-child(1) > div {
-    padding: 10px 3% !important;
+    padding: 10px 40px 10px 3% !important;
     display: flex;
     font-size: 15px;
     line-height: 17px;

@@ -224,7 +224,9 @@
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 0;
-  font: normal normal bold 18px/21px Arial, sans-serif;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+  font-weight: bold;
   gap: 5px;
 }
 
@@ -301,7 +303,9 @@
 }
 
 .section.banner-container.new-2024 .banner h3 {
-  font: normal normal bold 24px/28px Arial, sans-serif;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
+  font-weight: bold;
   letter-spacing: 0;
   text-align: left;
 }
@@ -1584,7 +1588,9 @@
 
   .section.banner-container #pricesBox .terms {
     margin: 5px 0 10px;
-    font: normal normal normal 14px/16px Arial, sans-serif;
+    font-size: var(--body-font-size-xs2);
+    line-height: var(--body-line-height-xs2);
+    font-weight: normal;
   }
 
   .section.banner-container #pricesBox .terms p {
@@ -1750,6 +1756,7 @@
 
   .section.banner-container.bckimg-small-right .banner p.button-container a, .section.banner-container.bckimg-small .banner p.button-container a {
     width: 100%;
+    text-align: center !important;
   }
 
   .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before {
@@ -1795,8 +1802,8 @@
   }
 
   .section.banner-container .bck-img {
-    border-radius: 20px;
-    width: 96%;
+    border-radius: 0;
+    width: 100%;
     overflow: hidden;
     margin: 0 auto;
   }
@@ -2075,6 +2082,7 @@
 
   .section.banner-container #pricesBox .d-flex {
     justify-content: center;
+    width: 100vw;
   }
 
   .section.banner-container.new-2024.v2 #pricesBox .d-flex {
@@ -2087,7 +2095,9 @@
 
   .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
-    font: normal normal normal 18px/21px Arial, sans-serif;
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-line-height-s);
+    font-weight: normal;
   }
 
   .section.banner-container #pricesBox .d-flex span.prod-newprice {
