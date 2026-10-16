@@ -284,7 +284,7 @@ export async function sendAnalyticsProducts(product, region) {
   if (
     productsInAdobe.length === initCount
     && (
-      getMetadata('allowdatracking')
+      getMetadata('allowdatatracking')
       || !(getMetadata('trialbuylinks') || window.trialLinksExist)
     )
   ) {
