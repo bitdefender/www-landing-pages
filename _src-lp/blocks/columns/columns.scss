@@ -648,6 +648,11 @@ main .columns-container.padding-0 .columns-wrapper {
       width: 48px !important;
       height: 48px !important;
     }
+
+    img {
+      width: 48px !important;
+      height: auto !important;
+    }
   }
 
   .columns.feature-cards {

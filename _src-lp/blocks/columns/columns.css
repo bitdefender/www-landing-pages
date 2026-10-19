@@ -610,6 +610,10 @@ main .columns-container.padding-0 .columns-wrapper {
   width: 48px !important;
   height: 48px !important;
 }
+.columns-container .columns.icons-48 img {
+  width: 48px !important;
+  height: auto !important;
+}
 .columns-container .columns.feature-cards > div {
   gap: 30px;
   padding: 0;
