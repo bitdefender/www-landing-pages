@@ -38,6 +38,10 @@
   margin: 0 1em;
 }
 
+.section.banner-with-cards-container.no-cards .banner-with-cards .hasProds > div {
+  flex: 1 !important;
+}
+
 .section.banner-with-cards-container .banner-with-cards.edeka .hasProds > div {
   flex: 0 0 400px;
 }

@@ -704,8 +704,8 @@
   border-radius: 100%;
   border: 3px solid white;
   position: absolute;
-  right: 5em;
-  top: -2em;
+  right: 2em;
+  top: 0;
   width: 90px;
   height: 90px;
   display: flex;
@@ -1693,10 +1693,6 @@
 }
 
 @media screen and (width <= 1200px) {
-  .section.banner-container.red-pill #greenPillBox {
-    right: 4em;
-  }
-
   /* Buttons Box Responsive */
   .section.banner-container .buttons-box .row {
     flex-direction: column;
@@ -1725,18 +1721,8 @@
   }
 }
 
-@media screen and (width <= 1000px) {
-  .section.banner-container.red-pill #greenPillBox {
-    right: 2em;
-    top: -3em;
-  }
-}
-
-@media screen and (width <= 830px) {
-  .section.banner-container.red-pill #greenPillBox {
-    right: 1em;
-    top: -3em;
-  }
+.section.banner-container.bckimg-small-right[data-image-cover="small-right"] .banner {
+  background-size: 70%;
 }
 
 @media screen and (width <= 767px) {
@@ -1863,8 +1849,7 @@
   }
 
   .section.banner-container.red-pill #greenPillBox {
-    right: 2em;
-    top: -1em;
+    top: 2em;
   }
 
   /* Buttons Box Mobile Responsive */
@@ -1888,7 +1873,7 @@
   }
 
   .section.banner-container.red-pill .banner img {
-    width: 70%;
+    width: 90%;
     margin-top: 2em;
   }
 
@@ -2246,8 +2231,6 @@
   .section.banner-container.red-pill #greenPillBox {
     width: 80px;
     height: 80px;
-    right: 2em;
-    top: -1em;
   }
 
   .section.banner-container.red-pill #greenPillBox > span {
