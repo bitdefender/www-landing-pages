@@ -40,7 +40,7 @@
   margin: 0 1em;
 }
 
-.section.banner-with-cards-container.no-cards .banner-with-cards .hasProds > div {
+.section.banner-with-cards-container.no-cards:not(.content-half) .banner-with-cards .hasProds > div {
   flex: 1!important;
 }
 
