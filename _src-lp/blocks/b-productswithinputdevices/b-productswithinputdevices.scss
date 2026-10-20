@@ -92,7 +92,9 @@
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) p {
   margin: 0 !important;
   padding: 0;
-  font: normal normal normal 13px/15px Roboto, sans-serif;
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
+  font-weight: normal;
   color: #000;
   margin-bottom: 10px;
 }
@@ -103,7 +105,9 @@
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div b {
-  font: normal normal bold 18px/21px Roboto, sans-serif;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+  font-weight: bold;
   color: #000;
   margin-bottom: 0.8em;
   padding-bottom: 0.6em;
@@ -123,12 +127,16 @@
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) > div p:first-of-type {
-  font: normal normal normal 18px/21px Roboto, sans-serif;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+  font-weight: normal;
   color: #000;
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) h3 {
-  font: normal normal bold 24px/24px Roboto, sans-serif;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
+  font-weight: bold;
   color: #000;
   display: flex;
   text-align: center;
@@ -137,19 +145,25 @@
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) h3 span.greenTag {
-  font: normal normal bold 14px/15px Roboto, sans-serif;
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
+  font-weight: bold;
   margin-left: 5px;
   padding: 2px 10px;
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) h4 {
-  font: normal normal normal 36px/42px Roboto, sans-serif;
+  font-size: var(--body-font-size-l2);
+  line-height: var(--body-line-height-l2);
+  font-weight: normal;
   color: #000;
   margin: 10px 0 20px;
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) p strong {
-  font: normal normal bold 18px/21px Roboto, sans-serif;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+  font-weight: bold;
   color: #000;
 }
 
@@ -159,7 +173,9 @@
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) table p strong, .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) p em {
-  font: normal normal bold 13px/15px Roboto, sans-serif;
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
+  font-weight: bold;
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(2) {
@@ -185,11 +201,15 @@
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-newprice {
   color: #111;
   display: block;
-  font: normal normal bold 32px/38px Roboto, sans-serif;
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height-l);
+  font-weight: bold;
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-oldprice {
-  font: normal normal normal 18px/21px Roboto, sans-serif;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+  font-weight: normal;
   color: #999;
   width: 100%;
   text-decoration: none;
@@ -201,7 +221,9 @@
 }
 
 .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices .prod-save {
-  font: normal normal bold 16px/19px Roboto, sans-serif;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
+  font-weight: bold;
   padding: 2px 10px!important;
   border-radius: 18px;
   background: #D5F0D8;
@@ -289,7 +311,9 @@
       padding: 14px;
 
       b {
-        font: normal normal bold 18px/21px Roboto, sans-serif;
+        font-size: var(--body-font-size-s);
+        line-height: var(--body-line-height-s);
+        font-weight: bold;
         color: #000;
         border-bottom: 1px solid #CCC;
         margin-bottom: 0.8em;
@@ -494,7 +518,9 @@
   }
 
   .b-productswithinputdevices-container .b-productswithinputdevices-wrapper .b-productswithinputdevices > div:nth-child(1) h4 {
-    font: normal normal normal 24px/28px Roboto, sans-serif;
+    font-size: var(--body-font-size-m2);
+    line-height: var(--body-line-height-m2);
+    font-weight: normal;
     color: #000;
     margin: 10px 0;
   }

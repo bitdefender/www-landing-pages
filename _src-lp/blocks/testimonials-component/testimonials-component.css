@@ -2,10 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font: italic normal normal 14px/19px Arial, sans-serif;
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
+  font-weight: normal;
+  font-style: italic;
 }
 .testimonials-component-container h2 {
-  font: normal normal bold 32px/37px Arial, sans-serif;
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height-l);
+  font-weight: bold;
 }
 .testimonials-component-container .testimonials-component {
   display: flex;
@@ -21,7 +26,9 @@
 }
 .testimonials-component-container .title-class {
   text-align: center;
-  font: normal normal bold 32px/37px Arial, sans-serif;
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height-l);
+  font-weight: bold;
 }
 @media screen and (width >= 768px) {
   .testimonials-component-container .title-class {
@@ -29,7 +36,9 @@
   }
 }
 .testimonials-component-container .subtitle-class {
-  font: normal normal normal 18px/21px Arial, sans-serif;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+  font-weight: normal;
   margin-bottom: 40px;
   text-align: center;
   max-width: 90%;

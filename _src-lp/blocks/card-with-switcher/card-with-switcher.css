@@ -146,3 +146,9 @@
     margin-left: 0;
   }
 }
+@media (width <= 500px) {
+  .card-with-switcher .card-switcher-price-row {
+    align-items: baseline;
+    flex-direction: column-reverse;
+  }
+}

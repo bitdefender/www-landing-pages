@@ -11,7 +11,8 @@
 }
 
 .features-container h3 {
-  font-size: 40px;
+  font-size: var(--body-font-size-l3);
+  line-height: var(--body-line-height-l3);
   font-weight: normal;
 }
 
@@ -57,7 +58,7 @@
   .tag {
     margin-left: 24px;
     position: relative;
-    }
+  }
 
   .tag::before {
     content: '\276F';
@@ -70,8 +71,8 @@
     top: 50%;
     transform: translateY(-50%) rotate(90deg);
     transition: transform 0.4s;     
-    }
   }
+}
 
 .features-container .features .feature-list .accordion.active::after {
   transform: rotate(270deg);

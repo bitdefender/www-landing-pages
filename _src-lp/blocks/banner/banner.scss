@@ -224,7 +224,9 @@
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 0;
-  font: normal normal bold 18px/21px Arial, sans-serif;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+  font-weight: bold;
   gap: 5px;
 }
 
@@ -301,7 +303,9 @@
 }
 
 .section.banner-container.new-2024 .banner h3 {
-  font: normal normal bold 24px/28px Arial, sans-serif;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
+  font-weight: bold;
   letter-spacing: 0;
   text-align: left;
 }
@@ -700,8 +704,8 @@
   border-radius: 100%;
   border: 3px solid white;
   position: absolute;
-  right: 5em;
-  top: -2em;
+  right: 2em;
+  top: 0;
   width: 90px;
   height: 90px;
   display: flex;
@@ -1584,7 +1588,9 @@
 
   .section.banner-container #pricesBox .terms {
     margin: 5px 0 10px;
-    font: normal normal normal 14px/16px Arial, sans-serif;
+    font-size: var(--body-font-size-xs2);
+    line-height: var(--body-line-height-xs2);
+    font-weight: normal;
   }
 
   .section.banner-container #pricesBox .terms p {
@@ -1687,10 +1693,6 @@
 }
 
 @media screen and (width <= 1200px) {
-  .section.banner-container.red-pill #greenPillBox {
-    right: 4em;
-  }
-
   /* Buttons Box Responsive */
   .section.banner-container .buttons-box .row {
     flex-direction: column;
@@ -1719,18 +1721,8 @@
   }
 }
 
-@media screen and (width <= 1000px) {
-  .section.banner-container.red-pill #greenPillBox {
-    right: 2em;
-    top: -3em;
-  }
-}
-
-@media screen and (width <= 830px) {
-  .section.banner-container.red-pill #greenPillBox {
-    right: 1em;
-    top: -3em;
-  }
+.section.banner-container.bckimg-small-right[data-image-cover="small-right"] .banner {
+  background-size: 70%;
 }
 
 @media screen and (width <= 767px) {
@@ -1750,6 +1742,7 @@
 
   .section.banner-container.bckimg-small-right .banner p.button-container a, .section.banner-container.bckimg-small .banner p.button-container a {
     width: 100%;
+    text-align: center !important;
   }
 
   .section.banner-container.bckimg-small-right:not(.right-content-v2) .banner::before {
@@ -1795,8 +1788,8 @@
   }
 
   .section.banner-container .bck-img {
-    border-radius: 20px;
-    width: 96%;
+    border-radius: 0;
+    width: 100%;
     overflow: hidden;
     margin: 0 auto;
   }
@@ -1856,8 +1849,7 @@
   }
 
   .section.banner-container.red-pill #greenPillBox {
-    right: 2em;
-    top: -1em;
+    top: 2em;
   }
 
   /* Buttons Box Mobile Responsive */
@@ -1881,7 +1873,7 @@
   }
 
   .section.banner-container.red-pill .banner img {
-    width: 70%;
+    width: 90%;
     margin-top: 2em;
   }
 
@@ -2075,6 +2067,7 @@
 
   .section.banner-container #pricesBox .d-flex {
     justify-content: center;
+    width: 100vw;
   }
 
   .section.banner-container.new-2024.v2 #pricesBox .d-flex {
@@ -2087,7 +2080,9 @@
 
   .section.banner-container #pricesBox .d-flex span.prod-oldprice {
     text-decoration: line-through;
-    font: normal normal normal 18px/21px Arial, sans-serif;
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-line-height-s);
+    font-weight: normal;
   }
 
   .section.banner-container #pricesBox .d-flex span.prod-newprice {
@@ -2236,8 +2231,6 @@
   .section.banner-container.red-pill #greenPillBox {
     width: 80px;
     height: 80px;
-    right: 2em;
-    top: -1em;
   }
 
   .section.banner-container.red-pill #greenPillBox > span {

@@ -148,7 +148,9 @@
 }
 
 .columns-container.new .columns h4 {
-  font: normal normal normal 24px/28px Arial, sans-serif;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
+  font-weight: normal;
 }
 
 .columns h3 {
@@ -332,17 +334,23 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container.new-v2 {
   u {
     text-decoration: none;
-    font: normal normal normal 18px/21px Arial, sans-serif;
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-line-height-s);
+    font-weight: normal;
   }
 
   .columns h2 {
-    font: normal normal bold 32px/37px Arial, sans-serif;
+    font-size: var(--body-font-size-l);
+    line-height: var(--body-line-height-l);
+    font-weight: bold;
     color: #006DFF;
     letter-spacing: 0;
   }
 
   .columns p {
-    font: normal normal normal 16px/24px Arial, sans-serif;
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-line-height-xs);
+    font-weight: normal;
     letter-spacing: 0;
     margin-bottom: 16px;
     margin-top: 16px;
@@ -639,6 +647,11 @@ main .columns-container.padding-0 .columns-wrapper {
     .icon {
       width: 48px !important;
       height: 48px !important;
+    }
+
+    img {
+      width: 48px !important;
+      height: auto !important;
     }
   }
 
@@ -1142,16 +1155,17 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) > div {
   border-radius: 10px;
-  padding: 1.5em;
+  padding: 1em;
 }
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) > div h4 {
-  font-size: 16px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
 }
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) > div p {
-  font-size: 14px;
-  line-height: 19px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   color: #525252;
 }
 
@@ -2505,11 +2519,13 @@ main .section.business-needs .columns-wrapper {
     height: 175px;
     position: unset;
     margin: auto;
-    margin-top: -5em;
+    margin-top: 0;
   }
 
   .columns-container.new .columns h4 {
-    font: normal normal normal 18px/20px Arial, sans-serif;
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-line-height-s);
+    font-weight: normal;
   }
 
   .columns-container.new-2 .columns h2 {
@@ -2682,6 +2698,11 @@ main .section.business-needs .columns-wrapper {
   }
 }
 
+@media (width >= 994px) and (width <= 1099px) {
+  .columns-container.v-jul26 .columns img {
+    height: revert-layer;
+  }
+}
 
 @media (width >= 992px) {
   .columns-container.dynamic-awards {
@@ -2794,7 +2815,6 @@ main .section.business-needs .columns-wrapper {
   .who-section .default-content-wrapper p {
     font-size: 14px;
   }
-
 }
 
 @media (width >= 1400px) {
@@ -2829,5 +2849,4 @@ main .section.business-needs .columns-wrapper {
       padding: 0 50px;
     }
   }
-
 }

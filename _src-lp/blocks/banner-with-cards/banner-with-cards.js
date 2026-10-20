@@ -147,6 +147,8 @@ export default function decorate(block) {
   // apply newprice
   if (contentRightEl) {
     contentRightEl.innerHTML = contentRightEl?.innerHTML.replace(/xx/g, '<span class="newprice-vpn-101"></span>');
+  } else {
+    parentBlock.classList.add('no-cards');
   }
 
   if (backgroundHide) parentBlock.classList.add(`hide-${backgroundHide}`);
