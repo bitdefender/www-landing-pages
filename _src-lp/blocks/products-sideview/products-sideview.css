@@ -532,9 +532,6 @@
   }
 }
 @media (width >= 768px) {
-  .products-sideview-wrapper {
-    padding: 0 var(--body-padding);
-  }
   .products-sideview .features-wrapper {
     border-radius: 0 20px 20px 0;
     width: 50%;
