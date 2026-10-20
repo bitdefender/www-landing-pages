@@ -195,7 +195,7 @@
 }
 
 .products-sideview-wrapper {
-  padding: 0 var(--body-padding);
+  padding: 0;
 }
 
 .products-sideview-container.products-sideview-container-new-design .products-sideview-selector::after {
