@@ -1919,8 +1919,9 @@
   }
   .section.banner-container.new-2024.v2 #pricesBox .buy_box a {
     display: inline-block;
-    width: 90%;
-    text-align: center;
+    width: 100%;
+    text-align: center !important;
+    border-radius: 8px !important;
     margin: 0 auto 10px;
     font-size: 16px;
   }
