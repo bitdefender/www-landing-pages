@@ -199,7 +199,7 @@
 }
 
 .products-sideview-wrapper {
-  padding: 0 var(--body-padding);
+  padding: 0;
 }
 
 .products-sideview-container.products-sideview-container-new-design {
@@ -574,6 +574,10 @@
 }
 
 @media (width >= 768px) {
+  .products-sideview-wrapper {
+    padding: 0 var(--body-padding);
+  }
+
   .products-sideview .features-wrapper {
     border-radius: 0 20px 20px 0;
     width: 50%;
@@ -650,7 +654,6 @@
     }
   }
 }
-
 
 @media (width >= 993px) {
   .products-sideview.features-3-cols > div > div {
