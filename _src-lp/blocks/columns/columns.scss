@@ -153,6 +153,11 @@
   font-weight: normal;
 }
 
+.columns h3 {
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
+}
+
 main .columns-container.padding-0 .columns-wrapper {
   padding: 0;
 }
