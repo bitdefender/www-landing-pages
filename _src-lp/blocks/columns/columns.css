@@ -393,7 +393,7 @@ main .columns-container.padding-0 .columns-wrapper {
   text-align: left;
 }
 .columns-container .columns.gray-cards > div {
-  gap: 30px;
+  gap: 8px;
   margin: 30px;
   align-items: stretch !important;
 }
@@ -403,18 +403,24 @@ main .columns-container.padding-0 .columns-wrapper {
   }
 }
 .columns-container .columns.gray-cards > div > div {
-  padding: 0;
   display: flex;
   flex: 1;
+  flex-direction: column;
   background-color: #FAFAFA;
   border-radius: 20px;
+  gap: unset;
+  padding: 24px;
+}
+.columns-container .columns.gray-cards > div > div > * {
+  margin: 2px 0;
+  padding: 0;
 }
 .columns-container .columns.gray-cards > div > div > div {
   display: flex;
   flex-direction: row;
   gap: 11px;
   align-items: center;
-  padding: 30px 20px;
+  padding: 0;
   text-align: left;
 }
 .columns-container .columns.gray-cards > div > div > div h3,
@@ -435,10 +441,9 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 .columns-container .columns.gray-cards.v3 > div > div {
   min-width: 100%;
-  gap: 30px;
+  gap: 8px;
 }
 .columns-container .columns.gray-cards.v3 > div > div > div {
-  padding: 24px;
   gap: 8px;
   background-color: #FAFAFA;
   flex-direction: column;
@@ -454,7 +459,7 @@ main .columns-container.padding-0 .columns-wrapper {
   font-size: 16px;
   text-decoration: underline;
   font-weight: 600;
-  padding-bottom: 0;
+  padding: 0;
 }
 @media (width >= 992px) {
   .columns-container .columns.gray-cards.v3 > div {
