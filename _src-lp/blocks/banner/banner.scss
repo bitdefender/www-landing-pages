@@ -890,7 +890,7 @@
   transition: opacity 0.2s;
 }
 
-.section.banner-container.add-trusted h1::before {
+.section.banner-container.add-trusted .block > div > div > div::before {
   content: "Trusted. Always.";
   font-size: 23px;
   line-height: 29px;

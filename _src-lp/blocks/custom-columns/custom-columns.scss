@@ -44,7 +44,7 @@
                 }
             }
 
-            img {
+            img, .icon {
                 height: 99px;
                 margin-bottom: 1em;
 
@@ -58,6 +58,10 @@
             p {
                 font-size: var(--body-font-size-s);
                 line-height: var(--body-line-height-s);
+
+                &.button-container {
+                    margin-top: 1em;
+                }
             }
         }
 

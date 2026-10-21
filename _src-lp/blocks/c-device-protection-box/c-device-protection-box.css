@@ -67,6 +67,7 @@
 }
 
 .c-device-protection-box-container.new-jul-26 table td img {
+  max-width: 50px;
   margin-right: 10px;
 }
 
@@ -102,6 +103,7 @@
 .c-device-protection-box-container.custom-icon .col-lg-6.image-container .icon {
   width: auto;
   height: auto;
+  min-width: 50px;
   margin-right: 1em;
 }
 
