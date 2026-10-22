@@ -56,7 +56,8 @@
 }
 
 .card-with-switcher > div:last-child p {
-  font-size: 11px;
+  font-size: var(--body-font-size-xs3);
+  line-height: var(--body-line-height-xs3);
   color: #6c7a8c;
   margin-top: 4px;
 }

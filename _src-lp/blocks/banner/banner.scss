@@ -188,8 +188,8 @@
   background-size: 60% auto !important;
 }
 
-.section.banner-container:is(.bckimg-small, .bckimg-small-right, [data-corners="round"]) .block > div > div > div:first-of-type::before,
-.section.banner-container[data-corners="round"] .block .content-column > div:first-of-type::before {
+.section.banner-container:is(.bckimg-small, .bckimg-small-right, [data-corners="round"]) .block .content-column::before,
+.section.banner-container[data-corners="round"] .block .content-column::before {
   content: 'Trusted. Always.';
   font-size: 23px;
   line-height: 29px;
@@ -200,11 +200,11 @@
   margin: 0 0 1em;
 }
 
-.section.banner-container:is(.remove-trusted.bckimg-small, .remove-trusted.bckimg-small-right, .text-center-bottom, .right-content-v2) .block > div > div > div:first-of-type::before {
+.section.banner-container:is(.remove-trusted.bckimg-small, .remove-trusted.bckimg-small-right, .text-center-bottom, .right-content-v2) .block .content-column::before {
   display: none !important;
 }
 
-.section.banner-container:is(.bckimg-small, .bckimg-small-right)[data-text-color="white"] .block > div > div > div:first-of-type::before {
+.section.banner-container:is(.bckimg-small, .bckimg-small-right)[data-text-color="white"] .block .content-column::before {
   color: white !important;
 }
 
@@ -891,7 +891,7 @@
   transition: opacity 0.2s;
 }
 
-.section.banner-container.add-trusted .block > div > div > div::before {
+.section.banner-container.add-trusted .content-column::before {
   content: "Trusted. Always.";
   font-size: 23px;
   line-height: 29px;
@@ -1770,13 +1770,13 @@
     border-radius: unset;
   }
 
-  .section.banner-container.bckimg-small .block > div > div > div:first-of-type::before, .section.banner-container.bckimg-small-right .block > div > div > div:first-of-type::before  {
+  .section.banner-container.bckimg-small .block .content-column::before, .section.banner-container.bckimg-small-right .block .content-column::before  {
     content: 'Trusted. Always.';
     text-align: left;
     margin: 1em 0 10px;
   }
 
-  .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+  .section.banner-container.bck-half .content-column::before, .section.banner-container.bck-half2 .content-column::before {
     margin-top: 0;
   }
 
