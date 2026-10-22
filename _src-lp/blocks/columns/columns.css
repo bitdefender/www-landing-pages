@@ -155,10 +155,8 @@
 }
 
 .columns h3 {
-  font-size: 13px;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 31px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
 }
 
 main .columns-container.padding-0 .columns-wrapper {
@@ -358,10 +356,6 @@ main .columns-container.padding-0 .columns-wrapper {
   align-items: flex-start !important;
   text-align: left;
 }
-.columns-container .columns.align-left * h3 {
-  font-size: var(--body-font-size-xs);
-  line-height: var(--body-line-height-xs);
-}
 .columns-container .columns.align-left * p {
   font-size: var(--body-font-size-xs2);
   line-height: var(--body-line-height-xs2);
@@ -451,7 +445,8 @@ main .columns-container.padding-0 .columns-wrapper {
   border-radius: 20px;
 }
 .columns-container .columns.gray-cards.v3 > div > div > div h3 {
-  font-size: 18px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
 }
 .columns-container .columns.gray-cards.v3 > div > div > div .button-container a {
   background: none;

@@ -857,7 +857,7 @@ main .section[data-textcolor=grey] .default-content-wrapper p {
   color: #6F6F6F;
 }
 
-main .section[data-textcolor=grey-light] .default-content-wrapper p {
+main .section[data-textcolor=grey-light] *, main .section[data-textcolor=grey-light] .default-content-wrapper p {
   color: #9AA4B2;
 }
 
@@ -2016,7 +2016,7 @@ main .section.light-sky-blue > * {
   justify-content: center;
 }
 
-main .section[data-textcolor=grey] .default-content-wrapper * {
+main .section[data-textcolor=grey] *, main .section[data-textcolor=grey] .default-content-wrapper * {
   color: #6F6F6F;
 }
 
