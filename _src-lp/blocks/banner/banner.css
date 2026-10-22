@@ -187,7 +187,7 @@
   background-size: 60% auto !important;
 }
 
-.section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+.section.banner-container.bckimg-small .block > div > div > div::before, .section.banner-container.bckimg-small-right .block > div > div > div::before {
   content: "Trusted. Always.";
   font-size: 23px;
   line-height: 29px;
@@ -1634,7 +1634,7 @@
     text-align: left !important;
     border-radius: unset;
   }
-  .section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+  .section.banner-container.bckimg-small .block > div > div > div::before, .section.banner-container.bckimg-small-right .block > div > div > div::before {
     content: "Trusted. Always.";
     text-align: left;
     margin: 1em 0 10px;
@@ -1737,6 +1737,13 @@
     font-size: var(--body-font-size-m3);
     line-height: var(--body-line-height-m3);
     text-align: center;
+  }
+  .section.banner-container.bckimg-small .banner h1, .section.banner-container.bckimg-small-right .banner h1 {
+    text-align: left;
+  }
+  .section.banner-container.bckimg-small .banner p.variation, .section.banner-container.bckimg-small-right .banner p.variation {
+    width: auto;
+    text-align: left;
   }
   .section.banner-container .banner h4 {
     font-size: var(--body-font-size-s2);
@@ -1876,8 +1883,12 @@
     justify-content: center;
     width: 100vw;
   }
+  .section.banner-container #pricesBox .d-flex.prod-save {
+    width: auto;
+  }
   .section.banner-container.new-2024.v2 #pricesBox .d-flex {
     justify-content: left;
+    text-align: center;
   }
   .section.banner-container #pricesBox .d-flex p {
     margin: 0 10px 0 0;
@@ -1901,6 +1912,7 @@
   .section.banner-container.new-2024.v2 #pricesBox .d-flex .variation {
     font-size: 14px;
     line-height: 16px;
+    text-align: left;
   }
   .section.banner-container #pricesBox .buy_box {
     margin: 20px 0;
