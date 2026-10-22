@@ -188,7 +188,8 @@
   background-size: 60% auto !important;
 }
 
-.section.banner-container.bckimg-small .block > div > div > div:first-of-type::before, .section.banner-container.bckimg-small-right .block > div > div > div:first-of-type::before {
+.section.banner-container:is(.bckimg-small, .bckimg-small-right, [data-corners="round"]) .block > div > div > div:first-of-type::before,
+.section.banner-container[data-corners="round"] .block .content-column > div:first-of-type::before {
   content: 'Trusted. Always.';
   font-size: 23px;
   line-height: 29px;
@@ -199,12 +200,12 @@
   margin: 0 0 1em;
 }
 
-.section.banner-container.remove-trusted.bckimg-small .block > div > div > div:first-of-type::before, .section.banner-container.remove-trusted.bckimg-small-right .block > div > div > div:first-of-type::before  {
-  display: none!important;
+.section.banner-container:is(.remove-trusted.bckimg-small, .remove-trusted.bckimg-small-right, .text-center-bottom, .right-content-v2) .block > div > div > div:first-of-type::before {
+  display: none !important;
 }
 
-.section.banner-container[data-text-color="white"] h1::before {
-  color: white!important;
+.section.banner-container:is(.bckimg-small, .bckimg-small-right)[data-text-color="white"] .block > div > div > div:first-of-type::before {
+  color: white !important;
 }
 
 .section.banner-container.bck-inner-full .banner {
@@ -1769,7 +1770,7 @@
     border-radius: unset;
   }
 
-  .section.banner-container.bckimg-small .block > div > div > div:first-of-type::before, .section.banner-container.bckimg-small-right .block > div > div > div:first-of-type::before {
+  .section.banner-container.bckimg-small .block > div > div > div:first-of-type::before, .section.banner-container.bckimg-small-right .block > div > div > div:first-of-type::before  {
     content: 'Trusted. Always.';
     text-align: left;
     margin: 1em 0 10px;
