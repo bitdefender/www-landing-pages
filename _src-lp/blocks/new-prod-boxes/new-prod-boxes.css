@@ -1702,6 +1702,9 @@
   .new-prod-boxes-container {
     overflow-y: visible;
   }
+  .new-prod-boxes-container[data-type=mobileSlider] {
+    overflow: hidden;
+  }
   .new-prod-boxes-container .block {
     gap: 20px;
   }
