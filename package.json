@@ -67,6 +67,6 @@
     "@repobit/dex-utils": "^2.5.1"
   },
   "volta": {
-    "node": "22.14.0"
+    "node": "24.22.1"
   }
 }
