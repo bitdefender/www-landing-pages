@@ -11,12 +11,12 @@ const getImageSrc = (pictureEl) => getBackgroundImageUrl(pictureEl?.querySelecto
 const getContentSizeClasses = (size) => {
   const sizeMap = {
     full: 'col-sm-12 col-md-12 col-lg-12',
-    larger: 'col-sm-12 col-md-7 col-lg-7',
-    half: 'col-sm-12 col-md-6 col-lg-6',
+    larger: 'col-sm-12 col-md-7 col-lg-7 content-column',
+    half: 'col-sm-12 col-md-6 col-lg-6 content-column',
     fourth: '', // Special case handled separately
     'they-wear-our-faces': 'col-sm-12 col-md-6 col-lg-6 col-xl-7',
   };
-  return sizeMap[size] || 'col-sm-12 col-md-6 col-lg-6';
+  return sizeMap[size] || 'col-sm-12 col-md-6 col-lg-6 content-column';
 };
 
 // Helper function to apply background styles

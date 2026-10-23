@@ -12,7 +12,7 @@
 }
 
 .section.banner-container p:not(.button-container) {
-  width: 90%;
+  width: 100%;
   font-size: var(--body-font-size-xs);
   line-height: var(--body-line-height-xs);
 }
@@ -187,7 +187,8 @@
   background-size: 60% auto !important;
 }
 
-.section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+.section.banner-container:is(.bckimg-small, .bckimg-small-right, [data-corners=round]) .block .content-column::before,
+.section.banner-container[data-corners=round] .block .content-column::before {
   content: "Trusted. Always.";
   font-size: 23px;
   line-height: 29px;
@@ -198,11 +199,11 @@
   margin: 0 0 1em;
 }
 
-.section.banner-container.remove-trusted h1::before, .section.banner-container.text-center-bottom h1::before {
+.section.banner-container.remove-trusted .block .content-column::before {
   display: none !important;
 }
 
-.section.banner-container[data-text-color=white] h1::before {
+.section.banner-container:is(.bckimg-small, .bckimg-small-right)[data-text-color=white] .block .content-column::before {
   color: white !important;
 }
 
@@ -887,7 +888,7 @@
   transition: opacity 0.2s;
 }
 
-.section.banner-container.add-trusted .block > div > div > div::before {
+.section.banner-container.add-trusted .content-column::before {
   content: "Trusted. Always.";
   font-size: 23px;
   line-height: 29px;
@@ -1634,12 +1635,11 @@
     text-align: left !important;
     border-radius: unset;
   }
-  .section.banner-container.bckimg-small-right:not(.right-content-v2) h1::before, .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
-    content: "Trusted. Always.";
+  .section.banner-container:is(.bckimg-small, .bckimg-small-right, [data-corners=round]) .block .content-column::before, .section.banner-container[data-corners=round] .block .content-column::before {
     text-align: left;
     margin: 1em 0 10px;
   }
-  .section.banner-container.bck-half h1::before, .section.banner-container.bck-half2 h1::before {
+  .section.banner-container.bck-half .content-column::before, .section.banner-container.bck-half2 .content-column::before {
     margin-top: 0;
   }
   .section.banner-container.bck-half .block, .section.banner-container.bck-half2 .block {
@@ -1737,6 +1737,13 @@
     font-size: var(--body-font-size-m3);
     line-height: var(--body-line-height-m3);
     text-align: center;
+  }
+  .section.banner-container:is(.bckimg-small, .bckimg-small-right) .block *, .section.banner-container[data-corners=round] .block * {
+    text-align: left !important;
+  }
+  .section.banner-container.bckimg-small .banner p.variation, .section.banner-container.bckimg-small-right .banner p.variation {
+    width: auto;
+    text-align: left;
   }
   .section.banner-container .banner h4 {
     font-size: var(--body-font-size-s2);
@@ -1876,8 +1883,12 @@
     justify-content: center;
     width: 100vw;
   }
+  .section.banner-container #pricesBox .d-flex.prod-save {
+    width: auto;
+  }
   .section.banner-container.new-2024.v2 #pricesBox .d-flex {
     justify-content: left;
+    text-align: center;
   }
   .section.banner-container #pricesBox .d-flex p {
     margin: 0 10px 0 0;
@@ -1901,6 +1912,7 @@
   .section.banner-container.new-2024.v2 #pricesBox .d-flex .variation {
     font-size: 14px;
     line-height: 16px;
+    text-align: left;
   }
   .section.banner-container #pricesBox .buy_box {
     margin: 20px 0;
@@ -1958,6 +1970,12 @@
     font-size: 28px !important;
     line-height: 30px !important;
     margin: 0;
+  }
+  .section.banner-container:is(.bckimg-small, .bckimg-small-right)[data-title-color-mobile=bblue] .block .content-column::before {
+    color: #006EFF !important;
+  }
+  .section.banner-container:is(.bckimg-small, .bckimg-small-right)[data-title-color-mobile=black] .block .content-column::before {
+    color: #000 !important;
   }
   .section.banner-container[data-text-color-mobile=black] .block .container-fluid > .row > div:first-of-type > div > * {
     color: #000 !important;
