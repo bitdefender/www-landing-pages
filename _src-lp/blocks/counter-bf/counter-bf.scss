@@ -14,6 +14,75 @@
   height: 78px;
 }
 
+.counter-bf #greenPillBox {
+  background-color: #F00;
+  border-radius: 100%;
+  border: 3px solid white;
+  position: absolute;
+  right: 2em;
+  top: 0;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transform: rotate(-9deg);
+  padding: 0;
+  margin-top: 15px;
+  color: #fff;
+}
+
+.counter-bf #greenPillBox > span {
+  border-radius: 100%;
+  border: 4px solid black;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 26px;
+  line-height: 28px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.counter-bf #greenPillBox * {
+  color: inherit;
+}
+
+.counter-bf #greenPillBox p {
+  font: inherit;
+  margin: 0;
+}
+
+.counter-bf #greenPillBox.d-flex > span strong {
+  display: flex;
+}
+
+.counter-bf #greenPillBox span.max-discount {
+  font-size: 26px;
+  line-height: 28px;
+  display: block;
+}
+
+.counter-bf #greenPillBox > span br {
+  display: none;
+}
+
+@media screen and (width <= 500px) {
+  .counter-bf #greenPillBox {
+    width: 80px;
+    height: 80px;
+  }
+
+  .counter-bf #greenPillBox > span {
+    font-size: 21px;
+    line-height: 23px;
+  }
+}
+
 .counter-bf-container table#flipdownTable {
   display: none;
 }
