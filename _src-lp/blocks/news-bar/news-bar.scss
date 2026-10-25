@@ -104,8 +104,8 @@
 }
 
 .topRibbon * {
-  font-family: Arial, sans-serif !important;
-  font-size: 14px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
 }
 
 .topRibbon img {

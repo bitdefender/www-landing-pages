@@ -38,6 +38,10 @@
   margin: 0 1em;
 }
 
+.section.banner-with-cards-container.no-cards:not(.content-half) .banner-with-cards .hasProds > div {
+  flex: 1 !important;
+}
+
 .section.banner-with-cards-container .banner-with-cards.edeka .hasProds > div {
   flex: 0 0 400px;
 }
@@ -796,9 +800,14 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
     padding: 0 15px;
   }
 }
-@media (width <= 1100px) {
+@media (width <= 998px) {
   .section.banner-with-cards-container .banner-with-cards .hasProds > div {
-    flex: unset;
+    flex: 1 !important;
+  }
+}
+@media (width >= 994px) and (width <= 1099px) {
+  .section.banner-with-cards-container .imgBox p .icon, .section.banner-with-cards-container .imgBox .icon {
+    margin-top: 2em;
   }
 }
 @media (width <= 992px) {
@@ -951,5 +960,15 @@ main:has(.section.banner-with-cards-container.they-wear-our-faces) {
   .section.banner-with-cards-container-new .customWrapper {
     padding-left: 0 !important;
     padding-right: 0 !important;
+  }
+}
+@media (width <= 500px) {
+  .section.banner-with-cards-container[data-show="3-cols"] .banner-with-cards .customWrapper > div:nth-of-type(3) {
+    padding: 1em;
+    width: 100%;
+  }
+  .section.banner-with-cards-container .banner-with-cards .prodBox .prices_box .prod-newprice {
+    font-size: 27px;
+    line-height: 19px;
   }
 }

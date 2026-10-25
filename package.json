@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.7.1",
+<<<<<<< HEAD
     "@repobit/dex-data-layer": "^2.3.22",
     "@repobit/dex-launch": "^3.0.31",
     "@repobit/dex-store": "^1.6.48",
@@ -66,8 +67,16 @@
     "@repobit/dex-system-design": "0.25.11",
     "@repobit/dex-target": "^2.16.22",
     "@repobit/dex-utils": "^2.4.5"
+=======
+    "@repobit/dex-data-layer": "^2.4.0",
+    "@repobit/dex-launch": "^3.0.141",
+    "@repobit/dex-store": "^1.6.52",
+    "@repobit/dex-store-elements": "^2.1.22",
+    "@repobit/dex-target": "^2.17.3",
+    "@repobit/dex-utils": "^2.5.1"
+>>>>>>> origin/main
   },
   "volta": {
-    "node": "22.14.0"
+    "node": "24.22.1"
   }
 }

@@ -56,7 +56,6 @@
 
 .products-sideview .price-element-wrapper {
   margin: 20px 0;
-  font-family: Arial, sans-serif;
 }
 
 .products-sideview .pricing-wrapper > p:last-child {
@@ -200,7 +199,7 @@
 }
 
 .products-sideview-wrapper {
-  padding: 0 var(--body-padding);
+  padding: 0;
 }
 
 .products-sideview-container.products-sideview-container-new-design {
@@ -399,15 +398,13 @@
 
 .products-sideview .feature-list {
   display: flex;
-  gap: 30px;
+  gap: 10px;
   flex-flow: column wrap;
 }
 
 .products-sideview .feature-list > li {
-  color: var(--tab-header-color-blue);
   font-size: 16px;
-  font-weight: 600;
-  list-style: disc;
+  list-style: none;
 }
 
 .products-sideview .features-tabs li > a {
@@ -654,7 +651,6 @@
   }
 }
 
-
 @media (width >= 993px) {
   .products-sideview.features-3-cols > div > div {
     width: calc(33.33% - 30px);
@@ -699,12 +695,8 @@
     margin-bottom: 25px;
   }
 
-  .products-sideview .feature-list {
-    flex-flow: row wrap;
-  }
-
   .products-sideview .feature-list > li {
-    width: calc(50% - 15px);
+    width:100%;
   }
 
   .products-sideview .features-tabs .features-tabs-content > p {

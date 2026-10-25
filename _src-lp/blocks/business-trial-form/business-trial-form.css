@@ -66,8 +66,8 @@
   border-radius: 4px;
   color: #616161;
   display: block;
-  font-family: roboto, sans-serif;
-  font-size: 16px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   height: 48px;
   margin: 0;
   outline: none;
@@ -79,16 +79,15 @@
 
 .business-trial-form.block > div:nth-child(3) div form .row-wrap label {
   background-color: #fff;
-  font-family: roboto, sans-serif;
   left: 11px;
-  line-height: 1.5;
   padding: 0 5px;
   pointer-events: none;
   position: absolute;
   text-align: left;
   transition: all 0.2s ease;
   color: #616161 !important;
-  font-size: 10px;
+  font-size: var(--body-font-size-xs4);
+  line-height: var(--body-line-height-xs4);
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;

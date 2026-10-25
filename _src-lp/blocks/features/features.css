@@ -12,7 +12,8 @@
 }
 
 .features-container h3 {
-  font-size: 40px;
+  font-size: var(--body-font-size-l3);
+  line-height: var(--body-line-height-l3);
   font-weight: normal;
 }
 

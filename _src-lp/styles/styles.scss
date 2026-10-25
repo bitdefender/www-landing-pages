@@ -50,6 +50,10 @@
   /* body sizes */
   --body-font-size-xl: 44px;
   --body-line-height-xl: 55px;
+  --body-font-size-l3: 40px;
+  --body-line-height-l3: 45px;
+  --body-font-size-l2: 36px;
+  --body-line-height-l2: 40px;
   --body-font-size-l: 32px;
   --body-line-height-l: 38px;
   --body-font-size-m3: 28px;
@@ -68,6 +72,10 @@
   --body-line-height-xs2: 18px;
   --body-font-size-xs3: 12px;
   --body-line-height-xs3: 15px;
+  --body-font-size-xs4: 10px;
+  --body-line-height-xs4: 13px;
+  --body-font-size-xs5: 8px;
+  --body-line-height-xs5: 11px;
 
   /* heading sizes */
   --heading-font-size-xxl3: 60px;
@@ -335,7 +343,7 @@ button {
   color: #fff;
   display: inline-block;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 8px !important;
   padding: 10px 3em;
   font-size: 14px;
   font-weight: bold;
@@ -708,8 +716,8 @@ main .default-content-wrapper h2 {
 }
 
 main .default-content-wrapper h3 {
-  font-size: var(--body-font-size-m3);
-  line-height: var(--body-line-height-m3);
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
 }
 
 main .default-content-wrapper h4 {
@@ -870,7 +878,7 @@ main .section[data-textcolor='grey'] .default-content-wrapper p {
   color: #6F6F6F;
 }
 
-main .section[data-textcolor='grey-light'] .default-content-wrapper p {
+main .section[data-textcolor='grey-light'] *, main .section[data-textcolor='grey-light'] .default-content-wrapper p {
   color: #9AA4B2;
 }
 
@@ -2031,7 +2039,7 @@ main .section.light-sky-blue > * {
   justify-content: center;
 }
 
-main .section[data-textcolor="grey"] .default-content-wrapper * {
+main .section[data-textcolor="grey"] *, main .section[data-textcolor="grey"] .default-content-wrapper * {
   color: #6F6F6F;
 }
 

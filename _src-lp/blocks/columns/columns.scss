@@ -141,21 +141,21 @@
 }
 
 .columns-container.new .columns h2 {
-  font-size: var(--heading-font-size-s);
-  line-height: var(--heading-font-size-m);
+  font-size: var(--body-font-size-s2);
+  line-height: var(--body-line-height-s2);
   font-weight: bold;
   color: black;
 }
 
 .columns-container.new .columns h4 {
-  font: normal normal normal 24px/28px Arial, sans-serif;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
+  font-weight: normal;
 }
 
 .columns h3 {
-  font-size: 13px;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 31px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
 }
 
 main .columns-container.padding-0 .columns-wrapper {
@@ -163,14 +163,14 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns p {
-  font-size: var(--heading-font-size-s);
+  font-size: var(--body-font-size-s2);
+  line-height: var(--body-line-height-s2);
   margin-top: 20px;
-  line-height: 24px;
 }
 
 .columns-container.smaller-text .columns p {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: var(--body-font-size-2);
+  line-height: var(--body-line-height-2);
 }
 
 .columns-container.new .columns p {
@@ -332,17 +332,23 @@ main .columns-container.padding-0 .columns-wrapper {
 .columns-container.new-v2 {
   u {
     text-decoration: none;
-    font: normal normal normal 18px/21px Arial, sans-serif;
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-line-height-s);
+    font-weight: normal;
   }
 
   .columns h2 {
-    font: normal normal bold 32px/37px Arial, sans-serif;
+    font-size: var(--body-font-size-l);
+    line-height: var(--body-line-height-l);
+    font-weight: bold;
     color: #006DFF;
     letter-spacing: 0;
   }
 
   .columns p {
-    font: normal normal normal 16px/24px Arial, sans-serif;
+    font-size: var(--body-font-size-xs);
+    line-height: var(--body-line-height-xs);
+    font-weight: normal;
     letter-spacing: 0;
     margin-bottom: 16px;
     margin-top: 16px;
@@ -353,11 +359,6 @@ main .columns-container.padding-0 .columns-wrapper {
   .columns.align-left * {
     align-items: flex-start !important;
     text-align: left;
-
-    h3 {
-      font-size: var(--body-font-size-xs);
-      line-height: var(--body-line-height-xs);
-    }
 
     p {
       font-size: var(--body-font-size-xs2);
@@ -401,7 +402,7 @@ main .columns-container.padding-0 .columns-wrapper {
 
   .columns.gray-cards {
     > div {
-      gap: 30px;
+      gap: 8px;
       margin: 30px;
       align-items: stretch !important;
 
@@ -411,11 +412,18 @@ main .columns-container.padding-0 .columns-wrapper {
     }
 
     > div > div {
-      padding: 0;
       display: flex;
       flex: 1;
+      flex-direction: column;
       background-color: #FAFAFA;
       border-radius: 20px;
+      gap: unset;
+      padding: 24px;
+
+      > * {
+        margin: 2px 0;
+        padding: 0;
+      }
     }
 
     > div > div > div {
@@ -423,7 +431,7 @@ main .columns-container.padding-0 .columns-wrapper {
       flex-direction: row;
       gap: 11px;
       align-items: center;
-      padding: 30px 20px;
+      padding: 0;
       text-align: left;
 
       h3,
@@ -449,10 +457,9 @@ main .columns-container.padding-0 .columns-wrapper {
 
         > div {
           min-width: 100%;
-          gap: 30px;
+          gap: 8px;
 
           > div {
-            padding: 24px;
             gap: 8px;
             background-color: #FAFAFA;
             flex-direction: column;
@@ -460,7 +467,8 @@ main .columns-container.padding-0 .columns-wrapper {
             border-radius: 20px;
 
             h3 {
-              font-size: 18px;
+              font-size: var(--body-font-size-s);
+              line-height: var(--body-line-height-s);
             }
 
             .button-container a {
@@ -469,7 +477,7 @@ main .columns-container.padding-0 .columns-wrapper {
               font-size: 16px;
               text-decoration: underline;
               font-weight: 600;
-              padding-bottom: 0;
+              padding: 0;
             }
           }
         }
@@ -639,6 +647,11 @@ main .columns-container.padding-0 .columns-wrapper {
     .icon {
       width: 48px !important;
       height: 48px !important;
+    }
+
+    img {
+      width: 48px !important;
+      height: auto !important;
     }
   }
 
@@ -998,7 +1011,8 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.v-nov25 .columns h3 {
-  font-size: 32px;
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height-l);
   color: #111;
   text-transform: none;
   margin: 0;
@@ -1036,8 +1050,8 @@ main .columns-container.padding-0 .columns-wrapper {
   display: inline-block;
   background: #1C7928 0% 0% no-repeat padding-box;
   text-decoration: none;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   color: white;
   border-radius: 20px 20px 0 0;
   padding: 12px 45px;
@@ -1105,8 +1119,8 @@ main .columns-container.padding-0 .columns-wrapper {
   justify-content: center;
   text-align: left;
   gap: 10px;
-  font-size: 16px;
-  line-height: 18px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   min-height: 42px;
 }
 
@@ -1142,16 +1156,17 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) > div {
   border-radius: 10px;
-  padding: 1.5em;
+  padding: 1em;
 }
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) > div h4 {
-  font-size: 16px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
 }
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) > div p {
-  font-size: 14px;
-  line-height: 19px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   color: #525252;
 }
 
@@ -1164,8 +1179,8 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.v-nov25 .columns > div:not(:first-of-type) table td {
-  font-size: 20px;
-  line-height: 25px;
+  font-size: var(--body-font-size-s2);
+  line-height: var(--body-line-height-s2);
 }
 
 .columns-container.compare .columns > div {
@@ -1240,7 +1255,8 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.compare.v2 .columns > div:first-of-type > div:not(:first-of-type) div.text-content {
-  font-size: 13px;
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
   text-align: left;
 }
 
@@ -1270,23 +1286,23 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.march26-design .columns p {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
   margin: 0;
 }
 
 .columns-container.march26-design .columns em {
   display: block;
-  font-size: 12px;
-  line-height: 24px;
+  font-size: var(--body-font-size-xs3);
+  line-height: var(--body-line-height-xs3);
   font-style: normal;
   margin-top: 10px;
 }
 
 .columns-container.march26-design .columns p strong {
   display: block;
-  font-size: 22px;
-  line-height: 26px;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height-m);
   margin-bottom: 10px;
 }
 
@@ -1297,8 +1313,8 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.march26-design .columns > div > div:nth-of-type(1) p strong {
   width: 275px;
-  font-size: 32px;
-  line-height: 40px;
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height-l);
 }
 
 .columns-container.march26-design .columns > div .text-content tr {
@@ -1320,8 +1336,8 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.steps-design .columns > div:first-of-type h6 {
-  font-size: 24px;
-  line-height: 28px;
+  font-size: var(--body-font-size-m2);
+  line-height: var(--body-line-height-m2);
   color: #006EFF;
   margin-top: 10px;
 }
@@ -1335,13 +1351,13 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.steps-design .columns > div:nth-of-type(2) > div h4 {
-  font-size: 22px;
-  line-height: 24px;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height-m);
 }
 
 .columns-container.steps-design .columns > div:nth-of-type(2) > div p {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
   color: black;
 }
 
@@ -1376,8 +1392,8 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.steps-design .columns > div:last-of-type > div p {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
   color: #000;
   margin: 0;
 }
@@ -1470,8 +1486,8 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.blue-version table tr p {
-  font-size: 18px;
-  line-height: 22px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height-s);
 }
 
 .columns-container.blue-version table tr ul {
@@ -1497,8 +1513,8 @@ main .columns-container.padding-0 .columns-wrapper {
 }
 
 .columns-container.blue-version table h6 {
-  font-size: 12px;
-  line-height: 15px;
+  font-size: var(--body-font-size-xs3);
+  line-height: var(--body-line-height-xs3);
   font-weight: normal;
   margin: 3em 0 0;
 }
@@ -1538,8 +1554,8 @@ main .columns-container.padding-0 .columns-wrapper {
 
 .columns-container.dynamic-awards {
   .default-content-wrapper p {
-    font-size: 14px;
-    line-height: 1.31;
+    font-size: var(--body-font-size-xs2);
+    line-height: var(--body-line-height-xs2);
     margin-bottom: 14px;
   }
 
@@ -1572,15 +1588,15 @@ main .section.wide.hide-images-mobile .columns-wrapper {
 
   .text-content {
     h2 {
-      font-size: var(--heading-font-size-l);
-      line-height: 1.2;
+      font-size: var(--body-font-size-l);
+      line-height: var(--body-line-height-l);
       margin-top: 0;
       margin-bottom: 15px;
     }
 
     p:first-of-type {
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: var(--body-font-size-xs);
+      line-height: var(--body-line-height-xs);
       margin: 0 0 20px;
     }
   }
@@ -1855,11 +1871,13 @@ main .section.business-needs .columns-wrapper {
   }
 
   .columns div.text-content h5 {
-    font-size: var(--heading-font-size-l);
+    font-size: var(--body-font-size-l);
+    line-height: var(--body-line-height-l);
   }
 
   .columns-container.smaller-titles .columns div.text-content h5 {
-    font-size: var(--heading-font-size-m);
+    font-size: var(--body-font-size-m);
+    line-height: var(--body-line-height-m);
   }
 
   .columns > div > div {
@@ -2505,11 +2523,13 @@ main .section.business-needs .columns-wrapper {
     height: 175px;
     position: unset;
     margin: auto;
-    margin-top: -5em;
+    margin-top: 0;
   }
 
   .columns-container.new .columns h4 {
-    font: normal normal normal 18px/20px Arial, sans-serif;
+    font-size: var(--body-font-size-s);
+    line-height: var(--body-line-height-s);
+    font-weight: normal;
   }
 
   .columns-container.new-2 .columns h2 {
@@ -2645,13 +2665,13 @@ main .section.business-needs .columns-wrapper {
   }
 
   .columns-container.compare.new2025 .columns > div:first-of-type * {
-    font-size: 10px !important;
-    line-height: 12px;
+    font-size: var(--body-font-size-xs4) !important;
+    line-height: var(--body-line-height-xs4);
   }
 
   .columns-container.compare.new2025 h2 {
-    font-size: var(--heading-font-size-s) !important;
-    line-height: var(--heading-font-size-m);
+    font-size: var(--body-font-size-s2) !important;
+    line-height: var(--body-line-height-s2);
   }
 
   .columns-container.compare .columns > div > div:first-of-type {
@@ -2682,6 +2702,11 @@ main .section.business-needs .columns-wrapper {
   }
 }
 
+@media (width >= 994px) and (width <= 1099px) {
+  .columns-container.v-jul26 .columns img {
+    height: revert-layer;
+  }
+}
 
 @media (width >= 992px) {
   .columns-container.dynamic-awards {
@@ -2794,7 +2819,6 @@ main .section.business-needs .columns-wrapper {
   .who-section .default-content-wrapper p {
     font-size: 14px;
   }
-
 }
 
 @media (width >= 1400px) {
@@ -2829,5 +2853,4 @@ main .section.business-needs .columns-wrapper {
       padding: 0 50px;
     }
   }
-
 }

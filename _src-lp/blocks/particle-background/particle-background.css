@@ -55,7 +55,10 @@
 
 @media (width <= 768px) {
   .particle-background div {
-    padding: 0 10px;
+    padding: 2em 10px;
+  }
+  .particle-background picture {
+    display: none;
   }
   .particle-background h2 {
     max-width: 100%;
