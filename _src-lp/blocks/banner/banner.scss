@@ -188,8 +188,7 @@
   background-size: 60% auto !important;
 }
 
-.section.banner-container:is(.bckimg-small, .bckimg-small-right, [data-corners="round"]) .block .content-column::before,
-.section.banner-container[data-corners="round"] .block .content-column::before {
+.section.banner-container:is(.bckimg-small, .bckimg-small-right, [data-corners="round"]) .block .content-column::before, .section.banner-container[data-corners="round"] .block .content-column::before {
   content: 'Trusted. Always.';
   font-size: 23px;
   line-height: 29px;
@@ -2075,12 +2074,13 @@
   }
 
   .section.banner-container #pricesBox .d-flex {
-    justify-content: center;
-    width: 100vw;
+    justify-content: flex-start;
+    width: max-content;
+    align-items: center;
   }
 
   .section.banner-container #pricesBox .d-flex.prod-save {
-    width: auto;;
+    width: auto;
   }
 
   .section.banner-container.new-2024.v2 #pricesBox .d-flex {

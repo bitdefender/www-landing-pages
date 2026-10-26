@@ -873,6 +873,9 @@
   .section.banner-with-dropdown-container {
     margin: 0 15px;
   }
+  .section.banner-with-dropdown-container .container-fluid .text-center {
+    text-align: left !important;
+  }
   .section.banner-with-dropdown-container .banner-with-dropdown {
     padding: 1em 0 !important;
     margin-bottom: 2em !important;
