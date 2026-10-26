@@ -158,6 +158,13 @@
   padding: 12px 26px !important;
 }
 
+@media (width <= 1150px) {
+  .card-with-switcher {
+    grid-template-columns: 25% 34% 37%;
+    gap: 15px;
+    padding: 20px;
+  }
+}
 @media (width <= 900px) {
   .card-with-switcher {
     grid-template-columns: 1fr;
