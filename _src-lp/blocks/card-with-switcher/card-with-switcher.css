@@ -108,6 +108,7 @@
 .card-switcher-price {
   display: flex;
   align-items: baseline;
+  flex-direction: column;
   gap: 8px;
 }
 
@@ -120,6 +121,24 @@
 
 .card-switcher-price .prod-oldprice {
   text-decoration: line-through;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
+}
+
+.card-switcher-save {
+  margin-bottom: 5px;
+}
+
+.card-switcher-save .prod-save {
+  color: #0B6A26;
+  background-color: #D1FADC;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 2px 8px;
+  display: inline-block;
+  margin: 5px 0 0;
+  font-size: var(--body-font-size-xs2);
+  line-height: var(--body-line-height-xs2);
 }
 
 /* Buy */
@@ -139,6 +158,13 @@
   padding: 12px 26px !important;
 }
 
+@media (width <= 1150px) {
+  .card-with-switcher {
+    grid-template-columns: 25% 34% 37%;
+    gap: 15px;
+    padding: 20px;
+  }
+}
 @media (width <= 900px) {
   .card-with-switcher {
     grid-template-columns: 1fr;
