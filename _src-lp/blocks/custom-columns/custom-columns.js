@@ -12,13 +12,7 @@ export default function decorate(block) {
       .filter(Boolean);
 
     if (styles.length) {
-      if (Array.isArray(styles)) {
-        styles.forEach((style) => {
-          if (typeof style === 'string' && style.trim() && !/\s/.test(style)) {
-            table.classList.add(style);
-          }
-        });
-      }
+      table.classList?.add(...styles);
 
       firstRow.remove();
     }
