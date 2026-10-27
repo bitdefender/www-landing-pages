@@ -273,9 +273,8 @@
 }
 
 .section.banner-container.hasslide .block h1 {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 48px;
-  line-height: 60px;
+  font-size: var(--body-font-size-xl);
+  line-height: var(--body-line-height-xl);
   font-weight: normal;
   padding: 0;
   margin: 0;
@@ -641,8 +640,10 @@
 }
 
 .section.banner-container[data-align="left"] .animated_text {
-  max-width: 400px !important;
+  height: 47px;
+  max-width: 530px !important;
   display: inline-block;
+  top: 7px;
 }
 
 .section.banner-container[data-align="left"] .animated_text span {
@@ -2070,7 +2071,7 @@
   }
 
   .section.banner-container .banner #lidlBox a.red-buy-button img {
-    max-height: 25px;
+    max-height: 26px;
     width: auto;
   }
 

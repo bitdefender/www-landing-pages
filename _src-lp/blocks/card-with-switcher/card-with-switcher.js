@@ -66,7 +66,6 @@ export default function decorate(block) {
   };
 
   /* Convert tables */
-
   const switcher = convertTable(
     switcherTable,
     'card-switcher',
@@ -83,13 +82,30 @@ export default function decorate(block) {
   );
 
   /*
-   * Price + switcher
+   * Extract price and save cells before creating the row
+   */
+  const priceCells = [...price.children];
+
+  const priceCell = priceCells[0];
+  const saveCell = priceCells[1];
+
+  if (!priceCell) return;
+
+  /*
+   * Price + switcher row
    */
   const priceSwitcherRow = document.createElement('div');
 
   priceSwitcherRow.className = 'card-switcher-price-row';
 
   price.parentNode.insertBefore(priceSwitcherRow, price);
+
+  /*
+   * Move save container outside the price row
+   */
+  if (saveCell) {
+    priceSwitcherRow.before(saveCell);
+  }
 
   priceSwitcherRow.append(price, switcher);
 
@@ -126,32 +142,34 @@ export default function decorate(block) {
   /*
    * Prices
    */
-  const priceCells = [...price.children];
-
-  const priceCell = priceCells[0];
-  const saveCell = priceCells[1];
-
-  if (!priceCell) return;
-
   priceCell.innerHTML = productData.map((product, index) => `
     <div
       class="card-switcher-price"
       data-product="${index}"
       ${index !== selectedProduct ? 'hidden' : ''}
     >
-      <span class="prod-oldprice oldprice-${product.selector}"></span>
       <span class="prod-newprice newprice-${product.selector}"></span>
     </div>
   `).join('');
 
+  /*
+   * Save prices
+   */
   if (saveCell) {
+    const saveTxt = saveCell.innerText;
+
     saveCell.innerHTML = productData.map((product, index) => `
       <div
         class="card-switcher-save"
         data-product="${index}"
         ${index !== selectedProduct ? 'hidden' : ''}
       >
-        <span class="save-${product.selector}"></span>
+        <div class="card-old-save-price">
+          <span class="prod-oldprice oldprice-${product.selector}"></span>
+          <span class="prod-save">
+            ${saveTxt.replace('0', `<span class="save-${product.selector}"></span>`)}
+          </span>
+        </div>
       </div>
     `).join('');
   }
