@@ -178,8 +178,8 @@
 }
 
 .section.banner-container.bck-half .block {
-  background-position: right center !important;
-  background-size: 50% auto !important;
+  background-position: right 2em center !important;
+  background-size: 45% auto !important;
 }
 
 .section.banner-container.bck-half2 .block {
@@ -1720,6 +1720,11 @@
   .section.banner-container.red-pill .banner img {
     width: 90%;
     margin-top: 2em;
+  }
+  .section.banner-container.bf25 .banner img {
+    width: 70%;
+    margin-top: 1em;
+    margin-right: 5em;
   }
   .section.banner-container.red-pill .banner .content-column img {
     width: 70%;

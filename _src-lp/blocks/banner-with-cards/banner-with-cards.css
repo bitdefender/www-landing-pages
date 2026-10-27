@@ -56,20 +56,16 @@
   margin: 0 1em;
 }
 
+.section.banner-with-cards-container .banner-with-cards.hasMoreThan1 .hasProds > div.prodBox-wrapper {
+  flex: 0 0 25%;
+}
+
 .section.banner-with-cards-container.free-size .banner-with-cards .hasProds > div:first-of-type {
   flex: auto;
 }
 
 .section.banner-with-cards-container .banner-with-cards.edeka .hasProds > div:first-of-type {
   flex: 0 0 500px;
-}
-
-.section.banner-with-cards-container.content-half .banner-with-cards .hasProds > div:first-of-type {
-  flex: 0 0 50%;
-}
-
-.section.banner-with-cards-container.content-larger .banner-with-cards .hasProds > div:first-of-type {
-  flex: 0 0 75%;
 }
 
 .section.banner-with-cards-container .banner-with-cards .prodBox p {
