@@ -45,12 +45,13 @@ describe('b-productswithinputdevices block', () => {
     });
 
     it('waits for the block to decorate itself', async () => {
-      // this will retry until the callback doesn't throw or times out
+      // this will retry until the callback doesn't throw or times out; the first paint waits
+      // up to TARGET_FIRST_PAINT_CAP for Target, which never answers here
       await waitFor(() => {
         container = document.querySelector('.b-productswithinputdevices-container');
         // for example, expect that the plus button exists
         expect(container.querySelector('fieldset button:nth-child(4)')).toBeTruthy();
-      });
+      }, { timeout: 3000 });
     });
 
     test('check if products have been added to the window.productsListCount', async () => {

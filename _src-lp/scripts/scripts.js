@@ -46,6 +46,13 @@ import {
   fetchGeoIP,
 } from './utils.js';
 import store from './store.js';
+import Constants from './constants.js';
+import {
+  applyStructuralHooks,
+  blockMboxNames,
+  installBlockHooks,
+  reportUnappliedHooks,
+} from './block-hooks.js';
 
 const page = await pagePromise;
 const target = await targetPromise;
@@ -214,9 +221,46 @@ export async function go2Anchor() {
 }
 
 /**
- * Loads everything that doesn't need to be delayed.
- * @param {Element} doc The container element
+ * Run the <script> and <style> blocks of a Target html offer. Only their text is copied into
+ * <head>, where scripts execute as soon as they are appended.
+ * @param {string} code
  */
+const injectOfferCode = (code) => {
+  const codeDiv = document.createElement('div');
+  codeDiv.insertAdjacentHTML('beforeend', code);
+  codeDiv.querySelectorAll('script, style').forEach((element) => {
+    const newElement = document.createElement(element.tagName);
+    newElement.innerHTML = element.innerHTML;
+    document.head.appendChild(newElement);
+  });
+};
+
+/**
+ * Fetch the mbox of every block type on the page in one request, and run them. Block offers
+ * register hooks that change their block before it is shown (see block-hooks.js), so they only
+ * take effect if they arrive before the blocks are decorated.
+ * @param {Element} main
+ */
+const applyTargetOffers = async (main) => {
+  const mboxNames = blockMboxNames(main);
+  if (!mboxNames.length) return;
+  const offers = await target.getOffers({ mboxNames });
+  mboxNames.forEach((name) => {
+    if (typeof offers?.[name] === 'string') injectOfferCode(offers[name]);
+  });
+};
+
+/**
+ * Local development only: run block hooks saved in localStorage under "bd-block-hooks-dev",
+ * so a component test can be tried without a Target activity.
+ */
+const applyDevBlockHooks = () => {
+  if (window.location.hostname !== 'localhost') return;
+  try {
+    const code = window.localStorage.getItem('bd-block-hooks-dev');
+    if (code) injectOfferCode(code);
+  } catch { /* storage unavailable */ }
+};
 
 export async function loadTrackers() {
   const isPageNotInDraftsFolder = window.location.pathname.indexOf('/drafts/') === -1;
@@ -241,6 +285,25 @@ export async function loadTrackers() {
 }
 
 /**
+ * Starts Launch once per page. loadPage starts it first thing, so Target has as long as
+ * possible to answer before the first paint. Launch.load resolves straight away when called a
+ * second time, even if the script is still loading, so later callers await this one.
+ * @returns {Promise<void>}
+ */
+let trackersLoaded;
+const startTrackers = () => {
+  trackersLoaded ??= loadTrackers();
+  return trackersLoaded;
+};
+
+/**
+ * A challenger can replace main only when the page names both the experiment's location and
+ * the experiment (see getTargetExperimentDetails in target.js).
+ * @returns {boolean}
+ */
+const hasChallengerExperiment = () => !!(getPageExperimentKey() && getMetadata('target-experiment'));
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
@@ -255,14 +318,35 @@ async function loadEager(doc) {
     addScript(`${window.hlx.codeBasePath}/scripts/template-factories/${templateMetadata}/${templateMetadata}.js`, {}, 'defer', undefined, undefined, 'module');
   }
 
-  if (getPageExperimentKey()) {
-    await loadTrackers();
+  installBlockHooks({
+    report: (name, status) => sampleRUM('target-block-hook', { source: name, target: status }),
+  });
+  const main = doc.querySelector('main');
+  if (hasChallengerExperiment()) {
+    // Waits for Target however long it takes: showing the page and then swapping it for the
+    // challenger would be worse than a late first paint.
+    await startTrackers();
     await sendAnalyticsPageEvent();
     await sendAnalyticsUserInfo();
+    // Only now is main final: the page event can swap it for a challenger page, which would
+    // change which blocks are on the page.
+    if (main) await applyTargetOffers(main);
+  } else if (main) {
+    // Every other page gives Target up to TARGET_FIRST_PAINT_CAP before it is shown. The
+    // offers run after installBlockHooks, so the hooks they register apply. A later block
+    // offer finds its block already decorated, and reportUnappliedHooks reports it.
+    await Promise.race([
+      startTrackers().then(() => applyTargetOffers(main)),
+      new Promise((resolve) => { setTimeout(resolve, Constants.TARGET_FIRST_PAINT_CAP); }),
+    ]);
   }
+  applyDevBlockHooks();
 
-  const main = doc.querySelector('main');
+  // a challenger swaps main's content, not the element, so main is still the one to decorate
   if (main) {
+    // Removed and added sections are applied to the authored HTML, so everything below sees
+    // the page as if it had been authored that way.
+    applyStructuralHooks(main);
     decorateMain(main);
     detectModalButtons(main);
     document.body.classList.add('appear');
@@ -303,8 +387,9 @@ export async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
 
-  if (!getPageExperimentKey()) {
-    loadTrackers();
+  // Launch and the offers are already under way (see loadEager); a page with a challenger
+  // experiment has sent its analytics events there too
+  if (!hasChallengerExperiment()) {
     await sendAnalyticsPageEvent();
     await sendAnalyticsUserInfo();
   }
@@ -1289,6 +1374,8 @@ function addTrackingEventListeners(selector, assetName, eventType = 'click') {
 
 async function loadPage() {
   setBFCacheListener();
+  // first thing, so Target has as long as possible to answer before the first paint
+  startTrackers();
   const main = document.querySelector('main');
   /**
    * @type {import('@repobit/dex-store-elements').ContextNode}
@@ -1365,6 +1452,7 @@ async function loadPage() {
 
   document.dispatchEvent(new Event('bd_page_ready'));
   window.bd_page_ready = true;
+  reportUnappliedHooks();
 }
 
 /*

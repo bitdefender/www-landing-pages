@@ -442,7 +442,12 @@ export async function loadBlock(block) {
           try {
             const mod = await import(`../blocks/${blockName}/${blockName}.js`);
             if (mod.default) {
-              await mod.default(block);
+              // Extension point for blocks: window.hlx.blockDecorator may wrap a block's
+              // decorate(), e.g. to apply a Target test before the block is shown.
+              const decorator = window.hlx?.blockDecorator;
+              await (decorator
+                ? decorator(blockName, mod.default, block)
+                : mod.default(block));
             }
           } catch (error) {
             // eslint-disable-next-line no-console

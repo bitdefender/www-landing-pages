@@ -44,9 +44,10 @@ describe('lib-franklin.js → internalDecorateIcons', () => {
     // Import your runtime—this will trigger internalDecorateIcons()
     await import('../../_src-lp/scripts/scripts.js');
 
-    expect(fetch).toHaveBeenCalledWith(
+    // the first paint waits up to TARGET_FIRST_PAINT_CAP for Target, which never answers here
+    await vi.waitFor(() => expect(fetch).toHaveBeenCalledWith(
       '/pages/icons/keeps-you-informed.svg'
-    );
+    ), { timeout: 3000 });
   });
 
   it('fetches `/icons/...` when on pages.bitdefender.com without the /pages/ prefix', async () => {
@@ -59,8 +60,9 @@ describe('lib-franklin.js → internalDecorateIcons', () => {
     document.body.innerHTML = data;
     await import('../../_src-lp/scripts/scripts.js');
 
-    expect(fetch).toHaveBeenCalledWith(
+    // the first paint waits up to TARGET_FIRST_PAINT_CAP for Target, which never answers here
+    await vi.waitFor(() => expect(fetch).toHaveBeenCalledWith(
       '/icons/keeps-you-informed.svg'
-    );
+    ), { timeout: 3000 });
   });
 });
