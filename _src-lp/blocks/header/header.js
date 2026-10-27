@@ -3,6 +3,25 @@ import {
   adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection, getLocale,
 } from '../../scripts/utils.js';
 import { getDefaultLanguage } from '../../scripts/target.js';
+import userPromise from '../../scripts/user.js';
+
+/**
+ * signs in users that Login already has signed in, without a prompt (once per tab),
+ * as the www-websites header does; switched on by the login-enabled metadata
+ */
+async function loginFunctionality() {
+  if (getMetadata('login-enabled') !== 'true') {
+    return;
+  }
+
+  try {
+    const user = await userPromise;
+    await user.login();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(error);
+  }
+}
 
 /**
  * extracts the span svg's from the nav html
@@ -42,6 +61,9 @@ function createButton(element) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // not awaited: the header has nothing to show for a signed-in user, so don't hold it back
+  loginFunctionality();
+
   // header logo should be svg
   // fetch nav content
   const navMeta = getMetadata('nav');

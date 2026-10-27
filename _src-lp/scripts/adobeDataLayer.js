@@ -15,6 +15,17 @@ import {
 const page = await pagePromise;
 const target = await targetPromise;
 const userObject = await userPromise;
+
+/**
+ * no page loaded event while user.login() is redirecting to Login (see the header block),
+ * the page is tracked once the user comes back
+ */
+const pushPageLoadedEvent = () => {
+  if (!window.BD?.loginAttempted) {
+    AdobeDataLayerService.push(new PageLoadedEvent());
+  }
+};
+
 /**
  * Sends the page load started event to the Adobe Data Layer
  */
@@ -296,7 +307,7 @@ export async function sendAnalyticsProducts(product, region) {
       AdobeDataLayerService.push(new CdpEvent(cdpData));
     }
 
-    AdobeDataLayerService.push(new PageLoadedEvent());
+    pushPageLoadedEvent();
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 }
@@ -321,7 +332,7 @@ export async function sendAnalyticsPageLoadedEvent(force = false) {
     if (cdpData) {
       AdobeDataLayerService.push(new CdpEvent(cdpData));
     }
-    AdobeDataLayerService.push(new PageLoadedEvent());
+    pushPageLoadedEvent();
     document.dispatchEvent(new Event(GLOBAL_EVENTS.PAGE_LOADED));
   }
 }
