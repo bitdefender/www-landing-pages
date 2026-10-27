@@ -39,19 +39,19 @@ describe('b-productswithinputdevices block', () => {
 
     beforeEach(async () => {
       // 1. inject your HTML fixture
-      document.body.innerHTML = mockData.b_productswithinputdevices;
+      // with Target aborted, loadPage reaches the price logic, which needs the page's <footer>
+      document.body.innerHTML = `${mockData.b_productswithinputdevices}<footer></footer>`;
       // 2. load your scripts (it will pick up the mocked lib-franklin)
       await import('../../../scripts/scripts.js');
     });
 
     it('waits for the block to decorate itself', async () => {
-      // this will retry until the callback doesn't throw or times out; the first paint waits
-      // up to TARGET_FIRST_PAINT_CAP for Target, which never answers here
+      // this will retry until the callback doesn't throw or times out
       await waitFor(() => {
         container = document.querySelector('.b-productswithinputdevices-container');
         // for example, expect that the plus button exists
         expect(container.querySelector('fieldset button:nth-child(4)')).toBeTruthy();
-      }, { timeout: 3000 });
+      });
     });
 
     test('check if products have been added to the window.productsListCount', async () => {

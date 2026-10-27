@@ -42,9 +42,6 @@ export default class Constants {
 
   static TARGET_EXPERIMENT_METADATA_KEY = 'target-experiment-location';
 
-  // ms the first paint waits for Target's offers on a page that can't swap to a challenger
-  static TARGET_FIRST_PAINT_CAP = 1000;
-
   static DISABLE_TARGET_PARAMS = {
     key: 'dotest',
     value: '1',

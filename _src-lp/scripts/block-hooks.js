@@ -32,9 +32,8 @@
  *     adds a section next to the block's section; html is that section's authored content,
  *     e.g. a fragment: <div class="fragment"><div><div>/en-us/fragments/…</div></div></div>
  *
- * The offers are fetched and injected in loadEager, before any block loads. A page that can be
- * swapped for a challenger waits for them; every other page waits at most
- * Constants.TARGET_FIRST_PAINT_CAP, and an offer arriving later is reported as missed.
+ * The offers are fetched and injected in loadEager, before any block loads: every page waits
+ * for them before it is shown.
  */
 
 const QUEUE = 'bdBlockHooks';
