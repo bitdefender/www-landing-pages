@@ -71,16 +71,6 @@
   display: none;
 }
 
-@media screen and (width <= 500px) {
-  .counter-bf #greenPillBox {
-    width: 80px;
-    height: 80px;
-  }
-  .counter-bf #greenPillBox > span {
-    font-size: 21px;
-    line-height: 23px;
-  }
-}
 .counter-bf-container table#flipdownTable {
   display: none;
 }
@@ -214,6 +204,10 @@
   margin: 1em 0;
 }
 
+.counter-bf-container.bf-2026 .counter-bf-wrapper h4 {
+  margin-bottom: 20px;
+}
+
 .counter-bf-container.bf-2026 .counter-bf-wrapper p {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -223,6 +217,17 @@
 
 .counter-bf-container.bf-2026 .counter-text img {
   max-height: 55px;
+}
+
+.counter-bf-container.bf-2026 .counter-bf .counter-text > div::before {
+  content: "Trusted. Always.";
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #fff;
+  display: block;
+  margin: 0 0 1em;
 }
 
 .counter-bf-container .counter-bf-wrapper a {
@@ -289,6 +294,34 @@
   }
 }
 @media screen and (width < 767px) {
+  .counter-bf-container.bf-2026 .counter-bf .container-fluid > .row::before {
+    content: "Trusted. Always.";
+    display: block;
+    width: 100%;
+    flex: 0 0 100%;
+    font-size: 23px;
+    line-height: 29px;
+    font-weight: bold;
+    letter-spacing: 0;
+    color: #fff;
+    margin: 0 0 1em;
+  }
+  .counter-bf-container.bf-2026 .counter-bf .counter-text > div::before {
+    content: none;
+  }
+  .counter-bf #greenPillBox {
+    right: 2em;
+    width: 70px;
+    height: 70px;
+  }
+  .counter-bf #greenPillBox > span {
+    font-size: 15px;
+    line-height: 17px;
+  }
+  .counter-bf #greenPillBox span.max-discount {
+    font-size: 22px;
+    line-height: 24px;
+  }
   .counter-bf-container.hide-mobile {
     background-image: none !important;
   }
@@ -322,6 +355,17 @@
   .counter-bf-container .counter-bf-wrapper h1 {
     font-size: 30px;
     line-height: 34px;
+  }
+}
+@media screen and (width <= 500px) {
+  .counter-bf #greenPillBox {
+    right: 0.5em;
+    width: 70px;
+    height: 70px;
+  }
+  .counter-bf #greenPillBox > span {
+    font-size: 15px;
+    line-height: 17px;
   }
 }
 @media screen and (width < 550px) {
