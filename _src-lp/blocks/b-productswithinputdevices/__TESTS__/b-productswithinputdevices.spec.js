@@ -39,7 +39,8 @@ describe('b-productswithinputdevices block', () => {
 
     beforeEach(async () => {
       // 1. inject your HTML fixture
-      document.body.innerHTML = mockData.b_productswithinputdevices;
+      // with Target aborted, loadPage reaches the price logic, which needs the page's <footer>
+      document.body.innerHTML = `${mockData.b_productswithinputdevices}<footer></footer>`;
       // 2. load your scripts (it will pick up the mocked lib-franklin)
       await import('../../../scripts/scripts.js');
     });
