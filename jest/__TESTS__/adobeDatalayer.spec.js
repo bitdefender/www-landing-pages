@@ -1,5 +1,6 @@
-import {sendAnalyticsPageEvent} from "../../_src-lp/scripts/adobeDataLayer";
+import {sendAnalyticsPageEvent, sendAnalyticsPageLoadedEvent} from "../../_src-lp/scripts/adobeDataLayer";
 import userPromise from "../../_src-lp/scripts/user";
+import { targetPromise } from "../../_src-lp/scripts/target";
 
 describe('adobeDatalayer.js', () => {
   describe('sendAnalyticsPageEvent function', () => {
@@ -38,6 +39,33 @@ describe('adobeDatalayer.js', () => {
       const [pageLoadStartedEvent] = window.adobeDataLayer;
 
       expect(pageLoadStartedEvent.page.info.name).toBe(`${await user.locale}:offers:consumer:new:new-campaign`);
+    });
+  });
+
+  describe('sendAnalyticsPageLoadedEvent function', () => {
+    beforeEach(async () => {
+      window.adobeDataLayer = [];
+      // CDP data waits on Adobe alloy, which isn't loaded here
+      vi.spyOn(await targetPromise, 'cdpData', 'get').mockResolvedValue(null);
+    });
+
+    afterEach(() => {
+      delete window.BD.loginAttempted;
+      vi.restoreAllMocks();
+    });
+
+    it('should send the page loaded event', async () => {
+      await sendAnalyticsPageLoadedEvent(true);
+
+      expect(window.adobeDataLayer.some((obj) => obj.event === 'page loaded')).toBe(true);
+    });
+
+    it('should not send the page loaded event while redirecting to Login', async () => {
+      window.BD.loginAttempted = true;
+
+      await sendAnalyticsPageLoadedEvent(true);
+
+      expect(window.adobeDataLayer.some((obj) => obj.event === 'page loaded')).toBe(false);
     });
   });
 });
