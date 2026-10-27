@@ -3,6 +3,79 @@ import {
   adobeMcAppendVisitorId, getLocalizedResourceUrl, getDefaultBaseUrl, getDefaultSection, getLocale,
 } from '../../scripts/utils.js';
 import { getDefaultLanguage } from '../../scripts/target.js';
+import userPromise from '../../scripts/user.js';
+
+/**
+ * signs in users that Login already has signed in, without a prompt (once per tab),
+ * as the www-websites header does; switched on by the login-enabled metadata
+ * @returns {Promise<{firstname?: string, email?: string} | null>} the signed-in user's info
+ */
+async function loginFunctionality() {
+  if (getMetadata('login-enabled') !== 'true') {
+    return null;
+  }
+
+  try {
+    const user = await userPromise;
+    await user.login();
+    return await user.info;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(error);
+    return null;
+  }
+}
+
+/**
+ * @param {string} href
+ * @returns {boolean} whether the link goes to Bitdefender Central, directly or through Login
+ */
+function isCentralLink(href) {
+  const { hostname, pathname } = new URL(href, window.location.href);
+  return hostname === 'central.bitdefender.com'
+    || (hostname === 'login.bitdefender.com' && pathname.startsWith('/central/'));
+}
+
+/**
+ * the initials the www-websites mega menu avatar shows: from the first name or,
+ * without one, from the letters of the email
+ * @param {string} [firstname]
+ * @param {string} [email]
+ * @returns {string}
+ */
+function getUserInitials(firstname, email) {
+  if (firstname?.trim()) {
+    const [first, second] = firstname.trim().split(/\s+/);
+    return `${first.charAt(0)}${second ? second.charAt(0) : first.charAt(1)}`.toUpperCase();
+  }
+
+  return (email || '').split('@')[0].replace(/[^a-zA-Z]+/g, '').slice(0, 2).toUpperCase();
+}
+
+/**
+ * replaces the header's Central links with the signed-in user's avatar,
+ * like the www.bitdefender.com mega menu
+ * @param {Element} block The header block element
+ * @param {{firstname?: string, email?: string} | null} userData
+ */
+function showUserAvatar(block, userData) {
+  const initials = userData && getUserInitials(userData.firstname, userData.email);
+  if (!initials) {
+    return;
+  }
+
+  block.querySelectorAll('a[href]').forEach((link) => {
+    if (!isCentralLink(link.href)) {
+      return;
+    }
+
+    // screen readers keep the authored text, the hover shows who is signed in
+    link.setAttribute('aria-label', link.textContent.trim());
+    link.title = userData.firstname || userData.email;
+    link.textContent = initials;
+    link.classList.add('user-avatar');
+  });
+}
 
 /**
  * extracts the span svg's from the nav html
@@ -42,6 +115,9 @@ function createButton(element) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // not awaited: the header renders meanwhile and gets the avatar once both are done
+  const signedInUser = loginFunctionality();
+
   // header logo should be svg
   // fetch nav content
   const navMeta = getMetadata('nav');
@@ -165,5 +241,6 @@ export default async function decorate(block) {
     if (headerColor) headerWrapper.style.backgroundColor = headerColor;
 
     adobeMcAppendVisitorId('header');
+    signedInUser.then((userData) => showUserAvatar(block, userData));
   }
 }
