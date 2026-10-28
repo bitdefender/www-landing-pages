@@ -110,6 +110,10 @@
   justify-content: center;
 }
 
+.counter-bf-container .flipdown .rotor {
+  font-size: 40px;
+}
+
 .counter-bf-container:not(.default) table#flipdownTable .flipdown {
   min-width: 200px;
   height: 100%;
@@ -345,7 +349,7 @@
   }
   .counter-bf-container .flipdown .rotor {
     width: 30px;
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
   .counter-bf-container:not(.default) table#flipdownTable.red td {
     width: 100%;
@@ -385,7 +389,7 @@
 @media screen and (width < 550px) {
   .counter-bf-container .flipdown .rotor {
     width: 11px;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-right: 10px;
   }
   .counter-bf-container .flipdown {
