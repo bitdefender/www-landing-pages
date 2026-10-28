@@ -2067,6 +2067,7 @@ main .section.business-needs .columns-wrapper {
     padding: 0 20px;
   }
   .columns > div > .columns-img-col img {
+    width: 100%;
     max-width: 100%;
     margin-left: 0;
   }
