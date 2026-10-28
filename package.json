@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.7.1",
+    "@repobit/dex-constants": "^2.4.0",
     "@repobit/dex-data-layer": "^2.4.0",
     "@repobit/dex-launch": "^3.0.141",
     "@repobit/dex-store": "^1.6.52",
