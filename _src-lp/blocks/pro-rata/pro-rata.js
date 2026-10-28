@@ -9,6 +9,17 @@ import {
 
 const page = await pagePromise;
 
+// the backend hardcodes SRC=PRO_RATA_UPGRADE2 on the cart URL; a src/SRC from the page link overrides it.
+// replaced as a string so the rest of the cart query is not re-encoded
+const withPageSrc = (cartUrl) => {
+  const src = page.getParamValue('src') || page.getParamValue('SRC');
+  if (!src) return cartUrl;
+  const value = encodeURIComponent(src);
+  if (/[?&]SRC=[^&#]*/.test(cartUrl)) return cartUrl.replace(/([?&])SRC=[^&#]*/g, `$1SRC=${value}`);
+  const [base, hash] = cartUrl.split('#');
+  return `${base}${base.includes('?') ? '&' : '?'}SRC=${value}${hash !== undefined ? `#${hash}` : ''}`;
+};
+
 // check eligibility
 const checkEligibility = async (block, optionCode, neeligibilText) => {
   try {
@@ -38,7 +49,7 @@ const checkEligibility = async (block, optionCode, neeligibilText) => {
     // if eligible - redirect
     if (data.eligible && data.url) {
       setTimeout(() => {
-        window.location.href = data.url;
+        window.location.href = withPageSrc(data.url);
       }, 2000);
     } else {
       // if not eligible - display message
