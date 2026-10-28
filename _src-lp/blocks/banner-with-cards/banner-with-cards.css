@@ -68,6 +68,10 @@
   flex: 0 0 500px;
 }
 
+.section.banner-with-cards-container.content-half .banner-with-cards .hasProds > div:first-of-type {
+  flex: 0 0 50%;
+}
+
 .section.banner-with-cards-container .banner-with-cards .prodBox p {
   margin: 5px 0;
   font-size: 12px !important;
