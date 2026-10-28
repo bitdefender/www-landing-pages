@@ -35,6 +35,9 @@ jobs:
         with:
           node-version-file: package.json
       - run: npm install
+      # postinstall regenerated the import map from package-lock.json; it must match what's committed
+      - name: Check the import map
+        run: git diff --exit-code -- head.html 404.html
       - run: npm run lint
 
   unit-tests:
