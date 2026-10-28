@@ -219,6 +219,15 @@
   max-height: 55px;
 }
 
+.counter-bf-container.bf-2026 .img-right picture:not(.pictureBF, .pictureCM) {
+  display: block;
+  text-align: right;
+}
+
+.counter-bf-container.bf-2026 .img-right picture:not(.pictureBF, .pictureCM) img {
+  max-height: 55px;
+}
+
 .counter-bf-container.bf-2026 .counter-bf .counter-text > div::before {
   content: "Trusted. Always.";
   font-size: 23px;
@@ -227,6 +236,9 @@
   letter-spacing: 0;
   color: #fff;
   display: block;
+  width: 100%;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #fff;
   margin: 0 0 1em;
 }
 
@@ -304,6 +316,8 @@
     font-weight: bold;
     letter-spacing: 0;
     color: #fff;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #fff;
     margin: 0 0 1em;
   }
   .counter-bf-container.bf-2026 .counter-bf .counter-text > div::before {
