@@ -53,6 +53,11 @@
     color: #fff;
 }
 
+.new-prod-boxes-2-container.bf-2026 .titleBox h2 {
+    color: #fff;
+    font-size: 32px;
+}
+
 .new-prod-boxes-2-container.title-pink .titleBox h2 {
     color: #FE32A9;
 }
@@ -1447,6 +1452,10 @@
 }
 
 @media (width <= 767px) {
+    .new-prod-boxes-2-container.bf-2026 .titleBox h2 {
+        font-size: 22px;
+    }
+
     .new-prod-boxes-2-container {
         overflow: hidden;
     }
