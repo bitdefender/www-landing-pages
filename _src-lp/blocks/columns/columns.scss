@@ -1779,7 +1779,7 @@ main .section.business-needs .columns-wrapper {
 
 @media (width <=991px) {
   .columns-container.csam-design .block > div {
-    padding-right: 0;
+    padding-right: 15px;
   }
 
   .columns > div {
@@ -2330,12 +2330,13 @@ main .section.business-needs .columns-wrapper {
     flex-direction: column;
   }
 
-  .columns-container.csam-design .block table tr > td:first-of-type {
+  .columns-container.csam-design .block .columns-img-col table tr > td:first-of-type {
     width: 100%;
     background-color: #1C314A;
     overflow: hidden;
     margin-left: 0;
     margin-top: 0;
+    border-radius: 10px;
   }
 
   .columns-container.csam-design .block h2 {
