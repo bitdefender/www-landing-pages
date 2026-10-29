@@ -2331,12 +2331,11 @@ main .section.business-needs .columns-wrapper {
   }
 
   .columns-container.csam-design .block .columns-img-col table tr > td:first-of-type {
-    width: 100%;
+    width: calc(100% + 30px);
     background-color: #1C314A;
     overflow: hidden;
-    margin-left: 0;
-    margin-top: 0;
-    border-radius: 10px;
+    margin: -15px -15px 0;
+    border-radius: 10px 10px 0 0;
   }
 
   .columns-container.csam-design .block h2 {
@@ -2347,10 +2346,9 @@ main .section.business-needs .columns-wrapper {
   .columns-container.csam-design .block div.columns-img-col img {
     max-width: 100%;
     min-width: 100%;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     padding: 0;
-    margin-bottom: 0;
-    margin-top: 0;
+    margin: 0;
   }
 
   .columns-container.csam-design-v4 .block div.columns-img-col img {
@@ -2519,6 +2517,7 @@ main .section.business-needs .columns-wrapper {
   }
 
   .columns-container.outlined-image .columns > div > .columns-img-col--left img {
+    width: auto;
     height: 175px;
     position: unset;
     margin: auto;
