@@ -232,6 +232,14 @@
   max-height: 55px;
 }
 
+.counter-bf-container.bf-2026 .counter-bf-mobile-secondary-image {
+  text-align: right;
+}
+
+.counter-bf-container.bf-2026 .counter-bf-mobile-secondary-image img {
+  max-height: 55px;
+}
+
 .counter-bf-container.bf-2026 .counter-bf .counter-text > div::before {
   content: "Trusted. Always.";
   font-size: 23px;
@@ -291,6 +299,10 @@
 }
 
 @media screen and (width >= 768px) {
+  .counter-bf-container.bf-2026 .counter-bf .counter-text > div > p:last-of-type picture {
+    display: none;
+  }
+
   .counter-bf-container .counter-bf-wrapper h1 {
     font-size: 41px;
     line-height: 47px;
@@ -313,7 +325,11 @@
   }
 }
 
-@media screen and (width < 767px) {
+@media screen and (width < 768px) {
+  .counter-bf-container.bf-2026 .counter-bf .bck-img:not(.img-right) > div:first-child > picture:not(.pictureBF, .pictureCM) {
+    display: none;
+  }
+
   .counter-bf-container.bf-2026 .counter-bf .container-fluid > .row::before {
     content: "Trusted. Always.";
     display: block;
@@ -324,9 +340,9 @@
     font-weight: bold;
     letter-spacing: 0;
     color: #fff;
-    padding-bottom: 16px;
-    border-bottom: 2px solid #fff;
-    margin: 0 0 1em;
+    padding-bottom: 0;
+    border-bottom: 0;
+    margin-bottom: 0;
   }
 
   .counter-bf-container.bf-2026 .counter-bf .counter-text > div::before {
