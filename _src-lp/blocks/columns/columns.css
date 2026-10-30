@@ -1633,7 +1633,7 @@ main .section.business-needs .columns-wrapper {
 
 @media (width <= 991px) {
   .columns-container.csam-design .block > div {
-    padding-right: 0;
+    padding-right: 15px;
   }
   .columns > div {
     display: flex;
@@ -2040,6 +2040,7 @@ main .section.business-needs .columns-wrapper {
   .columns-container:not(.round-corners) .columns > div > .columns-img-col {
     width: 100%;
     margin: 0 !important;
+    border-radius: 10px 10px 0 0;
   }
 }
 @media (width <= 768px) {
@@ -2060,6 +2061,11 @@ main .section.business-needs .columns-wrapper {
   .columns p {
     font-size: 16px;
   }
+  .columns-container.csam-design {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 20px;
+  }
   .columns-container.round-corners .columns > div > div:has(.text-content) {
     padding: 0;
   }
@@ -2079,12 +2085,12 @@ main .section.business-needs .columns-wrapper {
     display: flex;
     flex-direction: column;
   }
-  .columns-container.csam-design .block table tr > td:first-of-type {
-    width: 100%;
+  .columns-container.csam-design .block .columns-img-col table tr > td:first-of-type, .columns-container.csam-design-v4 .block .columns-img-col table tr > td:first-of-type {
+    width: calc(100% + 30px) !important;
     background-color: #1C314A;
     overflow: hidden;
-    margin-left: 0;
-    margin-top: 0;
+    margin: -15px -15px 0;
+    border-radius: 10px 10px 0 0;
   }
   .columns-container.csam-design .block h2 {
     font-size: 24px;
@@ -2093,10 +2099,9 @@ main .section.business-needs .columns-wrapper {
   .columns-container.csam-design .block div.columns-img-col img {
     max-width: 100%;
     min-width: 100%;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     padding: 0;
-    margin-bottom: 0;
-    margin-top: 0;
+    margin: 0;
   }
   .columns-container.csam-design-v4 .block div.columns-img-col img {
     padding: 0;
@@ -2227,6 +2232,7 @@ main .section.business-needs .columns-wrapper {
     margin: 10px auto;
   }
   .columns-container.outlined-image .columns > div > .columns-img-col--left img {
+    width: auto;
     height: 175px;
     position: unset;
     margin: auto;
