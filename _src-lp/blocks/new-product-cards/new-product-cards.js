@@ -451,6 +451,8 @@ export default async function decorate(block) {
       renderNanoBlocks(innerCard, undefined, idx);
       moveRadiosUnderProduct(innerCard);
     }
+
+    if (card.querySelector('.green-tag')) card.classList.add('has-green-tag');
   });
 
   if (slider) {
