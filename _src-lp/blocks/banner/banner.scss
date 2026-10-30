@@ -707,7 +707,7 @@
   border: 3px solid white;
   position: absolute;
   right: 3em;
-  top: -2.5em;
+  top:0;
   margin-top: 0;
   width: 90px;
   height: 90px;
@@ -717,6 +717,10 @@
   z-index: 1;
   transform: rotate(-9deg);
   padding: 0;
+}
+
+.section.banner-container[data-padding-top="4"].red-pill #greenPillBox {
+  top: -2.5em;
 }
 
 .section.banner-container.red-pill #greenPillBox:hover {
