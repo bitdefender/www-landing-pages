@@ -102,7 +102,7 @@
   margin: 15px;
 }
 @media (width < 768px) {
-  .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box.has-green-tag {
+  .new-product-cards-container .new-product-cards-wrapper .new-product-cards .prod_box:not(:first-of-type).has-green-tag {
     margin-top: 2em;
   }
 }

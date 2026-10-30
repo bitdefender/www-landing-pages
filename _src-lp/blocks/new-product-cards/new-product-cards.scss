@@ -121,8 +121,10 @@
                 margin: 15px;
 
                 @media (width < 768px) {
-                    &.has-green-tag {
-                        margin-top: 2em;
+                    &:not(:first-of-type){
+                        &.has-green-tag {
+                            margin-top: 2em;
+                        }
                     }
                 }
 
