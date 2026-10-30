@@ -120,6 +120,14 @@
                 gap: 0;
                 margin: 15px;
 
+                @media (width < 768px) {
+                    &:not(:first-of-type){
+                        &.has-green-tag {
+                            margin-top: 3em;
+                        }
+                    }
+                }
+
                 .inner_prod_box {
                     display: grid;
                     grid-template-rows: subgrid;
