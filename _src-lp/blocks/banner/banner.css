@@ -178,8 +178,8 @@
 }
 
 .section.banner-container.bck-half .block {
-  background-position: right 6em center !important;
-  background-size: 40% auto !important;
+  background-position: right 2em center !important;
+  background-size: 45% auto !important;
 }
 
 .section.banner-container.bck-half2 .block {
@@ -704,8 +704,8 @@
   border-radius: 100%;
   border: 3px solid white;
   position: absolute;
-  right: 2em;
-  top: 0;
+  right: 3em;
+  top: -2.5em;
   margin-top: 0;
   width: 90px;
   height: 90px;
