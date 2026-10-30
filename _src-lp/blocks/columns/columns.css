@@ -2061,6 +2061,11 @@ main .section.business-needs .columns-wrapper {
   .columns p {
     font-size: 16px;
   }
+  .columns-container.csam-design {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 20px;
+  }
   .columns-container.round-corners .columns > div > div:has(.text-content) {
     padding: 0;
   }
