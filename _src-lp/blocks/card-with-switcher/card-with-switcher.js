@@ -36,6 +36,14 @@ export default function decorate(block) {
   if (!switcherTable || !priceTable || !buyTable) return;
 
   /*
+   * Initial selected product (1-based in dataset)
+   */
+  const selectedProduct = Math.min(
+    productList.length - 1,
+    Math.max(0, Number(section.dataset.selected || 1) - 1),
+  );
+
+  /*
    * Convert table to div
    */
   const convertTable = (table, className) => {
@@ -58,7 +66,6 @@ export default function decorate(block) {
   };
 
   /* Convert tables */
-
   const switcher = convertTable(
     switcherTable,
     'card-switcher',
@@ -75,42 +82,47 @@ export default function decorate(block) {
   );
 
   /*
-   * Price + switcher
+   * Extract price and save cells before creating the row
    */
+  const priceCells = [...price.children];
 
+  const priceCell = priceCells[0];
+  const saveCell = priceCells[1];
+
+  if (!priceCell) return;
+
+  /*
+   * Price + switcher row
+   */
   const priceSwitcherRow = document.createElement('div');
 
   priceSwitcherRow.className = 'card-switcher-price-row';
 
-  price.parentNode.insertBefore(
-    priceSwitcherRow,
-    price,
-  );
+  price.parentNode.insertBefore(priceSwitcherRow, price);
 
-  priceSwitcherRow.append(
-    price,
-    switcher,
-  );
+  /*
+   * Move save container outside the price row
+   */
+  if (saveCell) {
+    priceSwitcherRow.before(saveCell);
+  }
 
-  /* =========================
+  priceSwitcherRow.append(price, switcher);
+
+  /*
    * Switcher
-   * ========================= */
-
+   */
   const switcherCells = [...switcher.children];
 
   switcherCells.forEach((cell, index) => {
     cell.classList.add('card-switcher-cell');
     cell.dataset.product = index;
-
-    if (index === 0) {
-      cell.classList.add('active');
-    }
+    cell.classList.toggle('active', index === selectedProduct);
   });
 
-  /* =========================
+  /*
    * Text variants
-   * ========================= */
-
+   */
   content.querySelectorAll('li').forEach((li) => {
     if (!li.textContent.includes('|')) return;
 
@@ -120,50 +132,51 @@ export default function decorate(block) {
       <span
         class="card-switcher-value"
         data-product="${index}"
-        ${index ? 'hidden' : ''}
+        ${index !== selectedProduct ? 'hidden' : ''}
       >
         ${value}
       </span>
     `).join('');
   });
 
-  /* =========================
+  /*
    * Prices
-   * ========================= */
-
-  const priceCells = [...price.children];
-
-  const priceCell = priceCells[0];
-  const saveCell = priceCells[1];
-
-  if (!priceCell) return;
-
+   */
   priceCell.innerHTML = productData.map((product, index) => `
     <div
       class="card-switcher-price"
       data-product="${index}"
-      ${index ? 'hidden' : ''}
+      ${index !== selectedProduct ? 'hidden' : ''}
     >
-      <span class="prod-oldprice oldprice-${product.selector}"></span>
       <span class="prod-newprice newprice-${product.selector}"></span>
     </div>
   `).join('');
 
+  /*
+   * Save prices
+   */
   if (saveCell) {
+    const saveTxt = saveCell.innerText;
+
     saveCell.innerHTML = productData.map((product, index) => `
       <div
         class="card-switcher-save"
         data-product="${index}"
-        ${index ? 'hidden' : ''}
+        ${index !== selectedProduct ? 'hidden' : ''}
       >
-        <span class="save-${product.selector}"></span>
+        <div class="card-old-save-price">
+          <span class="prod-oldprice oldprice-${product.selector}"></span>
+          <span class="prod-save">
+            ${saveTxt.replace('0', `<span class="save-${product.selector}"></span>`)}
+          </span>
+        </div>
       </div>
     `).join('');
   }
 
-  /* =========================
+  /*
    * Buy buttons
-   * ========================= */
+   */
   const existingButtons = [...buy.querySelectorAll('a')];
   const buttonText = buy.textContent.trim();
 
@@ -175,7 +188,7 @@ export default function decorate(block) {
 
       wrapper.className = 'card-switcher-buy';
       wrapper.dataset.product = index;
-      wrapper.hidden = index !== 0;
+      wrapper.hidden = index !== selectedProduct;
 
       const newButton = button.cloneNode(true);
 
@@ -190,7 +203,7 @@ export default function decorate(block) {
 
       wrapper.className = 'card-switcher-buy';
       wrapper.dataset.product = index;
-      wrapper.hidden = index !== 0;
+      wrapper.hidden = index !== selectedProduct;
 
       wrapper.innerHTML = `
         <a
@@ -205,13 +218,13 @@ export default function decorate(block) {
     });
   }
 
-  /* =========================
+  /*
    * Switch
-   * ========================= */
+   */
   switcher.addEventListener('click', (event) => {
     const cell = event.target.closest('.card-switcher-cell');
 
-    if (!cell) return;
+    if (!cell || !switcher.contains(cell)) return;
 
     const selected = Number(cell.dataset.product);
 
@@ -224,31 +237,23 @@ export default function decorate(block) {
     });
 
     /* Text */
-    block
-      .querySelectorAll('.card-switcher-value')
-      .forEach((item) => {
-        item.hidden = Number(item.dataset.product) !== selected;
-      });
+    block.querySelectorAll('.card-switcher-value').forEach((item) => {
+      item.hidden = Number(item.dataset.product) !== selected;
+    });
 
     /* Price */
-    block
-      .querySelectorAll('.card-switcher-price')
-      .forEach((item) => {
-        item.hidden = Number(item.dataset.product) !== selected;
-      });
+    block.querySelectorAll('.card-switcher-price').forEach((item) => {
+      item.hidden = Number(item.dataset.product) !== selected;
+    });
 
     /* Save */
-    block
-      .querySelectorAll('.card-switcher-save')
-      .forEach((item) => {
-        item.hidden = Number(item.dataset.product) !== selected;
-      });
+    block.querySelectorAll('.card-switcher-save').forEach((item) => {
+      item.hidden = Number(item.dataset.product) !== selected;
+    });
 
     /* Buy */
-    buy
-      .querySelectorAll('.card-switcher-buy')
-      .forEach((item) => {
-        item.hidden = Number(item.dataset.product) !== selected;
-      });
+    buy.querySelectorAll('.card-switcher-buy').forEach((item) => {
+      item.hidden = Number(item.dataset.product) !== selected;
+    });
   });
 }

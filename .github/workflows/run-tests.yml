@@ -21,7 +21,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version-file: package.json
       - run: npm install
 
   lint:
@@ -30,7 +30,16 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
       - run: npm install
+      # regenerate the import map from package-lock.json: it must match the committed one
+      - name: Check the import map
+        run: |
+          node .husky/update-importmap.js
+          git diff --exit-code -- head.html 404.html
       - run: npm run lint
 
   unit-tests:
@@ -39,6 +48,10 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
       - run: npm install
       - run: npm run test:unit
 
@@ -78,7 +91,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          fetch-depth: 0  
+          fetch-depth: 0
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
       - run: npm install
 
       - name: Get Branch Name

@@ -12,7 +12,8 @@ export default function decorate(block) {
       .filter(Boolean);
 
     if (styles.length) {
-      table.classList.add(...styles);
+      table.classList?.add(...styles);
+
       firstRow.remove();
     }
 
