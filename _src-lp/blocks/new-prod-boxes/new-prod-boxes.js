@@ -202,6 +202,8 @@ export default function decorate(block) {
     if (individualSwitchText && familySwitchText) {
       const partsIndividual = individualSwitchText.split('|');
       const partsFamily = familySwitchText.split('|');
+      const individualSubtitle = partsIndividual.slice(1).join('|');
+      const familySubtitle = partsFamily.slice(1).join('|');
       switchBox.classList.add('switchBox');
       switchBox.innerHTML = `
         ${switchText ? `<div class="switch-text"><strong>${switchText}</strong></div>` : ''}
@@ -212,12 +214,12 @@ export default function decorate(block) {
           </span>
           <span class="label right">
             <span class="d-flex">${partsIndividual[0]}</span>
-            ${partsIndividual[1] ? `<hr><p>${partsIndividual[1]}</p>` : ''}
+            ${individualSubtitle ? `<hr><p>${individualSubtitle}</p>` : ''}
           </span>
 
           <span class="label left">
             <span class="d-flex">${partsFamily[0]}</span>
-            ${partsFamily[1] ? `<hr><p>${partsFamily[1]}</p>` : ''}
+            ${familySubtitle ? `<hr><p>${familySubtitle}</p>` : ''}
           </span>
         </label>
       `;

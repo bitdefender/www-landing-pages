@@ -14,6 +14,63 @@
   height: 78px;
 }
 
+.counter-bf #greenPillBox {
+  background-color: #F00;
+  border-radius: 100%;
+  border: 3px solid white;
+  position: absolute;
+  right: 3em;
+  top: 0;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transform: rotate(-9deg);
+  padding: 0;
+  margin-top: 15px;
+  color: #fff;
+}
+
+.counter-bf #greenPillBox > span {
+  border-radius: 100%;
+  border: 4px solid black;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 18px;
+  line-height: 20px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.counter-bf #greenPillBox * {
+  color: inherit;
+}
+
+.counter-bf #greenPillBox p {
+  font: inherit;
+  margin: 0;
+}
+
+.counter-bf #greenPillBox.d-flex > span strong {
+  display: flex;
+}
+
+.counter-bf #greenPillBox span.max-discount {
+  font-size: 28px;
+  line-height: 30px;
+  display: block;
+}
+
+.counter-bf #greenPillBox > span br {
+  display: none;
+}
+
 .counter-bf-container table#flipdownTable {
   display: none;
 }
@@ -51,6 +108,10 @@
   display: flex !important;
   align-items: center;
   justify-content: center;
+}
+
+.counter-bf-container .flipdown .rotor {
+  font-size: 40px;
 }
 
 .counter-bf-container:not(.default) table#flipdownTable .flipdown {
@@ -126,6 +187,11 @@
   margin-bottom: 15px;
 }
 
+.counter-bf-container.bf-2026 .counter-bf-wrapper h1 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .counter-bf-container .counter-bf-wrapper h2 {
   font-size: 30px;
   line-height: 35px;
@@ -140,6 +206,52 @@
   font-size: 20px;
   line-height: 30px;
   margin: 1em 0;
+}
+
+.counter-bf-container.bf-2026 .counter-bf-wrapper h4 {
+  margin-bottom: 20px;
+}
+
+.counter-bf-container.bf-2026 .counter-bf-wrapper p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.counter-bf-container.bf-2026 .counter-text img {
+  max-height: 55px;
+}
+
+.counter-bf-container.bf-2026 .img-right picture:not(.pictureBF, .pictureCM) {
+  display: block;
+  text-align: right;
+}
+
+.counter-bf-container.bf-2026 .img-right picture:not(.pictureBF, .pictureCM) img {
+  max-height: 55px;
+}
+
+.counter-bf-container.bf-2026 .counter-bf-mobile-secondary-image {
+  text-align: right;
+}
+
+.counter-bf-container.bf-2026 .counter-bf-mobile-secondary-image img {
+  max-height: 55px;
+}
+
+.counter-bf-container.bf-2026 .counter-bf .counter-text > div::before {
+  content: "Trusted. Always.";
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #fff;
+  display: block;
+  width: 100%;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #fff;
+  margin: 0 0 1em;
 }
 
 .counter-bf-container .counter-bf-wrapper a {
@@ -187,6 +299,9 @@
 }
 
 @media screen and (width >= 768px) {
+  .counter-bf-container.bf-2026 .counter-bf .counter-text > div > p:last-of-type picture {
+    display: none;
+  }
   .counter-bf-container .counter-bf-wrapper h1 {
     font-size: 41px;
     line-height: 47px;
@@ -199,17 +314,46 @@
     font-size: 30px;
     line-height: 35px;
   }
-  .counter-bf-container .counter-bf-wrapper p {
-    font-size: 22px;
-    line-height: 33px;
-  }
 }
 @media screen and (width < 998px) {
   .counter-bf-container.hide-tablet {
     background-image: none !important;
   }
 }
-@media screen and (width < 767px) {
+@media screen and (width < 768px) {
+  .counter-bf-container.bf-2026 .counter-bf .bck-img:not(.img-right) > div:first-child > picture:not(.pictureBF, .pictureCM) {
+    display: none;
+  }
+  .counter-bf-container.bf-2026 .counter-bf .container-fluid > .row::before {
+    content: "Trusted. Always.";
+    display: block;
+    width: 100%;
+    flex: 0 0 100%;
+    font-size: 23px;
+    line-height: 29px;
+    font-weight: bold;
+    letter-spacing: 0;
+    color: #fff;
+    padding-bottom: 0;
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+  .counter-bf-container.bf-2026 .counter-bf .counter-text > div::before {
+    content: none;
+  }
+  .counter-bf #greenPillBox {
+    right: 2em;
+    width: 70px;
+    height: 70px;
+  }
+  .counter-bf #greenPillBox > span {
+    font-size: 15px;
+    line-height: 17px;
+  }
+  .counter-bf #greenPillBox span.max-discount {
+    font-size: 22px;
+    line-height: 24px;
+  }
   .counter-bf-container.hide-mobile {
     background-image: none !important;
   }
@@ -219,7 +363,7 @@
   }
   .counter-bf-container .flipdown .rotor {
     width: 30px;
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
   .counter-bf-container:not(.default) table#flipdownTable.red td {
     width: 100%;
@@ -245,10 +389,21 @@
     line-height: 34px;
   }
 }
+@media screen and (width <= 500px) {
+  .counter-bf #greenPillBox {
+    right: 0.5em;
+    width: 70px;
+    height: 70px;
+  }
+  .counter-bf #greenPillBox > span {
+    font-size: 15px;
+    line-height: 17px;
+  }
+}
 @media screen and (width < 550px) {
   .counter-bf-container .flipdown .rotor {
     width: 11px;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-right: 10px;
   }
   .counter-bf-container .flipdown {
