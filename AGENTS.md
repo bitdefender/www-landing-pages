@@ -11,7 +11,7 @@ Bitdefender landing pages on AEM Edge Delivery Services. Read an existing block 
 - Editing a compiled `.css` when a `.scss` exists. Edit the `.scss`, let `npm run compile-sass` (or `npm run up`) compile it, commit both. CSS-only blocks are edited directly.
 - Guessing markup. Content comes from the backend: `curl localhost:3000/path.plain.html` first. Authors omit and add cells, so decorate defensively.
 - Unscoped CSS. Scope to `.blockname`; `-wrapper`/`-container` are section classes.
-- Adding runtime npm packages casually. They load from esm.sh via the import map in `head.html`, which the pre-commit hook regenerates from `package.json`.
+- Adding runtime npm packages casually. They load from esm.sh via the import map in `head.html`, which the pre-commit hook regenerates from `package-lock.json` (CI fails if the committed map doesn't match).
 - Running `npm run test:accept-baseline`. Ghost Inspector baselines are owned by someone else.
 
 ## Commands

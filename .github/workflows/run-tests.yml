@@ -35,6 +35,11 @@ jobs:
         with:
           node-version-file: package.json
       - run: npm install
+      # regenerate the import map from package-lock.json: it must match the committed one
+      - name: Check the import map
+        run: |
+          node .husky/update-importmap.js
+          git diff --exit-code -- head.html 404.html
       - run: npm run lint
 
   unit-tests:
