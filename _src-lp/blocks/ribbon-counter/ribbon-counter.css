@@ -11,8 +11,8 @@ main .ribbon-counter-container {
 }
 
 .ribbon-counter-container * {
-  font-family: Arial, sans-serif !important;
   font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
 }
 
 .ribbon-counter-container .ribbonCounter {
