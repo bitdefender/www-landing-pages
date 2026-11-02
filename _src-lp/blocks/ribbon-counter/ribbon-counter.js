@@ -12,6 +12,10 @@ export default function decorate(block) {
   if (marginTop) parentSection.style.marginTop = `${marginTop}rem`;
   if (marginBottom) parentSection.style.marginBottom = `${marginBottom}rem`;
 
+  if (block.innerHTML.indexOf('0%') !== -1) {
+    block.innerHTML = block.innerHTML.replace(/0%/g, '<b class=\'max-discount\'></b>');
+  }
+
   if (backgroundEl) {
     const backgroundImgEl = backgroundEl.querySelector('img');
     const backgroundImgSrc = backgroundImgEl?.getAttribute('src');
