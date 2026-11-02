@@ -7,11 +7,31 @@ main .ribbon-counter-container {
   background-color: black;
   padding-top: 20px;
   padding-bottom: 20px;
+  background-size: auto 155px;
 }
 
 .ribbon-counter-container * {
-  font-family: Arial, sans-serif!important;
   font-size: var(--body-font-size-xs);
+  line-height: var(--body-line-height-xs);
+}
+
+.ribbon-counter-container .ribbonCounter {
+  width: fit-content;
+  display: inline-block;
+}
+
+.ribbon-counter-container .block > div:last-of-type {
+  display: none;
+}
+
+.ribbon-counter-container img {
+  height: 17px;
+  margin: 0 5px;
+}
+
+.ribbon-counter-container u {
+  text-decoration: none;
+  color: #F00;
 }
 
 .ribbon-counter-container p {
