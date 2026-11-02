@@ -15,6 +15,11 @@ main .ribbon-counter-container {
   font-size: var(--body-font-size-xs);
 }
 
+.ribbon-counter-container .ribbonCounter {
+  width: fit-content;
+  display: inline-block;
+}
+
 .ribbon-counter-container .block > div:last-of-type {
   display: none;
 }
