@@ -12,8 +12,8 @@ export default function decorate(block) {
 
   // config new elements
   const {
-    textColor, backgroundColor, paddingTop, paddingBottom, marginTop,
-    marginBottom, counterSwitchOn, counterHeadings, counterTheme, backgroundHide, products, type,
+    textColor, backgroundColor, innerBackgroundColor, paddingTop, paddingBottom, paddingLeft, paddingRight, marginTop,
+    marginBottom, counterSwitchOn, counterHeadings, counterTheme, backgroundHide, products, type, corners,
   } = metaData;
 
   const [contentEl, pictureBF, pictureCM] = [...block.children];
@@ -22,6 +22,24 @@ export default function decorate(block) {
   if (block.querySelector('table')?.innerText.trim() === '[counter]') block.classList.add('no-extra-text');
 
   if (counterSwitchOn) {
+    contentEl.querySelectorAll('table').forEach((table) => {
+      const [alias, text] = table.querySelectorAll('tr');
+      if (alias?.textContent.trim() !== 'green_pill' || !text) return;
+
+      const greenPillBox = document.createElement('div');
+      greenPillBox.id = 'greenPillBox';
+      const pillContent = document.createElement('span');
+      if (/0\s*%/.test(text.textContent) && text.textContent.includes('-')) {
+        greenPillBox.classList.add('d-flex');
+      }
+      text.querySelectorAll('td, th').forEach((cell) => {
+        pillContent.append(...cell.childNodes);
+      });
+      pillContent.innerHTML = pillContent.innerHTML.replace(/0\s*%/g, '<span class="max-discount"></span>');
+      greenPillBox.appendChild(pillContent);
+      table.replaceWith(greenPillBox);
+    });
+
     // adding neccessary scripts: js, css
     loadCSS('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css');
     addScript('https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js', {}, 'defer', () => {
@@ -144,6 +162,8 @@ export default function decorate(block) {
       parentBlock.style.backgroundColor = backgroundColor;
     }
 
+    if (innerBackgroundColor) block.style.backgroundColor = innerBackgroundColor;
+
     if (textColor) {
       block.style.color = textColor;
       block.children[2].style.color = textColor;
@@ -151,8 +171,12 @@ export default function decorate(block) {
 
     if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
     if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
+    if (paddingLeft) block.style.paddingLeft = `${paddingLeft}rem`;
+    if (paddingRight) block.style.paddingRight = `${paddingRight}rem`;
     if (marginTop) parentBlock.style.marginTop = `${marginTop}rem`;
     if (marginBottom) parentBlock.style.marginBottom = `${marginBottom}rem`;
+
+    if (corners === 'round') block.style.borderRadius = '20px';
   } else {
     block.innerHTML = 'Provide a valid counter Section Metadata';
   }

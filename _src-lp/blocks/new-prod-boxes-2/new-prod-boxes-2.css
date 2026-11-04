@@ -53,6 +53,11 @@
   color: #fff;
 }
 
+.new-prod-boxes-2-container.bf-2026 .titleBox h2 {
+  color: #fff;
+  font-size: 32px;
+}
+
 .new-prod-boxes-2-container.title-pink .titleBox h2 {
   color: #FE32A9;
 }
@@ -444,6 +449,10 @@
   text-align: center;
 }
 
+.new-prod-boxes-2-container.center-title .block .prod_box .inner_prod_box h2 {
+  text-align: center;
+}
+
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box h2 a {
   transition: all 0.5s ease;
 }
@@ -510,6 +519,12 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  width: 100%;
+  justify-content: center;
+}
+
+.new-prod-boxes-2-container.center-pill .block .prod_box .inner_prod_box .blueTagsWrapper {
+  display: flex;
   width: 100%;
   justify-content: center;
 }
@@ -1031,6 +1046,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0;
 }
 
 @media (width <= 768px) {
@@ -1443,6 +1459,9 @@
 }
 
 @media (width <= 767px) {
+  .new-prod-boxes-2-container.bf-2026 .titleBox h2 {
+    font-size: 22px;
+  }
   .new-prod-boxes-2-container {
     overflow: hidden;
   }
