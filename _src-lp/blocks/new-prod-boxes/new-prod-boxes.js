@@ -16,43 +16,66 @@ function updateTagsMargin(block) {
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
   const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
-  const slides = slidesContainer.querySelectorAll('.slide');
+  const slides = [...slidesWrapper.querySelectorAll('.slide')];
   const leftArrow = slidesContainer.querySelector('.arrow.left');
   const rightArrow = slidesContainer.querySelector('.arrow.right');
   const bullets = slidesContainer.querySelectorAll('.bulletsSlider .bullet');
 
-  let currentIndex = 0;
-  const updateSlider = () => {
-    const boxSize = slides[0].offsetWidth;
-    // Update slide position
-    slidesWrapper.style.transform = `translateX(-${currentIndex * boxSize}px)`;
+  if (!slides.length || !leftArrow || !rightArrow) return;
 
-    // Update bullets' active state
+  const mobile = window.matchMedia('(width <= 767px)');
+  let currentIndex = 0;
+  const updateControls = () => {
     bullets.forEach((bullet, index) => {
       bullet.classList.toggle('active', index === currentIndex);
     });
 
-    // Update arrow states
     leftArrow.disabled = currentIndex === 0;
     rightArrow.disabled = currentIndex === slides.length - 1;
 
-    // inactive arrows
     leftArrow.classList.toggle('inactive', currentIndex === 0);
     rightArrow.classList.toggle('inactive', currentIndex === slides.length - 1);
   };
 
+  const slideOffset = (index) => slides[index].getBoundingClientRect().left
+    - slides[0].getBoundingClientRect().left;
+
+  const scrollToSlide = (index, behavior = 'smooth') => {
+    if (!mobile.matches) return;
+    slidesWrapper.scrollTo({
+      left: slideOffset(index),
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'instant'
+        : behavior,
+    });
+  };
+
+  slidesWrapper.addEventListener(
+    'scroll',
+    () => {
+      if (!mobile.matches) return;
+      currentIndex = slides.reduce(
+        (nearest, slide, index) => (Math.abs(slideOffset(index) - slidesWrapper.scrollLeft)
+          < Math.abs(slideOffset(nearest) - slidesWrapper.scrollLeft)
+            ? index
+            : nearest),
+        0,
+      );
+      updateControls();
+    },
+    { passive: true },
+  );
+
   // Event listeners for arrows
   leftArrow.addEventListener('click', () => {
     if (currentIndex > 0) {
-      currentIndex -= 1;
-      updateSlider();
+      scrollToSlide(currentIndex - 1);
     }
   });
 
   rightArrow.addEventListener('click', () => {
     if (currentIndex < slides.length - 1) {
-      currentIndex += 1;
-      updateSlider();
+      scrollToSlide(currentIndex + 1);
     }
   });
 
@@ -61,14 +84,21 @@ function initializeSlider(block) {
     bullet.addEventListener('click', () => {
       const index = parseInt(bullet.dataset.index, 10);
       if (index >= 0 && index < slides.length) {
-        currentIndex = index;
-        updateSlider();
+        scrollToSlide(index);
       }
     });
   });
 
-  // Initialize the slider
-  updateSlider();
+  // Keep the selected product aligned after rotation or a breakpoint change.
+  const resizeObserver = new ResizeObserver(() => {
+    if (mobile.matches) {
+      scrollToSlide(currentIndex, 'instant');
+    } else {
+      slidesWrapper.scrollTo({ left: 0, behavior: 'instant' });
+    }
+  });
+  resizeObserver.observe(slidesWrapper);
+  updateControls();
 }
 
 function extractBuyLinks(tdElement) {
