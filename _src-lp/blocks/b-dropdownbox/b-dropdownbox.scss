@@ -582,8 +582,10 @@
   }
 
   .b-dropdownbox-container .b-dropdownbox.has3divs > div:not(:first-child) > div:not(:first-child) {
+    flex: 0 0 50%;
     width: 50%;
     min-height: 3em;
+    overflow-wrap: anywhere;
     font-size: 13px;
     line-height: 16px;
   }
@@ -634,5 +636,23 @@
   .b-dropdownbox-container .new > div:not(:first-child), .b-dropdownbox-container.new .b-dropdownbox > div:not(:first-child) {
     display: block;
     padding-right: 15px;
+  }
+
+  .b-dropdownbox-container .b-dropdownbox.has3divs {
+    > div:not(:first-child) {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+
+      > div {
+        box-sizing: border-box;
+        min-width: 0;
+        float: none;
+
+        &:first-child {
+          flex: 0 0 100%;
+        }
+      }
+    }
   }
 }
