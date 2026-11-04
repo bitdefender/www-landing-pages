@@ -200,7 +200,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 308px;
+  min-width: 308px;
   min-height: 68px;
   padding: 12px 28px;
   border: 0;

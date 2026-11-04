@@ -6,7 +6,11 @@ export default function decorate(block) {
   const [, backgroundEl] = block.children;
 
   if (backgroundColor) parentSection.style.backgroundColor = backgroundColor;
-  if (textColor) block.querySelector('*').style.color = textColor;
+  if (textColor) {
+    block.querySelectorAll(':scope > div > div').forEach((el) => {
+      el.style.color = textColor;
+    });
+  }
   if (paddingTop) block.style.paddingTop = `${paddingTop}rem`;
   if (paddingBottom) block.style.paddingBottom = `${paddingBottom}rem`;
   if (marginTop) parentSection.style.marginTop = `${marginTop}rem`;
@@ -44,7 +48,7 @@ export default function decorate(block) {
 
       if (distance < 0) {
         // countdownElement.innerHTML = "Countdown ended!";
-        parentSection.remove();
+        block.remove();
         clearInterval(interval);
         return;
       }

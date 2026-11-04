@@ -20,7 +20,7 @@ main .ribbon-counter-container {
   display: inline-block;
 }
 
-.ribbon-counter-container .block > div:last-of-type {
+.ribbon-counter-container .block > div:nth-of-type(2) {
   display: none;
 }
 
