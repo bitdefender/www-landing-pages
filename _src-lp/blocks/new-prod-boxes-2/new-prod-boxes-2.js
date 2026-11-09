@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+import { formatPrice, matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
@@ -139,7 +139,7 @@ export default function decorate(block) {
   const parentSection = block.closest('.section');
   const metaData = parentSection.dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks, bundles,
+    products, priceType, optionsType, type, textBulina, individual, titleText, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks, bundles, displayYearly,
   } = metaData;
   const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
@@ -255,6 +255,7 @@ export default function decorate(block) {
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/').map((entry) => entry.trim());
+      const isYearlyPriceCard = Number(displayYearly) === key + 1;
       const buyLinksObj = extractBuyLinks(buyLink);
       const buyLinkText = buyLink.innerText.trim();
 
@@ -480,6 +481,32 @@ export default function decorate(block) {
         demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
       }
 
+      let priceMarkup;
+      if (isYearlyPriceCard) {
+        const priceText = price.innerText.trim();
+        const yearlyPeriod = priceText.match(/0\s*(\/year(?:ly)?)/i)?.[1] || '/year';
+        const billedDuration = priceText.match(/\bBilled\s+0(\s+for\s+.+)$/i)?.[1] || ` for ${prodYears} years`;
+        priceMarkup = `<div class="prices_box yearly-pricing await-loader new-store">
+          <div class="yearly-price-main">
+            <span class="prod-newprice" data-store-render>{{= it.pricePerYear }}</span>
+            <span class="yearly-price-period">${yearlyPeriod}</span>
+          </div>
+          <div class="yearly-price-billed">
+            Billed <span data-store-render data-store-price="discounted||full"></span>${billedDuration}
+          </div>
+        </div>`;
+      } else if (priceType === 'combined' && price.innerText.trim()) {
+        priceMarkup = `<div class="prices_box await-loader new-store">
+          <span class="prod-newprice" data-store-render data-store-price="discounted-monthly||full-monthly"></span>
+          <sup>${price.innerText.trim().replace('0', '')}</sup>
+        </div>`;
+      } else {
+        priceMarkup = `<div class="prices_box await-loader new-store">
+          <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
+          <sup>${price.innerText.trim().replace('0', '')}</sup>
+        </div>`;
+      }
+
       const newCard = document.createElement('div');
       newCard.classList.add(
         ...[
@@ -511,21 +538,16 @@ export default function decorate(block) {
                   </strong>
                 </div>`}
 
-                ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader new-store">
-                  <span class="prod-newprice" data-store-render data-store-price="discounted-monthly||full-monthly"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
-                </div>` : `<div class="prices_box await-loader new-store">
-                  <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
-                </div>`}
+                ${priceMarkup}
 
   ${billed ? (() => {
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>');
+            const billedPriceMode = 'discounted||full';
             const firstP = tempDiv.querySelector('p');
             if (firstP) {
               firstP.innerHTML = firstP.innerHTML
-                .replace(/(^|[^0-9])0([^0-9%]|$)/g, '$1<span data-store-render data-store-price="discounted||full"></span>$2')
+                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span data-store-render data-store-price="${billedPriceMode}"></span>$2`)
                 .replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>')
                 .replace(/\[discmonthly\]/g, '<span data-store-render data-store-price="discounted-monthly||full-monthly"></span>')
                 .replace(/\[discyearly\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
@@ -537,7 +559,7 @@ export default function decorate(block) {
                 .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
             } else {
               tempDiv.innerHTML = tempDiv.innerHTML
-                .replace(/(^|[^0-9])0([^0-9%]|$)/g, '$1<span data-store-render data-store-price="discounted||full"></span>$2')
+                .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span data-store-render data-store-price="${billedPriceMode}"></span>$2`)
                 .replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>')
                 .replace(/\[discmonthly\]/g, '<span data-store-render data-store-price="discounted-monthly||full-monthly"></span>')
                 .replace(/\[discyearly\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
@@ -590,6 +612,21 @@ export default function decorate(block) {
         ignoreEventsParent: true,
         storeEvent: newCard.classList.contains('family-box') ? '' : 'info',
       });
+      if (isYearlyPriceCard) {
+        const cardOption = newCard.querySelector('bd-option');
+        cardOption.derived = ({ option }) => {
+          const yearCount = Number(prodYears);
+          const fullPrice = option?.getPrice({ currency: false });
+          const discountedPrice = option?.getDiscountedPrice({ currency: false });
+          const pricePerYear = Math.trunc(((discountedPrice ?? fullPrice) / yearCount) * 100) / 100;
+          const currency = option?.getProduct().getCurrency();
+          return {
+            pricePerYear: Number.isFinite(pricePerYear) && yearCount > 0 && currency
+              ? formatPrice(pricePerYear, currency)
+              : '',
+          };
+        };
+      }
 
       block.appendChild(newCard);
     });
