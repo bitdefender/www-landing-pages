@@ -800,12 +800,13 @@ export default function decorate(block) {
     observer.observe(document, { childList: true, subtree: true });
   }
 
-  const targetNode = document.querySelector('.new-prod-boxes-2');
+  const targetNode = block;
   matchHeights(targetNode, '.tag-subtitle');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, '.subtitle p:first-of-type');
   matchHeights(targetNode, 'h2');
   matchHeights(targetNode, '.save-trial-text');
+  matchHeights(targetNode, '.prices_box');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');
   matchHeights(targetNode, '.benefitsLists  > ul:first-of-type > li:first-of-type');
 
