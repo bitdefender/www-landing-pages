@@ -1746,8 +1746,12 @@
         display: none;
     }
 
+    // the track has no padding so each slide is one scroll width; the slide
+    // carries the 15px gutter the track used to have, keeping the card clear
+    // of the arrows
     .slider-container .slides-wrapper.new-prod-boxes .slide {
         scroll-snap-align: start;
+        padding-inline: 30px;
     }
 
     .new-prod-boxes-container[data-type='mobileSlider'] .block {
