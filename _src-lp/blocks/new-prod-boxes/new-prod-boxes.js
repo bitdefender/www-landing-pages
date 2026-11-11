@@ -928,10 +928,11 @@ export default function decorate(block) {
     });
   }
 
-  const resizeObserver = new ResizeObserver(() => {
+  // next frame, to avoid the "ResizeObserver loop" error
+  const resizeObserver = new ResizeObserver(() => requestAnimationFrame(() => {
     updateMargin();
     updateTagsMargin(block);
-  });
+  }));
   resizeObserver.observe(block.parentElement || block);
   window.addEventListener('resize', updateMargin);
   setTimeout(() => updateMargin(), 0);
