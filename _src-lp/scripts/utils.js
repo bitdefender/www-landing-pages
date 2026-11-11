@@ -1253,8 +1253,9 @@ function matchDimension(targetNode, selector, { property, measure, isEnabled }) 
     });
   };
 
+  // next frame, to avoid the "ResizeObserver loop" error
   const resizeObserver = typeof ResizeObserver !== 'undefined'
-    ? new ResizeObserver(() => matcher.schedule())
+    ? new ResizeObserver(() => requestAnimationFrame(matcher.schedule))
     : null;
 
   const observeElements = () => {
