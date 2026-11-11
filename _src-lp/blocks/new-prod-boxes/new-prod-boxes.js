@@ -16,89 +16,67 @@ function updateTagsMargin(block) {
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
   const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
-  const slides = [...slidesWrapper.querySelectorAll('.slide')];
+  const slides = slidesWrapper.querySelectorAll('.slide');
   const leftArrow = slidesContainer.querySelector('.arrow.left');
   const rightArrow = slidesContainer.querySelector('.arrow.right');
   const bullets = slidesContainer.querySelectorAll('.bulletsSlider .bullet');
 
   if (!slides.length || !leftArrow || !rightArrow) return;
 
-  const mobile = window.matchMedia('(width <= 767px)');
-  let currentIndex = 0;
-  const updateControls = () => {
-    bullets.forEach((bullet, index) => {
-      bullet.classList.toggle('active', index === currentIndex);
-    });
-
-    leftArrow.disabled = currentIndex === 0;
-    rightArrow.disabled = currentIndex === slides.length - 1;
-
-    leftArrow.classList.toggle('inactive', currentIndex === 0);
-    rightArrow.classList.toggle('inactive', currentIndex === slides.length - 1);
-  };
-
-  const slideOffset = (index) => slides[index].getBoundingClientRect().left
-    - slides[0].getBoundingClientRect().left;
-
-  const scrollToSlide = (index, behavior = 'smooth') => {
-    if (!mobile.matches) return;
-    slidesWrapper.scrollTo({
-      left: slideOffset(index),
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'instant'
-        : behavior,
-    });
-  };
-
-  slidesWrapper.addEventListener(
-    'scroll',
-    () => {
-      if (!mobile.matches) return;
-      currentIndex = slides.reduce(
-        (nearest, slide, index) => (Math.abs(slideOffset(index) - slidesWrapper.scrollLeft)
-          < Math.abs(slideOffset(nearest) - slidesWrapper.scrollLeft)
-            ? index
-            : nearest),
-        0,
-      );
-      updateControls();
-    },
-    { passive: true },
+  // The track scrolls natively with scroll-snap. CSS handles smooth scrolling
+  // and reduced motion, and keeps the slide snapped after a rotation. Slides
+  // are full width, so the scroll position gives the current slide.
+  const last = slides.length - 1;
+  const slideAt = () => Math.min(
+    last,
+    Math.round(slidesWrapper.scrollLeft / slidesWrapper.clientWidth),
   );
+  // slide an arrow or bullet is scrolling to, so quick taps build on it
+  let target = null;
+  let shown;
 
-  // Event listeners for arrows
-  leftArrow.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      scrollToSlide(currentIndex - 1);
-    }
-  });
+  const updateControls = (index) => {
+    if (index === shown) return;
+    shown = index;
+    bullets.forEach((bullet, i) => bullet.classList.toggle('active', i === index));
+    leftArrow.disabled = index === 0;
+    rightArrow.disabled = index === last;
+    leftArrow.classList.toggle('inactive', index === 0);
+    rightArrow.classList.toggle('inactive', index === last);
+  };
 
-  rightArrow.addEventListener('click', () => {
-    if (currentIndex < slides.length - 1) {
-      scrollToSlide(currentIndex + 1);
-    }
-  });
+  const goTo = (index) => {
+    if (index < 0 || index > last || index === (target ?? slideAt())) return;
+    target = index;
+    updateControls(index);
+    slidesWrapper.scrollTo({ left: index * slidesWrapper.clientWidth });
+  };
 
-  // Event listeners for bullets
-  bullets.forEach((bullet) => {
-    bullet.addEventListener('click', () => {
-      const index = parseInt(bullet.dataset.index, 10);
-      if (index >= 0 && index < slides.length) {
-        scrollToSlide(index);
-      }
-    });
-  });
+  const settle = () => {
+    target = null;
+    updateControls(slideAt());
+  };
 
-  // Keep the selected product aligned after rotation or a breakpoint change.
-  const resizeObserver = new ResizeObserver(() => {
-    if (mobile.matches) {
-      scrollToSlide(currentIndex, 'instant');
-    } else {
-      slidesWrapper.scrollTo({ left: 0, behavior: 'instant' });
-    }
-  });
-  resizeObserver.observe(slidesWrapper);
-  updateControls();
+  slidesWrapper.addEventListener('scroll', () => {
+    if (target === null) updateControls(slideAt());
+  }, { passive: true });
+
+  if ('onscrollend' in window) {
+    slidesWrapper.addEventListener('scrollend', settle);
+  } else {
+    // Safari before 26.2 has no scrollend
+    let settleTimer;
+    slidesWrapper.addEventListener('scroll', () => {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(settle, 100);
+    }, { passive: true });
+  }
+
+  leftArrow.addEventListener('click', () => goTo((target ?? slideAt()) - 1));
+  rightArrow.addEventListener('click', () => goTo((target ?? slideAt()) + 1));
+  bullets.forEach((bullet, i) => bullet.addEventListener('click', () => goTo(i)));
+
+  updateControls(0);
 }
 
 function extractBuyLinks(tdElement) {
@@ -565,7 +543,7 @@ export default function decorate(block) {
       }
 
       block.innerHTML += `
-        <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
+        <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? ' slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
           ${divBulina}
             ${greenTag?.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
