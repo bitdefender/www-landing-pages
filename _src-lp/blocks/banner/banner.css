@@ -717,6 +717,10 @@
   padding: 0;
 }
 
+.section.banner-container.red-pill.blue-pill #greenPillBox {
+  background-color: #006EFF;
+}
+
 .section.banner-container[data-padding-top="4"].red-pill #greenPillBox {
   top: -2.5em;
 }
