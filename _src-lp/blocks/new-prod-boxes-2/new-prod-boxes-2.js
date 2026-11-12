@@ -111,6 +111,25 @@ function extractBuyLinks(tdElement) {
   return result;
 }
 
+function replacePricePlaceholder(element) {
+  const content = element.cloneNode(true);
+  const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+  let textNode = walker.nextNode();
+
+  while (textNode) {
+    if (textNode.textContent.trim() === '0') {
+      const price = document.createElement('span');
+      price.dataset.storeRender = '';
+      price.dataset.storePrice = 'discounted||full';
+      textNode.replaceWith(price);
+      break;
+    }
+    textNode = walker.nextNode();
+  }
+
+  return content.innerHTML;
+}
+
 function replacePill(content, regExp, pillClass) {
   const pillText = content.match(regExp);
 
@@ -483,16 +502,16 @@ export default function decorate(block) {
 
       let priceMarkup;
       if (isYearlyPriceCard) {
-        const priceText = price.innerText.trim();
-        const yearlyPeriod = priceText.match(/0\s*(\/year(?:ly)?)/i)?.[1] || '/year';
-        const billedDuration = priceText.match(/\bBilled\s+0(\s+for\s+.+)$/i)?.[1] || ` for ${prodYears} years`;
+        const [yearlyPrice, yearlyBilled] = price.querySelectorAll(':scope > td');
+        const yearlyPeriod = yearlyPrice?.innerText.trim().replace(/^0\s*/, '') || '';
+        const billedMarkup = yearlyBilled ? replacePricePlaceholder(yearlyBilled) : '';
         priceMarkup = `<div class="prices_box yearly-pricing await-loader new-store">
           <div class="yearly-price-main">
             <span class="prod-newprice" data-store-render>{{= it.pricePerYear }}</span>
             <span class="yearly-price-period">${yearlyPeriod}</span>
           </div>
           <div class="yearly-price-billed">
-            Billed <span data-store-render data-store-price="discounted||full"></span>${billedDuration}
+            ${billedMarkup}
           </div>
         </div>`;
       } else if (priceType === 'combined' && price.innerText.trim()) {
