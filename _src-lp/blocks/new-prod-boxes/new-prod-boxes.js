@@ -16,59 +16,67 @@ function updateTagsMargin(block) {
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
   const slidesWrapper = slidesContainer.querySelector('.slides-wrapper');
-  const slides = slidesContainer.querySelectorAll('.slide');
+  const slides = slidesWrapper.querySelectorAll('.slide');
   const leftArrow = slidesContainer.querySelector('.arrow.left');
   const rightArrow = slidesContainer.querySelector('.arrow.right');
   const bullets = slidesContainer.querySelectorAll('.bulletsSlider .bullet');
 
-  let currentIndex = 0;
-  const updateSlider = () => {
-    const boxSize = slides[0].offsetWidth;
-    // Update slide position
-    slidesWrapper.style.transform = `translateX(-${currentIndex * boxSize}px)`;
+  if (!slides.length || !leftArrow || !rightArrow) return;
 
-    // Update bullets' active state
-    bullets.forEach((bullet, index) => {
-      bullet.classList.toggle('active', index === currentIndex);
-    });
+  // The track scrolls natively with scroll-snap. CSS handles smooth scrolling
+  // and reduced motion, and keeps the slide snapped after a rotation. Slides
+  // are full width, so the scroll position gives the current slide.
+  const last = slides.length - 1;
+  const slideAt = () => Math.min(
+    last,
+    Math.round(slidesWrapper.scrollLeft / slidesWrapper.clientWidth),
+  );
+  // slide an arrow or bullet is scrolling to, so quick taps build on it
+  let target = null;
+  let shown;
 
-    // Update arrow states
-    leftArrow.disabled = currentIndex === 0;
-    rightArrow.disabled = currentIndex === slides.length - 1;
-
-    // inactive arrows
-    leftArrow.classList.toggle('inactive', currentIndex === 0);
-    rightArrow.classList.toggle('inactive', currentIndex === slides.length - 1);
+  const updateControls = (index) => {
+    if (index === shown) return;
+    shown = index;
+    bullets.forEach((bullet, i) => bullet.classList.toggle('active', i === index));
+    leftArrow.disabled = index === 0;
+    rightArrow.disabled = index === last;
+    leftArrow.classList.toggle('inactive', index === 0);
+    rightArrow.classList.toggle('inactive', index === last);
   };
 
-  // Event listeners for arrows
-  leftArrow.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex -= 1;
-      updateSlider();
-    }
-  });
+  const goTo = (index) => {
+    if (index < 0 || index > last || index === (target ?? slideAt())) return;
+    target = index;
+    updateControls(index);
+    slidesWrapper.scrollTo({ left: index * slidesWrapper.clientWidth });
+  };
 
-  rightArrow.addEventListener('click', () => {
-    if (currentIndex < slides.length - 1) {
-      currentIndex += 1;
-      updateSlider();
-    }
-  });
+  const settle = () => {
+    target = null;
+    updateControls(slideAt());
+  };
 
-  // Event listeners for bullets
-  bullets.forEach((bullet) => {
-    bullet.addEventListener('click', () => {
-      const index = parseInt(bullet.dataset.index, 10);
-      if (index >= 0 && index < slides.length) {
-        currentIndex = index;
-        updateSlider();
-      }
-    });
-  });
+  slidesWrapper.addEventListener('scroll', () => {
+    if (target === null) updateControls(slideAt());
+  }, { passive: true });
 
-  // Initialize the slider
-  updateSlider();
+  if ('onscrollend' in window) {
+    slidesWrapper.addEventListener('scrollend', settle);
+  } else {
+    // Safari before 26.2 has no scrollend
+    let settleTimer;
+    slidesWrapper.addEventListener('scroll', () => {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(settle, 100);
+    }, { passive: true });
+  }
+
+  leftArrow.addEventListener('click', () => goTo((target ?? slideAt()) - 1));
+  rightArrow.addEventListener('click', () => goTo((target ?? slideAt()) + 1));
+  bullets.forEach((bullet, i) => bullet.addEventListener('click', () => goTo(i)));
+
+  updateControls(0);
 }
 
 function extractBuyLinks(tdElement) {
@@ -535,7 +543,7 @@ export default function decorate(block) {
       }
 
       block.innerHTML += `
-        <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? 'slide' : ''}">
+        <div class="prod_box${greenTag?.innerText.trim() && ' hasGreenTag'} index${key} ${individual ? (key < productsAsList.length / 2 && 'individual-box') || 'family-box' : ''}${type === 'mobileSlider' ? ' slide' : ''}">
           <div class="inner_prod_box ${parentSection.classList.contains(`blue-header-${key + 1}`) ? 'blue-header' : ''}">
           ${divBulina}
             ${greenTag?.innerText.trim() ? `<div class="greenTag2">${greenTag.innerText.trim()}</div>` : ''}
