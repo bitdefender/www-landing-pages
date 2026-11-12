@@ -1736,6 +1736,22 @@
 
     .slider-container .slides-wrapper.new-prod-boxes {
         gap: 0;
+        padding: 0;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .slider-container .slides-wrapper.new-prod-boxes::-webkit-scrollbar {
+        display: none;
+    }
+
+    // the track has no padding so each slide is one scroll width; the slide
+    // carries the 15px gutter the track used to have, keeping the card clear
+    // of the arrows
+    .slider-container .slides-wrapper.new-prod-boxes .slide {
+        scroll-snap-align: start;
+        padding-inline: 30px;
     }
 
     .new-prod-boxes-container[data-type='mobileSlider'] .block {
@@ -1792,6 +1808,12 @@
 
     .new-prod-boxes-container.green-pill .block {
         gap: 50px;
+    }
+}
+
+@media (width <= 767px) and (prefers-reduced-motion: no-preference) {
+    .slider-container .slides-wrapper.new-prod-boxes {
+        scroll-behavior: smooth;
     }
 }
 
