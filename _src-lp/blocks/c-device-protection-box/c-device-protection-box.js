@@ -11,6 +11,25 @@
 import SvgLoaderComponent from '../../components/svg-loader/svg-loader.js';
 import { getDatasetFromSection } from '../../scripts/utils.js';
 
+function appendTrackingParams(linkEl) {
+  const currentUrl = new URL(window.location.href);
+  const link = linkEl.querySelector('a');
+
+  if (!link) return;
+
+  const targetUrl = new URL(link.href);
+
+  ['locale', 'vcampaign'].forEach((param) => {
+    const value = currentUrl.searchParams.get(param);
+
+    if (value && !targetUrl.searchParams.has(param)) {
+      targetUrl.searchParams.set(param, value);
+    }
+  });
+
+  link.href = targetUrl.toString();
+}
+
 export default function decorate(block) {
   const metaData = getDatasetFromSection(block);
 
@@ -21,6 +40,7 @@ export default function decorate(block) {
 
   const pictureEl = block.children[0];
   const linkEl = block.children[lastElIndex];
+  appendTrackingParams(linkEl);
   const rowText = [...block.children].slice(1, lastElIndex);
 
   block.innerHTML = `
