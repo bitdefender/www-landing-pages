@@ -31,7 +31,7 @@ const applyBackgroundStyles = (target, imageSrc, position = 'top center', size =
 
   if (backgroundColorGradient) {
     if (isDesktop) {
-      target.background = `url(${imageSrc}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
+      if (imageSrc) target.background = `url(${imageSrc}), linear-gradient(to bottom, ${backgroundColorGradient.replace(' ', ',')})`;
       target.backgroundSize = size;
       target.backgroundPosition = position;
       target.backgroundRepeat = 'no-repeat';
@@ -41,7 +41,7 @@ const applyBackgroundStyles = (target, imageSrc, position = 'top center', size =
     }
   } else {
     const bgColor = target === blockStyle ? (innerBackgroundColor || '#000') : (backgroundColor || '#000');
-    target.background = `url(${imageSrc}) no-repeat ${position} / ${size} ${bgColor}`;
+    if (imageSrc) target.background = `url(${imageSrc}) no-repeat ${position} / ${size} ${bgColor}`;
   }
 };
 
