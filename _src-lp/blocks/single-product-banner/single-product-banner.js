@@ -112,11 +112,7 @@ export default function decorate(block) {
           </div>`;
       } else {
         priceFull = `
-          <div class="price-comparison">
-            <span class='prod-oldprice oldprice-${onSelectorClass}-monthly'></span>
-            <span class="discount-label"><span class='prod-percent percent-${onSelectorClass}'></span> OFF</span>
-          </div>
-          <div class="priced">
+          <div class="d-flex justify-content-center priced">
             <span class='prod-newprice newprice-${onSelectorClass}-monthly'></span><span class="per-month"> ${per ? `/${per}` : ''}</span>
           </div>`;
       }

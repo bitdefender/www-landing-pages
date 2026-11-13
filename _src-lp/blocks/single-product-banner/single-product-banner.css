@@ -217,17 +217,20 @@
   line-height: 32px;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .price-comparison {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .default-prices-output .prices_box .price-comparison {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-bottom: 0.5rem;
   visibility: hidden;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .price-comparison .prod-oldprice {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .default-prices-output .prices_box .price-comparison .prod-oldprice {
   font-size: 18px;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .default-prices-output .prices_box .discount-label {
@@ -242,28 +245,15 @@
   display: inline;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .price-comparison + .priced {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .default-prices-output .prices_box .price-comparison + .priced {
   display: flex;
   align-items: baseline;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .price-comparison + .priced .prod-newprice {
+.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .default-prices-output .prices_box .price-comparison + .priced .prod-newprice {
   font-size: 48px;
   line-height: 1.1;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .default-prices-output .prices_box .price-comparison {
-  flex-wrap: nowrap;
-  justify-content: center;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .default-prices-output .prices_box .price-comparison .prod-oldprice {
-  white-space: nowrap;
-}
-
-.section.single-product-banner-container .single-product-banner-wrapper .single-product-banner .rightSide .default-prices-output .prices_box .price-comparison + .priced {
-  justify-content: center;
 }
 
 .section.single-product-banner-container.slide .single-product-banner-wrapper .single-product-banner .rightSide .prices_box .prod-oldprice {
