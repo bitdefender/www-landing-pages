@@ -858,6 +858,35 @@
     justify-content: left;
 }
 
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .prices_box.yearly-pricing {
+    display: block;
+}
+
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .yearly-price-main {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .yearly-price-period {
+    font-size: var(--heading-font-size-xs);
+    line-height: var(--heading-font-size-xs);
+}
+
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .yearly-price-billed {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: left;
+}
+
+.new-prod-boxes-2-container .block .prod_box .inner_prod_box .yearly-price-billed span {
+    display: inline;
+    margin: 0;
+    font-weight: bold;
+    color: #e72325;
+}
+
 .new-prod-boxes-2-container.veepee .block .prod_box .inner_prod_box .prices_box {
     display: none;
 }
@@ -1048,6 +1077,15 @@
     flex-direction: column;
     justify-content: center;
     margin: 0;
+}
+
+.new-prod-boxes-2-container.bf-2026 .bundle_box li {
+    display: flex;
+}
+
+.new-prod-boxes-2-container.bf-2026 .bundle_box li picture {
+    margin-right: 10px;
+    min-width: fit-content;
 }
 
 .new-prod-boxes-2-container .block .prod_box .inner_prod_box .billed .bundle_box:empty {    

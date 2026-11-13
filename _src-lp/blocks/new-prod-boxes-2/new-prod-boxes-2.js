@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+import { formatPrice, matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
@@ -111,6 +111,25 @@ function extractBuyLinks(tdElement) {
   return result;
 }
 
+function replacePricePlaceholder(element) {
+  const content = element.cloneNode(true);
+  const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+  let textNode = walker.nextNode();
+
+  while (textNode) {
+    if (textNode.textContent.trim() === '0') {
+      const price = document.createElement('span');
+      price.dataset.storeRender = '';
+      price.dataset.storePrice = 'discounted||full';
+      textNode.replaceWith(price);
+      break;
+    }
+    textNode = walker.nextNode();
+  }
+
+  return content.innerHTML;
+}
+
 function replacePill(content, regExp, pillClass) {
   const pillText = content.match(regExp);
 
@@ -139,7 +158,7 @@ export default function decorate(block) {
   const parentSection = block.closest('.section');
   const metaData = parentSection.dataset;
   const {
-    products, priceType, optionsType, type, textBulina, individual, titleText, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks, bundles,
+    products, priceType, optionsType, type, textBulina, individual, titleText, trialSaveText, subText, set, openModalButton, switchText, replaceBuyLinks, bundles, displayYearly,
   } = metaData;
   const isShowMoreShowLess = block.closest('.section').classList.contains('show-more-show-less');
   const productsAsList = products && products.split(',');
@@ -255,6 +274,7 @@ export default function decorate(block) {
     [...block.children].forEach((prod, key) => {
       const [greenTag, title, blueTag, subtitle, saveOldPrice, price, billed, buyLink, underBuyLink, benefitsLists] = [...prod.querySelectorAll('tbody > tr')];
       const [prodName, prodUsers, prodYears] = (productsAsList[key] ?? '').split('/').map((entry) => entry.trim());
+      const isYearlyPriceCard = Number(displayYearly) === key + 1;
       const buyLinksObj = extractBuyLinks(buyLink);
       const buyLinkText = buyLink.innerText.trim();
 
@@ -480,6 +500,32 @@ export default function decorate(block) {
         demoBtn = `<span class="demoBtn" data-show="${selector}" onclick="document.querySelector('.${selector.replace(/\s+/g, '')}').style.display = 'block'">${btnText}</span>`;
       }
 
+      let priceMarkup;
+      if (isYearlyPriceCard) {
+        const [yearlyPrice, yearlyBilled] = price.querySelectorAll(':scope > td');
+        const yearlyPeriod = yearlyPrice?.innerText.trim().replace(/^0\s*/, '') || '';
+        const billedMarkup = yearlyBilled ? replacePricePlaceholder(yearlyBilled) : '';
+        priceMarkup = `<div class="prices_box yearly-pricing await-loader new-store">
+          <div class="yearly-price-main">
+            <span class="prod-newprice" data-store-render>{{= it.pricePerYear }}</span>
+            <span class="yearly-price-period">${yearlyPeriod}</span>
+          </div>
+          <div class="yearly-price-billed">
+            ${billedMarkup}
+          </div>
+        </div>`;
+      } else if (priceType === 'combined' && price.innerText.trim()) {
+        priceMarkup = `<div class="prices_box await-loader new-store">
+          <span class="prod-newprice" data-store-render data-store-price="discounted-monthly||full-monthly"></span>
+          <sup>${price.innerText.trim().replace('0', '')}</sup>
+        </div>`;
+      } else {
+        priceMarkup = `<div class="prices_box await-loader new-store">
+          <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
+          <sup>${price.innerText.trim().replace('0', '')}</sup>
+        </div>`;
+      }
+
       const newCard = document.createElement('div');
       newCard.classList.add(
         ...[
@@ -511,69 +557,64 @@ export default function decorate(block) {
                   </strong>
                 </div>`}
 
-                ${priceType === 'combined' && price.innerText.trim() ? `<div class="prices_box await-loader new-store">
-                  <span class="prod-newprice" data-store-render data-store-price="discounted-monthly||full-monthly"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
-                </div>` : `<div class="prices_box await-loader new-store">
-                  <span class="prod-newprice" data-store-render data-store-price="discounted||full"></span>
-                  <sup>${price.innerText.trim().replace('0', '')}</sup>
-                </div>`}
+                ${priceMarkup}
 
   ${billed ? (() => {
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>');
-            const firstP = tempDiv.querySelector('p');
-            if (firstP) {
-              firstP.innerHTML = firstP.innerHTML
-                .replace(/(^|[^0-9])0([^0-9%]|$)/g, '$1<span data-store-render data-store-price="discounted||full"></span>$2')
-                .replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>')
-                .replace(/\[discmonthly\]/g, '<span data-store-render data-store-price="discounted-monthly||full-monthly"></span>')
-                .replace(/\[discyearly\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
-                .replace(/\[fullmonthly\]/g, '<span data-store-render data-store-price="full-monthly"></span>')
-                .replace(/\[fullyearly\]/g, '<span data-store-render data-store-price="full"></span>')
-                .replace(/\[fullprice\]/g, '<span data-store-render data-store-price="full"></span>')
-                .replace(/\[discprice\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
-                .replace(/\[saveprice\]/g, '<span data-store-render data-store-discount="value"></span>')
-                .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-            } else {
-              tempDiv.innerHTML = tempDiv.innerHTML
-                .replace(/(^|[^0-9])0([^0-9%]|$)/g, '$1<span data-store-render data-store-price="discounted||full"></span>$2')
-                .replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>')
-                .replace(/\[discmonthly\]/g, '<span data-store-render data-store-price="discounted-monthly||full-monthly"></span>')
-                .replace(/\[discyearly\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
-                .replace(/\[fullmonthly\]/g, '<span data-store-render data-store-price="full-monthly"></span>')
-                .replace(/\[fullyearly\]/g, '<span data-store-render data-store-price="full"></span>')
-                .replace(/\[fullprice\]/g, '<span data-store-render data-store-price="full"></span>')
-                .replace(/\[discprice\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
-                .replace(/\[saveprice\]/g, '<span data-store-render data-store-discount="value"></span>')
-                .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
-            }
-            return `<div class="billed">${tempDiv.innerHTML}</div>`;
-          })() : ''}
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = billed.innerHTML.replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>');
+          const billedPriceMode = 'discounted||full';
+          const firstP = tempDiv.querySelector('p');
+          if (firstP) {
+            firstP.innerHTML = firstP.innerHTML
+              .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span data-store-render data-store-price="${billedPriceMode}"></span>$2`)
+              .replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>')
+              .replace(/\[discmonthly\]/g, '<span data-store-render data-store-price="discounted-monthly||full-monthly"></span>')
+              .replace(/\[discyearly\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
+              .replace(/\[fullmonthly\]/g, '<span data-store-render data-store-price="full-monthly"></span>')
+              .replace(/\[fullyearly\]/g, '<span data-store-render data-store-price="full"></span>')
+              .replace(/\[fullprice\]/g, '<span data-store-render data-store-price="full"></span>')
+              .replace(/\[discprice\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
+              .replace(/\[saveprice\]/g, '<span data-store-render data-store-discount="value"></span>')
+              .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+          } else {
+            tempDiv.innerHTML = tempDiv.innerHTML
+              .replace(/(^|[^0-9])0([^0-9%]|$)/g, `$1<span data-store-render data-store-price="${billedPriceMode}"></span>$2`)
+              .replace(/\[percent\]/g, '<span data-store-render data-store-discount="percentage"></span>')
+              .replace(/\[discmonthly\]/g, '<span data-store-render data-store-price="discounted-monthly||full-monthly"></span>')
+              .replace(/\[discyearly\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
+              .replace(/\[fullmonthly\]/g, '<span data-store-render data-store-price="full-monthly"></span>')
+              .replace(/\[fullyearly\]/g, '<span data-store-render data-store-price="full"></span>')
+              .replace(/\[fullprice\]/g, '<span data-store-render data-store-price="full"></span>')
+              .replace(/\[discprice\]/g, '<span data-store-render data-store-price="discounted||full"></span>')
+              .replace(/\[saveprice\]/g, '<span data-store-render data-store-discount="value"></span>')
+              .replace(/\*(.*?)\*/g, '<br><span class="black-text">$1</span>');
+          }
+          return `<div class="billed">${tempDiv.innerHTML}</div>`;
+        })() : ''}
   </div><!-- end header-box --> 
 
               ${trialSaveText ? `<div class="save-trial-text"><hr><div data-store-hide="!it.option.price.discounted">${trialSaveText.replace(/0%/g, '<span data-store-render data-store-discount="percentage"></span>')}</div></div>` : ''}
               ${bundleInfoContent && bundleInfoContent}
               
               ${replaceBuyLinks
-                ? `<div class="buy-btn">
+          ? `<div class="buy-btn">
                     <a class="red-buy-button"
                       ${buyLinkObj.href ? 'data-store-buy-link data-store-render' : ''}
                       href="${buyLinkObj.href || '#'}"
                       title="Bitdefender">
                       ${buyLinkObj.text.includes('0%')
-                        ? buyLinkObj.text.replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
-                        : buyLinkObj.text}
+            ? buyLinkObj.text.replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
+            : buyLinkObj.text}
                     </a>
                   </div>`
-                : `<div class="buy-btn">
+          : `<div class="buy-btn">
                     <a data-store-buy-link data-store-render class="red-buy-button" href="#" title="Bitdefender">
                       ${buyLinkText.includes('0%')
-                        ? buyLinkText.replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
-                        : buyLinkText}
+            ? buyLinkText.replace('0%', '<span data-store-hide="!it.option.price.discounted" data-store-discount="percentage"></span>')
+            : buyLinkText}
                     </a>
                   </div>`
-                }
+        }
 
               ${openModalButton ? `<a class="open-modal-button">${openModalButton}</a>` : ''}
             `}
@@ -590,6 +631,21 @@ export default function decorate(block) {
         ignoreEventsParent: true,
         storeEvent: newCard.classList.contains('family-box') ? '' : 'info',
       });
+      if (isYearlyPriceCard) {
+        const cardOption = newCard.querySelector('bd-option');
+        cardOption.derived = ({ option }) => {
+          const yearCount = Number(prodYears);
+          const fullPrice = option?.getPrice({ currency: false });
+          const discountedPrice = option?.getDiscountedPrice({ currency: false });
+          const pricePerYear = Math.trunc(((discountedPrice ?? fullPrice) / yearCount) * 100) / 100;
+          const currency = option?.getProduct().getCurrency();
+          return {
+            pricePerYear: Number.isFinite(pricePerYear) && yearCount > 0 && currency
+              ? formatPrice(pricePerYear, currency)
+              : '',
+          };
+        };
+      }
 
       block.appendChild(newCard);
     });
@@ -763,12 +819,14 @@ export default function decorate(block) {
     observer.observe(document, { childList: true, subtree: true });
   }
 
-  const targetNode = document.querySelector('.new-prod-boxes-2');
+  const targetNode = block;
   matchHeights(targetNode, '.tag-subtitle');
   matchHeights(targetNode, '.subtitle');
   matchHeights(targetNode, '.subtitle p:first-of-type');
   matchHeights(targetNode, 'h2');
   matchHeights(targetNode, '.save-trial-text');
+  matchHeights(targetNode, '.prices_box');
+  matchHeights(targetNode, '.billed > p:first-of-type');
   matchHeights(targetNode, '.benefitsLists ul:first-of-type');
   matchHeights(targetNode, '.benefitsLists  > ul:first-of-type > li:first-of-type');
 

@@ -27,6 +27,7 @@ function createRadioBoxes(tableRadios, onSelectorClassM, onSelectorClass, idx, r
 function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, onSelectorClassM, display) {
   const trialText = tablePrices.closest('.section').dataset.trialText;
   const showPrice = tablePrices.closest('.section').dataset.showPrice;
+  const savePercent = tablePrices.closest('.section').dataset.savePercent;
   let showPriceText;
   if (showPrice) showPriceText = tablePrices.querySelector('tr:last-of-type').innerText.trim();
 
@@ -35,15 +36,17 @@ function updatePrices(tablePrices, prodName, tablePricesText, onSelectorClass, o
 
   // Function to create and append price boxes
   const createPriceBox = (className, selectorClass) => {
+    const saveValueClass = savePercent ? `percent percent-${selectorClass}` : `save-${selectorClass}`;
+    const percentBox = savePercent ? '' : `<div class="prod-percent">
+      <span class="d-none percent percent-${selectorClass}"></span>
+    </div>`;
     const pricesBox = document.createElement('div');
     pricesBox.className = `${className} ${prodName}_box prices_box await-loader prodload prodload-${selectorClass}`;
     pricesBox.innerHTML = `<div>
       <div class="display-flex">
         <span class="prod-oldprice oldprice-${selectorClass}"></span>
-        <span class="prod-save" ${trialText ? 'style="display: none;"' : ''}> ${tablePricesText} <span class="save-${selectorClass}"></span></span>
-        <div class="prod-percent">
-          <span class="d-none percent percent-${selectorClass}"></span>
-        </div>
+        <span class="prod-save" ${trialText ? 'style="display: none;"' : ''}> ${tablePricesText} <span class="${saveValueClass}"></span></span>
+        ${percentBox}
       </div>
       <div class="display-flex">
         <span class="prod-newprice${trialText ? ' newprice-0' : ''} newprice-${selectorClass}${showPrice && showPrice === 'per-month' ? '-monthly' : ''}"></span>

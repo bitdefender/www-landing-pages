@@ -11,6 +11,7 @@ export default function decorate(block) {
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
+  const hasDefaultPrices = Object.prototype.hasOwnProperty.call(metaData, 'defaultprices');
 
   // config new elements
   const {
@@ -24,6 +25,12 @@ export default function decorate(block) {
   const tablePrices = contentRightEl.querySelector('table');
   const tableBuybtn = contentRightEl.querySelector('table:last-of-type');
   const buyButtonText = tableBuybtn.textContent;
+  const priceOutput = hasDefaultPrices ? document.createElement('div') : tablePrices;
+
+  if (hasDefaultPrices) {
+    priceOutput.className = 'default-prices-output';
+    tablePrices.before(priceOutput);
+  }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
   if (textColor) blockStyle.color = textColor;
@@ -58,7 +65,7 @@ export default function decorate(block) {
       selectorBox.classList.add('slideToggle');
     }
     const selectorBoxOptions = ['yearly', 'monthly'];
-    const selectorBoxTexts = Array.from(tablePrices.querySelectorAll('td')).map((td) => td.innerHTML);
+    const selectorBoxTexts = hasDefaultPrices ? [] : Array.from(tablePrices.querySelectorAll('td')).map((td) => td.innerHTML);
 
     productsAsList.forEach((prod) => updateProductsList(prod));
 
@@ -94,6 +101,15 @@ export default function decorate(block) {
             <span class='prod-oldprice oldprice-${onSelectorClass}'></span>
             <span class='prod-save save-${onSelectorClass} greenTag d-inline'></span>
           </div>`;
+      } else if (hasDefaultPrices) {
+        priceFull = `
+          <div class="price-comparison">
+            <span class='prod-oldprice oldprice-${onSelectorClass}'></span>
+            <span class="discount-label"><span class='prod-percent percent-${onSelectorClass}'></span> OFF</span>
+          </div>
+          <div class="priced">
+            <span class='prod-newprice newprice-${onSelectorClass}'></span>
+          </div>`;
       } else {
         priceFull = `
           <div class="d-flex justify-content-center priced">
@@ -101,7 +117,7 @@ export default function decorate(block) {
           </div>`;
       }
 
-      if (Constants.MONTHLY_PRODUCTS.includes(prodName)) {
+      if (Constants.MONTHLY_PRODUCTS.includes(prodName) && !hasDefaultPrices) {
         billed = billedMonthly?.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
         priceFull = `
         <div class="d-flex justify-content-center priced">
@@ -114,7 +130,7 @@ export default function decorate(block) {
         ${priceFull}
         ${billed ? `<div class="d-flex justify-content-center billed">${billed}</div>` : ''}
       </div>`;
-      tablePrices.appendChild(pricesBox);
+      priceOutput.appendChild(pricesBox);
 
       // checkboxes options:
       let saveText = selectorBoxTexts[idx];
@@ -132,11 +148,13 @@ export default function decorate(block) {
         `;
       }
 
-      if (type && type === 'slide') {
-        const parentElement = tablePrices.parentNode; // Get the parent of tablePrices
-        parentElement.insertBefore(selectorBox, tablePrices);
-      } else {
-        tablePrices.appendChild(selectorBox);
+      if (!hasDefaultPrices) {
+        if (type && type === 'slide') {
+          const parentElement = priceOutput.parentNode;
+          parentElement.insertBefore(selectorBox, priceOutput);
+        } else {
+          priceOutput.appendChild(selectorBox);
+        }
       }
 
       // buylink
@@ -159,7 +177,7 @@ export default function decorate(block) {
     pricesBox.className = `pricesBox await-loader prodload prodload-${onSelectorClass}`;
     pricesBox.innerHTML = `<div class='prod-oldprice oldprice-${onSelectorClass}'></div>`;
     pricesBox.innerHTML += `<div class='prod-newprice newprice-${onSelectorClass}'></div>`;
-    tablePrices.appendChild(pricesBox);
+    priceOutput.appendChild(pricesBox);
 
     // buylink
     const buyButton = document.createElement('div');
