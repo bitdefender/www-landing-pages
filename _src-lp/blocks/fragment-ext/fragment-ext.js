@@ -12,6 +12,60 @@ import {
   loadCSS,
 } from '../../scripts/lib-franklin.js';
 
+// one promise per www-websites code base, so several fragment-ext blocks share one fetch
+const designTokensLoaded = new Map();
+
+/**
+ * www-websites blocks take their sizes (page column, heading scale, spacing) from custom
+ * properties declared on `:root, :host` in its global styles.css, which landing pages don't load.
+ * Copies only those custom properties (with their media queries) onto the sections that hold
+ * external fragments, so the landing page's own styles and tokens stay as they are.
+ * @param {string} codeBaseUrl The www-websites code base, e.g. https://www.bitdefender.com/_src
+ */
+function loadDesignTokens(codeBaseUrl) {
+  if (designTokensLoaded.has(codeBaseUrl)) return designTokensLoaded.get(codeBaseUrl);
+
+  const promise = (async () => {
+    try {
+      const resp = await fetch(`${codeBaseUrl}/styles/styles.css`);
+      if (!resp.ok) return;
+      const sheet = new CSSStyleSheet();
+      sheet.replaceSync(await resp.text());
+
+      const scope = '.fragment-ext-container';
+      const isRootSelector = (selectorText) => selectorText
+        .split(',')
+        .every((selector) => [':root', ':host'].includes(selector.trim()));
+
+      const collect = (rules) => [...rules].flatMap((rule) => {
+        if (rule instanceof CSSStyleRule && isRootSelector(rule.selectorText)) {
+          const declarations = [...rule.style]
+            .filter((property) => property.startsWith('--'))
+            .map((property) => `${property}: ${rule.style.getPropertyValue(property)};`);
+          return declarations.length ? [`${scope} { ${declarations.join(' ')} }`] : [];
+        }
+        if (rule instanceof CSSMediaRule || rule instanceof CSSSupportsRule) {
+          const inner = collect(rule.cssRules);
+          const atRule = rule instanceof CSSMediaRule ? '@media' : '@supports';
+          return inner.length ? [`${atRule} ${rule.conditionText} { ${inner.join(' ')} }`] : [];
+        }
+        return [];
+      });
+
+      const style = document.createElement('style');
+      style.dataset.source = `${codeBaseUrl}/styles/styles.css`;
+      style.textContent = collect(sheet.cssRules).join('\n');
+      document.head.append(style);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(`failed to load design tokens from ${codeBaseUrl}`, error);
+    }
+  })();
+
+  designTokensLoaded.set(codeBaseUrl, promise);
+  return promise;
+}
+
 /**
    * Loads a fragment.
    * @param {string} path The path to the fragment
@@ -23,6 +77,7 @@ async function loadFragment(path) {
     const url = new URL(path);
     const baseUrl = `${url.protocol}//${url.hostname}`;
     const codeBaseUrl = `${baseUrl}/_src`; // specific to www-websites
+    const tokensLoaded = loadDesignTokens(codeBaseUrl);
 
     const main = document.createElement('main');
     main.innerHTML = await resp.text();
@@ -104,6 +159,8 @@ async function loadFragment(path) {
     }
     // remove copy
     document.body.removeChild(main);
+
+    await tokensLoaded;
 
     return main;
   }
