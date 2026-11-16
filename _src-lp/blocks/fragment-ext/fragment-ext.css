@@ -1,0 +1,165 @@
+/*
+ * Blocks pulled in from www-websites size themselves from custom properties that www-websites
+ * declares on :root in its own _src/styles/styles.css, which landing pages don't load. They are
+ * written out here, only for the sections that hold an external fragment, so the landing page's
+ * own tokens stay as they are.
+ *
+ * Copied from www-websites (_src/styles/styles.css, :root). Two groups are adapted to landing
+ * pages rather than copied:
+ * - the page column (--page-column-*, --section-*-max-width/-padding): on www-websites it's the
+ *   design system's column (1372px wide with 40px gutters on desktop). Here the landing page's
+ *   section already pads and centres its content (.section's padding, .section > div at 1200px),
+ *   so the fragment's blocks fill that box and line up with the landing page's own blocks.
+ * - nothing else: colours, type and spacing keep www-websites' values, so the components look the
+ *   same as on www-websites.
+ */
+.fragment-ext-container {
+  /* colors */
+  --dark-background-color: #000;
+  --black-color: #000;
+  --white-color: #fff;
+  --background-color: #fff;
+  --link-color: #005ed9;
+  --link-hover-color: #00439c;
+  --button-link-color: #fff;
+  --button-background-color: #eb0000;
+  --button-hover-background-color: #d80000;
+  --button-primary-background-color: #000;
+  --button-primary-hover-background-color: #000;
+  --button-secondary-color: #000;
+  --button-secondary-hover-background-color: #000;
+  --overlay-background-color: #eee;
+  --highlight-background-color: #ccc;
+  --text-color: #000;
+  --text-error-color: #f00;
+  --color-highlight-blue: #006dff;
+  --color-dark-gray: #616161;
+  --checkbox-label: #3c3c3c;
+  --highlight-light-blue: #f3f7fe;
+  --text-dark-color: #fff;
+  --horizontal-separator-color: #dedede;
+  --modal-background-color: rgb(0 0 0 / 50%);
+  --background-color-light-sky-blue: #e4f2ff;
+  --icon-color: #205fff;
+  --background-light-blue: #d9eeff;
+  --background-blue: #005ed9;
+  --dark-blue-tag: #005eff;
+  --light-blue-tag: #13b0a7;
+  --green-tag: #0e8532;
+  --green-tag2: #0e8532;
+  --dark-shadow: #0000001a;
+  --gray-color: #fafafa;
+  --background-checkmark: #61af53;
+  --cta-background-light-blue: var(--background-light-blue);
+
+  /* fonts */
+  --body-font-family: "IBM Plex Sans", "IBM Plex Sans Fallback", sans-serif;
+  --heading-font-family: var(--body-font-family);
+  --fixed-font-family: var(--body-font-family);
+
+  /* font weights */
+  --font-weight-thin: 300;
+  --font-weight-regular: 400;
+  --font-weight-bold: 500;
+  --font-weight-bolder: 600;
+  --font-weight-boldest: 700;
+  --font-weight-heavy: 900;
+
+  /* body sizes */
+  --body-font-size-xl: 24px;
+  --body-font-size-l: 22px;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
+  --body-font-size-xxs: 12px;
+  --body-font-size-xxxs: 10px;
+
+  /* heading sizes */
+  --heading-font-size-xxxl: 60px;
+  --heading-font-size-xxl2: 56px;
+  --heading-font-size-xxl1: 50px;
+  --heading-font-size-xxl: 48px;
+  --heading-font-size-xl1: 42px;
+  --heading-font-size-xl: 40px;
+  --heading-font-size-l2: 38px;
+  --heading-font-size-l: 32px;
+  --heading-font-size-m: 24px;
+  --heading-font-size-s: 20px;
+  --heading-font-size-xs: 18px;
+  --heading-font-size-xxs: 16px;
+
+  /* the design system's type scale (h1 page title, h2 section title, h3 banner headline,
+     h4 panel title, h5 card title), fluid from phone to desktop */
+  --ds-heading-h1-size: clamp(1.875rem, calc(1.33929rem + 2.6786vw), 3rem);
+  --ds-heading-h2-size: clamp(1.6875rem, calc(1.41964rem + 1.3393vw), 2.25rem);
+  --ds-heading-h3-size: clamp(1.5rem, calc(1.2619rem + 1.1905vw), 2rem);
+  --ds-heading-h4-size: clamp(1.3125rem, calc(1.22321rem + 0.4464vw), 1.5rem);
+  --ds-heading-h5-size: clamp(1.125rem, calc(1.06548rem + 0.2976vw), 1.25rem);
+
+  /* spacing */
+  --size-0: 0;
+  --size-1: 1px;
+  --size-2: 2px;
+  --size-4: 4px;
+  --size-6: 6px;
+  --size-8: 8px;
+  --size-10: 10px;
+  --size-12: 12px;
+  --size-14: 14px;
+  --size-16: 16px;
+  --size-18: 18px;
+  --size-20: 20px;
+  --size-22: 22px;
+  --size-24: 24px;
+  --size-30: 32px;
+  --size-32: 32px;
+  --size-36: 36px;
+  --size-40: 40px;
+  --size-44: 44px;
+  --size-48: 48px;
+  --size-52: 52px;
+  --size-64: 64px;
+  --size-full: 99999999999999999999;
+  --section-desktop-padding-vertical: 48px;
+  --section-mobile-padding-vertical: 32px;
+  --section-mobile-padding: 16px;
+  --section-mobile-margin: 48px;
+  --page-section-padding: 24px;
+
+  /* the page column: the landing page section's content box (see the top of this file) */
+  --page-column-max: 100%;
+  --page-column-gutter: 0px;
+  --page-column-inset: 0px;
+  --section-desktop-smaller-max-width: 920px;
+  --section-desktop-max-width: 100%;
+  --section-desktop-padding: 0px;
+  --section-large-desktop-max-width: 100%;
+  --section-large-desktop-padding: 0px;
+
+  /* dex-system-design components (bd-bar-chart-grid, ...) draw their own column (1372px with
+     40px gutters) in their shadow root; these hooks turn it off so they fill the section too */
+  --bd-ensemble-max-width: none;
+  --bd-ensemble-inline-padding: 0px;
+}
+
+@media (width >= 768px) {
+  .fragment-ext-container {
+    --page-section-padding: 32px;
+  }
+}
+
+/* The fragment's sections keep the landing page's column: 15px at the sides, content at most
+   1200px wide, as every other section on the page. Some www-websites blocks change their section
+   (awards zeroes its padding; a .wide section is 1332px here) or render a web component that
+   .section > div doesn't reach (bd-section), so it's set for every child. body main raises the
+   specificity above the blocks' own section rules, which load after this file. */
+body main .section.fragment-ext-container {
+  padding-inline: 15px;
+}
+
+@media (width >= 900px) {
+  body main .section.fragment-ext-container > * {
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+}
