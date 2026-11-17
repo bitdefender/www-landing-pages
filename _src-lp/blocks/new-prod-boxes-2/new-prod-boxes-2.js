@@ -640,11 +640,11 @@ export default function decorate(block) {
       if (isYearlyPriceCard) {
         const cardOption = newCard.querySelector('bd-option');
         cardOption.derived = ({ option }) => {
-          const yearCount = option?.getSubscription() / 12;
+          const yearCount = (option?.getSubscription() ?? 0) / 12;
           const fullPrice = option?.getPrice({ currency: false });
           const discountedPrice = option?.getDiscountedPrice({ currency: false });
-          const price = Number.isFinite(discountedPrice) ? discountedPrice : fullPrice;
-          const pricePerYear = Math.round((price / yearCount) * 100) / 100;
+          const effectivePrice = Number.isFinite(discountedPrice) ? discountedPrice : fullPrice;
+          const pricePerYear = Math.round((effectivePrice / yearCount) * 100) / 100;
           const product = option?.getProduct();
           return {
             pricePerYear: Number.isFinite(pricePerYear) && Number.isFinite(yearCount) && yearCount > 0 && product
