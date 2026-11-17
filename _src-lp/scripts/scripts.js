@@ -456,6 +456,10 @@ export async function loadLazy(doc) {
  * without impacting the user experience.
  */
 function loadDelayed() {
+  // third-party script set per page by authors via the `dynamic-script` metadata (e.g. an ad pixel)
+  const dynamicScript = getMetadata('dynamic-script');
+  if (dynamicScript) addScript(dynamicScript, {}, 'async');
+
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
