@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { formatPrice, matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
+import { matchHeights, wrapChildrenWithStoreContext } from '../../scripts/utils.js';
 
 function initializeSlider(block) {
   const slidesContainer = block.closest('.slider-container');
@@ -117,11 +117,17 @@ function replacePricePlaceholder(element) {
   let textNode = walker.nextNode();
 
   while (textNode) {
-    if (textNode.textContent.trim() === '0') {
+    const match = /(^|[^0-9])0(?=[^0-9%]|$)/.exec(textNode.textContent);
+    if (match) {
+      const offset = match.index + match[1].length;
       const price = document.createElement('span');
       price.dataset.storeRender = '';
       price.dataset.storePrice = 'discounted||full';
-      textNode.replaceWith(price);
+      textNode.replaceWith(
+        document.createTextNode(textNode.textContent.slice(0, offset)),
+        price,
+        document.createTextNode(textNode.textContent.slice(offset + 1)),
+      );
       break;
     }
     textNode = walker.nextNode();
@@ -634,14 +640,15 @@ export default function decorate(block) {
       if (isYearlyPriceCard) {
         const cardOption = newCard.querySelector('bd-option');
         cardOption.derived = ({ option }) => {
-          const yearCount = Number(prodYears);
+          const yearCount = option?.getSubscription() / 12;
           const fullPrice = option?.getPrice({ currency: false });
           const discountedPrice = option?.getDiscountedPrice({ currency: false });
-          const pricePerYear = Math.trunc(((discountedPrice ?? fullPrice) / yearCount) * 100) / 100;
-          const currency = option?.getProduct().getCurrency();
+          const price = Number.isFinite(discountedPrice) ? discountedPrice : fullPrice;
+          const pricePerYear = Math.round((price / yearCount) * 100) / 100;
+          const product = option?.getProduct();
           return {
-            pricePerYear: Number.isFinite(pricePerYear) && yearCount > 0 && currency
-              ? formatPrice(pricePerYear, currency)
+            pricePerYear: Number.isFinite(pricePerYear) && Number.isFinite(yearCount) && yearCount > 0 && product
+              ? product.getStore().formatPrice({ price: pricePerYear, currency: product.getCurrency() })
               : '',
           };
         };

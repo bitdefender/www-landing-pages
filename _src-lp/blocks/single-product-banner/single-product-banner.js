@@ -11,7 +11,7 @@ export default function decorate(block) {
   const parentBlockStyle = block.closest('.section').style;
   const blockStyle = block.style;
   const metaData = block.closest('.section').dataset;
-  const hasDefaultPrices = Object.prototype.hasOwnProperty.call(metaData, 'defaultprices');
+  const hasDefaultPrices = ['defaultPrices', 'defaultprices'].some((key) => Object.prototype.hasOwnProperty.call(metaData, key));
 
   // config new elements
   const {
@@ -26,10 +26,13 @@ export default function decorate(block) {
   const tableBuybtn = contentRightEl.querySelector('table:last-of-type');
   const buyButtonText = tableBuybtn.textContent;
   const priceOutput = hasDefaultPrices ? document.createElement('div') : tablePrices;
+  const buyOutput = hasDefaultPrices ? document.createElement('div') : tableBuybtn;
 
   if (hasDefaultPrices) {
     priceOutput.className = 'default-prices-output';
-    tablePrices.before(priceOutput);
+    tablePrices.replaceWith(priceOutput);
+    buyOutput.className = 'default-buy-output';
+    tableBuybtn.replaceWith(buyOutput);
   }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
@@ -65,7 +68,7 @@ export default function decorate(block) {
       selectorBox.classList.add('slideToggle');
     }
     const selectorBoxOptions = ['yearly', 'monthly'];
-    const selectorBoxTexts = hasDefaultPrices ? [] : Array.from(tablePrices.querySelectorAll('td')).map((td) => td.innerHTML);
+    const selectorBoxTexts = Array.from(tablePrices.querySelectorAll('td')).map((td) => td.innerHTML);
 
     productsAsList.forEach((prod) => updateProductsList(prod));
 
@@ -117,12 +120,19 @@ export default function decorate(block) {
           </div>`;
       }
 
-      if (Constants.MONTHLY_PRODUCTS.includes(prodName) && !hasDefaultPrices) {
+      if (Constants.MONTHLY_PRODUCTS.includes(prodName)) {
         billed = billedMonthly?.replace('XX', `<span class='d-inline-flex newprice-${onSelectorClass}'></span>`);
-        priceFull = `
+        if (hasDefaultPrices) {
+          priceFull = priceFull.replace(
+            `<span class='prod-newprice newprice-${onSelectorClass}'></span>`,
+            `<span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month"> ${per ? `/${per}` : ''}</span>`,
+          );
+        } else {
+          priceFull = `
         <div class="d-flex justify-content-center priced">
         <span class='prod-newprice newprice-${onSelectorClass}'></span><span class="per-month">  ${per ? `/${per}` : ''}</span>
         </div>`;
+        }
       }
 
       pricesBox.className = `${prodName}_box prices_box ${idx === 0 ? 'yearly' : 'monthly'} ${show} await-loader prodload prodload-${onSelectorClass}`;
@@ -139,7 +149,7 @@ export default function decorate(block) {
         saveText = saveText.replace(/<strong>/g, '<span class="greenTag">').replace(/<\/strong>/g, '</span>').replace(/0/g, `<b class='save-${onSelectorClass}'></b>`);
       }
 
-      if (selectorBoxTexts.length >= 2 && saveText.trim() !== '') {
+      if (selectorBoxTexts.length >= 2 && saveText?.trim()) {
         selectorBox.innerHTML += `
           <div class="d-flex ${idx === 0 ? 'active' : ''}">
             <input type="radio" id="pay_${selectorBoxOptions[idx]}_${counter}" class="selector-${selectorBoxOptions[idx]}" name="selectorBox${counter}" value="${selectorBoxOptions[idx]}" ${idx === checkedOption ? 'checked="check"' : ''}>
@@ -148,20 +158,18 @@ export default function decorate(block) {
         `;
       }
 
-      if (!hasDefaultPrices) {
-        if (type && type === 'slide') {
-          const parentElement = priceOutput.parentNode;
-          parentElement.insertBefore(selectorBox, priceOutput);
-        } else {
-          priceOutput.appendChild(selectorBox);
-        }
+      if (type === 'slide' && !hasDefaultPrices) {
+        const parentElement = priceOutput.parentNode;
+        parentElement.insertBefore(selectorBox, priceOutput);
+      } else {
+        priceOutput.appendChild(selectorBox);
       }
 
       // buylink
       const buyButton = document.createElement('div');
       buyButton.className = `buy_box buy_box_${prodName} ${idx === 0 ? 'yearly' : 'monthly'} ${show}`;
       buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}' referrerpolicy="no-referrer-when-downgrade">${buyButtonText}</a>`;
-      tableBuybtn.appendChild(buyButton);
+      buyOutput.appendChild(buyButton);
     });
   } else {
     if (!product) return;
@@ -182,7 +190,7 @@ export default function decorate(block) {
     // buylink
     const buyButton = document.createElement('div');
     buyButton.innerHTML = `<a href='#' title='Bitdefender ${onSelectorClass}' class='red-buy-button await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass} buylink-${prodName}' referrerpolicy="no-referrer-when-downgrade">${tableBuybtn.textContent}</a>`;
-    tableBuybtn.appendChild(buyButton);
+    buyOutput.appendChild(buyButton);
     tableBuybtn.style.display = 'none';
 
     // discount bulina:
