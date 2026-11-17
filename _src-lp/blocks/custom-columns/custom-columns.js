@@ -11,7 +11,7 @@ export default function decorate(block) {
       .map((style) => style.trim())
       .filter(Boolean);
 
-    if (styles.length && !styles.some((style) => /[\t\n\f\r ]/.test(style))) {
+    if (styles.length) {
       table.classList?.add(...styles);
 
       firstRow.remove();
