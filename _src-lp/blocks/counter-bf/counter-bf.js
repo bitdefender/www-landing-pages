@@ -93,8 +93,8 @@ export default function decorate(block) {
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ps-4 counter-text">${contentEl.innerHTML}</div>
 
           ${!onePicture ? `<div class="col-6 d-none d-sm-none d-md-block d-lg-block img-right bck-img">
-            ${!onePicture && pictureBF ? pictureBF.innerHTML : ''}
             ${!onePicture && pictureCM ? pictureCM.innerHTML : ''}
+            ${!onePicture && pictureBF ? pictureBF.innerHTML : ''}
           </div>` : ''}
         </div>
       </div>`;
@@ -118,7 +118,7 @@ export default function decorate(block) {
     const skip2ndCounter = flipdownTable !== null;
 
     const counterSwitchOnUpdated = new Date(counterSwitchOn).getTime() / 1000;
-    const newTime = counterSwitchOnUpdated + 62 * 60 * 60;
+    const newTime = counterSwitchOnUpdated + 72 * 60 * 60;
     const currentTime = Math.floor(Date.now() / 1000);
 
     if (skip2ndCounter && counterSwitchOnUpdated > currentTime) {
