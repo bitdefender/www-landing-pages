@@ -30,9 +30,13 @@ export default function decorate(block) {
 
   if (hasDefaultPrices) {
     priceOutput.className = 'default-prices-output';
-    tablePrices.replaceWith(priceOutput);
     buyOutput.className = 'default-buy-output';
-    tableBuybtn.replaceWith(buyOutput);
+    if (tablePrices === tableBuybtn) {
+      tablePrices.replaceWith(priceOutput, buyOutput);
+    } else {
+      tablePrices.replaceWith(priceOutput);
+      tableBuybtn.replaceWith(buyOutput);
+    }
   }
 
   if (backgroundColor) parentBlockStyle.backgroundColor = backgroundColor;
