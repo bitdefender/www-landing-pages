@@ -78,7 +78,45 @@ const wrapItemTitles = (block) => {
   });
 };
 
+// Variant rows are authored as extra block rows with two cells: "pcode: CODE1, CODE2" | content.
+// They are always removed from the page; when the pcode query param matches one, each table, heading
+// and text paragraph in its content replaces the default element of the same kind and position.
+const VARIANT_TAGS = ['table', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
+
+const getDirect = (cell, tag) => [...cell.children]
+  .filter((el) => el.matches(tag) && !(tag === 'p' && el.querySelector('picture, img')));
+
+const applyPcodeVariant = (block) => {
+  const pcode = (getParam('pcode') || '').trim().toLowerCase();
+  let defaultCell = null;
+  let variantCell = null;
+
+  [...block.children].forEach((row) => {
+    const [labelCell, contentCell] = row.children;
+    const label = labelCell?.textContent.trim().match(/^pcode\s*[:=]\s*(.+)$/i);
+    if (!label || !contentCell) {
+      if (!defaultCell) defaultCell = row.firstElementChild;
+      return;
+    }
+    const codes = label[1].split(',').map((code) => code.trim().toLowerCase());
+    if (pcode && !variantCell && codes.includes(pcode)) variantCell = contentCell;
+    row.remove();
+  });
+
+  if (!defaultCell || !variantCell) return;
+
+  VARIANT_TAGS.forEach((tag) => {
+    const targets = getDirect(defaultCell, tag);
+    getDirect(variantCell, tag).forEach((el, index) => {
+      if (targets[index]) targets[index].replaceWith(el);
+      else defaultCell.append(el);
+    });
+  });
+};
+
 export default function decorate(block) {
+  applyPcodeVariant(block);
+
   if (block.closest('.superapp')) wrapItemTitles(block);
 
   const upgrade = getParam('upgrade');
