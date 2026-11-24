@@ -415,10 +415,14 @@ export function maxDiscount() {
     }
   });
 
-  const maxDiscountValue = Math.max(...discountAmounts);
+  const maxDiscountValue = discountAmounts.length
+    ? Math.max(...discountAmounts)
+    : 0;
+
   if (!maxDiscountValue) {
-    document.querySelectorAll('.max-discount')?.forEach((el) => {
-      el.closest('table').style.display = 'none';
+    document.querySelectorAll('.max-discount').forEach((el) => {
+      const table = el.closest('table');
+      if (table) table.style.display = 'none';
     });
   } else {
     const discountText = `${maxDiscountValue}%`;

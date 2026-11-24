@@ -996,6 +996,14 @@
   gap: 5px;
 }
 
+.section.banner-container.new-green-pill #greenPillBox > span {
+  gap: 0;
+}
+
+.section.banner-container.new-green-pill #greenPillBox > span > .icon {
+  margin-right: 5px;
+}
+
 .section.banner-container.new-green-pill #greenPillBox .icon {
   width: 25px;
   height: 25px;
