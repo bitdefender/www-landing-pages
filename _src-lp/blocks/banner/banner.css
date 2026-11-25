@@ -997,10 +997,16 @@
 }
 
 .section.banner-container.new-green-pill #greenPillBox > span {
-  gap: 0;
+  display: block;
+}
+
+.section.banner-container.new-green-pill #greenPillBox > span span:not(.icon) {
+  display: inline;
 }
 
 .section.banner-container.new-green-pill #greenPillBox > span > .icon {
+  display: inline-flex;
+  vertical-align: middle;
   margin-right: 5px;
 }
 
