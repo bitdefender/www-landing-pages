@@ -1002,6 +1002,20 @@
   gap: 5px;
 }
 
+.section.banner-container.new-green-pill #greenPillBox > span {
+  display: block;
+}
+
+.section.banner-container.new-green-pill #greenPillBox > span span:not(.icon) {
+  display: inline;
+}
+
+.section.banner-container.new-green-pill #greenPillBox > span > .icon {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
 .section.banner-container.new-green-pill #greenPillBox .icon {
   width: 25px;
   height: 25px;

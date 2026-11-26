@@ -1007,6 +1007,22 @@
   gap: 5px;
 }
 
+// Keep the pill text in normal inline flow: as flex items, the text around
+// .max-discount loses its spaces ("60  % OFF" with gap, "–60%OFF" without).
+.section.banner-container.new-green-pill #greenPillBox > span {
+  display: block;
+}
+
+.section.banner-container.new-green-pill #greenPillBox > span span:not(.icon) {
+  display: inline;
+}
+
+.section.banner-container.new-green-pill #greenPillBox > span > .icon {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
 .section.banner-container.new-green-pill #greenPillBox .icon {
   width: 25px;
   height: 25px;
