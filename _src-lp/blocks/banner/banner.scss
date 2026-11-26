@@ -888,6 +888,11 @@
   font-weight: 600;
 }
 
+/* keep the [discounted_price] span inline inside the monthly price box terms text */
+.section.banner-container #pricesBox.monthly .terms span {
+  display: inline;
+}
+
 
 .section.banner-container.white-btn-2nd #pricesBox .buy_box a:nth-of-type(2) {
   color: white;
@@ -901,7 +906,8 @@
   transition: opacity 0.2s;
 }
 
-.section.banner-container.add-trusted .content-column::before {
+.section.banner-container.add-trusted .content-column::before,
+.section.banner-container.add-trusted[data-image-cover] .banner .row > div:first-child::before {
   content: "Trusted. Always.";
   font-size: 23px;
   line-height: 29px;
