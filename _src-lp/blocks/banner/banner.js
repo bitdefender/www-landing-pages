@@ -184,7 +184,8 @@ export default function decorate(block) {
       }
     }
 
-    if (aliasTr && aliasTr.textContent.trim() === 'price_box') {
+    if (aliasTr && (aliasTr.textContent.trim() === 'price_box' || aliasTr.textContent.trim() === 'price_box_monthly')) {
+      const isMonthlyPriceBox = aliasTr.textContent.trim() === 'price_box_monthly';
       // eslint-disable-next-line no-unused-vars
       const [alias, save, prices, terms, buybtn] = [...table.querySelectorAll('tr')];
       const pricesBox = document.createElement('div');
@@ -215,7 +216,28 @@ export default function decorate(block) {
         }
 
         pricesBox.id = 'pricesBox';
-        pricesBox.className = `prices_box await-loader prodload prodload-${onSelectorClass}`;
+        pricesBox.className = `prices_box${isMonthlyPriceBox ? ' monthly' : ''} await-loader prodload prodload-${onSelectorClass}`;
+
+        // [discounted_price] (and, in the monthly box, a standalone 0) is replaced with the discounted full price
+        const injectFullPrice = (html) => {
+          if (!onSelectorClass) return html;
+          let out = html.replace('[discounted_price]', `<span class="newprice-${onSelectorClass}"></span>`);
+          if (isMonthlyPriceBox) {
+            out = out.replace(/(^|[\s>])0(?=[\s<,;!?]|\.(?!\d))/, `$1<span class="newprice-${onSelectorClass}"></span>`);
+          }
+          return out;
+        };
+
+        // in the monthly box only the first paragraph of the prices cell stays next to the price;
+        // extra paragraphs render on their own line below, so they don't alter the existing layout
+        let variationHtml = prices.innerHTML;
+        let belowPriceHtml = '';
+        const pricesParagraphs = [...prices.querySelectorAll('p')];
+        if (isMonthlyPriceBox && pricesParagraphs.length > 1) {
+          variationHtml = pricesParagraphs[0].innerHTML;
+          belowPriceHtml = injectFullPrice(pricesParagraphs.slice(1).map((p) => p.outerHTML).join(''));
+        }
+
         pricesBox.innerHTML += `<div class="d-flex">
           <p>
           <div>
@@ -225,12 +247,12 @@ export default function decorate(block) {
             </div>
             </p>
             <div class="d-flex">
-              <span class="prod-newprice newprice-${onSelectorClass}"></span>
-              <p class="variation">${prices.innerHTML}</p>
+              <span class="prod-newprice newprice-${onSelectorClass}${isMonthlyPriceBox ? '-monthly' : ''}"></span>
+              <p class="variation">${variationHtml}</p>
             </div>
         </div>`;
 
-        pricesBox.innerHTML += `<div class="terms">${terms.querySelector('td').innerHTML}</div>`;
+        pricesBox.innerHTML += `<div class="terms">${belowPriceHtml}${injectFullPrice(terms.querySelector('td').innerHTML)}</div>`;
         pricesBox.innerHTML += `<div class="buy_box">
           <a class="red-buy-button ${hardcodedLinks ? '' : `await-loader prodload prodload-${onSelectorClass} buylink-${onSelectorClass}`}" 
             href="${hardcodedLinks ? buybtn.querySelector('a')?.href : '#'}" referrerpolicy="no-referrer-when-downgrade">${(hardcodedLinks ? buybtn.innerText : buybtn.innerHTML) ?? 'Get it now'}

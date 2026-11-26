@@ -387,6 +387,11 @@
   font-weight: bold;
 }
 
+.section.banner-with-cards-container.trial-text .banner-with-cards .prodBox .pricesTrial .prod-newprice {
+  font-size: inherit;
+  line-height: inherit;
+}
+
 .section.banner-with-cards-container .banner-with-cards .prodBox .red-buy-button {
   margin-top: 10px;
   width: 100%;
